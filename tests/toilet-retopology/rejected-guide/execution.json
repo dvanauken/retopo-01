@@ -1,0 +1,20 @@
+{
+  "id": "c1dd2a16878447b391686a1dcbb5821d",
+  "meshId": "toilet",
+  "target": 1800,
+  "state": "failed",
+  "stage": "Could not generate this network",
+  "createdAt": 1792883267.3573456,
+  "startedAt": 1792883267.3573456,
+  "finishedAt": 1792883278.1592338,
+  "actualExitCode": 1,
+  "error": "A guide has no resolvable output edge path at this density. Increase the target or shorten the guide.",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\c1dd2a16878447b391686a1dcbb5821d"
+  ]
+}

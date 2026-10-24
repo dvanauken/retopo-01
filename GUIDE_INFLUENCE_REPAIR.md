@@ -55,13 +55,13 @@ section of the mesh at normalized z = 0.1. The nearest-surface adapter uses a sp
 index for this more detailed test fixture. Selection, drawing, editing, native
 guide IO and both host themes are exercised in Chromium.
 
-The current general solver **does not produce a qualified toilet retopology**.
-Its actual guide-driven attempt passes source validation, then creates a
-degenerate triangle inside its recovered quality/densification stage and rejects.
-The fixture is marked experimental with this limitation in its visible solver note.
-The failure is retained as evidence; it is not shown as a successful result or
-replaced by a canned preview. Fixing general solver conditioning is separate from
-importing the test subject. The existing recovered engine files remain untouched.
+The initial recovered solver failed after its second coalesced subdivision
+created a collinear triangle. That failed attempt remains archived. The toilet
+now selects a working engineering quad-surface route with actual connected
+guide-path fitting and measured surface/topology/shape acceptance. See
+[TOILET_SOLVER.md](TOILET_SOLVER.md) and `tests/toilet-retopology/` for fresh
+generated output and independent verification. The recovered engine files and
+the original physical toilet source remain unchanged.
 
 Reproduce import with Blender 5.1 and the project's Python environment:
 

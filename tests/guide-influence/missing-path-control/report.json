@@ -3,8 +3,8 @@
   "constructionCompleted": true,
   "message": "Mesh quality rejected: No measured output edge path for guide(s): 1. The candidate is retained for inspection; it is not a qualified result.",
   "technicalMessage": "Mesh quality rejected: No measured output edge path for guide(s): 1. The candidate is retained for inspection; it is not a qualified result.",
-  "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 52, in main\n    raise ValueError('Mesh quality rejected: '+', '.join(mesh['quality']['failures'])+'. The candidate is retained for inspection; it is not a qualified result.')\nValueError: Mesh quality rejected: No measured output edge path for guide(s): 1. The candidate is retained for inspection; it is not a qualified result.\n",
-  "elapsedSeconds": 10.09399999998277,
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 57, in main\n    raise ValueError('Mesh quality rejected: '+', '.join(mesh['quality']['failures'])+'. The candidate is retained for inspection; it is not a qualified result.')\nValueError: Mesh quality rejected: No measured output edge path for guide(s): 1. The candidate is retained for inspection; it is not a qualified result.\n",
+  "elapsedSeconds": 17.812000000005355,
   "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
-  "workerSha256": "6da20d7c419c8cd109442ca9a5cdd4da1651e4a6003606504f8ecddce45a2c4c"
+  "workerSha256": "a089d71ddbf2f2d7ca52861e6c3f33f1daa9b81ab2fb49de8a018f1bcd3801a1"
 }

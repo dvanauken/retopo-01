@@ -3,11 +3,11 @@
   "constructionCompleted": true,
   "vertices": 624,
   "faces": 624,
-  "elapsedSeconds": 4.389999999984866,
+  "elapsedSeconds": 7.735000000015134,
   "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
   "curvesSha256": "504525a1961229d6658e78b4b0e721e23c4be68c986d8ad561b51b74a8f52f37",
   "outputSha256": "9ae72eb85df5e4936601a93c8bb67b76504ca2a1d3710151baf759f816141647",
-  "workerSha256": "6da20d7c419c8cd109442ca9a5cdd4da1651e4a6003606504f8ecddce45a2c4c",
+  "workerSha256": "a089d71ddbf2f2d7ca52861e6c3f33f1daa9b81ab2fb49de8a018f1bcd3801a1",
   "backend": "engineering-structured-prismatic-annulus",
   "qualityPassed": true,
   "quality": {

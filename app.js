@@ -409,7 +409,7 @@ function updateMetrics() {
   $('guideDetail').textContent = distances.length ? r.guidePaths?.length ? 'Measured output edge-path fit · p95' : 'Nearest edges · path not verified' : 'No guides in this result';
   $('topologyMetric').textContent = r.quality?.passed ? 'Good' : r.quality ? 'Needs work' : 'Unqualified';
   $('topologyDetail').textContent = r.quality ? `Min angle ${r.quality.minimumAngleDegrees.toFixed(0)}° · worst edge ratio ${r.quality.edgeRatioMax.toFixed(2)}` : 'Quad shape has not been checked';
-  $('resultSummary').textContent = `${r.backend === 'engineering-structured-prismatic-annulus' ? 'Continuous quad grid' : r.backend === 'engineering-planar-pslg-quads' ? 'Planar surface solver' : r.backend === 'heightfield-enclosure' ? 'Terrain enclosure solver' : 'Recovered field solver'} · ${r.elapsedSeconds.toFixed(1)}s · ${r.guideCount} guide${r.guideCount === 1 ? '' : 's'}`;
+  $('resultSummary').textContent = `${r.backend === 'engineering-guided-surface-quads' ? 'Quad surface solver' : r.backend === 'engineering-structured-prismatic-annulus' ? 'Continuous quad grid' : r.backend === 'engineering-planar-pslg-quads' ? 'Planar surface solver' : r.backend === 'heightfield-enclosure' ? 'Terrain enclosure solver' : 'Recovered field solver'} · ${r.elapsedSeconds.toFixed(1)}s · ${r.guideCount} guide${r.guideCount === 1 ? '' : 's'}`;
 }
 async function generate() {
   if (state.busy || !state.mesh) return;
@@ -419,7 +419,7 @@ async function generate() {
   workspaceShell.addLog('Generating retopology…');
   const token = ++generation; state.busy = true; $('processing').hidden = false; $('generateButton').disabled = true; $('notice').hidden = true;
   const started = performance.now(); const timer = setInterval(() => { $('processTime').textContent = `${Math.round((performance.now() - started) / 1000)}s`; }, 300);
-  $('processTime').textContent = '0s'; $('processDetail').textContent = request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
+  $('processTime').textContent = '0s'; $('processDetail').textContent = state.mesh.solver === 'surface-quads' ? 'Building a quad layout, fitting your guide paths and checking the source surface…' : request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
   try {
     const first = await api('/api/remesh', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) });
     if (token !== generation) {
@@ -492,7 +492,7 @@ $('detailsButton').onclick = () => {
   const table = document.createElement('table');
   const rows = [['Vertices', r.vertices.length], ['Faces', r.faces.length], ['Quads / triangles', `${s.quads} / ${s.triangles}`], ['Components', s.faceConnectedComponents], ['Boundary edges', s.boundaryEdges], ['Nonmanifold edges', s.nonmanifoldEdges], ['Nonmanifold vertices', r.vertexLinks.nonmanifoldVertices.length], ['Inconsistent winding edges', r.vertexLinks.inconsistentWindingEdges], ['Euler characteristic', s.eulerCharacteristic], ['Sharp edges', r.creases.length], ['Calculation time', r.elapsedSeconds.toFixed(3) + 's'], ['Minimum quad angle', r.quality?.minimumAngleDegrees.toFixed(2) + '°'], ['Worst edge ratio', r.quality?.edgeRatioMax.toFixed(3)], ['Minimum scaled Jacobian', r.quality?.scaledJacobianMin.toFixed(3)], ['Regular valence-four vertices', r.quality ? (100*r.quality.valence4Fraction).toFixed(1)+'%' : 'Unqualified'], ['Count error', r.quality ? (100*r.quality.targetRelativeError).toFixed(1)+'%' : 'Unqualified'], ['Quality warnings', r.quality?.failures.join('; ') || 'None'], ['Solver', r.backend]];
   for (const [label, value] of rows) { const tr = document.createElement('tr'); for (const text of [label, value]) { const td = document.createElement('td'); td.textContent = text; tr.append(td); } table.append(tr); }
-  const p = document.createElement('p'); p.textContent = 'Guide distance uses up to129 samples per curve, measured against actual output edges. Topology and sampled surface checks do not certify absence of every3D self intersection. The planar and terrain routes are engineering alternatives informed by the research; exact native equivalence is not claimed.';
+  const p = document.createElement('p'); p.textContent = r.guideSampleMethod + ' Topology and sampled surface checks do not certify absence of every 3D self intersection. Engineering alternatives do not establish exact native equivalence.';
   content.append(table, p); $('detailsDialog').showModal();
 };
 $('circleRadius').onchange = event => { editor.radius(event.target.valueAsNumber); const g = guideDocument.get(editor.selection.activeEntityId); if (g?.type === 'circle') event.target.value = g.radius; };

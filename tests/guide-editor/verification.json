@@ -81,5 +81,7 @@
     8741,
     8742
   ],
-  "liveEvidence": "tests/workspace-shell/live-check.json"
+  "liveEvidence": "tests/workspace-shell/live-check.json",
+  "historicalCommit": "79fb813",
+  "supersededBy": "tests/toilet-retopology/verification.json"
 }

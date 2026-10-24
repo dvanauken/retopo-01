@@ -7814,7 +7814,7 @@
   "guideAlignment": [],
   "guideSampleMethod": "Up to129 evenly indexed surface samples per curve; Euclidean distance to actual output edges and unsigned tangent angles.",
   "target": 600,
-  "elapsedSeconds": 3.9210000000020955,
+  "elapsedSeconds": 7.187999999994645,
   "backend": "engineering-structured-prismatic-annulus",
   "validationPassed": true,
   "quadPercent": 100.0,

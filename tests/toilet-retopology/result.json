@@ -1,0 +1,233 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Toilet retains the requested 1800-quad target",
+      "passed": true
+    },
+    {
+      "name": "Toilet exposes its working solver instead of the obsolete failure notice",
+      "passed": true
+    },
+    {
+      "name": "Actual browser Generate completes a fresh toilet worker",
+      "passed": true
+    },
+    {
+      "name": "Successful worker uses the exact current browser-submitted guide samples",
+      "passed": true
+    },
+    {
+      "name": "Generated result identifies the new engineering surface solver",
+      "passed": true
+    },
+    {
+      "name": "Every exported face is a quad and the unchanged shape limits pass",
+      "passed": true
+    },
+    {
+      "name": "Actual face count stays within the existing target tolerance",
+      "passed": true
+    },
+    {
+      "name": "UI reports Generated and Good only after measured acceptance",
+      "passed": true
+    },
+    {
+      "name": "Accepted toilet geometry replaces the empty result and enables export",
+      "passed": true
+    },
+    {
+      "name": "Browser OBJ download contains the actual successful worker output",
+      "passed": true
+    },
+    {
+      "name": "Original white toilet material survives switching host themes",
+      "passed": true
+    },
+    {
+      "name": "Independent OBJ reading confirms one closed component and the original genus",
+      "passed": true
+    },
+    {
+      "name": "Independent vertex-link and winding checks pass",
+      "passed": true
+    },
+    {
+      "name": "Independent OBJ shape measurements confirm no failed quad-quality limits",
+      "passed": true
+    },
+    {
+      "name": "Unmodified reference surface/topology validator independently accepts the exported toilet",
+      "passed": true
+    },
+    {
+      "name": "Indexed surface validation agrees with the original independent validator",
+      "passed": true
+    },
+    {
+      "name": "Tracked guide is a simple closed chain of actual exported quad edges",
+      "passed": true
+    },
+    {
+      "name": "Independent guide-path distance and direction pass the existing acceptance limits",
+      "passed": true
+    },
+    {
+      "name": "The same toilet can also generate without guides",
+      "passed": true
+    },
+    {
+      "name": "The guide changes actual exported geometry while retaining the same quad layout",
+      "passed": true
+    },
+    {
+      "name": "Guidance improves measured distance and direction over a same-target unguided solve",
+      "passed": true
+    },
+    {
+      "name": "A different open guide completes a fresh solve on the imported source",
+      "passed": true
+    },
+    {
+      "name": "Open-guide semantics and changed authored input produce a different fitted result",
+      "passed": true
+    },
+    {
+      "name": "An unresolvable guide still fails without promoting or exporting a candidate",
+      "passed": true
+    },
+    {
+      "name": "Cancellation test observes the actual owned Blender child process",
+      "passed": true
+    },
+    {
+      "name": "Cancelling the calculation terminates its owned layout process",
+      "passed": true
+    },
+    {
+      "name": "Cancelling the calculation leaves the application server healthy",
+      "passed": true
+    },
+    {
+      "name": "No browser JavaScript errors during real generation and export",
+      "passed": true
+    }
+  ],
+  "browserErrors": [],
+  "workerJobs": [
+    "53fbb358e173456c912a46303397b42c",
+    "25323d5be51244888169b67ced30f5d3",
+    "fc5db6bc7fe642cf831e6533a54e4cb5",
+    "c1dd2a16878447b391686a1dcbb5821d",
+    "a35282042b7c498685828349b1b47a10"
+  ],
+  "guidedFaces": 1923,
+  "guideFit": {
+    "samples": 257,
+    "meanDistance": 0.00303546078752334,
+    "p95Distance": 0.013715146050434675,
+    "maxDistance": 0.023577408244038353,
+    "meanDistanceOverMedianEdge": 0.04402183573253269,
+    "meanUnsignedTangentAngleDegrees": 7.641855474053898,
+    "p95UnsignedTangentAngleDegrees": 26.623597176805085,
+    "selectedEdgeCount": 52,
+    "selectedEdgeGraphComponents": 1,
+    "selectedEdgeGraphDegreeHistogram": {
+      "2": 52
+    },
+    "selectedEdgesFormSingleCycle": true,
+    "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+  },
+  "unguidedAlignment": {
+    "samples": 257,
+    "meanDistance": 0.014153107714843714,
+    "p95Distance": 0.029879675820787238,
+    "maxDistance": 0.03940991285380702,
+    "meanDistanceOverMedianEdge": 0.1794004027079398,
+    "meanUnsignedTangentAngleDegrees": 36.43817867073472,
+    "p95UnsignedTangentAngleDegrees": 89.31459340969954,
+    "selectedEdgeCount": 84,
+    "selectedEdgeGraphComponents": 7,
+    "selectedEdgeGraphDegreeHistogram": {
+      "3": 27,
+      "2": 23,
+      "1": 41
+    },
+    "selectedEdgesFormSingleCycle": false,
+    "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+  },
+  "independentValidation": {
+    "passed": true,
+    "checks": {
+      "closed": true,
+      "components": true,
+      "sourceEuler": true,
+      "noIncidenceDefects": true,
+      "vertexManifold": true,
+      "consistentWinding": true,
+      "sampledSurface": true
+    },
+    "vertexLinks": {
+      "nonmanifoldVertices": [],
+      "inconsistentWindingEdges": 0
+    },
+    "features": {},
+    "topology": {
+      "vertices": 1923,
+      "faces": 1923,
+      "quads": 1923,
+      "triangles": 0,
+      "boundaryEdges": 0,
+      "nonmanifoldEdges": 0,
+      "faceConnectedComponents": 1,
+      "eulerCharacteristic": 0
+    },
+    "sourceToOutputNormalized": {
+      "samples": 2000,
+      "rms": 0.004096212914633277,
+      "mean": 0.0028671713339272773,
+      "p95": 0.008754783423627755,
+      "sampledMax": 0.017486751821745024
+    },
+    "outputToSourceNormalized": {
+      "samples": 1923,
+      "rms": 0.0024541658113619263,
+      "mean": 0.00131471403166779,
+      "p95": 0.005718321590188777,
+      "sampledMax": 0.01417945798830643
+    },
+    "measurementFrame": {
+      "center": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": 0.5,
+      "normalizationOnlyForPredicates": true
+    },
+    "sampledSurfaceToleranceNormalized": 0.02002027306715047,
+    "samples": {
+      "sourceAvailable": 36000,
+      "sourceStride": 18,
+      "outputAvailable": 5769,
+      "outputStride": 3
+    },
+    "limitations": [
+      "Sampled surface/feature errors are not a Hausdorff certificate.",
+      "Topology and vertex links do not alone certify absence of all 3D self-intersections.",
+      "Binary geometric crease preservation does not imply arbitrary source attribute transfer."
+    ]
+  },
+  "sourceHashes": {
+    "curved_quad.py": "3d2b95d7efe6515718a24865ebe3a36c2e12eae5518035b431a9ebf77c46d666",
+    "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+    "server.py": "d20ad99ccb15fd0aa54f66ec7f906845804db67acd18790a820b0f9ac721b6cd",
+    "worker.py": "a089d71ddbf2f2d7ca52861e6c3f33f1daa9b81ab2fb49de8a018f1bcd3801a1",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "app.js": "20dc8b124380f8138fa2e3de5ea2500d5b0f4b1e52559d61c0a61c051ddc5a23",
+    "assets/models/toilet.json": "09e46f096677f7058bd0f6a2977dbdf2f6f7ea72a812a1ceb1b9fd8208b751f3",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "scope": "Actual Chromium Generate and OBJ download, independently reread output, unmodified reference validation, fresh unguided and changed-open-guide solves, rejected input and owned child cancellation."
+}

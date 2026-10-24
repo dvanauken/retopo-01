@@ -1515,8 +1515,8 @@
     "edgeRatioMax": 2.0392308018383227,
     "scaledJacobianMin": 0.8660251270820393,
     "scaledJacobianP05": 0.965925753628184,
-    "edgeLengthCV": 0.27514830339228336,
-    "adjacentAreaRatioP95": 1.3536430414596956,
+    "edgeLengthCV": 0.27514830339228263,
+    "adjacentAreaRatioP95": 1.353643041459702,
     "valence4Fraction": 1.0,
     "irregularVertices": 0,
     "targetRelativeError": 0.04,
@@ -1565,9 +1565,9 @@
       ],
       "closedCycle": true,
       "samples": 110,
-      "p95Distance": 0.006044374105819076,
-      "maxDistance": 0.006259966731101117,
-      "p95TangentAngleDegrees": 7.095521195146447
+      "p95Distance": 0.006044374105818893,
+      "maxDistance": 0.0062599667311008375,
+      "p95TangentAngleDegrees": 7.095521195146583
     }
   ],
   "structuredPolicy": {
@@ -1579,7 +1579,7 @@
       "guideRow": 2
     },
     "candidateCount": 206,
-    "objective": 0.639912330709166,
+    "objective": 0.6399123307091639,
     "guideClassification": [
       {
         "curve": 0,
@@ -1587,7 +1587,7 @@
         "kind": "contour",
         "samples": 110,
         "angularSpan": 6.283185307179586,
-        "crossSpan": 0.24597928702194083
+        "crossSpan": 0.2459792870219425
       }
     ],
     "guideFitting": "Smoothed periodic radial/axial profiles or partial-profile continuation; radial/axial spokes constrain measured edge chains and distribute column displacement monotonically. Guide data is retained unchanged.",

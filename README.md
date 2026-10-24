@@ -21,6 +21,8 @@ Open **http://127.0.0.1:8741**. Choose another local port with `start.cmd --port
 
 This machine already has the qualified64-bit Windows Python numerical environment. On a new environment, install `requirements.txt`; Python3.12 is the reference environment. The independent SuiteSparse CHOLMOD DLL and its source/build evidence accompany `engine/`. No ZBrush process or Maxon binary is used. Node/npm is optional; `npm start` simply starts the same Python service. There is no frontend build step.
 
+The toilet's curved-surface quad solver also uses the locally installed Blender. On a new machine, install Blender or set `RETOPO_BLENDER` to its executable before starting the server. See [TOILET_SOLVER.md](TOILET_SOLVER.md) for construction, acceptance limits and verification.
+
 ## Try it
 
 1. Start with **Hollow hexagon**, the downloaded online example. The right view initially shows an explicitly labeled example baseline. Its source has896 triangles; the current baseline has624 actual quads.
@@ -37,7 +39,7 @@ Undo/redo: Ctrl+Z / Ctrl+Shift+Z. G draws freehand; P/S construct Polyline/Splin
 |---|---|---|
 | Hollow hexagon | Through-hole, angled planar faces, hard corners, closed guides and crossings; fast default demonstration. | [Kenney Prototype Kit](https://kenney.nl/assets/prototype-kit), CC0-1.0. Original `shape-hollow-hexagon.obj` and license retained in `assets/`. |
 | Terrain patch | Curved contours, ridge guides and an intentional open border. | Original synthetic research fixture; the measured enclosure/crop reference route. |
-| White toilet | Original plain SW_Toilet converted to a closed white mesh; detailed guide-editing test subject. General retopology currently rejects it during conditioning. | User-provided `SW_Toilet.closed.web.glb`; provenance in `assets/raw/toilet/`. |
+| White toilet | Original plain SW_Toilet; live curved-surface quad generation with fitted guide-edge paths and measured acceptance. | User-provided `SW_Toilet.closed.web.glb`; provenance in `assets/raw/toilet/`. |
 | Curved cylinder | Curved-surface flow and flexible-direction versus preserved-path guidance. | Original synthetic research fixture; recovered field pipeline. |
 
 The online hexagon export repeats its face group and contains one zero-area triangle and a collinear T joint. Preparation welds only identical coordinates, removes exact duplicate/degenerate faces, conforms that T joint without moving the existing surface, rotates Y-up to Z-up, normalizes the bbox, and applies two conforming midpoint subdivisions. The prepared geometry is a closed connected genus-one surface. `assets/preparation.json`, raw download, acquisition hashes and creator license record these changes. It is derived from the actual online asset, not a procedural substitute with an attribution attached.
@@ -56,7 +58,7 @@ The app starts a new owned Python process per calculation, with one solve runnin
 
 The default solid now uses a direct, geometry-detected structured annular grid: shared physical seams, continuous circumferential edge loops, radial cap strips and axial side strips. Guide profiles influence these coherent paths. The previous planar triangle-pairing/subdivision route produced poor modeling quality on the user-reported stroke and is superseded for this recognized surface class. See [the measured repair and limits](QUALITY_REPAIR.md). Sharp source geometry is retained. The “Sharp edges” checkbox controls visibility; it does not disable feature preservation. Exported crease intent contains binary geometric edges; OBJ alone does not carry subdivision crease semantics. Detailed crease data remains in the run's `features.json`.
 
-The terrain uses the separately labeled closed-enclosure/visible-crop route. The curved example uses the recovered field/parameterization/extraction path. The independently built reference engine closure is copied into `engine/` with its licenses and recorded hashes. Core files are preserved from the qualified research package; this app supplies interaction, job isolation and actual export measurements around it.
+The terrain uses the separately labeled closed-enclosure/visible-crop route. The curved cylinder uses the recovered field/parameterization/extraction path. The toilet explicitly uses an engineering QuadriFlow layout plus connected guide-path fitting and surface/shape refinement; the recovered conditioning path remains unchanged. The independently built reference engine closure is copied into `engine/` with its licenses and recorded hashes. Core files are preserved from the qualified research package; this app supplies interaction, job isolation and actual export measurements around it.
 
 Target count is approximate. Strong or numerous constraints can increase it. The metrics show actual face proportions, component/border/incidence and vertex-link checks, plus guide-to-output-edge p95 distances in source units. Up to129 evenly indexed samples per guide are used for the demo distance metric. These finite checks are not a Hausdorff certificate or complete3D collision test. Engineering alternatives are not claimed to reproduce every native ZBrush branch.
 

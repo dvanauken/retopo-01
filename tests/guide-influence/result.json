@@ -59,10 +59,10 @@
     }
   ],
   "jobs": [
-    "9485b60d9e6f4867b8db6612e34224cb",
-    "da241d7873b041b19b120c540b544c75",
-    "cab2960b80a74622935e21c515c451de",
-    "3ff7e66c7f554c60a94a7e31a2233ae8"
+    "8562f5ae1b094e9a885b2b80c70eeb03",
+    "9c5daa5847d04fbabb29401bfbaa822f",
+    "61b04c477f8d451f8d3163b4a5b4790b",
+    "9d93b9ecc4b6445f845a9045a6940bd5"
   ],
   "before": {
     "samples": 23,
@@ -195,7 +195,7 @@
       }
     },
     "output": {
-      "path": "C:\\dbva\\code\\retopo-1\\runs\\da241d7873b041b19b120c540b544c75\\output.obj",
+      "path": "C:\\dbva\\code\\retopo-1\\runs\\9c5daa5847d04fbabb29401bfbaa822f\\output.obj",
       "sha256": "8908efd4ad3f0caf9a9a2e200bd0aa6e3b7dc42d625ca73f766a55f49e7781fb",
       "metrics": {
         "vertices": 600,
@@ -297,7 +297,7 @@
     ]
   },
   "sourceHashes": {
-    "worker.py": "6da20d7c419c8cd109442ca9a5cdd4da1651e4a6003606504f8ecddce45a2c4c",
+    "worker.py": "a089d71ddbf2f2d7ca52861e6c3f33f1daa9b81ab2fb49de8a018f1bcd3801a1",
     "structured_prism.py": "4152257435a5d9488c81f8cfab69362f403c18da6bea554ddd5a80f058509c86",
     "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab"
   }

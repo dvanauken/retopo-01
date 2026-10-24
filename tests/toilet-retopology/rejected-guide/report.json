@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "constructionCompleted": false,
+  "message": "A guide has no resolvable output edge path at this density. Increase the target or shorten the guide.",
+  "technicalMessage": "A guide has no resolvable output edge path at this density. Increase the target or shorten the guide.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 32, in main\n    if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)\n                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 282, in construct\n    path, pins, targets = _guide_path(positions, edges, curve, spacing)\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 144, in _guide_path\n    raise ValueError('A guide has no resolvable output edge path at this density. Increase the target or shorten the guide.')\nValueError: A guide has no resolvable output edge path at this density. Increase the target or shorten the guide.\n",
+  "elapsedSeconds": 6.078000000008615,
+  "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+  "workerSha256": "a089d71ddbf2f2d7ca52861e6c3f33f1daa9b81ab2fb49de8a018f1bcd3801a1"
+}

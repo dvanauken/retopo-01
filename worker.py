@@ -11,6 +11,7 @@ from measure_geometry import topology,guide_alignment
 from mesh_validation import links
 from structured_prism import construct as construct_structured,detect as detect_prism
 from quad_quality import measure as measure_quad_quality
+from curved_quad import construct as construct_curved_quads, BACKEND as SURFACE_QUAD_BACKEND
 def read(p):return json.loads(p.read_text(encoding='utf-8'))
 def write(p,data):p.write_text(json.dumps(data,indent=2,allow_nan=False)+'\n',encoding='utf-8')
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -18,7 +19,7 @@ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def pack(vertices,faces,source,curves,target,metadata,elapsed):
  faces=[list(map(int,f)) for f in faces];vertices=np.asarray(vertices);stats,_,edges=topology(vertices,faces);vl=links(faces)
  samples=[np.asarray(c)[np.linspace(0,len(c)-1,min(len(c),129),dtype=int)] for c in curves]
- alignment=[guide_alignment(vertices,edges,c) for c in samples];crease=metadata.get('outputCreases') or output_creases(vertices,faces)
+ alignment=[p['alignment'] for p in metadata['guidePaths']] if metadata['backend']==SURFACE_QUAD_BACKEND else [guide_alignment(vertices,edges,c) for c in samples];crease=metadata.get('outputCreases') or output_creases(vertices,faces)
  return dict(quality=measure_quad_quality(vertices,faces,target),guidePaths=metadata.get('guidePaths',[]),vertices=vertices.tolist(),faces=faces,creases=crease['edges'],stats=stats,vertexLinks=vl,guideAlignment=alignment,guideSampleMethod='Up to129 evenly indexed surface samples per curve; Euclidean distance to actual output edges and unsigned tangent angles.',target=target,elapsedSeconds=elapsed,backend=metadata['backend'],validationPassed=True,quadPercent=100*stats['quadFraction'],sourceSha256=source,guideCount=len(curves),coordinateFrame='source',limits='Measured surface/topology checks are bounded; they do not certify absence of every3D self intersection or exact native equivalence.')
 
 def main():
@@ -28,18 +29,22 @@ def main():
  source=ROOT/'assets/models'/(key+'.obj');shutil.copyfile(source,job/'source.obj');assert sha(source)==settings['sourceSha256'];curves=curve_packet['curves'];v,f=read_obj(job/'source.obj');start=time.monotonic();constructed=False
  try:
   options=dict(target=settings['target'],normalize=False)
-  if spec['surface']=='heightfield':positions,faces,meta=construct_heightfield(v,f,curves,**options)
+  if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)
+  elif spec['surface']=='heightfield':positions,faces,meta=construct_heightfield(v,f,curves,**options)
   else:
    try:detect_prism(v,f)
    except NotImplementedError:positions,faces,meta=construct(v,f,curves,guide_mode=settings['guideMode'],feature_policy=spec['featurePolicy'],solid_method='auto',**options)
    else:positions,faces,meta=construct_structured(v,f,curves,target=settings['target'])
   constructed=True
   elapsed=time.monotonic()-start;mesh=pack(positions,faces,settings['sourceSha256'],curves,settings['target'],meta,elapsed)
+  if meta['backend']==SURFACE_QUAD_BACKEND:
+   mesh['guideSampleMethod']='257 uniformly spaced authored arc-length samples per guide, measured against its connected output-edge path.'
+   mesh['surfaceValidation']=meta['closedValidation']
   valid=mesh['stats']['nonmanifoldEdges']==0 and mesh['stats']['zeroAreaFanTriangles']==0 and not mesh['vertexLinks']['nonmanifoldVertices'] and mesh['vertexLinks']['inconsistentWindingEdges']==0
   if not valid:raise ValueError('Output failed the demo topology checks')
   h=float(np.sqrt(np.sum(np.linalg.norm(np.cross(v[f[:,1]]-v[f[:,0]],v[f[:,2]]-v[f[:,0]]),axis=1))*.5/settings['target']))
   guide_failures=[]
-  if meta['backend']=='engineering-structured-prismatic-annulus':
+  if meta['backend'] in ('engineering-structured-prismatic-annulus',SURFACE_QUAD_BACKEND):
    missing=set(range(len(curves)))-{p['curve'] for p in mesh['guidePaths']}
    if missing:guide_failures.append('No measured output edge path for guide(s): '+', '.join(str(i+1) for i in sorted(missing)))
   for path in mesh['guidePaths']:

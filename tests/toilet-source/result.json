@@ -26,20 +26,11 @@
       "passed": true
     },
     {
-      "name": "Fixture declares white presentation and its experimental solver status",
-      "passed": true
-    },
-    {
-      "name": "Known general-solver failure produces no qualified result or successful export",
-      "passed": true
-    },
-    {
-      "name": "Failure identifies solver conditioning rather than blaming the valid source mesh",
+      "name": "Fixture retains white presentation and selects the measured surface solver",
       "passed": true
     }
   ],
-  "qualifiedRetopologyProduced": false,
-  "solverAttempt": "14f8558b9fa44ae2ac2fd1df229bbbde",
-  "solverFailure": "The solver created a degenerate triangle during mesh conditioning. No result was accepted; your source mesh and guides are unchanged.",
-  "scope": "Original fixture import and known-failure validation only; not a passing toilet remesh."
+  "retopologyEvidence": "tests/toilet-retopology/result.json",
+  "priorFailureArchive": "tests/toilet-source/solver-attempt",
+  "scope": "Original fixture identity and source validation; live generated output is verified separately."
 }

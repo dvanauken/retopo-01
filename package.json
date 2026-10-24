@@ -11,6 +11,7 @@
     "test:shell": "python -X utf8 tests/verify_workspace_shell.py",
     "test:guides:additions": "python -X utf8 tests/verify_guide_additions.py",
     "test:guides:influence": "python -X utf8 tests/verify_guide_influence.py",
-    "test:toilet:source": "python -X utf8 tests/verify_toilet_source.py"
+    "test:toilet:source": "python -X utf8 tests/verify_toilet_source.py",
+    "test:toilet:solve": "python -X utf8 tests/verify_toilet_retopology.py"
   }
 }

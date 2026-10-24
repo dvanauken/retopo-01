@@ -1,4 +1,4 @@
-"""Original Draco mesh identity, physical coordinates, topology and known solver rejection."""
+"""Independent original Draco identity, physical coordinates and source topology."""
 from pathlib import Path
 import json,hashlib,tempfile,subprocess,sys,uuid,shutil,traceback
 import numpy as np,trimesh
@@ -21,16 +21,8 @@ try:
  mesh=trimesh.Trimesh(v,f,process=False);check(mesh.is_watertight and mesh.is_winding_consistent and mesh.euler_number==0 and len(mesh.split(only_watertight=False))==1,'Prepared source is one closed consistently wound genus-one component')
  area=np.linalg.norm(np.cross(v[f[:,1]]-v[f[:,0]],v[f[:,2]]-v[f[:,0]]),axis=1)
  check(bool(np.all(area>1e-14)),'Local conformity repair leaves no collapsed source triangle')
- check(model['displayColor']=='#f5f5f2' and model['experimentalRetopology'],'Fixture declares white presentation and its experimental solver status')
- # The model is intentionally retained as a difficult test case, not a fake success.
- job=ROOT/'runs'/uuid.uuid4().hex;job.mkdir();(job/'settings.json').write_text(json.dumps({'meshId':'toilet','target':1800,'guideMode':2,'sourceSha256':model['sourceSha256']}));(job/'curves.json').write_text(json.dumps({'coordinateFrame':'source','curves':model['presets'][0]['curves']}))
- result=subprocess.run([sys.executable,'-X','utf8',str(ROOT/'worker.py'),'--job',str(job)],capture_output=True,text=True,timeout=180)
- report=json.loads((job/'report.json').read_text());check(result.returncode!=0 and not report['passed'] and not (job/'mesh.json').exists() and not (job/'output.obj').exists(),'Known general-solver failure produces no qualified result or successful export')
- check(report['technicalMessage']=='Degenerate source normal policy' and 'mesh conditioning' in report['message'],'Failure identifies solver conditioning rather than blaming the valid source mesh')
- failure=OUT/'solver-attempt';failure.mkdir(exist_ok=True)
- for name in ['settings.json','curves.json','report.json']:shutil.copyfile(job/name,failure/name)
- (failure/'worker.log').write_text(result.stdout+result.stderr,encoding='utf-8')
- (OUT/'result.json').write_text(json.dumps({'sourceValidationPassed':True,'checks':checks,'qualifiedRetopologyProduced':False,'solverAttempt':job.name,'solverFailure':report['message'],'scope':'Original fixture import and known-failure validation only; not a passing toilet remesh.'},indent=2)+'\n',encoding='utf-8')
- print(json.dumps({'sourceValidationPassed':True,'checks':len(checks),'qualifiedRetopologyProduced':False}),flush=True)
+ check(model['displayColor']=='#f5f5f2' and model['solver']=='surface-quads','Fixture retains white presentation and selects the measured surface solver')
+ (OUT/'result.json').write_text(json.dumps({'sourceValidationPassed':True,'checks':checks,'retopologyEvidence':'tests/toilet-retopology/result.json','priorFailureArchive':'tests/toilet-source/solver-attempt','scope':'Original fixture identity and source validation; live generated output is verified separately.'},indent=2)+'\n',encoding='utf-8')
+ print(json.dumps({'sourceValidationPassed':True,'checks':len(checks)}),flush=True)
 except Exception:
  (OUT/'result.json').write_text(json.dumps({'sourceValidationPassed':False,'checks':checks,'error':traceback.format_exc()},indent=2)+'\n',encoding='utf-8');raise

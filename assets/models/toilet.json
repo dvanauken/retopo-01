@@ -15,9 +15,9 @@
   "displayColor": "#f5f5f2",
   "displaySmooth": true,
   "wireOpacity": 0.22,
-  "requiresGuides": true,
-  "experimentalRetopology": true,
-  "solverNotice": "Imported guide test subject. The current general solver fails during mesh conditioning; no qualified retopology result is available yet.",
+  "requiresGuides": false,
+  "experimentalRetopology": false,
+  "solverNotice": "Guides steer fitted quad edge paths. Each result must pass surface, topology and quad-quality checks.",
   "vertices": [
     [
       0.299389520109,
@@ -182173,5 +182173,6 @@
       "max": 0.951571939706268
     },
     "canonicalGeometrySignature": "59053f203c7ba322e219e07db655bff4b5b8cfde1af678087074bc5a2e47f419"
-  }
+  },
+  "solver": "surface-quads"
 }

@@ -2,7 +2,8 @@
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from concurrent.futures import ThreadPoolExecutor
-import argparse,datetime,json,mimetypes,os,re,subprocess,sys,threading,time,uuid
+import argparse,datetime,json,mimetypes,os,re,socket,subprocess,sys,threading,time,uuid
+import psutil
 
 ROOT=Path(__file__).resolve().parent
 CATALOG=json.loads((ROOT/'assets/catalog.json').read_text(encoding='utf-8'))
@@ -11,6 +12,16 @@ MESHES={m['id']:m for m in CATALOG};JOBS={};LOCK=threading.Lock();QUEUE=ThreadPo
 def read(p):return json.loads(p.read_text(encoding='utf-8'))
 def write(p,data):p.write_text(json.dumps(data,indent=2,allow_nan=False)+'\n',encoding='utf-8')
 def snapshot(job):return {k:v for k,v in job.items() if k not in ('process','directory')}
+
+def terminate_worker(process):
+ if process.poll() is not None:return
+ try:
+  parent=psutil.Process(process.pid);children=parent.children(recursive=True)
+  process.kill()
+  for child in reversed(children):
+   try:child.kill()
+   except psutil.NoSuchProcess:pass
+ except psutil.NoSuchProcess:pass
 def execute(job):
  with LOCK:
   if job['state']=='cancelled':return
@@ -21,9 +32,9 @@ def execute(job):
    process=subprocess.Popen(command,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
    with LOCK:
     job['process']=process
-    if job['state']=='cancelled':process.terminate()
+    if job['state']=='cancelled':terminate_worker(process)
    try:code=process.wait(timeout=600)
-   except subprocess.TimeoutExpired:process.terminate();code=process.wait(timeout=10);job['error']='The mesh calculation exceeded the ten-minute limit.'
+   except subprocess.TimeoutExpired:terminate_worker(process);code=process.wait(timeout=10);job['error']='The mesh calculation exceeded the ten-minute limit.'
   with LOCK:
    job.update(finishedAt=time.time(),actualExitCode=code)
    if job['state']!='cancelled':
@@ -58,7 +69,11 @@ class Handler(BaseHTTPRequestHandler):
   if match:
    with LOCK:job=JOBS.get(match[1]);data=snapshot(job) if job else None
    if not job:return self.respond(dict(error='Job not found; the server may have restarted.'),404)
-   if not match[2]:return self.respond(data)
+   if not match[2]:
+    if data['state']=='running':
+     try:data['stage']=read(job['directory']/'progress.json')['stage']
+     except (FileNotFoundError,KeyError,json.JSONDecodeError):pass
+    return self.respond(data)
    return self.file(job['directory']/match[2],download=match[2] not in ('mesh.json','report.json'))
   if path=='/':return self.file(ROOT/'index.html')
   if path in ['/app.js','/favicon.svg','/index.css']:return self.file(ROOT/path[1:])
@@ -85,7 +100,7 @@ class Handler(BaseHTTPRequestHandler):
       job.update(state='cancelled',stage='Cancelled',finishedAt=time.time())
       write(job['directory']/'cancel-request.json',snapshot(job))
       if previous=='queued':write(job['directory']/'execution.json',dict(snapshot(job),actualExitCode=None,processStarted=False))
-      if job.get('process') and job['process'].poll() is None:job['process'].terminate()
+      if job.get('process') and job['process'].poll() is None:terminate_worker(job['process'])
     return self.respond(snapshot(job))
    if self.path!='/api/remesh':return self.respond(dict(error='Not found'),404)
    mesh_id=data.get('meshId');target=data.get('target');curves=data.get('curves');mode=data.get('guideMode',2)
@@ -112,15 +127,23 @@ class Handler(BaseHTTPRequestHandler):
    QUEUE.submit(execute,job);return self.respond(snapshot(job),202)
   except (ValueError,TypeError,json.JSONDecodeError) as error:return self.respond(dict(error=str(error)),400)
 
+class LocalHTTPServer(ThreadingHTTPServer):
+ # Windows SO_REUSEADDR permits two independent app instances to accept on
+ # one port. Exclusivity prevents an older server from serving stale state.
+ allow_reuse_address=os.name!='nt'
+ def server_bind(self):
+  if os.name=='nt':self.socket.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
+  super().server_bind()
+
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--port',type=int,default=8741);args=ap.parse_args()
- server=ThreadingHTTPServer(('127.0.0.1',args.port),Handler);(ROOT/'runs').mkdir(exist_ok=True)
+ server=LocalHTTPServer(('127.0.0.1',args.port),Handler);(ROOT/'runs').mkdir(exist_ok=True)
  write(ROOT/'runs/server.json',dict(pid=os.getpid(),url=f'http://127.0.0.1:{args.port}',port=args.port));print(f'Retopo1 is ready at http://127.0.0.1:{args.port}',flush=True)
  try:server.serve_forever()
  except KeyboardInterrupt:pass
  finally:
   with LOCK:
    for job in JOBS.values():
-    if job.get('process') and job['process'].poll() is None:job['process'].terminate()
+    if job.get('process') and job['process'].poll() is None:terminate_worker(job['process'])
   server.server_close();QUEUE.shutdown(wait=False,cancel_futures=True)
 if __name__=='__main__':main()

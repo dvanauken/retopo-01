@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "port": 8741,
+      "surfaceSolverAvailable": true
+    },
+    {
+      "port": 8742,
+      "surfaceSolverAvailable": true
+    }
+  ],
+  "actualLocalhostGeneratedJob": "026638d34f7a4c1f835f0f86c406c526",
+  "faces": 1923,
+  "detailsReportActual257SampleMethod": true,
+  "duplicatePortRejected": true,
+  "ownedChildCancellationPassed": true,
+  "browserErrors": [],
+  "sourceHashes": {
+    "app.js": "7a8524ff9511769f9fb41194493d985a02630e7bbe0a8a1d082f8691f7e272a5",
+    "server.py": "c13dbe39fa83c4bf3868c83b2be2ab8664b2d825273afdee29309db6542c85d8",
+    "worker.py": "a089d71ddbf2f2d7ca52861e6c3f33f1daa9b81ab2fb49de8a018f1bcd3801a1",
+    "curved_quad.py": "3d2b95d7efe6515718a24865ebe3a36c2e12eae5518035b431a9ebf77c46d666",
+    "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d"
+  }
+}
