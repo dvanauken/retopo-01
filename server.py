@@ -62,6 +62,7 @@ class Handler(BaseHTTPRequestHandler):
    return self.file(job['directory']/match[2],download=match[2] not in ('mesh.json','report.json'))
   if path=='/':return self.file(ROOT/'index.html')
   if path in ['/app.js','/favicon.svg']:return self.file(ROOT/path[1:])
+  if re.fullmatch(r'/src/(geometry|domain|view|io|snapping|contracts)/[A-Za-z0-9_-]+\.js',path):return self.file(ROOT/path[1:])
   if re.fullmatch('/vendor/[A-Za-z0-9_.-]+',path):return self.file(ROOT/path[1:])
   if re.fullmatch('/assets/previews/[a-z-]+\.(json|obj)',path):return self.file(ROOT/path[1:])
   return self.respond(dict(error='Not found'),404)

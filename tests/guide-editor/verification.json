@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "specification": "Draw 2D 3.0.0-draft.21",
+  "profile": "Surface guide adaptation; not Base 2D conformance",
+  "unitChecks": 17,
+  "browserChecks": 60,
+  "workerJobs": [
+    "31fc32bd9ba04a58bd6c9cdbfd795c8c",
+    "c2bf246074f345a98b0146b3460c5430"
+  ],
+  "sourceHashes": {
+    "app.js": "34559b4055150f8e158957ce8fc412e437537b14fba7d736830701ad0232ece1",
+    "index.html": "59d61036d8639e2868552ea797cd405625941e5d34ee3ccb0e13c3b775af8127",
+    "server.py": "1fe8ce5eee3f17fe241081de3aa76ddf7aa33403b473dbc54d30ce2c3e516b93",
+    "package.json": "32535872c556dbf679edae8228c75baf00fb85f30937d641620d034c39d03d8f",
+    "README.md": "ccf604cd199bdf8bd7437b513eee742b9ab2e06b194e7c2c1abb48ed260be8d8",
+    "GUIDE_EDITOR.md": "56eece60ef4f8d08a0bdf02d01ea7350d40b3ef0a04d345f5a1df6e368af821b",
+    "tests/guide-editor.test.mjs": "5dd3e689f34444401e8e19763f02119dbd794aeb1db261d40b7935243cc51600",
+    "tests/verify_guide_editor.py": "37b9f9f7fd89160e3e42aa0384147d16b8b5c3e2b98d8c5c9f67810b63b9da06",
+    "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
+    "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
+    "src/geometry/GuideCurve.js": "7a0c8c5154baa78ef23ecc4307984545c19c4db54e622901ea109a85960cc339",
+    "src/io/GuideSerializer.js": "d094b9e1f27fd0e626e4c8122ca9d3e6c8a27caeba480db1d0a02bdd8083e3e1",
+    "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
+    "src/view/GuideController.js": "77151edea9e23dbb62b82f89c1a3d9dd29cc8515002212106aab2b1ef06277ee",
+    "src/view/SurfaceGuides.js": "1140e110e104fc00736a96575059797d325f71724635fc2c1102fc8cd12d5308"
+  },
+  "workerEvidence": [
+    "tests/guide-editor/worker-freehand",
+    "tests/guide-editor/worker-spline"
+  ],
+  "localServers": [
+    8741,
+    8742
+  ]
+}

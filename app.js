@@ -1,9 +1,15 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/OrbitControls.js';
+import { GuideDocument } from './src/domain/GuideDocument.js';
+import { GuideController } from './src/view/GuideController.js';
+import { GuideSnap } from './src/snapping/GuideSnap.js';
+import { SurfaceGuides } from './src/view/SurfaceGuides.js';
+import { fromPositions } from './src/geometry/GuideCurve.js';
+import { encodeGuides, decodeGuides } from './src/io/GuideSerializer.js';
 
 const $ = id => document.getElementById(id);
 const clone = value => JSON.parse(JSON.stringify(value));
-const state = { mesh: null, result: null, guides: [], tool: 'draw', view: 'split', history: [[]], historyIndex: 0, selected: -1, target: 600, guideMode: 2, busy: false, job: null, resultJob: null, dirty: false, space: false, version: 0, resultKey: null, density: null };
+const state = { mesh: null, result: null, guides: [], tool: 'draw', view: 'split', selected: -1, target: 600, guideMode: 2, busy: false, job: null, resultJob: null, dirty: false, space: false, version: 0, resultKey: null, density: null };
 const canvas = $('viewport');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, preserveDrawingBuffer: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -23,12 +29,75 @@ for (const scene of scenes) {
   const fill = new THREE.DirectionalLight(0xffffff, .7); fill.position.set(4, 2, 1); scene.add(fill);
 }
 const raycaster = new THREE.Raycaster();
-let sourceRender = null, resultRender = null, grids = [], draft = [], pointer = null, previousScreen = null, drawingPane = 0, generation = 0, noticeTimer;
+let sourceRender = null, resultRender = null, grids = [], draft = [], generation = 0, noticeTimer;
 const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const color = name => new THREE.Color(css(name));
 const samePoint = (a, b) => a && b && a.every((x, i) => Math.abs(x - b[i]) < 1e-8);
 const keyFor = () => JSON.stringify([state.mesh?.id, state.guides, state.target, state.guideMode]);
 const countText = n => n.toLocaleString();
+const createGuideId = () => crypto.randomUUID();
+const guideDocument = new GuideDocument(createGuideId);
+const guideChrome = document.createElement('canvas'); guideChrome.id = 'guideChrome'; guideChrome.setAttribute('aria-hidden', 'true'); canvas.after(guideChrome);
+const chromeContext = guideChrome.getContext('2d');
+let cameraRevision = 0, persistedGeneration = '', importTicket = 0;
+controls.addEventListener('change', () => cameraRevision++);
+const surfaceGuides = new SurfaceGuides({
+  project, surface: (x, y, pane) => hit(x, y, pane)?.point.toArray() || null,
+  inside: (x, y, pane) => { const r = canvas.getBoundingClientRect(); return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom && paneAt(x) === pane && (pane === 0 || !!resultRender); },
+  shown: () => $('guidesToggle').checked,
+  guides: () => guideDocument.guides,
+});
+const guideSnap = new GuideSnap({
+  surface: (x, y, pane) => hit(x, y, pane)?.point.toArray() || null, project,
+  enabled: () => $('snapGuides').checked,
+  guides: () => guideDocument.guides,
+  visible: (p, pane) => $('guidesToggle').checked && surfaceGuides.visible(p, pane),
+  stamp: () => `${guideDocument.epoch}:${guideDocument.generation}:${cameraRevision}:${$('snapGuides').checked}`,
+});
+const guideErrors = [], pendingGuideErrors = [];
+function reportGuideError(message) {
+  const incident = Object.freeze({ id: crypto.randomUUID(), message, stateEffect: 'No requested guide change was committed.' });
+  guideErrors.push(incident); if (guideErrors.length > 32) guideErrors.shift();
+  console.error('Guide operation rejected', incident);
+  notify(message, true); pendingGuideErrors.push(incident); flushGuideErrors();
+}
+function flushGuideErrors() {
+  if (!pendingGuideErrors.length || $('guideErrorDialog').open || editor.gate || editor.activity?.pointerId !== undefined) return;
+  $('guideErrorMessage').textContent = pendingGuideErrors[0].message; $('guideErrorDialog').showModal();
+}
+$('guideErrorDialog').addEventListener('close', () => { pendingGuideErrors.shift(); queueMicrotask(flushGuideErrors); });
+const expectedCaptureReleases = new Map(), captureOwners = new Map();
+const editor = new GuideController(guideDocument, {
+  id: createGuideId, changed: syncGuideState, clearSnap: () => guideSnap.clear(), resolve: (x, y, pane, options) => guideSnap.resolve(x, y, pane, options), report: reportGuideError, busy: () => state.busy || !state.mesh,
+  closed: () => $('closedGuide').checked, pane: paneAt, project,
+  cameraRevision: () => cameraRevision,
+  surface: (x, y, pane) => hit(x, y, pane)?.point.toArray() || null,
+  showGuides: () => { $('guidesToggle').checked = true; },
+  curve: g => surfaceGuides.curve(g),
+  hit: (x, y, pane, selection) => surfaceGuides.hit(x, y, pane, selection),
+  contained: (a, b, pane) => surfaceGuides.contained(a, b, pane),
+  screenDistance: (a, b, pane) => { a = project(a, pane); b = project(b, pane); return Math.hypot(a.x - b.x, a.y - b.y); },
+  capture: id => { try { canvas.setPointerCapture(id); captureOwners.set(id, { sequenceId: editor.activity.sequenceId, acknowledged: false }); return canvas.hasPointerCapture(id); } catch { captureOwners.delete(id); return false; } },
+  release: id => { const owner = captureOwners.get(id); if (canvas.hasPointerCapture(id)) { if (owner?.acknowledged) expectedCaptureReleases.set(id, [...(expectedCaptureReleases.get(id) || []), owner.sequenceId]); canvas.releasePointerCapture(id); } captureOwners.delete(id); },
+});
+function syncGuideState() {
+  state.tool = editor.tool; state.space = editor.temporary; controls.enabled = state.tool === 'orbit' || state.space;
+  state.guides = guideDocument.guides.map(g => surfaceGuides.curve(g));
+  state.selected = guideDocument.guides.findIndex(g => g.id === editor.selection.activeEntityId);
+  draft = editor.drafts.at(-1) || [];
+  canvas.className = editor.activity?.invalid ? 'invalid' : state.tool;
+  document.querySelectorAll('[data-tool]').forEach(button => { const active = button.dataset.tool === state.tool; button.classList.toggle('active', active); button.setAttribute('aria-pressed', active); });
+  for (const model of ['object', 'direct']) { const b = $(model + 'Selection'); b.setAttribute('aria-pressed', editor.selection.model === model); b.disabled = model === 'direct' && !editor.selection.activeEntityId; }
+  $('deleteGuides').textContent = editor.selection.model === 'direct' && editor.selection.pointId ? 'Delete point' : 'Delete guides';
+  $('deleteGuides').disabled = $('reverseGuides').disabled = !editor.selection.entityIds.length;
+  $('finishGuide').hidden = !editor.construction;
+  $('selectionStatus').textContent = editor.activity?.invalid || (editor.selection.entityIds.length ? `${editor.selection.entityIds.length} selected · ${editor.selection.model === 'direct' ? 'Edit points' : 'Whole guides'}` : 'Select a guide body or drag a selection rectangle.');
+  $('canvasInstruction').textContent = { draw: 'Drag a freehand guide. Escape cancels the entire stroke.', polyline: 'Click vertices. Enter finishes; Alt+Enter closes; Backspace removes the last point.', spline: 'Click fit points for a smooth surface guide. Enter finishes; Alt+Enter closes.', select: 'Click a guide, double-click to edit points, or drag a selection rectangle. Shift adds guides.', erase: 'Click a visible guide segment to remove the guide.', orbit: 'Drag to orbit. Right-drag to pan. Scroll to zoom.' }[state.tool];
+  updateGuideUI();
+  const stamp = guideDocument.epoch + ':' + guideDocument.generation;
+  if (stamp !== persistedGeneration && state.mesh) { persistedGeneration = stamp; persist(); }
+  flushGuideErrors();
+}
 
 async function api(url, options) {
   const response = await fetch(url, options); const data = await response.json();
@@ -79,26 +148,62 @@ class Polyline extends THREE.Curve {
 }
 function renderGuides() {
   for (const group of guideGroups) dispose(group);
-  const all = draft.length > 1 ? [...state.guides, draft] : state.guides;
-  for (let i = 0; i < all.length; i++) {
-    const curve = all[i]; if (curve.length < 2) continue;
-    // A straight-segment curve preserves displayed surface attachments; no spline overshoot.
-    const tube = new THREE.TubeGeometry(new Polyline(curve), Math.min(2048, Math.max(8, curve.length * 2)), i === state.selected ? .012 : .008, 5, false);
-    const material = new THREE.MeshBasicMaterial({ color: color('--guide'), depthTest: true });
+  const addCurve = (curve, selected = false, opacity = 1) => {
+    if (!curve.length) return;
+    const geometry = curve.length > 1 ? new THREE.TubeGeometry(new Polyline(curve), Math.min(2048, Math.max(8, curve.length * 2)), selected ? .012 : .008, 5, false) : new THREE.SphereGeometry(.012, 8, 6);
+    const material = new THREE.MeshBasicMaterial({ color: color('--guide'), depthTest: true, transparent: opacity < 1, opacity });
     for (const group of guideGroups) {
-      const shape = new THREE.Mesh(tube.clone(), material.clone()); shape.renderOrder = 3; group.add(shape);
-      if (!samePoint(curve[0], curve.at(-1))) for (const point of [curve[0], curve.at(-1)]) {
-        const endpoint = new THREE.Mesh(new THREE.SphereGeometry(.018, 8, 6), material.clone()); endpoint.position.fromArray(point); group.add(endpoint);
+      const shape = new THREE.Mesh(geometry.clone(), material.clone()); shape.renderOrder = 3;
+      if (curve.length === 1) shape.position.fromArray(curve[0]); group.add(shape);
+    }
+    geometry.dispose(); material.dispose();
+  };
+  for (const guide of guideDocument.guides) addCurve(surfaceGuides.curve(guide), editor.selection.entityIds.includes(guide.id) && !editor.editingIds.includes(guide.id), editor.editingIds.includes(guide.id) ? .22 : 1);
+  for (const candidate of editor.candidates) addCurve(surfaceGuides.curve(candidate), true);
+  for (const points of editor.drafts) {
+    if (editor.construction?.type === 'spline' && points.length >= 2) {
+      try { addCurve(surfaceGuides.curve(fromPositions(points, 'spline', false, createGuideId)), true); } catch { addCurve(points, false, .4); }
+    } else addCurve(points, true);
+  }
+  guideGroups.forEach((group, pane) => group.visible = $('guidesToggle').checked && !(state.view === 'overlay' && pane === 1));
+}
+function drawGuideChrome() {
+  const r = canvas.getBoundingClientRect(), dpr = renderer.getPixelRatio();
+  if (guideChrome.width !== Math.round(r.width * dpr) || guideChrome.height !== Math.round(r.height * dpr)) { guideChrome.width = Math.round(r.width * dpr); guideChrome.height = Math.round(r.height * dpr); }
+  const ctx = chromeContext; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, r.width, r.height);
+  if (!$('guidesToggle').checked) return;
+  const local = p => ({ x: p.x - r.left, y: p.y - r.top });
+  for (let pane = 0; pane < (state.view === 'split' && resultRender ? 2 : 1); pane++) {
+    ctx.save(); const w = state.view === 'split' ? r.width / 2 : r.width; ctx.beginPath(); ctx.rect(pane * w, 0, w, r.height); ctx.clip();
+    ctx.strokeStyle = css('--guide'); ctx.fillStyle = css('--bg'); ctx.lineWidth = 1.5;
+    const records = editor.editingIds.length ? editor.candidates : guideDocument.guides.filter(g => editor.selection.entityIds.includes(g.id));
+    if (editor.selection.model === 'object' && records.length) {
+      const boxes = records.map(g => surfaceGuides.bounds(g, pane)), left = Math.min(...boxes.map(b => b.left)) - r.left, top = Math.min(...boxes.map(b => b.top)) - r.top;
+      ctx.setLineDash([4, 4]); ctx.strokeRect(left - 5, top - 5, Math.max(10, Math.max(...boxes.map(b => b.right)) - r.left - left + 10), Math.max(10, Math.max(...boxes.map(b => b.bottom)) - r.top - top + 10)); ctx.setLineDash([]);
+    }
+    // Exactly these descriptions are consumed by SurfaceGuides.hit.
+    const handleSelection = editor.selection;
+    let handles = surfaceGuides.handles(handleSelection, pane);
+    if (editor.editingIds.length && handleSelection.model === 'direct') handles = editor.candidates.flatMap(g => g.points.filter(p => surfaceGuides.visible(p.position, pane)).map(p => ({ pointId: p.id, ...project(p.position, pane) })));
+    for (const h of handles) { const p = local(h); ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, Math.PI * 2); ctx.fillStyle = h.pointId === editor.selection.pointId ? css('--guide') : css('--bg'); ctx.fill(); ctx.stroke(); }
+    if (editor.selection.model === 'direct') {
+      const g = editor.candidates.find(g => g.id === editor.selection.activeEntityId) || guideDocument.get(editor.selection.activeEntityId);
+      if (g) {
+        const curve = surfaceGuides.curve(g), start = local(project(curve[0], pane));
+        if (surfaceGuides.visible(curve[0], pane)) { ctx.beginPath(); ctx.moveTo(start.x, start.y - 8); ctx.lineTo(start.x + 8, start.y); ctx.lineTo(start.x, start.y + 8); ctx.lineTo(start.x - 8, start.y); ctx.closePath(); ctx.stroke(); }
+        const index = Math.min(curve.length - 1, Math.max(1, Math.floor(curve.length / 5))), p = local(project(curve[index], pane)), q = local(project(curve[index - 1], pane)), angle = Math.atan2(p.y - q.y, p.x - q.x);
+        if (surfaceGuides.visible(curve[index], pane)) { ctx.beginPath(); ctx.moveTo(p.x - 7 * Math.cos(angle - .5), p.y - 7 * Math.sin(angle - .5)); ctx.lineTo(p.x, p.y); ctx.lineTo(p.x - 7 * Math.cos(angle + .5), p.y - 7 * Math.sin(angle + .5)); ctx.stroke(); }
       }
     }
-    tube.dispose(); material.dispose();
+    // Object-mode endpoints are small, fixed-pixel, directly editable targets.
+    if (handleSelection.model !== 'direct') for (const g of guideDocument.guides) if (!g.closed) for (const point of [g.points[0], g.points.at(-1)]) if (surfaceGuides.visible(point.position, pane)) { const p = local(project(point.position, pane)); ctx.fillStyle = css('--guide'); ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2); ctx.fill(); }
+    if (editor.construction?.pane === pane) for (const point of editor.construction.points) { const p = local(project(point.position, pane)); ctx.fillStyle = css('--guide'); ctx.fillRect(p.x - 3, p.y - 3, 6, 6); }
+    const a = editor.activity;
+    if (a?.kind === 'marquee' && a.pane === pane) { ctx.setLineDash([4, 3]); ctx.strokeRect(a.press[0] - r.left, a.press[1] - r.top, a.current[0] - a.press[0], a.current[1] - a.press[1]); }
+    const snap = guideSnap.marker;
+    if (snap?.pane === pane) { const p = local(project(snap.position, pane)); ctx.strokeStyle = css('--accent'); ctx.beginPath(); ctx.arc(p.x, p.y, 10, 0, Math.PI * 2); ctx.stroke(); }
+    ctx.restore();
   }
-  // A tap starts with a visible point, before there are enough samples for a line.
-  if (draft.length === 1) for (const group of guideGroups) {
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(.018, 8, 6), new THREE.MeshBasicMaterial({ color: color('--guide') }));
-    dot.position.fromArray(draft[0]); group.add(dot);
-  }
-  for (const group of guideGroups) group.visible = $('guidesToggle').checked;
 }
 function displaySettings() {
   for (const mesh of [sourceRender, resultRender]) if (mesh) {
@@ -148,12 +253,7 @@ function setView(view) {
   $('resultEmpty').style.display = overlay ? 'none' : '';
   if (changed) fit(false, true);
 }
-function setTool(tool) {
-  state.tool = tool; controls.enabled = tool === 'orbit' || state.space;
-  canvas.className = tool;
-  document.querySelectorAll('[data-tool]').forEach(button => { const active = button.dataset.tool === tool; button.classList.toggle('active', active); button.setAttribute('aria-pressed', active); });
-  $('canvasInstruction').textContent = tool === 'draw' ? 'Click and drag on either mesh to draw a guide. Hold Space to orbit.' : tool === 'erase' ? 'Click near a guide in either view to remove it.' : 'Drag to orbit. Right-drag to pan. Scroll to zoom.';
-}
+function setTool(tool) { editor.activate(tool); }
 function project(point, pane = 0) {
   const r = canvas.getBoundingClientRect(), width = state.view === 'split' ? r.width / 2 : r.width;
   camera.aspect = width / r.height; camera.updateProjectionMatrix(); camera.updateMatrixWorld();
@@ -179,7 +279,7 @@ function hit(x, y, requiredPane = null) {
 }
 function persist() {
   if (!state.mesh) return;
-  try { localStorage.setItem('retopo-1:' + state.mesh.id, JSON.stringify({ sourceSha256: state.mesh.sourceSha256, curves: state.guides, target: state.target, guideMode: state.guideMode })); } catch { /* Storage is optional. */ }
+  try { localStorage.setItem('retopo-1:' + state.mesh.id, JSON.stringify({ ...JSON.parse(encodeGuides(guideDocument, state.mesh.sourceSha256, state.guides)), target: state.target, guideMode: state.guideMode })); } catch { /* Storage is optional. */ }
 }
 function dirty() {
   state.dirty = state.resultKey !== keyFor();
@@ -187,75 +287,40 @@ function dirty() {
 }
 function updateGuideUI() {
   $('guideCount').textContent = state.guides.length;
-  $('undoButton').disabled = state.historyIndex === 0; $('redoButton').disabled = state.historyIndex >= state.history.length - 1; $('clearButton').disabled = !state.guides.length; $('exportGuides').disabled = !state.mesh;
+  $('undoButton').disabled = guideDocument.history.index === 0; $('redoButton').disabled = guideDocument.history.index >= guideDocument.history.length; $('clearButton').disabled = !state.guides.length; $('exportGuides').disabled = !state.mesh;
   const list = $('guideList'); list.replaceChildren();
   if (!state.guides.length) { const empty = document.createElement('div'); empty.className = 'empty-guides'; empty.innerHTML = 'Click and drag on either mesh.<br>Hold Space to turn the view.'; list.append(empty); }
   state.guides.forEach((curve, index) => {
-    const row = document.createElement('div'); row.className = 'guide-item' + (state.selected === index ? ' selected' : '');
+    const row = document.createElement('div'); row.className = 'guide-item' + (editor.selection.entityIds.includes(guideDocument.guides[index].id) ? ' selected' : '');
     const swatch = document.createElement('span'); swatch.className = 'line-swatch';
-    const name = document.createElement('span'); name.className = 'name'; name.textContent = `Guide ${index + 1}${samePoint(curve[0], curve.at(-1)) ? ' · closed' : ''}`;
-    name.onclick = () => { state.selected = index; updateGuideUI(); renderGuides(); };
-    const remove = document.createElement('button'); remove.textContent = '×'; remove.setAttribute('aria-label', 'Delete guide ' + (index + 1)); remove.onclick = () => commit(state.guides.filter((_, i) => i !== index));
+    const name = document.createElement('button'); name.className = 'name guide-name'; name.textContent = `Guide ${index + 1} · ${guideDocument.guides[index].type}${guideDocument.guides[index].closed ? ' · closed' : ''}`;
+    name.setAttribute('aria-pressed', editor.selection.entityIds.includes(guideDocument.guides[index].id)); name.onclick = event => editor.choose(guideDocument.guides[index].id, event.shiftKey);
+    const remove = document.createElement('button'); remove.textContent = '×'; remove.setAttribute('aria-label', 'Delete guide ' + (index + 1)); remove.onclick = () => editor.run(() => { editor.cancel(); editor.removeIds([guideDocument.guides[index].id]); });
     row.append(swatch, name, remove); list.append(row);
   });
   dirty(); renderGuides();
 }
-function commit(curves) {
-  if (curves.length > 48) return notify('Use at most48 curves in this demonstration.', true);
-  state.guides = clone(curves); state.history = state.history.slice(0, state.historyIndex + 1); state.history.push(clone(curves));
-  if (state.history.length > 51) state.history.shift(); state.historyIndex = state.history.length - 1; state.selected = -1; updateGuideUI(); persist();
-}
-function historyMove(delta) {
-  const next = state.historyIndex + delta; if (next < 0 || next >= state.history.length) return;
-  state.historyIndex = next; state.guides = clone(state.history[next]); state.selected = -1; updateGuideUI(); persist();
-}
-function finishPart(close = false) {
-  if (draft.length >= 2) {
-    if (close && draft.length >= 4 && !samePoint(draft[0], draft.at(-1))) {
-      if (new THREE.Vector3(...draft[0]).distanceTo(new THREE.Vector3(...draft.at(-1))) < .3) draft.push([...draft[0]]);
-      else notify('Finish near the starting point to close a stroke. This guide was kept open.');
-    }
-    const curve = draft; draft = []; commit([...state.guides, curve]);
-  } else { draft = []; renderGuides(); }
-}
-function samplePointer(x, y) {
-  const point = hit(x, y, drawingPane);
-  if (!point) { if (draft.length) finishPart(false); return; }
-  const p = point.point.toArray();
-  if (!draft.length || new THREE.Vector3(...p).distanceTo(new THREE.Vector3(...draft.at(-1))) > .001) draft.push(p);
-  if (draft.length >= 2046) finishPart(false);
-}
-canvas.addEventListener('pointerdown', event => {
-  if (event.button !== 0 || pointer !== null || state.busy || !state.mesh || state.space || state.tool === 'orbit') return;
-  const first = hit(event.clientX, event.clientY);
-  if (!first) { if (state.tool === 'draw') notify('Start on a mesh surface, then hold and drag to draw a guide.'); return; }
-  event.preventDefault(); canvas.focus();
-  drawingPane = paneAt(event.clientX);
-  if (state.tool === 'erase') {
-    let nearest = -1, distance = 18;
-    for (let i = 0; i < state.guides.length; i++) for (const point of state.guides[i]) { const p = project(point, drawingPane), d = Math.hypot(p.x - event.clientX, p.y - event.clientY); if (d < distance) { distance = d; nearest = i; } }
-    if (nearest >= 0) commit(state.guides.filter((_, i) => i !== nearest)); else notify('Click within18 pixels of a guide to erase it.');
-    return;
-  }
-  // Drawing is an explicit request to see the editable constraints, even if
-  // their display was hidden while inspecting the previous result.
-  $('guidesToggle').checked = true;
-  pointer = event.pointerId; canvas.setPointerCapture(pointer); previousScreen = [event.clientX, event.clientY]; draft = [first.point.toArray()]; renderGuides();
-}, { capture: true });
-canvas.addEventListener('pointermove', event => {
-  if (event.pointerId !== pointer || !previousScreen) return;
-  const dx = event.clientX - previousScreen[0], dy = event.clientY - previousScreen[1], steps = Math.min(200, Math.ceil(Math.hypot(dx, dy) / 2));
-  for (let i = 1; i <= steps; i++) samplePointer(previousScreen[0] + dx * i / steps, previousScreen[1] + dy * i / steps);
-  previousScreen = [event.clientX, event.clientY]; renderGuides();
+function commit(curves) { editor.replace(curves.map(c => fromPositions(c, 'polyline', false, createGuideId, { detectClosure: true }))); }
+function historyMove(delta) { editor.history(delta); }
+const pointerValue = e => Object.freeze({ pointerId: e.pointerId, pointerType: e.pointerType, button: e.button, buttons: e.buttons, x: e.clientX, y: e.clientY, shift: e.shiftKey, alt: e.altKey, time: e.timeStamp });
+canvas.addEventListener('pointerdown', e => { if (!controls.enabled && e.button === 0) { e.preventDefault(); canvas.focus(); editor.down(pointerValue(e)); } }, { capture: true });
+canvas.addEventListener('pointermove', e => {
+  if (controls.enabled) return;
+  const samples = e.getCoalescedEvents?.() || [];
+  for (const sample of samples) editor.move(pointerValue(sample));
+  editor.move(pointerValue(e));
 });
-function endPointer(event) {
-  if (event.pointerId !== pointer) return;
-  finishPart($('closedGuide').checked); if (canvas.hasPointerCapture(pointer)) canvas.releasePointerCapture(pointer); pointer = null; previousScreen = null;
-}
-canvas.addEventListener('pointerup', endPointer); canvas.addEventListener('pointercancel', endPointer);
+canvas.addEventListener('pointerup', e => editor.up(pointerValue(e)));
+canvas.addEventListener('pointercancel', e => editor.cancelPointer(e.pointerId));
+canvas.addEventListener('gotpointercapture', e => { const owner = captureOwners.get(e.pointerId); if (owner) owner.acknowledged = true; });
+canvas.addEventListener('lostpointercapture', e => {
+  const expected = expectedCaptureReleases.get(e.pointerId);
+  if (expected?.length) { expected.shift(); if (!expected.length) expectedCaptureReleases.delete(e.pointerId); return; }
+  editor.cancelPointer(e.pointerId);
+});
 canvas.addEventListener('wheel', event => {
   if (controls.enabled) return;
-  event.preventDefault(); const offset = camera.position.clone().sub(controls.target); offset.multiplyScalar(Math.exp(event.deltaY * .001)); offset.clampLength(controls.minDistance, controls.maxDistance); camera.position.copy(controls.target).add(offset); controls.update();
+  event.preventDefault(); if (editor.activity) return; const offset = camera.position.clone().sub(controls.target); offset.multiplyScalar(Math.exp(event.deltaY * .001)); offset.clampLength(controls.minDistance, controls.maxDistance); camera.position.copy(controls.target).add(offset); controls.update();
 }, { passive: false });
 canvas.addEventListener('contextmenu', event => event.preventDefault());
 
@@ -280,24 +345,15 @@ function updateDensity() {
   for (const [id, factor] of densityButtons) $(id).title = `Set the target to ${countText(Math.round(d.quads * factor))} quads`;
 }
 const densityButtons = [['halfButton', .5], ['sameButton', 1], ['doubleButton', 2]];
-function validateGuides(packet) {
-  if (!packet || packet.coordinateFrame !== 'source' || !Array.isArray(packet.curves) || packet.curves.length > 48) throw new Error('Use a source-space curves JSON file saved by this demo.');
-  let total = 0;
-  for (const curve of packet.curves) {
-    if (!Array.isArray(curve) || curve.length < 2 || curve.length > 2048) throw new Error('Each curve needs2–2048 XYZ positions.');
-    total += curve.length;
-    for (const point of curve) if (!Array.isArray(point) || point.length !== 3 || !point.every(x => typeof x === 'number' && Number.isFinite(x) && Math.abs(x) < 1e6)) throw new Error('The file contains invalid surface positions.');
-  }
-  if (total > 8192) throw new Error('The file contains too many curve samples.'); return packet.curves;
-}
 async function loadMesh(id) {
+  editor.run(() => { editor.cancel(); editor.select([]); }); ++importTicket;
   const version = ++state.version; if (state.job) await cancelGeneration();
   $('generateButton').disabled = true; const mesh = await api('/api/mesh/' + id); if (version !== state.version) return;
   state.mesh = mesh; state.density = sourceDensity(mesh); state.result = null; state.resultJob = null; state.resultKey = null; state.selected = -1;
-  state.guides = id === 'hexagon' ? [] : clone(mesh.presets[0]?.curves || []); state.target = mesh.target; state.guideMode = 2;
-  try { const saved = JSON.parse(localStorage.getItem('retopo-1:' + id)); if (saved?.sourceSha256 === mesh.sourceSha256) { state.guides = clone(validateGuides({ coordinateFrame: 'source', curves: saved.curves })); state.target = saved.target; state.guideMode = saved.guideMode === 1 && id === 'cylinder' ? 1 : 2; } } catch { /* Ignore incompatible saved data. */ }
-  state.history = [clone(state.guides)]; state.historyIndex = 0; draft = []; dispose(resultGroup); resultRender = null;
-  sourceRender = buildMesh(mesh, sourceGroup); $('sourceMeta').textContent = `${countText(mesh.faces.length)} triangles`; $('meshDescription').textContent = mesh.description;
+  let loadedGuides = (id === 'hexagon' ? [] : mesh.presets[0]?.curves || []).map(c => fromPositions(c, 'polyline', false, createGuideId, { detectClosure: true })); state.target = mesh.target; state.guideMode = 2;
+  try { const saved = JSON.parse(localStorage.getItem('retopo-1:' + id)); if (saved?.sourceSha256 === mesh.sourceSha256) { loadedGuides = decodeGuides({ ...saved, coordinateFrame: 'source' }, mesh.sourceSha256, createGuideId); state.target = saved.target; state.guideMode = saved.guideMode === 1 && id === 'cylinder' ? 1 : 2; } } catch { /* Ignore incompatible saved data. */ }
+  draft = []; dispose(resultGroup); resultRender = null;
+  sourceRender = buildMesh(mesh, sourceGroup); surfaceGuides.setSource(mesh); guideDocument.load(loadedGuides); $('sourceMeta').textContent = `${countText(mesh.faces.length)} triangles`; $('meshDescription').textContent = mesh.description;
   const credit = $('sourceCredit'); credit.replaceChildren(); const author = document.createElement(mesh.source.url ? 'a' : 'span'); author.textContent = mesh.source.author;
   if (mesh.source.url) { author.href = mesh.source.url; author.target = '_blank'; author.rel = 'noreferrer'; } const license = document.createElement('span'); license.textContent = mesh.source.license; credit.append(author, license);
   $('presetSelect').replaceChildren(...mesh.presets.map((p, i) => new Option(p.name, i))); $('modeControl').hidden = id !== 'cylinder'; $('guideMode').value = state.guideMode;
@@ -329,6 +385,7 @@ function updateMetrics() {
 }
 async function generate() {
   if (state.busy || !state.mesh) return;
+  if (editor.activity || editor.construction) return reportGuideError('Finish or cancel the current guide before generating.');
   const request = { meshId: state.mesh.id, curves: clone(state.guides), target: state.target, guideMode: state.guideMode };
   if (request.meshId === 'cylinder' && !request.curves.length) return notify('Draw a guide or load the example network for this curved mesh.', true);
   const token = ++generation; state.busy = true; $('processing').hidden = false; $('generateButton').disabled = true; $('notice').hidden = true;
@@ -375,7 +432,7 @@ for (const [id, factor] of densityButtons) $(id).onclick = () => {
 $('targetRange').oninput = event => setTarget(event.target.value); $('targetNumber').onchange = event => setTarget(event.target.value);
 $('guideMode').onchange = event => { state.guideMode = Number(event.target.value); dirty(); persist(); };
 for (const id of ['wireToggle', 'guidesToggle', 'creasesToggle']) $(id).onchange = () => { displaySettings(); if (state.view === 'overlay') guideGroups[1].visible = false; };
-$('fitButton').onclick = () => fit(); $('topButton').onclick = () => fit(true);
+$('fitButton').onclick = () => { editor.run(() => editor.cancel()); fit(); }; $('topButton').onclick = () => { editor.run(() => editor.cancel()); fit(true); };
 $('resetButton').onclick = () => $('resetDialog').showModal();
 $('confirmReset').onclick = async () => {
   if (state.job) await cancelGeneration();
@@ -385,9 +442,21 @@ $('confirmReset').onclick = async () => {
 };
 $('helpButton').onclick = () => $('helpDialog').showModal(); document.querySelectorAll('[data-close-dialog]').forEach(button => button.onclick = () => button.closest('dialog').close());
 $('themeButton').onclick = () => { const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = theme; localStorage.setItem('retopo-1:theme', theme); refreshColors(); };
-$('exportGuides').onclick = () => downloadBlob(`${state.mesh.id}-guides.json`, JSON.stringify({ coordinateFrame: 'source', curves: state.guides }, null, 2) + '\n');
+$('exportGuides').onclick = () => { if (editor.activity || editor.construction) return reportGuideError('Finish or cancel the current guide before saving.'); downloadBlob(`${state.mesh.id}-guides.json`, encodeGuides(guideDocument, state.mesh.sourceSha256, state.guides)); };
 $('importGuides').onclick = () => $('guideFile').click();
-$('guideFile').onchange = async event => { try { const file = event.target.files[0]; if (file) { if (file.size > 2e6) throw new Error('The guide file is too large.'); commit(validateGuides(JSON.parse(await file.text()))); notify('Guide file loaded. Generate to apply it to this source.'); } } catch (error) { notify(error.message, true); } event.target.value = ''; };
+$('guideFile').onchange = async event => {
+  const file = event.target.files[0], epoch = guideDocument.epoch, sourceGeneration = guideDocument.generation, ticket = ++importTicket; event.target.value = '';
+  if (!file) return;
+  try {
+    if (file.size > 2e6) throw new Error('The guide file is too large.');
+    const packet = JSON.parse(await file.text());
+    if (epoch !== guideDocument.epoch || ticket !== importTicket) return;
+    if (editor.activity || editor.construction) throw new Error('Finish or cancel the current guide, then load the file again.');
+    if (sourceGeneration !== guideDocument.generation) throw new Error('Guides changed while the file was loading. Load the file again to replace them.');
+    const guides = decodeGuides(packet, state.mesh.sourceSha256, createGuideId);
+    editor.replace(guides, 'Load guides');
+  } catch (error) { if (epoch === guideDocument.epoch && ticket === importTicket) reportGuideError(error.message); }
+};
 $('exportMesh').onclick = () => { if (!state.result) return; const a = document.createElement('a'); a.href = state.resultJob ? `/api/jobs/${state.resultJob}/output.obj` : `/assets/previews/${state.mesh.id}.obj`; a.download = `${state.mesh.id}-retopology.obj`; a.click(); };
 $('detailsButton').onclick = () => {
   const r = state.result, s = r.stats, content = $('detailsContent'); content.replaceChildren();
@@ -397,16 +466,30 @@ $('detailsButton').onclick = () => {
   const p = document.createElement('p'); p.textContent = 'Guide distance uses up to129 samples per curve, measured against actual output edges. Topology and sampled surface checks do not certify absence of every3D self intersection. The planar and terrain routes are engineering alternatives informed by the research; exact native equivalence is not claimed.';
   content.append(table, p); $('detailsDialog').showModal();
 };
+$('snapGuides').onchange = () => { guideSnap.clear(); };
+$('objectSelection').onclick = () => editor.model('object'); $('directSelection').onclick = () => editor.model('direct');
+$('deleteGuides').onclick = () => editor.remove(); $('reverseGuides').onclick = () => editor.reverse(); $('finishGuide').onclick = () => editor.finishConstruction();
 window.addEventListener('keydown', event => {
-  if (event.target.matches('input,select,textarea') || document.querySelector('dialog[open]')) return;
-  if (event.code === 'Space') { event.preventDefault(); state.space = true; controls.enabled = true; return; }
+  if (event.target.matches('input,select,textarea,[contenteditable]') || document.querySelector('dialog[open]')) return;
+  if (event.target.closest('button,a') && ['Enter', ' '].includes(event.key)) return;
+  if (event.key === 'Escape') { event.preventDefault(); if (!event.repeat) editor.escape(); return; }
+  if (event.code === 'Space') { event.preventDefault(); if (!event.repeat) editor.navigate(true); return; }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') { event.preventDefault(); historyMove(event.shiftKey ? 1 : -1); return; }
-  if (event.ctrlKey || event.metaKey || event.altKey) return;
-  if (event.key.toLowerCase() === 'g') setTool('draw'); if (event.key.toLowerCase() === 'o') setTool('orbit'); if (event.key.toLowerCase() === 'e') setTool('erase'); if (event.key.toLowerCase() === 'f') fit();
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'a' && state.tool === 'select') { event.preventDefault(); editor.run(() => { editor.cancel(); editor.select(guideDocument.guides.map(g => g.id)); }); return; }
+  if (event.ctrlKey || event.metaKey) return;
+  if (event.key === 'Enter') { event.preventDefault(); if (editor.construction) editor.finishConstruction(event.altKey); else if (state.tool === 'select') editor.model('direct'); return; }
+  if (event.key === 'Backspace' && editor.construction) { event.preventDefault(); editor.backspace(); return; }
+  if (['Delete', 'Backspace'].includes(event.key) && state.tool === 'select') { event.preventDefault(); editor.remove(); return; }
+  if (event.altKey) return;
+  const tools = { g: 'draw', p: 'polyline', s: 'spline', o: 'orbit', e: 'erase' }, key = event.key.toLowerCase();
+  if (tools[key]) setTool(tools[key]); if (key === 'v') editor.model('object'); if (key === 'a') editor.model('direct'); if (key === 'f') fit();
 });
-window.addEventListener('keyup', event => { if (event.code === 'Space') { state.space = false; controls.enabled = state.tool === 'orbit'; } });
-window.addEventListener('blur', () => { state.space = false; controls.enabled = state.tool === 'orbit'; });
-window.addEventListener('resize', () => fit());
+window.addEventListener('keyup', event => { if (event.code === 'Space') editor.navigate(false); });
+window.addEventListener('blur', () => editor.contextLost());
+document.addEventListener('visibilitychange', () => { if (document.hidden) editor.contextLost(); });
+document.addEventListener('focusin', event => { if (!event.target.closest('main,header,dialog')) editor.contextLost(); });
+window.addEventListener('resize', () => { if (editor.activity) editor.escape(); fit(); });
+window.addEventListener('pagehide', () => editor.contextLost());
 function render() {
   const r = canvas.getBoundingClientRect(), w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
   if (canvas.width !== Math.round(w * renderer.getPixelRatio()) || canvas.height !== Math.round(h * renderer.getPixelRatio())) renderer.setSize(w, h, false);
@@ -414,7 +497,7 @@ function render() {
   const half = state.view === 'split' ? w / 2 : w;
   camera.aspect = half / h; camera.updateProjectionMatrix(); renderer.setViewport(0, 0, half, h); renderer.setScissor(0, 0, half, h); renderer.clear(); renderer.render(scenes[0], camera);
   if (state.view === 'split') { renderer.setViewport(half, 0, half, h); renderer.setScissor(half, 0, half, h); renderer.clear(); renderer.render(scenes[1], camera); }
-  requestAnimationFrame(render);
+  drawGuideChrome(); requestAnimationFrame(render);
 }
 async function start() {
   try {
@@ -426,5 +509,5 @@ async function start() {
   } catch (error) { $('connection').className = 'badge error'; $('connection').textContent = 'Service unavailable'; notify(error.message + ' Start the app using start.cmd.', true, true); }
 }
 // Read-only inspection hooks support reproducible canvas interaction checks.
-window.retopoDemo = { getState: () => ({ meshId: state.mesh?.id, guides: clone(state.guides), target: state.target, mode: state.guideMode, resultFaces: state.result?.faces.length, busy: state.busy, dirty: state.dirty, view: state.view, tool: state.tool, draft: clone(draft), sourceStats: state.mesh?.stats }), projectPoint: point => project(point) };
+window.retopoDemo = { getState: () => ({ meshId: state.mesh?.id, guides: clone(state.guides), target: state.target, mode: state.guideMode, resultFaces: state.result?.faces.length, resultJob: state.resultJob, busy: state.busy, dirty: state.dirty, view: state.view, tool: state.tool, draft: clone(draft), sourceStats: state.mesh?.stats, guideDocument: clone(guideDocument.guides), guideHistory: guideDocument.history, guideRevisions: Object.fromEntries(guideDocument.guides.map(g => [g.id, guideDocument.revision(g.id)])), interaction: editor.observe(), guideErrors: clone(guideErrors) }), projectPoint: (point, pane = 0) => project(point, pane) };
 renderer.setClearColor(color('--bg')); render(); start();

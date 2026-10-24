@@ -1,0 +1,20 @@
+{
+  "id": "31fc32bd9ba04a58bd6c9cdbfd795c8c",
+  "meshId": "hexagon",
+  "target": 600,
+  "state": "complete",
+  "stage": "Mesh ready",
+  "createdAt": 1792875169.5822163,
+  "startedAt": 1792875169.5832145,
+  "finishedAt": 1792875190.1536114,
+  "actualExitCode": 0,
+  "resultUrl": "/api/jobs/31fc32bd9ba04a58bd6c9cdbfd795c8c/mesh.json",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\31fc32bd9ba04a58bd6c9cdbfd795c8c"
+  ]
+}

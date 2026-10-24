@@ -1,0 +1,95 @@
+TAP version 13
+# Subtest: atomic stale multi-edit leaves all values, revisions and history untouched
+ok 1 - atomic stale multi-edit leaves all values, revisions and history untouched
+  ---
+  duration_ms: 5.3262
+  ...
+# Subtest: undo/redo restore authored IDs and values while revisions keep advancing
+ok 2 - undo/redo restore authored IDs and values while revisions keep advancing
+  ---
+  duration_ms: 1.6377
+  ...
+# Subtest: equal results preserve the redo branch and publish nothing
+ok 3 - equal results preserve the redo branch and publish nothing
+  ---
+  duration_ms: 0.3652
+  ...
+# Subtest: load starts an epoch and old authorization cannot modify it
+ok 4 - load starts an epoch and old authorization cannot modify it
+  ---
+  duration_ms: 0.322
+  ...
+# Subtest: invalid second target and duplicate identities cannot partially install
+ok 5 - invalid second target and duplicate identities cannot partially install
+  ---
+  duration_ms: 0.3675
+  ...
+# Subtest: closed guides have distinct authored points and derive a closing sample only
+ok 6 - closed guides have distinct authored points and derive a closing sample only
+  ---
+  duration_ms: 0.3055
+  ...
+# Subtest: surface spline interpolates fit points, handles coincidences and reverses its locus
+ok 7 - surface spline interpolates fit points, handles coincidences and reverses its locus
+  ---
+  duration_ms: 2.6337
+  ...
+# Subtest: native write/read/write preserves authored bytes and rejects foreign sources/versions
+ok 8 - native write/read/write preserves authored bytes and rejects foreign sources/versions
+  ---
+  duration_ms: 2.873
+  ...
+# Subtest: pointer cancellation discards all staged fragments and releases capture
+ok 9 - pointer cancellation discards all staged fragments and releases capture
+  ---
+  duration_ms: 1.3305
+  ...
+# Subtest: release movement is included and all freehand fragments form one undo unit
+ok 10 - release movement is included and all freehand fragments form one undo unit
+  ---
+  duration_ms: 1.249
+  ...
+# Subtest: temporary navigation preserves pointer-free construction; Escape discards it
+ok 11 - temporary navigation preserves pointer-free construction; Escape discards it
+  ---
+  duration_ms: 0.5231
+  ...
+# Subtest: snapping uses acquire/release hysteresis, invalidates stamps and honors Alt bypass
+ok 12 - snapping uses acquire/release hysteresis, invalidates stamps and honors Alt bypass
+  ---
+  duration_ms: 0.5659
+  ...
+# Subtest: guide records reject sparse points, accessors and unadvertised fields
+ok 13 - guide records reject sparse points, accessors and unadvertised fields
+  ---
+  duration_ms: 0.3061
+  ...
+# Subtest: open guide endpoint coincidence does not silently become authored closure
+ok 14 - open guide endpoint coincidence does not silently become authored closure
+  ---
+  duration_ms: 0.1132
+  ...
+# Subtest: editing an owned direct point retains the other selected guide IDs
+ok 15 - editing an owned direct point retains the other selected guide IDs
+  ---
+  duration_ms: 1.1222
+  ...
+# Subtest: module imports obey the guide subsystem dependency boundaries
+ok 16 - module imports obey the guide subsystem dependency boundaries
+  ---
+  duration_ms: 1.8309
+  ...
+# Subtest: rejection is reported only after the controller gate closes and native capture releases
+ok 17 - rejection is reported only after the controller gate closes and native capture releases
+  ---
+  duration_ms: 0.2175
+  ...
+1..17
+# tests 17
+# suites 0
+# pass 17
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 107.8898

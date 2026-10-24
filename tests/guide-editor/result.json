@@ -1,0 +1,263 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Native capture is held during a freehand gesture",
+      "passed": true
+    },
+    {
+      "name": "Escape releases native capture before physical pointer-up",
+      "passed": true
+    },
+    {
+      "name": "Escape discards provisional geometry without history",
+      "passed": true
+    },
+    {
+      "name": "Polyline creates only its accepted click vertices",
+      "passed": true
+    },
+    {
+      "name": "Polyline creation has one history entry",
+      "passed": true
+    },
+    {
+      "name": "Body click enters Object Selection",
+      "passed": true
+    },
+    {
+      "name": "Selection creates no document history",
+      "passed": true
+    },
+    {
+      "name": "Double activation enters Direct Selection",
+      "passed": true
+    },
+    {
+      "name": "Point drag leaves accepted document unchanged while held",
+      "passed": true
+    },
+    {
+      "name": "Point drag exposes a separate edit candidate",
+      "passed": true
+    },
+    {
+      "name": "Point editing preserves guide and point identities",
+      "passed": true
+    },
+    {
+      "name": "Point drag reaches the surface point at release",
+      "passed": true
+    },
+    {
+      "name": "Point gesture creates exactly one undo unit",
+      "passed": true
+    },
+    {
+      "name": "Undo restores exact authored guide values",
+      "passed": true
+    },
+    {
+      "name": "Redo restores values with a newer runtime revision",
+      "passed": true
+    },
+    {
+      "name": "First Escape cancels the point gesture and retains Direct Selection",
+      "passed": true
+    },
+    {
+      "name": "Ready Escape returns to Object Selection",
+      "passed": true
+    },
+    {
+      "name": "Unselected endpoint selects and edits in one drag",
+      "passed": true
+    },
+    {
+      "name": "Temporary navigation preserves unfinished construction identity",
+      "passed": true
+    },
+    {
+      "name": "Spline creates a distinct authored guide type",
+      "passed": true
+    },
+    {
+      "name": "Spline derives dense surface samples without authoring extra fit points",
+      "passed": true
+    },
+    {
+      "name": "Right-pane spline fit-point editing uses the original source surface",
+      "passed": true
+    },
+    {
+      "name": "Off-surface candidate is visibly invalid while held",
+      "passed": true
+    },
+    {
+      "name": "Invalid release preserves exact accepted guides and history",
+      "passed": true
+    },
+    {
+      "name": "Rejected submitted edit produces one incident and one visible dialog",
+      "passed": true
+    },
+    {
+      "name": "Shift selection retains multiple guide identities",
+      "passed": true
+    },
+    {
+      "name": "Multi-guide body drag changes all guides in one undo step",
+      "passed": true
+    },
+    {
+      "name": "One undo restores the complete multi-guide move",
+      "passed": true
+    },
+    {
+      "name": "Marquee fully contains both guides left-to-right",
+      "passed": true
+    },
+    {
+      "name": "Marquee fully contains both guides right-to-left",
+      "passed": true
+    },
+    {
+      "name": "Marquee changes no document history",
+      "passed": true
+    },
+    {
+      "name": "Direct Selection retains multi-selection and edits its active owner",
+      "passed": true
+    },
+    {
+      "name": "Object Selection restores the retained guide membership",
+      "passed": true
+    },
+    {
+      "name": "Reverse preserves identities and reverses every selected authored point sequence",
+      "passed": true
+    },
+    {
+      "name": "Undo Reverse restores exact authored values",
+      "passed": true
+    },
+    {
+      "name": "Direct Delete removes a selected point while preserving its owning guide",
+      "passed": true
+    },
+    {
+      "name": "Undo point deletion restores the same point identity",
+      "passed": true
+    },
+    {
+      "name": "Point snapping commits the exact indicated source point",
+      "passed": true
+    },
+    {
+      "name": "Alt bypasses soft snapping through the final release sample",
+      "passed": true
+    },
+    {
+      "name": "Saved guide file carries authored records and source identity",
+      "passed": true
+    },
+    {
+      "name": "Guide import restores exact authored identities and spline parameters",
+      "passed": true
+    },
+    {
+      "name": "Local persistence restores both guide types exactly after reload",
+      "passed": true
+    },
+    {
+      "name": "Selection controls remain accessible in narrow layout",
+      "passed": true
+    },
+    {
+      "name": "Native touch cancellation discards the guide and releases ownership",
+      "passed": true
+    },
+    {
+      "name": "Pointer-up contributes movement even without a final pointer-move event",
+      "passed": true
+    },
+    {
+      "name": "Crossing empty space does not commit a partial stroke",
+      "passed": true
+    },
+    {
+      "name": "One stroke across the hole creates two surface guides in one undo unit",
+      "passed": true
+    },
+    {
+      "name": "One undo removes every fragment of a split stroke",
+      "passed": true
+    },
+    {
+      "name": "Window context loss discards unfinished work and releases native capture",
+      "passed": true
+    },
+    {
+      "name": "A polyline through the hole is rejected with its accepted clicks retained for repair",
+      "passed": true
+    },
+    {
+      "name": "Closed freehand guide uses explicit authored closure",
+      "passed": true
+    },
+    {
+      "name": "Real worker solve accepts the new guide document adapter",
+      "passed": true
+    },
+    {
+      "name": "Worker input contains exactly the editor-derived freehand samples",
+      "passed": true
+    },
+    {
+      "name": "Closed Spline retains eight authored fit points with no closing duplicate",
+      "passed": true
+    },
+    {
+      "name": "A real worker solve succeeds from the authored closed Spline",
+      "passed": true
+    },
+    {
+      "name": "Spline worker input matches the actual projected and sampled guide",
+      "passed": true
+    },
+    {
+      "name": "Existing terrain source, preset guides and preview still load",
+      "passed": true
+    },
+    {
+      "name": "Existing cylinder source, preset guides and preview still load",
+      "passed": true
+    },
+    {
+      "name": "Existing hexagon source, preset guides and preview still load",
+      "passed": true
+    },
+    {
+      "name": "No browser JavaScript errors",
+      "passed": true
+    }
+  ],
+  "workerJobs": [
+    "31fc32bd9ba04a58bd6c9cdbfd795c8c",
+    "c2bf246074f345a98b0146b3460c5430"
+  ],
+  "browserErrors": [],
+  "sourceHashes": {
+    "app.js": "34559b4055150f8e158957ce8fc412e437537b14fba7d736830701ad0232ece1",
+    "index.html": "59d61036d8639e2868552ea797cd405625941e5d34ee3ccb0e13c3b775af8127",
+    "server.py": "1fe8ce5eee3f17fe241081de3aa76ddf7aa33403b473dbc54d30ce2c3e516b93",
+    "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
+    "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
+    "src/geometry/GuideCurve.js": "7a0c8c5154baa78ef23ecc4307984545c19c4db54e622901ea109a85960cc339",
+    "src/io/GuideSerializer.js": "d094b9e1f27fd0e626e4c8122ca9d3e6c8a27caeba480db1d0a02bdd8083e3e1",
+    "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
+    "src/view/GuideController.js": "77151edea9e23dbb62b82f89c1a3d9dd29cc8515002212106aab2b1ef06277ee",
+    "src/view/SurfaceGuides.js": "1140e110e104fc00736a96575059797d325f71724635fc2c1102fc8cd12d5308"
+  },
+  "scope": "Real Chromium pointer/keyboard/touch, native capture before pointer-up, surface editing, authored IO and real freehand and Spline worker solves."
+}

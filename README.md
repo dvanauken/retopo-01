@@ -1,5 +1,7 @@
 # Retopo1
 
+The guide editor now supports freehand and clicked Polylines, smooth Splines, whole-guide and point selection, surface-constrained editing, snapping, atomic undo/redo, and source-bound guide files. See [GUIDE_EDITOR.md](GUIDE_EDITOR.md) for controls, the Draw 2D requirements mapping, surface policies, and verification. This is the guide-specific adaptation of Draw 2D draft.21, not full Base 2D conformance.
+
 Current quality repair: the exact user-rejected620-face stroke is rebuilt as480coherent quads, with minimum angle52° and worst edge ratio3.01. See [QUALITY_REPAIR.md](QUALITY_REPAIR.md) for actual before/after data, screenshots, reproduction and remaining scope. Use `http://localhost:8741` if that is the origin of your existing browser session; refresh and Generate again to retain its saved curves.
 
 A local HTML canvas app for exploring retopology with user-drawn surface curves. The viewport uses WebGL through a vendored Three.js renderer. A local Python worker actually reconstructs and validates the mesh; drawing a guide does not just recolor an existing grid.
@@ -25,7 +27,7 @@ This machine already has the qualified64-bit Windows Python numerical environmen
 4. Select a target density and press **Generate retopology**. **Half / Same / Double** set the target from the source density, as ZRemesher does; the readout compares source and target spacing (`sqrt(area / quads)`, counting two source triangles as one quad) and warns when the target is more than 1.5× finer than the source. The displayed result is the actual new geometry from your submitted curves. Changed inputs mark the previous result **Needs update** until generated again.
 5. Compare **Split** and **Overlay**, toggle guides/mesh/sharp edges, and inspect **Details**. **Export OBJ** exports real polygon faces; **Save guides** exports source-frame curve JSON. **Load guides** restores it for the matching source mesh.
 
-Undo/redo: Ctrl+Z / Ctrl+Shift+Z. G draws; O orbits; E erases by clicking near a guide; F fits the model. Local browser storage preserves guides/settings per source hash. Source and result views share the camera.
+Undo/redo: Ctrl+Z / Ctrl+Shift+Z. G draws freehand; P/S construct Polyline/Spline guides by clicking, then Enter; Alt+Enter closes. V selects whole guides; A edits points; double-click also enters point editing. Shift adds guides, empty-space drag selects by containment, and Escape cancels. O orbits; E erases by clicking near a guide; F fits the model. Local browser storage preserves guides/settings per source hash. Source and result views share the camera.
 
 ## Included meshes
 
