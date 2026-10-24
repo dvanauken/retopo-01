@@ -1,0 +1,47 @@
+[
+  {
+    "id": "hexagon",
+    "title": "Hollow hexagon",
+    "description": "An online hard-surface mesh with a through-hole, angled sides and sharp corners. Draw on its top or turn it to reach another face.",
+    "source": {
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "url": "https://kenney.nl/assets/prototype-kit",
+      "asset": "shape-hollow-hexagon.obj"
+    },
+    "surface": "closed",
+    "featurePolicy": "preserve-sharp",
+    "target": 600,
+    "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc"
+  },
+  {
+    "id": "terrain",
+    "title": "Terrain patch",
+    "description": "A smooth open heightfield for ridges and contour guides. This slower example uses the measured enclosure route.",
+    "source": {
+      "author": "Workbench research fixture",
+      "license": "Original synthetic geometry",
+      "url": "",
+      "asset": "source.obj"
+    },
+    "surface": "heightfield",
+    "featurePolicy": "preserve-sharp",
+    "target": 400,
+    "sourceSha256": "aa2b41aeda52711c1bae37cebbec7f0ff3e52c5bb5b93899c757cf4ee19f9070"
+  },
+  {
+    "id": "cylinder",
+    "title": "Curved cylinder",
+    "description": "A curved closed mesh for comparing flexible direction guidance and preserved guide paths. This slower example uses the recovered field route.",
+    "source": {
+      "author": "Workbench research fixture",
+      "license": "Original synthetic geometry",
+      "url": "",
+      "asset": "source.obj"
+    },
+    "surface": "closed",
+    "featurePolicy": "native-qualified",
+    "target": 400,
+    "sourceSha256": "5e4e4e7b07f21e7078018f867520a9a0775b629a15225def2db99b9910bae4ef"
+  }
+]

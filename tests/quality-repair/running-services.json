@@ -1,0 +1,24 @@
+{
+  "services": [
+    {
+      "url": "http://localhost:8741",
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 3
+      },
+      "servedCurrentApp": true
+    },
+    {
+      "url": "http://127.0.0.1:8742",
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 3
+      },
+      "servedCurrentApp": true
+    }
+  ],
+  "servicesRestarted": false,
+  "userBrowserStorageModified": false
+}

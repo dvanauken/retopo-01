@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "project": "C:\\dbva\\code\\retopo-1",
+  "url": "http://127.0.0.1:8742",
+  "pid": 7364,
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\server.py",
+    "--port",
+    "8742"
+  ],
+  "window": "Hidden background local service",
+  "verificationChecks": 37,
+  "source": "https://kenney.nl/assets/prototype-kit",
+  "scope": "Actual local health request returned200 after startup. This record is a launch observation, not a promise that the process will remain running indefinitely."
+}

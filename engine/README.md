@@ -1,0 +1,15 @@
+# Guided retopology reference package
+
+Run from this package root on64-bit Windows, using the recorded Python environment/dependencies in `requirements-reference.txt`. The sparse backend is independently compiled SuiteSparse5.6.0; no ZBrush executable, Maxon DLL, captured intermediate mesh or final native mesh is included.
+
+```powershell
+python targets/zbrush/clone/retopo.py --input examples/solid/source.obj --curves examples/solid/curves.json --target 400 --guide-mode 2 --feature-policy preserve-sharp --output my-solid-output
+python targets/zbrush/clone/retopo.py --input examples/terrain-network/source.obj --curves examples/terrain-network/curves.json --target 400 --guide-mode 2 --surface heightfield --feature-policy preserve-sharp --output my-terrain-output
+python -m unittest discover -v -s targets/zbrush/clone -p test_contract.py
+```
+
+Every output directory must be new. Inputs are geometry-only triangle OBJ and JSON with exactly `coordinateFrame: "source"` and `curves`. Curves share source units; repeating the first point closes a curve. Mode1 and2 on the recovered closed-surface path are explicit semantic modes, not an invented native0â€“100 UI conversion. Preserve-sharp and the heightfield route require mode2. Auto chooses the engineering constrained planar-chart backend for eligible sharp polyhedra; otherwise it uses the recovered field backend with explicit engineering feature policies. `--solid-method field` forces that recovered route and can fail geometry validation on acute junctions. A known wedge failure is retained rather than promoted. Planar charts support constrained crossing/closed curves and holes; this is an engineering implementation, not recovered native field/parameterization math. The heightfield route currently requires one upward oriented heightfield disk and a convex XY boundary. It uses temporary closed support geometry, then classifies/crops and measures the visible result; this is an engineering route, not recovered native open-surface processing.
+
+`result.json` records policy choices, source/backend hashes, coordinate normalization, counts and failure tracebacks. `output.obj`/`output.npz` contain actual geometry; `features.json`, when present, records binary geometric crease intent and the bounded low-slot face encoding. Arbitrary source tags, partial strengths, groups and materials are not silently transferred. Inspect the geometry and validation rather than infer success from an existing file. A passing constructor is not a claim of arbitrary native equivalence.
+
+This is a reference implementation foundation rather than a finished application UI. Unsupported branches fail explicitly. Full canonical research, native observations, limitations and deferred edge TODOs remain in the originating workbench under targets/zbrush/understanding and REVIEW_HANDOFF.md. This package contains code, backend build/source dependencies and original examples; it intentionally does not mirror the raw native evidence tree. Third-party license texts are retained in `licenses/`; their original paths and hashes are recorded by the package manifest.

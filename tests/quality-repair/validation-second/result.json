@@ -1,0 +1,636 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "User-rejected 620-face output fails the new quality gate",
+      "passed": true
+    },
+    {
+      "name": "baseline actually completes through the worker quality gate",
+      "passed": true
+    },
+    {
+      "name": "baseline uses the exact requested guide coordinates",
+      "passed": true
+    },
+    {
+      "name": "baseline uses direct structured quads rather than triangle pairing",
+      "passed": true
+    },
+    {
+      "name": "baseline retains the measured physical surface",
+      "passed": true
+    },
+    {
+      "name": "baseline exported quads pass shape, density and continuous-grid valence checks",
+      "passed": true
+    },
+    {
+      "name": "baseline preserves the closed connected through-hole",
+      "passed": true
+    },
+    {
+      "name": "user actually completes through the worker quality gate",
+      "passed": true
+    },
+    {
+      "name": "user uses the exact requested guide coordinates",
+      "passed": true
+    },
+    {
+      "name": "user uses direct structured quads rather than triangle pairing",
+      "passed": true
+    },
+    {
+      "name": "user retains the measured physical surface",
+      "passed": true
+    },
+    {
+      "name": "user exported quads pass shape, density and continuous-grid valence checks",
+      "passed": true
+    },
+    {
+      "name": "user preserves the closed connected through-hole",
+      "passed": true
+    },
+    {
+      "name": "user guide path is a real ordered continuous cycle of output edges",
+      "passed": true
+    },
+    {
+      "name": "The actual rejected stroke receives a material shape improvement",
+      "passed": true
+    },
+    {
+      "name": "User target 450 stays within 10 percent instead of overshooting by 38 percent",
+      "passed": true
+    },
+    {
+      "name": "The coherent guide cycle also fits the actual user stroke",
+      "passed": true
+    },
+    {
+      "name": "low-density actually completes through the worker quality gate",
+      "passed": true
+    },
+    {
+      "name": "low-density uses the exact requested guide coordinates",
+      "passed": true
+    },
+    {
+      "name": "low-density uses direct structured quads rather than triangle pairing",
+      "passed": true
+    },
+    {
+      "name": "low-density retains the measured physical surface",
+      "passed": true
+    },
+    {
+      "name": "low-density exported quads pass shape, density and continuous-grid valence checks",
+      "passed": true
+    },
+    {
+      "name": "low-density preserves the closed connected through-hole",
+      "passed": true
+    },
+    {
+      "name": "low-density guide path is a real ordered continuous cycle of output edges",
+      "passed": true
+    },
+    {
+      "name": "high-density actually completes through the worker quality gate",
+      "passed": true
+    },
+    {
+      "name": "high-density uses the exact requested guide coordinates",
+      "passed": true
+    },
+    {
+      "name": "high-density uses direct structured quads rather than triangle pairing",
+      "passed": true
+    },
+    {
+      "name": "high-density retains the measured physical surface",
+      "passed": true
+    },
+    {
+      "name": "high-density exported quads pass shape, density and continuous-grid valence checks",
+      "passed": true
+    },
+    {
+      "name": "high-density preserves the closed connected through-hole",
+      "passed": true
+    },
+    {
+      "name": "high-density guide path is a real ordered continuous cycle of output edges",
+      "passed": true
+    },
+    {
+      "name": "loop actually completes through the worker quality gate",
+      "passed": true
+    },
+    {
+      "name": "loop uses the exact requested guide coordinates",
+      "passed": true
+    },
+    {
+      "name": "loop uses direct structured quads rather than triangle pairing",
+      "passed": true
+    },
+    {
+      "name": "loop retains the measured physical surface",
+      "passed": true
+    },
+    {
+      "name": "loop exported quads pass shape, density and continuous-grid valence checks",
+      "passed": true
+    },
+    {
+      "name": "loop preserves the closed connected through-hole",
+      "passed": true
+    },
+    {
+      "name": "loop guide path is a real ordered continuous cycle of output edges",
+      "passed": true
+    },
+    {
+      "name": "crossings actually completes through the worker quality gate",
+      "passed": true
+    },
+    {
+      "name": "crossings uses the exact requested guide coordinates",
+      "passed": true
+    },
+    {
+      "name": "crossings uses direct structured quads rather than triangle pairing",
+      "passed": true
+    },
+    {
+      "name": "crossings retains the measured physical surface",
+      "passed": true
+    },
+    {
+      "name": "crossings exported quads pass shape, density and continuous-grid valence checks",
+      "passed": true
+    },
+    {
+      "name": "crossings preserves the closed connected through-hole",
+      "passed": true
+    },
+    {
+      "name": "crossings guide path is a real ordered continuous cycle of output edges",
+      "passed": true
+    },
+    {
+      "name": "A rotated, scaled, translated octagonal annulus is actually reconstructed from new source geometry",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "name": "baseline",
+      "job": "2fa3b6357367423d889cea86848d7355",
+      "target": 600,
+      "faces": 624,
+      "quality": {
+        "quadOnly": true,
+        "faces": 624,
+        "minimumAngleDegrees": 59.999968292255936,
+        "angleP05Degrees": 74.99999806315417,
+        "maximumAngleDegrees": 120.00003170774411,
+        "edgeRatioP95": 2.0392307300220427,
+        "edgeRatioMax": 2.0392308018383227,
+        "scaledJacobianMin": 0.8660251270820393,
+        "scaledJacobianP05": 0.8660255667126164,
+        "edgeLengthCV": 0.26710428043547807,
+        "adjacentAreaRatioP95": 1.3277642029243086,
+        "valence4Fraction": 1.0,
+        "irregularVertices": 0,
+        "targetRelativeError": 0.04,
+        "passed": true,
+        "failures": [],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "guidePaths": [],
+      "outputSha256": "8e3e88c618bff7913a3ff6b39ebe83c4a8b8682d3cdda2ae33b053799813ad02",
+      "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "settingsSha256": "015ec7576ee9ca0c937893f5442deaef66b562d978d2ee40076561d8dcadd8d4",
+      "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e"
+    },
+    {
+      "name": "user",
+      "job": "0ab7ac79b053468ea945231a3939d505",
+      "target": 450,
+      "faces": 480,
+      "quality": {
+        "quadOnly": true,
+        "faces": 480,
+        "minimumAngleDegrees": 52.199447614157165,
+        "angleP05Degrees": 74.99999255820303,
+        "maximumAngleDegrees": 127.80055238584286,
+        "edgeRatioP95": 2.913186757174347,
+        "edgeRatioMax": 3.0106310627256283,
+        "scaledJacobianMin": 0.7901491033316687,
+        "scaledJacobianP05": 0.8660256697593491,
+        "edgeLengthCV": 0.35363286748038847,
+        "adjacentAreaRatioP95": 1.8968060041775843,
+        "valence4Fraction": 1.0,
+        "irregularVertices": 0,
+        "targetRelativeError": 0.06666666666666667,
+        "passed": true,
+        "failures": [],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "guidePaths": [
+        {
+          "curve": 0,
+          "surface": "top",
+          "vertexIds": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            48
+          ],
+          "closedCycle": true,
+          "samples": 129,
+          "p95Distance": 0.019503432901006715,
+          "maxDistance": 0.026739105089470513,
+          "p95TangentAngleDegrees": 16.206871174518742
+        }
+      ],
+      "outputSha256": "9182e102963ffc13e63de3c8e2cc6820849be98259b4e6608c1f900b00c3ed9b",
+      "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "settingsSha256": "4e0f957e50d0d7e8a12772a0b8a2446fe001223ae6fec39669d9afae7da35ff0",
+      "curvesSha256": "6f26b1d0e2ac4c11e1400bd32534053ecfcbcecd6d48e5346529d02efa40b38a"
+    },
+    {
+      "name": "low-density",
+      "job": "69a22e2f8bcd4e2e8cf456db380bc0c9",
+      "target": 150,
+      "faces": 168,
+      "quality": {
+        "quadOnly": true,
+        "faces": 168,
+        "minimumAngleDegrees": 51.5620155129572,
+        "angleP05Degrees": 60.000008011370774,
+        "maximumAngleDegrees": 128.4379918118982,
+        "edgeRatioP95": 2.00000023092587,
+        "edgeRatioMax": 3.500620787164142,
+        "scaledJacobianMin": 0.7832814130289758,
+        "scaledJacobianP05": 0.8660253614876712,
+        "edgeLengthCV": 0.29823454066310406,
+        "adjacentAreaRatioP95": 1.8698964121668042,
+        "valence4Fraction": 1.0,
+        "irregularVertices": 0,
+        "targetRelativeError": 0.12,
+        "passed": true,
+        "failures": [],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "guidePaths": [
+        {
+          "curve": 0,
+          "surface": "top",
+          "vertexIds": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            12
+          ],
+          "closedCycle": true,
+          "samples": 129,
+          "p95Distance": 0.049933826077689744,
+          "maxDistance": 0.06158380951487663,
+          "p95TangentAngleDegrees": 24.171955531133424
+        }
+      ],
+      "outputSha256": "17fefe06672ff7c5b5c4a7e9c7eba731935bb955e7230346aab4533f42a6ad04",
+      "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "settingsSha256": "a0a4d6cb2e2eafa57ad8868f52d40e95c7053aa3a37e02226d230f27acd52d39",
+      "curvesSha256": "6f26b1d0e2ac4c11e1400bd32534053ecfcbcecd6d48e5346529d02efa40b38a"
+    },
+    {
+      "name": "high-density",
+      "job": "b4199abe6fe3419c9fa22147ffb66c1e",
+      "target": 1200,
+      "faces": 1200,
+      "quality": {
+        "quadOnly": true,
+        "faces": 1200,
+        "minimumAngleDegrees": 54.56700641327693,
+        "angleP05Degrees": 73.51665482115895,
+        "maximumAngleDegrees": 125.43299358672311,
+        "edgeRatioP95": 1.7795057681669602,
+        "edgeRatioMax": 3.745791122840419,
+        "scaledJacobianMin": 0.8147940834357708,
+        "scaledJacobianP05": 0.9510564376939443,
+        "edgeLengthCV": 0.34240490268398444,
+        "adjacentAreaRatioP95": 1.2916979383898022,
+        "valence4Fraction": 1.0,
+        "irregularVertices": 0,
+        "targetRelativeError": 0.0,
+        "passed": true,
+        "failures": [],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "guidePaths": [
+        {
+          "curve": 0,
+          "surface": "top",
+          "vertexIds": [
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            90
+          ],
+          "closedCycle": true,
+          "samples": 129,
+          "p95Distance": 0.013910817134458561,
+          "maxDistance": 0.02377890808803051,
+          "p95TangentAngleDegrees": 11.855995270199255
+        }
+      ],
+      "outputSha256": "e28c165628fd103f4c49d54318eda23c024de5ec3714731168b5d0693da107d1",
+      "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "settingsSha256": "557f5b08a21e9c03f4a347b97e729acbb4b2e3900a4c22531ee37fd84ef9a140",
+      "curvesSha256": "6f26b1d0e2ac4c11e1400bd32534053ecfcbcecd6d48e5346529d02efa40b38a"
+    },
+    {
+      "name": "loop",
+      "job": "be7c02fe16ef403f94b693228490ae31",
+      "target": 600,
+      "faces": 624,
+      "quality": {
+        "quadOnly": true,
+        "faces": 624,
+        "minimumAngleDegrees": 59.999968292255936,
+        "angleP05Degrees": 75.00000559370525,
+        "maximumAngleDegrees": 120.00003302657083,
+        "edgeRatioP95": 2.039230791065876,
+        "edgeRatioMax": 2.3876807705285286,
+        "scaledJacobianMin": 0.866025115573094,
+        "scaledJacobianP05": 0.965925753628184,
+        "edgeLengthCV": 0.29574616874107973,
+        "adjacentAreaRatioP95": 1.3708988908600428,
+        "valence4Fraction": 1.0,
+        "irregularVertices": 0,
+        "targetRelativeError": 0.04,
+        "passed": true,
+        "failures": [],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "guidePaths": [
+        {
+          "curve": 0,
+          "surface": "top",
+          "vertexIds": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            48
+          ],
+          "closedCycle": true,
+          "samples": 97,
+          "p95Distance": 0.005270183996256606,
+          "maxDistance": 0.005270183996258756,
+          "p95TangentAngleDegrees": 7.499999937660657
+        }
+      ],
+      "outputSha256": "0f29e6d46ae6e2e0ead3fa4f476be497479d4b08712f381591bca7cdf414f2f9",
+      "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "settingsSha256": "ec26b4357a93b5c82d9bada5164214de82488153376f43bd0a7343283864ddcb",
+      "curvesSha256": "b0c0626ee5f5e9738b053c15b5150d8b948c9a06f66da89cf4109db871210ce6"
+    },
+    {
+      "name": "crossings",
+      "job": "a1a79b6848b84d9eb33eb0a4de4d3293",
+      "target": 600,
+      "faces": 624,
+      "quality": {
+        "quadOnly": true,
+        "faces": 624,
+        "minimumAngleDegrees": 59.999968292255936,
+        "angleP05Degrees": 75.00000559370532,
+        "maximumAngleDegrees": 120.00003302657083,
+        "edgeRatioP95": 2.3729534172643874,
+        "edgeRatioMax": 3.1437012007096525,
+        "scaledJacobianMin": 0.866025115573094,
+        "scaledJacobianP05": 0.947650856294184,
+        "edgeLengthCV": 0.3097082789202865,
+        "adjacentAreaRatioP95": 1.5644536420617448,
+        "valence4Fraction": 1.0,
+        "irregularVertices": 0,
+        "targetRelativeError": 0.04,
+        "passed": true,
+        "failures": [],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "guidePaths": [
+        {
+          "curve": 0,
+          "surface": "top",
+          "vertexIds": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            48
+          ],
+          "closedCycle": true,
+          "samples": 97,
+          "p95Distance": 0.0077626936455032925,
+          "maxDistance": 0.007850248864929327,
+          "p95TangentAngleDegrees": 7.499999964764764
+        }
+      ],
+      "outputSha256": "f69c67b1da0981950e11195594704a52ea9c57f12519cbbf0c9e91a9914ec351",
+      "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "settingsSha256": "26a66cf60c6bc443ebdbdae43b28c8d9a90296e8ddfbffc6267b2a07dc81f89b",
+      "curvesSha256": "e71c616d776aa6428f747d835f8dfad08b0e412aa7330ec78ddf4741b8a6b351"
+    }
+  ],
+  "genericFixture": {
+    "faces": 320,
+    "quality": {
+      "quadOnly": true,
+      "faces": 320,
+      "minimumAngleDegrees": 67.49999999999986,
+      "angleP05Degrees": 74.12225791961102,
+      "maximumAngleDegrees": 112.50000000000018,
+      "edgeRatioP95": 2.0939240365777123,
+      "edgeRatioMax": 2.1424839433091147,
+      "scaledJacobianMin": 0.9238795325112856,
+      "scaledJacobianP05": 0.9238795325112868,
+      "edgeLengthCV": 0.35756265921098934,
+      "adjacentAreaRatioP95": 1.3420394670483973,
+      "valence4Fraction": 1.0,
+      "irregularVertices": 0,
+      "targetRelativeError": 0.0,
+      "passed": true,
+      "failures": [],
+      "limits": {
+        "minimumAngleDegrees": 30.0,
+        "edgeRatioP95": 3.5,
+        "edgeRatioMax": 6.0,
+        "scaledJacobianMin": 0.45,
+        "adjacentAreaRatioP95": 4.0,
+        "targetRelativeError": 0.15
+      },
+      "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+    },
+    "sourceSha256": "ea5a085a875989cc1fcfd098cca09550a790d627e61472c705d4e5fe0e914b58",
+    "outputSha256": "0ba7a9eb92a4f9ff55794da9880b9d0702588fd8c005772ccdd94e59ad74bbdc"
+  },
+  "sourceHashes": {
+    "worker.py": "a0e9aaf4dbd1e75d4b31548e7886b8e3c52b627ff5df560c9f13341ee367d870",
+    "structured_prism.py": "a45676edd206ce63fd0201b1226b4ffab910797718fa4e29265290dac2e3e0ff",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab"
+  },
+  "scope": "Actual worker construction from unchanged original source and user guides, independent polygon rereading and a new transformed geometry-class fixture. Engineering class-specific layout, not native/general retopology recovery."
+}

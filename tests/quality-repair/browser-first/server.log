@@ -1,0 +1,45 @@
+C:\dbva\code\retopo-1\server.py:66: SyntaxWarning: invalid escape sequence '\.'
+  if re.fullmatch('/assets/previews/[a-z-]+\.(json|obj)',path):return self.file(ROOT/path[1:])
+Retopo1 is ready at http://127.0.0.1:61541
+24/Oct/2026 11:09:08 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 11:09:09 "GET / HTTP/1.1" 200 -
+24/Oct/2026 11:09:09 "GET /app.js HTTP/1.1" 200 -
+24/Oct/2026 11:09:09 "GET /vendor/OrbitControls.js HTTP/1.1" 200 -
+24/Oct/2026 11:09:09 "GET /vendor/three.module.js HTTP/1.1" 200 -
+24/Oct/2026 11:09:09 "GET /vendor/three.core.js HTTP/1.1" 200 -
+24/Oct/2026 11:09:09 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 11:09:09 "GET /api/catalog HTTP/1.1" 200 -
+24/Oct/2026 11:09:09 "GET /api/mesh/hexagon HTTP/1.1" 200 -
+24/Oct/2026 11:09:09 "GET /assets/previews/hexagon.json HTTP/1.1" 200 -
+24/Oct/2026 11:09:11 "POST /api/remesh HTTP/1.1" 202 -
+24/Oct/2026 11:09:12 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:12 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:13 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:13 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:14 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:14 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:15 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:16 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:16 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:17 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:17 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:18 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:18 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:19 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:20 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:20 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:21 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:21 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:22 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:24 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:25 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:26 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:26 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:27 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:27 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:28 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:28 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1 HTTP/1.1" 200 -
+24/Oct/2026 11:09:28 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1/mesh.json HTTP/1.1" 200 -
+24/Oct/2026 11:09:31 "GET /api/jobs/3c07cbd262844e0e819669d5d27f6fe1/output.obj HTTP/1.1" 200 -
+24/Oct/2026 11:09:35 "GET /api/mesh/cylinder HTTP/1.1" 200 -
+24/Oct/2026 11:09:36 "GET /assets/previews/cylinder.json HTTP/1.1" 200 -

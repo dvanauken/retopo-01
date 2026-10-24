@@ -1,0 +1,28 @@
+{
+  "originalAsset": "Models/OBJ format/shape-hollow-hexagon.obj",
+  "originalSha256": "94002f99ace7df2ba90a9c2163374b51691b6e1855eed0c01c0a9ecb216c2286",
+  "operations": [
+    "Imported geometry and triangulated OBJ faces",
+    "Welded vertices only at identical XYZ coordinates; removed material and UV data",
+    "Removed exact duplicate face group and zero-area triangle; conformed original collinear edge T joints using unchanged positions and coplanar triangle fans",
+    "Rotated original Y-up into Z-up using (x,-z,y)",
+    "Centered bbox and scaled largest dimension to2",
+    "Oriented by signed enclosed volume",
+    "Two conforming midpoint subdivisions: same piecewise-planar surface"
+  ],
+  "removedDegenerateFaces": 1,
+  "conformedSourceTriangles": 1,
+  "normalization": {
+    "center": [
+      0.0,
+      0.0,
+      0.5
+    ],
+    "scale": 2.0
+  },
+  "output": {
+    "vertices": 448,
+    "triangles": 896
+  },
+  "method": "No output fitting; no mesh shape invented or sourced from native results."
+}

@@ -1,0 +1,87 @@
+{
+  "savedAt": "2026-10-24T15:52:39.719200+00:00",
+  "userReportedJob": "ffeef5297eb24682961917bc01791bf0",
+  "files": [
+    {
+      "path": "app.js",
+      "sha256": "de68a5065f2e458ae3a5273e8ba5866dd0f90740e83f5434dd1a984a81dc0e3a"
+    },
+    {
+      "path": "BUILD_MANIFEST.json",
+      "sha256": "6afea37bac9ab7651e038fd530a45e31ae4d22c79397a791d5668656011a20a5"
+    },
+    {
+      "path": "index.html",
+      "sha256": "d3346aa3f20e90934316278a49537bef2a80d21160416a8dac55bbb80ba90d88"
+    },
+    {
+      "path": "README.md",
+      "sha256": "b35ff285c78b2c2e98c041fb93fadcfc763116e0a3d515d3f9ed2afcd5a37090"
+    },
+    {
+      "path": "server.py",
+      "sha256": "0bad65ec4821587f39034b0d5f7719942f06db7c3946e8f731665cca59558667"
+    },
+    {
+      "path": "VERIFICATION.md",
+      "sha256": "0b5b89f3e844bd56922e07223d30e3fb380f40efd0fae4f564aaf72c948a5fc3"
+    },
+    {
+      "path": "worker.py",
+      "sha256": "64f1498495acb7db30d35f2dfe68c6131982fe5b979a0e82af24f80de05a6ee4"
+    },
+    {
+      "path": "user-failed-run/curves.json",
+      "sha256": "6f26b1d0e2ac4c11e1400bd32534053ecfcbcecd6d48e5346529d02efa40b38a"
+    },
+    {
+      "path": "user-failed-run/engine-provenance.json",
+      "sha256": "cba34ffd6390b192a0938e8328949b5d229bde7632d86d5c4befcb63bb010751"
+    },
+    {
+      "path": "user-failed-run/execution.json",
+      "sha256": "04e67655272bebaa6666636b187cab829db001d033e4643167ac090c6fffbbdf"
+    },
+    {
+      "path": "user-failed-run/features.json",
+      "sha256": "273678b97542b616e15d56a8506fb7cb4ab2b024f41c7e132ba32cf92b9c1752"
+    },
+    {
+      "path": "user-failed-run/mesh.json",
+      "sha256": "bdc198bc69a296c770d29695d013336ed75f787a645b4074bdaac9515aed63a5"
+    },
+    {
+      "path": "user-failed-run/output.obj",
+      "sha256": "088abe3cd09620fbcc89ac8cb74c23bb93eb163a19d55d1847cb99cf407b5c33"
+    },
+    {
+      "path": "user-failed-run/report.json",
+      "sha256": "67e2bbb984dc9fad58d2803729252b4497e6534be4e961143d77b134d55d0749"
+    },
+    {
+      "path": "user-failed-run/settings.json",
+      "sha256": "eb2e8511f4b66c6ee8a7683eadf3026b6c98b1b24382a08092236991fa14ee03"
+    },
+    {
+      "path": "user-failed-run/source.obj",
+      "sha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc"
+    },
+    {
+      "path": "user-failed-run/worker.log",
+      "sha256": "a135dd74622a9b6e8fbfa5705721892784eec6a8e060dffe785fea324b87daec"
+    },
+    {
+      "path": "assets/previews/hexagon.json",
+      "sha256": "01ff1a3ffe7ee0eb85733cb1788fc55cc6d657f8d2649bc5bd6cdbb3ef694ecd"
+    },
+    {
+      "path": "assets/previews/hexagon.obj",
+      "sha256": "1dbd73f2c13b237e497a9579b6daf3e8ca5bc69fd4e3efa9af1ca41da6512072"
+    },
+    {
+      "path": "engine/targets/zbrush/clone/planar.py",
+      "sha256": "77283f8a8e829a6ea4d9d1c5cea167c1524a62497345ba7bf371aef8d4c914ff"
+    }
+  ],
+  "reason": "User rejected poor quad shape and flow. Prior topology-only passes do not qualify useful retopology quality."
+}

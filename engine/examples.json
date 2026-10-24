@@ -1,0 +1,68 @@
+[
+  {
+    "name": "cylinder",
+    "input": "examples/cylinder/source.obj",
+    "curves": "examples/cylinder/curves.json",
+    "target": 400,
+    "solidMethod": "auto",
+    "surface": "closed",
+    "featurePolicy": "native-qualified",
+    "sourceSha256": "e2b5195572c74adbf34fa5a6d95766207f19f14a09ed478d14ba5e7d2c2f69ac",
+    "curvesSha256": "8e59f47d8c946511268bedd3cb3c6c567d74ed4eecc7f49dbdfe333d5b23b2e9"
+  },
+  {
+    "name": "solid",
+    "input": "examples/solid/source.obj",
+    "curves": "examples/solid/curves.json",
+    "target": 400,
+    "solidMethod": "auto",
+    "surface": "closed",
+    "featurePolicy": "preserve-sharp",
+    "sourceSha256": "06eca37f42e8200d5747f2dede17914bcf48481d8bf9ea2ef2864357a3c4bd3e",
+    "curvesSha256": "46062240658c5e019d1350a19c06d9fe5e8fa7d8482bfd74f9e8b24b06c921c2"
+  },
+  {
+    "name": "terrain-network",
+    "input": "examples/terrain-network/source.obj",
+    "curves": "examples/terrain-network/curves.json",
+    "target": 400,
+    "solidMethod": "auto",
+    "surface": "heightfield",
+    "featurePolicy": "preserve-sharp",
+    "sourceSha256": "fb2f0eef55647266f46922b6adbc48a62cb4c6d285a0e7546ab6b86ddae802a1",
+    "curvesSha256": "d0fa979eee7ae2667cfcf32f54800508e93c86b1e8831b06eafd48889b62fa70"
+  },
+  {
+    "name": "wedge",
+    "input": "examples/wedge/source.obj",
+    "curves": "examples/wedge/curves.json",
+    "target": 300,
+    "solidMethod": "auto",
+    "surface": "closed",
+    "featurePolicy": "preserve-sharp",
+    "sourceSha256": "73fddaea56408d0dadcc483697603277405f3c582ab45677ab70ea9af1d3539d",
+    "curvesSha256": "0308fb61bfeb90f3c155b248d444eedbbae304d78c427d1246c55dcd41e8a991"
+  },
+  {
+    "name": "cube-network",
+    "input": "examples/cube-network/source.obj",
+    "curves": "examples/cube-network/curves.json",
+    "target": 400,
+    "solidMethod": "auto",
+    "surface": "closed",
+    "featurePolicy": "preserve-sharp",
+    "sourceSha256": "f07f2cd66c0423581294220532685a064322a71de120ce130fb7da90d7620fb9",
+    "curvesSha256": "ea0f593a22ac33677864232affa4ce43ed0046aaf1c8d53d6ba668b4915dc28e"
+  },
+  {
+    "name": "square-tunnel",
+    "input": "examples/square-tunnel/source.obj",
+    "curves": "examples/square-tunnel/curves.json",
+    "target": 500,
+    "solidMethod": "auto",
+    "surface": "closed",
+    "featurePolicy": "preserve-sharp",
+    "sourceSha256": "9934ff54c08c91b2d3d81a71d30ba8acc6534423a6377e2a5fd72e8727bf2933",
+    "curvesSha256": "e9a0b85616f816b0ae6ba03967a7699dc552a2bb8b9b1e751429db29d79c3e52"
+  }
+]

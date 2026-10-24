@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "constructionCompleted": true,
+  "vertices": 620,
+  "faces": 620,
+  "elapsedSeconds": 2.5,
+  "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+  "curvesSha256": "6f26b1d0e2ac4c11e1400bd32534053ecfcbcecd6d48e5346529d02efa40b38a",
+  "outputSha256": "088abe3cd09620fbcc89ac8cb74c23bb93eb163a19d55d1847cb99cf407b5c33",
+  "workerSha256": "64f1498495acb7db30d35f2dfe68c6131982fe5b979a0e82af24f80de05a6ee4",
+  "backend": "engineering-planar-pslg-quads",
+  "scope": "Actual original-input construction from user surface guides. No native process or native output oracle. Geometry validation and methods retained."
+}

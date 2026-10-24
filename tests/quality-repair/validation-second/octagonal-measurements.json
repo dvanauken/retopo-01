@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "method": "Best-fit-plane projected ear triangulation with preserved polygon winding; sampled exact triangle distance; nearest-edge guide alignment.",
+  "coordinateFrameQualified": true,
+  "source": {
+    "path": "C:\\dbva\\code\\retopo-1\\tests\\quality-repair\\validation-second\\octagonal-source.obj",
+    "sha256": "ea5a085a875989cc1fcfd098cca09550a790d627e61472c705d4e5fe0e914b58",
+    "metrics": {
+      "vertices": 32,
+      "usedVertices": 32,
+      "unusedVertices": 0,
+      "faces": 64,
+      "edges": 96,
+      "faceSizes": {
+        "3": 64
+      },
+      "triangles": 64,
+      "quads": 0,
+      "triangleFraction": 1.0,
+      "quadFraction": 0.0,
+      "otherPolygonFraction": 0.0,
+      "faceConnectedComponents": 1,
+      "componentFaceCounts": [
+        64
+      ],
+      "boundaryEdges": 0,
+      "boundaryComponents": 0,
+      "closedBoundaryLoops": 0,
+      "nonmanifoldEdges": 0,
+      "repeatedIndexFaces": 0,
+      "zeroAreaFanTriangles": 0,
+      "nonconvexProjectedPolygons": 0,
+      "maxQuadFourthPointPlaneDistance": 0.0,
+      "eulerCharacteristic": 0,
+      "bounds": [
+        [
+          1.0046541524907722,
+          -3.748417260545455,
+          -1.2777906153544831
+        ],
+        [
+          4.995345847509228,
+          -0.2515827394545447,
+          2.2777906153544834
+        ]
+      ],
+      "edgeLengths": {
+        "min": 0.5464719414173477,
+        "median": 1.2992573679926966,
+        "max": 2.7124385347398667
+      },
+      "canonicalGeometrySignature": "4bed2b78a47de4759515231c72e04933f83e06d601df549a2f16df512bf7d3cf"
+    }
+  },
+  "output": {
+    "path": "C:\\dbva\\code\\retopo-1\\tests\\quality-repair\\validation-second\\octagonal-output.obj",
+    "sha256": "0ba7a9eb92a4f9ff55794da9880b9d0702588fd8c005772ccdd94e59ad74bbdc",
+    "metrics": {
+      "vertices": 320,
+      "usedVertices": 320,
+      "unusedVertices": 0,
+      "faces": 320,
+      "edges": 640,
+      "faceSizes": {
+        "4": 320
+      },
+      "triangles": 0,
+      "quads": 320,
+      "triangleFraction": 0.0,
+      "quadFraction": 1.0,
+      "otherPolygonFraction": 0.0,
+      "faceConnectedComponents": 1,
+      "componentFaceCounts": [
+        320
+      ],
+      "boundaryEdges": 0,
+      "boundaryComponents": 0,
+      "closedBoundaryLoops": 0,
+      "nonmanifoldEdges": 0,
+      "repeatedIndexFaces": 0,
+      "zeroAreaFanTriangles": 0,
+      "nonconvexProjectedPolygons": 0,
+      "maxQuadFourthPointPlaneDistance": 6.672503619320266e-16,
+      "eulerCharacteristic": 0,
+      "bounds": [
+        [
+          1.0046541524907722,
+          -3.748417260545455,
+          -1.2777906153544834
+        ],
+        [
+          4.995345847509228,
+          -0.2515827394545447,
+          2.277790615354484
+        ]
+      ],
+      "edgeLengths": {
+        "min": 0.212499999999999,
+        "median": 0.34,
+        "max": 0.6505618350206535
+      },
+      "canonicalGeometrySignature": "a3d733956ae3e900464ea1aa3bef070784592c3986dd3863013be90ce5a313b3"
+    }
+  },
+  "canonicalGeometryChanged": true,
+  "sourceToOutput": {
+    "samples": 96,
+    "rms": 5.231404498837602e-16,
+    "mean": 4.281093791978605e-16,
+    "p95": 9.930136612989092e-16,
+    "sampledMax": 1.1322097734007351e-15
+  },
+  "outputToSource": {
+    "samples": 960,
+    "rms": 5.191168199038469e-16,
+    "mean": 4.264151166275444e-16,
+    "p95": 9.930136612989092e-16,
+    "sampledMax": 1.6946818973100072e-15
+  },
+  "guideAlignment": [
+    {
+      "samples": 97,
+      "meanDistance": 0.014030820527947888,
+      "p95Distance": 0.02188556562072115,
+      "maxDistance": 0.021885565620721366,
+      "meanDistanceOverMedianEdge": 0.04126711919984673,
+      "meanUnsignedTangentAngleDegrees": 13.801546441543048,
+      "p95UnsignedTangentAngleDegrees": 89.99999999999989,
+      "selectedEdgeCount": 26,
+      "selectedEdgeGraphComponents": 1,
+      "selectedEdgeGraphDegreeHistogram": {
+        "3": 10,
+        "2": 6,
+        "1": 10
+      },
+      "selectedEdgesFormSingleCycle": false,
+      "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+    }
+  ],
+  "remeshingQualified": false,
+  "tolerances": {
+    "projectedEar": 1e-12,
+    "triangleArea": 1e-14
+  },
+  "toolchain": {
+    "numpy": "2.2.6",
+    "trimesh": "4.9.0",
+    "measurementSourceSha256": "be784060ba15fedd241e14885354dc119c92d729998d1fd4bb1d6b97a9daac47",
+    "baseSourceSha256": "1f94bfd9fa54082029aef0e8c1d5c168a68d2317b9ea5f06ac9c8dd2bfede3ea"
+  },
+  "limitations": [
+    "Projected ear triangulation defines a chosen surface for nonplanar polygons; it is not the native hidden diagonal.",
+    "Self-crossing, repeated or untriangulable polygons fail explicitly.",
+    "Deviation is sampled, not certified Hausdorff.",
+    "This measurement alone does not prove remeshing execution."
+  ]
+}

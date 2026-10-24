@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "qualifyingConstructionCases": 7,
+  "constructionChecks": 46,
+  "browserChecks": 15,
+  "negativeControls": 7,
+  "boundJobArtifacts": 84,
+  "currentCodeHashesVerified": true,
+  "currentReportLinksVerified": true,
+  "oldCandidateStillFailed": true,
+  "userServiceServesCurrentCode": true
+}

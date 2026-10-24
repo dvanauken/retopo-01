@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Unit square calibrates corner signs, angles and shape scale",
+      "passed": true
+    },
+    {
+      "name": "Long thin quad is rejected",
+      "passed": true
+    },
+    {
+      "name": "Concave inverted-corner quad is rejected",
+      "passed": true
+    },
+    {
+      "name": "Crossed bow-tie quad is rejected",
+      "passed": true
+    },
+    {
+      "name": "Actual worker rejects the known-bad candidate after construction",
+      "passed": true
+    },
+    {
+      "name": "Rejected candidate cannot be exposed as a successful output",
+      "passed": true
+    },
+    {
+      "name": "Failed candidate geometry and explicit quality reasons are preserved",
+      "passed": true
+    }
+  ],
+  "injectedKnownBadGeometry": true,
+  "successfulConstructionClaimed": false,
+  "workerReturnCode": 1,
+  "rejectedJob": "fb3df6061b20423086e22c6cf35c569f",
+  "report": {
+    "passed": false,
+    "constructionCompleted": true,
+    "message": "Mesh quality rejected: minimumAngleDegrees below limit, scaledJacobianMin below limit, edgeRatioMax above limit, face count exceeds target tolerance. The candidate is retained for inspection; it is not a qualified result.",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 49, in main\n    raise ValueError('Mesh quality rejected: '+', '.join(mesh['quality']['failures'])+'. The candidate is retained for inspection; it is not a qualified result.')\nValueError: Mesh quality rejected: minimumAngleDegrees below limit, scaledJacobianMin below limit, edgeRatioMax above limit, face count exceeds target tolerance. The candidate is retained for inspection; it is not a qualified result.\n",
+    "elapsedSeconds": 1.0780000000086147,
+    "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+    "workerSha256": "a0e9aaf4dbd1e75d4b31548e7886b8e3c52b627ff5df560c9f13341ee367d870"
+  },
+  "workerSha256": "a0e9aaf4dbd1e75d4b31548e7886b8e3c52b627ff5df560c9f13341ee367d870",
+  "scope": "Negative acceptance-gate control plus independent analytic element calibration. The injected mesh is the exact user-rejected 620-face fixture; no new successful construction is implied."
+}

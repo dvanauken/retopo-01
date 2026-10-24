@@ -1,0 +1,32 @@
+{
+  "quadOnly": true,
+  "faces": 620,
+  "minimumAngleDegrees": 15.458044169455052,
+  "angleP05Degrees": 51.708097602264225,
+  "maximumAngleDegrees": 174.00947350417195,
+  "edgeRatioP95": 2.5576556528582324,
+  "edgeRatioMax": 7.280088054340981,
+  "scaledJacobianMin": 0.10436402377092484,
+  "scaledJacobianP05": 0.6461310720572051,
+  "edgeLengthCV": 0.34438598840597723,
+  "adjacentAreaRatioP95": 2.4620078098094837,
+  "valence4Fraction": 0.8612903225806452,
+  "irregularVertices": 86,
+  "targetRelativeError": 0.37777777777777777,
+  "passed": false,
+  "failures": [
+    "minimumAngleDegrees below limit",
+    "scaledJacobianMin below limit",
+    "edgeRatioMax above limit",
+    "face count exceeds target tolerance"
+  ],
+  "limits": {
+    "minimumAngleDegrees": 30.0,
+    "edgeRatioP95": 3.5,
+    "edgeRatioMax": 6.0,
+    "scaledJacobianMin": 0.45,
+    "adjacentAreaRatioP95": 4.0,
+    "targetRelativeError": 0.15
+  },
+  "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+}

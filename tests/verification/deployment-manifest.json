@@ -1,0 +1,1842 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "path": ".gitignore",
+      "sha256": "3d1bd29ad32c50397a8189fb9f0b0dd7af27b3b4b2f736e6fcd772291b0410ca",
+      "sizeBytes": 51
+    },
+    {
+      "path": "app.js",
+      "sha256": "438165246898f36ca156aa22368c0c8de2e70980fbb6a5ae3a7a7917768a621d",
+      "sizeBytes": 31604
+    },
+    {
+      "path": "assets/acquisition.json",
+      "sha256": "5ef91c5923ef68acb2b6de23e6e2cb9be2b8253a3900167892868f25ab5e2871",
+      "sizeBytes": 1670
+    },
+    {
+      "path": "assets/catalog.json",
+      "sha256": "79a82d3f1bfd57fac94c2468e79e9c3524dfa83799a6a99075cf272709ad8db8",
+      "sizeBytes": 1700
+    },
+    {
+      "path": "assets/KENNEY-LICENSE.txt",
+      "sha256": "ec05660e0dca843cc52d9bdd98412bf8a1ce91606ecf23ab38c39af71e629e62",
+      "sizeBytes": 716
+    },
+    {
+      "path": "assets/models/cylinder.json",
+      "sha256": "9f19c84f68172e47607392e905620a0fd19fba322ee27fef7a924eede651fad3",
+      "sizeBytes": 77907
+    },
+    {
+      "path": "assets/models/cylinder.obj",
+      "sha256": "5e4e4e7b07f21e7078018f867520a9a0775b629a15225def2db99b9910bae4ef",
+      "sizeBytes": 3870
+    },
+    {
+      "path": "assets/models/hexagon.json",
+      "sha256": "37339c878055a55d67e7993b50682cc2a97bafe0f4401fd207b57ec4fd7cae1e",
+      "sizeBytes": 111232
+    },
+    {
+      "path": "assets/models/hexagon.obj",
+      "sha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "sizeBytes": 24146
+    },
+    {
+      "path": "assets/models/terrain.json",
+      "sha256": "dc0348b5c513507b0a96b8eaff2a53aabe6222f7c10e1c0942b1f9a8cdd96c52",
+      "sizeBytes": 23816
+    },
+    {
+      "path": "assets/models/terrain.obj",
+      "sha256": "aa2b41aeda52711c1bae37cebbec7f0ff3e52c5bb5b93899c757cf4ee19f9070",
+      "sizeBytes": 3073
+    },
+    {
+      "path": "assets/preparation.json",
+      "sha256": "47b47abb863c34e354046d8f782f016601f362ae4a3c8ea3a0fe1f821bad66aa",
+      "sizeBytes": 1044
+    },
+    {
+      "path": "assets/previews/cylinder.json",
+      "sha256": "650ee824b31f5593d299dffd0fc9698231ad96403c5780f70b7d63252c5757dd",
+      "sizeBytes": 136009
+    },
+    {
+      "path": "assets/previews/cylinder.obj",
+      "sha256": "4183673c605ad3533c17d78ce5e296fb23e8c9ffaa6e54a9a9d872b8b71df70a",
+      "sizeBytes": 37056
+    },
+    {
+      "path": "assets/previews/hexagon.json",
+      "sha256": "01ff1a3ffe7ee0eb85733cb1788fc55cc6d657f8d2649bc5bd6cdbb3ef694ecd",
+      "sizeBytes": 117300
+    },
+    {
+      "path": "assets/previews/hexagon.obj",
+      "sha256": "1dbd73f2c13b237e497a9579b6daf3e8ca5bc69fd4e3efa9af1ca41da6512072",
+      "sizeBytes": 50659
+    },
+    {
+      "path": "assets/previews/provenance.json",
+      "sha256": "52d85d83744fefc58bd7cd9c69528a4e60b03fb8aaa9ee3db5d597386f598767",
+      "sizeBytes": 1123
+    },
+    {
+      "path": "assets/previews/terrain.json",
+      "sha256": "852a0c7575e97f80078c8affbecc3081ff401b8ea7e8940f7f1c6cf64e09c71a",
+      "sizeBytes": 86645
+    },
+    {
+      "path": "assets/previews/terrain.obj",
+      "sha256": "85af763a10c3c9393cf05f1c472ea88f198c6854794843bbb328d5e4edda3e6a",
+      "sizeBytes": 37038
+    },
+    {
+      "path": "assets/raw/kenney-source.html",
+      "sha256": "daf9538cfed0d095e5ea1856d97aef5e0615a91f89ccfc9c500a5943f57d69d7",
+      "sizeBytes": 17694
+    },
+    {
+      "path": "assets/raw/kenney_prototype-kit.zip",
+      "sha256": "213b522fb12bcc9b9ac66c4f7581f7c74623293272212e40a70c39936ad3da95",
+      "sizeBytes": 2961396
+    },
+    {
+      "path": "assets/raw/shape-hollow-hexagon.obj",
+      "sha256": "94002f99ace7df2ba90a9c2163374b51691b6e1855eed0c01c0a9ecb216c2286",
+      "sizeBytes": 3591
+    },
+    {
+      "path": "DESIGN.md",
+      "sha256": "109bf41f4b02be204c6afad518aa05dc743edf560abfa16461c5b83bcc6acd78",
+      "sizeBytes": 11308
+    },
+    {
+      "path": "engine/examples/cube-network/curves.json",
+      "sha256": "ea0f593a22ac33677864232affa4ce43ed0046aaf1c8d53d6ba668b4915dc28e",
+      "sizeBytes": 8036
+    },
+    {
+      "path": "engine/examples/cube-network/source.obj",
+      "sha256": "f07f2cd66c0423581294220532685a064322a71de120ce130fb7da90d7620fb9",
+      "sizeBytes": 247
+    },
+    {
+      "path": "engine/examples/cylinder/curves.json",
+      "sha256": "8e59f47d8c946511268bedd3cb3c6c567d74ed4eecc7f49dbdfe333d5b23b2e9",
+      "sizeBytes": 52344
+    },
+    {
+      "path": "engine/examples/cylinder/source.obj",
+      "sha256": "e2b5195572c74adbf34fa5a6d95766207f19f14a09ed478d14ba5e7d2c2f69ac",
+      "sizeBytes": 4266
+    },
+    {
+      "path": "engine/examples/solid/curves.json",
+      "sha256": "46062240658c5e019d1350a19c06d9fe5e8fa7d8482bfd74f9e8b24b06c921c2",
+      "sizeBytes": 4115
+    },
+    {
+      "path": "engine/examples/solid/source.obj",
+      "sha256": "06eca37f42e8200d5747f2dede17914bcf48481d8bf9ea2ef2864357a3c4bd3e",
+      "sizeBytes": 234
+    },
+    {
+      "path": "engine/examples/square-tunnel/curves.json",
+      "sha256": "e9a0b85616f816b0ae6ba03967a7699dc552a2bb8b9b1e751429db29d79c3e52",
+      "sizeBytes": 2168
+    },
+    {
+      "path": "engine/examples/square-tunnel/source.obj",
+      "sha256": "9934ff54c08c91b2d3d81a71d30ba8acc6534423a6377e2a5fd72e8727bf2933",
+      "sizeBytes": 845
+    },
+    {
+      "path": "engine/examples/terrain-network/curves.json",
+      "sha256": "d0fa979eee7ae2667cfcf32f54800508e93c86b1e8831b06eafd48889b62fa70",
+      "sizeBytes": 9478
+    },
+    {
+      "path": "engine/examples/terrain-network/source.obj",
+      "sha256": "fb2f0eef55647266f46922b6adbc48a62cb4c6d285a0e7546ab6b86ddae802a1",
+      "sizeBytes": 3454
+    },
+    {
+      "path": "engine/examples/wedge/curves.json",
+      "sha256": "0308fb61bfeb90f3c155b248d444eedbbae304d78c427d1246c55dcd41e8a991",
+      "sizeBytes": 2135
+    },
+    {
+      "path": "engine/examples/wedge/source.obj",
+      "sha256": "73fddaea56408d0dadcc483697603277405f3c582ab45677ab70ea9af1d3539d",
+      "sizeBytes": 195
+    },
+    {
+      "path": "engine/examples.json",
+      "sha256": "2ced1a1ff503f16ffc0ed6b20722ce80f9f46e07545942e50382bcbf792392b5",
+      "sizeBytes": 2568
+    },
+    {
+      "path": "engine/licenses/llvmlite/llvmlite-0.45.1.dist-info/licenses/LICENSE",
+      "sha256": "f33fc26711517954abcfa59043ee07d01a6623b661c1d26cc69b0933ce4ffb98",
+      "sizeBytes": 1322
+    },
+    {
+      "path": "engine/licenses/numba/numba-0.62.1.dist-info/licenses/LICENSE",
+      "sha256": "5f7ae5e48a0a107a9d86a9ef6c18dcce68e55959855d39380050deaea366631c",
+      "sizeBytes": 1310
+    },
+    {
+      "path": "engine/licenses/numba/numba-0.62.1.dist-info/licenses/LICENSES.third-party",
+      "sha256": "cb00f6bcf9898afffec03957aec6d29f87890c63592cb7f5e637a80a8ad061c0",
+      "sizeBytes": 25299
+    },
+    {
+      "path": "engine/licenses/numpy/numpy/_core/include/numpy/random/LICENSE.txt",
+      "sha256": "d544761558b510866c21f7e8a2d5716fca76e0b98117e3b6b86314db7244d150",
+      "sizeBytes": 1039
+    },
+    {
+      "path": "engine/licenses/numpy/numpy/ma/LICENSE",
+      "sha256": "d78dbb208b80d92b4d333e41a4baae50d12444f46e53199fa7726a91de6e2da7",
+      "sizeBytes": 1616
+    },
+    {
+      "path": "engine/licenses/numpy/numpy/random/LICENSE.md",
+      "sha256": "b4bc2f4fa1c95778f1ed3dd8f14706bece399475b978f9f34b5d3cd72521b48a",
+      "sizeBytes": 3582
+    },
+    {
+      "path": "engine/licenses/numpy/numpy-2.2.6.dist-info/LICENSE.txt",
+      "sha256": "14256cc3a2c9d32ac284da96b937feb44f72dd90bee2317ac3020166846ad99d",
+      "sizeBytes": 47709
+    },
+    {
+      "path": "engine/licenses/psutil/psutil-7.0.0.dist-info/LICENSE",
+      "sha256": "c7adc4d5d1337a548b967421f1fbe258b93033a0417708fd6f4e38f8ecbceb80",
+      "sizeBytes": 1577
+    },
+    {
+      "path": "engine/licenses/scipy/scipy/_lib/_uarray/LICENSE",
+      "sha256": "e4c4acc31e8287066d7c995d26e3ef902ca1977ee187b260b11c278366503811",
+      "sizeBytes": 1543
+    },
+    {
+      "path": "engine/licenses/scipy/scipy/fft/_pocketfft/LICENSE.md",
+      "sha256": "c04661685cff9d8035fe1c4c3ab357e7f7633cafc06a73e9d90c3c5fede8a86a",
+      "sizeBytes": 1523
+    },
+    {
+      "path": "engine/licenses/scipy/scipy/sparse/linalg/_eigen/arpack/COPYING",
+      "sha256": "fcb3c6c7de1460cf7d0863c3c5996e518eb8015a2eced36911f3da178440b3df",
+      "sizeBytes": 1937
+    },
+    {
+      "path": "engine/licenses/scipy/scipy-1.16.0.dist-info/LICENSE.txt",
+      "sha256": "564d63dbef2ef3eb1dec94908966d3edf5f11c487ee2cf2baf8bf3faef01bdd9",
+      "sizeBytes": 46756
+    },
+    {
+      "path": "engine/licenses/SuiteSparse-5.6.0/AMD/Doc/License.txt",
+      "sha256": "dd55769d122cf9e487cede40f6296ad12858ef00e01c0aaba0730182be35d727",
+      "sizeBytes": 1923
+    },
+    {
+      "path": "engine/licenses/SuiteSparse-5.6.0/CAMD/Doc/License.txt",
+      "sha256": "8a8b8ce2c1867d337097344b87b43878de025751abcc559805f792df3c974557",
+      "sizeBytes": 1843
+    },
+    {
+      "path": "engine/licenses/SuiteSparse-5.6.0/CCOLAMD/Doc/License.txt",
+      "sha256": "27e1fb1934109aec52982bea8cda801e3791c683690c2eb0c089c496ba394ac6",
+      "sizeBytes": 2005
+    },
+    {
+      "path": "engine/licenses/SuiteSparse-5.6.0/CHOLMOD/Doc/License.txt",
+      "sha256": "9400606f2a5eb6bcd732c72b0bbcc866f3a8f6fab2c74bb4fcea77a57c5c7586",
+      "sizeBytes": 15867
+    },
+    {
+      "path": "engine/licenses/SuiteSparse-5.6.0/COLAMD/Doc/License.txt",
+      "sha256": "34f1b285936d0de77ac491e808c3f7915c00af5d4e8c36e26b1ad3532e00a0d9",
+      "sizeBytes": 1792
+    },
+    {
+      "path": "engine/licenses/triangle/triangle-20250106.dist-info/LICENSE",
+      "sha256": "7d3a95e5e06978064ed3f8e2b7c8f845e7fd8a405294727cc708f94cb83b8059",
+      "sizeBytes": 7817
+    },
+    {
+      "path": "engine/licenses/trimesh/trimesh-4.9.0.dist-info/licenses/LICENSE.md",
+      "sha256": "fe27b5ef8710676cc85255da28a32f394e2ef3f4ce47075a1c732a9ea1d7bd03",
+      "sizeBytes": 1090
+    },
+    {
+      "path": "engine/package-manifest.json",
+      "sha256": "523b7b444664271ce27e1798e4bf52612528fff4d69bfcb13878154b6b248433",
+      "sizeBytes": 88936
+    },
+    {
+      "path": "engine/README.md",
+      "sha256": "8bad643e4805f5c417c1cd0b0d239bf13ffe27bc86b61f7c7f5cd87a98456c41",
+      "sizeBytes": 3133
+    },
+    {
+      "path": "engine/requirements-reference.txt",
+      "sha256": "8f1cc9ab17ec628acda04018daa24f35390b70e34ed856e6df103bcbeffbb34d",
+      "sizeBytes": 113
+    },
+    {
+      "path": "engine/targets/zbrush/clone/features.py",
+      "sha256": "1118fffed5a9fd2438f02f98996892ec05a351fb410cbbce87277a4b10e37d38",
+      "sizeBytes": 11559
+    },
+    {
+      "path": "engine/targets/zbrush/clone/mesh_ops.py",
+      "sha256": "cdde770102713f00bb986d10b140395236b1f255c840c8e797344e3c9658db08",
+      "sizeBytes": 8748
+    },
+    {
+      "path": "engine/targets/zbrush/clone/mesh_validation.py",
+      "sha256": "ed3e26089e8eb80d08bd0f135e01ab0615a59fda9dcc16402d49b847fb324c08",
+      "sizeBytes": 5890
+    },
+    {
+      "path": "engine/targets/zbrush/clone/planar.py",
+      "sha256": "77283f8a8e829a6ea4d9d1c5cea167c1524a62497345ba7bf371aef8d4c914ff",
+      "sizeBytes": 20101
+    },
+    {
+      "path": "engine/targets/zbrush/clone/README.md",
+      "sha256": "8bad643e4805f5c417c1cd0b0d239bf13ffe27bc86b61f7c7f5cd87a98456c41",
+      "sizeBytes": 3133
+    },
+    {
+      "path": "engine/targets/zbrush/clone/retopo.py",
+      "sha256": "b6882abef48a84304c081b1d9a742e46da000d6ca6f3979603880ab515cc70bf",
+      "sizeBytes": 19964
+    },
+    {
+      "path": "engine/targets/zbrush/clone/terrain.py",
+      "sha256": "31aa43a1ed690f8a0c7c505b9607080aa574d9a2adbab6add0fe94c07ea0c9b9",
+      "sizeBytes": 12070
+    },
+    {
+      "path": "engine/targets/zbrush/clone/test_contract.py",
+      "sha256": "0859263ac35ee70896d301dc659fb2c2fe8211db74c7f243aa91fdc557fdc7d6",
+      "sizeBytes": 7534
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/measure_geometry.py",
+      "sha256": "1f94bfd9fa54082029aef0e8c1d5c168a68d2317b9ea5f06ac9c8dd2bfede3ea",
+      "sizeBytes": 10588
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/measure_polygon_geometry.py",
+      "sha256": "be784060ba15fedd241e14885354dc119c92d729998d1fd4bb1d6b97a9daac47",
+      "sizeBytes": 3631
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/probe_brush_api.py",
+      "sha256": "c51fd99496ca2fcc6bb9c07f8443c957c6f3e3bfc8407062a38b1b0956f01780",
+      "sizeBytes": 2753
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/probe_guide_walk_math.py",
+      "sha256": "4b38d31a6d422120db5a27cceef718dcdeb9ab6fcadc3e381c9bb20cbd25dd48",
+      "sizeBytes": 4523
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/probe_quarter_matrix.py",
+      "sha256": "5eec128668327b3371aa0649c7049a80d1cefd4cc537f349a91e0e0bf57bcad8",
+      "sizeBytes": 1683
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/probe_transport_helpers.py",
+      "sha256": "d2e6c8515021fc2b80dc7e447d7c51a68e6e545d322305948bc7cc24a89fcb1c",
+      "sizeBytes": 3452
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_alternate_vertex_path.py",
+      "sha256": "37e83f0bb286353abd1d2271fa7fdd309b9d097dac9bb2ce4731fa6e2a111661",
+      "sizeBytes": 4111
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_attached_surface_move.py",
+      "sha256": "329e28d9a7e5af0cb5fbed83d0b2daf8a241f6d9a59e28b803e93b433c325241",
+      "sizeBytes": 6836
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_augmentation_period_constraints.py",
+      "sha256": "3e45692d62bb68a5ec90c89472622ade892872b51a766e6a0379cb2e8ac8bacd",
+      "sizeBytes": 1202
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_balanced_boundary_cap.py",
+      "sha256": "ae213bf94d1b9fdc54792a1cb37c6e71f8acdbe0d03730d01bb4b40622b7a508",
+      "sizeBytes": 3260
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_boundary_multiple_cut.py",
+      "sha256": "0de1ba1015ef104915dbf718578f988f7175379bbd6f6e1130851271f49e57d6",
+      "sizeBytes": 3746
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_cap_new_vertex_smoothing.py",
+      "sha256": "af86ee0d8113eee9cc8aabc91b6c7c80d911362a6ff673d1d0fd9fe98d0ca3a8",
+      "sizeBytes": 1292
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_cholmod_reference_backend.py",
+      "sha256": "e083acb9781abf8ba89fe791f9b26ed2b9c29f74075f54fb390a96ffd7ec7738",
+      "sizeBytes": 2370
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_cleanup_area_gate.py",
+      "sha256": "9b70e483af1c5b2ce8e492ff5cad60a1f3f2f3f9be41e99ed5c04d894b86d2d7",
+      "sizeBytes": 881
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_closed_cut_augmentation.py",
+      "sha256": "2a5a97b1db6fe060d6caded0595918c3f63a983a49fb1c82c1f95c1573132515",
+      "sizeBytes": 4340
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_closed_feature_admission.py",
+      "sha256": "00fe24ca71d19104420411fe4755bb6865712b047459dfe918ca79d91500027c",
+      "sizeBytes": 3686
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_closed_fractional_vertex_maps.py",
+      "sha256": "b454c7da7f49de39cb06cea856a51d7702e26b9d9ac64d925faf20145c62ef00",
+      "sizeBytes": 1882
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_closed_guide_tags.py",
+      "sha256": "9df154df2a96b9c1e7ee63dd39dfd2dbc4ac67cfb61671b06ac498258727a648",
+      "sizeBytes": 3763
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_closed_incident_cut_preparation.py",
+      "sha256": "af054eaa8405d6d7244a77488492bc0ef8134cb6c3bca2023d3f8872b92ed5b8",
+      "sizeBytes": 5095
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_closed_network_path_enumeration.py",
+      "sha256": "2d560fc2a92c3daf41086567b063c11cdfb01c0ec735c493ae57691c1cb85d05",
+      "sizeBytes": 1945
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_closed_segment_reconciliation.py",
+      "sha256": "e2c6cb586d97c9c5a30ca4b3262a6e518f74c5d35f85ac104fa080d71ee52c0d",
+      "sizeBytes": 1561
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_closed_vertex_cut_preparation.py",
+      "sha256": "63d551cec70c1e5af130a718d6fb7ddcb9b5adf13bba02e6477284526714c1d3",
+      "sizeBytes": 2079
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_closed_vertex_source_cut.py",
+      "sha256": "d6df53c08a9bdfa0738e422c2dfa1cc3fa1bfc956e4aafb6aec8d4857dfce307",
+      "sizeBytes": 3036
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_coalesced_triangle_subdivision.py",
+      "sha256": "de219e7dc3ecb765209ff17a289d86e23f8ece6099504d29601df0b2b7f91aa9",
+      "sizeBytes": 4753
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_conditioning_measures.py",
+      "sha256": "3f4ddd48180b3fc97e63d407f0aa3faa60fdf68d2f8d2e73b3d6d0ae9dd9ff0e",
+      "sizeBytes": 1754
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_conditioning_weights.py",
+      "sha256": "8687bc605a642b8d1c473ac3838797a4635ecb12085ec10e8186cf2b51ae3581",
+      "sizeBytes": 3026
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_coupled_face_size_system.py",
+      "sha256": "9fc4da0b30d406a8add74fd78dad31bbddee1f95f422848a87f4e41d929baede",
+      "sizeBytes": 3460
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_cut_gauge_directions.py",
+      "sha256": "1a523b90526b012faf905f9300161fb2622853386ec4c66f7a121121f1cb4834",
+      "sizeBytes": 2118
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_cut_guide_adjacency_repair.py",
+      "sha256": "b7cebb9c498d09e17f2817686eb8dcc908618bc80ed9cf7b96919af07ee951bf",
+      "sizeBytes": 1512
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_cycle_assembly.py",
+      "sha256": "42f31f79e931aed013cd44a662ca806cf808c2ac18f34ebb29b595f8e47da04c",
+      "sizeBytes": 3280
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_cyclic_cut_path_enumeration.py",
+      "sha256": "883050eb48a50566c303af4092a33786a1133080e6821f39070d8874e21eeb78",
+      "sizeBytes": 2557
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_cyclic_fractional_cut_preparation.py",
+      "sha256": "b126fae8a9b6f637139863dc5ff7ef7c26c8a92dd6d29d2c3db5a21aa4870fa7",
+      "sizeBytes": 3605
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_default_field_radii.py",
+      "sha256": "c23cef1ad2e5087f7620a20cd5d6afb201dd514604dd6ae64ee19ab5df3acdd3",
+      "sizeBytes": 1521
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_dependency_expansion.py",
+      "sha256": "afa9cb6e3c398034924a24f8d4ea82d49502bc288d5ef0ae008d9bfa8b279941",
+      "sizeBytes": 1105
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_diagonal_guard.py",
+      "sha256": "858a6060f50866567c527d3060cd1b87803dc40e319a367e78d4159593533c22",
+      "sizeBytes": 1617
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_diagonal_lines.py",
+      "sha256": "3dbadf0973f92bf37e1b098701b90c361e98603a91f196945cef9bf718f11d19",
+      "sizeBytes": 1607
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_directional_size_diffusion.py",
+      "sha256": "b12008f5f8269383da3ff298854c8c78e7310e91d45f3aa6e377769bb53dab9f",
+      "sizeBytes": 2627
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_disjoint_triangle_edge_flips.py",
+      "sha256": "9224b6e0d5adc8b6359f6540a907ad2d71488f4428ffaceef2e69f4584c0c900",
+      "sizeBytes": 1713
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_embedded_guide_edges.py",
+      "sha256": "04efd421b4c23cfdd20d8cb08bc4a4472cfb66cfed96ed9d7f00307e3e034b75",
+      "sizeBytes": 1164
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_extraction_fixture.py",
+      "sha256": "75a01a5380f087245f4d31429c2bdb0dbe570f2f8bb914ce1d5666596fa2ff27",
+      "sizeBytes": 1930
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_extraction_graph.py",
+      "sha256": "e8e67358c52cce04ff8fb08b2ca017d2addda5efb29bbba5c78be4ec18d5c040",
+      "sizeBytes": 6809
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_extraction_guide_tags.py",
+      "sha256": "82053a1da60c2e59e51ff82c4db51aaeb43bb6ba9d282ac038e67ca78a234349",
+      "sizeBytes": 2549
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_face_box_tree.py",
+      "sha256": "93500d201e139048ffb587fc1b46eda10907a516e94f15b0fda2c04c0ed290a1",
+      "sizeBytes": 2216
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_face_corner_direct_paths.py",
+      "sha256": "47ce0ba2f2f6e4adf3f4389feab3b4d5f4d91c0b7f1c6e8b9a7d57b436806688",
+      "sizeBytes": 1568
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_face_intersection_source_cut.py",
+      "sha256": "631c1caea7e2e97925bf674e1954950cac1859a0846a71ae838d281898e7b1d4",
+      "sizeBytes": 7343
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_face_planar_cut.py",
+      "sha256": "3b1aefeed4afc832dffdc85087a7cb9cfb24e1f5940d9b98706d4610a5834207",
+      "sizeBytes": 2381
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_fallback_candidate_kernel.py",
+      "sha256": "66bb337441571227e0de73a5a55a7eea4b178cb8c1e3cd7c729c8cdcf974caae",
+      "sizeBytes": 4896
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_feature_cycle_candidates.py",
+      "sha256": "9bb2b7caa26780a0c656f504f8b60bcb4f0468d4afb6820ed8cebdfeacd6c097",
+      "sizeBytes": 2191
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_feature_path_metrics.py",
+      "sha256": "b3e73c7c3ba858b5b24727beb3141ee065d3ce87bbcd963348a719ed9012b433",
+      "sizeBytes": 4017
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_field_candidate_gate.py",
+      "sha256": "3fd2325f94146b14ef3a60478f85295fafe2b9f6767b9b5cf403de3a88b810b2",
+      "sizeBytes": 1078
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_field_candidates.py",
+      "sha256": "19eb18de29b1f353fb4164d03156e652ab9c35f0e1122de9db491d991a1a58f2",
+      "sizeBytes": 1301
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_field_defaults.py",
+      "sha256": "7f9818cb813e5247e8065222260803ac2723b29918b4316b6d5bb59a4265e264",
+      "sizeBytes": 427
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_field_eigensystem.py",
+      "sha256": "3396538293e06f11e608d54d0839e9ff01905541acf7fac577b9e4b7710a47b2",
+      "sizeBytes": 2272
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_final_face_attachment.py",
+      "sha256": "e0c68ca8d534139ecb34dac5cbda183ec36676295b51072f12e52d0ab10d0e63",
+      "sizeBytes": 1132
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_fractional_direct_paths.py",
+      "sha256": "e3e241d52d61368e4ff2a449a885d08044b088d7be2a168dfbd25578981b5eb2",
+      "sizeBytes": 1987
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_grid_isoline.py",
+      "sha256": "ac2f37d0ce1a1f10f2f9c5c3b45472e6b9d640de6bb551ca73faaf3a2762e99a",
+      "sizeBytes": 4727
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_grid_isoline_bounds.py",
+      "sha256": "e334efe055ac98e9dc05ecfabdcfdacf53d502d13ef873cf634b9a2dafc660f0",
+      "sizeBytes": 5075
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_guide_adjacency_cleanup.py",
+      "sha256": "a3af428b42956a7922b29e14b1195755c6f226c9ccfe54cf20341c6622889b65",
+      "sizeBytes": 4123
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_guide_equalities.py",
+      "sha256": "461aad76340cfa8d995bd7ab7ce7410439fbf7a1a793f10d250927bf99b2dd7f",
+      "sizeBytes": 2324
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_guide_field_constraints.py",
+      "sha256": "4388a8e7a110e7379a25dbca4e5dd558ef7c745df8792c6da0fa56691f67bb87",
+      "sizeBytes": 1391
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_guide_groups.py",
+      "sha256": "023cd018afe911ac522df73e91112f7245d8e6f77afdea0c7524cdeb11f02780",
+      "sizeBytes": 2723
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_guide_influence.py",
+      "sha256": "4e16f460cb8a998cd9ae744ce1809777c353672a5a5685cef4a4f4a8224df962",
+      "sizeBytes": 2336
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_guided_output_paths.py",
+      "sha256": "fa94b8a74af11686e14c4bc8d80e9650f90e1fbd09ca3bb8235234e74216a39e",
+      "sizeBytes": 2848
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_index_sort.py",
+      "sha256": "5c022697990be9cdff238120fdceaafbd0713c2275af600f3ae0da0ad75a120d",
+      "sizeBytes": 2383
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_initial_constraint_normalization.py",
+      "sha256": "6147d760ee10de50d3a6c99dbb23416520a67f419ff1aec42fa8cc14d7f4c564",
+      "sizeBytes": 2775
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_initial_edge_attachment.py",
+      "sha256": "a9ebea0ef9391286b706f53d1b12e0f83e31e7217d9011fd43e158f56f964f95",
+      "sizeBytes": 719
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_integer_batch.py",
+      "sha256": "d1f3e0223868f9236ff53267162e55562342e3ba879a5b5518b124078debeb9d",
+      "sizeBytes": 1277
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_integer_geometric_front.py",
+      "sha256": "24eafdcc5af6ad68977679b3a109a7580f5551e156d6470a8694541f1dc40fb1",
+      "sizeBytes": 3630
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_integer_substitution.py",
+      "sha256": "530890aee7a667e948afabf4a1cedd00b41b75bdcf9b9b1ef4c68a6514ee3f05",
+      "sizeBytes": 1201
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_integer_system.py",
+      "sha256": "159f7ef573a22905ee0dc7d98df577e8e9b127312d4645655f627b52ac652605",
+      "sizeBytes": 1676
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_integer_transfer.py",
+      "sha256": "a8a075fb81de962af629d70de7e1d0ef9dfab6ae33ea20f755e6859b99a5571a",
+      "sizeBytes": 1381
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_junction_network_path_enumeration.py",
+      "sha256": "0eeb7e7a7c0bcfcf804d2398feddeb28350b98b0dade3d094caed1edf7216e1a",
+      "sizeBytes": 2576
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_leaf_terminated_guide_tags.py",
+      "sha256": "378f42003bd47b5990a3e11dcab6494bed60cd1ee3a41e30082187c3971cc5de",
+      "sizeBytes": 2707
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_local_cg.py",
+      "sha256": "babdb3d3c3d582d83305c1749fade12beb01d807431b81fc2cb3dd0264bf220c",
+      "sizeBytes": 1639
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_locked_moderate_conditioning.py",
+      "sha256": "6baaf28d3b5d6265ded147de5f274f0f0069b4182366fdbb3bd008153d304d74",
+      "sizeBytes": 3450
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_long_cycle_cap_finished_mesh.py",
+      "sha256": "42921c99f96d10a658b11855805294fcaf059d2ebed94541ffae0aee8cf8a9d7",
+      "sizeBytes": 5014
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_long_cycle_cap_pre_relaxation.py",
+      "sha256": "4af69dd84a0e843005f657951bfbe061464502d8644050d6c60fb18f158c8034",
+      "sizeBytes": 3413
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_long_cycle_frontier.py",
+      "sha256": "482914ddc790c85417560ccc011292ad087470ff190873e51cc242bb8f60604a",
+      "sizeBytes": 5729
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_materialization_metadata.py",
+      "sha256": "f830fb3f6e783d76291abe4af21a7beaa357452617d680e301ac8a3b9861de39",
+      "sizeBytes": 2381
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_mesh_topology.py",
+      "sha256": "454a2069634b54c320e5f6fea549601a09cdda2026d77477604c392260daea29",
+      "sizeBytes": 1946
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_mixed_descriptor_cut_preparation.py",
+      "sha256": "b8449f3750bea39a7d945ff684ea21d0849c5c59f2595d1f2bfd70e73384ed58",
+      "sizeBytes": 2179
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_native_uv_position.py",
+      "sha256": "8f989a37b9a22d8c3848e7253dfe5b22fd5cc62068da8a15452b912546a19274",
+      "sizeBytes": 611
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_open_cut_preparation.py",
+      "sha256": "c1401d008f5fc8bccb5c7141572051550dd54e51adbd3f41ef20aa2ac0001d1b",
+      "sizeBytes": 3200
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_ordered_conditioning_diffusion.py",
+      "sha256": "9ec280907ded6c444133a45b5b7459ea143f597350c754387365ca75354f4ead",
+      "sizeBytes": 909
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_ordinary_curvature_size_caps.py",
+      "sha256": "533ad596971b054a1f18bac5599e5c18f29df6429cf8eee631b4c35f57a4d87c",
+      "sizeBytes": 3372
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_original_densification.py",
+      "sha256": "ff8b7c28329c094b2477e5ba2185c5a7ae9697e5ba35d049556aad39aa00d4dc",
+      "sizeBytes": 1588
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_original_direct_paths.py",
+      "sha256": "9e93ea6423d9c3e87ad64ff2029e3f3e242aef36d949bdb426831c97ed0206d1",
+      "sizeBytes": 2732
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_original_guide_projection.py",
+      "sha256": "d5eb3c9d410ecefa68f9307b0a35751c1c0d7e5459e06a4d2c7406d06fbf31e9",
+      "sizeBytes": 2989
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_original_surface_walk_parallel.py",
+      "sha256": "172e44e23848795b9a1e2723dadec5fbe36c69a0a618503211dde8135191cd5b",
+      "sizeBytes": 3594
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_paired_cut_sides.py",
+      "sha256": "efd89835373b634a088ba99bc012186a2488c779c3d6c45c0e114db90f801829",
+      "sizeBytes": 1788
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_parameter_defaults.py",
+      "sha256": "b56ba8a3c18574f8d27d86b44eaf7fe9588fa07d892968ba30b71a330425f961",
+      "sizeBytes": 406
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_parameter_fan_numbering.py",
+      "sha256": "fd89e76b7320fc459eab6a98d4aba4528bf9173f556101ce5daac0aa4d34a809",
+      "sizeBytes": 2144
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_parameter_frames.py",
+      "sha256": "4e98d974d8175513eaafd8b61a19b30e93c623dfb6ad2d3739866bf1c3b91c00",
+      "sizeBytes": 1101
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_parameter_system.py",
+      "sha256": "51d30b1ba21b417fae0c077aef6c4f58c980142a6f84a05466767067cf5767af",
+      "sizeBytes": 2838
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_period_integer_rows.py",
+      "sha256": "8b77a4847677489d440b0cd33fec951989db87e596246c6be0d68464ce6c692d",
+      "sizeBytes": 1045
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_adjacent_pairs.py",
+      "sha256": "4d8317ed326d309a7f875ce6b0a5665810394c75b87595ab542ff81aee08e51a",
+      "sizeBytes": 2424
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_arc_coordinates.py",
+      "sha256": "6e6ff828330bc42d78323a3761270c2091c0a16dd8b789d67a344677c4cc5469",
+      "sizeBytes": 768
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_corner_classes.py",
+      "sha256": "325a6da04d437775b95816ddfeb16e73cb5c0a60560b1d5fa27ecd63637acc4a",
+      "sizeBytes": 3499
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_corner_refinement.py",
+      "sha256": "593f3ec5229fd828f96a5bc77be215f706bac19967f033b394718ec27dea70b8",
+      "sizeBytes": 1310
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_diagonal_score.py",
+      "sha256": "9bf3fecf6edae1006187a903fbec52c08108ae86c57d61c6fe03707c91880723",
+      "sizeBytes": 1097
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_grid_relaxation.py",
+      "sha256": "8ba10397362f81b669706abd37db0768cc3e295f401a9916994e7cf63617a020",
+      "sizeBytes": 1535
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_new_vertices.py",
+      "sha256": "e8c4c03259c70f62bb284b3ff68244dcb9abe52835bae1f07bde98f76b36ea53",
+      "sizeBytes": 3226
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_nonreflex_choice.py",
+      "sha256": "484631b43f6d6c929ab93ee84dfcce225837762c6050daa1010041e1032f646e",
+      "sizeBytes": 4129
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_provenance.py",
+      "sha256": "d870de4d605431c90f984a8473f3e3e57b2e68d9e69dc59254227c8cf91ef2d4",
+      "sizeBytes": 1050
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_reflex_choice.py",
+      "sha256": "339c4498c05f0e2ede4eb6f6f33e1bf08ac092508c26971827d5a25b8789bf08",
+      "sizeBytes": 1300
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_replacement.py",
+      "sha256": "ca9a9a5f00aac629f20c5f61f409b253509e4f081d0b94908fa5753137fd248e",
+      "sizeBytes": 4313
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_structured_grid.py",
+      "sha256": "596c9063396d32d892541b4faf5fc8306d316fdc2d17eaa3a2f26ad106b97db2",
+      "sizeBytes": 2537
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_tessellation.py",
+      "sha256": "478c8bdf2029039c79bb0ac468786b103cd132262a18109a410d0d2455c4a427",
+      "sizeBytes": 2414
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_polygon_three_rings.py",
+      "sha256": "5d12f9882788c29dc088a6a51dfdc269c9568ba534e0ce75f25f14d403838b4c",
+      "sizeBytes": 655
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_quality_conditioned_densification.py",
+      "sha256": "73b42b6b0fa07a7fc4f247392dc675acfda9fc76c1471505e4fa795235480e34",
+      "sizeBytes": 2291
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_quality_edge_eligibility.py",
+      "sha256": "3353e7676c46b7899205cb2b06af379fffcd0718b39c8b852f2ead9410f8ae2a",
+      "sizeBytes": 3083
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_radius_field.py",
+      "sha256": "8b61d791cb9f6fb0372755d2a5053f89b10121b57e79591606781860db564d52",
+      "sizeBytes": 3524
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_reflex_hexagon.py",
+      "sha256": "253ec00600575b95587e0296e5b45d39c87a1d8580703ec8421e81bc7daafc6a",
+      "sizeBytes": 2659
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_regular_cut_vertex_maps.py",
+      "sha256": "546727d322d066da19428baae44d77fd02674101e30529cb41aca9a61c6e43db",
+      "sizeBytes": 1294
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_regular_grid_walk.py",
+      "sha256": "255626620966ae14a159b1579f436e286e263d0dc3e800f83d4eb92941bd9387",
+      "sizeBytes": 3301
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_relaxation_aggregation.py",
+      "sha256": "8bd9d494ae859a393a2211e58f657bab736e5487e55b32e9254f80da4ed2f477",
+      "sizeBytes": 1017
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_relaxation_constraints.py",
+      "sha256": "b2e03b77168590dd6b356d3638e5c5f0f75c72693402fadaa0c74cebfcad1117",
+      "sizeBytes": 2140
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_relaxation_edge_properties.py",
+      "sha256": "31fff7426101828883251b2515d01d9b8b778e2fc7224371f3595066355518d5",
+      "sizeBytes": 3016
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_relaxation_pairs.py",
+      "sha256": "4108e046f86b9f8264e45ba81831e0fae466e2560c4f4b6c0dc372fdf51c22fc",
+      "sizeBytes": 1193
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_relaxation_requests.py",
+      "sha256": "70f9972ce9d0925d08572b74161fb686a8433cd950087276030eb884fb3b4242",
+      "sizeBytes": 5496
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_rotation3.py",
+      "sha256": "458c7d50b3024728572ea4bfa007c7db538a4a50fe9fe4d3a34d9763f51073c6",
+      "sizeBytes": 2069
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_seed_turn.py",
+      "sha256": "da8a01eff857074f12c039aac4daaa0480bd93401ff87bfdce4f0d625f1bd45a",
+      "sizeBytes": 2401
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_source_edge_tensors.py",
+      "sha256": "378f49f2b3a5d988a7d4f58e2530f90cab27bb8bd7ca0f71a61e7825804669bb",
+      "sizeBytes": 2262
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_source_polygon_conversion.py",
+      "sha256": "9dcbe5fbe5782829c771734ed41fa213420f3fb93d8c91c699fbd4b62d5771bf",
+      "sizeBytes": 2237
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_source_singular_seeds.py",
+      "sha256": "68383bad2c5bdd4c62e4b14edb2fe33cb34174b904d43d99b5784c5fb565c426",
+      "sizeBytes": 2347
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_subdivision_points.py",
+      "sha256": "9cee40b0c18852296bfc9dda45cc0f1a270afe3d1195f94ecdffef6314bb1198",
+      "sizeBytes": 776
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_surface_attachment_classification.py",
+      "sha256": "230fdb53bb6ff77341bb59a2cd60ed3ad3adb4e666f993adce6ecaf95424cf90",
+      "sizeBytes": 1615
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_surface_normals.py",
+      "sha256": "ef26f512130f9c5a4c427c6cdaa81c25fc388a4fb423c572ead1706a6a16a14b",
+      "sizeBytes": 583
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_surface_walk_candidates.py",
+      "sha256": "6e59317e9a3ca7cf6fae7f3926220a6cbf527064774bc8eea2e00285b15b9a8e",
+      "sizeBytes": 2146
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_symmetric_weighted_normal.py",
+      "sha256": "bfd6f5ac077ebb628a0abad2c2a9a6d72de6925203aa043933c13f0a5b04ccb4",
+      "sizeBytes": 1786
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_angular_fallback.py",
+      "sha256": "e28753c404e355dd52dbcf9cea57996db9ac6e88d1fa22121144bbd707b952e0",
+      "sizeBytes": 7711
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_cap_finished_mesh.py",
+      "sha256": "4347422962bd0d556fb59b158d1d97d9cb577683148329be0c74c1cb58050116",
+      "sizeBytes": 2011
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_continuous_parameter.py",
+      "sha256": "c09a0edeb2760b1712cf6ca84773fd3e9364b5dde6c3bc92d80024957812cc44",
+      "sizeBytes": 1636
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_default_continuous_parameter.py",
+      "sha256": "82c5967ccbf27c2f5ae9f11a1c6967fe2bad3e7f826553a2e33a40b378c15e00",
+      "sizeBytes": 690
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_extraction_graph.py",
+      "sha256": "b123fe79c5fd60bc45dafcbcdbd689ad310bf4b0878db2215e9d029299b90c91",
+      "sizeBytes": 6909
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_full_remesh.py",
+      "sha256": "93128431dafea65c64d30ed8aff2a245fea1d1709a06bf0a4601232ceeb9d538",
+      "sizeBytes": 1148
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_guide_field.py",
+      "sha256": "097aa39ed774102ef2dae8e427ce5fba5046c0d6a4b5c473d4dd5a3888cc11a3",
+      "sizeBytes": 5618
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_guide_segments.py",
+      "sha256": "0c4ce59c5d179f2631e675ce6c8b8343bda17319c72472ec936e1ce04de71f5b",
+      "sizeBytes": 4803
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_guided_source.py",
+      "sha256": "40986923215546ebdc0b0fbbd06a9c5fd9a91deeff1a1cbc2d6ff0a650439d1d",
+      "sizeBytes": 1685
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_initial_parameter.py",
+      "sha256": "17abf92a2a7af8d588b88fb838067ff9a6195ad4fb0489bb7e3794556d82004d",
+      "sizeBytes": 2417
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_integer_geometric_rows.py",
+      "sha256": "ec8f72a401b6c2b706728e46b8c04f77521c3e4836ea5fcf06bad3f4de0555fb",
+      "sizeBytes": 5813
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_integer_geometry.py",
+      "sha256": "790854cbb581d0e01c4b9c0db6d566a70acab53d9e70048c26478a0ee2e261d2",
+      "sizeBytes": 2582
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_parameter_chart.py",
+      "sha256": "1d085ea79085143bd5e8fdf0614779a1e5ba7f42253668a1343725f988626e5d",
+      "sizeBytes": 1334
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_parameter_constraints.py",
+      "sha256": "998c4c098156635585003e27a164720d9fba53a3ac4e6cc0e0ce1b14551beed2",
+      "sizeBytes": 2648
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_parameter_equations.py",
+      "sha256": "041524e78022ec212f860ec4ae05ac1b383d3063986ccb5a7041351633cbaabb",
+      "sizeBytes": 1024
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_parameter_solution.py",
+      "sha256": "f3469b4189075e95644b40ff4a10ae038516c321e622ac1a633e1ca08f4ef9a2",
+      "sizeBytes": 4244
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_preparation.py",
+      "sha256": "cfda5a891e125edc48395efc1ddd0f6401b4a70b01420c7cd7f07edd034d3cd5",
+      "sizeBytes": 1267
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_scalar_constraints.py",
+      "sha256": "9b4dd833e4a1d795ad3df6703a72ea39a6cf069209e06041bde3d0b734e7be2c",
+      "sizeBytes": 3553
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_size_field.py",
+      "sha256": "323af3ede7f281e04ae5efe345fc62031189f2d8a1bbd70975cc55bce77b0e39",
+      "sizeBytes": 2733
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_torus_source_cut_graph.py",
+      "sha256": "6262cd76bcf43f79aa2ba4ef34be36bfb79320ee7fd903dd2993481aa1ccbdf6",
+      "sizeBytes": 4199
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_triangle_inward_repair.py",
+      "sha256": "56655d00862b32cc779f93952227b5ed810ae726ace3465bd5f1609f1d35d082",
+      "sizeBytes": 1435
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_triangle_projection.py",
+      "sha256": "45f633d6538cd5c713db8583c4815fed4cd6df1d8dae459223ef5dff80588436",
+      "sizeBytes": 2033
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_triangle_quality_pass.py",
+      "sha256": "a50b907ba00da4a585460682b278dc3954cc35d0a0f5c73bd9cc479c6d587805",
+      "sizeBytes": 3871
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_triangle_subdivision.py",
+      "sha256": "1bf3ccbe0976f7b52406b8988c64dea78ae80c7c068de1950cb944975fcd58df",
+      "sizeBytes": 2059
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_unit_constraint_elimination.py",
+      "sha256": "745bb6a6d8aa89fb524dc1010e0a224a209faea120e0b3a9529deac7f92c77ea",
+      "sizeBytes": 2017
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_unmarked_node_fan_scalars.py",
+      "sha256": "5e70f9a86cded471646b37841cfdc6e71d4be7188ff98d01fee02bee1170d3c8",
+      "sizeBytes": 1348
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_vertex_neighbor_direct_paths.py",
+      "sha256": "f34d5e7a963ff8f12905ad621208e55cec0e8e188e37fe75138120d0de20c412",
+      "sizeBytes": 1746
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_weighted_closed_feature_admission.py",
+      "sha256": "4c9cd4e674c1b4a51902479809ca95d74d28fd6afd11e98fb40d9973c6c33323",
+      "sizeBytes": 4697
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_weighted_fairing.py",
+      "sha256": "58ed7e043b626504686658d3c511c9e376c8518303208ae704e736b5b72e63f5",
+      "sizeBytes": 884
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_weighted_feature_path_metrics.py",
+      "sha256": "42da8ee4892101a9ae380dcf97c253900ca8581db4dd76661481c6abb9eb9e79",
+      "sizeBytes": 4685
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_window_field_selection.py",
+      "sha256": "c8b51283595f0e3ec261e5d81a0616c1f718066a64834cdd96fe2f0a7d2ad805",
+      "sizeBytes": 5130
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_work_node_attachment.py",
+      "sha256": "768b6e247433289d8078837145742ae0bd57725d01e88060c0a4ffccbc3a613b",
+      "sizeBytes": 1263
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_work_node_cache.py",
+      "sha256": "3097b246b028855ac5bfb26a9a3c6168caff3b7efe62b49484255ffa0061e639",
+      "sizeBytes": 1265
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_work_node_frame.py",
+      "sha256": "efe85abe244f253717d7271ca51df349ee51410692893943c14f86ad5b9703ff",
+      "sizeBytes": 2990
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_work_node_lookup.py",
+      "sha256": "2e575da6bcc61ff890f71dcf47ae337c6966f7d8a4c85b8f3ab8a479415e4d6d",
+      "sizeBytes": 1459
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/recovered_zero_attachment_move.py",
+      "sha256": "c72de1cd9d1b3d640e62a0263b1400c147ef75f00f1eed844f01e34163aec4ee",
+      "sizeBytes": 603
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/reference_glu_tessellation.py",
+      "sha256": "2eccf37159b912a9bd0254d9e8936d854b313563b7dfec9f5d97515b911dbdab",
+      "sizeBytes": 3760
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_angular_transport.py",
+      "sha256": "d37b3e4332aa419d313f55188f64a345234b64ee515ce59beae811b81adc25db",
+      "sizeBytes": 3960
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_boundary_triangle_cuts.py",
+      "sha256": "cfa6b07230acdfb1f5f7043772826baa57d7c6813f2a5b0c4dac6281c10f370f",
+      "sizeBytes": 2601
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_coordinate_reconstruction.py",
+      "sha256": "f9f0f9a158470a25f211e03d99f8d8bfb8886b8d675b85acb4c28a441619dec9",
+      "sizeBytes": 2226
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_cut_polygon_conversion.py",
+      "sha256": "b22699d35c05b9d11c3237747ed2ca07a71e63bc4020c34bc126e2f87b8d9381",
+      "sizeBytes": 2396
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_initial_parameter_weights.py",
+      "sha256": "bf6709582bed9d0d442f066c9b1455b589048906d2f9d53288879ff5eaf73e74",
+      "sizeBytes": 2347
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_integer_chain_integral.py",
+      "sha256": "bc2394af54d020a2c3ec99734932dfe45404db14375a79a120fc7c0076b96aad",
+      "sizeBytes": 3273
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_local_cg.py",
+      "sha256": "2c1b0edecbabb5f4720d451a20371517cb404ba6177f26f186b14e1ca8fef9ae",
+      "sizeBytes": 4153
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_paired_cut_seams.py",
+      "sha256": "47185440d3311128bfd228705c5aaae4fd996e069e6e05004856e58ac6d30115",
+      "sizeBytes": 2466
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_parameter_reweight.py",
+      "sha256": "6e47fd21a32a8a43841e4cba34c69a8f2b197668582135412edf97c5b08a0a9e",
+      "sizeBytes": 6305
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_parameter_rows.py",
+      "sha256": "2c90daa437381bc742054e123c7a788f3d6a7d1a719096ffa760ef288515215c",
+      "sizeBytes": 3223
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_scale_selection.py",
+      "sha256": "bab0a2f8f327da7ef3fb76ffb71414dff1a42e9c5b4cf9bf99abfe3c64b21182",
+      "sizeBytes": 6087
+    },
+    {
+      "path": "engine/targets/zbrush/experiments/python/verify_seam_endpoint_equations.py",
+      "sha256": "6f37a93baf3c56dca8b0e8bf6461a234559425577493a26daf14432c7b40d011",
+      "sizeBytes": 2027
+    },
+    {
+      "path": "engine/targets/zbrush/scripts/python/promotion_policy.py",
+      "sha256": "6336668ef730c75c9d0de7a581e94517ecdde1448a09fed85d61eae72335878a",
+      "sizeBytes": 3192
+    },
+    {
+      "path": "engine/work/zbrush/analysis/reference-cholmod-build-0683/reference.c",
+      "sha256": "4d0c8b21027480b9477092f1ce9dabfdafba402ab4c30abc79c25b54f1559800",
+      "sizeBytes": 1297
+    },
+    {
+      "path": "engine/work/zbrush/analysis/reference-cholmod-build-0683/reference_cholmod.dll",
+      "sha256": "5a45a906d5d0dc64e7b4c141166c4e164d968ba9f5dbb5356912670f3ba850eb",
+      "sizeBytes": 250880
+    },
+    {
+      "path": "engine/work/zbrush/analysis/reference-cholmod-build-0683/result.json",
+      "sha256": "e62dcf0445c38c868678e13dc96d73634c5f1e08ee39e5651099dc78a8bdf1eb",
+      "sizeBytes": 14613
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Include/amd.h",
+      "sha256": "28628b0c724bd36c05934fbb0006a5513f4cf69e0d196446761143947f7b8bd6",
+      "sizeBytes": 17821
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Include/amd_internal.h",
+      "sha256": "892cd914f4f3c0bcf595b22852affd160e0d6b2abfced3536dbb3fafd64f89da",
+      "sizeBytes": 8238
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_1.c",
+      "sha256": "42d0b4962d6dece4a2f7a3d0bf1ae0b05dd142f097bfd105720323b1108ab14d",
+      "sizeBytes": 5710
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_2.c",
+      "sha256": "60a0f293bdec6bcf6988e03641ff8cc34e4d3ea33dc589f3551dd04550c0ca86",
+      "sizeBytes": 64825
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_aat.c",
+      "sha256": "07207cc6f723c3bea86b766f37807d3b436e28c8cbdca147b937c5f7dd786eab",
+      "sizeBytes": 4847
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_control.c",
+      "sha256": "775bdc19e0997230447732a44a8209703b2bf4a26bf3f73dcc072e67f4d4615c",
+      "sizeBytes": 1867
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_defaults.c",
+      "sha256": "6010ee9cabe18a0437bacf4e0ff32b77d72cae9678dbca73cd31f27b1b1c522a",
+      "sizeBytes": 1253
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_dump.c",
+      "sha256": "85215ca792ebee328574302e585b111c7ea54ab9727888b897d7f37a3cdeb05c",
+      "sizeBytes": 5012
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_global.c",
+      "sha256": "2bfdaa5aaebbd7102e4fc9ae3cb9eb743995bff4fa52570de42cde60dd2900f9",
+      "sizeBytes": 837
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_info.c",
+      "sha256": "a27c00192936b87a0b50e202eb8982b70f4077d0116bda347e5a6bdc8f83113e",
+      "sizeBytes": 4293
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_order.c",
+      "sha256": "d0dbcaf7538b292e33a79b2cbc1dc84897e7bef62ab396c7a3a78437b44a3334",
+      "sizeBytes": 6031
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_post_tree.c",
+      "sha256": "f97d516d22e20ea6e81d3a1a4dfd04f8ad38a5e434657620a1b2ff89c34ebb87",
+      "sizeBytes": 3703
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_postorder.c",
+      "sha256": "49e2ec4776e8638a07c3504fcafac8b28cf4b6773d80ffe198f0976ce14e93d6",
+      "sizeBytes": 5509
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_preprocess.c",
+      "sha256": "e7022d7a1ff673e8d7e0c8325a916f1c8205653e9b1b8ecc79112c27bf44ff75",
+      "sizeBytes": 3808
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_valid.c",
+      "sha256": "45bb926b9fbdffd3bf6712d48be030c3fad160d58cf15b25fc63f4b8806a739c",
+      "sizeBytes": 2980
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_amd.c",
+      "sha256": "d34d72660a66f03f079b7748bd5252c27a29e31b56f0cfc0242e5d841587bddd",
+      "sizeBytes": 6569
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_analyze.c",
+      "sha256": "ab1aad791ca36477b020741575a9d60bc691fe194f7138726e1425cfa2cf78f8",
+      "sizeBytes": 32727
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_colamd.c",
+      "sha256": "29f242bf1e58aa672ba9ddb2e1d9f83954208eaf7f84d5b4982ee715068e274e",
+      "sizeBytes": 6706
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_etree.c",
+      "sha256": "07375e51c8c94c16cb6fb51501db478d0123422109827e94cc9bd3f68794e671",
+      "sizeBytes": 6931
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_factorize.c",
+      "sha256": "240cf936a35fed93c04d4130af94dec84750c9a4e76cac7755cb3698d8fedca0",
+      "sizeBytes": 14300
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_postorder.c",
+      "sha256": "26e7fcad6ed68e329f416d600dc899e35d597f4c1377c955dcb21ffbad774a95",
+      "sizeBytes": 9475
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_rcond.c",
+      "sha256": "9bba3034b440d0d601e4f58aac9da8eeb7dcf97a783f8f5686368d13d350b28d",
+      "sizeBytes": 4669
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_resymbol.c",
+      "sha256": "579c0d76c9ab92574e5a6899bf0fd9b43cb1c74997d3e955e216361c74519e2a",
+      "sizeBytes": 18471
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_rowcolcounts.c",
+      "sha256": "9489e0054c64bd8d3b3bc047e1a7425a3e6798092ac80d7df789dcabd6f87b26",
+      "sizeBytes": 18121
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_rowfac.c",
+      "sha256": "6730c4f2e5fdbc414fbcc5d17b9c8e8bf7e878ceeed6290c2493e5fcd9d91366",
+      "sizeBytes": 24827
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_solve.c",
+      "sha256": "d563251bc8ccc116a1b05e40fd604fca800353fb251b67d9517166fafbbd2931",
+      "sizeBytes": 49775
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_spsolve.c",
+      "sha256": "6cb57b2d4ece33faaf2ec5705d10e602de33249dc81f92b4f9bfd55562e98dd4",
+      "sizeBytes": 9918
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_aat.c",
+      "sha256": "bac22e79042d81434c81973b6fb137dd5a5a11fe8be8cd1ae6c072dcc1291586",
+      "sizeBytes": 8428
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_add.c",
+      "sha256": "8210a283263b9d6333096e702efc4e9a262de0163d475e19c9b9e61588c6dec5",
+      "sizeBytes": 8127
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_band.c",
+      "sha256": "df296402b329dbd9509ea8f61b30fa235053f1e4a48746a862dbc6edc045c48d",
+      "sizeBytes": 9711
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_change_factor.c",
+      "sha256": "4c941b46f67ff58b94a8f2399172435e148db58780b587c6e085ed540063af2b",
+      "sizeBytes": 38412
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_common.c",
+      "sha256": "5e19b065ce4336fe05ff42f2f5b739462eedb4c96ebf6106ec229fe2464fed52",
+      "sizeBytes": 24164
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_complex.c",
+      "sha256": "2cc2d7d0824841e7ae4e48c2a866ff47210ad247056c076b1721ce731087831f",
+      "sizeBytes": 15017
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_copy.c",
+      "sha256": "dba5188ac0684ccca53549111f66a1cf6d05c255b828dccab7a05d257f4677bf",
+      "sizeBytes": 11756
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_dense.c",
+      "sha256": "1872c0c0c7c7374c94ed35e40e3d262ee7d371664de5fc5aabdd2db9bf0b0a33",
+      "sizeBytes": 20115
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_error.c",
+      "sha256": "2ca8ec61aa5d6b8aeed4adb9051d0db4832805686bd5b6262fc36e4be5920fd8",
+      "sizeBytes": 3391
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_factor.c",
+      "sha256": "4c4c48232c6a281a8df65831914d6387ff9873fe2512ac44a392eabfb11bc790",
+      "sizeBytes": 27267
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_memory.c",
+      "sha256": "fcf4864531f9e3c72c0dca50a118ee0d709a944645f2cf5838a50b90528bc1ac",
+      "sizeBytes": 16804
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_sparse.c",
+      "sha256": "62fa8722686e1037c5f65b89f6ca38a4b6875a69c39212c52d5910dd3d8432cc",
+      "sizeBytes": 17689
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_transpose.c",
+      "sha256": "17cc623ed180e84f0671dc266c1cc44b2d9a1e6b6cb476f37e62521a35daefeb",
+      "sizeBytes": 31230
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_triplet.c",
+      "sha256": "59915d60dee57662738132e17685d1726842a92a729daf98d46dada2f1531cd0",
+      "sizeBytes": 23368
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_version.c",
+      "sha256": "b2cac0c0eadf35131f3fba1f7896d7d49a5f33d047b91f56fcbbf0d4c99e0944",
+      "sizeBytes": 1200
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod.h",
+      "sha256": "c2f989c34da479f923b0e731daa77b37122c2586e85faea34e4f1c1766a63820",
+      "sizeBytes": 3714
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_blas.h",
+      "sha256": "5d543307f232a977e3935e73d17194e9601fc18a7090f917aef4d5684c83bad0",
+      "sizeBytes": 13724
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_camd.h",
+      "sha256": "81c700fbbec260a22469f4ccd125312c1f62e9697fe860b65b26c1a54cbbfebe",
+      "sizeBytes": 3474
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_check.h",
+      "sha256": "5eebd6bae4570190e17dec08c4938c216a31cc1d12741522a964b33f0e52e472",
+      "sizeBytes": 14851
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_cholesky.h",
+      "sha256": "42454a68d58d0b9dfe1142a82a15240f1a6f7e357fddbed054ad0c5e127b4964",
+      "sizeBytes": 22969
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_complexity.h",
+      "sha256": "cdf0719bb375a668abc64c7e25b5f013aeb8ca27134feccd5981c9d1492acdb4",
+      "sizeBytes": 9416
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_config.h",
+      "sha256": "0bdd10ea9bcca508261798236f2e923da7118bfc8b8fa81ba46ea0c3b4f49908",
+      "sizeBytes": 2617
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_core.h",
+      "sha256": "8985174c7ae047372e3fe972749be172d5eaafbd14a914c1cd33f3c0dc0d8b5c",
+      "sizeBytes": 102870
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_function.h",
+      "sha256": "d422d65f4328a791c45d4a23462e60db5411e0e3c2bf8e3eea09272587c0b8f7",
+      "sizeBytes": 6639
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_gpu.h",
+      "sha256": "8f96a758db7563a02d816ea5b0477560b79e1318a98b2166780ff78c9dbac36c",
+      "sizeBytes": 2423
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_gpu_kernels.h",
+      "sha256": "445dc9ab7cd39b9a5a9b3ddc0caa8265433984737eeba45bcd75d69eb50ddf90",
+      "sizeBytes": 1639
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_internal.h",
+      "sha256": "1e28da64dabc3d6f38d9dbe0eb0b3456f86601ab95de856fd4ee41b68144af1b",
+      "sizeBytes": 13877
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_io64.h",
+      "sha256": "8a2c6c343fa4f9d328bb4e214b704f29e06ac0f77a7511c947f537ec6222790b",
+      "sizeBytes": 1434
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_matrixops.h",
+      "sha256": "8c4459e75a10f70cec808d12cddaf15c435e3988d457c8678c94a58c7996ee15",
+      "sizeBytes": 8464
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_modify.h",
+      "sha256": "3142938471a939aa55aaae1b4edccab136b85be45aafdab508e153138f700ef6",
+      "sizeBytes": 13563
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_partition.h",
+      "sha256": "9ce1b7eec2bd6368f8098109d0207aa95016a61f614087132ed326af61e09a6c",
+      "sizeBytes": 6892
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_supernodal.h",
+      "sha256": "8909ebec7040256b1280e6629c20e9f4f3f2e6795083f98a2eeb1da1b4e62c2b",
+      "sizeBytes": 6222
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_template.h",
+      "sha256": "83f1e3a2b93c60e8b97b2771a09c42b8dd1b00182915e9d2c358a14c57dfd376",
+      "sizeBytes": 9518
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/COLAMD/Include/colamd.h",
+      "sha256": "de5f13dca773b65fdbefbe56790538d523e8ec86ff9d8fd6c8e6e3ac1d6d3fb4",
+      "sizeBytes": 8361
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/COLAMD/Source/colamd.c",
+      "sha256": "f82d2b2a17d8cffcaf36b8042a4906fadb5ac098c801c8e498434f235ec026e8",
+      "sizeBytes": 107525
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/SuiteSparse_config/SuiteSparse_config.c",
+      "sha256": "a1f590ce407402c51374b8837e53762e41d0174b64f9384af3736c9670155226",
+      "sizeBytes": 16453
+    },
+    {
+      "path": "engine/work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/SuiteSparse_config/SuiteSparse_config.h",
+      "sha256": "85063b8ad10ebb1c817e60cfdb374de1cfde0210e9195ec23cea25bd97d3b5ba",
+      "sizeBytes": 7691
+    },
+    {
+      "path": "favicon.svg",
+      "sha256": "dfa3c8409bb43fa6c13082fd3c17e6f7ee9c7792df35fff04157a76c16283b0c",
+      "sizeBytes": 262
+    },
+    {
+      "path": "index.html",
+      "sha256": "1e7f2979c4c1cee9d21ba9397f1468b18841120b0fa91f6cce7b5b9a63139eda",
+      "sizeBytes": 24022
+    },
+    {
+      "path": "package.json",
+      "sha256": "1b44190741a0713f96e0679b97d04b33c348473b2d10b2ea4f8c26c377c22c8d",
+      "sizeBytes": 212
+    },
+    {
+      "path": "README.md",
+      "sha256": "3c91c2a1441084425c0f306a1f5effa718d6d4d1bcac6a4dfc3a6ac34dd8ce98",
+      "sizeBytes": 8398
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "fae8da56bbf8dbab7224fe85a780be082ed23a57042d0f52f149752d66245ad2",
+      "sizeBytes": 106
+    },
+    {
+      "path": "server.py",
+      "sha256": "0bad65ec4821587f39034b0d5f7719942f06db7c3946e8f731665cca59558667",
+      "sizeBytes": 8921
+    },
+    {
+      "path": "start.cmd",
+      "sha256": "6cb43e41be546d7a728beeee4b59898c95f34ab879fcea587bed9ce8dd579da0",
+      "sizeBytes": 74
+    },
+    {
+      "path": "tests/candidate/baseline/adapter.py.txt",
+      "sha256": "b6882abef48a84304c081b1d9a742e46da000d6ca6f3979603880ab515cc70bf",
+      "sizeBytes": 19964
+    },
+    {
+      "path": "tests/candidate/baseline/curves.json",
+      "sha256": "60484ed8897523d2851d62f2d7b5c579d44bc7fe605c4a884c98092a33d354a7",
+      "sizeBytes": 45
+    },
+    {
+      "path": "tests/candidate/baseline/features.json",
+      "sha256": "1317838c698c4027c200030b96956af4650fc79282121e5daa5e9dab9ed18efb",
+      "sizeBytes": 16280
+    },
+    {
+      "path": "tests/candidate/baseline/input.obj",
+      "sha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "sizeBytes": 24146
+    },
+    {
+      "path": "tests/candidate/baseline/output.npz",
+      "sha256": "a0854e2a367d98a90cce2d02f92f08bf2d3769ad19a9f5b2a71b7fc1fca6aa88",
+      "sizeBytes": 47892
+    },
+    {
+      "path": "tests/candidate/baseline/output.obj",
+      "sha256": "1dbd73f2c13b237e497a9579b6daf3e8ca5bc69fd4e3efa9af1ca41da6512072",
+      "sizeBytes": 50659
+    },
+    {
+      "path": "tests/candidate/baseline/result.json",
+      "sha256": "99673540b67dcc85fcfa01b6363c882717ed8ea2a3760e25892e1baa38ae0f0d",
+      "sizeBytes": 70434
+    },
+    {
+      "path": "tests/candidate/baseline-curves.json",
+      "sha256": "60484ed8897523d2851d62f2d7b5c579d44bc7fe605c4a884c98092a33d354a7",
+      "sizeBytes": 45
+    },
+    {
+      "path": "tests/candidate/baseline.log",
+      "sha256": "eca7202987f8aa1a87762d28db3b2a3526afc3932ac39bc4708d21bc6268eba4",
+      "sizeBytes": 95
+    },
+    {
+      "path": "tests/candidate/crossings/adapter.py.txt",
+      "sha256": "b6882abef48a84304c081b1d9a742e46da000d6ca6f3979603880ab515cc70bf",
+      "sizeBytes": 19964
+    },
+    {
+      "path": "tests/candidate/crossings/curves.json",
+      "sha256": "dc44cbb7644aeffbf9d345002654dbe1ae0dfeb000b61a735652c6f8309f1ad7",
+      "sizeBytes": 8267
+    },
+    {
+      "path": "tests/candidate/crossings/features.json",
+      "sha256": "7aa4eecddb2ebda76f5a538478a68d6ded710190ff242ce208edda33568f5278",
+      "sizeBytes": 20228
+    },
+    {
+      "path": "tests/candidate/crossings/input.obj",
+      "sha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "sizeBytes": 24146
+    },
+    {
+      "path": "tests/candidate/crossings/output.npz",
+      "sha256": "53c5245c81cceeedda36ffd3375a9640b185900544d9ea1c31dd34cf48eaa66a",
+      "sizeBytes": 77588
+    },
+    {
+      "path": "tests/candidate/crossings/output.obj",
+      "sha256": "dd1fdc1608c88a4f70080f0dcb488601cdc9c85192e876cb738f7ed4b29a74f0",
+      "sizeBytes": 80541
+    },
+    {
+      "path": "tests/candidate/crossings/result.json",
+      "sha256": "6b7fc2923ffae2dcc1785a3a743e9c20973567e558492d3195cab02070415daf",
+      "sizeBytes": 92323
+    },
+    {
+      "path": "tests/candidate/crossings-curves.json",
+      "sha256": "dc44cbb7644aeffbf9d345002654dbe1ae0dfeb000b61a735652c6f8309f1ad7",
+      "sizeBytes": 8267
+    },
+    {
+      "path": "tests/candidate/crossings.log",
+      "sha256": "261b25bdbd0b35a5324052955a70dc22f492ecaf5250e36821fd2c0acbb2ad9a",
+      "sizeBytes": 97
+    },
+    {
+      "path": "tests/candidate/geometry-measurements.json",
+      "sha256": "3fd2dae486d389c6d14f03ba0968260e18fabd4ee58b0829a0d4b62eab00ce51",
+      "sizeBytes": 20200
+    },
+    {
+      "path": "tests/candidate/loop/adapter.py.txt",
+      "sha256": "b6882abef48a84304c081b1d9a742e46da000d6ca6f3979603880ab515cc70bf",
+      "sizeBytes": 19964
+    },
+    {
+      "path": "tests/candidate/loop/curves.json",
+      "sha256": "24e60c5efe0e219ef9494cc2b7e7bcc5bfff495d2123aaf49367778be1c16520",
+      "sizeBytes": 4662
+    },
+    {
+      "path": "tests/candidate/loop/features.json",
+      "sha256": "7a0a2c46748e3b2b1ecf19c0ca95769a8bb7c5ee8d77300ced4ea439dc563a42",
+      "sizeBytes": 17592
+    },
+    {
+      "path": "tests/candidate/loop/input.obj",
+      "sha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+      "sizeBytes": 24146
+    },
+    {
+      "path": "tests/candidate/loop/output.npz",
+      "sha256": "4c1e3c2787610b2926bab108add13d5fda5b6512806273cc04ec352a4af71e16",
+      "sizeBytes": 58388
+    },
+    {
+      "path": "tests/candidate/loop/output.obj",
+      "sha256": "147d77815999c0f0da7d0b8bcd86eda886878228c8f026e2ab52dcaf67aa1aae",
+      "sizeBytes": 60935
+    },
+    {
+      "path": "tests/candidate/loop/result.json",
+      "sha256": "8011185866334f083ca1df1f2f3547ba2139116202b53b99407ceede90bd8156",
+      "sizeBytes": 81850
+    },
+    {
+      "path": "tests/candidate/loop-curves.json",
+      "sha256": "24e60c5efe0e219ef9494cc2b7e7bcc5bfff495d2123aaf49367778be1c16520",
+      "sizeBytes": 4662
+    },
+    {
+      "path": "tests/candidate/loop.log",
+      "sha256": "01d5ba6b4903e7e14d04726c6a9eb2576f1c47ab2a66d579695ca3bb72215010",
+      "sizeBytes": 95
+    },
+    {
+      "path": "tests/screenshots/desktop-dark.png",
+      "sha256": "37f22711935abe4193cf7a29f41d137e1d77d401b9b1bce2a94c473a813c4da2",
+      "sizeBytes": 195326
+    },
+    {
+      "path": "tests/screenshots/desktop-light.png",
+      "sha256": "7edaa99e36a925587d6c4da090c83f2dd63a913b5b0c42a44f0329b74f0a311f",
+      "sizeBytes": 166143
+    },
+    {
+      "path": "tests/screenshots/drawn-guide-result-dark.png",
+      "sha256": "c6b2c15022f6b54c7b53653d2f566ea24be8bc74acb12be325eefd8e18dc3ebb",
+      "sizeBytes": 167498
+    },
+    {
+      "path": "tests/screenshots/mobile-light.png",
+      "sha256": "2d1c32aaa08a1386a6e77e3c580c4bd291e3a2bb1ff884ce9b2c92ede48d61f7",
+      "sizeBytes": 103800
+    },
+    {
+      "path": "tests/screenshots/overlay-dark.png",
+      "sha256": "a542933b6f52e34ca84dc5fe36a82bc6fd0848bb8d4e5b6ab9480020826ebf71",
+      "sizeBytes": 161272
+    },
+    {
+      "path": "tests/screenshots/terrain-light.png",
+      "sha256": "4f17a63736fb9f5c0d27f4f55e527f97eef2d6d2e73ff66981c678d863f25a4a",
+      "sizeBytes": 184957
+    },
+    {
+      "path": "tests/verification/downloaded-guides.json",
+      "sha256": "f08de560bb705069807b5ec70d09d07298bbf441cb279b2e3e8e5350add47877",
+      "sizeBytes": 36197
+    },
+    {
+      "path": "tests/verification/downloaded-output.obj",
+      "sha256": "30eefa6b870109650cda06d7817c8e1a73c632718588c6ef7c168e16ba4a416b",
+      "sizeBytes": 63102
+    },
+    {
+      "path": "tests/verification/drawn-curves.json",
+      "sha256": "db54a079c62d08a5f487b3718d1d25836b0678d7b610e56328772280b9994753",
+      "sizeBytes": 38212
+    },
+    {
+      "path": "tests/verification/drawn-output-measurement.json",
+      "sha256": "6840f967f5d470067af3a24f65dabdd09c6bfa4596bf1ced8ea2e0ca454ec6c4",
+      "sizeBytes": 6831
+    },
+    {
+      "path": "tests/verification/result.json",
+      "sha256": "c16eea463a1f1067d8bd3e987276de54c920a77819775127c680b282eed11b34",
+      "sizeBytes": 3953
+    },
+    {
+      "path": "tests/verification/server.log",
+      "sha256": "b0617168ad23e60baf7a60d3d7dbb1990511f8fd14a36933801686b1c79e396c",
+      "sizeBytes": 5298
+    },
+    {
+      "path": "tests/verify_demo.py",
+      "sha256": "7240a41e5b6547cfe84d3211b0a56320f82aca519c1c0c1c8f057c2b167cfc4e",
+      "sizeBytes": 12735
+    },
+    {
+      "path": "vendor/OrbitControls.js",
+      "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+      "sizeBytes": 38703
+    },
+    {
+      "path": "vendor/THREE-LICENSE.txt",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "sizeBytes": 1081
+    },
+    {
+      "path": "vendor/three.core.js",
+      "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+      "sizeBytes": 1403455
+    },
+    {
+      "path": "vendor/three.module.js",
+      "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+      "sizeBytes": 603113
+    },
+    {
+      "path": "worker.py",
+      "sha256": "64f1498495acb7db30d35f2dfe68c6131982fe5b979a0e82af24f80de05a6ee4",
+      "sizeBytes": 4462
+    }
+  ],
+  "source": "Independent local project assembled from qualified research engine, original online asset and new canvas/API code.",
+  "meshCreator": "Kenney",
+  "meshSource": "https://kenney.nl/assets/prototype-kit",
+  "meshLicense": "CC0-1.0",
+  "renderer": "Three.js0.180.0 MIT",
+  "engineScope": "Previously qualified independent reference closure. No Maxon binary, native output oracle or Ghidra database is copied.",
+  "excluded": "Runtime job directories, Python caches and superseded smoke screenshots. Final standalone verification will create its own current job/output records."
+}

@@ -1,0 +1,289 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "compilerReturnedZero",
+      "passed": true
+    }
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 8.09882378578186,
+  "compiler": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.EXE",
+  "configuration": {
+    "integerBits": 32,
+    "scalar": "double",
+    "partition": false,
+    "supernodal": false,
+    "modify": false,
+    "matrixops": false,
+    "floatingPoint": "MSVC /fp:precise",
+    "optimization": "/O2"
+  },
+  "scope": "Isolated upstream reference build only. No installed binary or process is changed. Native ordering/factorization agreement and remeshing conformance require separate measurements.",
+  "inputs": [
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/SuiteSparse_config/SuiteSparse_config.c",
+      "sha256": "a1f590ce407402c51374b8837e53762e41d0174b64f9384af3736c9670155226"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_1.c",
+      "sha256": "42d0b4962d6dece4a2f7a3d0bf1ae0b05dd142f097bfd105720323b1108ab14d"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_2.c",
+      "sha256": "60a0f293bdec6bcf6988e03641ff8cc34e4d3ea33dc589f3551dd04550c0ca86"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_aat.c",
+      "sha256": "07207cc6f723c3bea86b766f37807d3b436e28c8cbdca147b937c5f7dd786eab"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_control.c",
+      "sha256": "775bdc19e0997230447732a44a8209703b2bf4a26bf3f73dcc072e67f4d4615c"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_defaults.c",
+      "sha256": "6010ee9cabe18a0437bacf4e0ff32b77d72cae9678dbca73cd31f27b1b1c522a"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_dump.c",
+      "sha256": "85215ca792ebee328574302e585b111c7ea54ab9727888b897d7f37a3cdeb05c"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_global.c",
+      "sha256": "2bfdaa5aaebbd7102e4fc9ae3cb9eb743995bff4fa52570de42cde60dd2900f9"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_info.c",
+      "sha256": "a27c00192936b87a0b50e202eb8982b70f4077d0116bda347e5a6bdc8f83113e"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_order.c",
+      "sha256": "d0dbcaf7538b292e33a79b2cbc1dc84897e7bef62ab396c7a3a78437b44a3334"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_post_tree.c",
+      "sha256": "f97d516d22e20ea6e81d3a1a4dfd04f8ad38a5e434657620a1b2ff89c34ebb87"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_postorder.c",
+      "sha256": "49e2ec4776e8638a07c3504fcafac8b28cf4b6773d80ffe198f0976ce14e93d6"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_preprocess.c",
+      "sha256": "e7022d7a1ff673e8d7e0c8325a916f1c8205653e9b1b8ecc79112c27bf44ff75"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Source/amd_valid.c",
+      "sha256": "45bb926b9fbdffd3bf6712d48be030c3fad160d58cf15b25fc63f4b8806a739c"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/COLAMD/Source/colamd.c",
+      "sha256": "f82d2b2a17d8cffcaf36b8042a4906fadb5ac098c801c8e498434f235ec026e8"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_aat.c",
+      "sha256": "bac22e79042d81434c81973b6fb137dd5a5a11fe8be8cd1ae6c072dcc1291586"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_add.c",
+      "sha256": "8210a283263b9d6333096e702efc4e9a262de0163d475e19c9b9e61588c6dec5"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_band.c",
+      "sha256": "df296402b329dbd9509ea8f61b30fa235053f1e4a48746a862dbc6edc045c48d"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_change_factor.c",
+      "sha256": "4c941b46f67ff58b94a8f2399172435e148db58780b587c6e085ed540063af2b"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_common.c",
+      "sha256": "5e19b065ce4336fe05ff42f2f5b739462eedb4c96ebf6106ec229fe2464fed52"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_complex.c",
+      "sha256": "2cc2d7d0824841e7ae4e48c2a866ff47210ad247056c076b1721ce731087831f"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_copy.c",
+      "sha256": "dba5188ac0684ccca53549111f66a1cf6d05c255b828dccab7a05d257f4677bf"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_dense.c",
+      "sha256": "1872c0c0c7c7374c94ed35e40e3d262ee7d371664de5fc5aabdd2db9bf0b0a33"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_error.c",
+      "sha256": "2ca8ec61aa5d6b8aeed4adb9051d0db4832805686bd5b6262fc36e4be5920fd8"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_factor.c",
+      "sha256": "4c4c48232c6a281a8df65831914d6387ff9873fe2512ac44a392eabfb11bc790"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_memory.c",
+      "sha256": "fcf4864531f9e3c72c0dca50a118ee0d709a944645f2cf5838a50b90528bc1ac"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_sparse.c",
+      "sha256": "62fa8722686e1037c5f65b89f6ca38a4b6875a69c39212c52d5910dd3d8432cc"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_transpose.c",
+      "sha256": "17cc623ed180e84f0671dc266c1cc44b2d9a1e6b6cb476f37e62521a35daefeb"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_triplet.c",
+      "sha256": "59915d60dee57662738132e17685d1726842a92a729daf98d46dada2f1531cd0"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Core/cholmod_version.c",
+      "sha256": "b2cac0c0eadf35131f3fba1f7896d7d49a5f33d047b91f56fcbbf0d4c99e0944"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_amd.c",
+      "sha256": "d34d72660a66f03f079b7748bd5252c27a29e31b56f0cfc0242e5d841587bddd"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_analyze.c",
+      "sha256": "ab1aad791ca36477b020741575a9d60bc691fe194f7138726e1425cfa2cf78f8"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_colamd.c",
+      "sha256": "29f242bf1e58aa672ba9ddb2e1d9f83954208eaf7f84d5b4982ee715068e274e"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_etree.c",
+      "sha256": "07375e51c8c94c16cb6fb51501db478d0123422109827e94cc9bd3f68794e671"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_factorize.c",
+      "sha256": "240cf936a35fed93c04d4130af94dec84750c9a4e76cac7755cb3698d8fedca0"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_postorder.c",
+      "sha256": "26e7fcad6ed68e329f416d600dc899e35d597f4c1377c955dcb21ffbad774a95"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_rcond.c",
+      "sha256": "9bba3034b440d0d601e4f58aac9da8eeb7dcf97a783f8f5686368d13d350b28d"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_resymbol.c",
+      "sha256": "579c0d76c9ab92574e5a6899bf0fd9b43cb1c74997d3e955e216361c74519e2a"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_rowcolcounts.c",
+      "sha256": "9489e0054c64bd8d3b3bc047e1a7425a3e6798092ac80d7df789dcabd6f87b26"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_rowfac.c",
+      "sha256": "6730c4f2e5fdbc414fbcc5d17b9c8e8bf7e878ceeed6290c2493e5fcd9d91366"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_solve.c",
+      "sha256": "d563251bc8ccc116a1b05e40fd604fca800353fb251b67d9517166fafbbd2931"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Cholesky/cholmod_spsolve.c",
+      "sha256": "6cb57b2d4ece33faaf2ec5705d10e602de33249dc81f92b4f9bfd55562e98dd4"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/SuiteSparse_config/SuiteSparse_config.h",
+      "sha256": "85063b8ad10ebb1c817e60cfdb374de1cfde0210e9195ec23cea25bd97d3b5ba"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Include/amd.h",
+      "sha256": "28628b0c724bd36c05934fbb0006a5513f4cf69e0d196446761143947f7b8bd6"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/AMD/Include/amd_internal.h",
+      "sha256": "892cd914f4f3c0bcf595b22852affd160e0d6b2abfced3536dbb3fafd64f89da"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/COLAMD/Include/colamd.h",
+      "sha256": "de5f13dca773b65fdbefbe56790538d523e8ec86ff9d8fd6c8e6e3ac1d6d3fb4"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod.h",
+      "sha256": "c2f989c34da479f923b0e731daa77b37122c2586e85faea34e4f1c1766a63820"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_blas.h",
+      "sha256": "5d543307f232a977e3935e73d17194e9601fc18a7090f917aef4d5684c83bad0"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_camd.h",
+      "sha256": "81c700fbbec260a22469f4ccd125312c1f62e9697fe860b65b26c1a54cbbfebe"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_check.h",
+      "sha256": "5eebd6bae4570190e17dec08c4938c216a31cc1d12741522a964b33f0e52e472"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_cholesky.h",
+      "sha256": "42454a68d58d0b9dfe1142a82a15240f1a6f7e357fddbed054ad0c5e127b4964"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_complexity.h",
+      "sha256": "cdf0719bb375a668abc64c7e25b5f013aeb8ca27134feccd5981c9d1492acdb4"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_config.h",
+      "sha256": "0bdd10ea9bcca508261798236f2e923da7118bfc8b8fa81ba46ea0c3b4f49908"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_core.h",
+      "sha256": "8985174c7ae047372e3fe972749be172d5eaafbd14a914c1cd33f3c0dc0d8b5c"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_function.h",
+      "sha256": "d422d65f4328a791c45d4a23462e60db5411e0e3c2bf8e3eea09272587c0b8f7"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_gpu.h",
+      "sha256": "8f96a758db7563a02d816ea5b0477560b79e1318a98b2166780ff78c9dbac36c"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_gpu_kernels.h",
+      "sha256": "445dc9ab7cd39b9a5a9b3ddc0caa8265433984737eeba45bcd75d69eb50ddf90"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_internal.h",
+      "sha256": "1e28da64dabc3d6f38d9dbe0eb0b3456f86601ab95de856fd4ee41b68144af1b"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_io64.h",
+      "sha256": "8a2c6c343fa4f9d328bb4e214b704f29e06ac0f77a7511c947f537ec6222790b"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_matrixops.h",
+      "sha256": "8c4459e75a10f70cec808d12cddaf15c435e3988d457c8678c94a58c7996ee15"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_modify.h",
+      "sha256": "3142938471a939aa55aaae1b4edccab136b85be45aafdab508e153138f700ef6"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_partition.h",
+      "sha256": "9ce1b7eec2bd6368f8098109d0207aa95016a61f614087132ed326af61e09a6c"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_supernodal.h",
+      "sha256": "8909ebec7040256b1280e6629c20e9f4f3f2e6795083f98a2eeb1da1b4e62c2b"
+    },
+    {
+      "path": "work/zbrush/analysis/suitesparse-source-0681/SuiteSparse-5.6.0/CHOLMOD/Include/cholmod_template.h",
+      "sha256": "83f1e3a2b93c60e8b97b2771a09c42b8dd1b00182915e9d2c358a14c57dfd376"
+    },
+    {
+      "path": "work/zbrush/analysis/reference-cholmod-build-0683/reference.c",
+      "sha256": "4d0c8b21027480b9477092f1ce9dabfdafba402ab4c30abc79c25b54f1559800"
+    }
+  ],
+  "dll": {
+    "path": "work/zbrush/analysis/reference-cholmod-build-0683/reference_cholmod.dll",
+    "sha256": "5a45a906d5d0dc64e7b4c141166c4e164d968ba9f5dbb5356912670f3ba850eb"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "User-rejected 620-face output fails the new quality gate",
+      "passed": true
+    },
+    {
+      "name": "baseline actually completes through the worker quality gate",
+      "passed": true
+    },
+    {
+      "name": "baseline uses the exact requested guide coordinates",
+      "passed": true
+    },
+    {
+      "name": "baseline uses direct structured quads rather than triangle pairing",
+      "passed": true
+    },
+    {
+      "name": "baseline retains the measured physical surface",
+      "passed": true
+    }
+  ],
+  "cases": [],
+  "jobs": [
+    "a0e9c3a1c9a841b7a1ef5194b3cdeae4"
+  ],
+  "error": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\quality-repair\\verify_quality.py\", line 41, in <module>\n    p,f=read_obj(folder/'output.obj');q=quad_quality(p,f,target);check(q['passed'] and q['irregularVertices']==0,name+' exported quads pass shape, density and continuous-grid valence checks')\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\engine\\targets\\zbrush\\clone\\retopo.py\", line 52, in read_obj\n    raise ValueError(f'OBJ line {number}: this recovered backend requires bare triangle indices; triangulate explicitly and retain that input')\nValueError: OBJ line 626: this recovered backend requires bare triangle indices; triangulate explicitly and retain that input\n"
+}

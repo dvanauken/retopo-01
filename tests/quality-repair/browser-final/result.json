@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Rebuilt startup example has actual quad-quality qualification",
+      "passed": true
+    },
+    {
+      "name": "UI identifies the actual structured backend",
+      "passed": true
+    },
+    {
+      "name": "UI imports the exact 452-point user-rejected stroke",
+      "passed": true
+    },
+    {
+      "name": "Generate creates one actual new reconstruction job",
+      "passed": true
+    },
+    {
+      "name": "Browser receives a quality-checked continuous quad grid",
+      "passed": true
+    },
+    {
+      "name": "The actual 480-quad result is rendered and reported",
+      "passed": true
+    },
+    {
+      "name": "UI shows actual minimum angle rather than topology-only Passed",
+      "passed": true
+    },
+    {
+      "name": "Details expose both angle and signed Jacobian measurements",
+      "passed": true
+    },
+    {
+      "name": "Browser export is the actual rebuilt mesh",
+      "passed": true
+    },
+    {
+      "name": "Result remains visible in light theme",
+      "passed": true
+    },
+    {
+      "name": "Real mouse drawing still creates surface guide samples",
+      "passed": true
+    },
+    {
+      "name": "A new stroke marks the previous result stale",
+      "passed": true
+    },
+    {
+      "name": "An old count-mismatched example is not misrepresented as quality-passing",
+      "passed": true
+    },
+    {
+      "name": "No browser JavaScript errors",
+      "passed": true
+    },
+    {
+      "name": "Code and preview cohort stayed unchanged during verification",
+      "passed": true
+    }
+  ],
+  "browserErrors": [],
+  "sourceHashes": {
+    "worker.py": "a0e9aaf4dbd1e75d4b31548e7886b8e3c52b627ff5df560c9f13341ee367d870",
+    "structured_prism.py": "a45676edd206ce63fd0201b1226b4ffab910797718fa4e29265290dac2e3e0ff",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "app.js": "f021d5575027bccb10c8bc52e56184f63778504445d13dfa49d5c1f7d77d576b",
+    "index.html": "164304b6548d29b46827e72df80a83f9f3ba866266da5b7811ed03f266e21a17",
+    "assets/previews/hexagon.json": "e0791719941f56f58c24ea99918e5e58bf350a20962619a23681021e70225ecb"
+  },
+  "job": "6684e6a30d80414fad63eff59e18a762",
+  "scope": "Actual UI import of unchanged user curve, live local worker generation, rendered quad-quality display and real export; both themes; actual new pointer stroke; honest warning on old unqualified example."
+}

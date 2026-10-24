@@ -1,0 +1,7 @@
+numpy==2.2.6
+scipy==1.16.0
+triangle==20250106
+trimesh==4.9.0
+numba==0.62.1
+llvmlite==0.45.1
+psutil==7.0.0

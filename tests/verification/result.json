@@ -1,0 +1,164 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "API rejects nonobject",
+      "passed": true
+    },
+    {
+      "name": "API rejects unknown-mesh",
+      "passed": true
+    },
+    {
+      "name": "API rejects target-low",
+      "passed": true
+    },
+    {
+      "name": "API rejects nonfinite",
+      "passed": true
+    },
+    {
+      "name": "API rejects foreign origin",
+      "passed": true
+    },
+    {
+      "name": "Online source and explicit baseline load",
+      "passed": true
+    },
+    {
+      "name": "Generate action stays visible",
+      "passed": true
+    },
+    {
+      "name": "Real pointer stroke creates surface curve samples",
+      "passed": true
+    },
+    {
+      "name": "Pointer loop closes on its starting surface point",
+      "passed": true
+    },
+    {
+      "name": "Changed curves mark previous result stale",
+      "passed": true
+    },
+    {
+      "name": "Live result changes after the actual drawn curve",
+      "passed": true
+    },
+    {
+      "name": "One isolated original-input job was created",
+      "passed": true
+    },
+    {
+      "name": "Worker uses exact browser-submitted surface curves",
+      "passed": true
+    },
+    {
+      "name": "Loaded construction sources are inside this standalone project engine",
+      "passed": true
+    },
+    {
+      "name": "Actual drawn-guide result retains quads, closed surface and through-hole",
+      "passed": true
+    },
+    {
+      "name": "Drawn guide improves actual edge registration over baseline",
+      "passed": true
+    },
+    {
+      "name": "Independent exported surface measurement preserves the online source",
+      "passed": true
+    },
+    {
+      "name": "Browser OBJ export is the actual generated mesh",
+      "passed": true
+    },
+    {
+      "name": "Browser guide export preserves drawn coordinates",
+      "passed": true
+    },
+    {
+      "name": "Measured mesh details open",
+      "passed": true
+    },
+    {
+      "name": "Overlay comparison works",
+      "passed": true
+    },
+    {
+      "name": "Surface erase removes the selected guide",
+      "passed": true
+    },
+    {
+      "name": "Undo restores guide",
+      "passed": true
+    },
+    {
+      "name": "Redo restores deletion",
+      "passed": true
+    },
+    {
+      "name": "Density control changes the real request state",
+      "passed": true
+    },
+    {
+      "name": "Changed density creates another actual solve",
+      "passed": true
+    },
+    {
+      "name": "Density setting changes generated topology while retaining the hole",
+      "passed": true
+    },
+    {
+      "name": "Light theme works",
+      "passed": true
+    },
+    {
+      "name": "Open terrain example loads its measured mesh",
+      "passed": true
+    },
+    {
+      "name": "Curved example exposes actual semantic guide modes",
+      "passed": true
+    },
+    {
+      "name": "Source switching restores saved surface guides",
+      "passed": true
+    },
+    {
+      "name": "Narrow layout has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "Generate stays visible on a laptop viewport",
+      "passed": true
+    },
+    {
+      "name": "Valid solve is queued",
+      "passed": true
+    },
+    {
+      "name": "Owned worker cancellation reports cancelled, never passed",
+      "passed": true
+    },
+    {
+      "name": "No browser JavaScript errors",
+      "passed": true
+    },
+    {
+      "name": "Renderer and application request only local assets",
+      "passed": true
+    }
+  ],
+  "browserErrors": [],
+  "jobs": [
+    "fef010fa9cbb4ee08d691b59dc9bf72f",
+    "7f41147351b24030bbac4c623aa1f465",
+    "0e66bcea56c04cdf9fd6db64e756ebd7"
+  ],
+  "source": "Kenney Prototype Kit CC0 hollow hexagon, prepared source hash recorded in assets",
+  "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+  "workerSha256": "64f1498495acb7db30d35f2dfe68c6131982fe5b979a0e82af24f80de05a6ee4",
+  "appSha256": "438165246898f36ca156aa22368c0c8de2e70980fbb6a5ae3a7a7917768a621d",
+  "scope": "Actual headless Chromium pointer drawing, local API/worker generation and original-output geometry measurements, real downloads, controls, source switching, themes and responsive layout. Cached examples separately labeled. Tests do not establish every unsupported guide/mesh branch."
+}

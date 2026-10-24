@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "method": "Best-fit-plane projected ear triangulation with preserved polygon winding; sampled exact triangle distance; nearest-edge guide alignment.",
+  "coordinateFrameQualified": true,
+  "source": {
+    "path": "C:\\dbva\\code\\retopo-1\\assets\\models\\hexagon.obj",
+    "sha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+    "metrics": {
+      "vertices": 448,
+      "usedVertices": 448,
+      "unusedVertices": 0,
+      "faces": 896,
+      "edges": 1344,
+      "faceSizes": {
+        "3": 896
+      },
+      "triangles": 896,
+      "quads": 0,
+      "triangleFraction": 1.0,
+      "quadFraction": 0.0,
+      "otherPolygonFraction": 0.0,
+      "faceConnectedComponents": 1,
+      "componentFaceCounts": [
+        896
+      ],
+      "boundaryEdges": 0,
+      "boundaryComponents": 0,
+      "closedBoundaryLoops": 0,
+      "nonmanifoldEdges": 0,
+      "repeatedIndexFaces": 0,
+      "zeroAreaFanTriangles": 0,
+      "nonconvexProjectedPolygons": 0,
+      "maxQuadFourthPointPlaneDistance": 0.0,
+      "eulerCharacteristic": 0,
+      "bounds": [
+        [
+          -0.8660254,
+          -1.0,
+          -1.0
+        ],
+        [
+          0.8660254,
+          1.0,
+          1.0
+        ]
+      ],
+      "edgeLengths": {
+        "min": 0.045235354527355685,
+        "median": 0.21736823085207854,
+        "max": 0.5590169943749481
+      },
+      "canonicalGeometrySignature": "1f5c479324d833b2960f77b9a72f680b6b3eb4aea8e98db509bb1b9b004e82b6"
+    }
+  },
+  "output": {
+    "path": "C:\\dbva\\code\\retopo-1\\runs\\a0e9c3a1c9a841b7a1ef5194b3cdeae4\\output.obj",
+    "sha256": "8e3e88c618bff7913a3ff6b39ebe83c4a8b8682d3cdda2ae33b053799813ad02",
+    "metrics": {
+      "vertices": 624,
+      "usedVertices": 624,
+      "unusedVertices": 0,
+      "faces": 624,
+      "edges": 1248,
+      "faceSizes": {
+        "4": 624
+      },
+      "triangles": 0,
+      "quads": 624,
+      "triangleFraction": 0.0,
+      "quadFraction": 1.0,
+      "otherPolygonFraction": 0.0,
+      "faceConnectedComponents": 1,
+      "componentFaceCounts": [
+        624
+      ],
+      "boundaryEdges": 0,
+      "boundaryComponents": 0,
+      "closedBoundaryLoops": 0,
+      "nonmanifoldEdges": 0,
+      "repeatedIndexFaces": 0,
+      "zeroAreaFanTriangles": 0,
+      "nonconvexProjectedPolygons": 0,
+      "maxQuadFourthPointPlaneDistance": 2.4780741984146903e-16,
+      "eulerCharacteristic": 0,
+      "bounds": [
+        [
+          -0.8660254000000001,
+          -1.0,
+          -1.0
+        ],
+        [
+          0.8660254000000001,
+          1.0,
+          1.0
+        ]
+      ],
+      "edgeLengths": {
+        "min": 0.09807619609300942,
+        "median": 0.19999999999999996,
+        "max": 0.2679492840643154
+      },
+      "canonicalGeometrySignature": "af3ecc931d992ebc060eccb2d1f1061d84a0067c7115d2ed1a3b5f8381273216"
+    }
+  },
+  "canonicalGeometryChanged": true,
+  "sourceToOutput": {
+    "samples": 1344,
+    "rms": 1.8181053642509844e-14,
+    "mean": 1.0414811274236313e-15,
+    "p95": 1.6653345369377348e-16,
+    "sampledMax": 3.33288951992472e-13
+  },
+  "outputToSource": {
+    "samples": 1872,
+    "rms": 1.060759249170268e-16,
+    "mean": 6.885733086879872e-17,
+    "p95": 2.482534153247273e-16,
+    "sampledMax": 8.314077886665238e-16
+  },
+  "guideAlignment": [],
+  "remeshingQualified": false,
+  "tolerances": {
+    "projectedEar": 1e-12,
+    "triangleArea": 1e-14
+  },
+  "toolchain": {
+    "numpy": "2.2.6",
+    "trimesh": "4.9.0",
+    "measurementSourceSha256": "be784060ba15fedd241e14885354dc119c92d729998d1fd4bb1d6b97a9daac47",
+    "baseSourceSha256": "1f94bfd9fa54082029aef0e8c1d5c168a68d2317b9ea5f06ac9c8dd2bfede3ea"
+  },
+  "limitations": [
+    "Projected ear triangulation defines a chosen surface for nonplanar polygons; it is not the native hidden diagonal.",
+    "Self-crossing, repeated or untriangulable polygons fail explicitly.",
+    "Deviation is sampled, not certified Hausdorff.",
+    "This measurement alone does not prove remeshing execution."
+  ]
+}

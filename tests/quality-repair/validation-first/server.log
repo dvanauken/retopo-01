@@ -1,0 +1,35 @@
+C:\dbva\code\retopo-1\server.py:66: SyntaxWarning: invalid escape sequence '\.'
+  if re.fullmatch('/assets/previews/[a-z-]+\.(json|obj)',path):return self.file(ROOT/path[1:])
+Retopo1 is ready at http://127.0.0.1:60035
+24/Oct/2026 11:06:19 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 11:06:19 "POST /api/remesh HTTP/1.1" 202 -
+24/Oct/2026 11:06:19 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:20 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:20 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:20 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:21 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:21 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:21 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:22 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:22 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:22 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:23 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:23 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:23 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:24 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:24 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:24 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:25 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:25 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:25 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:26 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:26 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:26 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:26 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:27 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:27 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:27 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:28 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:28 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:28 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -
+24/Oct/2026 11:06:29 "GET /api/jobs/a0e9c3a1c9a841b7a1ef5194b3cdeae4 HTTP/1.1" 200 -

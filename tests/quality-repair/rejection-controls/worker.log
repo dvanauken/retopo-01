@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\worker.py", line 49, in main
+    raise ValueError('Mesh quality rejected: '+', '.join(mesh['quality']['failures'])+'. The candidate is retained for inspection; it is not a qualified result.')
+ValueError: Mesh quality rejected: minimumAngleDegrees below limit, scaledJacobianMin below limit, edgeRatioMax above limit, face count exceeds target tolerance. The candidate is retained for inspection; it is not a qualified result.

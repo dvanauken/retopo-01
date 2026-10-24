@@ -1,0 +1,29 @@
+{
+  "previews": [
+    {
+      "name": "hexagon",
+      "passed": true,
+      "vertices": 736,
+      "faces": 736,
+      "originalResultSha256": "99673540b67dcc85fcfa01b6363c882717ed8ea2a3760e25892e1baa38ae0f0d",
+      "previewSha256": "01ff1a3ffe7ee0eb85733cb1788fc55cc6d657f8d2649bc5bd6cdbb3ef694ecd"
+    },
+    {
+      "name": "terrain",
+      "passed": true,
+      "vertices": 487,
+      "faces": 450,
+      "originalResultSha256": "411220202c26fbb27934f300ee765772f24da8f54ebc10e933b8ae57fa52ff5d",
+      "previewSha256": "852a0c7575e97f80078c8affbecc3081ff401b8ea7e8940f7f1c6cf64e09c71a"
+    },
+    {
+      "name": "cylinder",
+      "passed": true,
+      "vertices": 514,
+      "faces": 512,
+      "originalResultSha256": "640a3fd1696ff493d5dd4b52b4103511a369395271142108ae2c9e6cb4e234d7",
+      "previewSha256": "650ee824b31f5593d299dffd0fc9698231ad96403c5780f70b7d63252c5757dd"
+    }
+  ],
+  "liveGeneration": "The browser sends current source-space curves and settings to a local isolated worker. Cached previews are labeled Example; edited inputs are explicitly marked Needs update."
+}

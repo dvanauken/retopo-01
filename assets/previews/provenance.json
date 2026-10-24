@@ -1,0 +1,39 @@
+{
+  "previews": [
+    {
+      "name": "hexagon",
+      "passed": true,
+      "vertices": 624,
+      "faces": 624,
+      "originalResultSha256": "0332bcb173ebded0ddcb04dcbdeb7c53fed9a703116ede7e404d8e39721896d7",
+      "previewSha256": "e0791719941f56f58c24ea99918e5e58bf350a20962619a23681021e70225ecb",
+      "qualityPassed": true,
+      "qualityFailures": [],
+      "job": "2fa3b6357367423d889cea86848d7355"
+    },
+    {
+      "name": "terrain",
+      "passed": true,
+      "vertices": 487,
+      "faces": 450,
+      "originalResultSha256": "411220202c26fbb27934f300ee765772f24da8f54ebc10e933b8ae57fa52ff5d",
+      "previewSha256": "d68a318c20afc99e8232f29095b35e467de69e966f237320237cd866f86d818b",
+      "qualityPassed": true,
+      "qualityFailures": []
+    },
+    {
+      "name": "cylinder",
+      "passed": true,
+      "vertices": 514,
+      "faces": 512,
+      "originalResultSha256": "640a3fd1696ff493d5dd4b52b4103511a369395271142108ae2c9e6cb4e234d7",
+      "previewSha256": "b60c41bbe5ca97d8a367cbfa58bc8ca007ee2310532748cfc65b54318ac96430",
+      "qualityPassed": false,
+      "qualityFailures": [
+        "face count exceeds target tolerance"
+      ]
+    }
+  ],
+  "liveGeneration": "The browser sends current source-space curves and settings to a local isolated worker. Cached previews are labeled Example; edited inputs are explicitly marked Needs update.",
+  "qualityRepair": "Hexagon replaced by a direct continuous-grid build; all previews independently reassessed for shape/density. Historical provenance retained under tests/quality-repair/original/changed-files/."
+}

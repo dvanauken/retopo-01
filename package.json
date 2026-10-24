@@ -1,0 +1,8 @@
+{
+  "name": "retopo-1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Local HTML canvas showcase for guide-curve retopology",
+  "scripts": {"start": "python -X utf8 server.py"}
+}

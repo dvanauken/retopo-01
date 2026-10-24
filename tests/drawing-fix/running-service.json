@@ -1,0 +1,13 @@
+{
+  "url": "http://127.0.0.1:8742",
+  "pid": 7364,
+  "health": {
+    "ready": true,
+    "engine": "Local reference engine",
+    "models": 3
+  },
+  "servedAppSha256": "5e51743d62d0650e659350e686604ed7492bde1de6f4387c41179257c56bd690",
+  "diskAppSha256": "5e51743d62d0650e659350e686604ed7492bde1de6f4387c41179257c56bd690",
+  "serverRestarted": false,
+  "existingBrowserStorageChanged": false
+}

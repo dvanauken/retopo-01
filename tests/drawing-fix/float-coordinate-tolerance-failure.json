@@ -1,0 +1,27 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "Pointer down shows immediate surface point left",
+      "passed": true
+    },
+    {
+      "name": "Default isometric source freehand drawing works",
+      "passed": true
+    },
+    {
+      "name": "Pointer down shows immediate surface point right",
+      "passed": true
+    },
+    {
+      "name": "Drawing enables hidden guide display",
+      "passed": true
+    },
+    {
+      "name": "Equivalent left and right gestures attach to the same original source positions",
+      "passed": false
+    }
+  ],
+  "browserErrors": [],
+  "error": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_drawing.py\", line 42, in <module>\n    check(len(right)==1 and len(right[0])==len(left[0]) and max(math.dist(a,b) for a,b in zip(right[0],left[0]))<1e-7,'Equivalent left and right gestures attach to the same original source positions')\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_drawing.py\", line 8, in check\n    if not value:raise AssertionError(name)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Equivalent left and right gestures attach to the same original source positions\n"
+}

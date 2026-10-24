@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Pointer down shows immediate surface point left",
+      "passed": true
+    },
+    {
+      "name": "Default isometric source freehand drawing works",
+      "passed": true
+    },
+    {
+      "name": "Pointer down shows immediate surface point right",
+      "passed": true
+    },
+    {
+      "name": "Drawing enables hidden guide display",
+      "passed": true
+    },
+    {
+      "name": "Equivalent left and right gestures attach to the same original source positions",
+      "passed": true
+    },
+    {
+      "name": "Erase works on the right comparison mesh",
+      "passed": true
+    },
+    {
+      "name": "Undo restores right-pane guide",
+      "passed": true
+    },
+    {
+      "name": "Pointer down shows immediate surface point right",
+      "passed": true
+    },
+    {
+      "name": "Right-pane freehand loop closes on its original source point",
+      "passed": true
+    },
+    {
+      "name": "Right-pane guides create one new real worker solve",
+      "passed": true
+    },
+    {
+      "name": "Worker successfully uses exact right-pane surface curves",
+      "passed": true
+    },
+    {
+      "name": "Generated geometry changes and retains quads and a closed through-hole",
+      "passed": true
+    },
+    {
+      "name": "Actual generated edges follow the drawn guide",
+      "passed": true
+    },
+    {
+      "name": "Drawing and result checked in light theme",
+      "passed": true
+    },
+    {
+      "name": "Pointer down shows immediate surface point left",
+      "passed": true
+    },
+    {
+      "name": "Overlay freehand still works",
+      "passed": true
+    },
+    {
+      "name": "Touch drag creates a surface guide in the right pane",
+      "passed": true
+    },
+    {
+      "name": "Pen drag creates a surface guide",
+      "passed": true
+    },
+    {
+      "name": "Crossing the divider never bridges between view coordinates",
+      "passed": true
+    },
+    {
+      "name": "No browser JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browserErrors": [],
+  "job": "b345698d68774838b78a14b0d89a9bf6",
+  "appSha256": "5e51743d62d0650e659350e686604ed7492bde1de6f4387c41179257c56bd690",
+  "indexSha256": "cfe87cc87bd90f96c2ff8a769532ad50cce07bcada21e664c09c1bc884c8db48",
+  "guideP95": 0.0038195106499210076,
+  "faces": 926,
+  "scope": "Real Chromium mouse, touch and pen input. Default isometric left/right, overlay, visibility, erase/undo, closed loop, one actual remesh from right-pane curves. No native algorithm equivalence claim."
+}
