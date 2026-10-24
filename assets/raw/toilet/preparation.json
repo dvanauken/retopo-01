@@ -1,0 +1,39 @@
+{
+  "sourceFile": "C:\\dbva\\code\\retopo-1\\assets\\raw\\toilet\\SW_Toilet.closed.web.glb",
+  "sourceSha256": "2c34e0475446d832c6e9eeeb97c749534b4553e6a5566626b502e3079c936d78",
+  "sourceKind": "Original plain, non-gold closed GLB exported from SW_Toilet.skp via SW_Toilet.glb in the user-provided model collection.",
+  "originalDecodedBounds": [
+    [
+      -0.22622430324554443,
+      -0.3705763816833496,
+      0.0
+    ],
+    [
+      0.22624993324279785,
+      0.3705763816833496,
+      0.6660420894622803
+    ]
+  ],
+  "decodedVertices": 12000,
+  "decodedTriangles": 24000,
+  "collinearTrianglesRepaired": 6,
+  "preparedTriangles": 24000,
+  "watertight": true,
+  "consistentWinding": true,
+  "components": 1,
+  "eulerCharacteristic": 0,
+  "conversion": {
+    "decoder": "Blender glTF Draco importer",
+    "axis": "glTF Y-up to Blender Z-up, then rotation pi around Z",
+    "center": [
+      1.2814998626708984e-05,
+      0.0,
+      0.33302104473114014
+    ],
+    "uniformScale": 2.698499012423519,
+    "geometryEdits": "Coordinate similarity and conformity repair of 6 collinear triangles by splitting adjacent faces at existing vertices; no vertex displacement, decimation or geometry substitution.",
+    "materialOverride": "White nonmetallic porcelain #f5f5f2; decoded vertices retained; local triangle conformity recorded above."
+  },
+  "preparedObjSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+  "preparedMeshJsonSha256": "8846008925f8779cae3b9b62f7cfefbee338b0b38e6345119b95ce21906862de"
+}

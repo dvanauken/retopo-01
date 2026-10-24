@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "constructionCompleted": true,
+  "vertices": 624,
+  "faces": 624,
+  "elapsedSeconds": 4.389999999984866,
+  "sourceSha256": "2edf41e5cebbb98712f4705179a7dcdd33bfcc5f03364452a8effd19ffc765cc",
+  "curvesSha256": "504525a1961229d6658e78b4b0e721e23c4be68c986d8ad561b51b74a8f52f37",
+  "outputSha256": "9ae72eb85df5e4936601a93c8bb67b76504ca2a1d3710151baf759f816141647",
+  "workerSha256": "6da20d7c419c8cd109442ca9a5cdd4da1651e4a6003606504f8ecddce45a2c4c",
+  "backend": "engineering-structured-prismatic-annulus",
+  "qualityPassed": true,
+  "quality": {
+    "quadOnly": true,
+    "faces": 624,
+    "minimumAngleDegrees": 59.99996829225595,
+    "angleP05Degrees": 74.9999980631541,
+    "maximumAngleDegrees": 120.00003170774411,
+    "edgeRatioP95": 2.0392308018383165,
+    "edgeRatioMax": 2.4304323919409594,
+    "scaledJacobianMin": 0.8660251270820393,
+    "scaledJacobianP05": 0.8660255667126164,
+    "edgeLengthCV": 0.2793505380568682,
+    "adjacentAreaRatioP95": 1.370898929891652,
+    "valence4Fraction": 1.0,
+    "irregularVertices": 0,
+    "targetRelativeError": 0.04,
+    "passed": true,
+    "failures": [],
+    "limits": {
+      "minimumAngleDegrees": 30.0,
+      "edgeRatioP95": 3.5,
+      "edgeRatioMax": 6.0,
+      "scaledJacobianMin": 0.45,
+      "adjacentAreaRatioP95": 4.0,
+      "targetRelativeError": 0.15
+    },
+    "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+  },
+  "scope": "Actual original-input construction from user surface guides. No native process or native output oracle. Geometry validation and methods retained."
+}

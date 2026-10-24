@@ -1,0 +1,147 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "polyline remains open outside 5 CSS pixels at DPR 2",
+      "passed": true
+    },
+    {
+      "name": "polyline acquires the first point inside 5 CSS pixels",
+      "passed": true
+    },
+    {
+      "name": "polyline first point is actually painted green",
+      "passed": true
+    },
+    {
+      "name": "polyline closed preview has not mutated the document",
+      "passed": true
+    },
+    {
+      "name": "polyline proximity click closes without a duplicate authored endpoint",
+      "passed": true
+    },
+    {
+      "name": "spline remains open outside 5 CSS pixels at DPR 2",
+      "passed": true
+    },
+    {
+      "name": "spline acquires the first point inside 5 CSS pixels",
+      "passed": true
+    },
+    {
+      "name": "spline first point is actually painted green",
+      "passed": true
+    },
+    {
+      "name": "spline closed preview has not mutated the document",
+      "passed": true
+    },
+    {
+      "name": "spline proximity click closes without a duplicate authored endpoint",
+      "passed": true
+    },
+    {
+      "name": "Freehand shows closure snap with Close next stroke unchecked",
+      "passed": true
+    },
+    {
+      "name": "Freehand release snaps closed atomically",
+      "passed": true
+    },
+    {
+      "name": "Circle previews an analytic primitive without committing",
+      "passed": true
+    },
+    {
+      "name": "Circle center over the hole resolves to the rim source plane",
+      "passed": true
+    },
+    {
+      "name": "Circle stores a center and radius rather than a polygon approximation",
+      "passed": true
+    },
+    {
+      "name": "Circle body enters its center/radius editor directly",
+      "passed": true
+    },
+    {
+      "name": "Circle does not advertise path reversal",
+      "passed": true
+    },
+    {
+      "name": "Circle radius drag changes only its preview while held",
+      "passed": true
+    },
+    {
+      "name": "Circle radius edit commits one undo unit",
+      "passed": true
+    },
+    {
+      "name": "Circle center handle moves over the hole without changing its radius",
+      "passed": true
+    },
+    {
+      "name": "Circle history preserves authored identity",
+      "passed": true
+    },
+    {
+      "name": "Circle export preserves its analytic native record",
+      "passed": true
+    },
+    {
+      "name": "Circle import restores exact center, radius and plane values",
+      "passed": true
+    },
+    {
+      "name": "Circle drives a real retopology solve",
+      "passed": true
+    },
+    {
+      "name": "White toilet is a closed nondegenerate source mesh",
+      "passed": true
+    },
+    {
+      "name": "Toilet uses the plain white nonmetallic material",
+      "passed": true
+    },
+    {
+      "name": "Toilet stays white when the host theme changes",
+      "passed": true
+    },
+    {
+      "name": "Toilet loads its real bowl-surface contour test guide",
+      "passed": true
+    },
+    {
+      "name": "Toilet picking finds its actual surface",
+      "passed": true
+    },
+    {
+      "name": "A native freehand stroke attaches to the imported toilet mesh",
+      "passed": true
+    },
+    {
+      "name": "No browser JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browserErrors": [],
+  "workerJobs": [
+    "49a74104b2334dc7875ec04006b96d31"
+  ],
+  "sourceHashes": {
+    "app.js": "aeed670585606263ecc5c38eed54c0db27aa827f9eba58a863e5e57b225b7f9c",
+    "index.html": "223ce8fd578599fa920b232252a5b5af72a5bc699087b7f50f0bf7c5a1b7b758",
+    "server.py": "ecf48a6b03ad5e76ef7c197edcb7680d81b23ff56cd3dc6a4e080242655e8fe2",
+    "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
+    "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
+    "src/geometry/GuideCurve.js": "1fbaddc9a416b15550972c181e0b97616c57cd60ff045f8ee42b985dfd0f89ed",
+    "src/io/GuideSerializer.js": "405e343dc9697ea63ccd22ab813dd511e4adca340d504f59e097e01687df7ed1",
+    "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
+    "src/view/CircleConstruction.js": "866190bb43bded83034b2d94a24eec9603ab30c7e6594c77c209a6ea06e44170",
+    "src/view/GuideController.js": "556c4227867a7575909a689635d5f24ced3c1787e5a4005111833066e5ea228e",
+    "src/view/SurfaceGuides.js": "7e0456176fe1ee4687eb9534264fcbfc3975b66bd3dd971dccf3775d96059ed9",
+    "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
+  }
+}

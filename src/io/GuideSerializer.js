@@ -2,7 +2,7 @@ import { freeze, validateInputTree } from '../contracts/GuideData.js';
 import { makeGuide, fromPositions, LIMITS } from '../geometry/GuideCurve.js';
 const canonical = value => Array.isArray(value) ? value.map(canonical) : value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).sort().map(k => [k, canonical(value[k])])) : value;
 export function encodeGuides(document, sourceSha256, curves) {
-  return JSON.stringify(canonical({ format: 'retopo-guides', schemaVersion: 2, coordinateFrame: 'source', sourceSha256, guides: document.guides, curves })) + '\n';
+  return JSON.stringify(canonical({ format: 'retopo-guides', schemaVersion: 3, coordinateFrame: 'source', sourceSha256, guides: document.guides, curves })) + '\n';
 }
 export function decodeGuides(packet, sourceSha256, idFactory) {
   validateInputTree(packet);
@@ -10,7 +10,8 @@ export function decodeGuides(packet, sourceSha256, idFactory) {
   if (packet.sourceSha256 && packet.sourceSha256 !== sourceSha256) throw new Error('These guides belong to a different source mesh.');
   let guides;
   if (packet.schemaVersion !== undefined) {
-    if (packet.schemaVersion !== 2 || packet.format !== 'retopo-guides' || packet.sourceSha256 !== sourceSha256 || !Array.isArray(packet.guides)) throw new Error('Unsupported guide file version or missing source identity.');
+    if (![2, 3].includes(packet.schemaVersion) || packet.format !== 'retopo-guides' || packet.sourceSha256 !== sourceSha256 || !Array.isArray(packet.guides)) throw new Error('Unsupported guide file version or missing source identity.');
+    if (packet.schemaVersion === 2 && packet.guides.some(g => g.type === 'circle')) throw new Error('Circle requires guide schema version 3.');
     guides = packet.guides.map(makeGuide);
   } else {
     if (!Array.isArray(packet.curves)) throw new Error('The guide file has no curves.');

@@ -243,21 +243,23 @@
     }
   ],
   "workerJobs": [
-    "31fc32bd9ba04a58bd6c9cdbfd795c8c",
-    "c2bf246074f345a98b0146b3460c5430"
+    "193628e6b4d949f38ac0e83d9d68a057",
+    "2b92438549404b95946f114bc89213d6"
   ],
   "browserErrors": [],
   "sourceHashes": {
-    "app.js": "34559b4055150f8e158957ce8fc412e437537b14fba7d736830701ad0232ece1",
-    "index.html": "59d61036d8639e2868552ea797cd405625941e5d34ee3ccb0e13c3b775af8127",
-    "server.py": "1fe8ce5eee3f17fe241081de3aa76ddf7aa33403b473dbc54d30ce2c3e516b93",
+    "app.js": "aeed670585606263ecc5c38eed54c0db27aa827f9eba58a863e5e57b225b7f9c",
+    "index.html": "223ce8fd578599fa920b232252a5b5af72a5bc699087b7f50f0bf7c5a1b7b758",
+    "server.py": "ecf48a6b03ad5e76ef7c197edcb7680d81b23ff56cd3dc6a4e080242655e8fe2",
     "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
     "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
-    "src/geometry/GuideCurve.js": "7a0c8c5154baa78ef23ecc4307984545c19c4db54e622901ea109a85960cc339",
-    "src/io/GuideSerializer.js": "d094b9e1f27fd0e626e4c8122ca9d3e6c8a27caeba480db1d0a02bdd8083e3e1",
+    "src/geometry/GuideCurve.js": "1fbaddc9a416b15550972c181e0b97616c57cd60ff045f8ee42b985dfd0f89ed",
+    "src/io/GuideSerializer.js": "405e343dc9697ea63ccd22ab813dd511e4adca340d504f59e097e01687df7ed1",
     "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
-    "src/view/GuideController.js": "77151edea9e23dbb62b82f89c1a3d9dd29cc8515002212106aab2b1ef06277ee",
-    "src/view/SurfaceGuides.js": "1140e110e104fc00736a96575059797d325f71724635fc2c1102fc8cd12d5308"
+    "src/view/CircleConstruction.js": "866190bb43bded83034b2d94a24eec9603ab30c7e6594c77c209a6ea06e44170",
+    "src/view/GuideController.js": "556c4227867a7575909a689635d5f24ced3c1787e5a4005111833066e5ea228e",
+    "src/view/SurfaceGuides.js": "7e0456176fe1ee4687eb9534264fcbfc3975b66bd3dd971dccf3775d96059ed9",
+    "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
   },
   "scope": "Real Chromium pointer/keyboard/touch, native capture before pointer-up, surface editing, authored IO and real freehand and Spline worker solves."
 }

@@ -4,9 +4,10 @@ export const SPLINE_ALGORITHM = 'centripetal-catmull-rom-v2-surface-xyz';
 export const LIMITS = Object.freeze({ guides: 48, points: 2048, samples: 8192, error: .002, step: .04 });
 export const distance = (a, b) => Math.hypot(...a.map((v, i) => v - b[i]));
 export function makeGuide(value) {
-  exactRecord(value, ['id', 'type', 'closed', 'points'], value?.type === 'spline' ? ['algorithm'] : []);
-  if (!value || !['polyline', 'spline'].includes(value.type) || typeof value.closed !== 'boolean') throw new Error('Invalid guide type or closure.');
-  if (typeof value.id !== 'string' || !value.id || !Array.isArray(value.points) || value.points.length < (value.closed ? 3 : 2) || value.points.length > LIMITS.points) throw new Error('A guide needs 2–2048 points, or at least 3 for a loop.');
+  const circle = value?.type === 'circle';
+  exactRecord(value, ['id', 'type', 'closed', 'points', ...(circle ? ['radius', 'normal', 'axis'] : [])], value?.type === 'spline' ? ['algorithm'] : []);
+  if (!value || !['polyline', 'spline', 'circle'].includes(value.type) || typeof value.closed !== 'boolean') throw new Error('Invalid guide type or closure.');
+  if (typeof value.id !== 'string' || !value.id || !Array.isArray(value.points) || value.points.length < (circle ? 1 : value.closed ? 3 : 2) || value.points.length > LIMITS.points) throw new Error('A guide needs 2–2048 points, or at least 3 for a loop.');
   const ids = new Set();
   const points = denseArray(value.points).map(point => {
     exactRecord(point, ['id', 'position']);
@@ -16,8 +17,23 @@ export function makeGuide(value) {
     return { id: point.id, position: [...point.position] };
   });
   if (value.type === 'spline' && value.algorithm !== SPLINE_ALGORITHM) throw new Error('Unsupported surface spline algorithm.');
+  if (circle) {
+    if (!value.closed || points.length !== 1 || !Number.isFinite(value.radius) || value.radius <= 0 || value.radius >= 1e6) throw new Error('A Circle needs one center and a positive finite radius.');
+    for (const v of [value.normal, value.axis]) if (denseArray(v).length !== 3 || !v.every(Number.isFinite) || Math.abs(Math.hypot(...v) - 1) > 1e-6) throw new Error('Invalid Circle plane.');
+    if (Math.abs(value.normal.reduce((s, v, i) => s + v * value.axis[i], 0)) > 1e-6) throw new Error('Circle axes must be orthogonal.');
+    return freeze({ id: value.id, type: 'circle', closed: true, points, radius: value.radius, normal: [...value.normal], axis: [...value.axis] });
+  }
   if (points.every(p => distance(p.position, points[0].position) < 1e-10)) throw new Error('A guide must have a nonzero extent.');
   return freeze({ id: value.id, type: value.type, closed: value.closed, ...(value.type === 'spline' ? { algorithm: SPLINE_ALGORITHM } : {}), points });
+}
+export function fromCircle(center, radiusPoint, normal, idFactory) {
+  const length = Math.hypot(...normal), n = normal.map(v => v / length), vector = radiusPoint.map((v, i) => v - center[i]);
+  const height = vector.reduce((s, v, i) => s + v * n[i], 0), tangent = vector.map((v, i) => v - height * n[i]), radius = Math.hypot(...tangent);
+  return makeGuide({ id: idFactory(), type: 'circle', closed: true, points: [{ id: idFactory(), position: center }], radius, normal: n, axis: tangent.map(v => v / radius) });
+}
+export function editPoints(guide) {
+  if (guide.type !== 'circle') return guide.points;
+  return [{ ...guide.points[0], role: 'center' }, { id: guide.id + ':radius', position: evaluate(guide, 0), role: 'radius' }];
 }
 export function fromPositions(positions, type = 'polyline', closed = false, idFactory, { detectClosure = false } = {}) {
   if (typeof idFactory !== 'function') throw new Error('An ID factory is required.');
@@ -43,6 +59,10 @@ function splineSpan(points, closed, span, t) {
 }
 export function evaluate(guide, parameter) {
   if (!Number.isFinite(parameter)) throw new Error('Invalid curve parameter.');
+  if (guide.type === 'circle') {
+    const n = guide.normal, a = guide.axis, b = [n[1] * a[2] - n[2] * a[1], n[2] * a[0] - n[0] * a[2], n[0] * a[1] - n[1] * a[0]], length = Math.hypot(...b), t = Math.max(0, Math.min(2 * Math.PI, parameter));
+    return finite(guide.points[0].position.map((v, i) => v + guide.radius * (Math.cos(t) * a[i] + Math.sin(t) * b[i] / length)));
+  }
   const points = guide.points.map(p => p.position), spans = guide.closed ? points.length : points.length - 1;
   const u = Math.max(0, Math.min(spans, parameter)), span = Math.min(spans - 1, Math.floor(u));
   return guide.type === 'spline' ? splineSpan(points, guide.closed, span, u - span) : mix(points[span], points[(span + 1) % points.length], u - span);
@@ -53,6 +73,12 @@ export function flatten(guide, { maxSamples = LIMITS.points, error = LIMITS.erro
   if (!Number.isSafeInteger(maxSamples) || maxSamples < 2 || !(error > 0) || !(step > 0)) throw new Error('Invalid guide sampling policy.');
   let work = 0;
   const sample = t => { if (++work > LIMITS.samples) throw new Error('sample-budget-exceeded'); return evaluate(guide, t); };
+  if (guide.type === 'circle') {
+    const angle = Math.min(2 * Math.acos(Math.max(-1, 1 - error / guide.radius)), 2 * Math.asin(Math.min(1, step / (2 * guide.radius))));
+    const count = Math.max(12, Math.ceil(2 * Math.PI / angle));
+    if (!Number.isFinite(count) || count + 1 > maxSamples) throw new Error('sample-budget-exceeded');
+    const points = Array.from({ length: count }, (_, i) => sample(i * 2 * Math.PI / count)); points.push([...points[0]]); return points;
+  }
   if (guide.type === 'polyline') return guide.points.map(p => [...p.position]).concat(guide.closed ? [[...guide.points[0].position]] : []);
   const out = [], spans = guide.closed ? guide.points.length : guide.points.length - 1;
   const lineDistance = (p, a, b) => {

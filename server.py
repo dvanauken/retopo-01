@@ -61,7 +61,7 @@ class Handler(BaseHTTPRequestHandler):
    if not match[2]:return self.respond(data)
    return self.file(job['directory']/match[2],download=match[2] not in ('mesh.json','report.json'))
   if path=='/':return self.file(ROOT/'index.html')
-  if path in ['/app.js','/favicon.svg']:return self.file(ROOT/path[1:])
+  if path in ['/app.js','/favicon.svg','/index.css']:return self.file(ROOT/path[1:])
   if re.fullmatch(r'/src/(geometry|domain|view|io|snapping|contracts)/[A-Za-z0-9_-]+\.js',path):return self.file(ROOT/path[1:])
   if re.fullmatch('/vendor/[A-Za-z0-9_.-]+',path):return self.file(ROOT/path[1:])
   if re.fullmatch('/assets/previews/[a-z-]+\.(json|obj)',path):return self.file(ROOT/path[1:])
@@ -102,7 +102,7 @@ class Handler(BaseHTTPRequestHandler):
     for point in curve:
      if not isinstance(point,list) or len(point)!=3 or not all(type(x) in (float,int) and math.isfinite(x) and abs(x)<1e6 for x in point):raise ValueError('Guides must contain finite XYZ surface positions.')
    if total>8192:raise ValueError('Use fewer guide samples.')
-   if mesh_id=='cylinder' and not curves:raise ValueError('Draw a guide or load the example network for the curved mesh.')
+   if (mesh_id=='cylinder' or MESHES[mesh_id].get('requiresGuides')) and not curves:raise ValueError('Draw a guide or load the example network for the curved mesh.')
    with LOCK:
     if sum(j['state'] in ('queued','running') for j in JOBS.values())>=3:raise ValueError('Wait for the current calculation or cancel it first.')
     job_id=uuid.uuid4().hex;folder=ROOT/'runs'/job_id;folder.mkdir(parents=True)

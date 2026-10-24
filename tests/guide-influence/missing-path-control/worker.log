@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\worker.py", line 52, in main
+    raise ValueError('Mesh quality rejected: '+', '.join(mesh['quality']['failures'])+'. The candidate is retained for inspection; it is not a qualified result.')
+ValueError: Mesh quality rejected: No measured output edge path for guide(s): 1. The candidate is retained for inspection; it is not a qualified result.

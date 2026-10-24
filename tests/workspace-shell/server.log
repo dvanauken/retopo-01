@@ -1,0 +1,42 @@
+C:\dbva\code\retopo-1\server.py:67: SyntaxWarning: invalid escape sequence '\.'
+  if re.fullmatch('/assets/previews/[a-z-]+\.(json|obj)',path):return self.file(ROOT/path[1:])
+Retopo1 is ready at http://127.0.0.1:58151
+24/Oct/2026 17:35:56 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET / HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /index.css HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /app.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /vendor/OrbitControls.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /vendor/three.module.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /src/domain/GuideDocument.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /src/view/GuideController.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /src/view/WorkspaceShell.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /src/snapping/GuideSnap.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /src/view/CircleConstruction.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /src/view/SurfaceGuides.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /src/geometry/GuideCurve.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /src/io/GuideSerializer.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /src/contracts/GuideData.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /vendor/three.core.js HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /api/catalog HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /api/mesh/hexagon HTTP/1.1" 200 -
+24/Oct/2026 17:35:58 "GET /assets/previews/hexagon.json HTTP/1.1" 200 -
+24/Oct/2026 17:36:17 "GET / HTTP/1.1" 200 -
+24/Oct/2026 17:36:17 "GET /index.css HTTP/1.1" 200 -
+24/Oct/2026 17:36:17 "GET /app.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /vendor/three.module.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /src/view/GuideController.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /src/domain/GuideDocument.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /src/snapping/GuideSnap.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /vendor/OrbitControls.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /src/view/WorkspaceShell.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /src/view/CircleConstruction.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /src/geometry/GuideCurve.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /src/view/SurfaceGuides.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /src/io/GuideSerializer.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /src/contracts/GuideData.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /vendor/three.core.js HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /api/catalog HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /api/mesh/hexagon HTTP/1.1" 200 -
+24/Oct/2026 17:36:18 "GET /assets/previews/hexagon.json HTTP/1.1" 200 -

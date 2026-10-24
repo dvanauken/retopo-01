@@ -4,7 +4,7 @@ This subsystem is based on **Draw 2D 3.0.0-draft.21**, revised 2026-09-16:
 [authoritative publication](https://parastrate.com/books/053c26bbd7c6/draw2d-spec-v3.pdf).
 It implements the agreed guide-specific adaptation, not the specification's full
 Base 2D profile. Base requires thirteen primitives and editable Text. This product
-exposes Polyline and Spline guides, with a freehand Polyline construction.
+exposes Polyline, Spline and Circle guides, with a freehand Polyline construction.
 
 ## Drawing and editing
 
@@ -12,10 +12,12 @@ exposes Polyline and Spline guides, with a freehand Polyline construction.
 | --- | --- |
 | G / Draw | Drag a freehand surface guide. Empty space splits it into provisional parts. Release commits all parts in one undo unit. |
 | P / Polyline | Click authored vertices; Enter completes without the hover point. |
+| C / Circle | Click the center, then the radius point. A center over the hole is supported; the rim selects the source face plane. |
 | S / Spline | Click authored fit points; Enter completes a smooth surface guide without the hover point. |
 | Alt+Enter | Close a clicked construction, with at least three points. |
 | Backspace during construction | Remove the last accepted point. |
-| Close the next stroke | Capture closure intent at the first input. Freehand release must be within 18 CSS pixels of its start; clicked construction closes on completion. |
+| Return to the first point | Within 5 CSS pixels, the first point turns green and preview snaps to it. Click (Polyline/Spline) or release (freehand) closes with no duplicate authored endpoint; ordinary point snapping need not be enabled. At least three accepted positions are required. |
+| Close the next stroke | Capture explicit closure intent at the first input; clicked construction closes on completion. Freehand proximity closure uses the same 5 CSS-pixel threshold. |
 | V / Select / Whole guides | Object Selection. Body click selects a guide; drag an eligible body to move the selected guides on the surface. |
 | A / Edit points / Enter on Canvas / double activation | Direct Selection of the active selected guide. Drag its authored vertices or fit points. |
 | Click an exposed endpoint | Direct Selection on that endpoint. An unselected endpoint can be selected and moved in one drag. |
@@ -97,15 +99,15 @@ document epoch/generation and camera revision. Self-edited guides are excluded.
 Only point snapping is offered; grid, tangent and intersection snapping are absent.
 
 Scale, rotation, unrestricted topology insertion, Bezier/NURBS, filled Polygons,
-analytic Circle/Arc/Ellipse construction and standalone Point/Vertex creation are
+analytic Arc/Ellipse construction and standalone Point/Vertex creation are
 not offered. No controls or handles imply those capabilities.
 
 ## Native guide IO
 
 `src/io/GuideSerializer.js` writes deterministic JSON with lexically sorted keys,
-fixed whitespace and authored array ordering. Version 2 stores `format`,
+fixed whitespace and authored array ordering. Version 3 stores `format`,
 `schemaVersion`, `coordinateFrame`, `sourceSha256`, and immutable `guides` with
-stable guide/point IDs, type, closure and the Spline algorithm ID. Runtime revisions
+stable guide/point IDs, type, closure and the Spline algorithm ID. Circle retains its analytic radius, normal and radial axis plus one stable center record; its radius grip has a stable semantic ID. It is never serialized as a sampled polygon. Version 2 Polyline/Spline files remain readable. Runtime revisions
 and selection are not persisted. Signed zero has no distinct authored meaning.
 
 The additional `curves` field is a **derived compatibility export** for the current
@@ -142,6 +144,8 @@ Run:
 ```powershell
 node --test tests/guide-editor.test.mjs
 python -X utf8 tests/verify_guide_editor.py
+python -X utf8 tests/verify_guide_additions.py
+python -X utf8 tests/verify_guide_influence.py
 ```
 
 The browser test owns a temporary server on a free loopback port and a separate
@@ -149,3 +153,9 @@ browser context. It does not clear an existing user's origin or restart their se
 Evidence and screenshots are in `tests/guide-editor/`. Historical verification under
 other test directories describes earlier snapshots; `BUILD_MANIFEST.json` remains
 the original import's manifest, not a claim about these changed files.
+
+Circle body selection enters Direct Selection. Center and radius edits are independent, revision-validating undo units; Reverse is unavailable. The center may remain off the surface over a hole, while the derived circumference must pass the same source-lifting checks as other guides. The Circle sampling bound uses circular sagitta and maximum chord length.
+
+The original plain white toilet is available as a source test subject. See `assets/raw/toilet/preparation.json` and `scripts/import_toilet.py` for reproducible Draco decoding and the six local conformity operations. The current general solver rejects this mesh during numerical conditioning; drawing, selection, editing and guide IO work, but no qualified toilet retopology is claimed.
+
+The application shell follows the user’s North / West / Center / East / South layout. Drawing and edit commands live in the ribbon; source and guide navigation are left; Circle radius, drawing and solver properties are right; measured results, history and logs live in the bottom dock. Shell focus transfers and panel resizing preserve pointer-free construction. See `WORKSPACE_LAYOUT.md`.

@@ -1,0 +1,51 @@
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\worker.py", line 33, in main
+    try:detect_prism(v,f)
+        ^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\structured_prism.py", line 41, in detect
+    v=np.asarray(vertices,float);f=np.asarray(triangles,int);domain=decompose(v,f);charts=domain['charts'];candidate=[]
+                                                                    ^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\clone\planar.py", line 41, in decompose
+    raise NotImplementedError('Source has curved or shallow noncoplanar charts; use the field route')
+NotImplementedError: Source has curved or shallow noncoplanar charts; use the field route
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\worker.py", line 34, in main
+    except NotImplementedError:positions,faces,meta=construct(v,f,curves,guide_mode=settings['guideMode'],feature_policy=spec['featurePolicy'],solid_method='auto',**options)
+                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\clone\retopo.py", line 179, in construct
+    full=prepare(source,np.asarray(f,dtype='<i4'),target,source_curves,guide_mode)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_torus_full_remesh.py", line 7, in prepare
+    upstream=cuts(source,faces,target,drawn_curves,guide_mode);own=finish(source,faces,target,drawn_curves,upstream['sourceCutGraph']['cut'],upstream['sourceSeeds']['seeds'],guide_mode)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_torus_source_cut_graph.py", line 18, in prepare
+    own=field(source,faces,target,drawn,guide_mode);g=own['geometry'];ef=own['edgeField'];top=ef['topology'];a=own['angular'];s=seeds(g['positions'],g['faces'],ef['normals'],top,a['angles'],a['connections'],a['quarterTransitions']);edges=top['edges'];cost=lengths(g['positions'],edges);selectedGuides=own['constraints']['selectedEdges'];cost[selectedGuides]=F(cost[selectedGuides]*np.frombuffer(bytes.fromhex('abaaaa3e'),'<f4')[0]);n=len(g['positions']);distance=np.full(n,np.finfo(F).max,dtype='<f4');owner=np.full(n,-1,dtype='<i4');root=owner.copy();parent=owner.copy();queue=deque();pending=set();vo=top['vertexEdgeOffsets'];ve=top['vertexEdges']
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_torus_guide_field.py", line 25, in prepare
+    g=source_prepare(source,faces,target,drawn_curves);xyz,tri,cleanup=guide_cleanup(g['positions'],g['faces'],[c['embeddedPairs'] for c in g['curves']]);g=dict(g,positions=xyz,faces=tri,guideCleanup=cleanup);curves=g['curves'];ef=edge_field(xyz,tri,cached_lengths=True);top=ef['topology'];settings=sizing(xyz,tri,target);marks=np.zeros(len(xyz),bool);scales=[];lengths=[];directions=np.zeros((len(tri),3),dtype='<f4');flags=np.zeros(len(tri),dtype='u1');selected=[]
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_torus_guided_source.py", line 15, in prepare
+    positions,triangles,conditioning=source_prepare(source,faces,target);curves=[];records=[];offsets=[0]
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_torus_preparation.py", line 12, in prepare
+    positions,faces,dense=densify(positions,faces,target)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_quality_conditioned_densification.py", line 28, in densify
+    if i==0 or i<3 and diagnostic['specialPoints']>0:apply_quality(1,i,'subdivision')
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_quality_conditioned_densification.py", line 17, in apply_quality
+    before=tri.copy();result=produce_pass(p,tri,mode,iteration);tri=result['triangles'];quality.append(dict(mode=mode,iteration=iteration,phase=phase,positions=p.copy(),inputTriangles=before,result=result));return result['continueQuality']
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_triangle_quality_pass.py", line 21, in produce_pass
+    g=produce(p,tri);top=g['topology'];ne=len(top['edges']);blocked=np.zeros(ne,bool);small=np.any(g['corners'].reshape(-1,3)<SMALL_LIMIT,axis=1);limits=[F(F(F(i)*BIN_LIMIT)/F(3)) for i in range(4)];bins=[[] for _ in range(3)];values=[[] for _ in range(3)];minimum=F(np.finfo(F).max) if len(g['corners']) else F(-1)
+      ^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_conditioning_measures.py", line 28, in produce
+    normal=triangle_normals(positions,np.asarray(faces,dtype='<i4'));edges=[]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\recovered_surface_normals.py", line 10, in triangle_normals
+    if not length>0 or not math.isfinite(length):raise NotImplementedError('Degenerate source normal policy')
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError: Degenerate source normal policy

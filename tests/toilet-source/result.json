@@ -1,0 +1,45 @@
+{
+  "sourceValidationPassed": true,
+  "checks": [
+    {
+      "name": "Archived plain source GLB matches recorded original bytes",
+      "passed": true
+    },
+    {
+      "name": "Prepared mesh files match their recorded hashes",
+      "passed": true
+    },
+    {
+      "name": "Original vertex and triangle counts are retained",
+      "passed": true
+    },
+    {
+      "name": "Every prepared vertex is the original vertex under the recorded similarity",
+      "passed": true
+    },
+    {
+      "name": "Prepared source is one closed consistently wound genus-one component",
+      "passed": true
+    },
+    {
+      "name": "Local conformity repair leaves no collapsed source triangle",
+      "passed": true
+    },
+    {
+      "name": "Fixture declares white presentation and its experimental solver status",
+      "passed": true
+    },
+    {
+      "name": "Known general-solver failure produces no qualified result or successful export",
+      "passed": true
+    },
+    {
+      "name": "Failure identifies solver conditioning rather than blaming the valid source mesh",
+      "passed": true
+    }
+  ],
+  "qualifiedRetopologyProduced": false,
+  "solverAttempt": "14f8558b9fa44ae2ac2fd1df229bbbde",
+  "solverFailure": "The solver created a degenerate triangle during mesh conditioning. No result was accepted; your source mesh and guides are unchanged.",
+  "scope": "Original fixture import and known-failure validation only; not a passing toilet remesh."
+}

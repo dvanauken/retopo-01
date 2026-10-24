@@ -1,0 +1,115 @@
+TAP version 13
+# Subtest: atomic stale multi-edit leaves all values, revisions and history untouched
+ok 1 - atomic stale multi-edit leaves all values, revisions and history untouched
+  ---
+  duration_ms: 3.8426
+  ...
+# Subtest: undo/redo restore authored IDs and values while revisions keep advancing
+ok 2 - undo/redo restore authored IDs and values while revisions keep advancing
+  ---
+  duration_ms: 0.6164
+  ...
+# Subtest: equal results preserve the redo branch and publish nothing
+ok 3 - equal results preserve the redo branch and publish nothing
+  ---
+  duration_ms: 0.3651
+  ...
+# Subtest: load starts an epoch and old authorization cannot modify it
+ok 4 - load starts an epoch and old authorization cannot modify it
+  ---
+  duration_ms: 0.3148
+  ...
+# Subtest: invalid second target and duplicate identities cannot partially install
+ok 5 - invalid second target and duplicate identities cannot partially install
+  ---
+  duration_ms: 0.3689
+  ...
+# Subtest: closed guides have distinct authored points and derive a closing sample only
+ok 6 - closed guides have distinct authored points and derive a closing sample only
+  ---
+  duration_ms: 0.3266
+  ...
+# Subtest: surface spline interpolates fit points, handles coincidences and reverses its locus
+ok 7 - surface spline interpolates fit points, handles coincidences and reverses its locus
+  ---
+  duration_ms: 2.6506
+  ...
+# Subtest: native write/read/write preserves authored bytes and rejects foreign sources/versions
+ok 8 - native write/read/write preserves authored bytes and rejects foreign sources/versions
+  ---
+  duration_ms: 3.0662
+  ...
+# Subtest: pointer cancellation discards all staged fragments and releases capture
+ok 9 - pointer cancellation discards all staged fragments and releases capture
+  ---
+  duration_ms: 1.822
+  ...
+# Subtest: release movement is included and all freehand fragments form one undo unit
+ok 10 - release movement is included and all freehand fragments form one undo unit
+  ---
+  duration_ms: 1.2349
+  ...
+# Subtest: temporary navigation preserves pointer-free construction; Escape discards it
+ok 11 - temporary navigation preserves pointer-free construction; Escape discards it
+  ---
+  duration_ms: 0.568
+  ...
+# Subtest: snapping uses acquire/release hysteresis, invalidates stamps and honors Alt bypass
+ok 12 - snapping uses acquire/release hysteresis, invalidates stamps and honors Alt bypass
+  ---
+  duration_ms: 0.5535
+  ...
+# Subtest: guide records reject sparse points, accessors and unadvertised fields
+ok 13 - guide records reject sparse points, accessors and unadvertised fields
+  ---
+  duration_ms: 0.3169
+  ...
+# Subtest: open guide endpoint coincidence does not silently become authored closure
+ok 14 - open guide endpoint coincidence does not silently become authored closure
+  ---
+  duration_ms: 0.1173
+  ...
+# Subtest: editing an owned direct point retains the other selected guide IDs
+ok 15 - editing an owned direct point retains the other selected guide IDs
+  ---
+  duration_ms: 1.2451
+  ...
+# Subtest: module imports obey the guide subsystem dependency boundaries
+ok 16 - module imports obey the guide subsystem dependency boundaries
+  ---
+  duration_ms: 2.209
+  ...
+# Subtest: rejection is reported only after the controller gate closes and native capture releases
+ok 17 - rejection is reported only after the controller gate closes and native capture releases
+  ---
+  duration_ms: 0.2167
+  ...
+# Subtest: returning within exactly 5 CSS pixels closes the clicked loop without a duplicate point
+ok 18 - returning within exactly 5 CSS pixels closes the clicked loop without a duplicate point
+  ---
+  duration_ms: 0.6067
+  ...
+# Subtest: freehand proximity closure works without the close-stroke checkbox
+ok 19 - freehand proximity closure works without the close-stroke checkbox
+  ---
+  duration_ms: 1.0894
+  ...
+# Subtest: Circle preserves its analytic center, radius, plane and semantic edit roles through IO and history
+ok 20 - Circle preserves its analytic center, radius, plane and semantic edit roles through IO and history
+  ---
+  duration_ms: 1.0624
+  ...
+# Subtest: version 2 guide files migrate while Circle requires version 3
+ok 21 - version 2 guide files migrate while Circle requires version 3
+  ---
+  duration_ms: 0.3135
+  ...
+1..21
+# tests 21
+# suites 0
+# pass 21
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 113.423

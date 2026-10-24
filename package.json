@@ -7,6 +7,10 @@
   "scripts": {
     "start": "python -X utf8 server.py",
     "test": "node --test tests/guide-editor.test.mjs",
-    "test:guides:browser": "python -X utf8 tests/verify_guide_editor.py"
+    "test:guides:browser": "python -X utf8 tests/verify_guide_editor.py",
+    "test:shell": "python -X utf8 tests/verify_workspace_shell.py",
+    "test:guides:additions": "python -X utf8 tests/verify_guide_additions.py",
+    "test:guides:influence": "python -X utf8 tests/verify_guide_influence.py",
+    "test:toilet:source": "python -X utf8 tests/verify_toilet_source.py"
   }
 }

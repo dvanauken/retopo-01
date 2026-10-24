@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { GuideDocument } from '../src/domain/GuideDocument.js';
-import { fromPositions, makeGuide, evaluate, flatten } from '../src/geometry/GuideCurve.js';
+import { fromPositions, fromCircle, editPoints, makeGuide, evaluate, flatten } from '../src/geometry/GuideCurve.js';
 import { encodeGuides, decodeGuides } from '../src/io/GuideSerializer.js';
 import { GuideController } from '../src/view/GuideController.js';
 import { GuideSnap } from '../src/snapping/GuideSnap.js';
@@ -60,7 +60,7 @@ test('native write/read/write preserves authored bytes and rejects foreign sourc
   const read = decodeGuides(JSON.parse(bytes), 'source-A', id), e = new GuideDocument(id); e.load(read);
   assert.equal(encodeGuides(e, 'source-A', e.guides.map(g => flatten(g))), bytes);
   assert.throws(() => decodeGuides(JSON.parse(bytes), 'source-B', id), /different source/);
-  assert.throws(() => decodeGuides({ ...JSON.parse(bytes), schemaVersion: 3 }, 'source-A', id), /Unsupported/);
+  assert.throws(() => decodeGuides({ ...JSON.parse(bytes), schemaVersion: 4 }, 'source-A', id), /Unsupported/);
 });
 
 function host() {
@@ -128,4 +128,33 @@ test('rejection is reported only after the controller gate closes and native cap
   c.down(pointer(0)); c.move(pointer(5)); c.navigate(true);
   assert.equal(observed, 0); assert.equal(captures.size, 1);
   c.escape(); assert.equal(observed, 1); assert.equal(captures.size, 0);
+});
+test('returning within exactly 5 CSS pixels closes the clicked loop without a duplicate point', () => {
+  const { c, d } = host(); c.activate('polyline');
+  for (const [x, y] of [[10, 10], [60, 10], [60, 60], [10, 60]]) c.down(pointer(x, y));
+  c.move(pointer(15.01, 10)); assert.equal(c.closureSnap, null);
+  c.move(pointer(15, 10)); assert.deepEqual(c.closureSnap.position, [10, 10, 0]); assert.equal(c.constructionGuide.closed, true);
+  c.down(pointer(15, 10)); assert.equal(d.guides[0].closed, true); assert.equal(d.guides[0].points.length, 4); assert.equal(d.history.length, 1); assert.equal(c.construction, null);
+});
+test('freehand proximity closure works without the close-stroke checkbox', () => {
+  const { c, d } = host(); c.down(pointer(10, 10));
+  for (const [x, y] of [[60, 10], [60, 60], [10, 60], [14, 10]]) c.move(pointer(x, y));
+  assert.ok(c.closureSnap); c.up(pointer(14, 10)); assert.equal(d.guides[0].closed, true);
+  assert.notDeepEqual(d.guides[0].points[0].position, d.guides[0].points.at(-1).position);
+});
+test('Circle preserves its analytic center, radius, plane and semantic edit roles through IO and history', () => {
+  const g = fromCircle([0, 0, 1], [.64, 0, 1], [0, 0, 1], id), d = new GuideDocument(id); d.load([g]);
+  assert.equal(g.type, 'circle'); assert.equal(g.points.length, 1); assert.equal(g.radius, .64);
+  const samples = flatten(g); assert.deepEqual(samples[0], samples.at(-1));
+  assert.ok(samples.every(p => Math.abs(Math.hypot(p[0], p[1]) - .64) < 1e-12 && p[2] === 1));
+  assert.deepEqual(editPoints(g).map(p => p.role), ['center', 'radius']);
+  const encoded = encodeGuides(d, 'source', [samples]);
+  assert.deepEqual(decodeGuides(JSON.parse(encoded), 'source', id), [g]);
+  d.execute('Radius', [makeGuide({ ...g, radius: .7 })]); d.moveHistory(-1); assert.deepEqual(d.guides, [g]);
+  assert.throws(() => fromCircle([0, 0, 0], [0, 0, 0], [0, 0, 1], id), /radius/);
+});
+test('version 2 guide files migrate while Circle requires version 3', () => {
+  const d = new GuideDocument(id); d.load([guide()]); const old = { ...JSON.parse(encodeGuides(d, 'source', [])), schemaVersion: 2 };
+  assert.deepEqual(decodeGuides(old, 'source', id), d.guides);
+  old.guides = [fromCircle([0, 0, 0], [1, 0, 0], [0, 0, 1], id)]; assert.throws(() => decodeGuides(old, 'source', id), /version 3/);
 });

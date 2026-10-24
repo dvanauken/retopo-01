@@ -2,35 +2,84 @@
   "passed": true,
   "specification": "Draw 2D 3.0.0-draft.21",
   "profile": "Surface guide adaptation; not Base 2D conformance",
-  "unitChecks": 17,
-  "browserChecks": 60,
-  "workerJobs": [
-    "31fc32bd9ba04a58bd6c9cdbfd795c8c",
-    "c2bf246074f345a98b0146b3460c5430"
-  ],
-  "sourceHashes": {
-    "app.js": "34559b4055150f8e158957ce8fc412e437537b14fba7d736830701ad0232ece1",
-    "index.html": "59d61036d8639e2868552ea797cd405625941e5d34ee3ccb0e13c3b775af8127",
-    "server.py": "1fe8ce5eee3f17fe241081de3aa76ddf7aa33403b473dbc54d30ce2c3e516b93",
-    "package.json": "32535872c556dbf679edae8228c75baf00fb85f30937d641620d034c39d03d8f",
-    "README.md": "ccf604cd199bdf8bd7437b513eee742b9ab2e06b194e7c2c1abb48ed260be8d8",
-    "GUIDE_EDITOR.md": "56eece60ef4f8d08a0bdf02d01ea7350d40b3ef0a04d345f5a1df6e368af821b",
-    "tests/guide-editor.test.mjs": "5dd3e689f34444401e8e19763f02119dbd794aeb1db261d40b7935243cc51600",
-    "tests/verify_guide_editor.py": "37b9f9f7fd89160e3e42aa0384147d16b8b5c3e2b98d8c5c9f67810b63b9da06",
-    "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
-    "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
-    "src/geometry/GuideCurve.js": "7a0c8c5154baa78ef23ecc4307984545c19c4db54e622901ea109a85960cc339",
-    "src/io/GuideSerializer.js": "d094b9e1f27fd0e626e4c8122ca9d3e6c8a27caeba480db1d0a02bdd8083e3e1",
-    "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
-    "src/view/GuideController.js": "77151edea9e23dbb62b82f89c1a3d9dd29cc8515002212106aab2b1ef06277ee",
-    "src/view/SurfaceGuides.js": "1140e110e104fc00736a96575059797d325f71724635fc2c1102fc8cd12d5308"
+  "unitChecks": 21,
+  "browserChecks": 114,
+  "guideInfluenceChecks": 14,
+  "toiletSourceChecks": 9,
+  "totalChecks": 158,
+  "suites": {
+    "guide-editor": {
+      "checks": 60,
+      "report": "tests/guide-editor/result.json"
+    },
+    "guide-additions": {
+      "checks": 31,
+      "report": "tests/guide-additions/result.json"
+    },
+    "workspace-shell": {
+      "checks": 23,
+      "report": "tests/workspace-shell/result.json"
+    },
+    "guide-influence": {
+      "checks": 14,
+      "report": "tests/guide-influence/result.json"
+    },
+    "toilet-source": {
+      "checks": 9,
+      "report": "tests/toilet-source/result.json"
+    }
   },
+  "workerJobs": [
+    "193628e6b4d949f38ac0e83d9d68a057",
+    "2b92438549404b95946f114bc89213d6",
+    "49a74104b2334dc7875ec04006b96d31"
+  ],
   "workerEvidence": [
     "tests/guide-editor/worker-freehand",
-    "tests/guide-editor/worker-spline"
+    "tests/guide-editor/worker-spline",
+    "tests/guide-additions/worker-circle"
   ],
+  "qualifiedToiletRetopologyProduced": false,
+  "toiletLimitation": "Valid imported white source and guide editing work; general solver rejects a degenerate triangle created during conditioning.",
+  "sourceHashes": {
+    "app.js": "aeed670585606263ecc5c38eed54c0db27aa827f9eba58a863e5e57b225b7f9c",
+    "assets/catalog.json": "95abf115a3de1948be76593df5a5716d1d329414198615be05301bfc422bbd50",
+    "assets/models/toilet.json": "8846008925f8779cae3b9b62f7cfefbee338b0b38e6345119b95ce21906862de",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "assets/raw/toilet/preparation.json": "f49062fde0a1b1003036f9c44906e366ee2ac435d2a3026cdf6c652a16ef82a3",
+    "assets/raw/toilet/SW_Toilet.closed.web.glb": "2c34e0475446d832c6e9eeeb97c749534b4553e6a5566626b502e3079c936d78",
+    "DESIGN.md": "b6dddae542fcea9ca33a2c847379324d181a546ed7752ee753aaec6e13bb5422",
+    "GUIDE_EDITOR.md": "62eec1f4cf7abe97ef6889f4a9012afef06361a6e156b8b932df1535698068b8",
+    "GUIDE_INFLUENCE_REPAIR.md": "c6e3221823f6718afc1a8d3192394fd8dc20d77eeafe71f808c409438095edfd",
+    "index.css": "d541af9bed3058b45a26ef2b1e50d5648414a8311ebcd0c88075b1e293bafb50",
+    "index.html": "223ce8fd578599fa920b232252a5b5af72a5bc699087b7f50f0bf7c5a1b7b758",
+    "package.json": "65bf249dee5d7b728a345a74133afb74c9095128eb2311edf36d67d83c8fc758",
+    "README.md": "1b4494194206622df2abecb7d92386318bdca9209ab5e964783f8da3565cef51",
+    "scripts/extract_blender_mesh.py": "f7ff568e543ac678e79bd6d082b2ad489c84cd4dcdc0509d5c6f3ea9747fd090",
+    "scripts/import_toilet.py": "ab105b897dbdd1295ff1404af30c94b896385a45cb322b4fab022261451a7f38",
+    "server.py": "ecf48a6b03ad5e76ef7c197edcb7680d81b23ff56cd3dc6a4e080242655e8fe2",
+    "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
+    "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
+    "src/geometry/GuideCurve.js": "1fbaddc9a416b15550972c181e0b97616c57cd60ff045f8ee42b985dfd0f89ed",
+    "src/io/GuideSerializer.js": "405e343dc9697ea63ccd22ab813dd511e4adca340d504f59e097e01687df7ed1",
+    "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
+    "src/view/CircleConstruction.js": "866190bb43bded83034b2d94a24eec9603ab30c7e6594c77c209a6ea06e44170",
+    "src/view/GuideController.js": "556c4227867a7575909a689635d5f24ced3c1787e5a4005111833066e5ea228e",
+    "src/view/SurfaceGuides.js": "7e0456176fe1ee4687eb9534264fcbfc3975b66bd3dd971dccf3775d96059ed9",
+    "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634",
+    "structured_prism.py": "4152257435a5d9488c81f8cfab69362f403c18da6bea554ddd5a80f058509c86",
+    "tests/guide-editor.test.mjs": "77430b3dfaae9ff27d96fc0f7b20f39e88f3dd500f1d820734e3085200bbd1b7",
+    "tests/verify_guide_additions.py": "9965adf256b5503ecc3e956debe7c8ec11307a833a9b3b526a4f143ae46cba5b",
+    "tests/verify_guide_editor.py": "6354514631460cf80c7078cf2a7104bc1a8fceaf30779d40e6ede5be10a517b9",
+    "tests/verify_guide_influence.py": "101bdf5e5c030856990428fd3af5018d35c5f6ba097d5e39386ea4384eda0412",
+    "tests/verify_toilet_source.py": "5fc459423eef55e86211af114b15a4b693ecb7fc11e0ec754e1532c0b7689052",
+    "tests/verify_workspace_shell.py": "0414856d59cb3631a2c3e7cfaef7092079296f031a047cbbbdc49ac4ea8aed7f",
+    "worker.py": "6da20d7c419c8cd109442ca9a5cdd4da1651e4a6003606504f8ecddce45a2c4c",
+    "WORKSPACE_LAYOUT.md": "0fb45755209b3f1261b17818190c98eba339bfa413bfd59fe7821f4aaa61ec9d"
+  },
   "localServers": [
     8741,
     8742
-  ]
+  ],
+  "liveEvidence": "tests/workspace-shell/live-check.json"
 }

@@ -23,6 +23,7 @@ try:
   context=browser.new_context(viewport={'width':1540,'height':1020},accept_downloads=True)
   page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
   page.goto(url,wait_until='networkidle');page.wait_for_function('window.retopoDemo?.getState().resultFaces > 0')
+  if page.locator('html').get_attribute('data-theme')!='dark':page.locator('#themeButton').click()
   def state():return page.evaluate('window.retopoDemo.getState()')
   def doc():return state()['guideDocument']
   def screen(point,pane=0):
@@ -129,7 +130,7 @@ try:
   # Native export preserves IDs, algorithms and source binding on reload.
   with page.expect_download() as download:page.locator('#exportGuides').click()
   target=OUT/'guides.json';download.value.save_as(str(target));packet=json.loads(target.read_text())
-  check(packet['schemaVersion']==2 and packet['sourceSha256'] and packet['guides']==doc(),'Saved guide file carries authored records and source identity')
+  check(packet['schemaVersion']==3 and packet['sourceSha256'] and packet['guides']==doc(),'Saved guide file carries authored records and source identity')
   page.locator('#clearButton').click();page.locator('#guideFile').set_input_files(str(target));page.wait_for_function('window.retopoDemo.getState().guideDocument.length===2')
   check(doc()==packet['guides'],'Guide import restores exact authored identities and spline parameters')
   # Refresh checks actual browser storage migration/roundtrip rather than an oracle.

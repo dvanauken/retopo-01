@@ -1,17 +1,26 @@
 import * as THREE from 'three';
-import { flatten, distance } from '../geometry/GuideCurve.js';
+import { flatten, distance, editPoints } from '../geometry/GuideCurve.js';
 
 export class SurfaceGuides {
-  constructor(ports) { this.ports = ports; this.cache = new WeakMap(); this.triangles = []; }
+  constructor(ports) { this.ports = ports; this.cache = new WeakMap(); this.handleCache = new WeakMap(); this.triangles = []; this.cells = new Map(); this.largeTriangles = []; }
   setSource(mesh) {
-    this.cache = new WeakMap(); this.triangles = [];
+    this.cache = new WeakMap(); this.handleCache = new WeakMap(); this.triangles = []; this.cells = new Map(); this.largeTriangles = [];
     const points = mesh.vertices.map(p => new THREE.Vector3(...p));
     for (const face of mesh.faces) for (let i = 1; i < face.length - 1; i++) this.triangles.push(new THREE.Triangle(points[face[0]], points[face[i]], points[face[i + 1]]));
+    const box = new THREE.Box3();
+    this.triangles.forEach((triangle, id) => {
+      box.setFromPoints([triangle.a, triangle.b, triangle.c]); const low = box.min.toArray().map(v => Math.floor(v / .08)), high = box.max.toArray().map(v => Math.floor(v / .08));
+      if (high.reduce((n, v, i) => n * (v - low[i] + 1), 1) > 4096) { this.largeTriangles.push(id); return; }
+      for (let x = low[0]; x <= high[0]; x++) for (let y = low[1]; y <= high[1]; y++) for (let z = low[2]; z <= high[2]; z++) { const key = `${x},${y},${z}`; if (!this.cells.has(key)) this.cells.set(key, []); this.cells.get(key).push(id); }
+    });
   }
   nearest(position) {
     const point = new THREE.Vector3(...position), candidate = new THREE.Vector3();
     let best = Infinity, result;
-    for (const triangle of this.triangles) {
+    const candidates = new Set(this.largeTriangles), low = position.map(v => Math.floor((v - .05) / .08)), high = position.map(v => Math.floor((v + .05) / .08));
+    for (let x = low[0]; x <= high[0]; x++) for (let y = low[1]; y <= high[1]; y++) for (let z = low[2]; z <= high[2]; z++) for (const id of this.cells.get(`${x},${y},${z}`) || []) candidates.add(id);
+    for (const id of [...candidates].sort((a, b) => a - b)) {
+      const triangle = this.triangles[id];
       triangle.closestPointToPoint(point, candidate); const d = candidate.distanceToSquared(point);
       if (d < best) { best = d; result = candidate.toArray(); }
     }
@@ -43,7 +52,17 @@ export class SurfaceGuides {
     if (!this.ports.shown() || selection.model !== 'direct') return [];
     const guide = this.ports.guides().find(g => g.id === selection.activeEntityId);
     if (!guide) return [];
-    return guide.points.filter(p => this.visible(p.position, pane)).map(p => ({ guideId: guide.id, pointId: p.id, position: p.position, ...this.ports.project(p.position, pane) }));
+    return this.handlesForGuide(guide, pane);
+  }
+  handlesForGuide(guide, pane) {
+    const stamp = this.ports.stamp?.(), cached = this.handleCache.get(guide)?.get(pane);
+    if (stamp !== undefined && cached?.stamp === stamp) return cached.handles;
+    const handles = editPoints(guide).map(p => ({ ...p, position: guide.type === 'circle' && p.role === 'radius' ? this.nearest(p.position) : p.position })).filter(p => {
+      if (guide.type !== 'circle' || p.role !== 'center') return this.visible(p.position, pane);
+      const screen = this.ports.project(p.position, pane), hit = this.ports.surface(screen.x, screen.y, pane);
+      return screen.z >= -1 && screen.z <= 1 && this.ports.inside(screen.x, screen.y, pane) && (!hit || this.ports.project(hit, pane).z >= screen.z - .0001);
+    }).map(p => ({ guideId: guide.id, pointId: p.id, role: p.role || 'point', position: p.position, ...this.ports.project(p.position, pane) }));
+    if (!this.handleCache.has(guide)) this.handleCache.set(guide, new Map()); this.handleCache.get(guide).set(pane, { stamp, handles }); return handles;
   }
   hit(x, y, pane, selection) {
     if (!this.ports.shown()) return null;

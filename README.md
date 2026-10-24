@@ -1,6 +1,8 @@
 # Retopo1
 
-The guide editor now supports freehand and clicked Polylines, smooth Splines, whole-guide and point selection, surface-constrained editing, snapping, atomic undo/redo, and source-bound guide files. See [GUIDE_EDITOR.md](GUIDE_EDITOR.md) for controls, the Draw 2D requirements mapping, surface policies, and verification. This is the guide-specific adaptation of Draw 2D draft.21, not full Base 2D conformance.
+The workspace uses a top ribbon, left navigator, central viewport, right properties panel, and a bottom Measurements / History / Log dock. Light is the default, with blue primary actions, white/gray surfaces and gold accents. Panels resize and collapse; View contains visibility controls. See [WORKSPACE_LAYOUT.md](WORKSPACE_LAYOUT.md).
+
+The guide editor now supports freehand and clicked Polylines, smooth Splines, analytic Circles, 5-pixel green loop-closure snapping, whole-guide and point selection, surface-constrained editing, snapping, atomic undo/redo, and source-bound guide files. See [GUIDE_EDITOR.md](GUIDE_EDITOR.md) for controls, the Draw 2D requirements mapping, surface policies, and verification. This is the guide-specific adaptation of Draw 2D draft.21, not full Base 2D conformance.
 
 Current quality repair: the exact user-rejected620-face stroke is rebuilt as480coherent quads, with minimum angle52° and worst edge ratio3.01. See [QUALITY_REPAIR.md](QUALITY_REPAIR.md) for actual before/after data, screenshots, reproduction and remaining scope. Use `http://localhost:8741` if that is the origin of your existing browser session; refresh and Generate again to retain its saved curves.
 
@@ -27,7 +29,7 @@ This machine already has the qualified64-bit Windows Python numerical environmen
 4. Select a target density and press **Generate retopology**. **Half / Same / Double** set the target from the source density, as ZRemesher does; the readout compares source and target spacing (`sqrt(area / quads)`, counting two source triangles as one quad) and warns when the target is more than 1.5× finer than the source. The displayed result is the actual new geometry from your submitted curves. Changed inputs mark the previous result **Needs update** until generated again.
 5. Compare **Split** and **Overlay**, toggle guides/mesh/sharp edges, and inspect **Details**. **Export OBJ** exports real polygon faces; **Save guides** exports source-frame curve JSON. **Load guides** restores it for the matching source mesh.
 
-Undo/redo: Ctrl+Z / Ctrl+Shift+Z. G draws freehand; P/S construct Polyline/Spline guides by clicking, then Enter; Alt+Enter closes. V selects whole guides; A edits points; double-click also enters point editing. Shift adds guides, empty-space drag selects by containment, and Escape cancels. O orbits; E erases by clicking near a guide; F fits the model. Local browser storage preserves guides/settings per source hash. Source and result views share the camera.
+Undo/redo: Ctrl+Z / Ctrl+Shift+Z. G draws freehand; P/S construct Polyline/Spline guides by clicking, then Enter; return within 5 CSS pixels of the green first point and click to close. C creates a Circle from center and radius; Alt+Enter closes. V selects whole guides; A edits points; double-click also enters point editing. Shift adds guides, empty-space drag selects by containment, and Escape cancels. O orbits; E erases by clicking near a guide; F fits the model. Local browser storage preserves guides/settings per source hash. Source and result views share the camera.
 
 ## Included meshes
 
@@ -35,6 +37,7 @@ Undo/redo: Ctrl+Z / Ctrl+Shift+Z. G draws freehand; P/S construct Polyline/Splin
 |---|---|---|
 | Hollow hexagon | Through-hole, angled planar faces, hard corners, closed guides and crossings; fast default demonstration. | [Kenney Prototype Kit](https://kenney.nl/assets/prototype-kit), CC0-1.0. Original `shape-hollow-hexagon.obj` and license retained in `assets/`. |
 | Terrain patch | Curved contours, ridge guides and an intentional open border. | Original synthetic research fixture; the measured enclosure/crop reference route. |
+| White toilet | Original plain SW_Toilet converted to a closed white mesh; detailed guide-editing test subject. General retopology currently rejects it during conditioning. | User-provided `SW_Toilet.closed.web.glb`; provenance in `assets/raw/toilet/`. |
 | Curved cylinder | Curved-surface flow and flexible-direction versus preserved-path guidance. | Original synthetic research fixture; recovered field pipeline. |
 
 The online hexagon export repeats its face group and contains one zero-area triangle and a collinear T joint. Preparation welds only identical coordinates, removes exact duplicate/degenerate faces, conforms that T joint without moving the existing surface, rotates Y-up to Z-up, normalizes the bbox, and applies two conforming midpoint subdivisions. The prepared geometry is a closed connected genus-one surface. `assets/preparation.json`, raw download, acquisition hashes and creator license record these changes. It is derived from the actual online asset, not a procedural substitute with an attribution attached.
@@ -77,3 +80,5 @@ All research originals remain in `C:\dbva\code\ghidra-workbench`; this applicati
 With the optional `playwright` Python package and its Chromium browser installed, run `python -X utf8 tests/verify_demo.py`. The test starts and stops its own localhost server on a free port. It uses real pointer strokes, performs live solves at two densities, independently measures exported geometry and guide registration, verifies real downloads, exercises undo/redo/erase, checks both themes and narrow layouts, and tests invalid requests and cancellation. Results and screenshots are retained under `tests/`. It does not change an already running application server.
 
 For the guide-drawing fix, run `python -X utf8 tests/verify_drawing.py`. Its 20 focused checks include default isometric drawing in both panes, immediate previews, hidden-guide recovery, right-pane erasing/undo, overlay, mouse/touch/pen, divider crossing, and an actual remesh from a right-pane closed stroke. Records are under `tests/drawing-fix/`.
+
+Guide-influence repair: the exact user-reported partial curve now follows a measured output-edge path, with p95 distance improving from 0.06954 to 0.01847 and p95 tangent mismatch from 61.75° to 11.67°. See [GUIDE_INFLUENCE_REPAIR.md](GUIDE_INFLUENCE_REPAIR.md).

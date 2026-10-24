@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "url": "http://localhost:8741",
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 4
+      },
+      "cssStatus": 200,
+      "browserErrors": [],
+      "passed": true
+    },
+    {
+      "url": "http://127.0.0.1:8742",
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 4
+      },
+      "cssStatus": 200,
+      "browserErrors": [],
+      "passed": true
+    }
+  ],
+  "appSha256": "aeed670585606263ecc5c38eed54c0db27aa827f9eba58a863e5e57b225b7f9c",
+  "emptyToiletResultCaption": "Retopology"
+}

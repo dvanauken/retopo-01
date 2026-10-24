@@ -115,10 +115,11 @@ def _guides(d,curves):
    ids=np.arange(start,end);label=labels[start]
    if len(ids)>=2:
     phi=np.unwrap(angle[ids]);span=float(np.ptp(phi));vertical=t[ids] if label in ('top','bottom') else q[ids,2]/d['height'];cross_span=float(np.ptp(vertical))
-    if span>.35 and span>cross_span*2:
+    angle_steps=np.diff(phi);cross_steps=np.diff(vertical);angle_monotonic=min(float(np.maximum(angle_steps,0).sum()),float(-np.minimum(angle_steps,0).sum()))<1e-5;cross_monotonic=min(float(np.maximum(cross_steps,0).sum()),float(-np.minimum(cross_steps,0).sum()))<1e-5
+    if span>.35 and angle_monotonic and (span>cross_span*2 or not cross_monotonic):
      value=radius[ids] if label in ('top','bottom') else q[ids,2];profile=_profile(angle[ids],value);profile.update(curve=ci,label=label,meanFraction=float(np.mean(vertical)),sourcePoints=np.asarray(curve)[ids]);contours[label].append(profile);kind='contour'
-    elif cross_span>.12 and span<1.0:
-     order=np.argsort(vertical);spokes[label].append({'curve':ci,'label':label,'angle':float(np.mean(phi)),'fraction':vertical[order],'angles':phi[order]});kind='spoke'
+    elif cross_span>.12 and span<1.0 and cross_monotonic:
+     order=np.argsort(vertical);spokes[label].append({'curve':ci,'label':label,'angle':float(np.mean(phi)),'fraction':vertical[order],'angles':phi[order],'sourcePoints':np.asarray(curve)[ids]});kind='spoke'
     else:raise NotImplementedError('Guide needs a clear contour or radial/axial flow for this structured surface class')
     diagnostics.append({'curve':ci,'surface':label,'kind':kind,'samples':len(ids),'angularSpan':span,'crossSpan':cross_span})
    start=end
@@ -157,6 +158,28 @@ def _rows(angle,low,high,count,profiles,slots=None):
   rows.append(anchors[a] if a==b else anchors[a]+(anchors[b]-anchors[a])*(j-a)/(b-a))
  return np.array(rows)
 
+def _spoke_columns(angle,fraction,guides):
+ # A guide owns one complete radial/axial edge chain. Interpolate its actual
+ # angular profile without the old sin(pi*f) attenuation. Spread displacement
+ # to neighboring columns instead of bending a lone column through them.
+ shifts={}
+ for guide in guides:
+  index=int(np.argmin(abs(np.angle(np.exp(1j*(angle-guide['angle']))))))
+  f=guide['fraction'];baseline=angle[index];values=baseline+np.angle(np.exp(1j*(guide['angles']-baseline)))
+  desired=float(np.interp(fraction,np.r_[0.,f,1.],np.r_[baseline,values,baseline]))
+  shift=float(np.angle(np.exp(1j*(desired-baseline))))
+  if index in shifts and abs(shifts[index]-shift)>.01:raise ValueError('Conflicting spoke guides occupy one column')
+  shifts[index]=shift
+ if not shifts:return angle.copy()
+ # A single constraint fades to zero at the opposite side of the annulus.
+ if len(shifts)==1:
+  index=next(iter(shifts));opposite=int(np.argmin(abs(np.angle(np.exp(1j*(angle-angle[index]-np.pi))))))
+  shifts[opposite]=0.
+ keys=np.array(sorted(shifts));x=angle[keys];y=np.array([shifts[int(i)] for i in keys]);offset=np.interp(angle,np.r_[x[-1]-TAU,x,x[0]+TAU],np.r_[y[-1],y,y[0]])
+ phi=angle+offset
+ if np.any(np.diff(np.r_[phi,phi[0]+TAU])<=.01):raise ValueError('Spoke constraints invert angular ordering')
+ return phi
+
 def _build(d,angle,nz,nr,contours,spokes,cap_slot=None):
  count=len(angle);ri=_radius(d['inner'],angle);ro=_radius(d['outer'],angle);vertices=[];faces=[];lookup={};guide_paths=[]
  def add(uv,z):
@@ -170,27 +193,26 @@ def _build(d,angle,nz,nr,contours,spokes,cap_slot=None):
  for label,z,reverse in [('top',d['height'],False),('bottom',0.,True)]:
   slot=[cap_slot] if cap_slot and len(contours[label])==1 else None;radial=_rows(angle,ri,ro,nr,contours[label],slot);ids=[]
   for j,row in enumerate(radial):
-   phi=angle.copy();fraction=j/nr
-   for guide in spokes[label]:
-    index=int(np.argmin(abs(np.angle(np.exp(1j*(angle-guide['angle']))))));desired=float(np.interp(fraction,guide['fraction'],guide['angles']));delta=float(np.angle(np.exp(1j*(desired-angle[index]))));phi[index]+=delta*np.sin(np.pi*fraction)
-   if np.any(np.diff(np.r_[phi,phi[0]+TAU])<=.01):raise ValueError('Crossing spoke guides invert angular ordering')
+   fraction=j/nr;phi=_spoke_columns(angle,fraction,spokes[label])
    # Re-evaluate outline bounds at warped columns; preserve exact seams at j=0/nr.
    frac=(row-ri)/(ro-ri);rad=_radius(d['inner'],phi)+frac*(_radius(d['outer'],phi)-_radius(d['inner'],phi));ids.append([add([r*np.cos(a),r*np.sin(a)],z) for r,a in zip(rad,phi)])
   for j in range(nr):
    for i in range(count):
     k=(i+1)%count;f=[ids[j][i],ids[j+1][i],ids[j+1][k],ids[j][k]];faces.append(f[::-1] if reverse else f)
+  for guide in spokes[label]:
+   index=int(np.argmin(abs(np.angle(np.exp(1j*(angle-guide['angle']))))));guide_paths.append({'curve':guide['curve'],'surface':label,'vertices':[row[index] for row in ids],'sourcePoints':guide['sourcePoints']})
   for profile,row in zip(sorted(contours[label],key=lambda p:p['meanFraction']),_slots(nr,contours[label],slot)):
    guide_paths.append({'curve':profile['curve'],'surface':label,'vertices':ids[row]+[ids[row][0]],'sourcePoints':profile['sourcePoints']})
  for label,radius,reverse in [('outer',ro,False),('inner',ri,True)]:
   heights=_rows(angle,0.,d['height'],nz,contours[label]);ids=[]
   for j,row in enumerate(heights):
-   fraction=j/nz;phi=angle.copy()
-   for guide in spokes[label]:
-    index=int(np.argmin(abs(np.angle(np.exp(1j*(angle-guide['angle']))))));desired=float(np.interp(fraction,guide['fraction'],guide['angles']));delta=float(np.angle(np.exp(1j*(desired-angle[index]))));phi[index]+=delta*np.sin(np.pi*fraction)
+   fraction=j/nz;phi=_spoke_columns(angle,fraction,spokes[label])
    rad=_radius(d[label],phi);ids.append([add([r*np.cos(a),r*np.sin(a)],z) for r,a,z in zip(rad,phi,row)])
   for j in range(nz):
    for i in range(count):
     k=(i+1)%count;f=[ids[j][i],ids[j][k],ids[j+1][k],ids[j+1][i]];faces.append(f[::-1] if reverse else f)
+  for guide in spokes[label]:
+   index=int(np.argmin(abs(np.angle(np.exp(1j*(angle-guide['angle']))))));guide_paths.append({'curve':guide['curve'],'surface':label,'vertices':[row[index] for row in ids],'sourcePoints':guide['sourcePoints']})
   for profile,row in zip(sorted(contours[label],key=lambda p:p['meanFraction']),_slots(nz,contours[label])):
    guide_paths.append({'curve':profile['curve'],'surface':label,'vertices':ids[row]+[ids[row][0]],'sourcePoints':profile['sourcePoints']})
  return np.asarray(vertices),faces,guide_paths
@@ -228,5 +250,5 @@ def construct(vertices,triangles,curves,*,target=500):
  cost,v,f,q,allocation,fit=min(candidates,key=lambda x:x[0]);
  if not q['passed']:raise ValueError('Guide/density cannot satisfy quad shape limits: '+', '.join(q['failures']))
  from features import output_creases
- meta={'backend':'engineering-structured-prismatic-annulus','nativeComparisonPerformed':False,'generalAlgorithmRecovered':False,'target':target,'guideMode':2,'outputCreases':output_creases(v,f),'sourceHashes':{str(Path(__file__).resolve()):hashlib.sha256(Path(__file__).read_bytes()).hexdigest()},'quadQuality':q,'guidePaths':fit,'structuredPolicy':{'recognition':'Opposite congruent planar annular caps, convex nested outlines, straight extruded source walls; actual source geometry only. No model ID or cached output lookup.','allocation':allocation,'candidateCount':len(candidates),'objective':cost,'guideClassification':guide_diagnostics,'guideFitting':'Smoothed periodic radial/axial profiles or partial-profile continuation; radial/axial spokes bend interior columns. Guide data is retained unchanged.','regularGrid':'Continuous circumferential cycles; axial wall strips; radial cap strips; globally shared boundary vertices; all quads constructed directly.','sourceCornerAngles':d['mandatory'].tolist(),'frame':{'origin':d['base'].tolist(),'u':d['u'].tolist(),'v':d['v'].tolist(),'normal':d['normal'].tolist(),'height':d['height']}},'limitations':['Geometry-class-specific structured mesher, not general native retopology recovery.','Contour ordering changes, nonconvex holes, intersecting constraints and arbitrary multiple holes need another layout strategy.','Guides influence regular grid paths through smoothing/continuation; exact every-sample interpolation is not promised.']}
+ meta={'backend':'engineering-structured-prismatic-annulus','nativeComparisonPerformed':False,'generalAlgorithmRecovered':False,'target':target,'guideMode':2,'outputCreases':output_creases(v,f),'sourceHashes':{str(Path(__file__).resolve()):hashlib.sha256(Path(__file__).read_bytes()).hexdigest()},'quadQuality':q,'guidePaths':fit,'structuredPolicy':{'recognition':'Opposite congruent planar annular caps, convex nested outlines, straight extruded source walls; actual source geometry only. No model ID or cached output lookup.','allocation':allocation,'candidateCount':len(candidates),'objective':cost,'guideClassification':guide_diagnostics,'guideFitting':'Smoothed periodic radial/axial profiles or partial-profile continuation; radial/axial spokes constrain measured edge chains and distribute column displacement monotonically. Guide data is retained unchanged.','regularGrid':'Continuous circumferential cycles; axial wall strips; radial cap strips; globally shared boundary vertices; all quads constructed directly.','sourceCornerAngles':d['mandatory'].tolist(),'frame':{'origin':d['base'].tolist(),'u':d['u'].tolist(),'v':d['v'].tolist(),'normal':d['normal'].tolist(),'height':d['height']}},'limitations':['Geometry-class-specific structured mesher, not general native retopology recovery.','Contour ordering changes, nonconvex holes, intersecting constraints and arbitrary multiple holes need another layout strategy.','Guides influence regular grid paths through smoothing/continuation; exact every-sample interpolation is not promised.']}
  return v,f,meta

@@ -39,6 +39,9 @@ def main():
   if not valid:raise ValueError('Output failed the demo topology checks')
   h=float(np.sqrt(np.sum(np.linalg.norm(np.cross(v[f[:,1]]-v[f[:,0]],v[f[:,2]]-v[f[:,0]]),axis=1))*.5/settings['target']))
   guide_failures=[]
+  if meta['backend']=='engineering-structured-prismatic-annulus':
+   missing=set(range(len(curves)))-{p['curve'] for p in mesh['guidePaths']}
+   if missing:guide_failures.append('No measured output edge path for guide(s): '+', '.join(str(i+1) for i in sorted(missing)))
   for path in mesh['guidePaths']:
    if path['p95Distance']>.20*h:guide_failures.append('guide path distance exceeds 0.20 target edge lengths')
    if path['p95TangentAngleDegrees']>30:guide_failures.append('guide tangent error exceeds 30 degrees')
@@ -51,7 +54,9 @@ def main():
   write(job/'report.json',dict(passed=True,constructionCompleted=True,vertices=len(positions),faces=len(faces),elapsedSeconds=elapsed,sourceSha256=sha(job/'source.obj'),curvesSha256=sha(job/'curves.json'),outputSha256=sha(job/'output.obj'),workerSha256=sha(Path(__file__)),backend=meta['backend'],qualityPassed=mesh['quality']['passed'],quality=mesh['quality'],scope='Actual original-input construction from user surface guides. No native process or native output oracle. Geometry validation and methods retained.'))
   print(json.dumps(dict(passed=True,vertices=len(positions),faces=len(faces),elapsedSeconds=elapsed)),flush=True);return 0
  except Exception as error:
+  message=str(error)
+  if isinstance(error,NotImplementedError) and message=='Degenerate source normal policy':message='The solver created a degenerate triangle during mesh conditioning. No result was accepted; your source mesh and guides are unchanged.'
   if constructed:write_obj(job/'failed-output.obj',positions,faces)
   if isinstance(error,OutputValidationError):write_obj(job/'failed-output.obj',error.positions,error.faces);write(job/'failed-validation.json',error.validation)
-  write(job/'report.json',dict(passed=False,constructionCompleted=constructed or isinstance(error,OutputValidationError),message=str(error),traceback=traceback.format_exc(),elapsedSeconds=time.monotonic()-start,sourceSha256=sha(job/'source.obj'),workerSha256=sha(Path(__file__))));traceback.print_exc();return 1
+  write(job/'report.json',dict(passed=False,constructionCompleted=constructed or isinstance(error,OutputValidationError),message=message,technicalMessage=str(error),traceback=traceback.format_exc(),elapsedSeconds=time.monotonic()-start,sourceSha256=sha(job/'source.obj'),workerSha256=sha(Path(__file__))));traceback.print_exc();return 1
 if __name__=='__main__':raise SystemExit(main())

@@ -3,6 +3,8 @@ import { OrbitControls } from 'three/addons/OrbitControls.js';
 import { GuideDocument } from './src/domain/GuideDocument.js';
 import { GuideController } from './src/view/GuideController.js';
 import { GuideSnap } from './src/snapping/GuideSnap.js';
+import { WorkspaceShell } from './src/view/WorkspaceShell.js';
+import { CircleConstruction } from './src/view/CircleConstruction.js';
 import { SurfaceGuides } from './src/view/SurfaceGuides.js';
 import { fromPositions } from './src/geometry/GuideCurve.js';
 import { encodeGuides, decodeGuides } from './src/io/GuideSerializer.js';
@@ -44,7 +46,7 @@ controls.addEventListener('change', () => cameraRevision++);
 const surfaceGuides = new SurfaceGuides({
   project, surface: (x, y, pane) => hit(x, y, pane)?.point.toArray() || null,
   inside: (x, y, pane) => { const r = canvas.getBoundingClientRect(); return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom && paneAt(x) === pane && (pane === 0 || !!resultRender); },
-  shown: () => $('guidesToggle').checked,
+  shown: () => $('guidesToggle').checked, stamp: () => { const r = canvas.getBoundingClientRect(); return `${state.version}:${cameraRevision}:${state.view}:${$('guidesToggle').checked}:${r.left}:${r.top}:${r.width}:${r.height}`; },
   guides: () => guideDocument.guides,
 });
 const guideSnap = new GuideSnap({
@@ -53,6 +55,10 @@ const guideSnap = new GuideSnap({
   guides: () => guideDocument.guides,
   visible: (p, pane) => $('guidesToggle').checked && surfaceGuides.visible(p, pane),
   stamp: () => `${guideDocument.epoch}:${guideDocument.generation}:${cameraRevision}:${$('snapGuides').checked}`,
+});
+const circleConstruction = new CircleConstruction({
+  hit, project, nearest: p => surfaceGuides.nearest(p),
+  ray: (x, y, pane) => { const r = canvas.getBoundingClientRect(); if (x < r.left || x > r.right || y < r.top || y > r.bottom || paneAt(x) !== pane) throw new Error('Keep the Circle construction in its original view.'); hit(x, y, pane); return raycaster.ray.clone(); },
 });
 const guideErrors = [], pendingGuideErrors = [];
 function reportGuideError(message) {
@@ -69,6 +75,7 @@ $('guideErrorDialog').addEventListener('close', () => { pendingGuideErrors.shift
 const expectedCaptureReleases = new Map(), captureOwners = new Map();
 const editor = new GuideController(guideDocument, {
   id: createGuideId, changed: syncGuideState, clearSnap: () => guideSnap.clear(), resolve: (x, y, pane, options) => guideSnap.resolve(x, y, pane, options), report: reportGuideError, busy: () => state.busy || !state.mesh,
+  circleFrame: (x, y, pane) => circleConstruction.frame(x, y, pane), circlePreview: (c, x, y) => circleConstruction.preview(c, x, y), circleEdit: (g, pointId, delta, pane) => circleConstruction.edit(g, pointId, delta, pane), closureVisible: (p, pane) => surfaceGuides.visible(p, pane),
   closed: () => $('closedGuide').checked, pane: paneAt, project,
   cameraRevision: () => cameraRevision,
   surface: (x, y, pane) => hit(x, y, pane)?.point.toArray() || null,
@@ -80,19 +87,26 @@ const editor = new GuideController(guideDocument, {
   capture: id => { try { canvas.setPointerCapture(id); captureOwners.set(id, { sequenceId: editor.activity.sequenceId, acknowledged: false }); return canvas.hasPointerCapture(id); } catch { captureOwners.delete(id); return false; } },
   release: id => { const owner = captureOwners.get(id); if (canvas.hasPointerCapture(id)) { if (owner?.acknowledged) expectedCaptureReleases.set(id, [...(expectedCaptureReleases.get(id) || []), owner.sequenceId]); canvas.releasePointerCapture(id); } captureOwners.delete(id); },
 });
+const workspaceShell = new WorkspaceShell($('appShell'), { beforeResize: () => { if (editor.activity) editor.escape(); } });
 function syncGuideState() {
   state.tool = editor.tool; state.space = editor.temporary; controls.enabled = state.tool === 'orbit' || state.space;
   state.guides = guideDocument.guides.map(g => surfaceGuides.curve(g));
   state.selected = guideDocument.guides.findIndex(g => g.id === editor.selection.activeEntityId);
   draft = editor.drafts.at(-1) || [];
-  canvas.className = editor.activity?.invalid ? 'invalid' : state.tool;
+  canvas.className = editor.activity?.invalid || editor.construction?.invalid ? 'invalid' : state.tool;
   document.querySelectorAll('[data-tool]').forEach(button => { const active = button.dataset.tool === state.tool; button.classList.toggle('active', active); button.setAttribute('aria-pressed', active); });
   for (const model of ['object', 'direct']) { const b = $(model + 'Selection'); b.setAttribute('aria-pressed', editor.selection.model === model); b.disabled = model === 'direct' && !editor.selection.activeEntityId; }
-  $('deleteGuides').textContent = editor.selection.model === 'direct' && editor.selection.pointId ? 'Delete point' : 'Delete guides';
-  $('deleteGuides').disabled = $('reverseGuides').disabled = !editor.selection.entityIds.length;
+  $('deleteGuides').querySelector('[data-label]').textContent = editor.selection.model === 'direct' && editor.selection.pointId && guideDocument.get(editor.selection.activeEntityId)?.type !== 'circle' ? 'Delete point' : 'Delete guides';
+  $('deleteGuides').disabled = !editor.selection.entityIds.length; $('reverseGuides').disabled = !editor.selection.entityIds.some(id => guideDocument.get(id)?.type !== 'circle');
   $('finishGuide').hidden = !editor.construction;
-  $('selectionStatus').textContent = editor.activity?.invalid || (editor.selection.entityIds.length ? `${editor.selection.entityIds.length} selected · ${editor.selection.model === 'direct' ? 'Edit points' : 'Whole guides'}` : 'Select a guide body or drag a selection rectangle.');
-  $('canvasInstruction').textContent = { draw: 'Drag a freehand guide. Escape cancels the entire stroke.', polyline: 'Click vertices. Enter finishes; Alt+Enter closes; Backspace removes the last point.', spline: 'Click fit points for a smooth surface guide. Enter finishes; Alt+Enter closes.', select: 'Click a guide, double-click to edit points, or drag a selection rectangle. Shift adds guides.', erase: 'Click a visible guide segment to remove the guide.', orbit: 'Drag to orbit. Right-drag to pan. Scroll to zoom.' }[state.tool];
+  $('selectionStatus').textContent = editor.activity?.invalid || editor.construction?.invalid || (editor.selection.entityIds.length ? `${editor.selection.entityIds.length} selected · ${editor.selection.model === 'direct' ? 'Edit points' : 'Whole guides'}` : 'Select a guide body or drag a selection rectangle.');
+  $('canvasInstruction').textContent = { draw: 'Drag a guide. Return within 5 px of the green first point and release to close.', polyline: 'Click vertices. Click the green first point within 5 px to close; Enter finishes open.', spline: 'Click fit points. Return within 5 px of the green first point and click to close.', circle: 'Click the center, then set the radius. The center may lie over the hole.', select: 'Click a guide, double-click to edit points, or drag a selection rectangle. Shift adds guides.', erase: 'Click a visible guide segment to remove the guide.', orbit: 'Drag to orbit. Right-drag to pan. Scroll to zoom.' }[state.tool];
+  const selected = guideDocument.get(editor.selection.activeEntityId);
+  $('selectedGuideType').textContent = selected?.type || 'No guide';
+  $('selectedGuidePoints').textContent = selected ? selected.type === 'circle' ? 'Analytic circle' : `${selected.points.length} points${selected.closed ? ' · closed' : ''}` : '—';
+  $('circleProperties').hidden = selected?.type !== 'circle';
+  if (selected?.type === 'circle' && (document.activeElement !== $('circleRadius') || $('circleRadius').dataset.guideId !== selected.id)) { $('circleRadius').value = selected.radius; $('circleRadius').dataset.guideId = selected.id; }
+  workspaceShell.history(guideDocument.history);
   updateGuideUI();
   const stamp = guideDocument.epoch + ':' + guideDocument.generation;
   if (stamp !== persistedGeneration && state.mesh) { persistedGeneration = stamp; persist(); }
@@ -105,6 +119,7 @@ async function api(url, options) {
   return data;
 }
 function notify(message, error = false, persistent = false) {
+  workspaceShell.addLog(message, error);
   clearTimeout(noticeTimer); $('noticeText').textContent = message; $('notice').classList.toggle('error', error); $('notice').hidden = false;
   if (!persistent) noticeTimer = setTimeout(() => $('notice').hidden = true, 7000);
 }
@@ -132,12 +147,12 @@ function buildMesh(data, group) {
   const triangles = [];
   for (const face of data.faces) for (let j = 1; j < face.length - 1; j++) triangles.push(face[0], face[j], face[j + 1]);
   geometry.setIndex(triangles); geometry.computeVertexNormals();
-  const material = new THREE.MeshStandardMaterial({ color: color('--model'), roughness: .78, metalness: .08, flatShading: true, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
+  const material = new THREE.MeshStandardMaterial({ color: data.displayColor ? new THREE.Color(data.displayColor) : color('--model'), roughness: data.displaySmooth ? .28 : .78, metalness: data.displaySmooth ? 0 : .08, flatShading: !data.displaySmooth, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
   const solid = new THREE.Mesh(geometry, material); group.add(solid);
-  const wire = lineSegments(edgePositions(data.vertices, data.faces), color('--wire'), .75); group.add(wire);
+  const wire = lineSegments(edgePositions(data.vertices, data.faces), color('--wire'), data.wireOpacity ?? .75); group.add(wire);
   const creases = lineSegments((data.creases || []).flatMap(([a, b]) => [...data.vertices[a], ...data.vertices[b]]), color('--crease'));
   creases.renderOrder = 2; group.add(creases);
-  return { solid, wire, creases };
+  return { solid, wire, creases, displayColor: data.displayColor, wireOpacity: data.wireOpacity };
 }
 class Polyline extends THREE.Curve {
   constructor(points) { super(); this.points = points.map(p => new THREE.Vector3(...p)); }
@@ -160,11 +175,10 @@ function renderGuides() {
   };
   for (const guide of guideDocument.guides) addCurve(surfaceGuides.curve(guide), editor.selection.entityIds.includes(guide.id) && !editor.editingIds.includes(guide.id), editor.editingIds.includes(guide.id) ? .22 : 1);
   for (const candidate of editor.candidates) addCurve(surfaceGuides.curve(candidate), true);
-  for (const points of editor.drafts) {
-    if (editor.construction?.type === 'spline' && points.length >= 2) {
-      try { addCurve(surfaceGuides.curve(fromPositions(points, 'spline', false, createGuideId)), true); } catch { addCurve(points, false, .4); }
-    } else addCurve(points, true);
-  }
+  const constructionGuide = editor.constructionGuide;
+  if (constructionGuide) {
+    try { addCurve(surfaceGuides.curve(constructionGuide), true); } catch { for (const points of editor.drafts) addCurve(points, false, .4); }
+  } else for (const points of editor.drafts) addCurve(points, true);
   guideGroups.forEach((group, pane) => group.visible = $('guidesToggle').checked && !(state.view === 'overlay' && pane === 1));
 }
 function drawGuideChrome() {
@@ -184,11 +198,11 @@ function drawGuideChrome() {
     // Exactly these descriptions are consumed by SurfaceGuides.hit.
     const handleSelection = editor.selection;
     let handles = surfaceGuides.handles(handleSelection, pane);
-    if (editor.editingIds.length && handleSelection.model === 'direct') handles = editor.candidates.flatMap(g => g.points.filter(p => surfaceGuides.visible(p.position, pane)).map(p => ({ pointId: p.id, ...project(p.position, pane) })));
-    for (const h of handles) { const p = local(h); ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, Math.PI * 2); ctx.fillStyle = h.pointId === editor.selection.pointId ? css('--guide') : css('--bg'); ctx.fill(); ctx.stroke(); }
+    if (editor.editingIds.length && handleSelection.model === 'direct') handles = editor.candidates.flatMap(g => surfaceGuides.handlesForGuide(g, pane));
+    for (const h of handles) { const p = local(h); ctx.beginPath(); if (h.role === 'center') { ctx.moveTo(p.x, p.y - 7); ctx.lineTo(p.x + 7, p.y); ctx.lineTo(p.x, p.y + 7); ctx.lineTo(p.x - 7, p.y); ctx.closePath(); } else ctx.arc(p.x, p.y, 6, 0, Math.PI * 2); ctx.fillStyle = h.pointId === editor.selection.pointId ? css('--guide') : css('--bg'); ctx.fill(); ctx.stroke(); }
     if (editor.selection.model === 'direct') {
       const g = editor.candidates.find(g => g.id === editor.selection.activeEntityId) || guideDocument.get(editor.selection.activeEntityId);
-      if (g) {
+      if (g && g.type !== 'circle') {
         const curve = surfaceGuides.curve(g), start = local(project(curve[0], pane));
         if (surfaceGuides.visible(curve[0], pane)) { ctx.beginPath(); ctx.moveTo(start.x, start.y - 8); ctx.lineTo(start.x + 8, start.y); ctx.lineTo(start.x, start.y + 8); ctx.lineTo(start.x - 8, start.y); ctx.closePath(); ctx.stroke(); }
         const index = Math.min(curve.length - 1, Math.max(1, Math.floor(curve.length / 5))), p = local(project(curve[index], pane)), q = local(project(curve[index - 1], pane)), angle = Math.atan2(p.y - q.y, p.x - q.x);
@@ -198,6 +212,19 @@ function drawGuideChrome() {
     // Object-mode endpoints are small, fixed-pixel, directly editable targets.
     if (handleSelection.model !== 'direct') for (const g of guideDocument.guides) if (!g.closed) for (const point of [g.points[0], g.points.at(-1)]) if (surfaceGuides.visible(point.position, pane)) { const p = local(project(point.position, pane)); ctx.fillStyle = css('--guide'); ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2); ctx.fill(); }
     if (editor.construction?.pane === pane) for (const point of editor.construction.points) { const p = local(project(point.position, pane)); ctx.fillStyle = css('--guide'); ctx.fillRect(p.x - 3, p.y - 3, 6, 6); }
+    const closure = editor.closureSnap;
+    const start = editor.construction?.type !== 'circle' ? editor.construction?.points[0]?.position : null;
+    const freeStart = editor.activity?.kind === 'freehand' ? editor.activity.current[0] : null;
+    if ((start || freeStart) && surfaceGuides.visible(start || freeStart, pane)) {
+      const p = local(project(start || freeStart, pane)); ctx.fillStyle = closure ? css('--green-fg') : css('--guide'); ctx.strokeStyle = ctx.fillStyle;
+      ctx.beginPath(); ctx.arc(p.x, p.y, closure ? 7 : 4, 0, Math.PI * 2); ctx.fill();
+      if (closure) { ctx.beginPath(); ctx.arc(p.x, p.y, 11, 0, Math.PI * 2); ctx.stroke(); }
+    }
+    const circle = editor.construction?.preview || (editor.selection.model === 'direct' ? editor.candidates.find(g => g.type === 'circle') || guideDocument.get(editor.selection.activeEntityId) : null);
+    if (circle?.type === 'circle') {
+      const center = local(project(circle.points[0].position, pane)), rim = local(project(surfaceGuides.curve(circle)[0], pane));
+      ctx.strokeStyle = css('--guide'); ctx.setLineDash([3, 3]); ctx.beginPath(); ctx.moveTo(center.x, center.y); ctx.lineTo(rim.x, rim.y); ctx.stroke(); ctx.setLineDash([]);
+    }
     const a = editor.activity;
     if (a?.kind === 'marquee' && a.pane === pane) { ctx.setLineDash([4, 3]); ctx.strokeRect(a.press[0] - r.left, a.press[1] - r.top, a.current[0] - a.press[0], a.current[1] - a.press[1]); }
     const snap = guideSnap.marker;
@@ -215,7 +242,7 @@ function refreshColors() {
   renderer.setClearColor(color('--bg'));
   scenes.forEach(scene => { scene.background = color('--bg'); });
   for (const mesh of [sourceRender, resultRender]) if (mesh) {
-    mesh.solid.material.color.copy(color('--model')); mesh.wire.material.color.copy(color('--wire')); mesh.creases.material.color.copy(color('--crease'));
+    mesh.solid.material.color.copy(mesh.displayColor ? new THREE.Color(mesh.displayColor) : color('--model')); mesh.wire.material.color.copy(color('--wire')); mesh.creases.material.color.copy(color('--crease'));
   }
   renderGuides(); buildGrids();
 }
@@ -243,12 +270,12 @@ function setView(view) {
   const changed = state.view !== view; state.view = view; const overlay = view === 'overlay';
   document.querySelectorAll('[data-view]').forEach(button => { button.classList.toggle('active', button.dataset.view === view); button.setAttribute('aria-pressed', button.dataset.view === view); });
   $('divider').hidden = overlay; $('resultCaption').hidden = overlay; $('sourceCaption').style.width = overlay ? '100%' : '50%';
-  $('sourceCaption').querySelector('.label').textContent = overlay ? 'Source + retopology' : 'Source';
+  $('sourceCaption').querySelector('.label').textContent = overlay && state.result ? 'Source + retopology' : 'Source';
   (overlay ? scenes[0] : scenes[1]).add(resultGroup);
   guideGroups[1].visible = !overlay && $('guidesToggle').checked;
   if (sourceRender) {
     const material = sourceRender.solid.material; material.transparent = overlay && !!state.result; material.opacity = overlay && state.result ? .25 : 1; material.depthWrite = !overlay || !state.result;
-    sourceRender.wire.material.opacity = overlay ? .18 : .75;
+    sourceRender.wire.material.opacity = overlay ? .18 : sourceRender.wireOpacity ?? .75;
   }
   $('resultEmpty').style.display = overlay ? 'none' : '';
   if (changed) fit(false, true);
@@ -289,13 +316,13 @@ function updateGuideUI() {
   $('guideCount').textContent = state.guides.length;
   $('undoButton').disabled = guideDocument.history.index === 0; $('redoButton').disabled = guideDocument.history.index >= guideDocument.history.length; $('clearButton').disabled = !state.guides.length; $('exportGuides').disabled = !state.mesh;
   const list = $('guideList'); list.replaceChildren();
-  if (!state.guides.length) { const empty = document.createElement('div'); empty.className = 'empty-guides'; empty.innerHTML = 'Click and drag on either mesh.<br>Hold Space to turn the view.'; list.append(empty); }
+  if (!state.guides.length) { const empty = document.createElement('div'); empty.className = 'empty-guides'; empty.innerHTML = 'No guides yet.<br>Choose a drawing tool in the ribbon.'; list.append(empty); }
   state.guides.forEach((curve, index) => {
     const row = document.createElement('div'); row.className = 'guide-item' + (editor.selection.entityIds.includes(guideDocument.guides[index].id) ? ' selected' : '');
     const swatch = document.createElement('span'); swatch.className = 'line-swatch';
     const name = document.createElement('button'); name.className = 'name guide-name'; name.textContent = `Guide ${index + 1} · ${guideDocument.guides[index].type}${guideDocument.guides[index].closed ? ' · closed' : ''}`;
     name.setAttribute('aria-pressed', editor.selection.entityIds.includes(guideDocument.guides[index].id)); name.onclick = event => editor.choose(guideDocument.guides[index].id, event.shiftKey);
-    const remove = document.createElement('button'); remove.textContent = '×'; remove.setAttribute('aria-label', 'Delete guide ' + (index + 1)); remove.onclick = () => editor.run(() => { editor.cancel(); editor.removeIds([guideDocument.guides[index].id]); });
+    const remove = document.createElement('button'); remove.className = 'guide-remove'; remove.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17"/></svg>'; remove.setAttribute('aria-label', 'Delete guide ' + (index + 1)); remove.onclick = () => editor.run(() => { editor.cancel(); editor.removeIds([guideDocument.guides[index].id]); });
     row.append(swatch, name, remove); list.append(row);
   });
   dirty(); renderGuides();
@@ -346,6 +373,7 @@ function updateDensity() {
 }
 const densityButtons = [['halfButton', .5], ['sameButton', 1], ['doubleButton', 2]];
 async function loadMesh(id) {
+  $('notice').hidden = true;
   editor.run(() => { editor.cancel(); editor.select([]); }); ++importTicket;
   const version = ++state.version; if (state.job) await cancelGeneration();
   $('generateButton').disabled = true; const mesh = await api('/api/mesh/' + id); if (version !== state.version) return;
@@ -353,32 +381,32 @@ async function loadMesh(id) {
   let loadedGuides = (id === 'hexagon' ? [] : mesh.presets[0]?.curves || []).map(c => fromPositions(c, 'polyline', false, createGuideId, { detectClosure: true })); state.target = mesh.target; state.guideMode = 2;
   try { const saved = JSON.parse(localStorage.getItem('retopo-1:' + id)); if (saved?.sourceSha256 === mesh.sourceSha256) { loadedGuides = decodeGuides({ ...saved, coordinateFrame: 'source' }, mesh.sourceSha256, createGuideId); state.target = saved.target; state.guideMode = saved.guideMode === 1 && id === 'cylinder' ? 1 : 2; } } catch { /* Ignore incompatible saved data. */ }
   draft = []; dispose(resultGroup); resultRender = null;
-  sourceRender = buildMesh(mesh, sourceGroup); surfaceGuides.setSource(mesh); guideDocument.load(loadedGuides); $('sourceMeta').textContent = `${countText(mesh.faces.length)} triangles`; $('meshDescription').textContent = mesh.description;
+  sourceRender = buildMesh(mesh, sourceGroup); surfaceGuides.setSource(mesh); guideDocument.load(loadedGuides); $('sourceMeta').textContent = `${countText(mesh.faces.length)} triangles`; $('meshDescription').textContent = mesh.description; $('workspaceModelName').textContent = mesh.title; $('solverNote').classList.toggle('experimental', !!mesh.experimentalRetopology);
   const credit = $('sourceCredit'); credit.replaceChildren(); const author = document.createElement(mesh.source.url ? 'a' : 'span'); author.textContent = mesh.source.author;
   if (mesh.source.url) { author.href = mesh.source.url; author.target = '_blank'; author.rel = 'noreferrer'; } const license = document.createElement('span'); license.textContent = mesh.source.license; credit.append(author, license);
-  $('presetSelect').replaceChildren(...mesh.presets.map((p, i) => new Option(p.name, i))); $('modeControl').hidden = id !== 'cylinder'; $('guideMode').value = state.guideMode;
-  $('solverNote').textContent = id === 'hexagon' ? 'Hard edges and the hole stay fixed. Guides steer continuous edge loops.' : 'Curves influence the solved field. These examples can take one to three minutes.';
+  $('presetSelect').replaceChildren(...mesh.presets.map((p, i) => new Option(p.name, i))); $('presetSelect').disabled = $('presetButton').disabled = !mesh.presets.length; $('modeControl').hidden = id !== 'cylinder'; $('guideMode').value = state.guideMode;
+  $('solverNote').textContent = mesh.solverNotice || (id === 'hexagon' ? 'Hard edges and the hole stay fixed. Guides steer continuous edge loops.' : 'Curves influence the solved field. These examples can take one to three minutes.');
   setTarget(state.target); updateGuideUI(); buildGrids(); fit(); updateMetrics(); setView(state.view);
-  $('resultEmpty').hidden = false; $('resultMeta').textContent = ''; $('resultBadge').hidden = true; $('exportMesh').disabled = true; $('detailsButton').disabled = true;
+  $('resultEmpty').hidden = false; $('resultLabel').textContent = 'Retopology'; $('resultMeta').textContent = ''; $('resultBadge').hidden = true; $('exportMesh').disabled = true; $('detailsButton').disabled = true;
   if (mesh.previewUrl) {
     try { const preview = await api(mesh.previewUrl); if (version === state.version) showResult(preview, null, preview.curves || [], preview.target, preview.guideMode || 2); } catch { /* A missing preview does not disable live generation. */ }
   }
-  $('generateButton').disabled = false;
+  $('generateButton').disabled = false; workspaceShell.addLog('Loaded ' + mesh.title + '.');
 }
 function showResult(result, job, curves, target, mode) {
   state.result = result; state.resultJob = job; state.resultKey = JSON.stringify([state.mesh.id, curves, target, mode]);
-  resultRender = buildMesh(result, resultGroup); $('resultEmpty').hidden = true; $('resultMeta').textContent = `${countText(result.faces.length)} faces`;
+  resultRender = buildMesh({ ...result, displayColor: state.mesh.displayColor, displaySmooth: state.mesh.displaySmooth, wireOpacity: state.mesh.wireOpacity }, resultGroup); $('resultEmpty').hidden = true; $('resultMeta').textContent = `${countText(result.faces.length)} faces`;
   $('resultLabel').textContent = job ? 'Retopology' : 'Example result'; $('exportMesh').disabled = false; $('detailsButton').disabled = false;
   updateMetrics(); displaySettings(); dirty(); setView(state.view);
 }
 function updateMetrics() {
   const r = state.result;
-  if (!r) { for (const id of ['faceMetric', 'quadMetric', 'guideMetric', 'topologyMetric']) $(id).textContent = '—'; $('faceDetail').textContent = 'Generate a mesh to compare'; $('resultSummary').textContent = 'A local, working demonstration of guided retopology.'; return; }
+  if (!r) { for (const id of ['faceMetric', 'quadMetric', 'guideMetric', 'topologyMetric']) $(id).textContent = '—'; $('faceDetail').textContent = 'Generate a mesh to compare'; $('quadDetail').textContent = 'No generated mesh'; $('guideDetail').textContent = 'No measured result'; $('topologyDetail').textContent = 'No measured result'; $('resultSummary').textContent = 'A local, working demonstration of guided retopology.'; return; }
   const stats = r.stats; $('faceMetric').textContent = countText(r.faces.length); $('faceDetail').textContent = `${countText(state.mesh.faces.length)} source triangles · target ${r.target}`;
   $('quadMetric').textContent = `${r.quadPercent.toFixed(r.quadPercent === 100 ? 0 : 1)}%`; $('quadDetail').textContent = `${countText(stats.quads)} quads · ${stats.triangles} triangles`;
   const distances = r.guideAlignment?.map(a => a.p95Distance) || [], distance = Math.max(0, ...distances);
   $('guideMetric').textContent = distances.length ? distance < .0001 ? '<0.0001' : distance.toPrecision(3) : '—';
-  $('guideDetail').textContent = distances.length ? '95% of sampled guide distances' : 'No guides in this result';
+  $('guideDetail').textContent = distances.length ? r.guidePaths?.length ? 'Measured output edge-path fit · p95' : 'Nearest edges · path not verified' : 'No guides in this result';
   $('topologyMetric').textContent = r.quality?.passed ? 'Good' : r.quality ? 'Needs work' : 'Unqualified';
   $('topologyDetail').textContent = r.quality ? `Min angle ${r.quality.minimumAngleDegrees.toFixed(0)}° · worst edge ratio ${r.quality.edgeRatioMax.toFixed(2)}` : 'Quad shape has not been checked';
   $('resultSummary').textContent = `${r.backend === 'engineering-structured-prismatic-annulus' ? 'Continuous quad grid' : r.backend === 'engineering-planar-pslg-quads' ? 'Planar surface solver' : r.backend === 'heightfield-enclosure' ? 'Terrain enclosure solver' : 'Recovered field solver'} · ${r.elapsedSeconds.toFixed(1)}s · ${r.guideCount} guide${r.guideCount === 1 ? '' : 's'}`;
@@ -387,7 +415,8 @@ async function generate() {
   if (state.busy || !state.mesh) return;
   if (editor.activity || editor.construction) return reportGuideError('Finish or cancel the current guide before generating.');
   const request = { meshId: state.mesh.id, curves: clone(state.guides), target: state.target, guideMode: state.guideMode };
-  if (request.meshId === 'cylinder' && !request.curves.length) return notify('Draw a guide or load the example network for this curved mesh.', true);
+  if ((request.meshId === 'cylinder' || state.mesh.requiresGuides) && !request.curves.length) return notify('Draw a guide or load the example network for this curved mesh.', true);
+  workspaceShell.addLog('Generating retopology…');
   const token = ++generation; state.busy = true; $('processing').hidden = false; $('generateButton').disabled = true; $('notice').hidden = true;
   const started = performance.now(); const timer = setInterval(() => { $('processTime').textContent = `${Math.round((performance.now() - started) / 1000)}s`; }, 300);
   $('processTime').textContent = '0s'; $('processDetail').textContent = request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
@@ -466,6 +495,7 @@ $('detailsButton').onclick = () => {
   const p = document.createElement('p'); p.textContent = 'Guide distance uses up to129 samples per curve, measured against actual output edges. Topology and sampled surface checks do not certify absence of every3D self intersection. The planar and terrain routes are engineering alternatives informed by the research; exact native equivalence is not claimed.';
   content.append(table, p); $('detailsDialog').showModal();
 };
+$('circleRadius').onchange = event => { editor.radius(event.target.valueAsNumber); const g = guideDocument.get(editor.selection.activeEntityId); if (g?.type === 'circle') event.target.value = g.radius; };
 $('snapGuides').onchange = () => { guideSnap.clear(); };
 $('objectSelection').onclick = () => editor.model('object'); $('directSelection').onclick = () => editor.model('direct');
 $('deleteGuides').onclick = () => editor.remove(); $('reverseGuides').onclick = () => editor.reverse(); $('finishGuide').onclick = () => editor.finishConstruction();
@@ -481,13 +511,13 @@ window.addEventListener('keydown', event => {
   if (event.key === 'Backspace' && editor.construction) { event.preventDefault(); editor.backspace(); return; }
   if (['Delete', 'Backspace'].includes(event.key) && state.tool === 'select') { event.preventDefault(); editor.remove(); return; }
   if (event.altKey) return;
-  const tools = { g: 'draw', p: 'polyline', s: 'spline', o: 'orbit', e: 'erase' }, key = event.key.toLowerCase();
+  const tools = { g: 'draw', p: 'polyline', s: 'spline', c: 'circle', o: 'orbit', e: 'erase' }, key = event.key.toLowerCase();
   if (tools[key]) setTool(tools[key]); if (key === 'v') editor.model('object'); if (key === 'a') editor.model('direct'); if (key === 'f') fit();
 });
 window.addEventListener('keyup', event => { if (event.code === 'Space') editor.navigate(false); });
 window.addEventListener('blur', () => editor.contextLost());
 document.addEventListener('visibilitychange', () => { if (document.hidden) editor.contextLost(); });
-document.addEventListener('focusin', event => { if (!event.target.closest('main,header,dialog')) editor.contextLost(); });
+document.addEventListener('focusin', event => { if (!event.target.closest('[data-app-shell],dialog')) editor.contextLost(); });
 window.addEventListener('resize', () => { if (editor.activity) editor.escape(); fit(); });
 window.addEventListener('pagehide', () => editor.contextLost());
 function render() {
@@ -509,5 +539,5 @@ async function start() {
   } catch (error) { $('connection').className = 'badge error'; $('connection').textContent = 'Service unavailable'; notify(error.message + ' Start the app using start.cmd.', true, true); }
 }
 // Read-only inspection hooks support reproducible canvas interaction checks.
-window.retopoDemo = { getState: () => ({ meshId: state.mesh?.id, guides: clone(state.guides), target: state.target, mode: state.guideMode, resultFaces: state.result?.faces.length, resultJob: state.resultJob, busy: state.busy, dirty: state.dirty, view: state.view, tool: state.tool, draft: clone(draft), sourceStats: state.mesh?.stats, guideDocument: clone(guideDocument.guides), guideHistory: guideDocument.history, guideRevisions: Object.fromEntries(guideDocument.guides.map(g => [g.id, guideDocument.revision(g.id)])), interaction: editor.observe(), guideErrors: clone(guideErrors) }), projectPoint: (point, pane = 0) => project(point, pane) };
+window.retopoDemo = { getState: () => ({ meshId: state.mesh?.id, guides: clone(state.guides), target: state.target, mode: state.guideMode, resultFaces: state.result?.faces.length, resultJob: state.resultJob, busy: state.busy, dirty: state.dirty, view: state.view, tool: state.tool, draft: clone(draft), sourceStats: state.mesh?.stats, sourceMaterial: sourceRender ? { color: sourceRender.solid.material.color.getHexString(), metalness: sourceRender.solid.material.metalness } : null, guideDocument: clone(guideDocument.guides), guideHistory: guideDocument.history, guideRevisions: Object.fromEntries(guideDocument.guides.map(g => [g.id, guideDocument.revision(g.id)])), interaction: editor.observe(), guideErrors: clone(guideErrors) }), projectPoint: (point, pane = 0) => project(point, pane), pickSource: (x, y, pane = 0) => hit(x, y, pane)?.point.toArray() || null };
 renderer.setClearColor(color('--bg')); render(); start();
