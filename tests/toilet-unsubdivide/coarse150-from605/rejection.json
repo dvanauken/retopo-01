@@ -1,0 +1,35 @@
+{
+  "complete": true,
+  "passed": true,
+  "productionResult": false,
+  "generationPassed": false,
+  "sourceHashes": {
+    "tests/unsubdivide_toilet_layout_blender.py": "67c38b14958c01df7827e56c3f128d259b5da8fbb0bf8dd300a92a6a4812a9a5"
+  },
+  "executedScript": "tests\\toilet-unsubdivide\\coarse150-from605\\executed-test.py",
+  "evidenceSha256": "4ad97f910ea244521c066f4e43ec7d7dabb041f3a06069a1716ac907dc4fbe0b",
+  "cases": [
+    {
+      "iterations": 1,
+      "allQuads": false,
+      "countWithinTolerance": false,
+      "qualified": false,
+      "faces": 393
+    },
+    {
+      "iterations": 2,
+      "allQuads": false,
+      "countWithinTolerance": false,
+      "qualified": false,
+      "faces": 333
+    },
+    {
+      "iterations": 3,
+      "allQuads": false,
+      "countWithinTolerance": false,
+      "qualified": false,
+      "faces": 313
+    }
+  ],
+  "scope": "All three topology experiments are rejected before fitting: mixed polygons and face count outside the unchanged target150 tolerance. Operator completion is not mesh qualification."
+}

@@ -86,12 +86,13 @@ try:
         source = http('/api/mesh/toilet')
         for name in args.cases:
             curve_file = (ROOT / 'tests/toilet-paired-variants/sampling-and-density/short-small-perturbation/curves.json'
-                          if name == 'short-small-perturbation' else ROOT / 'tests/toilet-stress' / name / 'curves.json')
+                          if name == 'short-small-perturbation' else ROOT / 'tests/toilet-stress' /
+                          ('two-guides-short-1800' if name == 'short-1799' else name) / 'curves.json')
             curves = json.loads(curve_file.read_text())['curves']
             packet = dict(coordinateFrame='source', sourceSha256=source['sourceSha256'], curves=curves)
             page.locator('#guideFile').set_input_files(dict(name='toilet-guides.json', mimeType='application/json', buffer=json.dumps(packet).encode()))
             page.wait_for_function('(n) => window.retopoDemo.getState().guides.length === n', arg=len(curves))
-            page.locator('#targetNumber').fill('1800')
+            page.locator('#targetNumber').fill('1799' if name == 'short-1799' else '1800')
             page.locator('#targetNumber').press('Tab')
             before = page.evaluate('window.retopoDemo.getState().guideDocument')
             page.locator('#generateButton').click()

@@ -1,0 +1,18 @@
+{
+  "complete": true,
+  "passed": true,
+  "generationPassed": false,
+  "job": "4c73e17732264804a2396f5e87a64309",
+  "requestedTarget": 1799,
+  "firstFaces": 1724,
+  "secondFaces": 1845,
+  "copiedFiles": {
+    "first-rejected-layout.json": "dc2ebae6c062d67b6c655262eb11403c4098a4c32d80c91117b6eaf4cdc10cc9",
+    "second-interrupted-layout.json": "9a7b6bdf837dfcc540bff706258a2776c16de82cda9560e4b143e88f0b902147"
+  },
+  "sourceHashes": {
+    "tests/capture_toilet_cancelled_retry.py": "0e8eec3bb1d068a4ce1e4b51da03951b0fcd56a99eafddb0acee6027476b068c"
+  },
+  "cancellationReportSha256": "f8b08d0ba32051490b1dfbe1a01ffd248c7c4fa18f4bc026537bad3c1f169560",
+  "scope": "The first layout is archived as rejected and a distinct1845quad second layout exists when sampled-stage cancellation occurs. This distinguishes the retry from a stale first-attempt stage string. Both are raw experimental artifacts; no finished mesh is qualified or published by the cancelled job."
+}

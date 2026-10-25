@@ -7,6 +7,8 @@ neither model identifiers nor retained test geometry participate.
 from pathlib import Path
 import hashlib
 import json
+import math
+import shutil
 import subprocess
 
 import numpy as np
@@ -84,13 +86,13 @@ def _repair(source_mesh, positions, faces, edges, guides, target, current, recor
     return positions, current
 
 
-def construct(source_mesh, curves, *, target, job, blender, input_path, history):
-    """Try one additional fresh layout; return an accepted result or None."""
+def _construct_layout(source_mesh, curves, *, target, layout_target, job, blender, input_path, history):
+    """Fit one fresh layout using the requested target for every acceptance gate."""
     seed = 2
     cq._progress(job, 'Building an additional layout for guide fitting')
     raw = job / f'quadri-layout-{seed}.json'
     command = [str(blender), '--background', '--threads', '8', '--python', str(cq.ROOT / 'scripts/quadriflow_mesh.py'),
-               '--', '--input', str(input_path), '--output', str(raw), '--target', str(target), '--seed', str(seed)]
+               '--', '--input', str(input_path), '--output', str(raw), '--target', str(layout_target), '--seed', str(seed)]
     with (job / f'quadri-layout-{seed}.log').open('w', encoding='utf-8') as log:
         process = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, timeout=180,
                                  creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
@@ -105,7 +107,7 @@ def construct(source_mesh, curves, *, target, job, blender, input_path, history)
     fallback_history = []
 
     def record(assessment, **details):
-        assessment.update(seed=seed, iteration=len(fallback_history), **details)
+        assessment.update(seed=seed, layoutTarget=layout_target, iteration=len(fallback_history), **details)
         fallback_history.append(assessment)
         history.append(assessment)
         cq._write(job / 'sampled-guide-history.json', dict(attempts=fallback_history))
@@ -118,12 +120,12 @@ def construct(source_mesh, curves, *, target, job, blender, input_path, history)
                         target=target, guideMode=2, closedValidation=current['surface'], guidePaths=current['guideFit'],
                         intersectionValidation=current['intersections'], outputCreases=output_creases(positions, faces.tolist()),
                         refinementHistory=history, fittingMethod=method,
-                        layoutEngine=dict(name='Blender QuadriFlow', version=packet['blenderVersion'], executable=str(blender), seed=seed),
+                        layoutEngine=dict(name='Blender QuadriFlow', version=packet['blenderVersion'], executable=str(blender), seed=seed, targetFaces=layout_target),
                         sourceHashes={str(p.resolve()): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
                         limitations=['Engineering layout and fitting route, not recovered native equivalence.',
                                      'Guide fitting and surface preservation are approximate and can reject incompatible inputs.',
                                      'Whole-surface bounds and contact predicates use double precision; topology is checked separately.',
-                                     'One additional layout and bounded refinement; general crease/attribute transfer is not implemented.'])
+                                     'Bounded nearby layout search and refinement; general crease/attribute transfer is not implemented.'])
         cq._write(job / 'surface-solver.json', metadata)
         return positions, faces.tolist(), metadata
 
@@ -147,4 +149,40 @@ def construct(source_mesh, curves, *, target, job, blender, input_path, history)
         if current['qualified']:
             return accepted(positions, current, 'sampled-guide-paths-with-joint-surface-repair', [Path(joint.__file__)])
     cq._write(job / 'failed-sampled-guide-candidate.json', dict(vertices=positions.tolist(), faces=faces.tolist()))
+    return None
+
+
+def layout_targets(target):
+    """Try a nearby round count and modest increases within existing tolerance."""
+    candidates = (target, math.ceil(target / 50) * 50, round(target * 1.05), round(target * 1.10))
+    return list(dict.fromkeys(count for count in candidates if abs(count - target) <= .15 * target))
+
+
+def construct(source_mesh, curves, *, target, job, blender, input_path, history):
+    """Try at most four fresh layouts; the requested target never changes."""
+    artifacts = ('quadri-layout-2.json', 'quadri-layout-2.log', 'sampled-guide-history.json',
+                 'joint-guide-repair.json', 'failed-sampled-guide-candidate.json', 'surface-solver.json')
+    attempts = []
+    targets = layout_targets(target)
+    for layout_target in targets:
+        begin = len(history)
+        result = _construct_layout(source_mesh, curves, target=target, layout_target=layout_target,
+                                   job=job, blender=blender, input_path=input_path, history=history)
+        # Keep each failed layout and its history before the next attempt reuses
+        # the ordinary worker filenames. Successful root artifacts stay in place.
+        archive = job / f'sampled-layout-{layout_target}'
+        archive.mkdir()
+        for name in artifacts:
+            path = job / name
+            if path.exists():
+                shutil.copyfile(path, archive / name)
+        attempts.append(dict(requestedTarget=target, layoutTarget=layout_target, accepted=result is not None,
+                             firstHistoryIndex=begin, assessments=len(history) - begin,
+                             artifactDirectory=archive.name))
+        cq._write(job / 'nearby-layout-attempts.json', dict(requestedTarget=target, attempts=attempts))
+        if result is not None:
+            return result
+        if layout_target != targets[-1]:
+            for name in artifacts:
+                (job / name).unlink(missing_ok=True)
     return None

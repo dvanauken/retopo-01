@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/probe_toilet_target_neighborhood.py",
+  "executedScript": "tests\\toilet-target-neighborhood\\paired1799-layout1800\\executed-probe.py",
+  "executedSha256": "e970b950c28fc0fd946f5eef3698d4e462eb7b47d07fa2d1d8cdc817ac7b7f8b",
+  "currentScriptSha256": "84fd3de76fe5ae2104c7165d1fda62e6bbf20a385fcaac5aeca8476f813e1cf9",
+  "scope": "Exact executed historical harness retained; subsequent harness extensions do not alter this recorded outcome."
+}

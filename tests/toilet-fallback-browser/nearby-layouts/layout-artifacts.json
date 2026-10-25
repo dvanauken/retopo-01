@@ -1,0 +1,39 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "short-1799",
+      "job": "ac34c62fde0142b8be3152c6e9246a7d",
+      "attempts": [
+        {
+          "requestedTarget": 1799,
+          "layoutTarget": 1799,
+          "accepted": false,
+          "firstHistoryIndex": 10,
+          "assessments": 6,
+          "artifactDirectory": "sampled-layout-1799"
+        },
+        {
+          "requestedTarget": 1799,
+          "layoutTarget": 1800,
+          "accepted": true,
+          "firstHistoryIndex": 16,
+          "assessments": 10,
+          "artifactDirectory": "sampled-layout-1800"
+        }
+      ],
+      "copiedFiles": {
+        "sampled-layout-1799\\failed-sampled-guide-candidate.json": "8fbfb349ec59f2923972837c44422a58b5bbce719c5ee30dcb1dca1d6419380b",
+        "sampled-layout-1799\\quadri-layout-2.json": "dc2ebae6c062d67b6c655262eb11403c4098a4c32d80c91117b6eaf4cdc10cc9",
+        "sampled-layout-1799\\quadri-layout-2.log": "fde733dbe68f421ce90d20511962850f4ba428d01f59333800bd00918efc609c",
+        "sampled-layout-1799\\sampled-guide-history.json": "7de4207b55db01fc2a2a22d730cd348e42eb56a700ce08d9e9d27e6d1427ccc5",
+        "sampled-layout-1800\\quadri-layout-2.json": "9a7b6bdf837dfcc540bff706258a2776c16de82cda9560e4b143e88f0b902147",
+        "sampled-layout-1800\\quadri-layout-2.log": "fde733dbe68f421ce90d20511962850f4ba428d01f59333800bd00918efc609c",
+        "sampled-layout-1800\\sampled-guide-history.json": "906ec2660555252eacba8eea4a9efd84dd3e12796ce077abdb88b73c17351651",
+        "sampled-layout-1800\\surface-solver.json": "a1a08e0d8bdaf302afe33f84d4837727a15fbb842de66e001679fa2925fa8d25"
+      }
+    }
+  ],
+  "scope": "Byte-identical copies of the finished worker layout archives and attempt manifest. Includes failed starting layouts and the accepted retry. This is provenance capture, not a geometry qualification test."
+}

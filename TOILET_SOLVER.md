@@ -1,5 +1,44 @@
 # Curved-surface quad solver
 
+The new bounded layout retry qualifies the captured paired-guide request at
+target 1,799 through the real service: 1,845 quads in 431.23 seconds. Its actual
+worker OBJ passes independent geometry and all-mixed-diagonal contact audits
+under `paired1799-integrated`. A fresh seed-2 layout requested at 1,800 provides
+a better starting graph; every fit, surface tolerance, guide limit and final
+face-count check still uses the user's requested 1,799. The original failed
+layout and successful retry are archived separately. The native browser run is
+recorded under `tests/toilet-fallback-browser/nearby-layouts/`: all seven checks
+pass, and its native download is byte-identical to the independently audited
+worker export. The browser job takes 572.79 seconds, close to the unchanged
+600-second service timeout. All ten sampled test processes exit. The screenshot
+shows the generated toilet in the result pane with both guides preserved.
+
+Cancellation during the second layout passes twelve checks. The first rejected
+layout has 1,724 faces; a distinct 1,845-face layout is present when fitting is
+cancelled. The owned processes stop, unfinished exports return HTTP 409, and
+the service admits another request. Exact artifacts are retained under
+`tests/toilet-fallback-cancel/nearby-layouts/`.
+
+The retry tries at most four distinct counts: the requested count, the next
+multiple of fifty, and increases of five and ten percent, omitting duplicates
+and candidates outside the existing count tolerance. A first success returns
+immediately. AST comparisons prove the per-layout fitting, local repair and
+acceptance calculations are unchanged; eighteen executable acceptance/retry
+controls pass. Numerical fitting modules and source assets are unchanged.
+
+An isolated target-600 experiment also produces 605 independently qualified
+quads using a fresh layout requested at 660. The 630-count attempt fails
+contacts. Production still calls this fallback only for guided requests; the
+small patch to enable the unguided route is kept separate while another session
+owns edits in `curved_quad.py`. This experimental success is not a claim that
+the no-guide 600-target request now works through the service.
+
+Target 150 remains unsolved. Nearby layout requests 155, 160, 165, 170 and 172
+fail count, shape or contact limits; a stronger shape objective on the 172-count
+layout passes shape but still produces contacts. Unsubdividing the qualified
+605-quad intermediate produces mixed triangle/quad meshes and also fails the
+all-quad/count requirements. None of these rejected candidates is published.
+
 The latest adaptive repair also solves the captured source-projected 0.001-unit
 paired-guide perturbation: a fresh service request produces 1,845 quads in
 462.75 seconds. Its exported OBJ passes the independent geometry and all-mixed
@@ -30,7 +69,9 @@ actual browser download pass under `surface-only-browser`; the failed exact-
 identity comparison is retained separately. The final rendering suite passes
 eighteen checks, including navigator/dock resizing and ribbon collapse/expansion.
 
-Coarse targets 150/600 and paired target 1,799 remain unsolved. Extra layout
+At the preceding `ce8e0f2` checkpoint, coarse targets 150/600 and paired target
+1,799 remained unsolved. The nearby-count results above supersede that status.
+Extra layout
 seeds and a stronger edge-ratio objective still produce face overlaps. The raw
 150-face-target layout also has two triangular boundary loops. Bridging all
 three cyclic correspondences restores closed Euler-0 connectivity, but every
@@ -82,7 +123,7 @@ the existing 600-second service limit during joint pass seven. Its retained
 trial history shows a surface-bound/guide-distance tradeoff. This is a runtime
 and robustness failure retained as historical evidence. The adaptive service
 result above now resolves this specific input.
-The paired-guide target 1,799 rerun still rejects face overlaps after about
+The earlier paired-guide target 1,799 rerun rejected face overlaps after about
 265 seconds. Joint repair refuses that intersecting starting mesh. Neither
 failed request leaves a live worker/Blender process or a downloadable result.
 

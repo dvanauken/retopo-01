@@ -2,6 +2,6 @@
   "originalPath": "tests/verify_toilet_fallback_browser.py",
   "executedScript": "tests\\toilet-fallback-browser\\integrated-fallback\\executed-test.py",
   "executedSha256": "4c2eda924b5e77edd2db733ed08722cecb8dc4431245c30c4a80d86902e54bc1",
-  "currentScriptSha256": "afdfd5830fd78e53e92c71cc6a167087d7331bbc0ecc8ca455a0fbf790422ff5",
-  "scope": "Retained exact script from this historical run. Later harness edits do not change the recorded input, implementation or outcome."
+  "currentScriptSha256": "3c00503d56c979d82d3cdcb134122b80f2d5c86a6ff061cbbf70e8740ee6fc06",
+  "scope": "Exact executed historical harness retained; subsequent harness extensions do not alter this recorded outcome."
 }

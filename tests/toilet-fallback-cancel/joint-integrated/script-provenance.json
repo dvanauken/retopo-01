@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/verify_toilet_fallback_cancel.py",
+  "executedScript": "tests\\toilet-fallback-cancel\\joint-integrated\\executed-test.py",
+  "executedSha256": "c6d900185a1c6f52ff6677939cd65955246480280f19db4b616b887321ffbb41",
+  "currentScriptSha256": "3152f4bf39504ccdc6e8a093d5b2cbe65f998e389312e43fb036d9ffbe58f1ba",
+  "scope": "Exact executed historical harness retained; subsequent harness extensions do not alter this recorded outcome."
+}

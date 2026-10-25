@@ -8,7 +8,7 @@ sys.path.insert(0, str(ROOT))
 from process_ownership import protect_service_tree
 parser = argparse.ArgumentParser()
 parser.add_argument('--label', required=True)
-parser.add_argument('--stage', choices=['sampled', 'joint'], default='sampled')
+parser.add_argument('--stage', choices=['sampled', 'joint', 'nearby'], default='sampled')
 args = parser.parse_args()
 if not args.label.replace('-', '').isalnum(): raise ValueError('Use a plain label')
 protect_service_tree()
@@ -58,16 +58,28 @@ try:
     case_name = 'two-guides-long-1800' if args.stage == 'joint' else 'two-guides-short-1800'
     stage_prefix = 'Refining guide alignment and surface accuracy' if args.stage == 'joint' else 'Fitting sampled guide paths'
     curves = json.loads((ROOT / 'tests/toilet-stress' / case_name / 'curves.json').read_text())['curves']
-    code, job = http('/api/remesh', dict(requestId=uuid.uuid4().hex, meshId='toilet', target=1800, guideMode=2, curves=curves))
+    target = 1799 if args.stage == 'nearby' else 1800
+    code, job = http('/api/remesh', dict(requestId=uuid.uuid4().hex, meshId='toilet', target=target, guideMode=2, curves=curves))
     check(code == 202, 'Captured two-guide request admitted')
     deadline = time.monotonic() + 600; previous = None
     while True:
         _, state = http('/api/jobs/' + job['id'])
         if state['stage'] != previous: print(state['stage'], flush=True); previous = state['stage']
-        if state['stage'].startswith(stage_prefix): break
+        ready = state['stage'].startswith(stage_prefix)
+        if args.stage == 'nearby':
+            manifest = ROOT / 'runs' / job['id'] / 'nearby-layout-attempts.json'
+            try:
+                attempts = json.loads(manifest.read_text())['attempts']
+            except (OSError, ValueError):
+                attempts = []
+            ready = ready and len(attempts) == 1 and attempts[0]['layoutTarget'] == 1799 and not attempts[0]['accepted']
+        if ready: break
         if state['state'] not in ('queued', 'running') or time.monotonic() > deadline: raise AssertionError('Did not observe actual sampled fitting: ' + json.dumps(state))
         time.sleep(.2)
     check(state['state'] == 'running', 'Real worker reached the new fallback before cancellation', state=state)
+    if args.stage == 'nearby':
+        check((ROOT / 'runs' / job['id'] / 'sampled-layout-1799/failed-sampled-guide-candidate.json').exists(),
+              'The first rejected layout was archived before cancelling fitting of the second layout', attempts=attempts)
     worker = None
     for p in psutil.Process(server.pid).children(recursive=True):
         try:
@@ -88,7 +100,7 @@ try:
     for filename in ('mesh.json', 'output.obj', 'features.json'):
         check(http('/api/jobs/' + job['id'] + '/' + filename)[0] == 409, 'Cancelled fitting cannot serve ' + filename)
     check(http('/api/health')[0] == 200, 'Service stays responsive after fallback cancellation')
-    _, retry = http('/api/remesh', dict(requestId=uuid.uuid4().hex, meshId='toilet', target=1800, guideMode=2, curves=curves))
+    _, retry = http('/api/remesh', dict(requestId=uuid.uuid4().hex, meshId='toilet', target=target, guideMode=2, curves=curves))
     _, retry_state = http('/api/jobs/' + retry['id'] + '/cancel', {})
     check(retry['id'] != job['id'] and retry_state['state'] == 'cancelled', 'A fresh request can be admitted and cancelled afterward')
     check(all(sha(ROOT / p) == h for p, h in hashes.items()), 'Implementation fixed through real fallback cancellation')
@@ -98,7 +110,7 @@ finally:
     if job:
         try: http('/api/jobs/' + job['id'] + '/cancel', {})
         except OSError: pass
-        for filename in ('worker.log', 'settings.json', 'curves.json', 'execution.json', 'cancel-request.json'):
+        for filename in ('worker.log', 'settings.json', 'curves.json', 'execution.json', 'cancel-request.json', 'nearby-layout-attempts.json'):
             path = ROOT / 'runs' / job['id'] / filename
             if path.exists(): (OUT / filename).write_bytes(path.read_bytes())
     if server.poll() is None: server.kill()

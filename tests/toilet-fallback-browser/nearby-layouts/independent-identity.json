@@ -1,0 +1,27 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "short-1799",
+      "passed": true,
+      "outputSha256": "fff3731be7e367462ae52b63dfb56f69f3d91ba01353cb5bfd4215c5acfcdd24",
+      "referenceExport": "tests\\toilet-paired-variants\\nearby-layouts\\short-1799\\output.obj",
+      "sameAuthoredCurves": true,
+      "sameConnectedPaths": true,
+      "samePositionsAndFaces": true,
+      "audits": {
+        "toilet-fresh-geometry": {
+          "report": "tests\\toilet-fresh-geometry\\paired1799-integrated\\result.json",
+          "sha256": "261f507ddbbe96f8077a9df09588c0eed37d734fd62d942a370c5636f29f9184"
+        },
+        "toilet-all-diagonal-audit": {
+          "report": "tests\\toilet-all-diagonal-audit\\paired1799-integrated\\result.json",
+          "sha256": "aff6984127a574660bda6d09d4b9999a265bbb47ca600cdd7dbe5e5395cf1d1a"
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "scope": "Fresh browser downloads are byte-identical to independent qualified exports, with identical source curves and connected path indices. This links existing independent measurements to the same geometry; it does not claim a redundant numerical rerun."
+}

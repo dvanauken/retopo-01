@@ -1,0 +1,36 @@
+{
+  "complete": true,
+  "passed": true,
+  "checks": [
+    {
+      "name": "_assess is AST-identical to the previously qualified implementation",
+      "passed": true
+    },
+    {
+      "name": "_repair is AST-identical to the previously qualified implementation",
+      "passed": true
+    },
+    {
+      "name": "Each layout keeps the prior numerical sequence and gates; changes are limited to layout count and explanatory metadata",
+      "passed": true
+    },
+    {
+      "name": "Acceptance and retry invariant controls",
+      "passed": true,
+      "tests": 18
+    }
+  ],
+  "baselineRevision": "ce8e0f233eadee16d644e81bc0bb3f96e4cfb70f",
+  "baselineSha256": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+  "sourceHashes": {
+    "surface_guide_repair.py": "87cc84376f36dbd936e502db26e94e7a21696a9e36247c9ae9e99d3cdf2bb645",
+    "surface_guide_refine.py": "8d33a0f6c531047abc7a2effc34e6b678bb60e41c318d88850d83b483d67d87c",
+    "surface_guide_joint.py": "b1c5297400c62a05251781bb7cec94d9570bbc8cf339f7ac5de5bb328b2ea0fe",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "tests/test_surface_layout_retries.py": "0e6d1724cf6b08d6dab70c2c32b17821cd1288eadeccbad76aadaaba3ccfd408",
+    "tests/verify_surface_layout_retries.py": "9eb4cf7574428a70cb4b01e33b941aba685ed03357ff2ebb44a4bedd0aa48057"
+  },
+  "scope": "AST comparison of prior fitting/local-repair/acceptance bodies plus18 executable acceptance and retry controls. The full supported integer target range has at most4 unique nearby layouts. Actual source-to-worker generations and independent exported-geometry checks are separate evidence."
+}

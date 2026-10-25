@@ -1,5 +1,6 @@
 """Native toilet-file reads delayed at File.text, without fabricating contents."""
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import socket
@@ -10,12 +11,17 @@ import traceback
 import urllib.request
 from playwright.sync_api import sync_playwright
 
-ROOT=Path(__file__).resolve().parents[1]; OUT=ROOT/'tests/toilet-import-races'; OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1]
+parser=argparse.ArgumentParser(); parser.add_argument('--label', required=True); args=parser.parse_args()
+if not args.label.replace('-', '').isalnum(): raise ValueError('Use a plain label')
+OUT=ROOT/'tests/toilet-import-races'/args.label; OUT.mkdir(parents=True, exist_ok=False)
+(OUT/'executed-test.py').write_bytes(Path(__file__).read_bytes())
 checks,errors=[],[]
 hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ('app.js','src/io/GuideSerializer.js','src/domain/GuideDocument.js','tests/verify_toilet_import_races.py')}
 with socket.socket() as sock: sock.bind(('127.0.0.1',0)); port=sock.getsockname()[1]
 url=f'http://127.0.0.1:{port}'
 log=(OUT/'server.log').open('w',encoding='utf-8')
+pointer=ROOT/'runs/server.json'; old_pointer=pointer.read_bytes() if pointer.exists() else None
 server=subprocess.Popen([sys.executable,'-X','utf8','server.py','--port',str(port)],cwd=ROOT,stdout=log,stderr=log,
                         creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
 def check(condition,name):
@@ -28,7 +34,7 @@ try:
     source=json.load(urllib.request.urlopen(url+'/api/mesh/toilet'))
     with sync_playwright() as p:
         browser=p.chromium.launch(headless=True)
-        for scenario in ('source-change','edit-during-read','latest-import-wins','stale-invalid-read','construction-during-read','legacy'):
+        for scenario in ('source-change','edit-during-read','latest-import-wins','stale-invalid-read','construction-during-read','legacy','queued-errors'):
             context=browser.new_context(viewport={'width':1700,'height':1050}); page=context.new_page()
             page.on('pageerror',lambda error:errors.append(str(error)))
             def state(): return page.evaluate('window.retopoDemo.getState()')
@@ -51,6 +57,28 @@ try:
                         return new Promise(resolve=>window.__heldReads.push({text,resolve})).then(value=>{window.__completedReads++;return value;});
                     };
                 }''')
+                if scenario=='queued-errors':
+                    before=state(); incident_count=len(before['guideErrors'])
+                    payloads=['{broken-json', json.dumps(dict(packet,schemaVersion=99)), json.dumps(dict(packet,sourceSha256='foreign'))]
+                    first_message=None
+                    for index,payload in enumerate(payloads):
+                        upload(payload,'queued-error-'+str(index)+'.json')
+                        page.wait_for_function('(n)=>window.retopoDemo.getState().guideErrors.length===n',arg=incident_count+index+1)
+                        page.wait_for_function('document.getElementById("guideErrorDialog").open')
+                        shown=page.locator('#guideErrorMessage').inner_text()
+                        if first_message is None:first_message=shown
+                        check(shown==first_message,'Queued error '+str(index+1)+' keeps the first incident visible until dismissal')
+                    messages=[e['message'] for e in state()['guideErrors'][incident_count:]]
+                    for index,message in enumerate(messages):
+                        page.wait_for_function('(m)=>document.getElementById("guideErrorDialog").open && document.getElementById("guideErrorMessage").textContent===m',arg=message)
+                        check(page.locator('#guideErrorMessage').inner_text()==message,'Queued incident '+str(index+1)+' is presented in order')
+                        if index==1:page.keyboard.press('Escape')
+                        else:page.locator('#guideErrorDialog button').click()
+                    page.wait_for_function('!document.getElementById("guideErrorDialog").open')
+                    page.locator('#viewport').focus(); page.mouse.move(300,250); page.wait_for_timeout(200)
+                    check(not page.locator('#guideErrorDialog').is_visible() and len(state()['guideErrors'])==incident_count+3,'Dismissed queued incidents do not reopen during focus restoration')
+                    check(state()['guideDocument']==before['guideDocument'] and state()['guideHistory']==before['guideHistory'],'Queued import failures preserve the complete document and history')
+                    continue
                 if scenario=='legacy':
                     for closed in (True,False):
                         curve=original['guides'][0] if closed else original['guides'][0][:3]
@@ -96,8 +124,11 @@ try:
         browser.close()
 finally:
     server.terminate(); server.wait(timeout=20); log.close()
-report=dict(passed=not errors and all(c['passed'] for c in checks),checks=checks,errors=errors,sourceHashes=hashes,
-            scope='Native Chromium file input; exact File.text payloads held and released out of order. Real source switches, edits, clicked construction and legacy toilet guide files. No manufactured solver result.')
+    if pointer.exists() and json.loads(pointer.read_text()).get('pid')==server.pid:
+        if old_pointer is None:pointer.unlink()
+        else:pointer.write_bytes(old_pointer)
+report=dict(complete=True,passed=not errors and all(c['passed'] for c in checks),checks=checks,errors=errors,sourceHashes=hashes,
+            scope='Native Chromium file input; exact File.text payloads held and released out of order. Real source switches, edits, clicked construction, legacy toilet guide files and three queued errors dismissed by button/Escape with focus restoration. No manufactured solver result.')
 (OUT/'result.json').write_text(json.dumps(report,indent=2)+'\n')
 print(json.dumps(dict(passed=report['passed'],checks=len(checks),errors=errors)),flush=True)
 raise SystemExit(0 if report['passed'] else 1)

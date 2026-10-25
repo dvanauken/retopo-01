@@ -221,6 +221,17 @@
         "passed": true,
         "report": "tests/toilet-all-diagonal-audit/surface-only-browser/result.json"
       }
+    },
+    {
+      "name": "short-1799",
+      "report": "tests/toilet-fresh-geometry/paired1799-integrated/result.json",
+      "job": "cb1c9f5ef23f443cb1123ea38a39a582",
+      "outputSha256": "fff3731be7e367462ae52b63dfb56f69f3d91ba01353cb5bfd4215c5acfcdd24",
+      "faces": 1845,
+      "contactProof": {
+        "passed": true,
+        "report": "tests/toilet-all-diagonal-audit/paired1799-integrated/result.json"
+      }
     }
   ],
   "qualifiedExperimentalCases": [
@@ -287,6 +298,22 @@
       "productionResult": false,
       "independentReport": "tests\\toilet-fresh-geometry\\perturb-distance64-tail0\\result.json",
       "contactReport": "tests\\toilet-all-diagonal-audit\\perturb-distance64-tail0\\result.json"
+    },
+    {
+      "name": "short-1799-layout-1800",
+      "outputSha256": "fff3731be7e367462ae52b63dfb56f69f3d91ba01353cb5bfd4215c5acfcdd24",
+      "producerKind": "isolated-nearby-layout-count",
+      "productionResult": false,
+      "independentReport": "tests\\toilet-fresh-geometry\\paired1799-neighbor\\result.json",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\paired1799-neighbor\\result.json"
+    },
+    {
+      "name": "none-600-layout-660",
+      "outputSha256": "c7d5fd4bf7a12dea2a77f5c335e572afe07083418f786ea4b7291863071e90ec",
+      "producerKind": "isolated-nearby-layout-count",
+      "productionResult": false,
+      "independentReport": "tests\\toilet-fresh-geometry\\coarse600-neighbor\\result.json",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\coarse600-neighbor\\result.json"
     }
   ],
   "provisionalSpecificCases": [],
@@ -304,7 +331,7 @@
       }
     }
   ],
-  "updatedAt": "2026-10-25T10:56:50.446846+00:00",
+  "updatedAt": "2026-10-25T11:43:57.249553+00:00",
   "evidence": {
     "original-source": {
       "report": "tests/toilet-source/result.json",
@@ -673,8 +700,14 @@
       "checks": 15,
       "passedChecks": 15,
       "implementationHashMismatches": [
-        "app.js"
-      ]
+        "app.js",
+        "tests/verify_toilet_import_races.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-import-races\\script-provenance.json",
+        "snapshot": "tests\\toilet-import-races\\executed-test.py",
+        "sha256": "1fa43eb86662f28bd7114714da1fd338347b19b45468fc8645f2379954fb624f"
+      }
     },
     "occlusion-marquee-repeat-use": {
       "report": "tests/toilet-selection-stability/current/result.json",
@@ -2637,6 +2670,7 @@
       "implementationHashMismatches": [
         "app.js",
         "surface_guide_refine.py",
+        "surface_guide_repair.py",
         "surface_guide_joint.py"
       ]
     },
@@ -2701,6 +2735,7 @@
       ],
       "implementationHashMismatches": [
         "surface_guide_refine.py",
+        "surface_guide_repair.py",
         "surface_guide_joint.py"
       ]
     },
@@ -2755,6 +2790,7 @@
       "implementationHashMismatches": [
         "app.js",
         "surface_guide_refine.py",
+        "surface_guide_repair.py",
         "surface_guide_joint.py",
         "tests/verify_toilet_fallback_browser.py"
       ],
@@ -2779,7 +2815,7 @@
       ],
       "retainedHistoricalSource": {
         "provenance": "tests\\toilet-fallback-cancel\\integrated-fallback\\script-provenance.json",
-        "snapshot": "tests/toilet-fallback-cancel/integrated-fallback/executed-probe.py",
+        "snapshot": "tests\\toilet-fallback-cancel\\integrated-fallback\\executed-probe.py",
         "sha256": "050c907eb400cc556950b6f371bae86296e217f466bb6e7afd580af929ffb884"
       }
     },
@@ -2795,7 +2831,12 @@
         "surface_guide_refine.py",
         "surface_guide_repair.py",
         "tests/verify_toilet_fallback_cancel.py"
-      ]
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-fallback-cancel\\worker-owned\\script-provenance.json",
+        "snapshot": "tests\\toilet-fallback-cancel\\worker-owned\\executed-test.py",
+        "sha256": "5179911f77e335c8d53ecd1dc7b6426693b47060fdb2492b18f24226caa5127d"
+      }
     },
     "fallback-cancel-joint-integrated": {
       "report": "tests/toilet-fallback-cancel/joint-integrated/result.json",
@@ -2807,8 +2848,15 @@
       "passedChecks": 11,
       "implementationHashMismatches": [
         "surface_guide_refine.py",
-        "surface_guide_joint.py"
-      ]
+        "surface_guide_repair.py",
+        "surface_guide_joint.py",
+        "tests/verify_toilet_fallback_cancel.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-fallback-cancel\\joint-integrated\\script-provenance.json",
+        "snapshot": "tests\\toilet-fallback-cancel\\joint-integrated\\executed-test.py",
+        "sha256": "c6d900185a1c6f52ff6677939cd65955246480280f19db4b616b887321ffbb41"
+      }
     },
     "path-fit-diagnostics": {
       "report": "tests/toilet-path-fit-diagnostics/result.json",
@@ -2954,7 +3002,8 @@
       "passedChecks": 4,
       "implementationHashMismatches": [
         "surface_guide_refine.py",
-        "surface_guide_joint.py"
+        "surface_guide_joint.py",
+        "surface_guide_repair.py"
       ]
     },
     "live-joint-readonly": {
@@ -3014,6 +3063,7 @@
       ],
       "implementationHashMismatches": [
         "surface_guide_refine.py",
+        "surface_guide_repair.py",
         "surface_guide_joint.py",
         "tests/probe_toilet_objective_controls.py"
       ],
@@ -3039,6 +3089,7 @@
       ],
       "implementationHashMismatches": [
         "surface_guide_refine.py",
+        "surface_guide_repair.py",
         "surface_guide_joint.py",
         "tests/probe_toilet_objective_controls.py"
       ],
@@ -3062,6 +3113,7 @@
       ],
       "implementationHashMismatches": [
         "surface_guide_refine.py",
+        "surface_guide_repair.py",
         "surface_guide_joint.py",
         "tests/probe_toilet_objective_controls.py"
       ],
@@ -3085,6 +3137,7 @@
       ],
       "implementationHashMismatches": [
         "surface_guide_refine.py",
+        "surface_guide_repair.py",
         "surface_guide_joint.py",
         "tests/probe_toilet_objective_controls.py"
       ],
@@ -3108,6 +3161,7 @@
       ],
       "implementationHashMismatches": [
         "surface_guide_refine.py",
+        "surface_guide_repair.py",
         "surface_guide_joint.py",
         "tests/probe_toilet_objective_controls.py"
       ],
@@ -3131,6 +3185,7 @@
       ],
       "implementationHashMismatches": [
         "surface_guide_refine.py",
+        "surface_guide_repair.py",
         "surface_guide_joint.py",
         "tests/probe_toilet_objective_controls.py"
       ],
@@ -3152,7 +3207,9 @@
           "state": "failed"
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "surface_guide_repair.py"
+      ]
     },
     "layout-failures-coarse-and-adjacent-density": {
       "report": "tests/toilet-layout-failures/coarse-and-adjacent-density/result.json",
@@ -3257,7 +3314,9 @@
           "state": "failed"
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "surface_guide_repair.py"
+      ]
     },
     "fresh-geometry-perturb-distance64-tail0": {
       "report": "tests/toilet-fresh-geometry/perturb-distance64-tail0/result.json",
@@ -3354,7 +3413,8 @@
         }
       ],
       "implementationHashMismatches": [
-        "app.js"
+        "app.js",
+        "surface_guide_repair.py"
       ]
     },
     "fallback-browser-surface-only": {
@@ -3374,8 +3434,15 @@
         }
       ],
       "implementationHashMismatches": [
-        "app.js"
-      ]
+        "app.js",
+        "surface_guide_repair.py",
+        "tests/verify_toilet_fallback_browser.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-fallback-browser\\surface-only\\script-provenance.json",
+        "snapshot": "tests\\toilet-fallback-browser\\surface-only\\executed-test.py",
+        "sha256": "afdfd5830fd78e53e92c71cc6a167087d7331bbc0ecc8ca455a0fbf790422ff5"
+      }
     },
     "fallback-browser-surface-only-demand": {
       "report": "tests/toilet-fallback-browser/surface-only-demand/result.json",
@@ -3391,7 +3458,15 @@
           "state": "complete"
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "surface_guide_repair.py",
+        "tests/verify_toilet_fallback_browser.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-fallback-browser\\surface-only-demand\\script-provenance.json",
+        "snapshot": "tests\\toilet-fallback-browser\\surface-only-demand\\executed-test.py",
+        "sha256": "afdfd5830fd78e53e92c71cc6a167087d7331bbc0ecc8ca455a0fbf790422ff5"
+      }
     },
     "render-idle-demand-render": {
       "report": "tests/toilet-render-idle/demand-render/result.json",
@@ -3500,7 +3575,9 @@
       "tests": 13,
       "checks": 4,
       "passedChecks": 4,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "surface_guide_repair.py"
+      ]
     },
     "surface-only-default-parity": {
       "report": "tests/surface-guide-refine/surface-only-defaults/result.json",
@@ -3581,7 +3658,9 @@
       "sha256": "8161dc4af6fb1bf73057803242828d22aa6c278175942b5c3e0e74f0c0167bd9",
       "passed": true,
       "complete": true,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "surface_guide_repair.py"
+      ]
     },
     "path-reselection": {
       "report": "tests/toilet-path-reselection/result.json",
@@ -3664,20 +3743,398 @@
       "implementationHashMismatches": [
         "curved_quad.py"
       ]
+    },
+    "target-neighborhood-paired1799-layout1800": {
+      "report": "tests/toilet-target-neighborhood/paired1799-layout1800/result.json",
+      "sha256": "7b584cf5f976388ac64739e6c5dbeb2096df529bc68c3765864b9c68d82b5185",
+      "complete": true,
+      "generationPassed": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "short-1799-layout-1800",
+          "state": "complete"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_repair.py",
+        "tests/probe_toilet_target_neighborhood.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-target-neighborhood\\paired1799-layout1800\\script-provenance.json",
+        "snapshot": "tests\\toilet-target-neighborhood\\paired1799-layout1800\\executed-probe.py",
+        "sha256": "e970b950c28fc0fd946f5eef3698d4e462eb7b47d07fa2d1d8cdc817ac7b7f8b"
+      }
+    },
+    "target-neighborhood-coarse600-upper-neighbors": {
+      "report": "tests/toilet-target-neighborhood/coarse600-upper-neighbors/result.json",
+      "sha256": "0f7261fe80a116e0410ac713d2309bc0496fdbb1874cb42405825947889ea6a0",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "none-600-layout-630",
+          "state": "failed"
+        },
+        {
+          "name": "none-600-layout-660",
+          "state": "complete"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_repair.py",
+        "tests/probe_toilet_target_neighborhood.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-target-neighborhood\\coarse600-upper-neighbors\\script-provenance.json",
+        "snapshot": "tests\\toilet-target-neighborhood\\coarse600-upper-neighbors\\executed-probe.py",
+        "sha256": "e970b950c28fc0fd946f5eef3698d4e462eb7b47d07fa2d1d8cdc817ac7b7f8b"
+      }
+    },
+    "target-neighborhood-coarse150-upper-neighbors": {
+      "report": "tests/toilet-target-neighborhood/coarse150-upper-neighbors/result.json",
+      "sha256": "5d69c0d0375b701bfaec13055470fce6af62c5396fa2d12093561f8b72d4f050",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "none-150-layout-155",
+          "state": "failed"
+        },
+        {
+          "name": "none-150-layout-160",
+          "state": "failed"
+        },
+        {
+          "name": "none-150-layout-165",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_repair.py",
+        "tests/probe_toilet_target_neighborhood.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-target-neighborhood\\coarse150-upper-neighbors\\script-provenance.json",
+        "snapshot": "tests\\toilet-target-neighborhood\\coarse150-upper-neighbors\\executed-probe.py",
+        "sha256": "e970b950c28fc0fd946f5eef3698d4e462eb7b47d07fa2d1d8cdc817ac7b7f8b"
+      }
+    },
+    "target-neighborhood-coarse150-layout170": {
+      "report": "tests/toilet-target-neighborhood/coarse150-layout170/result.json",
+      "sha256": "d0d6e7edf6fec1dbb5511d4be24e3de083bf4f0c305185cb5d72ca0429e10653",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "none-150-layout-170",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_repair.py",
+        "tests/probe_toilet_target_neighborhood.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-target-neighborhood\\coarse150-layout170\\script-provenance.json",
+        "snapshot": "tests\\toilet-target-neighborhood\\coarse150-layout170\\executed-probe.py",
+        "sha256": "e970b950c28fc0fd946f5eef3698d4e462eb7b47d07fa2d1d8cdc817ac7b7f8b"
+      }
+    },
+    "target-neighborhood-coarse150-layout172": {
+      "report": "tests/toilet-target-neighborhood/coarse150-layout172/result.json",
+      "sha256": "0cc8843877ea2fd61500dc4eb2617da196436dfbd06dbc7d3edae14099b3d4ba",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "none-150-layout-172",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "objective-controls-coarse150-layout172-ratio34": {
+      "report": "tests/toilet-objective-controls/coarse150-layout172-ratio34/result.json",
+      "sha256": "1cae6b57b782e3c98864928254d8694cda792cbac1481485df9be29b859127fc",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "coarse-150",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-paired1799-neighbor": {
+      "report": "tests/toilet-fresh-geometry/paired1799-neighbor/result.json",
+      "sha256": "084383a9147ad526caeb034090b1fc54912b2655ed6780bd71c555ca3cd9081a",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-1799-layout-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-coarse600-neighbor": {
+      "report": "tests/toilet-fresh-geometry/coarse600-neighbor/result.json",
+      "sha256": "2cb7dc3ef8021ced66e9154cf5ed4993482d6a78c6b3565c44ca01d04a3c778d",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "none-600-layout-660",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-paired1799-integrated": {
+      "report": "tests/toilet-fresh-geometry/paired1799-integrated/result.json",
+      "sha256": "261f507ddbbe96f8077a9df09588c0eed37d734fd62d942a370c5636f29f9184",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-1799",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "all-diagonal-audit-paired1799-neighbor": {
+      "report": "tests/toilet-all-diagonal-audit/paired1799-neighbor/result.json",
+      "sha256": "b2b24f6f0bdc7f7797ce26297b9e01140a44671d5fee07f18ccaf3551e4b5877",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-1799-layout-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "all-diagonal-audit-coarse600-neighbor": {
+      "report": "tests/toilet-all-diagonal-audit/coarse600-neighbor/result.json",
+      "sha256": "0887d9272605776946b1dead621c7a1f8a6b38afc03d5a261f537b214a2f929b",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "none-600-layout-660",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "all-diagonal-audit-paired1799-integrated": {
+      "report": "tests/toilet-all-diagonal-audit/paired1799-integrated/result.json",
+      "sha256": "aff6984127a574660bda6d09d4b9999a265bbb47ca600cdd7dbe5e5395cf1d1a",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-1799",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "paired-variants-nearby-layouts": {
+      "report": "tests/toilet-paired-variants/nearby-layouts/result.json",
+      "sha256": "2cd56ff85593c3d428b7d879e9613fad8d46c11f814386934dc005854d0f70a8",
+      "complete": true,
+      "generationPassed": true,
+      "safetyChecksPassed": true,
+      "errors": [],
+      "checks": 4,
+      "passedChecks": 4,
+      "cases": [
+        {
+          "name": "short-1799",
+          "state": "complete",
+          "message": null
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fallback-browser-nearby-layouts": {
+      "report": "tests/toilet-fallback-browser/nearby-layouts/result.json",
+      "sha256": "400856523fe234b59823aa069a34ce800e95c7bbfbe054dedbbfcd4ca5b31db8",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 7,
+      "passedChecks": 7,
+      "cases": [
+        {
+          "name": "short-1799",
+          "state": "complete"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fallback-cancel-nearby-layouts": {
+      "report": "tests/toilet-fallback-cancel/nearby-layouts/result.json",
+      "sha256": "f8b08d0ba32051490b1dfbe1a01ffd248c7c4fa18f4bc026537bad3c1f169560",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 12,
+      "passedChecks": 12,
+      "implementationHashMismatches": []
+    },
+    "import-races-queued-errors": {
+      "report": "tests/toilet-import-races/queued-errors/result.json",
+      "sha256": "f1e1105128f277c4ee19d641b9725fc90bc78fafa4137082450275c19309d1f1",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 23,
+      "passedChecks": 23,
+      "implementationHashMismatches": []
+    },
+    "unsubdivide-coarse150-from605": {
+      "report": "tests/toilet-unsubdivide/coarse150-from605/result.json",
+      "sha256": "4ad97f910ea244521c066f4e43ec7d7dabb041f3a06069a1716ac907dc4fbe0b",
+      "complete": true,
+      "cases": [
+        {},
+        {},
+        {}
+      ],
+      "implementationHashMismatches": []
+    },
+    "bounded-layout-controls": {
+      "report": "tests/surface-layout-retries/nearby-layouts/result.json",
+      "sha256": "745c4d460fb5bd2fae4417ce1fb46e2413ccddec6c805f23b1f801a62dbc5681",
+      "passed": true,
+      "complete": true,
+      "checks": 4,
+      "passedChecks": 4,
+      "implementationHashMismatches": []
+    },
+    "nearby-worker-cleanup": {
+      "report": "tests/toilet-paired-variants/nearby-layouts/process-cleanup.json",
+      "sha256": "0172236353a0442ba78ae8f16a99e2a4da6d234e491bb95e1144a5558cd156cb",
+      "passed": true,
+      "complete": true,
+      "implementationHashMismatches": []
+    },
+    "nearby-worker-archives": {
+      "report": "tests/toilet-paired-variants/nearby-layouts/layout-artifacts.json",
+      "sha256": "d59d56da937f2c5cd2960bfe756cddc5deddcdd8194cc76f80f007e4f1f81492",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-1799"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "nearby-cancelled-layout-proof": {
+      "report": "tests/toilet-fallback-cancel/nearby-layouts/second-layout-proof.json",
+      "sha256": "e96e4752a46ce7fc6a3792ad3196164ce9beb33e6ba4ab257ed665f26fc7325d",
+      "passed": true,
+      "complete": true,
+      "generationPassed": false,
+      "implementationHashMismatches": []
+    },
+    "nearby-live-readonly": {
+      "report": "tests/toilet-exhaustive-audit/live-nearby-readonly.json",
+      "sha256": "f089bc0f64a901ff7d0e3878b5993366d8f8c017649de99a100f8352e234b5df",
+      "passed": true,
+      "complete": true,
+      "implementationHashMismatches": []
+    },
+    "unsubdivision-rejection": {
+      "report": "tests/toilet-unsubdivide/coarse150-from605/rejection.json",
+      "sha256": "ea4537a5fa28ab0354dc4ebe9382a575c7bd087c7bb343a1c747f2537c27d61d",
+      "passed": true,
+      "complete": true,
+      "generationPassed": false,
+      "cases": [
+        {
+          "qualified": false
+        },
+        {
+          "qualified": false
+        },
+        {
+          "qualified": false
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "nearby-browser-independent-identity": {
+      "report": "tests/toilet-fallback-browser/nearby-layouts/independent-identity.json",
+      "sha256": "d7237c30d2d230aa96c77d61ce108746466be72611db4edd9f53db38bc841f7d",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "short-1799",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "nearby-browser-runtime-cleanup": {
+      "report": "tests/toilet-fallback-browser/nearby-layouts/runtime-cleanup.json",
+      "sha256": "2cc56b00dd428422dbbefc59a868165486f8984233b3702b007c8bb2e4406b13",
+      "passed": true,
+      "complete": true,
+      "implementationHashMismatches": []
+    },
+    "nearby-browser-layout-artifacts": {
+      "report": "tests/toilet-fallback-browser/nearby-layouts/layout-artifacts.json",
+      "sha256": "69ca9e759ad3e3b10be998ceeafe2dfde28fd65c5e3baa5d3bd3561b9930be16",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-1799"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "nearby-checkpoint": {
+      "report": "tests/toilet-exhaustive-audit/checkpoint-nearby-layouts.json",
+      "sha256": "78cefc2fd3ad0218dd7fae241b4447dd936d14d9f1c33fe50b794d4e400e752c",
+      "passed": true,
+      "complete": true,
+      "implementationHashMismatches": []
     }
   },
   "interpretation": [
+    "Cancellation during actual fitting of the second nearby layout passes12checks. The first rejected layout has1724faces and the distinct interrupted second layout has1845faces. Worker-owned processes stop, unfinished exports remain unavailable and a fresh request is admitted. Retained raw layouts prove this observed a second attempt rather than a stale first-stage string.",
+    "The native paired1799 browser solve passes7checks in572.79seconds. Its downloaded OBJ, authored curves, connected paths, positions and faces match the independently audited worker result exactly. All10sampled test processes exit. This is close to the unchanged600second service timeout; interactive timing is not claimed.",
+    "Bounded nearby layout retries qualify the captured paired1799 request through a real worker:1845quads in431.234seconds. Independent geometry and all-mixed contact audits pass. The successful layout count is1800; fitting, surface/guide tolerances and final count acceptance retain requested target1799. Eighteen acceptance/retry controls and AST comparisons preserve the prior per-layout numerical calculations. Failed and accepted layout archives remain separately available.",
+    "The isolated no-guide600/layout660 experiment qualifies605quads in47.9seconds and passes both independent audits. Shared curved_quad.py still guards this fallback with if-curves; its unguided dispatch patch is separate pending coordination. This is experimental evidence, not an accepted service600 result.",
+    "Target150 remains unsolved: nearby counts155/160/165/170/172 fail count, shape or contacts. A stronger shape objective still leaves contacts. Unsubdividing the qualified605 layout yields mixed polygons and is rejected before fitting. Source geometry and acceptance limits remain unchanged. The native queued-import/error suite passes23checks.",
     "The final surface-only-demand browser run passes7checks and generates1845quads in480.15seconds. All10 sampled processes exit. The browser preserves every authored input point and adds one projected sample where an imported polyline segment exceeds0.04; its mesh therefore differs from the service-only export. The exact-identity comparison correctly fails and remains recorded. Independent fresh-geometry and all-mixed-diagonal audits of the actual browser OBJ both pass under surface-only-browser; the native download equals that independently audited OBJ. Final layout-aware rendering coverage passes18checks, including navigator/dock resizing and ribbon collapse without a window resize.",
     "The first adaptive browser run surface-only timed out during local repair. Its idle software renderer sampled about10logicalCPUs. On-demand rendering now stops when idle and repaints scene/guide/camera/display/size changes and damping. Fourteen rendering,130 editing and18 selection/repeated-use checks pass on final app bytes. The faster UI exposed duplicate error-dialog reopening during focus restoration; consuming the queued incident before showModal fixes it. Exact negative and corrected reports remain separate. Full generation retry uses surface-only-demand.",
     "The additional paired1799seed5 experiment has no contacts but remains unqualified on guide/surface requirements after three joint passes. It is not a production dispatch change or a successful generation.",
     "Adaptive surface repair now qualifies the captured perturbed paired guides through a fresh actual worker:1845quads in462.75seconds. Independent exported-geometry and all-mixed-diagonal audits pass under surface-only. When guide gates already pass, joint fitting uses distance weight64 and no extra tangent-tail penalty; otherwise the earlier80/32 settings remain. Sixty numerical checks reproduce the expected candidates and13 acceptance controls pass on the exact applied modules. Browser coverage is reported separately.",
-    "Coarse targets150/600 and paired1799 remain unsolved. Alternative layout seeds and stronger edge-ratio objectives still create face contacts. Bridging all three cyclic correspondences between the raw150 layout boundary loops restores closed Euler0 connectivity but fails contacts in every fitted candidate. These are rejected experimental candidates; production connectivity and acceptance limits are unchanged. Preliminary harness type/serialization errors are retained separately from geometry failures.",
+    "At checkpointce8e0f2 coarse targets150/600 and paired1799 remained unsolved. Alternative layout seeds and stronger edge-ratio objectives still created face contacts. Bridging all three cyclic correspondences between the raw150 layout boundary loops restored closed Euler0 connectivity but failed contacts in every fitted candidate. These retained negative experiments precede the nearby-count successes above. Preliminary harness type/serialization errors are separate from geometry failures.",
     "The sampled-path fitter is now a bounded production fallback after the original guided attempts fail. Fresh HTTP/worker bowl-only and short combined requests both produce1845quads; their actual exported OBJs pass the independent and all-diagonal audits. The source asset and acceptance thresholds are unchanged. Exact executed code and retained historical reports are distinguished below.",
     "The earlier joint repair stalled at31.938degrees. Remembering rejected surface witnesses as barycentric triangle constraints subsequently qualifies the longer guide. A fresh source pipeline with tangent tail weight80 needs two joint steps and passes both independent audits. The explicit production modules reproduce that candidate exactly; service/browser qualification is recorded separately.",
     "The integrated real-service long-guide request produces1845quads in309.8seconds. Its actual worker OBJ passes the independent surface/path/reference/LP/BVH audit and allmixeddiagonal contact audit. Browser/runtime and cancellation are separate observations; no threshold or source mesh changed.",
     "The fresh long/Circle browser run passes13checks; downloads/curves/paths match independently qualified exports. The long job takes493.6seconds with software-renderer contention. All10 sampled test processes exit, and actual joint-stage cancellation passes11checks.",
-    "At the earlier b63828f checkpoint, the perturbed paired-guide request timed out at600seconds during joint pass7. That exact negative report remains; the later adaptive worker pass above supersedes this specific perturbation failure. Target1799 still rejects contacts after265seconds. Rejection/input-preservation and process-cleanup checks pass.",
-    "Paired-guide reversal, order, densification and closed-start rotation produce accepted meshes. Small source-projected perturbation fails surface accuracy, and paired target1799 fails contacts before joint integration. These are unsolved generations, even though rejection and input-preservation checks pass. Coarse unguided seed2 targets150/600 also fail shape limits; that experimental route is not enabled for unguided production requests.",
+    "At the earlier b63828f checkpoint, the perturbed paired-guide request timed out at600seconds during joint pass7 and target1799 rejected contacts after265seconds. Those exact negative reports remain; later adaptive/nearby worker passes above supersede those specific failures. Rejection/input-preservation and process-cleanup checks pass.",
+    "Paired-guide reversal, order, densification and closed-start rotation produce accepted meshes. Before adaptive/nearby integration the small source-projected perturbation failed surface accuracy and paired target1799 failed contacts. Those retained historical generations failed despite passing rejection/input-preservation checks. Exact-count coarse unguided seed2 targets150/600 also failed shape limits; the new nearby experimental route is not enabled for unguided production requests.",
     "The initial sampled-stage cancellation observer incorrectly included the live service console among worker-owned processes. Its failed result is retained with exact executed source and timestamps. The worker-owned rerun identifies the exact job worker and its descendants; no production cancellation code changed for this observer correction.",
     "Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.",
     "Windows forced-exit tests use an actual toilet worker and Blender child; a service process job now owns their lifetime. Deduplication and early-cancellation records are per service lifetime. Non-Windows forced-exit cleanup is not claimed.",
@@ -3700,7 +4157,7 @@
   ],
   "remaining": [
     "Captured two-guide networks and basic toilet solves must meet all geometric requirements.",
-    "Bowl-only, short paired, long paired and captured perturbed paired cases at1800 now have independently qualified production results. The long case passes actual browser/export and cancellation coverage. The native perturbed browser variant also passes independent export audits. Target1799 and coarse targets still fail; broader robustness and final reconciliation remain required.",
+    "Bowl-only, short paired, long paired and captured perturbed paired cases at1800 have independently qualified production results. Paired1799 also qualifies through the nearby retry. Target150 remains unqualified; target600 has an isolated qualified candidate but unguided production dispatch is still unchanged. Broader robustness and final reconciliation remain required.",
     "Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.",
     "Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.",
     "Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.",

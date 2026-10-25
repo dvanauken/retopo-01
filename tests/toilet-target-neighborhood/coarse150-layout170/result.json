@@ -1,0 +1,34 @@
+{
+  "complete": true,
+  "productionResult": false,
+  "cases": [
+    {
+      "name": "none-150-layout-170",
+      "target": 150,
+      "layoutTarget": 170,
+      "state": "failed",
+      "job": null,
+      "producerKind": "isolated-nearby-layout-count",
+      "driverSha256": "0a2392cfc39b165989a9cffab4b71477348ebb09a1665859411ec6bc7dba5c42",
+      "attempts": 5,
+      "elapsedSeconds": 26.5
+    }
+  ],
+  "errors": [],
+  "generationPassed": false,
+  "sourceHashes": {
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "8d33a0f6c531047abc7a2effc34e6b678bb60e41c318d88850d83b483d67d87c",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "surface_guide_joint.py": "b1c5297400c62a05251781bb7cec94d9570bbc8cf339f7ac5de5bb328b2ea0fe",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+    "tests/probe_toilet_target_neighborhood.py": "e970b950c28fc0fd946f5eef3698d4e462eb7b47d07fa2d1d8cdc817ac7b7f8b"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 26.56199999997625,
+  "scope": "Fresh original-source seed2 layouts at nearby generator counts. Detached driver changes only the Blender target argument. Fitting, all acceptance limits and reported requested target use the original target. No production dispatch change; every accepted experimental export requires independent audits."
+}

@@ -1,0 +1,1 @@
+{"requestedTarget": 1799, "attempts": [{"requestedTarget": 1799, "layoutTarget": 1799, "accepted": false, "firstHistoryIndex": 10, "assessments": 6, "artifactDirectory": "sampled-layout-1799"}, {"requestedTarget": 1799, "layoutTarget": 1800, "accepted": true, "firstHistoryIndex": 16, "assessments": 10, "artifactDirectory": "sampled-layout-1800"}]}

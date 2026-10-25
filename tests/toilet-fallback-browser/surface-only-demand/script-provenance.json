@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/verify_toilet_fallback_browser.py",
+  "executedScript": "tests\\toilet-fallback-browser\\surface-only-demand\\executed-test.py",
+  "executedSha256": "afdfd5830fd78e53e92c71cc6a167087d7331bbc0ecc8ca455a0fbf790422ff5",
+  "currentScriptSha256": "3c00503d56c979d82d3cdcb134122b80f2d5c86a6ff061cbbf70e8740ee6fc06",
+  "scope": "Exact executed historical harness retained; subsequent harness extensions do not alter this recorded outcome."
+}

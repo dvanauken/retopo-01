@@ -4,6 +4,36 @@ The active request is to keep testing until the toilet workflow has been tested
 exhaustively. Prior check counts are evidence, not completion criteria. An
 unresolved case, unchecked requirement or weak test keeps this audit open.
 
+The bounded nearby-count retry now qualifies the captured paired target-1,799
+request through a fresh worker: 1,845 quads in 431.23 seconds. Both independent
+audits of its actual export pass under `paired1799-integrated`; worker/Blender
+cleanup also passes. The requested target remains 1,799 in every fitting and
+acceptance calculation, although the successful starting layout is generated
+with count 1,800. All failed and accepted retry artifacts are retained. Eighteen
+acceptance/retry controls and an AST comparison verify that numerical fitting
+and acceptance bodies are unchanged. The native browser run also passes seven
+checks and exports the exact independently audited mesh. Its 572.79-second job
+remains close to the 600-second timeout; this is not an interactive-speed result.
+All ten sampled browser/test processes exit.
+
+Cancellation during the second layout passes twelve checks: the rejected first
+layout is archived, a distinct second layout is actually fitting, owned
+processes stop, unfinished downloads remain unavailable and another request is
+accepted. The nearby-layout checkpoint links fourteen passing evidence groups,
+two independently qualified isolated experiments and five negative experiment
+reports. The audit index retains historical failures and remains open.
+
+The isolated no-guide target-600/layout-660 candidate has 605 quads and passes
+both independent audits under `coarse600-neighbor`. Enabling this route in the
+shared dispatch file is kept separate pending coordination with its other
+editor. Target-150 nearby counts and a stronger shape objective still fail;
+unsubdivision of the qualified 605-quad intermediate produces mixed polygons,
+so it is also rejected before fitting. No acceptance limit changed.
+
+Twenty-three current import/error checks pass: the existing delayed-file/source/
+edit/construction/legacy cases plus three queued errors shown in order, closed
+with button and Escape, preserving the document and never reopening on focus.
+
 The adaptive repair now qualifies the captured source-projected 0.001-unit
 paired-guide perturbation through a fresh worker: 1,845 quads in 462.75 seconds.
 The actual OBJ passes independent surface/path/topology/shape and all-mixed
@@ -71,7 +101,7 @@ service timeout during joint pass seven. Unfinished mesh/OBJ/features stayed
 unavailable and the original guides were preserved. This was slower than the
 earlier 387-second surface failure; the adaptive service result above resolves
 that captured input while retaining both historical failures.
-The paired target 1,799 rerun again fails contacts in 265 seconds. Its joint
+The earlier paired target 1,799 rerun failed contacts in 265 seconds. Its joint
 initial assessment correctly refuses the intersecting candidate. Both requests
 finish with no downloadable unqualified result and no remaining worker/Blender
 process tied to their job IDs. See `tests/toilet-paired-variants/joint-integrated/`.
@@ -142,7 +172,7 @@ does not resolve the captured networks; neither experiment is in production.
 | Guide geometry | Freehand, Polyline, Spline, Circle; open/closed, first-point snap, fitting and projection limits | Existing guide units/browser suites; extend toilet-specific geometry variation, reversal, cyclic reindexing, ordering, perturbation and limit boundaries. |
 | Editing | Object/direct selection, endpoints, marquee, Shift groups, point edits, invalid multi-edit rollback, delete/reverse, history | 130 toilet editor checks pass at DPR 1/2 in both panes; that right-pane fixture is historical and unqualified. Another 18 checks cover actual underside occlusion, both marquee directions, partial containment, invalid group rollback, hidden overlay, keyboard ownership and repeated navigation. Fifteen genuine generated-result workflow checks also pass; see the hash-scoped reports. |
 | Persistence | Native IO, exact authored values/IDs, source binding, reload, legacy input, malformed/budget-exceeding input | Native roundtrip/reload and atomic invalid imports pass. Fifteen additional delayed-file checks pass for source changes, edits during loading, out-of-order completion, stale invalid JSON, unfinished construction and legacy open/closed curves. |
-| Solver | No guides, single/multiple guides, all primitive families, supported densities, exact captured failures, repeated input and equivalent representations | Fresh bowl, short paired, long paired and captured perturbed paired inputs at 1,800 qualify through actual workers. Long/Circle browser workflows pass; adaptive browser coverage is tracked separately. Reordering, reversal, densification and cyclic start pass. Target 1,799 still fails contacts. Coarse targets remain unsolved despite additional layout/objective/closure experiments. |
+| Solver | No guides, single/multiple guides, all primitive families, supported densities, exact captured failures, repeated input and equivalent representations | Fresh bowl, short paired, long paired and captured perturbed paired inputs at 1,800 qualify through actual workers. Paired 1,799 now qualifies through worker and browser, with identical independently audited exports. Long/Circle and adaptive browser workflows also pass. Reordering, reversal, densification and cyclic start pass. Target 150 remains unqualified. Target 600 has a qualified isolated nearby-layout result; its unguided production dispatch change remains separate. Browser solve time is still close to timeout. |
 | Geometry acceptance | Actual exported quads; all relevant topology, shape, target, guide, surface and intersection checks | The five historical meshes stay disqualified. New unguided, lid, Circle, bowl, paired-guide and successful representation exports have independent audits. Current long-guide output passes reference/dense/LP/BVH/path and all-mixed-diagonal checks. Original source and limits are unchanged. |
 | Job lifecycle | Queue, admission limits, queued/running cancellation, repeat cancellation, late results, worker errors, timeout, recovery, no orphan processes | Queue/admission/cancellation/publication and worker-start races pass. Seven actual worker/Blender timeout-cleanup checks pass. The deterministic initial-response snapshot race is fixed. Broader sustained process behavior remains open. |
 | API contract | Valid boundaries, malformed/type/size limits, status/resource consistency, accepted-only result downloads | 76 current HTTP checks pass with a named Circle positive control. The original bowl recovery run still records a generation failure; it was not replaced by that control. |

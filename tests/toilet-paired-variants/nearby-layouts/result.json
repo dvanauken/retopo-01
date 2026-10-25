@@ -1,0 +1,51 @@
+{
+  "complete": true,
+  "generationPassed": true,
+  "safetyChecksPassed": true,
+  "cases": [
+    {
+      "name": "short-1799",
+      "target": 1799,
+      "job": "cb1c9f5ef23f443cb1123ea38a39a582",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 431.23399999999674,
+      "faces": 1845,
+      "outputSha256": "fff3731be7e367462ae52b63dfb56f69f3d91ba01353cb5bfd4215c5acfcdd24"
+    }
+  ],
+  "checks": [
+    {
+      "name": "short-1799: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "short-1799: all mixed diagonal contact pairings were checked",
+      "passed": true
+    },
+    {
+      "name": "short-1799: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "Source and implementation remain fixed through the matrix",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "1aa692cdf1fc18bc12e43a60cc55b0fe42d706475afaf4bd6e89a3495dded5d5",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "surface_guide_refine.py": "8d33a0f6c531047abc7a2effc34e6b678bb60e41c318d88850d83b483d67d87c",
+    "surface_guide_repair.py": "87cc84376f36dbd936e502db26e94e7a21696a9e36247c9ae9e99d3cdf2bb645",
+    "surface_guide_joint.py": "b1c5297400c62a05251781bb7cec94d9570bbc8cf339f7ac5de5bb328b2ea0fe",
+    "tests/verify_toilet_paired_variants.py": "bcc7351fefa7350c80daafc694205edf5277571fce91469ce27ac5282ccb4ef6"
+  },
+  "scope": "Fresh Blender layouts and actual worker requests for the named cases. Available partitions cover equivalent representations, 0.001-unit Gaussian paired-guide perturbation projected to source (consecutive duplicate points removed), and the adjacent target1799 boundary. Additional module hashes cover the production sampled fallback. Failed geometry remains unsolved; does not prove all continuous inputs."
+}

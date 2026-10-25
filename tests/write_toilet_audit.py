@@ -143,6 +143,31 @@ for family in ('path-reselection','long-surface-diagnostics','guided-route-revie
 for family in ('fresh-geometry','all-diagonal-audit'):
     relative='tests/toilet-'+family+'/tangent-captured-seed2-weight12/result.json'
     if (ROOT/relative).exists():reports[family+'-tangent-captured-seed2-weight12']=relative
+for family, labels in {
+    'target-neighborhood':['paired1799-layout1800','coarse600-upper-neighbors','coarse150-upper-neighbors','coarse150-layout170','coarse150-layout172'],
+    'objective-controls':['coarse150-layout172-ratio34'],
+    'fresh-geometry':['paired1799-neighbor','coarse600-neighbor','paired1799-integrated'],
+    'all-diagonal-audit':['paired1799-neighbor','coarse600-neighbor','paired1799-integrated'],
+    'paired-variants':['nearby-layouts'],
+    'fallback-browser':['nearby-layouts'],
+    'fallback-cancel':['nearby-layouts'],
+    'import-races':['queued-errors'],
+    'unsubdivide':['coarse150-from605'],
+}.items():
+    for label in labels:
+        reports[family+'-'+label]='tests/toilet-'+family+'/'+label+'/result.json'
+reports['bounded-layout-controls']='tests/surface-layout-retries/nearby-layouts/result.json'
+reports['nearby-worker-cleanup']='tests/toilet-paired-variants/nearby-layouts/process-cleanup.json'
+reports['nearby-worker-archives']='tests/toilet-paired-variants/nearby-layouts/layout-artifacts.json'
+reports['nearby-cancelled-layout-proof']='tests/toilet-fallback-cancel/nearby-layouts/second-layout-proof.json'
+reports['nearby-live-readonly']='tests/toilet-exhaustive-audit/live-nearby-readonly.json'
+reports['unsubdivision-rejection']='tests/toilet-unsubdivide/coarse150-from605/rejection.json'
+for filename in ('independent-identity','independent-download','runtime-cleanup','layout-artifacts'):
+    relative='tests/toilet-fallback-browser/nearby-layouts/'+filename+'.json'
+    if (ROOT/relative).exists(): reports['nearby-browser-'+filename]=relative
+relative='tests/toilet-exhaustive-audit/checkpoint-nearby-layouts.json'
+if (ROOT/relative).exists(): reports['nearby-checkpoint']=relative
+
 evidence={}
 for name,relative in reports.items():
     path=ROOT/relative
@@ -184,7 +209,8 @@ for relative in ('tests/toilet-all-diagonal-audit/before-new-gate/result.json',
                  'tests/toilet-all-diagonal-audit/paired-sampling-and-density/result.json',
                  'tests/toilet-all-diagonal-audit/joint-integrated/result.json',
                  'tests/toilet-all-diagonal-audit/surface-only/result.json',
-                 'tests/toilet-all-diagonal-audit/surface-only-browser/result.json'):
+                 'tests/toilet-all-diagonal-audit/surface-only-browser/result.json',
+                 'tests/toilet-all-diagonal-audit/paired1799-integrated/result.json'):
     path=ROOT/relative
     if path.exists():
         data=json.loads(path.read_text())
@@ -202,7 +228,8 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
                  'tests/toilet-fresh-geometry/paired-sampling-and-density/result.json',
                  'tests/toilet-fresh-geometry/joint-integrated/result.json',
                  'tests/toilet-fresh-geometry/surface-only/result.json',
-                 'tests/toilet-fresh-geometry/surface-only-browser/result.json'):
+                 'tests/toilet-fresh-geometry/surface-only-browser/result.json',
+                 'tests/toilet-fresh-geometry/paired1799-integrated/result.json'):
     path=ROOT/relative
     if path.exists():
         data=json.loads(path.read_text())
@@ -216,7 +243,7 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
                 qualified.append(dict(item,contactProof=proof))
             else: provisional.append(dict(item,reason='All mixed-diagonal contact pairings have not yet been verified.'))
 experimental=[]
-for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12','sampled-path-401','both-diagonal-support-401','witness-short-seed2','fresh-short-seed2-export','long-constraint-memory','fresh-long-direct-tail80-export','perturb-distance64-tail0'):
+for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12','sampled-path-401','both-diagonal-support-401','witness-short-seed2','fresh-short-seed2-export','long-constraint-memory','fresh-long-direct-tail80-export','perturb-distance64-tail0','paired1799-neighbor','coarse600-neighbor'):
     independent=ROOT/'tests/toilet-fresh-geometry'/label/'result.json'
     contacts=ROOT/'tests/toilet-all-diagonal-audit'/label/'result.json'
     if not independent.exists() or not contacts.exists():continue
@@ -231,17 +258,22 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
     provisionalSpecificCases=provisional,disqualifiedSpecificCases=disqualified,
     updatedAt=datetime.now(timezone.utc).isoformat(),evidence=evidence,
     interpretation=[
+        'Cancellation during actual fitting of the second nearby layout passes12checks. The first rejected layout has1724faces and the distinct interrupted second layout has1845faces. Worker-owned processes stop, unfinished exports remain unavailable and a fresh request is admitted. Retained raw layouts prove this observed a second attempt rather than a stale first-stage string.',
+        'The native paired1799 browser solve passes7checks in572.79seconds. Its downloaded OBJ, authored curves, connected paths, positions and faces match the independently audited worker result exactly. All10sampled test processes exit. This is close to the unchanged600second service timeout; interactive timing is not claimed.',
+        'Bounded nearby layout retries qualify the captured paired1799 request through a real worker:1845quads in431.234seconds. Independent geometry and all-mixed contact audits pass. The successful layout count is1800; fitting, surface/guide tolerances and final count acceptance retain requested target1799. Eighteen acceptance/retry controls and AST comparisons preserve the prior per-layout numerical calculations. Failed and accepted layout archives remain separately available.',
+        'The isolated no-guide600/layout660 experiment qualifies605quads in47.9seconds and passes both independent audits. Shared curved_quad.py still guards this fallback with if-curves; its unguided dispatch patch is separate pending coordination. This is experimental evidence, not an accepted service600 result.',
+        'Target150 remains unsolved: nearby counts155/160/165/170/172 fail count, shape or contacts. A stronger shape objective still leaves contacts. Unsubdividing the qualified605 layout yields mixed polygons and is rejected before fitting. Source geometry and acceptance limits remain unchanged. The native queued-import/error suite passes23checks.',
         'The final surface-only-demand browser run passes7checks and generates1845quads in480.15seconds. All10 sampled processes exit. The browser preserves every authored input point and adds one projected sample where an imported polyline segment exceeds0.04; its mesh therefore differs from the service-only export. The exact-identity comparison correctly fails and remains recorded. Independent fresh-geometry and all-mixed-diagonal audits of the actual browser OBJ both pass under surface-only-browser; the native download equals that independently audited OBJ. Final layout-aware rendering coverage passes18checks, including navigator/dock resizing and ribbon collapse without a window resize.',
         'The first adaptive browser run surface-only timed out during local repair. Its idle software renderer sampled about10logicalCPUs. On-demand rendering now stops when idle and repaints scene/guide/camera/display/size changes and damping. Fourteen rendering,130 editing and18 selection/repeated-use checks pass on final app bytes. The faster UI exposed duplicate error-dialog reopening during focus restoration; consuming the queued incident before showModal fixes it. Exact negative and corrected reports remain separate. Full generation retry uses surface-only-demand.',
         'The additional paired1799seed5 experiment has no contacts but remains unqualified on guide/surface requirements after three joint passes. It is not a production dispatch change or a successful generation.',
         'Adaptive surface repair now qualifies the captured perturbed paired guides through a fresh actual worker:1845quads in462.75seconds. Independent exported-geometry and all-mixed-diagonal audits pass under surface-only. When guide gates already pass, joint fitting uses distance weight64 and no extra tangent-tail penalty; otherwise the earlier80/32 settings remain. Sixty numerical checks reproduce the expected candidates and13 acceptance controls pass on the exact applied modules. Browser coverage is reported separately.',
-        'Coarse targets150/600 and paired1799 remain unsolved. Alternative layout seeds and stronger edge-ratio objectives still create face contacts. Bridging all three cyclic correspondences between the raw150 layout boundary loops restores closed Euler0 connectivity but fails contacts in every fitted candidate. These are rejected experimental candidates; production connectivity and acceptance limits are unchanged. Preliminary harness type/serialization errors are retained separately from geometry failures.',
+        'At checkpointce8e0f2 coarse targets150/600 and paired1799 remained unsolved. Alternative layout seeds and stronger edge-ratio objectives still created face contacts. Bridging all three cyclic correspondences between the raw150 layout boundary loops restored closed Euler0 connectivity but failed contacts in every fitted candidate. These retained negative experiments precede the nearby-count successes above. Preliminary harness type/serialization errors are separate from geometry failures.',
         'The sampled-path fitter is now a bounded production fallback after the original guided attempts fail. Fresh HTTP/worker bowl-only and short combined requests both produce1845quads; their actual exported OBJs pass the independent and all-diagonal audits. The source asset and acceptance thresholds are unchanged. Exact executed code and retained historical reports are distinguished below.',
         'The earlier joint repair stalled at31.938degrees. Remembering rejected surface witnesses as barycentric triangle constraints subsequently qualifies the longer guide. A fresh source pipeline with tangent tail weight80 needs two joint steps and passes both independent audits. The explicit production modules reproduce that candidate exactly; service/browser qualification is recorded separately.',
         'The integrated real-service long-guide request produces1845quads in309.8seconds. Its actual worker OBJ passes the independent surface/path/reference/LP/BVH audit and allmixeddiagonal contact audit. Browser/runtime and cancellation are separate observations; no threshold or source mesh changed.',
         'The fresh long/Circle browser run passes13checks; downloads/curves/paths match independently qualified exports. The long job takes493.6seconds with software-renderer contention. All10 sampled test processes exit, and actual joint-stage cancellation passes11checks.',
-        'At the earlier b63828f checkpoint, the perturbed paired-guide request timed out at600seconds during joint pass7. That exact negative report remains; the later adaptive worker pass above supersedes this specific perturbation failure. Target1799 still rejects contacts after265seconds. Rejection/input-preservation and process-cleanup checks pass.',
-        'Paired-guide reversal, order, densification and closed-start rotation produce accepted meshes. Small source-projected perturbation fails surface accuracy, and paired target1799 fails contacts before joint integration. These are unsolved generations, even though rejection and input-preservation checks pass. Coarse unguided seed2 targets150/600 also fail shape limits; that experimental route is not enabled for unguided production requests.',
+        'At the earlier b63828f checkpoint, the perturbed paired-guide request timed out at600seconds during joint pass7 and target1799 rejected contacts after265seconds. Those exact negative reports remain; later adaptive/nearby worker passes above supersede those specific failures. Rejection/input-preservation and process-cleanup checks pass.',
+        'Paired-guide reversal, order, densification and closed-start rotation produce accepted meshes. Before adaptive/nearby integration the small source-projected perturbation failed surface accuracy and paired target1799 failed contacts. Those retained historical generations failed despite passing rejection/input-preservation checks. Exact-count coarse unguided seed2 targets150/600 also failed shape limits; the new nearby experimental route is not enabled for unguided production requests.',
         'The initial sampled-stage cancellation observer incorrectly included the live service console among worker-owned processes. Its failed result is retained with exact executed source and timestamps. The worker-owned rerun identifies the exact job worker and its descendants; no production cancellation code changed for this observer correction.',
         'Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.',
         'Windows forced-exit tests use an actual toilet worker and Blender child; a service process job now owns their lifetime. Deduplication and early-cancellation records are per service lifetime. Non-Windows forced-exit cleanup is not claimed.',
@@ -263,7 +295,7 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
         'The original source is unchanged. Its four known contacts are spatially separate from the newly detected bowl overlaps.',
     ],remaining=[
         'Captured two-guide networks and basic toilet solves must meet all geometric requirements.',
-        'Bowl-only, short paired, long paired and captured perturbed paired cases at1800 now have independently qualified production results. The long case passes actual browser/export and cancellation coverage. The native perturbed browser variant also passes independent export audits. Target1799 and coarse targets still fail; broader robustness and final reconciliation remain required.',
+        'Bowl-only, short paired, long paired and captured perturbed paired cases at1800 have independently qualified production results. Paired1799 also qualifies through the nearby retry. Target150 remains unqualified; target600 has an isolated qualified candidate but unguided production dispatch is still unchanged. Broader robustness and final reconciliation remain required.',
         'Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.',
         'Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.',
         'Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.',

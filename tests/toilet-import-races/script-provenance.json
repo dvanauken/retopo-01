@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/verify_toilet_import_races.py",
+  "executedScript": "tests\\toilet-import-races\\executed-test.py",
+  "executedSha256": "1fa43eb86662f28bd7114714da1fd338347b19b45468fc8645f2379954fb624f",
+  "currentScriptSha256": "4a0a9b140df4a07d86b3437346945033dd99d0f85f4043f8dad7a5fb3a7d59a0",
+  "scope": "Exact executed historical harness retained; subsequent harness extensions do not alter this recorded outcome."
+}

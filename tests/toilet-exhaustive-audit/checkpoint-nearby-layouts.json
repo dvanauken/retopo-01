@@ -1,0 +1,164 @@
+{
+  "complete": true,
+  "passed": true,
+  "goalComplete": false,
+  "checkedAt": "2026-10-25T11:43:23.632654+00:00",
+  "sourceHashes": {
+    "app.js": "1aa692cdf1fc18bc12e43a60cc55b0fe42d706475afaf4bd6e89a3495dded5d5",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "8d33a0f6c531047abc7a2effc34e6b678bb60e41c318d88850d83b483d67d87c",
+    "surface_guide_joint.py": "b1c5297400c62a05251781bb7cec94d9570bbc8cf339f7ac5de5bb328b2ea0fe",
+    "surface_guide_repair.py": "87cc84376f36dbd936e502db26e94e7a21696a9e36247c9ae9e99d3cdf2bb645",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/record_toilet_nearby_checkpoint.py": "29655c424c4716d738f2f0d9346b12bff712e22a79e75cd4678424be630a1efc"
+  },
+  "evidence": {
+    "retryControls": {
+      "report": "tests/surface-layout-retries/nearby-layouts/result.json",
+      "sha256": "745c4d460fb5bd2fae4417ce1fb46e2413ccddec6c805f23b1f801a62dbc5681"
+    },
+    "service": {
+      "report": "tests/toilet-paired-variants/nearby-layouts/result.json",
+      "sha256": "2cd56ff85593c3d428b7d879e9613fad8d46c11f814386934dc005854d0f70a8"
+    },
+    "geometry": {
+      "report": "tests/toilet-fresh-geometry/paired1799-integrated/result.json",
+      "sha256": "261f507ddbbe96f8077a9df09588c0eed37d734fd62d942a370c5636f29f9184"
+    },
+    "contacts": {
+      "report": "tests/toilet-all-diagonal-audit/paired1799-integrated/result.json",
+      "sha256": "aff6984127a574660bda6d09d4b9999a265bbb47ca600cdd7dbe5e5395cf1d1a"
+    },
+    "serviceCleanup": {
+      "report": "tests/toilet-paired-variants/nearby-layouts/process-cleanup.json",
+      "sha256": "0172236353a0442ba78ae8f16a99e2a4da6d234e491bb95e1144a5558cd156cb"
+    },
+    "serviceArchives": {
+      "report": "tests/toilet-paired-variants/nearby-layouts/layout-artifacts.json",
+      "sha256": "d59d56da937f2c5cd2960bfe756cddc5deddcdd8194cc76f80f007e4f1f81492"
+    },
+    "browser": {
+      "report": "tests/toilet-fallback-browser/nearby-layouts/result.json",
+      "sha256": "400856523fe234b59823aa069a34ce800e95c7bbfbe054dedbbfcd4ca5b31db8"
+    },
+    "browserIdentity": {
+      "report": "tests/toilet-fallback-browser/nearby-layouts/independent-identity.json",
+      "sha256": "d7237c30d2d230aa96c77d61ce108746466be72611db4edd9f53db38bc841f7d"
+    },
+    "browserCleanup": {
+      "report": "tests/toilet-fallback-browser/nearby-layouts/runtime-cleanup.json",
+      "sha256": "2cc56b00dd428422dbbefc59a868165486f8984233b3702b007c8bb2e4406b13"
+    },
+    "browserArchives": {
+      "report": "tests/toilet-fallback-browser/nearby-layouts/layout-artifacts.json",
+      "sha256": "69ca9e759ad3e3b10be998ceeafe2dfde28fd65c5e3baa5d3bd3561b9930be16"
+    },
+    "imports": {
+      "report": "tests/toilet-import-races/queued-errors/result.json",
+      "sha256": "f1e1105128f277c4ee19d641b9725fc90bc78fafa4137082450275c19309d1f1"
+    },
+    "cancelDuringRetry": {
+      "report": "tests/toilet-fallback-cancel/nearby-layouts/result.json",
+      "sha256": "f8b08d0ba32051490b1dfbe1a01ffd248c7c4fa18f4bc026537bad3c1f169560"
+    },
+    "cancelledLayoutProof": {
+      "report": "tests/toilet-fallback-cancel/nearby-layouts/second-layout-proof.json",
+      "sha256": "e96e4752a46ce7fc6a3792ad3196164ce9beb33e6ba4ab257ed665f26fc7325d"
+    },
+    "liveApp": {
+      "report": "tests/toilet-exhaustive-audit/live-nearby-readonly.json",
+      "sha256": "f089bc0f64a901ff7d0e3878b5993366d8f8c017649de99a100f8352e234b5df"
+    }
+  },
+  "outputSha256": "fff3731be7e367462ae52b63dfb56f69f3d91ba01353cb5bfd4215c5acfcdd24",
+  "faces": 1845,
+  "requestedTarget": 1799,
+  "serviceSeconds": 431.23399999999674,
+  "browserSeconds": 572.7902367115021,
+  "qualifiedExperiments": [
+    {
+      "label": "paired1799-neighbor",
+      "productionResult": false,
+      "proofs": {
+        "toilet-fresh-geometry": {
+          "report": "tests\\toilet-fresh-geometry\\paired1799-neighbor\\result.json",
+          "sha256": "084383a9147ad526caeb034090b1fc54912b2655ed6780bd71c555ca3cd9081a"
+        },
+        "toilet-all-diagonal-audit": {
+          "report": "tests\\toilet-all-diagonal-audit\\paired1799-neighbor\\result.json",
+          "sha256": "b2b24f6f0bdc7f7797ce26297b9e01140a44671d5fee07f18ccaf3551e4b5877"
+        }
+      }
+    },
+    {
+      "label": "coarse600-neighbor",
+      "productionResult": false,
+      "proofs": {
+        "toilet-fresh-geometry": {
+          "report": "tests\\toilet-fresh-geometry\\coarse600-neighbor\\result.json",
+          "sha256": "2cb7dc3ef8021ced66e9154cf5ed4993482d6a78c6b3565c44ca01d04a3c778d"
+        },
+        "toilet-all-diagonal-audit": {
+          "report": "tests\\toilet-all-diagonal-audit\\coarse600-neighbor\\result.json",
+          "sha256": "0887d9272605776946b1dead621c7a1f8a6b38afc03d5a261f537b214a2f929b"
+        }
+      }
+    }
+  ],
+  "rejectedExperiments": [
+    {
+      "report": "tests/toilet-target-neighborhood/coarse150-upper-neighbors/result.json",
+      "sha256": "5d69c0d0375b701bfaec13055470fce6af62c5396fa2d12093561f8b72d4f050",
+      "qualified": false
+    },
+    {
+      "report": "tests/toilet-target-neighborhood/coarse150-layout170/result.json",
+      "sha256": "d0d6e7edf6fec1dbb5511d4be24e3de083bf4f0c305185cb5d72ca0429e10653",
+      "qualified": false
+    },
+    {
+      "report": "tests/toilet-target-neighborhood/coarse150-layout172/result.json",
+      "sha256": "0cc8843877ea2fd61500dc4eb2617da196436dfbd06dbc7d3edae14099b3d4ba",
+      "qualified": false
+    },
+    {
+      "report": "tests/toilet-objective-controls/coarse150-layout172-ratio34/result.json",
+      "sha256": "1cae6b57b782e3c98864928254d8694cda792cbac1481485df9be29b859127fc",
+      "qualified": false
+    },
+    {
+      "report": "tests\\toilet-unsubdivide\\coarse150-from605\\rejection.json",
+      "sha256": "ea4537a5fa28ab0354dc4ebe9382a575c7bd087c7bb343a1c747f2537c27d61d",
+      "qualified": false
+    }
+  ],
+  "protectedSharedWorktreeHashes": {
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "requirements.txt": "951170a5142f71a26d3ea3fecb5a5f2ddb3705bb303684753ed4c19afc875b56",
+    "assets/catalog.json": "1c87037f0f47eaf104467c158d8c05680c95dcb203e678c00fd4933ffdf911aa",
+    "guided_layout.py": "efe61f5f1f8619754db1fbcd9f8c77d2ed542d0f76c2c29c37a5bb06c6695b98",
+    "guide_embedding.py": "1164426e57dc4c2ef93ee673290c9c394d4adb2e3905e775ba0088f5ac6158bf",
+    "guide_embedding_check.py": "d60f4b6223d89d68679dd177e9b83a132729cdcecd99f2da88013b349a0abcd4",
+    "guide_ordered_targets.py": "9822787eb90a0dc5cd76b6c21cab32d28a826a3aa6c066153cb5ca749ba5589e",
+    "assets/models/ellipsoid.json": "f1a1c993ebb2ebf93c42558b84a59a3fe42944e24a711e2f5ec4f8bb2522fd95",
+    "assets/models/ellipsoid.obj": "75813381047fe0f94d50f4b3dc55b331b85543837833e7818647bd672acaba13",
+    "GUIDED_LAYOUT.md": "8a7788a33c174798acd74d7386669e201e0aa0dca2e66241ea3537fdcf4c9270",
+    "engine/guided-quadriflow/LICENSE.txt": "e052d7748952330e148cb9f1d70583229faf75320e82596733db9ec049db0365",
+    "engine/guided-quadriflow/manifest.json": "1490317e7effb28104bc4d3de5c630bf8d45c2e4394156b5dd57512cf17edc12",
+    "engine/guided-quadriflow/quadriflow.exe": "c6e60083469265d197633798e342bd65b72f8cd6e35a92b9e0fb3a2ccad9f2cb",
+    "engine/guided-quadriflow/source.zip": "bbce9cf25072e7db7c4571274694391d9cc66f40e76d42ca2ce9e626ea89a0a0"
+  },
+  "remaining": [
+    "Target150 remains unqualified.",
+    "No-guide600 has a qualified isolated candidate; shared unguided dispatch patch is separate pending coordination.",
+    "Browser runtime572.79seconds is close to the600second service timeout.",
+    "Broader robustness and final requirements reconciliation remain open."
+  ],
+  "scope": "Exact applied bounded retry code, actual1799worker/browser exports, independent geometry/contact qualification, cancellation during the second layout and observed cleanup. Source, numerical fitters, gate limits, shared dispatch and app unchanged. Experimental600 qualification is separate from production acceptance."
+}

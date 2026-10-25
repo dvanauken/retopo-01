@@ -1,0 +1,106 @@
+{
+  "complete": true,
+  "passed": true,
+  "checks": [
+    {
+      "name": "Late toilet file cannot replace another source document",
+      "passed": true
+    },
+    {
+      "name": "Stale source import creates no history or irrelevant error",
+      "passed": true
+    },
+    {
+      "name": "Edit made during file read is preserved atomically",
+      "passed": true
+    },
+    {
+      "name": "Conflicting import explains why it was rejected",
+      "passed": true
+    },
+    {
+      "name": "latest-import-wins: an earlier read cannot override the newer accepted import",
+      "passed": true
+    },
+    {
+      "name": "latest-import-wins: stale file completion cannot display an obsolete error",
+      "passed": true
+    },
+    {
+      "name": "stale-invalid-read: an earlier read cannot override the newer accepted import",
+      "passed": true
+    },
+    {
+      "name": "stale-invalid-read: stale file completion cannot display an obsolete error",
+      "passed": true
+    },
+    {
+      "name": "A real clicked construction starts while the file read is pending",
+      "passed": true
+    },
+    {
+      "name": "Import cannot discard an unfinished native construction",
+      "passed": true
+    },
+    {
+      "name": "Construction conflict asks for a deliberate finish or cancel",
+      "passed": true
+    },
+    {
+      "name": "Legacy closed toilet guide retains its path semantics",
+      "passed": true
+    },
+    {
+      "name": "Legacy import preserves every authored source coordinate without a duplicate closing point",
+      "passed": true
+    },
+    {
+      "name": "Legacy open toilet guide retains its path semantics",
+      "passed": true
+    },
+    {
+      "name": "Legacy import preserves every authored source coordinate without a duplicate closing point",
+      "passed": true
+    },
+    {
+      "name": "Queued error 1 keeps the first incident visible until dismissal",
+      "passed": true
+    },
+    {
+      "name": "Queued error 2 keeps the first incident visible until dismissal",
+      "passed": true
+    },
+    {
+      "name": "Queued error 3 keeps the first incident visible until dismissal",
+      "passed": true
+    },
+    {
+      "name": "Queued incident 1 is presented in order",
+      "passed": true
+    },
+    {
+      "name": "Queued incident 2 is presented in order",
+      "passed": true
+    },
+    {
+      "name": "Queued incident 3 is presented in order",
+      "passed": true
+    },
+    {
+      "name": "Dismissed queued incidents do not reopen during focus restoration",
+      "passed": true
+    },
+    {
+      "name": "Queued import failures preserve the complete document and history",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "1aa692cdf1fc18bc12e43a60cc55b0fe42d706475afaf4bd6e89a3495dded5d5",
+    "src/io/GuideSerializer.js": "405e343dc9697ea63ccd22ab813dd511e4adca340d504f59e097e01687df7ed1",
+    "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
+    "tests/verify_toilet_import_races.py": "4a0a9b140df4a07d86b3437346945033dd99d0f85f4043f8dad7a5fb3a7d59a0"
+  },
+  "scope": "Native Chromium file input; exact File.text payloads held and released out of order. Real source switches, edits, clicked construction, legacy toilet guide files and three queued errors dismissed by button/Escape with focus restoration. No manufactured solver result."
+}

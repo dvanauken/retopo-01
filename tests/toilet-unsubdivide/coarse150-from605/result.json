@@ -1,0 +1,52 @@
+{
+  "complete": true,
+  "productionResult": false,
+  "cases": [
+    {
+      "iterations": 1,
+      "operatorResult": [
+        "FINISHED"
+      ],
+      "vertices": 329,
+      "faces": 393,
+      "faceSizes": {
+        "4": 265,
+        "3": 128
+      },
+      "outputFile": "iterations-1.json",
+      "outputSha256": "d5827c2aa95e158b1ded635a1a275b0bd065592762087087a658f3d1ba331b19"
+    },
+    {
+      "iterations": 2,
+      "operatorResult": [
+        "FINISHED"
+      ],
+      "vertices": 230,
+      "faces": 333,
+      "faceSizes": {
+        "3": 206,
+        "4": 127
+      },
+      "outputFile": "iterations-2.json",
+      "outputSha256": "3d99b0b8f7c10dd84a4b900f698df2055db427dba44bf93509624c51d498fbf0"
+    },
+    {
+      "iterations": 3,
+      "operatorResult": [
+        "FINISHED"
+      ],
+      "vertices": 201,
+      "faces": 313,
+      "faceSizes": {
+        "3": 224,
+        "4": 89
+      },
+      "outputFile": "iterations-3.json",
+      "outputSha256": "0cf196bdc16be508d5605419482e93e583a8374a986a1afc3cd7e988c79f277d"
+    }
+  ],
+  "inputFile": "tests\\toilet-target-neighborhood\\coarse600-upper-neighbors\\none-600-layout-660\\mesh.json",
+  "inputSha256": "9d831bbe153275638cf468ab12f8f22a4c4a69e49d9b9f3ab9d23aa3bfd5acc3",
+  "blenderVersion": "5.1.1",
+  "scope": "Blender unsubdivision of a retained qualified intermediate quad layout. No original-source mutation and no final mesh qualification; counts/topology/shape/surface/contacts require further evaluation."
+}
