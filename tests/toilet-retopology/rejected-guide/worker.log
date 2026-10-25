@@ -3,9 +3,9 @@ Traceback (most recent call last):
   File "C:\dbva\code\retopo-1\worker.py", line 32, in main
     if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)
                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\dbva\code\retopo-1\curved_quad.py", line 282, in construct
+  File "C:\dbva\code\retopo-1\curved_quad.py", line 292, in construct
     path, pins, targets = _guide_path(positions, edges, curve, spacing)
                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\dbva\code\retopo-1\curved_quad.py", line 144, in _guide_path
+  File "C:\dbva\code\retopo-1\curved_quad.py", line 145, in _guide_path
     raise ValueError('A guide has no resolvable output edge path at this density. Increase the target or shorten the guide.')
 ValueError: A guide has no resolvable output edge path at this density. Increase the target or shorten the guide.

@@ -1,0 +1,73 @@
+{
+  "passed": false,
+  "detectorControlsPassed": true,
+  "results": [
+    {
+      "file": "assets/models/toilet.obj",
+      "polygons": 24000,
+      "nonAdjacentOverlapPairs": [
+        [
+          23090,
+          23421
+        ],
+        [
+          23091,
+          23276
+        ],
+        [
+          23092,
+          23276
+        ],
+        [
+          23093,
+          23276
+        ]
+      ],
+      "passed": false
+    },
+    {
+      "file": "tests/toilet-stress/two-guides-short-1800/output.obj",
+      "polygons": 1923,
+      "nonAdjacentOverlapPairs": [],
+      "passed": true
+    },
+    {
+      "file": "tests/toilet-stress/two-guides-long-1800/output.obj",
+      "polygons": 1923,
+      "nonAdjacentOverlapPairs": [
+        [
+          510,
+          706
+        ],
+        [
+          510,
+          728
+        ],
+        [
+          687,
+          727
+        ],
+        [
+          689,
+          727
+        ],
+        [
+          706,
+          727
+        ],
+        [
+          727,
+          728
+        ]
+      ],
+      "passed": false
+    },
+    {
+      "file": "tests/toilet-retopology/guided/output.obj",
+      "polygons": 1923,
+      "nonAdjacentOverlapPairs": [],
+      "passed": true
+    }
+  ],
+  "scope": "Blender BVH candidates followed by double-precision triangle intersection tests (1e-9 tolerance), fan triangulation. Shared-vertex polygon pairs excluded. Not a complete test of adjacent folds, coplanar contacts or every self-intersection."
+}

@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:8741",
+  "job": "6ea5ec0ac1d247f3aaded73b1de82284",
+  "faces": 1923,
+  "intersectionValidation": {
+    "passed": true,
+    "nonAdjacentIntersectingFacePairs": [],
+    "scope": "Indexed polygon bounds and double-precision triangle intersection, fan triangulation, 1e-9 tolerance. Shared-vertex face pairs excluded; not a complete adjacent-contact certificate."
+  },
+  "browserErrors": [],
+  "appSha256": "24bd4b79a01b593ca62cad570ec11de250dbe809f41d5d471f9854dbb8d956de",
+  "solverSha256": "344817f85da04c8133932964b3c69c215b58dea688a170a1535bd81b91c62cb6",
+  "scope": "Actual live localhost:8741 Generate with exact shorter captured guide set. Long guide regression remains unresolved."
+}

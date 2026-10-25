@@ -21,6 +21,7 @@ sys.path[:0] = [str(ROOT), str(ROOT / 'engine/targets/zbrush/clone'), str(ROOT /
 from measure_geometry import guide_alignment, read_obj, topology
 from mesh_validation import validate_closed, links
 from quad_quality import measure
+from surface_intersections import measure as intersections
 
 checks, errors, jobs = [], [], []
 
@@ -120,6 +121,7 @@ try:
     check(not stars['nonmanifoldVertices'] and stars['inconsistentWindingEdges'] == 0, 'Independent vertex-link and winding checks pass')
     quality = measure(vertices, faces, 1800)
     check(quality['passed'] and quality['scaledJacobianMin'] >= .45, 'Independent OBJ shape measurements confirm no failed quad-quality limits')
+    check(intersections(vertices, faces)['passed'] and output['intersectionValidation']['passed'], 'Exported toilet also passes the non-adjacent polygon crossing screen')
     source_v, source_f = read_obj(ROOT / 'assets/models/toilet.obj')
     reference_validation = validate_closed(source_v, source_f, vertices, faces, target=1800)
     check(reference_validation['passed'], 'Unmodified reference surface/topology validator independently accepts the exported toilet')
@@ -165,7 +167,7 @@ try:
     check(cancelled['state'] == 'cancelled' and not alive, 'Cancelling the calculation terminates its owned layout process')
     check(get('/api/health')['ready'], 'Cancelling the calculation leaves the application server healthy')
     check(not errors, 'No browser JavaScript errors during real generation and export')
-    files = ['curved_quad.py', 'scripts/quadriflow_mesh.py', 'server.py', 'worker.py', 'quad_quality.py', 'app.js', 'assets/models/toilet.json', 'assets/models/toilet.obj']
+    files = ['curved_quad.py', 'surface_intersections.py', 'scripts/quadriflow_mesh.py', 'server.py', 'worker.py', 'quad_quality.py', 'app.js', 'assets/models/toilet.json', 'assets/models/toilet.obj']
     (OUT / 'result.json').write_text(json.dumps({'passed': True, 'checks': checks, 'browserErrors': errors, 'workerJobs': jobs,
         'guidedFaces': len(faces), 'guideFit': fit, 'unguidedAlignment': base_alignment, 'independentValidation': reference_validation,
         'sourceHashes': {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in files},

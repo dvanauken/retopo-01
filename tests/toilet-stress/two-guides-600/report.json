@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "constructionCompleted": false,
+  "message": "Two guides compete for the same output vertices. Increase density or separate their paths.",
+  "technicalMessage": "Two guides compete for the same output vertices. Increase density or separate their paths.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 32, in main\n    if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)\n                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 299, in construct\n    raise ValueError('Two guides compete for the same output vertices. Increase density or separate their paths.')\nValueError: Two guides compete for the same output vertices. Increase density or separate their paths.\n",
+  "elapsedSeconds": 2.89000000001397,
+  "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+  "workerSha256": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5"
+}

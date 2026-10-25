@@ -1,0 +1,8 @@
+Building the quad surface layout
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\worker.py", line 32, in main
+    if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\curved_quad.py", line 299, in construct
+    raise ValueError('Two guides compete for the same output vertices. Increase density or separate their paths.')
+ValueError: Two guides compete for the same output vertices. Increase density or separate their paths.

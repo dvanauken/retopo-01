@@ -1,0 +1,186 @@
+{
+  "passed": false,
+  "status": "One known required guide regression remains unresolved.",
+  "checks": 181,
+  "passedChecks": 180,
+  "failedChecks": 1,
+  "suites": {
+    "guide-additions": {
+      "checks": 31,
+      "passedChecks": 31,
+      "passed": true,
+      "report": "tests/guide-additions/result.json",
+      "sourceHashes": {
+        "app.js": "27459df8f3a9ea965bdcb5ea6f3b5646cf0d222cca3414ddff6c1b84599379e4",
+        "index.html": "eabc812b14e6296ca0f9e3e09d9b0fad10a7a9fa318ce655d2e8c599c12c0dc9",
+        "server.py": "c13dbe39fa83c4bf3868c83b2be2ab8664b2d825273afdee29309db6542c85d8",
+        "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
+        "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
+        "src/geometry/GuideCurve.js": "1fbaddc9a416b15550972c181e0b97616c57cd60ff045f8ee42b985dfd0f89ed",
+        "src/io/GuideSerializer.js": "405e343dc9697ea63ccd22ab813dd511e4adca340d504f59e097e01687df7ed1",
+        "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
+        "src/view/CircleConstruction.js": "866190bb43bded83034b2d94a24eec9603ab30c7e6594c77c209a6ea06e44170",
+        "src/view/GuideController.js": "556c4227867a7575909a689635d5f24ced3c1787e5a4005111833066e5ea228e",
+        "src/view/SurfaceGuides.js": "7e0456176fe1ee4687eb9534264fcbfc3975b66bd3dd971dccf3775d96059ed9",
+        "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
+      }
+    },
+    "workspace-shell": {
+      "checks": 23,
+      "passedChecks": 23,
+      "passed": true,
+      "report": "tests/workspace-shell/result.json",
+      "sourceHashes": {
+        "app.js": "91c6260d9df8c75970302cf48499aad237932ea38e2eaacee13ee581ef4c1ce4",
+        "index.html": "92b9eb21726585a91b58b9ccfcd27ff74fe2e8f109a226f9e19ad119ed148e9f",
+        "index.css": "8862da3e249a870c35039778d50ddc3819571977cea957d51fe53da5286c1fc1",
+        "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
+      }
+    },
+    "toilet-retopology": {
+      "checks": 29,
+      "passedChecks": 29,
+      "passed": true,
+      "report": "tests/toilet-retopology/result.json",
+      "sourceHashes": {
+        "curved_quad.py": "344817f85da04c8133932964b3c69c215b58dea688a170a1535bd81b91c62cb6",
+        "surface_intersections.py": "5bee9b29ca14ade6ada71f61f4fef6dc71753797baafba6d61890fd8184c7a1d",
+        "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+        "server.py": "c13dbe39fa83c4bf3868c83b2be2ab8664b2d825273afdee29309db6542c85d8",
+        "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+        "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+        "app.js": "24bd4b79a01b593ca62cad570ec11de250dbe809f41d5d471f9854dbb8d956de",
+        "assets/models/toilet.json": "09e46f096677f7058bd0f6a2977dbdf2f6f7ea72a812a1ceb1b9fd8208b751f3",
+        "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    },
+    "toilet-stress": {
+      "checks": 69,
+      "passedChecks": 68,
+      "passed": false,
+      "report": "tests/toilet-stress/result.json",
+      "sourceHashes": {
+        "app.js": "24bd4b79a01b593ca62cad570ec11de250dbe809f41d5d471f9854dbb8d956de",
+        "index.html": "eabc812b14e6296ca0f9e3e09d9b0fad10a7a9fa318ce655d2e8c599c12c0dc9",
+        "index.css": "8862da3e249a870c35039778d50ddc3819571977cea957d51fe53da5286c1fc1",
+        "curved_quad.py": "344817f85da04c8133932964b3c69c215b58dea688a170a1535bd81b91c62cb6",
+        "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+        "server.py": "c13dbe39fa83c4bf3868c83b2be2ab8664b2d825273afdee29309db6542c85d8",
+        "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+        "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+        "surface_intersections.py": "5bee9b29ca14ade6ada71f61f4fef6dc71753797baafba6d61890fd8184c7a1d",
+        "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+        "tests/verify_toilet_stress.py": "64f152946a0b9479f0ecf7bd6797bfa5ce749a58066e0527855c35233a75d7f2"
+      }
+    },
+    "guide-units": {
+      "checks": 21,
+      "passedChecks": 21,
+      "passed": true,
+      "command": "npm test"
+    },
+    "intersection-units": {
+      "checks": 8,
+      "passedChecks": 8,
+      "passed": true,
+      "command": "python -X utf8 tests/test_surface_intersections.py"
+    }
+  },
+  "knownUnresolved": [
+    "The captured longer bowl-plus-lid guide network at 1800 quads cannot meet quad-quality and non-adjacent intersection acceptance. Rejected candidates are not exported."
+  ],
+  "cases": [
+    {
+      "name": "two-guides-short-1800",
+      "target": 1800,
+      "state": "complete",
+      "faces": 1923
+    },
+    {
+      "name": "two-guides-long-1800",
+      "target": 1800,
+      "state": "failed"
+    },
+    {
+      "name": "two-guides-short-repeat",
+      "target": 1800,
+      "state": "complete",
+      "faces": 1923
+    },
+    {
+      "name": "bowl-only-1800",
+      "target": 1800,
+      "state": "complete",
+      "faces": 1923
+    },
+    {
+      "name": "lid-only-1800",
+      "target": 1800,
+      "state": "complete",
+      "faces": 1782
+    },
+    {
+      "name": "unguided-1800",
+      "target": 1800,
+      "state": "complete",
+      "faces": 1923
+    },
+    {
+      "name": "two-guides-1200",
+      "target": 1200,
+      "state": "failed"
+    },
+    {
+      "name": "two-guides-600",
+      "target": 600,
+      "state": "failed"
+    },
+    {
+      "name": "two-guides-150",
+      "target": 150,
+      "state": "failed"
+    },
+    {
+      "name": "off-surface-rejected",
+      "target": 1800,
+      "state": "failed"
+    },
+    {
+      "name": "browser-two-guides",
+      "target": 1800,
+      "state": "complete",
+      "faces": 1923
+    },
+    {
+      "name": "browser-lid-circle",
+      "target": 1800,
+      "state": "complete",
+      "faces": 1782
+    }
+  ],
+  "independentlyScreenedAcceptedOutputs": 7,
+  "independentOverlapReport": "tests/toilet-stress/overlap-check.json",
+  "originalSourceDetectedContacts": 4,
+  "retainedOriginalSourceUnchanged": true,
+  "recoveredEngineUnchanged": true,
+  "previousShapeAndDistanceLimitsUnchanged": true,
+  "additionalIntersectionGate": true,
+  "liveEvidence": "tests/toilet-stress/live-check.json",
+  "sourceHashes": {
+    "app.js": "24bd4b79a01b593ca62cad570ec11de250dbe809f41d5d471f9854dbb8d956de",
+    "index.html": "eabc812b14e6296ca0f9e3e09d9b0fad10a7a9fa318ce655d2e8c599c12c0dc9",
+    "index.css": "8862da3e249a870c35039778d50ddc3819571977cea957d51fe53da5286c1fc1",
+    "curved_quad.py": "344817f85da04c8133932964b3c69c215b58dea688a170a1535bd81b91c62cb6",
+    "surface_intersections.py": "5bee9b29ca14ade6ada71f61f4fef6dc71753797baafba6d61890fd8184c7a1d",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "server.py": "c13dbe39fa83c4bf3868c83b2be2ab8664b2d825273afdee29309db6542c85d8",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_toilet_stress.py": "64f152946a0b9479f0ecf7bd6797bfa5ce749a58066e0527855c35233a75d7f2",
+    "tests/verify_toilet_retopology.py": "d59bdc133ab50501e05fcb198120e54398933b695224dee8e20e5413a077dbe6",
+    "TOILET_SOLVER.md": "7f25fc68d115947eb8d17e81fa6108c2845ef08a96231390302fc0556b84558a",
+    "README.md": "c900aab3b2ae03ead97f855e78d987dc2068c68845232f4f512c66f0cf2135e1"
+  },
+  "scope": "This turn: browser workflows and source-relative geometry checks, including explicit unresolved regression. Suite hashes identify their execution versions; drawing/layout checks ran before the final failure-message wording and crossing-gate addition. Additional independent BVH intersection diagnostics retain their exclusions. No blanket claim for arbitrary guides or collision freedom."
+}

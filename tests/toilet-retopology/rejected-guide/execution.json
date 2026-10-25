@@ -1,12 +1,12 @@
 {
-  "id": "c1dd2a16878447b391686a1dcbb5821d",
+  "id": "727693f62de24a49b42f68fee2513a4e",
   "meshId": "toilet",
   "target": 1800,
   "state": "failed",
   "stage": "Could not generate this network",
-  "createdAt": 1792883267.3573456,
-  "startedAt": 1792883267.3573456,
-  "finishedAt": 1792883278.1592338,
+  "createdAt": 1792890417.926786,
+  "startedAt": 1792890417.926786,
+  "finishedAt": 1792890425.5267947,
   "actualExitCode": 1,
   "error": "A guide has no resolvable output edge path at this density. Increase the target or shorten the guide.",
   "command": [
@@ -15,6 +15,6 @@
     "utf8",
     "C:\\dbva\\code\\retopo-1\\worker.py",
     "--job",
-    "C:\\dbva\\code\\retopo-1\\runs\\c1dd2a16878447b391686a1dcbb5821d"
+    "C:\\dbva\\code\\retopo-1\\runs\\727693f62de24a49b42f68fee2513a4e"
   ]
 }

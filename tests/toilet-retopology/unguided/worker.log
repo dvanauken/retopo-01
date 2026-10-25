@@ -1,4 +1,3 @@
 Building the quad surface layout
 Fitting guides and refining quads · pass 1
-Fitting guides and refining quads · pass 2
-{"passed": true, "vertices": 1923, "faces": 1923, "elapsedSeconds": 29.859000000025844}
+{"passed": true, "vertices": 1923, "faces": 1923, "elapsedSeconds": 12.85899999999674}

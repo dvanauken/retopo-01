@@ -11,7 +11,7 @@ import { encodeGuides, decodeGuides } from './src/io/GuideSerializer.js';
 
 const $ = id => document.getElementById(id);
 const clone = value => JSON.parse(JSON.stringify(value));
-const state = { mesh: null, result: null, guides: [], tool: 'draw', view: 'split', selected: -1, target: 600, guideMode: 2, busy: false, job: null, resultJob: null, dirty: false, space: false, version: 0, resultKey: null, density: null };
+const state = { mesh: null, result: null, guides: [], tool: 'draw', view: 'split', selected: -1, target: 600, guideMode: 2, busy: false, job: null, resultJob: null, dirty: false, space: false, version: 0, resultKey: null, density: null, lastAttempt: null };
 const canvas = $('viewport');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, preserveDrawingBuffer: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -179,7 +179,32 @@ function renderGuides() {
   if (constructionGuide) {
     try { addCurve(surfaceGuides.curve(constructionGuide), true); } catch { for (const points of editor.drafts) addCurve(points, false, .4); }
   } else for (const points of editor.drafts) addCurve(points, true);
-  guideGroups.forEach((group, pane) => group.visible = $('guidesToggle').checked && !(state.view === 'overlay' && pane === 1));
+  syncGuideVisibility();
+}
+function syncGuideVisibility() {
+  guideGroups.forEach((group, pane) => group.visible = $('guidesToggle').checked && (pane === 0 || (state.view === 'split' && !!resultRender)));
+}
+function setAttempt(phase, message = '') {
+  state.lastAttempt = { phase, message, target: state.target, guideCount: state.guides.length, sourceSha256: state.mesh?.sourceSha256 };
+  if (state.mesh) try {
+    const key = 'retopo-1:last-attempt:' + state.mesh.id;
+    if (phase === 'failed' || phase === 'cancelled') localStorage.setItem(key, JSON.stringify(state.lastAttempt));
+    else localStorage.removeItem(key);
+  } catch { /* Optional operation history. */ }
+  syncResultFeedback();
+}
+function syncResultFeedback() {
+  const attempt = state.lastAttempt, failed = attempt?.phase === 'failed', cancelled = attempt?.phase === 'cancelled';
+  const title = failed ? 'Last generation failed' : cancelled ? 'Generation cancelled' : 'No generated mesh';
+  const attemptContext = Number.isInteger(attempt?.target) && Number.isInteger(attempt?.guideCount) ? ` Attempted ${countText(attempt.target)} quads with ${attempt.guideCount} guide${attempt.guideCount === 1 ? '' : 's'}.` : '';
+  const detail = failed ? attempt.message + attemptContext : cancelled ? 'Your guides are saved. Click Generate to try again.' : 'Click Generate to build a mesh from the current source and guides.';
+  $('resultEmpty').hidden = !!state.result;
+  $('resultEmpty').dataset.state = failed ? 'failed' : cancelled ? 'cancelled' : 'ready';
+  $('resultEmptyTitle').textContent = title; $('resultEmptyDetail').textContent = detail;
+  $('generationFeedback').hidden = !(failed || cancelled) || (!state.result && state.view === 'split');
+  $('generationFeedback').textContent = title + '. ' + detail + (state.result ? ' The previous accepted result is still shown.' : '');
+  $('generationFeedback').classList.toggle('overlay', state.view === 'overlay');
+  syncGuideVisibility();
 }
 function drawGuideChrome() {
   const r = canvas.getBoundingClientRect(), dpr = renderer.getPixelRatio();
@@ -236,7 +261,7 @@ function displaySettings() {
   for (const mesh of [sourceRender, resultRender]) if (mesh) {
     mesh.wire.visible = $('wireToggle').checked; mesh.creases.visible = $('creasesToggle').checked;
   }
-  guideGroups.forEach(group => group.visible = $('guidesToggle').checked);
+  syncGuideVisibility();
 }
 function refreshColors() {
   renderer.setClearColor(color('--bg'));
@@ -272,12 +297,13 @@ function setView(view) {
   $('divider').hidden = overlay; $('resultCaption').hidden = overlay; $('sourceCaption').style.width = overlay ? '100%' : '50%';
   $('sourceCaption').querySelector('.label').textContent = overlay && state.result ? 'Source + retopology' : 'Source';
   (overlay ? scenes[0] : scenes[1]).add(resultGroup);
-  guideGroups[1].visible = !overlay && $('guidesToggle').checked;
+  syncGuideVisibility();
   if (sourceRender) {
     const material = sourceRender.solid.material; material.transparent = overlay && !!state.result; material.opacity = overlay && state.result ? .25 : 1; material.depthWrite = !overlay || !state.result;
     sourceRender.wire.material.opacity = overlay ? .18 : sourceRender.wireOpacity ?? .75;
   }
   $('resultEmpty').style.display = overlay ? 'none' : '';
+  syncResultFeedback();
   if (changed) fit(false, true);
 }
 function setTool(tool) { editor.activate(tool); }
@@ -311,6 +337,7 @@ function persist() {
 function dirty() {
   state.dirty = state.resultKey !== keyFor();
   if (state.result) { $('resultBadge').hidden = false; $('resultBadge').className = 'badge' + (state.dirty ? '' : state.result.quality?.passed ? ' good' : ' busy'); $('resultBadge').textContent = state.dirty ? 'Needs update' : !state.result.quality?.passed ? 'Quality warning' : state.resultJob ? 'Generated' : 'Example'; }
+  syncResultFeedback();
 }
 function updateGuideUI() {
   $('guideCount').textContent = state.guides.length;
@@ -352,7 +379,12 @@ canvas.addEventListener('wheel', event => {
 canvas.addEventListener('contextmenu', event => event.preventDefault());
 
 function setTarget(value) {
-  state.target = Math.max(150, Math.min(1800, Math.round(Number(value) || 600))); $('targetNumber').value = state.target; $('targetRange').value = state.target; updateDensity(); dirty(); persist();
+  const requested = Math.round(Number(value));
+  if (!Number.isFinite(requested) || requested < 150 || requested > 1800) {
+    $('targetNumber').value = state.target; $('targetRange').value = state.target;
+    notify('Supported targets are 150–1,800 quads. The target was not changed.', true); return;
+  }
+  state.target = requested; $('targetNumber').value = state.target; $('targetRange').value = state.target; updateDensity(); dirty(); persist();
 }
 // Source density in quad equivalents: two triangles cover about one quad.
 // Spacing is sqrt(area / count), the same edge-size rule the solvers apply to the target.
@@ -369,7 +401,11 @@ function updateDensity() {
   const relation = finer > 1.05 ? `${finer.toFixed(1)}× finer than source` : finer < .95 ? `${(1 / finer).toFixed(1)}× coarser than source` : 'matches source';
   $('densityInfo').textContent = `Source ≈ ${countText(d.quads)} quads, spacing ${spacing(d.quads).toPrecision(2)}. Target spacing ${spacing(state.target).toPrecision(2)}, ${relation}.`;
   $('densityWarning').hidden = Number(finer.toFixed(1)) <= 1.5;
-  for (const [id, factor] of densityButtons) $(id).title = `Set the target to ${countText(Math.round(d.quads * factor))} quads`;
+  for (const [id, factor] of densityButtons) {
+    const wanted = Math.round(d.quads * factor), supported = wanted >= 150 && wanted <= 1800;
+    $(id).disabled = !supported;
+    $(id).title = supported ? `Set the target to ${countText(wanted)} quads` : `${countText(wanted)} quads is outside the supported 150–1,800 range`;
+  }
 }
 const densityButtons = [['halfButton', .5], ['sameButton', 1], ['doubleButton', 2]];
 async function loadMesh(id) {
@@ -377,9 +413,10 @@ async function loadMesh(id) {
   editor.run(() => { editor.cancel(); editor.select([]); }); ++importTicket;
   const version = ++state.version; if (state.job) await cancelGeneration();
   $('generateButton').disabled = true; const mesh = await api('/api/mesh/' + id); if (version !== state.version) return;
-  state.mesh = mesh; state.density = sourceDensity(mesh); state.result = null; state.resultJob = null; state.resultKey = null; state.selected = -1;
+  state.mesh = mesh; state.density = sourceDensity(mesh); state.result = null; state.resultJob = null; state.resultKey = null; state.selected = -1; state.lastAttempt = null;
+  try { const attempt = JSON.parse(localStorage.getItem('retopo-1:last-attempt:' + id)); if (attempt?.sourceSha256 === mesh.sourceSha256 && ['failed', 'cancelled'].includes(attempt.phase) && typeof attempt.message === 'string') state.lastAttempt = attempt; } catch { /* Optional operation history. */ }
   let loadedGuides = (id === 'hexagon' ? [] : mesh.presets[0]?.curves || []).map(c => fromPositions(c, 'polyline', false, createGuideId, { detectClosure: true })); state.target = mesh.target; state.guideMode = 2;
-  try { const saved = JSON.parse(localStorage.getItem('retopo-1:' + id)); if (saved?.sourceSha256 === mesh.sourceSha256) { loadedGuides = decodeGuides({ ...saved, coordinateFrame: 'source' }, mesh.sourceSha256, createGuideId); state.target = saved.target; state.guideMode = saved.guideMode === 1 && id === 'cylinder' ? 1 : 2; } } catch { /* Ignore incompatible saved data. */ }
+  try { const saved = JSON.parse(localStorage.getItem('retopo-1:' + id)); if (saved?.sourceSha256 === mesh.sourceSha256) { loadedGuides = decodeGuides({ ...saved, coordinateFrame: 'source' }, mesh.sourceSha256, createGuideId); if (Number.isInteger(saved.target) && saved.target >= 150 && saved.target <= 1800) state.target = saved.target; state.guideMode = saved.guideMode === 1 && id === 'cylinder' ? 1 : 2; } } catch { /* Ignore incompatible saved data. */ }
   draft = []; dispose(resultGroup); resultRender = null;
   sourceRender = buildMesh(mesh, sourceGroup); surfaceGuides.setSource(mesh); guideDocument.load(loadedGuides); $('sourceMeta').textContent = `${countText(mesh.faces.length)} triangles`; $('meshDescription').textContent = mesh.description; $('workspaceModelName').textContent = mesh.title; $('solverNote').classList.toggle('experimental', !!mesh.experimentalRetopology);
   const credit = $('sourceCredit'); credit.replaceChildren(); const author = document.createElement(mesh.source.url ? 'a' : 'span'); author.textContent = mesh.source.author;
@@ -392,9 +429,11 @@ async function loadMesh(id) {
     try { const preview = await api(mesh.previewUrl); if (version === state.version) showResult(preview, null, preview.curves || [], preview.target, preview.guideMode || 2); } catch { /* A missing preview does not disable live generation. */ }
   }
   $('generateButton').disabled = false; workspaceShell.addLog('Loaded ' + mesh.title + '.');
+  syncResultFeedback();
 }
 function showResult(result, job, curves, target, mode) {
   state.result = result; state.resultJob = job; state.resultKey = JSON.stringify([state.mesh.id, curves, target, mode]);
+  if (job) setAttempt('complete');
   resultRender = buildMesh({ ...result, displayColor: state.mesh.displayColor, displaySmooth: state.mesh.displaySmooth, wireOpacity: state.mesh.wireOpacity }, resultGroup); $('resultEmpty').hidden = true; $('resultMeta').textContent = `${countText(result.faces.length)} faces`;
   $('resultLabel').textContent = job ? 'Retopology' : 'Example result'; $('exportMesh').disabled = false; $('detailsButton').disabled = false;
   updateMetrics(); displaySettings(); dirty(); setView(state.view);
@@ -417,6 +456,7 @@ async function generate() {
   const request = { meshId: state.mesh.id, curves: clone(state.guides), target: state.target, guideMode: state.guideMode };
   if ((request.meshId === 'cylinder' || state.mesh.requiresGuides) && !request.curves.length) return notify('Draw a guide or load the example network for this curved mesh.', true);
   workspaceShell.addLog('Generating retopology…');
+  setAttempt('running');
   const token = ++generation; state.busy = true; $('processing').hidden = false; $('generateButton').disabled = true; $('notice').hidden = true;
   const started = performance.now(); const timer = setInterval(() => { $('processTime').textContent = `${Math.round((performance.now() - started) / 1000)}s`; }, 300);
   $('processTime').textContent = '0s'; $('processDetail').textContent = state.mesh.solver === 'surface-quads' ? 'Building a quad layout, fitting your guide paths and checking the source surface…' : request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
@@ -437,11 +477,12 @@ async function generate() {
       if (job.state === 'cancelled') return;
       await new Promise(resolve => setTimeout(resolve, 500));
     }
-  } catch (error) { if (token === generation) notify(error.message, true, true); }
+  } catch (error) { if (token === generation) { setAttempt('failed', error.message); notify(error.message, true, true); } }
   finally { clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false; } }
 }
 async function cancelGeneration() {
-  const id = state.job; ++generation; state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false;
+  const id = state.job, wasBusy = state.busy; ++generation; state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false;
+  if (wasBusy) setAttempt('cancelled');
   if (id) { try { await api('/api/jobs/' + id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }); } catch (error) { notify(error.message, true); } }
 }
 function downloadBlob(name, data) {
@@ -456,7 +497,6 @@ $('presetButton').onclick = () => { commit(state.mesh.presets[Number($('presetSe
 for (const [id, factor] of densityButtons) $(id).onclick = () => {
   if (!state.density) return;
   const wanted = Math.round(state.density.quads * factor); setTarget(wanted);
-  if (state.target !== wanted) notify(`${countText(wanted)} quads is outside this demo's 150–1,800 range, so the target is ${countText(state.target)}.`);
 };
 $('targetRange').oninput = event => setTarget(event.target.value); $('targetNumber').onchange = event => setTarget(event.target.value);
 $('guideMode').onchange = event => { state.guideMode = Number(event.target.value); dirty(); persist(); };
@@ -539,5 +579,5 @@ async function start() {
   } catch (error) { $('connection').className = 'badge error'; $('connection').textContent = 'Service unavailable'; notify(error.message + ' Start the app using start.cmd.', true, true); }
 }
 // Read-only inspection hooks support reproducible canvas interaction checks.
-window.retopoDemo = { getState: () => ({ meshId: state.mesh?.id, guides: clone(state.guides), target: state.target, mode: state.guideMode, resultFaces: state.result?.faces.length, resultJob: state.resultJob, busy: state.busy, dirty: state.dirty, view: state.view, tool: state.tool, draft: clone(draft), sourceStats: state.mesh?.stats, sourceMaterial: sourceRender ? { color: sourceRender.solid.material.color.getHexString(), metalness: sourceRender.solid.material.metalness } : null, guideDocument: clone(guideDocument.guides), guideHistory: guideDocument.history, guideRevisions: Object.fromEntries(guideDocument.guides.map(g => [g.id, guideDocument.revision(g.id)])), interaction: editor.observe(), guideErrors: clone(guideErrors) }), projectPoint: (point, pane = 0) => project(point, pane), pickSource: (x, y, pane = 0) => hit(x, y, pane)?.point.toArray() || null };
+window.retopoDemo = { getState: () => ({ meshId: state.mesh?.id, guides: clone(state.guides), target: state.target, mode: state.guideMode, resultFaces: state.result?.faces.length, resultJob: state.resultJob, lastAttempt: clone(state.lastAttempt), resultGuideOverlayVisible: guideGroups[1].visible, busy: state.busy, dirty: state.dirty, view: state.view, tool: state.tool, draft: clone(draft), sourceStats: state.mesh?.stats, sourceMaterial: sourceRender ? { color: sourceRender.solid.material.color.getHexString(), metalness: sourceRender.solid.material.metalness } : null, guideDocument: clone(guideDocument.guides), guideHistory: guideDocument.history, guideRevisions: Object.fromEntries(guideDocument.guides.map(g => [g.id, guideDocument.revision(g.id)])), interaction: editor.observe(), guideErrors: clone(guideErrors) }), projectPoint: (point, pane = 0) => project(point, pane), pickSource: (x, y, pane = 0) => hit(x, y, pane)?.point.toArray() || null };
 renderer.setClearColor(color('--bg')); render(); start();

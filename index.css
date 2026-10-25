@@ -6,3 +6,5 @@
 @media(prefers-reduced-motion:reduce){.process-line:after{animation:none;width:100%}}
 
 .clear-nav{width:100%;margin-top:9px;font-size:10px;padding:4px;color:var(--muted)}.guide-remove svg{width:13px;height:13px}.guide-item .guide-remove{padding:3px}
+
+.result-empty[data-state=failed]{color:var(--red-fg)}.result-empty[data-state=failed] strong{font-weight:600}.result-empty p{max-width:400px;margin:8px auto;line-height:1.6}.generation-feedback{position:absolute;top:40px;left:calc(50% + 12px);right:12px;padding:9px 12px;color:var(--red-fg);background:var(--red-bg);border:1px solid var(--red-br);border-radius:4px;font-size:11px;line-height:1.5;z-index:2;pointer-events:none}.generation-feedback.overlay{left:12px}

@@ -24,6 +24,7 @@ from measure_geometry import guide_alignment, topology
 from measure_polygon_geometry import triangulate
 from mesh_validation import links
 from quad_quality import measure as quad_quality
+from surface_intersections import measure as surface_intersections
 
 ROOT = Path(__file__).resolve().parent
 BACKEND = 'engineering-guided-surface-quads'
@@ -198,7 +199,8 @@ def _refine(source_mesh, positions, faces, edges, pins, targets, target):
     spacing = np.sqrt(source_mesh.area / target)
     jacobian, cosine = _corners(positions, faces)
     bad = (jacobian.min(axis=1) < .7) | (np.abs(cosine).max(axis=1) > .75)
-    active = set(faces[bad].ravel()) | set(pins)
+    vertex_anchor, vertex_error, vertex_triangles = trimesh.proximity.closest_point(source_mesh, positions)
+    active = set(faces[bad].ravel()) | set(pins) | set(np.flatnonzero(vertex_error > spacing * .25))
     out_tri = np.r_[faces[:, [0, 1, 2]], faces[:, [0, 2, 3]]]
     out_surface = trimesh.Trimesh(positions, out_tri, process=False)
     near, error, owners = trimesh.proximity.closest_point(out_surface, source_mesh.vertices)
@@ -215,11 +217,12 @@ def _refine(source_mesh, positions, faces, edges, pins, targets, target):
     lookup = np.full(len(positions), -1, dtype=int); lookup[ids] = np.arange(len(ids))
     local_faces = faces[np.any(np.isin(faces, ids), axis=1)]
     local_edges = edges[np.any(np.isin(edges, ids), axis=1)]
-    anchor, _, triangle_ids = trimesh.proximity.closest_point(source_mesh, positions[ids])
-    normal = source_mesh.face_normals[triangle_ids]
+    anchor = vertex_anchor[ids]
+    normal = source_mesh.face_normals[vertex_triangles[ids]]
     groups = [(len(local_faces) * 4, local_faces)] * 3 + [(len(local_faces), local_faces)]
     groups += [(len(local_edges), local_edges)] * 2
-    groups += [(len(ids), ids[:, None]), (len(ids) * 3, ids[:, None]), (len(pins) * 3, pins[:, None]), (len(support) * 3, support)]
+    groups += [(len(ids), ids[:, None]), (len(ids) * 3, ids[:, None]), (len(pins) * 3, pins[:, None]), (len(support) * 3, support),
+               (len(ids), ids[:, None]), (len(support), support)]
     sparsity = lil_matrix((sum(size for size, _ in groups), len(ids) * 3), dtype=int)
     offset = 0
     for size, owners in groups:
@@ -237,12 +240,19 @@ def _refine(source_mesh, positions, faces, edges, pins, targets, target):
         delta = q[ids] - anchor
         fl = np.linalg.norm(np.roll(q[local_faces], -1, axis=1) - q[local_faces], axis=2)
         ratio = fl.max(axis=1) / np.maximum(1e-10, fl.min(axis=1))
+        surface_delta = (q[support] * barycentric[:, :, None]).sum(axis=1) - support_target
+        # Keep movement inside a local surface trust region, in both directions.
+        # A tangent-plane residual alone permits large sideways departures from
+        # curved areas while fitting a second guide. These soft barriers leave
+        # margin inside the unchanged half-edge-length acceptance tolerance.
         return np.r_[np.maximum(.7 - jacobian, 0).ravel() * 60,
                      np.maximum(np.abs(cosine) - .7, 0).ravel(), cosine.ravel() * .1,
                      np.maximum(ratio - 3.5, 0) * 10, np.maximum(.4 - length / spacing, 0) * 5,
                      np.maximum(length / spacing - 1.7, 0), (delta * normal).sum(axis=1) / spacing * 6,
-                     delta.ravel() / spacing * .12, (q[pins] - targets).ravel() / spacing * 40,
-                     ((q[support] * barycentric[:, :, None]).sum(axis=1) - support_target).ravel() / spacing * 4]
+                     delta.ravel() / spacing * 2, (q[pins] - targets).ravel() / spacing * 80,
+                     surface_delta.ravel() / spacing * 4,
+                     np.maximum(np.linalg.norm(delta, axis=1) / spacing - .35, 0) * 40,
+                     np.maximum(np.linalg.norm(surface_delta, axis=1) / spacing - .35, 0) * 40]
     result = least_squares(residual, positions[ids].ravel(), jac_sparsity=sparsity.tocsr(), max_nfev=150, ftol=1e-6, xtol=1e-5)
     output = positions.copy(); output[ids] = result.x.reshape(-1, 3)
     return output, {'vertices': len(ids), 'evaluations': result.nfev, 'sourceSupportPoints': len(support)}
@@ -293,13 +303,14 @@ def construct(source, triangles, curves, *, target, job):
             quality = quad_quality(positions, faces, target)
             validation = validate_surface(source, triangles, positions, faces, target)
             fit = _guide_fit(positions, paths, curves)
+            intersections = surface_intersections(positions, faces)
             guided = all(p['p95Distance'] <= .20 * spacing and p['p95TangentAngleDegrees'] <= 30 for p in fit)
-            history.append(dict(seed=seed, iteration=iteration, refinement=refinement, quality=quality,
+            history.append(dict(seed=seed, iteration=iteration, refinement=refinement, quality=quality, intersections=intersections,
                                 surface=validation, guideFit=[{k: p[k] for k in ('curve', 'p95Distance', 'p95TangentAngleDegrees')} for p in fit]))
-            if quality['passed'] and validation['passed'] and guided:
-                files = [Path(__file__), ROOT / 'quad_quality.py', ROOT / 'scripts/quadriflow_mesh.py']
+            if quality['passed'] and validation['passed'] and guided and intersections['passed']:
+                files = [Path(__file__), ROOT / 'quad_quality.py', ROOT / 'surface_intersections.py', ROOT / 'scripts/quadriflow_mesh.py']
                 metadata = dict(backend=BACKEND, nativeComparisonPerformed=False, generalAlgorithmRecovered=False,
-                                target=target, guideMode=2, closedValidation=validation, guidePaths=fit,
+                                target=target, guideMode=2, closedValidation=validation, guidePaths=fit, intersectionValidation=intersections,
                                 outputCreases=output_creases(positions, faces.tolist()), refinementHistory=history,
                                 layoutEngine=dict(name='Blender QuadriFlow', version=packet['blenderVersion'], executable=str(blender), seed=seed),
                                 sourceHashes={str(p.resolve()): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
@@ -309,6 +320,21 @@ def construct(source, triangles, curves, *, target, job):
                                              'Overlapping or unresolved guide paths reject; general crease/attribute transfer is not implemented.'])
                 _write(job / 'surface-solver.json', metadata)
                 return positions, faces.tolist(), metadata
-    _write(job / 'surface-solver-failure.json', {'attempts': history})
+    def failures(attempt):
+        reasons = []
+        if not attempt['quality']['passed']:
+            reasons.append('quad quality')
+        if not attempt['surface']['passed']:
+            reasons.append('source-surface accuracy')
+        if not attempt['intersections']['passed']:
+            reasons.append('non-adjacent face intersections')
+        for guide in attempt['guideFit']:
+            if guide['p95Distance'] > .2 * spacing or guide['p95TangentAngleDegrees'] > 30:
+                reasons.append(f"guide {guide['curve'] + 1} alignment")
+        return reasons
+    closest = min(history, key=lambda attempt: len(failures(attempt)))
+    reasons = failures(closest)
+    _write(job / 'surface-solver-failure.json', {'attempts': history, 'closestAttempt': {'seed': closest['seed'], 'iteration': closest['iteration'], 'failedRequirements': reasons}})
     _write(job / 'failed-surface-candidate.json', {'vertices': positions.tolist(), 'faces': faces.tolist()})
-    raise ValueError('The surface quad candidate did not meet the surface, guide and quad-quality limits at this density. Increase the target or simplify the guide network.')
+    raise ValueError('Generation failed: the closest candidate did not meet the limits for ' + ', '.join(reasons)
+                     + '. No new mesh was accepted; your source and guides are unchanged.')

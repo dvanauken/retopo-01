@@ -23,6 +23,8 @@ This machine already has the qualified64-bit Windows Python numerical environmen
 
 The toilet's curved-surface quad solver also uses the locally installed Blender. On a new machine, install Blender or set `RETOPO_BLENDER` to its executable before starting the server. See [TOILET_SOLVER.md](TOILET_SOLVER.md) for construction, acceptance limits and verification.
 
+Toilet testing currently has a known failing regression: the longer captured bowl-plus-lid guide network cannot satisfy the added face-intersection checks. The bowl-only and shorter two-guide examples work. `npm run test:toilet:stress` retains both accepted and rejected outcomes and exits nonzero for the unresolved case; see [the test evidence](tests/toilet-stress/result.json).
+
 ## Try it
 
 1. Start with **Hollow hexagon**, the downloaded online example. The right view initially shows an explicitly labeled example baseline. Its source has896 triangles; the current baseline has624 actual quads.
@@ -60,7 +62,7 @@ The default solid now uses a direct, geometry-detected structured annular grid: 
 
 The terrain uses the separately labeled closed-enclosure/visible-crop route. The curved cylinder uses the recovered field/parameterization/extraction path. The toilet explicitly uses an engineering QuadriFlow layout plus connected guide-path fitting and surface/shape refinement; the recovered conditioning path remains unchanged. The independently built reference engine closure is copied into `engine/` with its licenses and recorded hashes. Core files are preserved from the qualified research package; this app supplies interaction, job isolation and actual export measurements around it.
 
-Target count is approximate. Strong or numerous constraints can increase it. The metrics show actual face proportions, component/border/incidence and vertex-link checks, plus guide-to-output-edge p95 distances in source units. Up to129 evenly indexed samples per guide are used for the demo distance metric. These finite checks are not a Hausdorff certificate or complete3D collision test. Engineering alternatives are not claimed to reproduce every native ZBrush branch.
+Target count is approximate. Strong or numerous constraints can increase it. The metrics show actual face proportions, component/border/incidence and vertex-link checks, plus guide-to-output-edge p95 distances in source units. The curved-surface route measures 257 uniformly spaced arc-length samples against each connected guide path; legacy routes use up to 129 evenly indexed samples. These finite checks are not a Hausdorff certificate or complete3D collision test. Engineering alternatives are not claimed to reproduce every native ZBrush branch.
 
 General overlapping/degenerate constraints, thin-sheet projection, arbitrary source attributes/flat crease strengths, exact native allocation/parameterization parity and nonconvex/holed terrain domains remain follow-up work. The UI reports unsupported networks rather than pretend a failed solve succeeded. The supplied examples deliberately expose the useful ordinary contract while keeping those limitations explicit.
 

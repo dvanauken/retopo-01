@@ -40,6 +40,7 @@ def main():
   if meta['backend']==SURFACE_QUAD_BACKEND:
    mesh['guideSampleMethod']='257 uniformly spaced authored arc-length samples per guide, measured against its connected output-edge path.'
    mesh['surfaceValidation']=meta['closedValidation']
+   mesh['intersectionValidation']=meta['intersectionValidation']
   valid=mesh['stats']['nonmanifoldEdges']==0 and mesh['stats']['zeroAreaFanTriangles']==0 and not mesh['vertexLinks']['nonmanifoldVertices'] and mesh['vertexLinks']['inconsistentWindingEdges']==0
   if not valid:raise ValueError('Output failed the demo topology checks')
   h=float(np.sqrt(np.sum(np.linalg.norm(np.cross(v[f[:,1]]-v[f[:,0]],v[f[:,2]]-v[f[:,0]]),axis=1))*.5/settings['target']))

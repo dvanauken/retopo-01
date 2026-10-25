@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "constructionCompleted": false,
+  "message": "The surface quad candidate did not meet the surface, guide and quad-quality limits at this density. Increase the target or simplify the guide network.",
+  "technicalMessage": "The surface quad candidate did not meet the surface, guide and quad-quality limits at this density. Increase the target or simplify the guide network.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 32, in main\n    if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)\n                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 314, in construct\n    raise ValueError('The surface quad candidate did not meet the surface, guide and quad-quality limits at this density. Increase the target or simplify the guide network.')\nValueError: The surface quad candidate did not meet the surface, guide and quad-quality limits at this density. Increase the target or simplify the guide network.\n",
+  "elapsedSeconds": 62.764999999984866,
+  "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+  "workerSha256": "a089d71ddbf2f2d7ca52861e6c3f33f1daa9b81ab2fb49de8a018f1bcd3801a1"
+}

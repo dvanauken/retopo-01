@@ -58,6 +58,10 @@
       "passed": true
     },
     {
+      "name": "Exported toilet also passes the non-adjacent polygon crossing screen",
+      "passed": true
+    },
+    {
       "name": "Unmodified reference surface/topology validator independently accepts the exported toilet",
       "passed": true
     },
@@ -116,21 +120,21 @@
   ],
   "browserErrors": [],
   "workerJobs": [
-    "53fbb358e173456c912a46303397b42c",
-    "25323d5be51244888169b67ced30f5d3",
-    "fc5db6bc7fe642cf831e6533a54e4cb5",
-    "c1dd2a16878447b391686a1dcbb5821d",
-    "a35282042b7c498685828349b1b47a10"
+    "9ff251643a844c719522a08b5d99ef7b",
+    "bb5ebb194e594daabf6c327a662f5de2",
+    "246f58a16a634a18a5bb1fdb5975ff47",
+    "727693f62de24a49b42f68fee2513a4e",
+    "56cd18ab4c064aababa42a35d58889ee"
   ],
   "guidedFaces": 1923,
   "guideFit": {
     "samples": 257,
-    "meanDistance": 0.00303546078752334,
-    "p95Distance": 0.013715146050434675,
-    "maxDistance": 0.023577408244038353,
-    "meanDistanceOverMedianEdge": 0.04402183573253269,
-    "meanUnsignedTangentAngleDegrees": 7.641855474053898,
-    "p95UnsignedTangentAngleDegrees": 26.623597176805085,
+    "meanDistance": 0.0030515246321746636,
+    "p95Distance": 0.012981117336408624,
+    "maxDistance": 0.018816124557095713,
+    "meanDistanceOverMedianEdge": 0.0431604705045764,
+    "meanUnsignedTangentAngleDegrees": 7.5717168444502665,
+    "p95UnsignedTangentAngleDegrees": 23.327524899309065,
     "selectedEdgeCount": 52,
     "selectedEdgeGraphComponents": 1,
     "selectedEdgeGraphDegreeHistogram": {
@@ -141,18 +145,19 @@
   },
   "unguidedAlignment": {
     "samples": 257,
-    "meanDistance": 0.014153107714843714,
-    "p95Distance": 0.029879675820787238,
-    "maxDistance": 0.03940991285380702,
-    "meanDistanceOverMedianEdge": 0.1794004027079398,
-    "meanUnsignedTangentAngleDegrees": 36.43817867073472,
-    "p95UnsignedTangentAngleDegrees": 89.31459340969954,
-    "selectedEdgeCount": 84,
-    "selectedEdgeGraphComponents": 7,
+    "meanDistance": 0.013691718273458492,
+    "p95Distance": 0.027115776633191074,
+    "maxDistance": 0.035407395015190045,
+    "meanDistanceOverMedianEdge": 0.17345811599343391,
+    "meanUnsignedTangentAngleDegrees": 33.99854365506873,
+    "p95UnsignedTangentAngleDegrees": 88.83339738137464,
+    "selectedEdgeCount": 92,
+    "selectedEdgeGraphComponents": 3,
     "selectedEdgeGraphDegreeHistogram": {
-      "3": 27,
-      "2": 23,
-      "1": 41
+      "2": 16,
+      "3": 35,
+      "1": 43,
+      "4": 1
     },
     "selectedEdgesFormSingleCycle": false,
     "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
@@ -185,17 +190,17 @@
     },
     "sourceToOutputNormalized": {
       "samples": 2000,
-      "rms": 0.004096212914633277,
-      "mean": 0.0028671713339272773,
-      "p95": 0.008754783423627755,
-      "sampledMax": 0.017486751821745024
+      "rms": 0.004168201041191315,
+      "mean": 0.0029709286047964758,
+      "p95": 0.008996479724145929,
+      "sampledMax": 0.018169393411064574
     },
     "outputToSourceNormalized": {
       "samples": 1923,
-      "rms": 0.0024541658113619263,
-      "mean": 0.00131471403166779,
-      "p95": 0.005718321590188777,
-      "sampledMax": 0.01417945798830643
+      "rms": 0.002549760151371955,
+      "mean": 0.0013790584654912723,
+      "p95": 0.005989405488255057,
+      "sampledMax": 0.016180650601840423
     },
     "measurementFrame": {
       "center": [
@@ -220,12 +225,13 @@
     ]
   },
   "sourceHashes": {
-    "curved_quad.py": "3d2b95d7efe6515718a24865ebe3a36c2e12eae5518035b431a9ebf77c46d666",
+    "curved_quad.py": "344817f85da04c8133932964b3c69c215b58dea688a170a1535bd81b91c62cb6",
+    "surface_intersections.py": "5bee9b29ca14ade6ada71f61f4fef6dc71753797baafba6d61890fd8184c7a1d",
     "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
-    "server.py": "d20ad99ccb15fd0aa54f66ec7f906845804db67acd18790a820b0f9ac721b6cd",
-    "worker.py": "a089d71ddbf2f2d7ca52861e6c3f33f1daa9b81ab2fb49de8a018f1bcd3801a1",
+    "server.py": "c13dbe39fa83c4bf3868c83b2be2ab8664b2d825273afdee29309db6542c85d8",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
     "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
-    "app.js": "20dc8b124380f8138fa2e3de5ea2500d5b0f4b1e52559d61c0a61c051ddc5a23",
+    "app.js": "24bd4b79a01b593ca62cad570ec11de250dbe809f41d5d471f9854dbb8d956de",
     "assets/models/toilet.json": "09e46f096677f7058bd0f6a2977dbdf2f6f7ea72a812a1ceb1b9fd8208b751f3",
     "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
   },
