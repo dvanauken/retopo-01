@@ -1,0 +1,20 @@
+{
+  "id": "8a61805ba7cc41ccbc353bebb63d0218",
+  "meshId": "toilet",
+  "target": 1800,
+  "state": "failed",
+  "stage": "Could not generate this network",
+  "createdAt": 1792897072.5095773,
+  "startedAt": 1792897072.5095773,
+  "finishedAt": 1792897426.7614057,
+  "actualExitCode": 1,
+  "error": "Generation failed: the closest candidate did not meet the limits for guide 1 alignment. No new mesh was accepted; your source and guides are unchanged.",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\8a61805ba7cc41ccbc353bebb63d0218"
+  ]
+}

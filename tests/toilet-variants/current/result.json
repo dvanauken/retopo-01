@@ -1,0 +1,253 @@
+{
+  "complete": true,
+  "generationPassed": false,
+  "safetyChecksPassed": true,
+  "cases": [
+    {
+      "name": "circle-repeat",
+      "target": 1800,
+      "job": "1a4e9bda665d4481adb8846e36b34f35",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 201.5779999999795,
+      "faces": 1782,
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+      "repeatWithin1e9": true
+    },
+    {
+      "name": "circle-reversed",
+      "target": 1800,
+      "job": "de042615817c41bda18dfc21ba4d53b9",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 302.4679999999935,
+      "faces": 1782,
+      "outputSha256": "6bbfb7cf548874314032f98d1555784bdf8490ba2a7088050a8770d0cc1c615b"
+    },
+    {
+      "name": "circle-cyclic-start",
+      "target": 1800,
+      "job": "c551e50ccd424940a4d1ded1ffe50133",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 108.51499999998487,
+      "faces": 1782,
+      "outputSha256": "82b14ceb13f7970a736c988fc36af88557bbff74539ec92c99e31636896eca1d"
+    },
+    {
+      "name": "circle-densified",
+      "target": 1800,
+      "job": "c46e1557a63748409a5bd4efdf1b5907",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 134.89000000001397,
+      "faces": 1782,
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0"
+    },
+    {
+      "name": "lid-reversed",
+      "target": 1800,
+      "job": "3b1afea0000c4c6d97f118d2fa425d35",
+      "state": "failed",
+      "message": "The mesh calculation exceeded the ten-minute limit.",
+      "elapsedSeconds": 600.4379999999946
+    },
+    {
+      "name": "combined-reordered",
+      "target": 1800,
+      "job": "1c2b0bd6e8c44c2faf225197320483dd",
+      "state": "failed",
+      "message": "Generation failed: the closest candidate did not meet the limits for quad quality. No new mesh was accepted; your source and guides are unchanged.",
+      "elapsedSeconds": 208.8289999999979
+    },
+    {
+      "name": "circle-small-perturbation",
+      "target": 1800,
+      "job": "8ba8b96131834264bf44983e19273af1",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 91.65599999998813,
+      "faces": 1923,
+      "outputSha256": "ff12115c20f25a55aeb1f9d4f47cd61e8729c6b04ea74198597ba053d561f903"
+    },
+    {
+      "name": "unguided-150",
+      "target": 150,
+      "job": "cb553bf915e44f85927fb31a1d29816f",
+      "state": "failed",
+      "message": "Generation failed: the closest candidate did not meet the limits for quad quality, source-surface accuracy, face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.",
+      "elapsedSeconds": 36.60999999998603
+    },
+    {
+      "name": "unguided-600",
+      "target": 600,
+      "job": "7b0e7d2904bd441e9e6a96fed054e6d2",
+      "state": "failed",
+      "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.",
+      "elapsedSeconds": 79.625
+    },
+    {
+      "name": "unguided-1200",
+      "target": 1200,
+      "job": "fcb2d70ecb4a4f1c983972eb81f7bfa6",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 71.03200000000652,
+      "faces": 1224,
+      "outputSha256": "bf51b70718db05c4d27b7f087e3b03d4b2ebc48def539a9ba23d54fb28c640a6"
+    },
+    {
+      "name": "unguided-1799",
+      "target": 1799,
+      "job": "250f0bc1a80342469f5ff535461ba46d",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 50.53200000000652,
+      "faces": 1777,
+      "outputSha256": "0250ecf588111d2aab90bf6018b5fc5a9a36b69244d51a8ca554e0332b6fcdb9"
+    }
+  ],
+  "checks": [
+    {
+      "name": "circle-repeat: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "Repeated identical Circle input reproduces faces and coordinates within 1e-9",
+      "passed": true
+    },
+    {
+      "name": "circle-repeat: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "circle-reversed: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "circle-reversed: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "circle-cyclic-start: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "circle-cyclic-start: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "circle-densified: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "circle-densified: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "lid-reversed: unaccepted mesh.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "lid-reversed: unaccepted output.obj is unavailable",
+      "passed": true
+    },
+    {
+      "name": "lid-reversed: unaccepted features.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "lid-reversed: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "combined-reordered: unaccepted mesh.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "combined-reordered: unaccepted output.obj is unavailable",
+      "passed": true
+    },
+    {
+      "name": "combined-reordered: unaccepted features.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "combined-reordered: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "circle-small-perturbation: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "circle-small-perturbation: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "unguided-150: unaccepted mesh.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "unguided-150: unaccepted output.obj is unavailable",
+      "passed": true
+    },
+    {
+      "name": "unguided-150: unaccepted features.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "unguided-150: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "unguided-600: unaccepted mesh.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "unguided-600: unaccepted output.obj is unavailable",
+      "passed": true
+    },
+    {
+      "name": "unguided-600: unaccepted features.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "unguided-600: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "unguided-1200: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "unguided-1200: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "unguided-1799: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "unguided-1799: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "Source and implementation remain fixed through the matrix",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "7d94773f58770feb0a1250bc445241c1ee6f313367d32f7f60c6d05ee835650a",
+    "server.py": "6e9e9c1b4f885f789e2a5fdf74207ee1daa4fc1398e30acea6de04ce475768bb",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "6d1fe88da7145153a1e62100641f1c5c083a0fe92e28e05fd99e092319aba1eb",
+    "surface_intersections.py": "730724fc3ad953b4e305e3561fa2602dfea3460a4ea120f7350af662b2c0e8b4",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_toilet_variants.py": "421e4788d50cf5cb780f8d9db924a2594b50aeb0845664a677c7365c3585c4a0"
+  },
+  "scope": "Fresh Blender layouts and actual worker requests. Tests finite equivalent representations, deterministic repeat, 0.001-unit Gaussian perturbation projected to source, and supported density partitions. Failed geometry remains unsolved; does not prove all continuous inputs."
+}

@@ -1,0 +1,19 @@
+Building the quad surface layout
+Fitting guides and refining quads · pass 1
+Fitting guides and refining quads · pass 2
+Fitting guides and refining quads · pass 3
+Fitting guides and refining quads · pass 4
+Fitting guides and refining quads · pass 5
+Building the quad surface layout
+Fitting guides and refining quads · pass 1
+Fitting guides and refining quads · pass 2
+Fitting guides and refining quads · pass 3
+Fitting guides and refining quads · pass 4
+Fitting guides and refining quads · pass 5
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\worker.py", line 32, in main
+    if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\curved_quad.py", line 387, in construct
+    raise ValueError('Generation failed: the closest candidate did not meet the limits for ' + ', '.join(reasons)
+ValueError: Generation failed: the closest candidate did not meet the limits for quad quality, source-surface accuracy, face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.

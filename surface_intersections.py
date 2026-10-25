@@ -1,6 +1,8 @@
 """Screen polygon contacts, allowing only their shared topological boundary.
 
-Quads use the same fan triangulation as the renderer. Coordinates are normalized
+By default quads use the renderer's fan. The optional all-diagonals mode checks
+every triangle pairing from either diagonal of each quad, including mixed choices
+on neighboring faces. Coordinates are normalized
 source coordinates; double-precision predicates use a 1e-9 length tolerance.
 Degeneracy, winding and vertex links are checked separately by the quality gates.
 """
@@ -113,7 +115,7 @@ def _possible_contacts(v, triangles, face_edges, face_pairs, eps):
     return [rows[i] for i in np.flatnonzero(active)]
 
 
-def measure(vertices, faces):
+def measure(vertices, faces, *, both_quad_diagonals=False):
     eps = 1e-9
     v = np.asarray(vertices, dtype=float)
     polygons = [v[f] for f in faces]
@@ -122,6 +124,10 @@ def measure(vertices, faces):
     ownership = [set(f) for f in faces]
     edges = [{tuple(sorted((f[i], f[(i + 1) % len(f)]))) for i in range(len(f))} for f in faces]
     triangles = [[[f[0], f[i], f[i+1]] for i in range(1,len(f)-1)] for f in faces]
+    if both_quad_diagonals:
+        for face, parts in zip(faces, triangles):
+            if len(face)==4:
+                parts.extend([[face[1],face[2],face[3]],[face[1],face[3],face[0]]])
     face_pairs = [(a,b) for a,bound in enumerate(bounds) for b in tree.intersection(bound) if b > a]
     tree.close()
     pairs, adjacent = [], []
@@ -143,4 +149,5 @@ def measure(vertices, faces):
             (adjacent if shared else pairs).append([a,b])
     return dict(passed=not pairs and not adjacent, nonAdjacentIntersectingFacePairs=sorted(pairs),
                 adjacentIntersectingFacePairs=sorted(adjacent),
-                scope='Indexed polygon bounds and triangle contact vertices, fan triangulation, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.')
+                quadDiagonalPolicy='all_pairings' if both_quad_diagonals else 'renderer_fan',
+                scope='Indexed polygon bounds and triangle contact vertices, '+('both quad diagonals with every mixed triangle pairing' if both_quad_diagonals else 'fan triangulation')+', 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.')

@@ -34,7 +34,10 @@ def execute(job):
     job['process']=process
     if job['state']=='cancelled':terminate_worker(process)
    try:code=process.wait(timeout=600)
-   except subprocess.TimeoutExpired:terminate_worker(process);code=process.wait(timeout=10);job['error']='The mesh calculation exceeded the ten-minute limit.'
+   except subprocess.TimeoutExpired:
+    terminate_worker(process);code=process.wait(timeout=10)
+    with LOCK:
+     if job['state']!='cancelled':job['error']='The mesh calculation exceeded the ten-minute limit.'
   with LOCK:
    job.update(finishedAt=time.time(),actualExitCode=code)
    if job['state']!='cancelled':
@@ -130,7 +133,11 @@ class Handler(BaseHTTPRequestHandler):
     write(folder/'settings.json',dict(meshId=mesh_id,target=target,guideMode=mode,sourceSha256=MESHES[mesh_id]['sourceSha256'],createdAt=datetime.datetime.now(datetime.timezone.utc).isoformat()))
     write(folder/'curves.json',dict(coordinateFrame='source',curves=curves))
     job=dict(id=job_id,meshId=mesh_id,target=target,state='queued',stage='Waiting for solver',createdAt=time.time(),directory=folder);JOBS[job_id]=job
-   QUEUE.submit(execute,job);return self.respond(snapshot(job),202)
+   QUEUE.submit(execute,job)
+   # A worker can insert process/exit fields immediately after submission.
+   # Copy the acknowledgement under the same lock as every worker update.
+   with LOCK:response=snapshot(job)
+   return self.respond(response,202)
   except (ValueError,TypeError,json.JSONDecodeError) as error:return self.respond(dict(error=str(error)),400)
 
 class LocalHTTPServer(ThreadingHTTPServer):

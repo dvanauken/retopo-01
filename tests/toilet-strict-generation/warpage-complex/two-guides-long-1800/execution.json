@@ -1,0 +1,20 @@
+{
+  "id": "324b2345be174ea8a31f6f7b97b15ca2",
+  "meshId": "toilet",
+  "target": 1800,
+  "state": "failed",
+  "stage": "Could not generate this network",
+  "createdAt": 1792896865.8192625,
+  "startedAt": 1792896865.8192625,
+  "finishedAt": 1792897072.129972,
+  "actualExitCode": 1,
+  "error": "Generation failed: the closest candidate did not meet the limits for quad quality. No new mesh was accepted; your source and guides are unchanged.",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\324b2345be174ea8a31f6f7b97b15ca2"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "detectorControlsPassed": true,
+  "results": [
+    {
+      "file": "C:\\dbva\\code\\retopo-1\\tests\\toilet-variants\\all-diagonal\\lid-reversed\\output.obj",
+      "polygons": 1782,
+      "nonAdjacentOverlapPairs": [],
+      "passed": true
+    }
+  ],
+  "scope": "Blender BVH candidates followed by double-precision triangle intersection tests (1e-9 tolerance), fan triangulation. Shared-vertex polygon pairs excluded. Not a complete test of adjacent folds, coplanar contacts or every self-intersection."
+}

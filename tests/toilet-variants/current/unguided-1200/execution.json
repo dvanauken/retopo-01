@@ -1,0 +1,20 @@
+{
+  "id": "fcb2d70ecb4a4f1c983972eb81f7bfa6",
+  "meshId": "toilet",
+  "target": 1200,
+  "state": "complete",
+  "stage": "Mesh ready",
+  "createdAt": 1792898666.5467517,
+  "startedAt": 1792898666.5467517,
+  "finishedAt": 1792898737.318872,
+  "actualExitCode": 0,
+  "resultUrl": "/api/jobs/fcb2d70ecb4a4f1c983972eb81f7bfa6/mesh.json",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\fcb2d70ecb4a4f1c983972eb81f7bfa6"
+  ]
+}

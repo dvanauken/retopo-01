@@ -1,0 +1,80 @@
+{
+  "complete": true,
+  "generationPassed": true,
+  "safetyChecksPassed": true,
+  "cases": [
+    {
+      "name": "lid-only-1800",
+      "job": "e7e6499b679342608f3f13746358b83d",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 80.89100000000326,
+      "guides": 1,
+      "faces": 1782
+    },
+    {
+      "name": "browser-lid-circle",
+      "job": "1702a1e256a14a078dc29099172d599f",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 95.20300000000861,
+      "guides": 1,
+      "faces": 1782
+    }
+  ],
+  "checks": [
+    {
+      "name": "lid-only-1800: accepted result carries whole-surface bounds",
+      "passed": true
+    },
+    {
+      "name": "lid-only-1800: both quad diagonals were bounded",
+      "passed": true
+    },
+    {
+      "name": "lid-only-1800: adjacent contacts were checked",
+      "passed": true
+    },
+    {
+      "name": "lid-only-1800: authored samples preserved",
+      "passed": true
+    },
+    {
+      "name": "browser-lid-circle: accepted result carries whole-surface bounds",
+      "passed": true
+    },
+    {
+      "name": "browser-lid-circle: both quad diagonals were bounded",
+      "passed": true
+    },
+    {
+      "name": "browser-lid-circle: adjacent contacts were checked",
+      "passed": true
+    },
+    {
+      "name": "browser-lid-circle: authored samples preserved",
+      "passed": true
+    },
+    {
+      "name": "Original toilet source is unchanged",
+      "passed": true
+    },
+    {
+      "name": "Implementation stayed fixed throughout this matrix",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "7d94773f58770feb0a1250bc445241c1ee6f313367d32f7f60c6d05ee835650a",
+    "server.py": "6e9e9c1b4f885f789e2a5fdf74207ee1daa4fc1398e30acea6de04ce475768bb",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "6d1fe88da7145153a1e62100641f1c5c083a0fe92e28e05fd99e092319aba1eb",
+    "surface_intersections.py": "730724fc3ad953b4e305e3561fa2602dfea3460a4ea120f7350af662b2c0e8b4",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_toilet_strict_generation.py": "769ee437c4a3d86f12765d482938f7ecc7ab7505150640cd54efc037e798d392"
+  },
+  "scope": "Fresh local worker and Blender solves on unchanged source/guide inputs. Rejection checks establish safe failure handling only; generationPassed stays false if a required solve fails."
+}

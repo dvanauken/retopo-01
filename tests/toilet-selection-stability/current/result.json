@@ -1,0 +1,155 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Native orbit exposes the actual underside of the toilet",
+      "passed": true
+    },
+    {
+      "name": "A native underside guide attaches to the bottom surface",
+      "passed": true
+    },
+    {
+      "name": "Top view occludes the underside guide behind a real surface",
+      "passed": true
+    },
+    {
+      "name": "Occluded guide body cannot be selected through the toilet",
+      "passed": true
+    },
+    {
+      "name": "An occluded point has no invisible drag handle",
+      "passed": true
+    },
+    {
+      "name": "Two visible lid guides coexist with the occluded underside guide",
+      "passed": true
+    },
+    {
+      "name": "Toilet marquee uses full containment and excludes hidden geometry left-to-right",
+      "passed": true
+    },
+    {
+      "name": "Toilet marquee uses full containment and excludes hidden geometry right-to-left",
+      "passed": true
+    },
+    {
+      "name": "Toilet marquees create no document history",
+      "passed": true
+    },
+    {
+      "name": "A partially contained lid guide is not marquee-selected",
+      "passed": true
+    },
+    {
+      "name": "Invalid group release preserves every guide and history atomically",
+      "passed": true
+    },
+    {
+      "name": "Invalid group release produces one incident for the entire group",
+      "passed": true
+    },
+    {
+      "name": "Hidden guide overlays cannot receive body selections",
+      "passed": true
+    },
+    {
+      "name": "Density-input keyboard ownership prevents guide deletion or tool shortcuts",
+      "passed": true
+    },
+    {
+      "name": "Twenty source/camera-view cycles preserve the exact saved toilet guides",
+      "passed": true
+    },
+    {
+      "name": "Retained JS heap grows by less than 8 MiB across forty source switches",
+      "passed": true
+    },
+    {
+      "name": "Repeated source switches do not accumulate browser documents",
+      "passed": true
+    },
+    {
+      "name": "Selection and repeat-use tests have no browser JavaScript errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "measurements": [
+    {
+      "label": "before-repetition",
+      "heapUsed": 9527816,
+      "nodes": 810,
+      "documents": 1,
+      "taskSeconds": 0.188464
+    },
+    {
+      "label": "after-5-cycles",
+      "heapUsed": 9610068,
+      "nodes": 858,
+      "documents": 1,
+      "taskSeconds": 24.114567
+    },
+    {
+      "label": "after-10-cycles",
+      "heapUsed": 9705476,
+      "nodes": 908,
+      "documents": 1,
+      "taskSeconds": 49.68689
+    },
+    {
+      "label": "after-15-cycles",
+      "heapUsed": 9764296,
+      "nodes": 958,
+      "documents": 1,
+      "taskSeconds": 77.119818
+    },
+    {
+      "label": "after-20-cycles",
+      "heapUsed": 9869976,
+      "nodes": 1008,
+      "documents": 1,
+      "taskSeconds": 102.248122
+    },
+    {
+      "label": "after-repetition",
+      "heapUsed": 9872948,
+      "nodes": 1008,
+      "documents": 1,
+      "taskSeconds": 102.480906
+    },
+    {
+      "cycles": 20,
+      "sourceSwitches": 40,
+      "cycleSeconds": [
+        4.75,
+        4.89000000001397,
+        4.782000000006519,
+        4.655999999988126,
+        4.625,
+        5.282000000006519,
+        4.89000000001397,
+        4.937999999994645,
+        4.967999999993481,
+        5.282000000006519,
+        5.437999999994645,
+        5.342999999993481,
+        6.219000000011874,
+        5.25,
+        4.9689999999827705,
+        5.1710000000020955,
+        4.9539999999979045,
+        4.89000000001397,
+        4.952999999979511,
+        4.969000000011874
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "app.js": "7d94773f58770feb0a1250bc445241c1ee6f313367d32f7f60c6d05ee835650a",
+    "src/view/SurfaceGuides.js": "7e0456176fe1ee4687eb9534264fcbfc3975b66bd3dd971dccf3775d96059ed9",
+    "src/view/GuideController.js": "556c4227867a7575909a689635d5f24ced3c1787e5a4005111833066e5ea228e",
+    "tests/verify_toilet_selection_stability.py": "a328deeceefd895957eed6d7628ff68d269cbdc18154b50d79be4ec87f3af0c5"
+  },
+  "scope": "Native underside orbit/drawing, real occlusion, source-pane selection at DPR 2, whole-group rejection, keyboard ownership and forty source switches. JS heap after GC is measured; this is a bounded repeat-use test, not an indefinite GPU-memory guarantee."
+}

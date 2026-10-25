@@ -20,6 +20,7 @@ from playwright.async_api import async_playwright
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--label', default='current')
+parser.add_argument('--scenarios', nargs='+')
 args = parser.parse_args()
 if not args.label.replace('-', '').isalnum():
     raise ValueError('Use a plain label')
@@ -50,15 +51,22 @@ async def exercise(browser, scenario):
     reply_ready, release_reply = asyncio.Event(), asyncio.Event()
     preview_ready, release_preview = asyncio.Event(), asyncio.Event()
     captured = {}
+    captured_requests = []
 
     async def hold(route):
         response = await route.fetch()
         captured.update(await response.json())
+        captured_requests.append(dict(captured))
         if 'id' not in captured:
             raise RuntimeError(captured)
         jobs.append(captured['id']); reply_ready.set()
         await release_reply.wait()
-        await route.fulfill(response=response)
+        try:
+            await route.fulfill(response=response)
+        except Exception as error:
+            if scenario not in ('reset-before-response', 'reset-two-pending'):
+                raise
+            captured['deliveryError'] = str(error)
 
     async def state():
         return await page.evaluate('window.retopoDemo.getState()')
@@ -120,6 +128,30 @@ async def exercise(browser, scenario):
             await page.wait_for_function('!window.retopoDemo.getState().busy')
             check((await state())['lastAttempt']['phase'] == 'cancelled' and await page.locator('#resultEmptyTitle').inner_text() == 'Generation cancelled',
                   'Cancellation observed by polling is reflected in persistent feedback')
+        elif scenario in ('reset-before-response', 'reset-two-pending'):
+            if scenario == 'reset-two-pending':
+                await page.locator('#cancelButton').click()
+                reply_ready.clear()
+                await page.locator('#generateButton').click()
+                await reply_ready.wait()
+                check(len(captured_requests) == 2, 'Two real submissions remain pending acknowledgement before Reset')
+            await page.evaluate('localStorage.setItem("retopo-1:reset-probe","present")')
+            await page.locator('#resetButton').click()
+            await page.locator('#confirmReset').click()
+            await page.wait_for_timeout(150)
+            release_reply.set()
+            await page.wait_for_function('window.retopoDemo?.getState().meshId==="hexagon"', timeout=15000)
+            for _ in range(100):
+                value = await asyncio.to_thread(http, '/api/jobs/' + captured['id'])
+                if value['state'] == 'cancelled':
+                    break
+                await page.wait_for_timeout(50)
+            check(value['state'] == 'cancelled', 'Reset cancels the submitted job before discarding its acknowledgement', observed=value['state'])
+            for request in captured_requests:
+                result = await asyncio.to_thread(http, '/api/jobs/' + request['id'])
+                check(result['state'] == 'cancelled', 'Reset cancels each pending request, including earlier cancelled attempts', job=request['id'])
+            check(await page.evaluate('localStorage.getItem("retopo-1:reset-probe")') is None, 'Reset clears the saved workspace after cancellation')
+            check(not (await state())['busy'], 'Reset leaves the default workspace ready')
         elif scenario == 'late-source-preview':
             check(await page.locator('#generateButton').is_disabled(), 'Current Generate control is disabled while its request is pending')
             release_preview.set()
@@ -143,15 +175,15 @@ async def exercise(browser, scenario):
     finally:
         release_reply.set()
         release_preview.set()
-        if captured.get('id'):
-            await cancel(captured['id'])
+        for request in captured_requests:
+            await cancel(request['id'])
         await context.close()
 
 
 async def run():
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        for scenario in ('source-switch-before-response', 'cancel-before-response', 'external-cancel', 'failed-request-context', 'late-source-preview'):
+        for scenario in (args.scenarios or ('source-switch-before-response', 'cancel-before-response', 'external-cancel', 'failed-request-context', 'late-source-preview', 'reset-before-response')):
             await exercise(browser, scenario)
         await browser.close()
 

@@ -1,0 +1,57 @@
+{
+  "scope": "Selected actual completed exports for supplemental independent checks; not a replacement result for the parent matrix.",
+  "parentReport": "tests\\toilet-variants\\current\\result.json",
+  "parentReportSha256": "3874b04a08563feff77df6979e121772f7a72ed065871f905f8725f05ac1621b",
+  "cases": [
+    {
+      "name": "circle-reversed",
+      "target": 1800,
+      "job": "de042615817c41bda18dfc21ba4d53b9",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 302.4679999999935,
+      "faces": 1782,
+      "outputSha256": "6bbfb7cf548874314032f98d1555784bdf8490ba2a7088050a8770d0cc1c615b"
+    },
+    {
+      "name": "circle-cyclic-start",
+      "target": 1800,
+      "job": "c551e50ccd424940a4d1ded1ffe50133",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 108.51499999998487,
+      "faces": 1782,
+      "outputSha256": "82b14ceb13f7970a736c988fc36af88557bbff74539ec92c99e31636896eca1d"
+    },
+    {
+      "name": "circle-small-perturbation",
+      "target": 1800,
+      "job": "8ba8b96131834264bf44983e19273af1",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 91.65599999998813,
+      "faces": 1923,
+      "outputSha256": "ff12115c20f25a55aeb1f9d4f47cd61e8729c6b04ea74198597ba053d561f903"
+    },
+    {
+      "name": "unguided-1200",
+      "target": 1200,
+      "job": "fcb2d70ecb4a4f1c983972eb81f7bfa6",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 71.03200000000652,
+      "faces": 1224,
+      "outputSha256": "bf51b70718db05c4d27b7f087e3b03d4b2ebc48def539a9ba23d54fb28c640a6"
+    },
+    {
+      "name": "unguided-1799",
+      "target": 1799,
+      "job": "250f0bc1a80342469f5ff535461ba46d",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 50.53200000000652,
+      "faces": 1777,
+      "outputSha256": "0250ecf588111d2aab90bf6018b5fc5a9a36b69244d51a8ca554e0332b6fcdb9"
+    }
+  ]
+}

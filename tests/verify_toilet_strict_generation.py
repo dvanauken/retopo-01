@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser(); parser.add_argument('--label',default='current'); parser.add_argument('--cases',nargs='+'); args=parser.parse_args()
 OUT = ROOT/'tests/toilet-strict-generation'/args.label
 OUT.mkdir(parents=True,exist_ok=True)
-HASH_FILES = ('app.js','server.py','worker.py','curved_quad.py','surface_intersections.py','surface_distance.py','quad_quality.py','assets/models/toilet.obj')
+HASH_FILES = ('app.js','server.py','worker.py','curved_quad.py','surface_intersections.py','surface_distance.py','quad_quality.py','assets/models/toilet.obj','tests/verify_toilet_strict_generation.py')
 hashes = {p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in HASH_FILES}
 with socket.socket() as sock:
     sock.bind(('127.0.0.1',0)); port = sock.getsockname()[1]
@@ -81,9 +81,10 @@ try:
         cases.append(item)
         if state['state']=='complete':
             mesh=http('/api/jobs/'+submitted['id']+'/mesh.json')
-            check(mesh['closedValidation']['checks'].get('wholeSurface') is True, name+': accepted result carries whole-surface bounds')
-            check(set(mesh['closedValidation']['wholeSurfaceDiagonals'])=={'02','13'}, name+': both quad diagonals were bounded')
+            check(mesh['surfaceValidation']['checks'].get('wholeSurface') is True, name+': accepted result carries whole-surface bounds')
+            check(set(mesh['surfaceValidation']['wholeSurfaceDiagonals'])=={'02','13'}, name+': both quad diagonals were bounded')
             check(mesh['intersectionValidation']['passed'] and not mesh['intersectionValidation']['adjacentIntersectingFacePairs'], name+': adjacent contacts were checked')
+            check(mesh['intersectionValidation'].get('quadDiagonalPolicy')=='all_pairings', name+': contact acceptance checks every mixed quad-diagonal pairing')
             item['faces']=len(mesh['faces'])
         else:
             for resource in ('mesh.json','output.obj','features.json'):

@@ -1,0 +1,32 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "reset-before-response: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Reset cancels the submitted job before discarding its acknowledgement",
+      "passed": false,
+      "observed": "running"
+    },
+    {
+      "name": "Reset clears the saved workspace after cancellation",
+      "passed": true
+    },
+    {
+      "name": "Reset leaves the default workspace ready",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "workerJobs": [
+    "bf6620cecfdd41ac9dc38cdeb77f05d2"
+  ],
+  "sourceHashes": {
+    "app.js": "c924302d4e58629092c4641bb4d7399fd5f41c111783c28401f26876a4100853",
+    "server.py": "6e9e9c1b4f885f789e2a5fdf74207ee1daa4fc1398e30acea6de04ce475768bb",
+    "tests/verify_toilet_async_ui.py": "6fbebe9d3cab2b27288433f28bf102ff8ecfa9d131f71362c8d07b4defa60e06"
+  },
+  "scope": "Actual Chromium, delayed delivery of genuine HTTP responses, actual toilet workers and cancellation. No fabricated worker output."
+}

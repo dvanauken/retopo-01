@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-25T03:48:44.234791+00:00",
+  "parentRevision": "d043f5a2b9060084dbb48ebdc0ef3988a6de3e1e",
+  "sourceHashes": {
+    "app.js": "7d94773f58770feb0a1250bc445241c1ee6f313367d32f7f60c6d05ee835650a",
+    "server.py": "f65051ca9ae0589756ca1b77f965fd78bc7c29fb2818f644e756e682bbdcd429",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "originalAssetsAndRecoveredEngineUnchanged": true,
+  "unitTests": 41,
+  "apiChecks": 76,
+  "browserRaceChecks": 29,
+  "freshQualifiedCases": [
+    {
+      "name": "circle-repeat",
+      "job": "29f32771aa0248caaefe47b3f2a35db8",
+      "sha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0"
+    },
+    {
+      "name": "lid-reversed",
+      "job": "7b6fac09f2cb4f2d937e62c2a66b16a5",
+      "sha256": "a3a2a959ece2f9d93e9117694ec704652a2d51447499932c51ee99b79c52bdc1"
+    },
+    {
+      "name": "circle-small-perturbation",
+      "job": "22fd69021ff94a699e9c1b79375d42a7",
+      "sha256": "9851150ba73b9947e5e2de559f3ac1c802204d8de4ef6272b2f76d6cdb9c6167"
+    }
+  ],
+  "exhaustiveGoalComplete": false,
+  "remaining": "Bowl and combined-guide generation, coarse-density failures, and broader runtime/network-failure coverage remain open."
+}

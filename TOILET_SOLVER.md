@@ -1,6 +1,23 @@
 # Curved-surface quad solver
 
-The exhaustive audit is still open. Dense testing of all five unique previously
+The exhaustive audit is still open. The current warpage correction has produced
+three fresh, independently checked toilet results at target 1,800: unguided
+(1,923 quads), lid guide (1,782), and a Circle guide on the lid (1,782). Each
+export passes the unchanged shape/topology limits, adaptive surface bounds for
+both diagonals, dense independent proximity checks, and separate face-contact
+tests. See `tests/toilet-fresh-geometry/unguided-warpage/result.json` and
+`tests/toilet-fresh-geometry/guided-warpage/result.json`. This qualifies these
+specific inputs, not the unresolved bowl and combined-guide cases.
+
+Fresh Circle, reversed-lid and perturbed-Circle runs under the final mixed-
+diagonal gate also pass independent exported-geometry checks in
+`tests/toilet-fresh-geometry/all-diagonal-generations/` and
+`tests/toilet-all-diagonal-audit/fresh-new-gate/`. The earlier perturbed Circle
+export is explicitly disqualified; the corrected gate allows the solver to
+continue to a valid candidate. Unguided targets 1,200 and 1,799 pass the retained
+audits, while 150 and 600 fail. These are finite tested cases.
+
+Dense testing of all five unique previously
 accepted exports found surface-distance errors using the validator's ear
 triangulation. With the viewer's fan triangulation, two exceed the same limit;
 the other three pass that dense proximity test. A separate shared-vertex face audit found
@@ -12,12 +29,15 @@ screen excluded these pairs. See `tests/toilet-dense-surface/`,
 
 The longer captured bowl-plus-lid guide network also remains a failing regression
 at 1,800 quads. Rejecting its candidate is correct failure handling, not a solved
-retopology case. The implementation still needs stronger fitting and acceptance
-checks; old green checks and the UI's quality label are not exhaustive geometry
+retopology case. The implementation still needs stronger fitting;
+old green checks and the UI's quality label are not exhaustive geometry
 qualification.
 
 Acceptance now checks adjacent contacts, permitting only the actual shared
-topological boundary. Adaptive subdivision also bounds distance over entire
+topological boundary. It tests every triangle pairing from either quad diagonal,
+including mixed choices on neighboring quads. A perturbed Circle exposed contacts
+that were absent under the renderer's fan; independent LP witnesses and a mixed-
+diagonal analytic control are retained. Adaptive subdivision also bounds distance over entire
 triangles, in both directions and with either quad diagonal. Unresolved work or
 depth budgets reject. All five historical exports fail these combined checks;
 `tests/toilet-acceptance-audit/result.json` retains the individual witnesses.
@@ -41,11 +61,9 @@ The toilet now explicitly selects the engineering `surface-quads` solver.
 contains no model IDs, saved output lookup or toilet-specific shape construction.
 The recovered engine files remain unchanged.
 
-The original bowl guide at target 1,800 generates 1,923 quads. Its independently
-measured guide distance and tangent mismatch improve over an unguided solve.
-Current measurements and independently reread OBJ evidence are retained in
-`tests/toilet-retopology/result.json`. These results do not promise that every
-guide or requested density will succeed.
+The historical bowl result in `tests/toilet-retopology/result.json` is superseded
+by the stronger audits. Its earlier guide-fit improvement does not qualify that
+mesh under the current surface and intersection requirements.
 
 1. An owned Blender subprocess runs QuadriFlow on the current original mesh.
    Blender supplies quad connectivity, and does not receive a claimed guide API.
@@ -57,6 +75,8 @@ guide or requested density will succeed.
    Signed corner Jacobians and edge ratios penalize folded or stretched quads.
    Local movement barriers in both surface directions prevent tangent-plane
    fitting from drifting too far sideways off curved areas.
+   A signed quad-warpage residual reduces the surface difference between the
+   two triangulations of a nonplanar quad; it does not loosen their final bounds.
 4. Both directions of surface error, topology, vertex links, winding, quad shape,
    target count, face contacts and each tracked guide path must
    pass before output is accepted.
@@ -82,8 +102,10 @@ from self-intersection. Coarse targets and
 overlapping or unresolved guides can still reject. Such candidates remain failed
 and are never promoted to the result panel. The new intersection screen uses
 indexed polygon bounds and triangle contacts, including shared-vertex face pairs.
-Only shared topological vertices/edges permit contact. It uses the renderer's fan
-triangulation and floating-point tolerances, not exact symbolic predicates.
+Only shared topological vertices/edges permit contact. Curved-surface acceptance
+uses both possible quad diagonals and every mixed triangle pairing; the detector's
+default mode remains the renderer's fan for other callers. Predicates use
+floating-point tolerances, not exact symbolic arithmetic.
 An additional Blender BVH check independently checks candidate pairs. The
 original imported source itself has four detected non-adjacent triangle contacts;
 its geometry has not been silently rewritten to remove them.

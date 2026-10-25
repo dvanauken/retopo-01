@@ -1,0 +1,18 @@
+{
+  "passed": false,
+  "tests": 37,
+  "failures": 0,
+  "errors": 1,
+  "sourceHashes": {
+    "server.py": "6e9e9c1b4f885f789e2a5fdf74207ee1daa4fc1398e30acea6de04ce475768bb",
+    "curved_quad.py": "6d1fe88da7145153a1e62100641f1c5c083a0fe92e28e05fd99e092319aba1eb",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "730724fc3ad953b4e305e3561fa2602dfea3460a4ea120f7350af662b2c0e8b4",
+    "tests/test_quad_warpage.py": "d94c47094b340ae183bf844245e93380193c50113ca000b81aab37d88e66aa33",
+    "tests/test_server_admission_race.py": "bbe895edba0687edbd8cf6debf09e52ebd1880adf1c1b64db8f69ed381d11d09",
+    "tests/test_server_job_races.py": "d01a05313fc8643e956aff2256c5dc4aabe2e28e50d12e53c8945931793f9a2e",
+    "tests/test_surface_distance.py": "062eb8ff20df1ce0c097a01f553ce90ecd733f6b8dec4550498b5312f82f7bef",
+    "tests/test_surface_failures.py": "0663f2a7c71bd4451def6dbc2efc566218c8d7109a89bfc6efc625e09404189f",
+    "tests/test_surface_intersections.py": "5769c01f33a546b997781ba44b36e0b9dd61db5ad5d885881e3a14724d83c115"
+  }
+}

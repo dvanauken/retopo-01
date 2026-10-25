@@ -1,0 +1,119 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "unguided-1800",
+      "job": "c146a88d210846f2866933eb71988f01",
+      "outputSha256": "f33fdf0778ae50a2c5950e10fe78d159e3cc79ee8325d761d008225e98b563ee",
+      "passed": true,
+      "sourceUnchanged": true,
+      "alternateDiagonalScreen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "scope": "Indexed polygon bounds and triangle contact vertices, fan triangulation, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "independentAdjacentInteriors": {
+        "passed": true,
+        "adjacentFacePairs": 7735,
+        "trianglePrograms": 23905,
+        "overlaps": [],
+        "unresolved": [],
+        "scope": "Independent HiGHS feasibility/maximum-interior-margin problems for every shared-vertex face pair after triangle AABB pruning. Reports strict interior contacts above 1e-7 barycentric margin; boundary-only contacts and smaller margins are outside this supplemental test."
+      },
+      "independentBVH": {
+        "passed": true,
+        "detectorControlsPassed": true,
+        "results": [
+          {
+            "file": "C:\\dbva\\code\\retopo-1\\tests\\toilet-diagonal-contacts\\qualified-base\\unguided-1800-diagonal-13.obj",
+            "polygons": 1923,
+            "nonAdjacentOverlapPairs": [],
+            "passed": true
+          }
+        ],
+        "scope": "Blender BVH candidates followed by double-precision triangle intersection tests (1e-9 tolerance), fan triangulation. Shared-vertex polygon pairs excluded. Not a complete test of adjacent folds, coplanar contacts or every self-intersection."
+      },
+      "elapsedSeconds": 41.75
+    },
+    {
+      "name": "lid-only-1800",
+      "job": "e7e6499b679342608f3f13746358b83d",
+      "outputSha256": "7b80829cc8251cbff505a23d8a61a9c19ab5847993ddfe6a7bdf13096e38c361",
+      "passed": true,
+      "sourceUnchanged": true,
+      "alternateDiagonalScreen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "scope": "Indexed polygon bounds and triangle contact vertices, fan triangulation, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "independentAdjacentInteriors": {
+        "passed": true,
+        "adjacentFacePairs": 7168,
+        "trianglePrograms": 22385,
+        "overlaps": [],
+        "unresolved": [],
+        "scope": "Independent HiGHS feasibility/maximum-interior-margin problems for every shared-vertex face pair after triangle AABB pruning. Reports strict interior contacts above 1e-7 barycentric margin; boundary-only contacts and smaller margins are outside this supplemental test."
+      },
+      "independentBVH": {
+        "passed": true,
+        "detectorControlsPassed": true,
+        "results": [
+          {
+            "file": "C:\\dbva\\code\\retopo-1\\tests\\toilet-diagonal-contacts\\qualified-base\\lid-only-1800-diagonal-13.obj",
+            "polygons": 1782,
+            "nonAdjacentOverlapPairs": [],
+            "passed": true
+          }
+        ],
+        "scope": "Blender BVH candidates followed by double-precision triangle intersection tests (1e-9 tolerance), fan triangulation. Shared-vertex polygon pairs excluded. Not a complete test of adjacent folds, coplanar contacts or every self-intersection."
+      },
+      "elapsedSeconds": 36.35899999999674
+    },
+    {
+      "name": "browser-lid-circle",
+      "job": "1702a1e256a14a078dc29099172d599f",
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+      "passed": true,
+      "sourceUnchanged": true,
+      "alternateDiagonalScreen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "scope": "Indexed polygon bounds and triangle contact vertices, fan triangulation, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "independentAdjacentInteriors": {
+        "passed": true,
+        "adjacentFacePairs": 7168,
+        "trianglePrograms": 22361,
+        "overlaps": [],
+        "unresolved": [],
+        "scope": "Independent HiGHS feasibility/maximum-interior-margin problems for every shared-vertex face pair after triangle AABB pruning. Reports strict interior contacts above 1e-7 barycentric margin; boundary-only contacts and smaller margins are outside this supplemental test."
+      },
+      "independentBVH": {
+        "passed": true,
+        "detectorControlsPassed": true,
+        "results": [
+          {
+            "file": "C:\\dbva\\code\\retopo-1\\tests\\toilet-diagonal-contacts\\qualified-base\\browser-lid-circle-diagonal-13.obj",
+            "polygons": 1782,
+            "nonAdjacentOverlapPairs": [],
+            "passed": true
+          }
+        ],
+        "scope": "Blender BVH candidates followed by double-precision triangle intersection tests (1e-9 tolerance), fan triangulation. Shared-vertex polygon pairs excluded. Not a complete test of adjacent folds, coplanar contacts or every self-intersection."
+      },
+      "elapsedSeconds": 36.328000000008615
+    }
+  ],
+  "sourceHashes": {
+    "surface_intersections.py": "730724fc3ad953b4e305e3561fa2602dfea3460a4ea120f7350af662b2c0e8b4",
+    "tests/verify_toilet_fresh_geometry.py": "0a05387ca63d58263fee3474397106370de04b5a35f4e4b3980b3db36ef93566",
+    "tests/verify_toilet_diagonal_contacts.py": "e3904cf7d4758851a2b03f8fb867df735869d559eabb57a454c3eb15837532f8",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "lpFunctionSha256": "6500b48ef6f7f83c657ec9a623f8aac8c91879a3faa5e4c2562f07a9b77cb46f",
+  "scope": "Alternate quad-diagonal contact checks on explicit test copies with cyclically rotated face indices. Includes floating-point production contact screen, independent adjacent-interior LPs and separate nonadjacent Blender BVH check. Original exports and source unchanged; finite tolerances/scopes remain those stated by each detector."
+}

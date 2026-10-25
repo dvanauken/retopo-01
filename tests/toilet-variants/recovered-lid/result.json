@@ -1,0 +1,44 @@
+{
+  "complete": true,
+  "generationPassed": true,
+  "safetyChecksPassed": true,
+  "cases": [
+    {
+      "name": "lid-reversed",
+      "target": 1800,
+      "job": "37f7f495c3a04634b6be8e001061d9b8",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 82.65700000000652,
+      "faces": 1782,
+      "outputSha256": "a3a2a959ece2f9d93e9117694ec704652a2d51447499932c51ee99b79c52bdc1"
+    }
+  ],
+  "checks": [
+    {
+      "name": "lid-reversed: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "lid-reversed: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "Source and implementation remain fixed through the matrix",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "7d94773f58770feb0a1250bc445241c1ee6f313367d32f7f60c6d05ee835650a",
+    "server.py": "f65051ca9ae0589756ca1b77f965fd78bc7c29fb2818f644e756e682bbdcd429",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "6d1fe88da7145153a1e62100641f1c5c083a0fe92e28e05fd99e092319aba1eb",
+    "surface_intersections.py": "730724fc3ad953b4e305e3561fa2602dfea3460a4ea120f7350af662b2c0e8b4",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_toilet_variants.py": "421e4788d50cf5cb780f8d9db924a2594b50aeb0845664a677c7365c3585c4a0"
+  },
+  "scope": "Fresh Blender layouts and actual worker requests. Tests finite equivalent representations, deterministic repeat, 0.001-unit Gaussian perturbation projected to source, and supported density partitions. Failed geometry remains unsolved; does not prove all continuous inputs."
+}

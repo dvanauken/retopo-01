@@ -1,0 +1,8 @@
+Building the quad surface layout
+Fitting guides and refining quads · pass 1
+Checking the full surface and both quad diagonals
+Fitting guides and refining quads · pass 2
+Checking the full surface and both quad diagonals
+Fitting guides and refining quads · pass 3
+Checking the full surface and both quad diagonals
+{"passed": true, "vertices": 1923, "faces": 1923, "elapsedSeconds": 63.96899999998277}

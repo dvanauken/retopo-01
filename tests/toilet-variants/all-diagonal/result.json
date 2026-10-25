@@ -1,0 +1,97 @@
+{
+  "complete": true,
+  "generationPassed": true,
+  "safetyChecksPassed": true,
+  "cases": [
+    {
+      "name": "circle-repeat",
+      "target": 1800,
+      "job": "29f32771aa0248caaefe47b3f2a35db8",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 139.5,
+      "faces": 1782,
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+      "repeatWithin1e9": true
+    },
+    {
+      "name": "lid-reversed",
+      "target": 1800,
+      "job": "7b6fac09f2cb4f2d937e62c2a66b16a5",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 128.14100000000326,
+      "faces": 1782,
+      "outputSha256": "a3a2a959ece2f9d93e9117694ec704652a2d51447499932c51ee99b79c52bdc1"
+    },
+    {
+      "name": "circle-small-perturbation",
+      "target": 1800,
+      "job": "22fd69021ff94a699e9c1b79375d42a7",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 217.10999999998603,
+      "faces": 1782,
+      "outputSha256": "9851150ba73b9947e5e2de559f3ac1c802204d8de4ef6272b2f76d6cdb9c6167"
+    }
+  ],
+  "checks": [
+    {
+      "name": "circle-repeat: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "circle-repeat: all mixed diagonal contact pairings were checked",
+      "passed": true
+    },
+    {
+      "name": "Repeated identical Circle input reproduces faces and coordinates within 1e-9",
+      "passed": true
+    },
+    {
+      "name": "circle-repeat: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "lid-reversed: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "lid-reversed: all mixed diagonal contact pairings were checked",
+      "passed": true
+    },
+    {
+      "name": "lid-reversed: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "circle-small-perturbation: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "circle-small-perturbation: all mixed diagonal contact pairings were checked",
+      "passed": true
+    },
+    {
+      "name": "circle-small-perturbation: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "Source and implementation remain fixed through the matrix",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "7d94773f58770feb0a1250bc445241c1ee6f313367d32f7f60c6d05ee835650a",
+    "server.py": "f65051ca9ae0589756ca1b77f965fd78bc7c29fb2818f644e756e682bbdcd429",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_toilet_variants.py": "7cb38bfe45d712416a1e1b9be2ff2d27961e4f095b1974f6c189b2bec7aab7c4"
+  },
+  "scope": "Fresh Blender layouts and actual worker requests. Tests finite equivalent representations, deterministic repeat, 0.001-unit Gaussian perturbation projected to source, and supported density partitions. Failed geometry remains unsolved; does not prove all continuous inputs."
+}

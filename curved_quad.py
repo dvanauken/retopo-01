@@ -225,10 +225,23 @@ def validate_surface(source, triangles, positions, faces, target, *, whole_surfa
                       if whole_surface else 'Intermediate deterministic sparse-sample screen only; not final surface acceptance.')}
 
 
+def _warpage(positions, faces):
+    """Signed tetrahedral volume scaled to a quad's area (a length).
+
+    A nonplanar quad describes different surfaces under its two diagonals.
+    This residual reduces that ambiguity; final bounds still check both.
+    """
+    p = positions[faces]
+    cross = np.cross(p[:, 1] - p[:, 0], p[:, 2] - p[:, 0])
+    area = cross + np.cross(p[:, 2] - p[:, 0], p[:, 3] - p[:, 0])
+    return np.einsum('ij,ij->i', cross, p[:, 3] - p[:, 0]) / np.maximum(1e-15, np.linalg.norm(area, axis=1))
+
+
 def _refine(source_mesh, positions, faces, edges, pins, targets, target):
     spacing = np.sqrt(source_mesh.area / target)
     jacobian, cosine = _corners(positions, faces)
     bad = (jacobian.min(axis=1) < .7) | (np.abs(cosine).max(axis=1) > .75)
+    bad |= np.abs(_warpage(positions, faces)) > spacing * .05
     vertex_anchor, vertex_error, vertex_triangles = trimesh.proximity.closest_point(source_mesh, positions)
     active = set(faces[bad].ravel()) | set(pins) | set(np.flatnonzero(vertex_error > spacing * .25))
     out_tri = np.r_[faces[:, [0, 1, 2]], faces[:, [0, 2, 3]]]
@@ -250,6 +263,7 @@ def _refine(source_mesh, positions, faces, edges, pins, targets, target):
     anchor = vertex_anchor[ids]
     normal = source_mesh.face_normals[vertex_triangles[ids]]
     groups = [(len(local_faces) * 4, local_faces)] * 3 + [(len(local_faces), local_faces)]
+    groups += [(len(local_faces), local_faces)]
     groups += [(len(local_edges), local_edges)] * 2
     groups += [(len(ids), ids[:, None]), (len(ids) * 3, ids[:, None]), (len(pins) * 3, pins[:, None]), (len(support) * 3, support),
                (len(ids), ids[:, None]), (len(support), support)]
@@ -277,7 +291,8 @@ def _refine(source_mesh, positions, faces, edges, pins, targets, target):
         # margin inside the unchanged half-edge-length acceptance tolerance.
         return np.r_[np.maximum(.7 - jacobian, 0).ravel() * 60,
                      np.maximum(np.abs(cosine) - .7, 0).ravel(), cosine.ravel() * .1,
-                     np.maximum(ratio - 3.5, 0) * 10, np.maximum(.4 - length / spacing, 0) * 5,
+                     np.maximum(ratio - 3.5, 0) * 10, _warpage(q, local_faces) / spacing * 8,
+                     np.maximum(.4 - length / spacing, 0) * 5,
                      np.maximum(length / spacing - 1.7, 0), (delta * normal).sum(axis=1) / spacing * 6,
                      delta.ravel() / spacing * 2, (q[pins] - targets).ravel() / spacing * 80,
                      surface_delta.ravel() / spacing * 4,
@@ -333,7 +348,7 @@ def construct(source, triangles, curves, *, target, job):
             quality = quad_quality(positions, faces, target)
             validation = validate_surface(source, triangles, positions, faces, target, whole_surface=False)
             fit = _guide_fit(positions, paths, curves)
-            intersections = surface_intersections(positions, faces)
+            intersections = surface_intersections(positions, faces, both_quad_diagonals=True)
             guided = all(p['p95Distance'] <= .20 * spacing and p['p95TangentAngleDegrees'] <= 30 for p in fit)
             if quality['passed'] and validation['passed'] and guided and intersections['passed']:
                 _progress(job, 'Checking the full surface and both quad diagonals')

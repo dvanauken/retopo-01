@@ -1,0 +1,244 @@
+{
+  "complete": true,
+  "passed": false,
+  "cases": [
+    {
+      "name": "unguided-1800",
+      "job": "c146a88d210846f2866933eb71988f01",
+      "matrix": "tests\\toilet-strict-generation\\warpage\\result.json",
+      "outputSha256": "f33fdf0778ae50a2c5950e10fe78d159e3cc79ee8325d761d008225e98b563ee",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    },
+    {
+      "name": "lid-only-1800",
+      "job": "e7e6499b679342608f3f13746358b83d",
+      "matrix": "tests\\toilet-strict-generation\\warpage-guided\\result.json",
+      "outputSha256": "7b80829cc8251cbff505a23d8a61a9c19ab5847993ddfe6a7bdf13096e38c361",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    },
+    {
+      "name": "browser-lid-circle",
+      "job": "1702a1e256a14a078dc29099172d599f",
+      "matrix": "tests\\toilet-strict-generation\\warpage-guided\\result.json",
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    },
+    {
+      "name": "circle-reversed",
+      "job": "de042615817c41bda18dfc21ba4d53b9",
+      "matrix": "tests\\toilet-variants\\current\\result.json",
+      "outputSha256": "6bbfb7cf548874314032f98d1555784bdf8490ba2a7088050a8770d0cc1c615b",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    },
+    {
+      "name": "circle-cyclic-start",
+      "job": "c551e50ccd424940a4d1ded1ffe50133",
+      "matrix": "tests\\toilet-variants\\current\\result.json",
+      "outputSha256": "82b14ceb13f7970a736c988fc36af88557bbff74539ec92c99e31636896eca1d",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    },
+    {
+      "name": "circle-small-perturbation",
+      "job": "8ba8b96131834264bf44983e19273af1",
+      "matrix": "tests\\toilet-variants\\current\\result.json",
+      "outputSha256": "ff12115c20f25a55aeb1f9d4f47cd61e8729c6b04ea74198597ba053d561f903",
+      "passed": false,
+      "screen": {
+        "passed": false,
+        "nonAdjacentIntersectingFacePairs": [
+          [
+            688,
+            689
+          ]
+        ],
+        "adjacentIntersectingFacePairs": [
+          [
+            625,
+            688
+          ],
+          [
+            687,
+            688
+          ]
+        ],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": [
+        {
+          "faces": [
+            688,
+            689
+          ],
+          "strictInteriorWitness": {
+            "triangles": [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                0,
+                1,
+                2
+              ]
+            ],
+            "minimumBarycentric": 0.0014006706731265472,
+            "point": [
+              -0.3765477613270195,
+              0.4126594618637477,
+              0.06008502741607545
+            ]
+          },
+          "unresolved": []
+        },
+        {
+          "faces": [
+            625,
+            688
+          ],
+          "strictInteriorWitness": {
+            "triangles": [
+              [
+                0,
+                1,
+                2
+              ],
+              [
+                1,
+                2,
+                3
+              ]
+            ],
+            "minimumBarycentric": 0.00377222476666764,
+            "point": [
+              -0.3768735749248026,
+              0.41318659811388936,
+              0.05977587622998226
+            ]
+          },
+          "unresolved": []
+        },
+        {
+          "faces": [
+            687,
+            688
+          ],
+          "strictInteriorWitness": {
+            "triangles": [
+              [
+                0,
+                1,
+                2
+              ],
+              [
+                1,
+                2,
+                3
+              ]
+            ],
+            "minimumBarycentric": 0.010453850947075643,
+            "point": [
+              -0.37630912963055024,
+              0.4124181893955054,
+              0.05968655270225515
+            ]
+          },
+          "unresolved": []
+        }
+      ]
+    },
+    {
+      "name": "unguided-1200",
+      "job": "fcb2d70ecb4a4f1c983972eb81f7bfa6",
+      "matrix": "tests\\toilet-variants\\current\\result.json",
+      "outputSha256": "bf51b70718db05c4d27b7f087e3b03d4b2ebc48def539a9ba23d54fb28c640a6",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    },
+    {
+      "name": "unguided-1799",
+      "job": "250f0bc1a80342469f5ff535461ba46d",
+      "matrix": "tests\\toilet-variants\\current\\result.json",
+      "outputSha256": "0250ecf588111d2aab90bf6018b5fc5a9a36b69244d51a8ca554e0332b6fcdb9",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    },
+    {
+      "name": "lid-reversed",
+      "job": "37f7f495c3a04634b6be8e001061d9b8",
+      "matrix": "tests\\toilet-variants\\recovered-lid\\result.json",
+      "outputSha256": "a3a2a959ece2f9d93e9117694ec704652a2d51447499932c51ee99b79c52bdc1",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    }
+  ],
+  "sourceHashes": {
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "tests/verify_toilet_all_diagonal_audit.py": "25ac58c4724997d3ddc85553d68603df3de05af1c0e66fa7307b65489119b433",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "scope": "Retained actual exports evaluated under all combinations of quad diagonals, with independent strict-interior LP witnesses for reported face pairs. This screen uses floating-point tolerances; witness absence does not clear boundary contacts or unresolved programs."
+}

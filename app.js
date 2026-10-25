@@ -32,6 +32,7 @@ for (const scene of scenes) {
 }
 const raycaster = new THREE.Raycaster();
 let sourceRender = null, resultRender = null, grids = [], draft = [], generation = 0, noticeTimer;
+const pendingSubmissions = new Set();
 const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const color = name => new THREE.Color(css(name));
 const samePoint = (a, b) => a && b && a.every((x, i) => Math.abs(x - b[i]) < 1e-8);
@@ -462,8 +463,12 @@ async function generate() {
   const token = ++generation; state.busy = true; $('processing').hidden = false; $('generateButton').disabled = true; $('notice').hidden = true;
   const started = performance.now(); const timer = setInterval(() => { $('processTime').textContent = `${Math.round((performance.now() - started) / 1000)}s`; }, 300);
   $('processTime').textContent = '0s'; $('processDetail').textContent = state.mesh.solver === 'surface-quads' ? 'Building a quad layout, fitting your guide paths and checking the source surface…' : request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
+  let submission;
   try {
-    const first = await api('/api/remesh', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) });
+    submission = api('/api/remesh', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) });
+    pendingSubmissions.add(submission);
+    const first = await submission;
+    pendingSubmissions.delete(submission);
     if (token !== generation) {
       await api('/api/jobs/' + first.id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
       return;
@@ -481,12 +486,12 @@ async function generate() {
       await new Promise(resolve => setTimeout(resolve, 500));
     }
   } catch (error) { if (token === generation) { setAttempt('failed', error.message, attempt); notify(error.message, true, true); } }
-  finally { clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false; } }
+  finally { pendingSubmissions.delete(submission); clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false; } }
 }
-async function cancelGeneration() {
+async function cancelGeneration(options = {}) {
   const id = state.job, wasBusy = state.busy, attempt = state.lastAttempt; ++generation; state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false;
   if (wasBusy) setAttempt('cancelled', '', attempt);
-  if (id) { try { await api('/api/jobs/' + id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }); } catch (error) { notify(error.message, true); } }
+  if (id) { try { await api('/api/jobs/' + id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }); } catch (error) { if (options.propagateError) throw error; notify(error.message, true); } }
 }
 function downloadBlob(name, data) {
   const url = URL.createObjectURL(new Blob([data], { type: 'application/json' })), a = document.createElement('a'); a.href = url; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -507,10 +512,19 @@ for (const id of ['wireToggle', 'guidesToggle', 'creasesToggle']) $(id).onchange
 $('fitButton').onclick = () => { editor.run(() => editor.cancel()); fit(); }; $('topButton').onclick = () => { editor.run(() => editor.cancel()); fit(true); };
 $('resetButton').onclick = () => $('resetDialog').showModal();
 $('confirmReset').onclick = async () => {
-  if (state.job) await cancelGeneration();
-  // The theme is a viewer preference, not part of the work being discarded.
-  try { for (const key of Object.keys(localStorage)) if (key.startsWith('retopo-1:') && key !== 'retopo-1:theme') localStorage.removeItem(key); } catch { /* Storage is optional. */ }
-  location.reload();
+  const pending = [...pendingSubmissions], button = $('confirmReset'), label = button.textContent;
+  button.disabled = true; button.textContent = 'Stopping calculation…';
+  try {
+    await cancelGeneration({ propagateError: true });
+    // A reload destroys the stale-response handler. Wait for every submitted
+    // request's acknowledgement and cancel it before discarding this page.
+    const submitted = await Promise.allSettled(pending);
+    await Promise.all(submitted.filter(p => p.status === 'fulfilled').map(p => api('/api/jobs/' + p.value.id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' })));
+    // The theme is a viewer preference, not part of the work being discarded.
+    try { for (const key of Object.keys(localStorage)) if (key.startsWith('retopo-1:') && key !== 'retopo-1:theme') localStorage.removeItem(key); } catch { /* Storage is optional. */ }
+    location.reload();
+  } catch (error) { $('resetDialog').close(); notify('Reset could not stop the calculation. ' + error.message, true, true); }
+  finally { button.disabled = false; button.textContent = label; }
 };
 $('helpButton').onclick = () => $('helpDialog').showModal(); document.querySelectorAll('[data-close-dialog]').forEach(button => button.onclick = () => button.closest('dialog').close());
 $('themeButton').onclick = () => { const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'; document.documentElement.dataset.theme = theme; localStorage.setItem('retopo-1:theme', theme); refreshColors(); };

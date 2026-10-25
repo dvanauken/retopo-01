@@ -20,12 +20,15 @@ import psutil
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--label', default='current')
+parser.add_argument('--recovery-case',choices=['bowl','circle'],default='bowl',
+                    help='Explicit positive-control input; the default retains the original bowl regression.')
 args = parser.parse_args()
 if not args.label.replace('-', '').isalnum():
     raise ValueError('Use a plain evidence label')
 OUT = ROOT / 'tests/toilet-api' / args.label
 OUT.mkdir(parents=True, exist_ok=True)
 checks, jobs, errors, suspended = [], [], [], []
+recovery_attempt = None
 
 
 def check(value, name, **details):
@@ -187,17 +190,21 @@ try:
     check(request('/api/health')[0] == 200, 'Queue cancellation leaves the server healthy')
 
     _, model, _ = request('/api/mesh/toilet')
-    fresh = start(model['presets'][0]['curves'])
+    recovery_curves = model['presets'][0]['curves'] if args.recovery_case=='bowl' else json.loads((ROOT/'tests/toilet-stress/browser-lid-circle/curves.json').read_text())['curves']
+    fresh = start(recovery_curves)
     completed = wait_terminal(fresh)
-    check(completed['state'] == 'complete', 'Fresh real toilet generation succeeds after queue saturation and cancellation')
+    recovery_attempt=dict(input=args.recovery_case,job=fresh,state=completed['state'],message=completed.get('error'))
+    (OUT/'recovery-curves.json').write_text(json.dumps(dict(coordinateFrame='source',curves=recovery_curves),indent=2)+'\n')
+    check(completed['state'] == 'complete', 'Fresh real toilet '+args.recovery_case+' generation succeeds after queue saturation and cancellation')
     if completed['state'] == 'complete':
         code, obj, headers = request('/api/jobs/' + fresh + '/output.obj')
         _, report, _ = request('/api/jobs/' + fresh + '/report.json')
+        recovery_attempt['outputSha256']=report['outputSha256']
         check(code == 200 and hashlib.sha256(obj).hexdigest() == report['outputSha256'], 'Accepted download matches the actual worker output hash')
         check('attachment' in headers.get('Content-Disposition', ''), 'Accepted OBJ is served as an attachment')
         check(cancel(fresh)[1]['state'] == 'complete', 'Late cancellation cannot undo a completed accepted job')
     failed = start([[[10, 10, 10], [10.1, 10, 10]]])
-    check(wait_terminal(failed)['state'] == 'failed', 'A real unresolvable guide fails after the successful job')
+    check(wait_terminal(failed)['state'] == 'failed', 'A real unresolvable guide fails after the recovery attempt')
     for name in ('mesh.json', 'output.obj', 'features.json'):
         (ROOT / 'runs' / failed / name).write_text('unaccepted failed-worker residue')
         check(request('/api/jobs/' + failed + '/' + name)[0] == 409, 'Failed job cannot publish residual ' + name)
@@ -213,7 +220,7 @@ finally:
         except psutil.NoSuchProcess:
             pass
     server.terminate(); server.wait(timeout=20); log.close()
-    report = dict(passed=not errors and all(c['passed'] for c in checks), checks=checks, errors=errors, workerJobs=jobs,
+    report = dict(passed=not errors and all(c['passed'] for c in checks), checks=checks, errors=errors, workerJobs=jobs,recoveryAttempt=recovery_attempt,
                   sourceHashes={f:hashlib.sha256((ROOT/f).read_bytes()).hexdigest() for f in ['server.py', 'worker.py', 'tests/verify_toilet_api.py']},
                   scope='Actual localhost HTTP requests, actual owned worker/queue lifecycle and a fresh toilet solve. Publication race uses explicitly unaccepted planted files in only this test server job directories.')
     (OUT / 'result.json').write_text(json.dumps(report, indent=2) + '\n')

@@ -1,0 +1,609 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "circle-repeat",
+      "job": "29f32771aa0248caaefe47b3f2a35db8",
+      "outputFile": "tests\\toilet-variants\\all-diagonal\\circle-repeat\\output.obj",
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+      "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+      "exportMatchesWorker": true,
+      "passed": true,
+      "target": 1800,
+      "tolerance": 0.04004054613430094,
+      "referenceValidation": {
+        "passed": true,
+        "checks": {
+          "closed": true,
+          "components": true,
+          "sourceEuler": true,
+          "noIncidenceDefects": true,
+          "vertexManifold": true,
+          "consistentWinding": true,
+          "sampledSurface": true
+        },
+        "vertexLinks": {
+          "nonmanifoldVertices": [],
+          "inconsistentWindingEdges": 0
+        },
+        "features": {},
+        "topology": {
+          "vertices": 1782,
+          "faces": 1782,
+          "quads": 1782,
+          "triangles": 0,
+          "boundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "faceConnectedComponents": 1,
+          "eulerCharacteristic": 0
+        },
+        "sourceToOutputNormalized": {
+          "samples": 2000,
+          "rms": 0.004090433724696711,
+          "mean": 0.0029387326099135675,
+          "p95": 0.008624642744880099,
+          "sampledMax": 0.019530591206779246
+        },
+        "outputToSourceNormalized": {
+          "samples": 1782,
+          "rms": 0.0024774356258199766,
+          "mean": 0.0015148297181698032,
+          "p95": 0.005653501629727643,
+          "sampledMax": 0.013394426414705774
+        },
+        "measurementFrame": {
+          "center": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": 0.5,
+          "normalizationOnlyForPredicates": true
+        },
+        "sampledSurfaceToleranceNormalized": 0.02002027306715047,
+        "samples": {
+          "sourceAvailable": 36000,
+          "sourceStride": 18,
+          "outputAvailable": 5346,
+          "outputStride": 3
+        },
+        "limitations": [
+          "Sampled surface/feature errors are not a Hausdorff certificate.",
+          "Topology and vertex links do not alone certify absence of all 3D self-intersections.",
+          "Binary geometric crease preservation does not imply arbitrary source attribute transfer."
+        ]
+      },
+      "shape": {
+        "quadOnly": true,
+        "faces": 1782,
+        "minimumAngleDegrees": 44.36129528513776,
+        "angleP05Degrees": 67.82377250261501,
+        "maximumAngleDegrees": 150.10596270321417,
+        "edgeRatioP95": 2.4186196332608496,
+        "edgeRatioMax": 3.504256111108688,
+        "scaledJacobianMin": 0.4677353878644279,
+        "scaledJacobianP05": 0.8355589233859498,
+        "edgeLengthCV": 0.1848785178692313,
+        "adjacentAreaRatioP95": 1.7965815102246825,
+        "valence4Fraction": 0.9551066217732884,
+        "irregularVertices": 80,
+        "targetRelativeError": 0.01,
+        "passed": true,
+        "failures": [],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "denseDiagonals": {
+        "02": {
+          "sourceToOutput": {
+            "passed": true,
+            "samples": 120000,
+            "maximum": 0.0392399326150384,
+            "p95": 0.016728211826995486,
+            "overTolerance": 0,
+            "worstPoint": [
+              0.46383540306677074,
+              0.7891322256576156,
+              -0.002286289180435286
+            ]
+          },
+          "outputToSource": {
+            "passed": true,
+            "samples": 17820,
+            "maximum": 0.03453244251427266,
+            "p95": 0.011280800815755417,
+            "overTolerance": 0,
+            "worstPoint": [
+              0.49011748986949016,
+              0.8011608030091565,
+              0.029266920039263452
+            ]
+          }
+        },
+        "13": {
+          "sourceToOutput": {
+            "passed": true,
+            "samples": 120000,
+            "maximum": 0.03952569730304367,
+            "p95": 0.017505224301512842,
+            "overTolerance": 0,
+            "worstPoint": [
+              0.46345973638317506,
+              0.7542891189452553,
+              -0.0024660878172508153
+            ]
+          },
+          "outputToSource": {
+            "passed": true,
+            "samples": 17820,
+            "maximum": 0.03610850725844196,
+            "p95": 0.011840775470026016,
+            "overTolerance": 0,
+            "worstPoint": [
+              0.4870634564835444,
+              0.7771838401972836,
+              0.03085370162300842
+            ]
+          }
+        }
+      },
+      "adjacentInteriors": {
+        "passed": true,
+        "adjacentFacePairs": 7168,
+        "trianglePrograms": 22137,
+        "overlaps": [],
+        "unresolved": [],
+        "scope": "Independent HiGHS feasibility/maximum-interior-margin problems for every shared-vertex face pair after triangle AABB pruning. Reports strict interior contacts above 1e-7 barycentric margin; boundary-only contacts and smaller margins are outside this supplemental test."
+      },
+      "blenderBVH": {
+        "passed": true,
+        "detectorControlsPassed": true,
+        "results": [
+          {
+            "file": "C:\\dbva\\code\\retopo-1\\tests\\toilet-variants\\all-diagonal\\circle-repeat\\output.obj",
+            "polygons": 1782,
+            "nonAdjacentOverlapPairs": [],
+            "passed": true
+          }
+        ],
+        "scope": "Blender BVH candidates followed by double-precision triangle intersection tests (1e-9 tolerance), fan triangulation. Shared-vertex polygon pairs excluded. Not a complete test of adjacent folds, coplanar contacts or every self-intersection."
+      },
+      "guideFits": [
+        {
+          "pathValid": true,
+          "measurement": {
+            "samples": 257,
+            "meanDistance": 0.004070775658990973,
+            "p95Distance": 0.010948099468715673,
+            "maxDistance": 0.01866058922559784,
+            "meanDistanceOverMedianEdge": 0.052191403980264284,
+            "meanUnsignedTangentAngleDegrees": 11.226026673479314,
+            "p95UnsignedTangentAngleDegrees": 28.312149570391913,
+            "selectedEdgeCount": 20,
+            "selectedEdgeGraphComponents": 1,
+            "selectedEdgeGraphDegreeHistogram": {
+              "2": 20
+            },
+            "selectedEdgesFormSingleCycle": true,
+            "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+          },
+          "passed": true
+        }
+      ],
+      "elapsedSeconds": 55.92200000002049
+    },
+    {
+      "name": "lid-reversed",
+      "job": "7b6fac09f2cb4f2d937e62c2a66b16a5",
+      "outputFile": "tests\\toilet-variants\\all-diagonal\\lid-reversed\\output.obj",
+      "outputSha256": "a3a2a959ece2f9d93e9117694ec704652a2d51447499932c51ee99b79c52bdc1",
+      "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+      "exportMatchesWorker": true,
+      "passed": true,
+      "target": 1800,
+      "tolerance": 0.04004054613430094,
+      "referenceValidation": {
+        "passed": true,
+        "checks": {
+          "closed": true,
+          "components": true,
+          "sourceEuler": true,
+          "noIncidenceDefects": true,
+          "vertexManifold": true,
+          "consistentWinding": true,
+          "sampledSurface": true
+        },
+        "vertexLinks": {
+          "nonmanifoldVertices": [],
+          "inconsistentWindingEdges": 0
+        },
+        "features": {},
+        "topology": {
+          "vertices": 1782,
+          "faces": 1782,
+          "quads": 1782,
+          "triangles": 0,
+          "boundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "faceConnectedComponents": 1,
+          "eulerCharacteristic": 0
+        },
+        "sourceToOutputNormalized": {
+          "samples": 2000,
+          "rms": 0.004092188913429441,
+          "mean": 0.0029116800584750692,
+          "p95": 0.008637947061880676,
+          "sampledMax": 0.019520501482935784
+        },
+        "outputToSourceNormalized": {
+          "samples": 1782,
+          "rms": 0.0024299314779323536,
+          "mean": 0.0014610306754743406,
+          "p95": 0.0056422354942479375,
+          "sampledMax": 0.012947682614307766
+        },
+        "measurementFrame": {
+          "center": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": 0.5,
+          "normalizationOnlyForPredicates": true
+        },
+        "sampledSurfaceToleranceNormalized": 0.02002027306715047,
+        "samples": {
+          "sourceAvailable": 36000,
+          "sourceStride": 18,
+          "outputAvailable": 5346,
+          "outputStride": 3
+        },
+        "limitations": [
+          "Sampled surface/feature errors are not a Hausdorff certificate.",
+          "Topology and vertex links do not alone certify absence of all 3D self-intersections.",
+          "Binary geometric crease preservation does not imply arbitrary source attribute transfer."
+        ]
+      },
+      "shape": {
+        "quadOnly": true,
+        "faces": 1782,
+        "minimumAngleDegrees": 43.60807876219638,
+        "angleP05Degrees": 66.70583119490725,
+        "maximumAngleDegrees": 144.0365779930973,
+        "edgeRatioP95": 2.5210623487332873,
+        "edgeRatioMax": 3.5053491528739738,
+        "scaledJacobianMin": 0.5870822785854203,
+        "scaledJacobianP05": 0.8181529389031263,
+        "edgeLengthCV": 0.1950964180904464,
+        "adjacentAreaRatioP95": 1.8587035194812012,
+        "valence4Fraction": 0.9551066217732884,
+        "irregularVertices": 80,
+        "targetRelativeError": 0.01,
+        "passed": true,
+        "failures": [],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "denseDiagonals": {
+        "02": {
+          "sourceToOutput": {
+            "passed": true,
+            "samples": 120000,
+            "maximum": 0.03896409029967619,
+            "p95": 0.01706826857061084,
+            "overTolerance": 0,
+            "worstPoint": [
+              -0.009735588397201796,
+              0.9089787227559244,
+              -0.14100688032707046
+            ]
+          },
+          "outputToSource": {
+            "passed": true,
+            "samples": 17820,
+            "maximum": 0.034610524651171565,
+            "p95": 0.011129832161961324,
+            "overTolerance": 0,
+            "worstPoint": [
+              0.48887146436864803,
+              0.8006420701616781,
+              0.029310837128364898
+            ]
+          }
+        },
+        "13": {
+          "sourceToOutput": {
+            "passed": true,
+            "samples": 120000,
+            "maximum": 0.039497436284811276,
+            "p95": 0.0177486886809891,
+            "overTolerance": 0,
+            "worstPoint": [
+              0.46345973638317506,
+              0.7542891189452553,
+              -0.0024660878172508153
+            ]
+          },
+          "outputToSource": {
+            "passed": true,
+            "samples": 17820,
+            "maximum": 0.035965282930883725,
+            "p95": 0.011741312073737962,
+            "overTolerance": 0,
+            "worstPoint": [
+              0.48688591218454186,
+              0.7776737129009162,
+              0.030716404721212093
+            ]
+          }
+        }
+      },
+      "adjacentInteriors": {
+        "passed": true,
+        "adjacentFacePairs": 7168,
+        "trianglePrograms": 22135,
+        "overlaps": [],
+        "unresolved": [],
+        "scope": "Independent HiGHS feasibility/maximum-interior-margin problems for every shared-vertex face pair after triangle AABB pruning. Reports strict interior contacts above 1e-7 barycentric margin; boundary-only contacts and smaller margins are outside this supplemental test."
+      },
+      "blenderBVH": {
+        "passed": true,
+        "detectorControlsPassed": true,
+        "results": [
+          {
+            "file": "C:\\dbva\\code\\retopo-1\\tests\\toilet-variants\\all-diagonal\\lid-reversed\\output.obj",
+            "polygons": 1782,
+            "nonAdjacentOverlapPairs": [],
+            "passed": true
+          }
+        ],
+        "scope": "Blender BVH candidates followed by double-precision triangle intersection tests (1e-9 tolerance), fan triangulation. Shared-vertex polygon pairs excluded. Not a complete test of adjacent folds, coplanar contacts or every self-intersection."
+      },
+      "guideFits": [
+        {
+          "pathValid": true,
+          "measurement": {
+            "samples": 257,
+            "meanDistance": 0.00351522262960068,
+            "p95Distance": 0.007781562028025881,
+            "maxDistance": 0.013686136723630804,
+            "meanDistanceOverMedianEdge": 0.04986917051027395,
+            "meanUnsignedTangentAngleDegrees": 3.928402952764781,
+            "p95UnsignedTangentAngleDegrees": 13.540065741126508,
+            "selectedEdgeCount": 23,
+            "selectedEdgeGraphComponents": 1,
+            "selectedEdgeGraphDegreeHistogram": {
+              "1": 2,
+              "2": 22
+            },
+            "selectedEdgesFormSingleCycle": false,
+            "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+          },
+          "passed": true
+        }
+      ],
+      "elapsedSeconds": 53.015999999974156
+    },
+    {
+      "name": "circle-small-perturbation",
+      "job": "22fd69021ff94a699e9c1b79375d42a7",
+      "outputFile": "tests\\toilet-variants\\all-diagonal\\circle-small-perturbation\\output.obj",
+      "outputSha256": "9851150ba73b9947e5e2de559f3ac1c802204d8de4ef6272b2f76d6cdb9c6167",
+      "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+      "exportMatchesWorker": true,
+      "passed": true,
+      "target": 1800,
+      "tolerance": 0.04004054613430094,
+      "referenceValidation": {
+        "passed": true,
+        "checks": {
+          "closed": true,
+          "components": true,
+          "sourceEuler": true,
+          "noIncidenceDefects": true,
+          "vertexManifold": true,
+          "consistentWinding": true,
+          "sampledSurface": true
+        },
+        "vertexLinks": {
+          "nonmanifoldVertices": [],
+          "inconsistentWindingEdges": 0
+        },
+        "features": {},
+        "topology": {
+          "vertices": 1782,
+          "faces": 1782,
+          "quads": 1782,
+          "triangles": 0,
+          "boundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "faceConnectedComponents": 1,
+          "eulerCharacteristic": 0
+        },
+        "sourceToOutputNormalized": {
+          "samples": 2000,
+          "rms": 0.003740556028561271,
+          "mean": 0.002745443746881335,
+          "p95": 0.007749791189002334,
+          "sampledMax": 0.01545235639110983
+        },
+        "outputToSourceNormalized": {
+          "samples": 1782,
+          "rms": 0.002369244417726661,
+          "mean": 0.0014044502100445805,
+          "p95": 0.005527513665114409,
+          "sampledMax": 0.018366155610631
+        },
+        "measurementFrame": {
+          "center": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "scale": 0.5,
+          "normalizationOnlyForPredicates": true
+        },
+        "sampledSurfaceToleranceNormalized": 0.02002027306715047,
+        "samples": {
+          "sourceAvailable": 36000,
+          "sourceStride": 18,
+          "outputAvailable": 5346,
+          "outputStride": 3
+        },
+        "limitations": [
+          "Sampled surface/feature errors are not a Hausdorff certificate.",
+          "Topology and vertex links do not alone certify absence of all 3D self-intersections.",
+          "Binary geometric crease preservation does not imply arbitrary source attribute transfer."
+        ]
+      },
+      "shape": {
+        "quadOnly": true,
+        "faces": 1782,
+        "minimumAngleDegrees": 39.28770365279023,
+        "angleP05Degrees": 62.606156901558975,
+        "maximumAngleDegrees": 148.9034254362827,
+        "edgeRatioP95": 3.1161296188317236,
+        "edgeRatioMax": 3.5196381984753398,
+        "scaledJacobianMin": 0.457765380191226,
+        "scaledJacobianP05": 0.7661632967910228,
+        "edgeLengthCV": 0.22420847274604513,
+        "adjacentAreaRatioP95": 2.112047596641467,
+        "valence4Fraction": 0.9551066217732884,
+        "irregularVertices": 80,
+        "targetRelativeError": 0.01,
+        "passed": true,
+        "failures": [],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "denseDiagonals": {
+        "02": {
+          "sourceToOutput": {
+            "passed": true,
+            "samples": 120000,
+            "maximum": 0.03672691718589742,
+            "p95": 0.015638112051646048,
+            "overTolerance": 0,
+            "worstPoint": [
+              -0.465445680077,
+              0.730403040577,
+              -0.00195359998971
+            ]
+          },
+          "outputToSource": {
+            "passed": true,
+            "samples": 17820,
+            "maximum": 0.036732311221262,
+            "p95": 0.01104696412945099,
+            "overTolerance": 0,
+            "worstPoint": [
+              -0.1994091929907525,
+              -0.43018624374636544,
+              0.25167745510085987
+            ]
+          }
+        },
+        "13": {
+          "sourceToOutput": {
+            "passed": true,
+            "samples": 120000,
+            "maximum": 0.03572660483173692,
+            "p95": 0.015782799893858154,
+            "overTolerance": 0,
+            "worstPoint": [
+              -0.4666666800705,
+              0.7504274404715,
+              -0.00195359998971
+            ]
+          },
+          "outputToSource": {
+            "passed": true,
+            "samples": 17820,
+            "maximum": 0.036732311221262,
+            "p95": 0.011349888776147614,
+            "overTolerance": 0,
+            "worstPoint": [
+              -0.1994091929907525,
+              -0.43018624374636544,
+              0.25167745510085987
+            ]
+          }
+        }
+      },
+      "adjacentInteriors": {
+        "passed": true,
+        "adjacentFacePairs": 7168,
+        "trianglePrograms": 22180,
+        "overlaps": [],
+        "unresolved": [],
+        "scope": "Independent HiGHS feasibility/maximum-interior-margin problems for every shared-vertex face pair after triangle AABB pruning. Reports strict interior contacts above 1e-7 barycentric margin; boundary-only contacts and smaller margins are outside this supplemental test."
+      },
+      "blenderBVH": {
+        "passed": true,
+        "detectorControlsPassed": true,
+        "results": [
+          {
+            "file": "C:\\dbva\\code\\retopo-1\\tests\\toilet-variants\\all-diagonal\\circle-small-perturbation\\output.obj",
+            "polygons": 1782,
+            "nonAdjacentOverlapPairs": [],
+            "passed": true
+          }
+        ],
+        "scope": "Blender BVH candidates followed by double-precision triangle intersection tests (1e-9 tolerance), fan triangulation. Shared-vertex polygon pairs excluded. Not a complete test of adjacent folds, coplanar contacts or every self-intersection."
+      },
+      "guideFits": [
+        {
+          "pathValid": true,
+          "measurement": {
+            "samples": 257,
+            "meanDistance": 0.0045955900458940924,
+            "p95Distance": 0.01463739179811697,
+            "maxDistance": 0.020273059796543234,
+            "meanDistanceOverMedianEdge": 0.06083353180034674,
+            "meanUnsignedTangentAngleDegrees": 12.129627499405634,
+            "p95UnsignedTangentAngleDegrees": 25.781605365153965,
+            "selectedEdgeCount": 20,
+            "selectedEdgeGraphComponents": 1,
+            "selectedEdgeGraphDegreeHistogram": {
+              "2": 20
+            },
+            "selectedEdgesFormSingleCycle": true,
+            "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+          },
+          "passed": true
+        }
+      ],
+      "elapsedSeconds": 66.42200000002049
+    }
+  ],
+  "unqualifiedCases": [],
+  "sourceHashes": {
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "engine/targets/zbrush/clone/mesh_validation.py": "ed3e26089e8eb80d08bd0f135e01ab0615a59fda9dcc16402d49b847fb324c08",
+    "tests/check_toilet_overlap_blender.py": "e3d658b28a1eea5d370a2925a25d61504a81bc97fe3a15625b996f5985244754",
+    "tests/verify_toilet_fresh_geometry.py": "d51a05d2988d2612479d85c787d3f6090d0baf0d24b9c3f93a10b9d14100f26e"
+  },
+  "scope": "Actual exported OBJ re-read independently: unchanged reference validator, dense bidirectional checks under both quad diagonals, separate Blender BVH nonadjacent test, LP adjacent-interior tests, topology/shape and actual guide-edge paths. This audits accepted exports only; unqualified generation cases are not converted into passes."
+}

@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "constructionCompleted": false,
+  "message": "Generation failed: the closest candidate did not meet the limits for quad quality, source-surface accuracy, face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.",
+  "technicalMessage": "Generation failed: the closest candidate did not meet the limits for quad quality, source-surface accuracy, face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 32, in main\n    if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)\n                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 387, in construct\n    raise ValueError('Generation failed: the closest candidate did not meet the limits for ' + ', '.join(reasons)\nValueError: Generation failed: the closest candidate did not meet the limits for quad quality, source-surface accuracy, face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.\n",
+  "elapsedSeconds": 34.10899999999674,
+  "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+  "workerSha256": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5"
+}

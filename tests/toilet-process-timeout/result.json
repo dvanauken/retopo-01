@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "Production execute uses its unchanged 600-second timeout"
+    },
+    {
+      "passed": true,
+      "name": "Timeout was injected only after a real Blender child started"
+    },
+    {
+      "passed": true,
+      "name": "Timeout produces a failed job with the specific limit message"
+    },
+    {
+      "passed": true,
+      "name": "Killed worker has a real nonzero exit code"
+    },
+    {
+      "passed": true,
+      "name": "Actual worker and observed Blender descendants are gone after timeout cleanup"
+    },
+    {
+      "passed": true,
+      "name": "Timed-out worker publishes no output geometry"
+    },
+    {
+      "passed": true,
+      "name": "Retained execution record matches actual process failure"
+    }
+  ],
+  "errors": [],
+  "observedProcesses": [
+    {
+      "pid": 28836,
+      "created": 1792898993.2471516,
+      "name": "python.exe",
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\dbva\\code\\retopo-1\\worker.py",
+        "--job",
+        "C:\\dbva\\code\\retopo-1\\runs\\fedd51af72974a8e8f726b9a7da8212c"
+      ]
+    },
+    {
+      "pid": 1904,
+      "created": 1792898993.2529235,
+      "name": "conhost.exe",
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ]
+    },
+    {
+      "pid": 51624,
+      "created": 1792898997.33119,
+      "name": "blender.exe",
+      "command": [
+        "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
+        "--background",
+        "--threads",
+        "8",
+        "--python",
+        "C:\\dbva\\code\\retopo-1\\scripts\\quadriflow_mesh.py",
+        "--",
+        "--input",
+        "C:\\dbva\\code\\retopo-1\\runs\\fedd51af72974a8e8f726b9a7da8212c\\quadri-input.json",
+        "--output",
+        "C:\\dbva\\code\\retopo-1\\runs\\fedd51af72974a8e8f726b9a7da8212c\\quadri-layout-0.json",
+        "--target",
+        "1800",
+        "--seed",
+        "0"
+      ]
+    },
+    {
+      "pid": 48348,
+      "created": 1792898997.342872,
+      "name": "conhost.exe",
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "server.py": "f65051ca9ae0589756ca1b77f965fd78bc7c29fb2818f644e756e682bbdcd429",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_toilet_process_timeout.py": "f414b7a168f8da4f62e27ee2126af5a6de2413beeadd85beba0da5047cc241a5"
+  },
+  "scope": "Actual toilet worker and Blender subprocess; one timeout event injected at the production wait boundary after observing the real child. Does not wait ten wall-clock minutes or substitute generated geometry."
+}

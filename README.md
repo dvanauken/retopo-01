@@ -23,7 +23,7 @@ This machine already has the qualified64-bit Windows Python numerical environmen
 
 The toilet's curved-surface quad solver also uses the locally installed Blender. On a new machine, install Blender or set `RETOPO_BLENDER` to its executable before starting the server. See [TOILET_SOLVER.md](TOILET_SOLVER.md) for construction, acceptance limits and verification.
 
-Exhaustive toilet testing remains open. Denser checks found surface-distance misses in all five unique previously accepted outputs, and additional checks confirmed shared-vertex face overlaps in three of them. The longer two-guide case also remains unresolved. See [the audit plan and coverage gaps](TOILET_TEST_PLAN.md) and [current solver limitations](TOILET_SOLVER.md); earlier passing checks do not establish complete geometry qualification.
+Exhaustive toilet testing remains open. After fixing quad warpage, fresh unguided, lid-guide and lid-Circle results at target 1,800 pass the strengthened surface and contact checks plus independent export audits. Bowl and combined-guide cases remain unresolved. The five historical exports failed the stronger audits and remain superseded. See [the audit plan and coverage gaps](TOILET_TEST_PLAN.md) and [current solver limitations](TOILET_SOLVER.md).
 
 ## Try it
 
