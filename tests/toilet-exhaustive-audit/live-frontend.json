@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "servers": [
+    {
+      "port": 8741,
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 4
+      },
+      "servedAppSha256": "c44c5c5c6130e1019ac4a3c37bff157ac1eac89fd7accf3318571663257a0f7d",
+      "passed": true
+    },
+    {
+      "port": 8742,
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 4
+      },
+      "servedAppSha256": "c44c5c5c6130e1019ac4a3c37bff157ac1eac89fd7accf3318571663257a0f7d",
+      "passed": true
+    }
+  ],
+  "checkedAt": "2026-10-25T04:16:34.554204+00:00",
+  "scope": "Read-only verification of live service health and exact current frontend bytes; existing servers and calculations are not restarted."
+}

@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-25T04:16:34.591166+00:00",
+  "parentRevision": "ba6194e29f29b7868deff6ad076bddf4d6c57d88",
+  "sourceHashes": {
+    "app.js": "c44c5c5c6130e1019ac4a3c37bff157ac1eac89fd7accf3318571663257a0f7d",
+    "server.py": "f65051ca9ae0589756ca1b77f965fd78bc7c29fb2818f644e756e682bbdcd429",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "sourceBackendAndAcceptanceUnchanged": true,
+  "transportChecks": 52,
+  "asyncChecks": 30,
+  "successfulGeneratedWorkflowChecks": 15,
+  "successfulWorkflowScope": "Passed before the final cancellation timer/notification-only correction, with exact hash in its report. Final cancellation suites verify those corrections.",
+  "freshExportMatchesIndependentlyQualifiedCircle": true,
+  "extraSeedCases": 6,
+  "extraSeedQualified": 0,
+  "slidingPinPasses": 5,
+  "slidingPinQualified": 0,
+  "exhaustiveGoalComplete": false,
+  "remaining": "Bowl and combined-guide generation, coarse density failures, lost initial submission acknowledgement and service-restart coverage remain unresolved."
+}

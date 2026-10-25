@@ -1,0 +1,31 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "cancel-before-response: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Cancel before acknowledgement reports the request without claiming the worker stopped",
+      "passed": true
+    },
+    {
+      "name": "A cancelled pending request cannot keep updating the calculation timer",
+      "passed": false
+    },
+    {
+      "name": "Late acknowledgement after explicit cancellation does not revive a job",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "workerJobs": [
+    "8ed0f47936a34e638da9e6d5a5e6a257"
+  ],
+  "sourceHashes": {
+    "app.js": "15bfb263facdd1c083ca749b08c82623d78b949aa1dab76dd4b7d8576a65cfb6",
+    "server.py": "f65051ca9ae0589756ca1b77f965fd78bc7c29fb2818f644e756e682bbdcd429",
+    "tests/verify_toilet_async_ui.py": "0907ce30f37ded5bb98380f7cb8543ec5e17212491f35bc5776015ac45b0a056"
+  },
+  "scope": "Actual Chromium, delayed delivery of genuine HTTP responses, actual toilet workers and cancellation. No fabricated worker output."
+}

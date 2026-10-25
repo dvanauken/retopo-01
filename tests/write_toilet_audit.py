@@ -8,6 +8,16 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'tests/toilet-exhaustive-audit'; OUT.mkdir(exist_ok=True)
 reports={
     'original-source':'tests/toilet-source/result.json',
+    'cancel-transport-before-fix':'tests/toilet-cancel-transport/before-fix/result.json',
+    'cancel-transport-initial-fix':'tests/toilet-cancel-transport/fixed/result.json',
+    'cancel-transport-expanded':'tests/toilet-cancel-transport/extended/result.json',
+    'cancel-feedback-regression':'tests/toilet-cancel-transport/final-feedback/result.json',
+    'cancel-transport-final':'tests/toilet-cancel-transport/final/result.json',
+    'cancel-timer-before-fix':'tests/toilet-async-ui/cancellation-timer-before-fix/result.json',
+    'async-cancellation-final':'tests/toilet-async-ui/cancellation-final/result.json',
+    'successful-ui-after-ownership-fix':'tests/toilet-generated-ui/cancellation-ownership/result.json',
+    'fresh-extra-layout-seeds':'tests/toilet-layout-seeds/fresh-seeds-2-3/result.json',
+    'sliding-pin-experiment':'tests/toilet-sliding-pins/bowl-seed-2/result.json',
     'api-boundaries-and-lifecycle':'tests/toilet-api/current/result.json',
     'browser-async-lifecycle':'tests/toilet-async-ui/request-context-complete/result.json',
     'toilet-editor':'tests/toilet-editing/current/result.json',
@@ -100,6 +110,8 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
     provisionalSpecificCases=provisional,disqualifiedSpecificCases=disqualified,
     updatedAt=datetime.now(timezone.utc).isoformat(),evidence=evidence,
     interpretation=[
+        'Current cancellation-ownership tests pass 52 real-worker transport checks and 30 asynchronous request/reset checks. The 15-check successful-generated-result workflow passed before the final timer/notification-only correction; both exact frontend hashes are retained.',
+        'Extra genuine layout seeds 2/3 fail all six captured complex-guide cases. Sliding pins on seed 2 fail guide alignment in every pass. These isolated experiments are not in production and do not qualify geometry.',
         'Green lifecycle, editing or rejection checks do not qualify the generated geometry.',
         'Earlier API/browser reports retain their original implementation hashes. Current post-admission-fix suites separately verify 76 HTTP and 29 browser checks with a named Circle positive control; the original bowl-generation failure remains recorded.',
         'Right-pane editing uses an explicitly unqualified historical rendering fixture; it does not simulate or claim successful generation.',

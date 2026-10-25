@@ -139,7 +139,7 @@
       }
     }
   ],
-  "updatedAt": "2026-10-25T03:47:26.755113+00:00",
+  "updatedAt": "2026-10-25T04:16:34.863196+00:00",
   "evidence": {
     "original-source": {
       "report": "tests/toilet-source/result.json",
@@ -147,6 +147,140 @@
       "sourceValidationPassed": true,
       "checks": 7,
       "passedChecks": 7,
+      "implementationHashMismatches": []
+    },
+    "cancel-transport-before-fix": {
+      "report": "tests/toilet-cancel-transport/before-fix/result.json",
+      "sha256": "f07ce83d481ef9f6c1e8156481056f9d28a1ac9de477453d45100ab78ca1e006",
+      "passed": false,
+      "errors": [],
+      "checks": 14,
+      "passedChecks": 7,
+      "implementationHashMismatches": [
+        "app.js",
+        "tests/verify_toilet_cancel_transport.py"
+      ]
+    },
+    "cancel-transport-initial-fix": {
+      "report": "tests/toilet-cancel-transport/fixed/result.json",
+      "sha256": "3a28e563986423ea335a3702e8c46841f8a0ff02f14d1b0cfa1e98fe66a9464f",
+      "passed": true,
+      "errors": [],
+      "checks": 14,
+      "passedChecks": 14,
+      "implementationHashMismatches": [
+        "app.js",
+        "tests/verify_toilet_cancel_transport.py"
+      ]
+    },
+    "cancel-transport-expanded": {
+      "report": "tests/toilet-cancel-transport/extended/result.json",
+      "sha256": "27a7fbfc2e3572e65461445356925e84492bb40bae8e984a3dbaa05b4a22c8d2",
+      "passed": true,
+      "errors": [],
+      "checks": 41,
+      "passedChecks": 41,
+      "implementationHashMismatches": [
+        "app.js",
+        "tests/verify_toilet_cancel_transport.py"
+      ]
+    },
+    "cancel-feedback-regression": {
+      "report": "tests/toilet-cancel-transport/final-feedback/result.json",
+      "sha256": "6baadbebeb1ba8ad46d2e2914fa2576a06ccf4577143b2a3f711475cdc614d0b",
+      "passed": false,
+      "errors": [],
+      "checks": 52,
+      "passedChecks": 51,
+      "implementationHashMismatches": [
+        "app.js"
+      ]
+    },
+    "cancel-transport-final": {
+      "report": "tests/toilet-cancel-transport/final/result.json",
+      "sha256": "0dcec689f20130634f8f1cb012eaf62f777e54fb200256f9442e837e00e4f47f",
+      "passed": true,
+      "errors": [],
+      "checks": 52,
+      "passedChecks": 52,
+      "implementationHashMismatches": []
+    },
+    "cancel-timer-before-fix": {
+      "report": "tests/toilet-async-ui/cancellation-timer-before-fix/result.json",
+      "sha256": "5025c16c7df57646053e742023ba98eb7b3c1b288dc8fd3bb172be46dd79e93d",
+      "passed": false,
+      "errors": [],
+      "checks": 4,
+      "passedChecks": 3,
+      "implementationHashMismatches": [
+        "app.js"
+      ]
+    },
+    "async-cancellation-final": {
+      "report": "tests/toilet-async-ui/cancellation-final/result.json",
+      "sha256": "9eeb7963354c399d3539cb9a58d5545404f2482fea9be63c2b95923728912b7b",
+      "passed": true,
+      "errors": [],
+      "checks": 30,
+      "passedChecks": 30,
+      "implementationHashMismatches": []
+    },
+    "successful-ui-after-ownership-fix": {
+      "report": "tests/toilet-generated-ui/cancellation-ownership/result.json",
+      "sha256": "9627c576a76be1c13ba02d287fbf5e81386c6adfb4b16db85cb54717b3f88ee1",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 15,
+      "passedChecks": 15,
+      "cases": [
+        {
+          "name": "circle-success",
+          "state": "complete"
+        }
+      ],
+      "implementationHashMismatches": [
+        "app.js"
+      ]
+    },
+    "fresh-extra-layout-seeds": {
+      "report": "tests/toilet-layout-seeds/fresh-seeds-2-3/result.json",
+      "sha256": "2f4f88d86a8af0784bfcea60b1e752179b94cc43cb8fd6523303295f7c89183e",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "two-guides-short-1800"
+        },
+        {
+          "name": "two-guides-long-1800"
+        },
+        {
+          "name": "bowl-only-1800"
+        },
+        {
+          "name": "two-guides-short-1800"
+        },
+        {
+          "name": "two-guides-long-1800"
+        },
+        {
+          "name": "bowl-only-1800"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "sliding-pin-experiment": {
+      "report": "tests/toilet-sliding-pins/bowl-seed-2/result.json",
+      "sha256": "11294101cb2c78c3827c0e77159fadb7053fcdf2965dbe83e4220ca427fa4b52",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "bowl-only-1800"
+        }
+      ],
       "implementationHashMismatches": []
     },
     "api-boundaries-and-lifecycle": {
@@ -231,6 +365,7 @@
       "checks": 17,
       "passedChecks": 17,
       "implementationHashMismatches": [
+        "app.js",
         "server.py",
         "tests/verify_toilet_async_ui.py"
       ]
@@ -243,7 +378,9 @@
       "checks": 29,
       "passedChecks": 29,
       "implementationHashMismatches": [
-        "server.py"
+        "app.js",
+        "server.py",
+        "tests/verify_toilet_async_ui.py"
       ]
     },
     "admission-race-before-fix": {
@@ -305,7 +442,10 @@
       "errors": [],
       "checks": 29,
       "passedChecks": 29,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js",
+        "tests/verify_toilet_async_ui.py"
+      ]
     },
     "reset-two-pending": {
       "report": "tests/toilet-async-ui/reset-multiple/result.json",
@@ -315,7 +455,9 @@
       "checks": 7,
       "passedChecks": 7,
       "implementationHashMismatches": [
-        "server.py"
+        "app.js",
+        "server.py",
+        "tests/verify_toilet_async_ui.py"
       ]
     },
     "delayed-imports": {
@@ -325,7 +467,9 @@
       "errors": [],
       "checks": 15,
       "passedChecks": 15,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js"
+      ]
     },
     "occlusion-marquee-repeat-use": {
       "report": "tests/toilet-selection-stability/current/result.json",
@@ -334,7 +478,9 @@
       "errors": [],
       "checks": 18,
       "passedChecks": 18,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js"
+      ]
     },
     "fresh-warpage-guided": {
       "report": "tests/toilet-strict-generation/warpage-guided/result.json",
@@ -358,6 +504,7 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "server.py",
         "curved_quad.py",
         "surface_intersections.py",
@@ -391,6 +538,7 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "server.py",
         "curved_quad.py",
         "surface_intersections.py",
@@ -446,8 +594,10 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "server.py",
-        "curved_quad.py"
+        "curved_quad.py",
+        "tests/verify_toilet_generated_ui.py"
       ]
     },
     "actual-worker-timeout-cleanup": {
@@ -526,6 +676,7 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "server.py",
         "curved_quad.py",
         "surface_intersections.py",
@@ -696,6 +847,7 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "curved_quad.py",
         "surface_intersections.py",
         "tests/verify_toilet_variants.py"
@@ -727,7 +879,9 @@
           "message": null
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js"
+      ]
     },
     "independent-all-diagonal-generations": {
       "report": "tests/toilet-fresh-geometry/all-diagonal-generations/result.json",
@@ -991,10 +1145,14 @@
       "report": "tests/toilet-exhaustive-audit/live-server.json",
       "sha256": "65451167b104003728d77985057164acf5f7d7db56d929eb06da968bb392a862",
       "passed": true,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js"
+      ]
     }
   },
   "interpretation": [
+    "Current cancellation-ownership tests pass 52 real-worker transport checks and 30 asynchronous request/reset checks. The 15-check successful-generated-result workflow passed before the final timer/notification-only correction; both exact frontend hashes are retained.",
+    "Extra genuine layout seeds 2/3 fail all six captured complex-guide cases. Sliding pins on seed 2 fail guide alignment in every pass. These isolated experiments are not in production and do not qualify geometry.",
     "Green lifecycle, editing or rejection checks do not qualify the generated geometry.",
     "Earlier API/browser reports retain their original implementation hashes. Current post-admission-fix suites separately verify 76 HTTP and 29 browser checks with a named Circle positive control; the original bowl-generation failure remains recorded.",
     "Right-pane editing uses an explicitly unqualified historical rendering fixture; it does not simulate or claim successful generation.",

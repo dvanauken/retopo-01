@@ -32,7 +32,7 @@ for (const scene of scenes) {
 }
 const raycaster = new THREE.Raycaster();
 let sourceRender = null, resultRender = null, grids = [], draft = [], generation = 0, noticeTimer;
-const pendingSubmissions = new Set();
+const pendingSubmissions = new Map(), ownedJobs = new Map();
 const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const color = name => new THREE.Color(css(name));
 const samePoint = (a, b) => a && b && a.every((x, i) => Math.abs(x - b[i]) < 1e-8);
@@ -196,13 +196,14 @@ function setAttempt(phase, message = '', context = null) {
 }
 function syncResultFeedback() {
   const attempt = state.lastAttempt, failed = attempt?.phase === 'failed', cancelled = attempt?.phase === 'cancelled';
-  const title = failed ? 'Last generation failed' : cancelled ? 'Generation cancelled' : 'No generated mesh';
+  const stopping = attempt?.phase === 'cancelling', unconfirmed = attempt?.phase === 'cancellation-failed';
+  const title = unconfirmed ? 'Cancellation not confirmed' : stopping ? 'Cancellation requested' : failed ? 'Last generation failed' : cancelled ? 'Generation cancelled' : 'No generated mesh';
   const attemptContext = Number.isInteger(attempt?.target) && Number.isInteger(attempt?.guideCount) ? ` Attempted ${countText(attempt.target)} quads with ${attempt.guideCount} guide${attempt.guideCount === 1 ? '' : 's'}.` : '';
-  const detail = failed ? attempt.message + attemptContext : cancelled ? 'Your guides are saved. Click Generate to try again.' : 'Click Generate to build a mesh from the current source and guides.';
+  const detail = unconfirmed ? 'The calculation may still be running. Retry cancellation or Reset; your guides are saved.' : stopping ? 'Waiting for the local service to confirm the calculation has stopped.' : failed ? attempt.message + attemptContext : cancelled ? 'Your guides are saved. Click Generate to try again.' : 'Click Generate to build a mesh from the current source and guides.';
   $('resultEmpty').hidden = !!state.result;
-  $('resultEmpty').dataset.state = failed ? 'failed' : cancelled ? 'cancelled' : 'ready';
+  $('resultEmpty').dataset.state = failed || unconfirmed ? 'failed' : cancelled ? 'cancelled' : 'ready';
   $('resultEmptyTitle').textContent = title; $('resultEmptyDetail').textContent = detail;
-  $('generationFeedback').hidden = !(failed || cancelled) || (!state.result && state.view === 'split');
+  $('generationFeedback').hidden = !(failed || cancelled || stopping || unconfirmed) || (!state.result && state.view === 'split');
   $('generationFeedback').textContent = title + '. ' + detail + (state.result ? ' The previous accepted result is still shown.' : '');
   $('generationFeedback').classList.toggle('overlay', state.view === 'overlay');
   syncGuideVisibility();
@@ -461,21 +462,26 @@ async function generate() {
   workspaceShell.addLog('Generating retopology…');
   setAttempt('running', '', attempt);
   const token = ++generation; state.busy = true; $('processing').hidden = false; $('generateButton').disabled = true; $('notice').hidden = true;
-  const started = performance.now(); const timer = setInterval(() => { $('processTime').textContent = `${Math.round((performance.now() - started) / 1000)}s`; }, 300);
-  $('processTime').textContent = '0s'; $('processDetail').textContent = state.mesh.solver === 'surface-quads' ? 'Building a quad layout, fitting your guide paths and checking the source surface…' : request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
+  const started = performance.now(); const timer = setInterval(() => { if (token !== generation) { clearInterval(timer); return; } $('processTime').textContent = `${Math.round((performance.now() - started) / 1000)}s`; }, 300);
+  $('processTitle').textContent = 'Generating retopology'; $('processTime').textContent = '0s'; $('processDetail').textContent = state.mesh.solver === 'surface-quads' ? 'Building a quad layout, fitting your guide paths and checking the source surface…' : request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
   let submission;
+  const operation = {};
+  $('cancelButton').textContent = 'Cancel calculation';
   try {
-    submission = api('/api/remesh', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) });
-    pendingSubmissions.add(submission);
+    submission = api('/api/remesh', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) }).then(first => {
+      operation.id = first.id; ownedJobs.set(first.id, operation); return first;
+    });
+    pendingSubmissions.set(submission, operation);
     const first = await submission;
     pendingSubmissions.delete(submission);
     if (token !== generation) {
-      await api('/api/jobs/' + first.id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+      await cancelOwnedJob(operation);
       return;
     }
     state.job = first.id;
     while (token === generation) {
       const job = await api('/api/jobs/' + first.id); if (token !== generation) return;
+      if (['complete', 'failed', 'cancelled'].includes(job.state)) ownedJobs.delete(first.id);
       $('processTitle').textContent = job.stage;
       if (job.state === 'complete') {
         const result = await api(job.resultUrl); if (token !== generation) return;
@@ -485,13 +491,58 @@ async function generate() {
       if (job.state === 'cancelled') { setAttempt('cancelled', '', attempt); return; }
       await new Promise(resolve => setTimeout(resolve, 500));
     }
-  } catch (error) { if (token === generation) { setAttempt('failed', error.message, attempt); notify(error.message, true, true); } }
-  finally { pendingSubmissions.delete(submission); clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false; } }
+  } catch (error) {
+    if (token === generation) { setAttempt('failed', error.message, attempt); notify(error.message, true, true); }
+    // A polling/transport error does not prove that the worker stopped.
+    if (token === generation && operation.id && ownedJobs.has(operation.id)) { try { await cancelOwnedJob(operation); } catch { /* Ownership and retry feedback are retained. */ } }
+  }
+  finally { pendingSubmissions.delete(submission); clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('generateButton').disabled = false; } syncCancellationUI(); }
+}
+function outstandingOperations() { return [...new Set([...pendingSubmissions.values(), ...ownedJobs.values()])]; }
+function syncCancellationUI() {
+  if (state.busy) return;
+  const stopping = outstandingOperations().filter(operation => operation.cancelling);
+  $('processing').hidden = !stopping.length;
+  if (stopping.length) {
+    const failed = stopping.some(operation => operation.cancelError);
+    $('processTitle').textContent = failed ? 'Cancellation not confirmed' : 'Stopping calculation';
+    $('processDetail').textContent = failed ? 'The calculation may still be running. Your guides are saved; retry when the local service is reachable.' : 'Waiting for the local service to confirm cancellation…';
+    $('processTime').textContent = '';
+    $('cancelButton').textContent = failed ? 'Retry cancellation' : 'Cancel calculation';
+  }
+  const relevant = stopping.filter(operation => operation.feedbackToken === generation);
+  if (['cancelling', 'cancellation-failed'].includes(state.lastAttempt?.phase)) {
+    if (!relevant.length) setAttempt('cancelled', '', state.lastAttempt);
+    else setAttempt(relevant.some(operation => operation.cancelError) ? 'cancellation-failed' : 'cancelling', '', state.lastAttempt);
+  }
+}
+async function cancelOwnedJob(operation) {
+  if (operation.cancelPromise) return operation.cancelPromise;
+  if (!ownedJobs.has(operation.id)) return;
+  operation.cancelling = true; operation.cancelError = null;
+  operation.cancelPromise = (async () => {
+    try {
+      const job = await api('/api/jobs/' + operation.id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+      if (!['cancelled', 'complete', 'failed'].includes(job.state)) throw new Error('The local service has not confirmed cancellation.');
+      ownedJobs.delete(operation.id);
+      if (!state.busy && !outstandingOperations().some(op => op.cancelling)) notify('Calculation stopped. Your guides are saved.');
+    } catch (error) {
+      operation.cancelError = error.message;
+      notify('Cancellation not confirmed. ' + error.message + ' Retry cancellation or Reset.', true, true);
+      throw error;
+    } finally { operation.cancelPromise = null; syncCancellationUI(); }
+  })();
+  return operation.cancelPromise;
 }
 async function cancelGeneration(options = {}) {
-  const id = state.job, wasBusy = state.busy, attempt = state.lastAttempt; ++generation; state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false;
-  if (wasBusy) setAttempt('cancelled', '', attempt);
-  if (id) { try { await api('/api/jobs/' + id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }); } catch (error) { if (options.propagateError) throw error; notify(error.message, true); } }
+  const wasBusy = state.busy, attempt = state.lastAttempt;
+  ++generation; state.busy = false; state.job = null; $('generateButton').disabled = false;
+  for (const operation of outstandingOperations()) { operation.cancelling = true; operation.feedbackToken = generation; }
+  if (wasBusy || ['cancelling', 'cancellation-failed'].includes(attempt?.phase)) setAttempt('cancelling', '', attempt);
+  syncCancellationUI();
+  const cancelled = await Promise.allSettled([...ownedJobs.values()].map(cancelOwnedJob));
+  const failure = cancelled.find(result => result.status === 'rejected');
+  if (failure && options.propagateError) throw failure.reason;
 }
 function downloadBlob(name, data) {
   const url = URL.createObjectURL(new Blob([data], { type: 'application/json' })), a = document.createElement('a'); a.href = url; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -512,14 +563,16 @@ for (const id of ['wireToggle', 'guidesToggle', 'creasesToggle']) $(id).onchange
 $('fitButton').onclick = () => { editor.run(() => editor.cancel()); fit(); }; $('topButton').onclick = () => { editor.run(() => editor.cancel()); fit(true); };
 $('resetButton').onclick = () => $('resetDialog').showModal();
 $('confirmReset').onclick = async () => {
-  const pending = [...pendingSubmissions], button = $('confirmReset'), label = button.textContent;
+  const pending = [...pendingSubmissions.keys()], button = $('confirmReset'), label = button.textContent;
   button.disabled = true; button.textContent = 'Stopping calculation…';
   try {
     await cancelGeneration({ propagateError: true });
     // A reload destroys the stale-response handler. Wait for every submitted
     // request's acknowledgement and cancel it before discarding this page.
-    const submitted = await Promise.allSettled(pending);
-    await Promise.all(submitted.filter(p => p.status === 'fulfilled').map(p => api('/api/jobs/' + p.value.id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' })));
+    await Promise.allSettled(pending);
+    // Ownership survives an acknowledgement, an in-flight cancellation and a
+    // failed transport attempt. Retry every known job before discarding it.
+    await Promise.all([...ownedJobs.values()].map(cancelOwnedJob));
     // The theme is a viewer preference, not part of the work being discarded.
     try { for (const key of Object.keys(localStorage)) if (key.startsWith('retopo-1:') && key !== 'retopo-1:theme') localStorage.removeItem(key); } catch { /* Storage is optional. */ }
     location.reload();

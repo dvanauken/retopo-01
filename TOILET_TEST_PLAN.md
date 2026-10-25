@@ -4,14 +4,21 @@ The active request is to keep testing until the toilet workflow has been tested
 exhaustively. Prior check counts are evidence, not completion criteria. An
 unresolved case, unchecked requirement or weak test keeps this audit open.
 
-The latest checkpoint fixes pending-Reset cancellation, the initial job-response
-race, quad warpage, and contacts hidden by alternate or mixed quad diagonals.
-All 41 numerical/lifecycle controls, 29 current browser race checks and 76 API
-checks with the explicit Circle positive control pass. Three fresh solves under
-the final contact gate—Circle, reversed lid guide and perturbed Circle—also pass
-independent exported-geometry audits. Bowl and combined-guide generation still
-fail, as do the tested 150/600 unguided densities. The original source and
-recovered engine are unchanged. This checkpoint is progress, not completion.
+The latest continuation fixes ownership lost after a cancellation transport
+failure: Cancel/Reset now retain known jobs until terminal confirmation, support
+retry, and report unconfirmed cancellation truthfully. It also fixes stale timer
+updates and obsolete error notices. All 52 real-worker transport checks and all
+30 request/Reset checks pass on the final frontend. The 15-check genuine generated-
+result workflow passed before the final timer/notification-only correction; its
+exact tested hash is retained separately. The exported Circle bytes match the
+previous independently qualified result.
+
+Fresh QuadriFlow seeds 2 and 3 fail all six captured bowl/combined-guide cases.
+An isolated sliding-pin experiment reduces overlaps in four of five passes but
+never meets guide-fit limits; it is not integrated. Production fitting, source
+assets, recovered engine and every acceptance threshold remain unchanged. Bowl,
+combined-guide and coarse-density cases remain unsolved. This is progress, not
+completion.
 
 ## Current evidence and gaps
 
@@ -19,13 +26,13 @@ recovered engine are unchanged. This checkpoint is progress, not completion.
 | --- | --- | --- |
 | Original source | Original white GLB identity, similarity transform, all vertices, conformity repair, topology, presentation | All seven original-source checks pass again, including a fresh Draco decode and every vertex. Detected source contacts remain recorded separately from output qualification. |
 | Guide geometry | Freehand, Polyline, Spline, Circle; open/closed, first-point snap, fitting and projection limits | Existing guide units/browser suites; extend toilet-specific geometry variation, reversal, cyclic reindexing, ordering, perturbation and limit boundaries. |
-| Editing | Object/direct selection, endpoints, marquee, Shift groups, point edits, invalid multi-edit rollback, delete/reverse, history | 130 toilet editor checks pass at DPR 1/2 in both panes; that right-pane fixture is historical and unqualified. Another 18 checks cover actual underside occlusion, both marquee directions, partial containment, invalid group rollback, hidden overlay, keyboard ownership and repeated navigation. Fresh accepted-result editing is being checked separately. |
+| Editing | Object/direct selection, endpoints, marquee, Shift groups, point edits, invalid multi-edit rollback, delete/reverse, history | 130 toilet editor checks pass at DPR 1/2 in both panes; that right-pane fixture is historical and unqualified. Another 18 checks cover actual underside occlusion, both marquee directions, partial containment, invalid group rollback, hidden overlay, keyboard ownership and repeated navigation. Fifteen genuine generated-result workflow checks also pass; see the hash-scoped reports. |
 | Persistence | Native IO, exact authored values/IDs, source binding, reload, legacy input, malformed/budget-exceeding input | Native roundtrip/reload and atomic invalid imports pass. Fifteen additional delayed-file checks pass for source changes, edits during loading, out-of-order completion, stale invalid JSON, unfinished construction and legacy open/closed curves. |
 | Solver | No guides, single/multiple guides, all primitive families, supported densities, exact captured failures, repeated input and equivalent representations | `toilet-stress/result.json` has a required failure for the longer combined guide. Expand equivalence/perturbation tests; do not convert this failure to a pass merely because rejection is safe. |
 | Geometry acceptance | Actual exported quads; all relevant topology, shape, target, guide, surface and intersection checks | All five historical meshes remain unqualified. With the warpage correction, fresh unguided, lid-guide and Circle exports pass both production bounds and independent dense/LP/BVH/reference audits. Complex inputs and representation/density families remain under audit. |
 | Job lifecycle | Queue, admission limits, queued/running cancellation, repeat cancellation, late results, worker errors, timeout, recovery, no orphan processes | Queue/admission/cancellation/publication and worker-start races pass. Seven actual worker/Blender timeout-cleanup checks pass. The deterministic initial-response snapshot race is fixed. Broader sustained process behavior remains open. |
 | API contract | Valid boundaries, malformed/type/size limits, status/resource consistency, accepted-only result downloads | 76 current HTTP checks pass with a named Circle positive control. The original bowl recovery run still records a generation failure; it was not replaced by that control. |
-| UI lifecycle | Cancel before response, switching source while pending, edits/density changes while solving, stale completion, previous accepted result, error persistence | Reset before acknowledgement reproduced an orphan worker; Reset now waits and cancels submitted jobs before reloading. Seventeen checks pass for Reset and earlier races, plus seven for two pending acknowledgements. Actual successful-result and prior-accepted-result tests are running separately. |
+| UI lifecycle | Cancel before response, switching source while pending, edits/density changes while solving, stale completion, previous accepted result, error persistence | Reset before acknowledgement reproduced an orphan worker; Reset now waits and cancels submitted jobs before reloading. Seventeen checks pass for Reset and earlier races, plus seven for two pending acknowledgements. Fifteen actual successful-result/prior-result checks pass. Another 52 transport checks and 30 current asynchronous checks cover retry ownership and Reset. |
 | Workspace | Ribbon/nav/main/properties/dock, both themes, narrow layouts, split/overlay, orbit/zoom/fit, panel resizing, keyboard ownership | Existing shell suite passed. Cover interactions with the toilet and in-flight work, including repeated use. |
 | Runtime | Sustained drawing/editing/generation, memory/process cleanup, responsiveness, console errors | Forty source switches plus native camera actions retain exact guides and pass a bounded JavaScript heap/document-count check without console errors. This is not a GPU-memory or universal leak certificate. Multi-generation/process recovery remains to reconcile. |
 | Evidence | Current implementation hashes, actual input/output, actionable failure records, reproducible commands, live app verification | Existing suites retain evidence. Reconcile obsolete claims and produce a final requirement-by-requirement audit before completion. |
@@ -147,6 +154,29 @@ recovered engine are unchanged. This checkpoint is progress, not completion.
   under the corrected gate all pass independent exported-surface/path checks
   and the all-mixed-diagonal audit. The perturbed input now reaches a different
   valid candidate after its earlier overlapping candidate is rejected.
+
+The current transport regression reproduces the original bug with real toilet
+workers: interrupting Cancel left the worker running while the UI said cancelled;
+retrying Reset discarded the workspace without stopping it. The negative report
+is retained in `tests/toilet-cancel-transport/before-fix/`. The final seven-scenario
+suite covers failed Cancel/Reset, lost cancellation responses, stale admission
+acknowledgements, Reset during cancellation, source changes, and polling plus
+cancellation failure. It checks actual server states and observed worker exits.
+The final 30-check async suite also proves cancelled timers stop updating.
+
+Additional seed diagnostics show raw layouts 2/3 have no detected mixed-diagonal
+contacts before fitting. Bowl target assignment moves vertices by p95 0.231/0.223
+units despite nearest-guide distances of p95 0.053 (target edge length 0.080).
+This motivates investigating target spacing and curve-constrained movement;
+it does not prove a replacement fitting algorithm. Five sliding-pin passes on
+seed 2 remain unqualified. Exact layouts, candidates, executed residual and
+original curve hashes are retained, and production still uses seeds 0/1.
+
+Remaining network coverage includes loss of the initial submission acknowledgement
+before the browser learns any job ID and service restart during work. These cases
+are not covered by cancellation-response loss, and remain unverified. The user
+confirmed that the earlier output stall occurred while Windows was asleep or
+locked; completed reruns remain separate from the interrupted observations.
 
 Testing arbitrary continuous guide coordinates cannot enumerate every possible
 input. Coverage must therefore include documented finite control/state cases,

@@ -3,6 +3,7 @@
 Only delivery of genuine completed worker responses is delayed. No fabricated
 success, cached render fixture or substituted geometry is used.
 """
+import argparse
 import asyncio
 import hashlib
 import json
@@ -17,7 +18,9 @@ import psutil
 from playwright.async_api import async_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'tests/toilet-generated-ui/current'; OUT.mkdir(parents=True,exist_ok=True)
+parser=argparse.ArgumentParser(); parser.add_argument('--label',default='current'); args=parser.parse_args()
+if not args.label.replace('-', '').isalnum(): raise ValueError('Use a plain label')
+OUT=ROOT/'tests/toilet-generated-ui'/args.label; OUT.mkdir(parents=True,exist_ok=True)
 FILES=('app.js','server.py','worker.py','curved_quad.py','tests/verify_toilet_generated_ui.py')
 hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in FILES}
 checks,errors,jobs,cases=[],[],[],[]

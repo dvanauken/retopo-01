@@ -17,6 +17,15 @@ export is explicitly disqualified; the corrected gate allows the solver to
 continue to a valid candidate. Unguided targets 1,200 and 1,799 pass the retained
 audits, while 150 and 600 fail. These are finite tested cases.
 
+Additional isolated fresh-layout experiments with seeds 2/3 fail all three
+captured complex-guide inputs for both seeds. Their initially contact-free layouts
+fold during fitting. Pin-target assignment requires substantial movement along
+the curve, so a separate experiment replaces fixed pins with nearest-curve
+residuals plus a weak positional anchor. Four passes avoid contacts, but all five
+miss guide-fit limits and the last intersects. Neither experiment is integrated.
+See `tests/toilet-layout-seeds/` and `tests/toilet-sliding-pins/`. More layout seeds
+alone have not solved the reported bowl/combined-guide failure.
+
 Dense testing of all five unique previously
 accepted exports found surface-distance errors using the validator's ear
 triangulation. With the viewer's fan triangulation, two exceed the same limit;

@@ -113,7 +113,9 @@ async def exercise(browser, scenario):
             check(s['meshId'] == 'hexagon' and s['resultJob'] != captured['id'] and not s['busy'], 'A stale toilet request cannot own the new source workspace')
         elif scenario == 'cancel-before-response':
             await page.locator('#cancelButton').click()
-            check((await state())['lastAttempt']['phase'] == 'cancelled', 'Cancel before acknowledgement immediately labels the attempt cancelled')
+            check((await state())['lastAttempt']['phase'] == 'cancelling', 'Cancel before acknowledgement reports the request without claiming the worker stopped')
+            await page.wait_for_timeout(400)
+            check(await page.locator('#processTime').inner_text() == '', 'A cancelled pending request cannot keep updating the calculation timer')
             release_reply.set()
             for _ in range(100):
                 value = await asyncio.to_thread(http, '/api/jobs/' + captured['id'])
