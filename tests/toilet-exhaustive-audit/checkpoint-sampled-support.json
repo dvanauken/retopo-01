@@ -1,0 +1,190 @@
+{
+  "recordedAt": "2026-10-25T06:46:52.087037+00:00",
+  "exhaustiveGoalComplete": false,
+  "experimentalOnly": true,
+  "productionFitterChanged": false,
+  "sourceChanged": false,
+  "acceptanceLimitsChanged": false,
+  "experiments": {
+    "sampled-paths": {
+      "report": "tests/toilet-sampled-paths/captured-seed2-401/result.json",
+      "sha256": "81d71f3d7c4fc69a59e4c21a5323eda301c1af093ef4a2cea00c8200474e72e9",
+      "sourceHashes": {
+        "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+        "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+        "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+        "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+        "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+        "tests/probe_toilet_sampled_paths.py": "d9f9cd4b17b862521dcfeddabef869261245c180ca56578cc9f51edc1cf64b9b"
+      },
+      "scriptProvenance": null,
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "qualified": true,
+          "attempts": 2,
+          "finalGuideP95Angles": [
+            27.682089841168633
+          ],
+          "contactFailures": 0,
+          "fullSurfaceAttempts": 1
+        },
+        {
+          "name": "two-guides-short-1800",
+          "qualified": false,
+          "attempts": 5,
+          "finalGuideP95Angles": [
+            25.619466071093143,
+            14.341713425287246
+          ],
+          "contactFailures": 0,
+          "fullSurfaceAttempts": 1
+        },
+        {
+          "name": "two-guides-long-1800",
+          "qualified": false,
+          "attempts": 5,
+          "finalGuideP95Angles": [
+            29.121827505270943,
+            32.47171138093218
+          ],
+          "contactFailures": 0,
+          "fullSurfaceAttempts": 0
+        }
+      ]
+    },
+    "both-diagonal-support": {
+      "report": "tests/toilet-both-diagonal-support/captured-seed2-401/result.json",
+      "sha256": "1a6c82f09011593c839cbdda01e7561b700e01a53cf354cbacce82a636fce3ae",
+      "sourceHashes": {
+        "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+        "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+        "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+        "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+        "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+        "tests/probe_toilet_sampled_paths.py": "d9f9cd4b17b862521dcfeddabef869261245c180ca56578cc9f51edc1cf64b9b",
+        "tests/probe_toilet_both_diagonal_support.py": "bbf078c3f8a208dfed8b91272624ae23f268c2dea652edccc061cdb6babf5118"
+      },
+      "scriptProvenance": null,
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "qualified": false,
+          "attempts": 5,
+          "finalGuideP95Angles": [
+            28.485621010350147
+          ],
+          "contactFailures": 5,
+          "fullSurfaceAttempts": 0
+        },
+        {
+          "name": "two-guides-short-1800",
+          "qualified": false,
+          "attempts": 5,
+          "finalGuideP95Angles": [
+            30.059726681047863,
+            14.853873758051218
+          ],
+          "contactFailures": 5,
+          "fullSurfaceAttempts": 0
+        },
+        {
+          "name": "two-guides-long-1800",
+          "qualified": false,
+          "attempts": 5,
+          "finalGuideP95Angles": [
+            31.42446895607136,
+            32.86188984210886
+          ],
+          "contactFailures": 5,
+          "fullSurfaceAttempts": 0
+        }
+      ]
+    },
+    "oriented-support": {
+      "report": "tests/toilet-oriented-support/captured-seed2-401/result.json",
+      "sha256": "0d53990bb4eb3535b47a45650646bbbdd85caf3e0de06b3672ccb761ee8b74c2",
+      "sourceHashes": {
+        "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+        "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+        "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+        "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+        "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+        "tests/probe_toilet_sampled_paths.py": "d9f9cd4b17b862521dcfeddabef869261245c180ca56578cc9f51edc1cf64b9b",
+        "tests/probe_toilet_both_diagonal_support.py": "bbf078c3f8a208dfed8b91272624ae23f268c2dea652edccc061cdb6babf5118",
+        "tests/probe_toilet_oriented_support.py": "5b13234ab85df14b1fdec6aae06e659575ac04e681fe0205f0b5d22447c54283"
+      },
+      "scriptProvenance": {
+        "originalPath": "tests/probe_toilet_oriented_support.py",
+        "restoredOriginalSha256": "13d89bede7aca724e4f1799abb745176b39f966f85f23ae00822285602eb1d9d",
+        "executedScript": "tests\\toilet-oriented-support\\captured-seed2-401\\executed-probe.py",
+        "executedSha256": "5b13234ab85df14b1fdec6aae06e659575ac04e681fe0205f0b5d22447c54283",
+        "reusableScript": "tests\\probe_toilet_sampled_oriented_support.py",
+        "reusableSha256": "b5a99369dfd6987cc90c7843a52704f444148100e4bbd75c164db701467b84ad",
+        "scope": "Final staging review caught a diagnostic filename collision. The original tracked script is restored byte-for-byte. The raw result and executed-refine.py remain unchanged. executed-probe.py preserves exactly the script used by the completed experiment; the reusable copy changes only its self-hash filename. The historical sourceHashes path therefore differs from the restored current file, with its exact historical bytes retained here."
+      },
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "qualified": false,
+          "attempts": 5,
+          "finalGuideP95Angles": [
+            28.453592943004494
+          ],
+          "contactFailures": 5,
+          "fullSurfaceAttempts": 0
+        },
+        {
+          "name": "two-guides-short-1800",
+          "qualified": false,
+          "attempts": 5,
+          "finalGuideP95Angles": [
+            29.968482579772814,
+            16.309238862864806
+          ],
+          "contactFailures": 5,
+          "fullSurfaceAttempts": 0
+        },
+        {
+          "name": "two-guides-long-1800",
+          "qualified": false,
+          "attempts": 5,
+          "finalGuideP95Angles": [
+            30.920055740147635,
+            32.790281046468685
+          ],
+          "contactFailures": 5,
+          "fullSurfaceAttempts": 0
+        }
+      ]
+    }
+  },
+  "independentBowlAudits": {
+    "fresh-geometry": {
+      "report": "tests/toilet-fresh-geometry/sampled-path-401/result.json",
+      "sha256": "f7e98a97587b19fc66aea3fd569cc1046b154f48298949be06bbe80ab24bc4b8",
+      "exports": [
+        "0539e947f9ec1909cb4b8be9e4868bd1950637165914d29e07ff41ed95995aca"
+      ]
+    },
+    "all-diagonal-audit": {
+      "report": "tests/toilet-all-diagonal-audit/sampled-path-401/result.json",
+      "sha256": "743e34706cc138e9aa3618eef5fc6509fb1379671403bbf59e8fa5154512da94",
+      "exports": [
+        "0539e947f9ec1909cb4b8be9e4868bd1950637165914d29e07ff41ed95995aca"
+      ]
+    }
+  },
+  "diagnosticReports": [
+    "tests/toilet-path-fit-diagnostics/result.json",
+    "tests/toilet-path-fit-diagnostics/self-alignment.json",
+    "tests/toilet-support-normal-diagnostics/result.json"
+  ],
+  "interpretation": [
+    "The distributed 401-sample fitting objective qualifies one bowl-only experiment under the original 257-sample guide metric and all original surface/contact/quality gates. Its OBJ passes independent audits.",
+    "The shorter combined case aligns both guides but fails whole-surface bounds; the longer still fails tangent alignment.",
+    "Both-diagonal vertex/centroid support introduces contacts. Opposing-normal support assignments occur on implicated faces. Removing those pairs is a separate diagnostic experiment, not proof of cause or permission to ignore contacts.",
+    "Each report distinguishes inexpensive sparse screening from full adaptive surface bounds. Rejected candidates are never exported as accepted production geometry.",
+    "All these fits use one retained genuine seed-2 layout, not a fresh worker solve. No production integration or general robustness is claimed."
+  ]
+}

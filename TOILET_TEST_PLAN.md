@@ -218,6 +218,61 @@ The fixed 53-test suite passes. Thirteen real Windows exclusive-file-handle chec
 also pass against the HTTP service and actual toilet worker/Blender tree; no
 mocked success or cached geometry is used.
 
+A separate worker-only crash test reproduced an orphan Blender process while the
+HTTP service remained alive. `tests/verify_toilet_worker_crash.py` suspends the
+actual observed Blender child, kills only its actual toilet worker, and checks
+structured failure, blocked publication, descendant exit and recovery admission.
+The before-fix report fails cleanup. Calling the existing lifetime-job helper
+inside the worker fixes this through a nested Windows job. All 11 crash checks
+pass, followed by 6 service-crash, 7 timeout, 13 real file-lock, 53 unit and 76 API
+checks (166 total). The fresh API Circle export matches the independently
+qualified geometry. Reports are under each family's `nested-worker-job/` folder.
+These reports retain the worker hash from before a concurrent, opt-in guided-
+layout dispatch edit; they do not certify that separate solver route.
+An additional 11-check worker-crash rerun passes on the current shared worker.
+`worker-lifetime-shared-scope.json` records an AST comparison: the only numerical
+route difference is the separately guarded, false-by-default dispatch, and the
+toilet metadata leaves it disabled. This reconciles component scope without
+claiming another full 166-check run or qualification of the new solver.
+
+Path-fit diagnostics compare all 257 acceptance samples with the actual selected
+edges and source normals. Most failing tangent samples have nearby source normals
+that agree; a wrong-surface-layer explanation is not supported at those samples.
+The authored guides measured against their own polyline edges meet the angle
+limit, so the failures are not an inherently impossible corner metric. The
+per-sample evidence and orthographic plots are in `tests/toilet-path-fit-diagnostics/`.
+
+The next isolated experiment fits 401 arc-spaced guide samples to connected output
+edges, while validation remains the unchanged 257-sample metric. Bowl-only passes
+the solver gates on retained genuine layout seed 2. The shorter combined input
+passes both guide limits after two refinement passes, but fails full surface bounds:
+source-to-output error exceeds 0.04156/0.04992 for the two quad diagonals against
+the 0.04004 tolerance. The longer combined input still fails tangent alignment.
+All candidates and the exact executed residual are retained under
+`tests/toilet-sampled-paths/captured-seed2-401/`. None changes production fitting.
+Its bowl OBJ passes the separate dense/reference/LP/BVH guide and surface audit
+and all mixed-diagonal contacts under the `sampled-path-401` audit labels.
+
+Adding source triangle-centroid support separately for both output diagonals
+fails all 15 refinement attempts across the three captured inputs. Every attempt
+has detected contacts; a passing sparse surface screen is not full acceptance.
+The first raw-layout support assignments include 204/274 opposing-normal pairs
+for diagonals 02/13, including 19/18 on a recurring group of overlapping faces.
+These counts motivate a correspondence experiment; they do not prove the cause
+or excuse the contacts. Exact data are in `tests/toilet-both-diagonal-support/`
+and `tests/toilet-support-normal-diagnostics/`.
+Omitting opposing-normal support pairs also fails all 15 attempts, with contacts
+in every candidate. The final longer case still fails guide alignment. Thus this
+filter alone does not resolve the correspondence or contact problem. The exact
+residual and candidates are under `tests/toilet-oriented-support/`; no surface
+threshold, contact rule or production solver was changed.
+The normal-filter script initially collided with an older diagnostic filename.
+Final review restored that original byte-for-byte. The executed new script is
+retained beside its raw result as `executed-probe.py`, with the correction recorded
+in `script-provenance.json`; the reusable script is now
+`tests/probe_toilet_sampled_oriented_support.py`. This filename correction does
+not change measured candidates or reinterpret their failures.
+
 Testing arbitrary continuous guide coordinates cannot enumerate every possible
 input. Coverage must therefore include documented finite control/state cases,
 boundary partitions, deterministic generated families, geometric invariants and

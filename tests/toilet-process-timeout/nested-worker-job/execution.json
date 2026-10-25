@@ -1,0 +1,19 @@
+{
+  "id": "f62cd694f7134da98002d26233d15194",
+  "meshId": "toilet",
+  "target": 1800,
+  "state": "failed",
+  "stage": "Could not generate this network",
+  "startedAt": 1792908515.0073535,
+  "error": "The mesh calculation exceeded the ten-minute limit.",
+  "finishedAt": 1792908517.0376942,
+  "actualExitCode": 1,
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\f62cd694f7134da98002d26233d15194"
+  ]
+}

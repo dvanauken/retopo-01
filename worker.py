@@ -1,6 +1,7 @@
 """Original mesh + actual surface curves -> reference construction -> measured export."""
 from pathlib import Path
 import argparse,hashlib,json,shutil,sys,traceback,time
+from process_ownership import protect_service_tree
 import numpy as np
 ROOT=Path(__file__).resolve().parent;ENGINE=ROOT/'engine'
 sys.path.insert(0,str(ENGINE/'targets/zbrush/clone'));sys.path.insert(0,str(ENGINE/'targets/zbrush/experiments/python'))
@@ -23,6 +24,7 @@ def pack(vertices,faces,source,curves,target,metadata,elapsed):
  return dict(quality=measure_quad_quality(vertices,faces,target),guidePaths=metadata.get('guidePaths',[]),vertices=vertices.tolist(),faces=faces,creases=crease['edges'],stats=stats,vertexLinks=vl,guideAlignment=alignment,guideSampleMethod='Up to129 evenly indexed surface samples per curve; Euclidean distance to actual output edges and unsigned tangent angles.',target=target,elapsedSeconds=elapsed,backend=metadata['backend'],validationPassed=True,quadPercent=100*stats['quadFraction'],sourceSha256=source,guideCount=len(curves),coordinateFrame='source',limits='Measured surface/topology checks are bounded; they do not certify absence of every3D self intersection or exact native equivalence.')
 
 def main():
+ protect_service_tree()
  ap=argparse.ArgumentParser();ap.add_argument('--job',type=Path,required=True);args=ap.parse_args();job=args.job.resolve()
  if not job.is_relative_to(ROOT/'runs'):raise ValueError('Job must be inside this project runs directory')
  settings=read(job/'settings.json');curve_packet=read(job/'curves.json');key=settings['meshId'];spec=read(ROOT/'assets/models'/(key+'.json'))

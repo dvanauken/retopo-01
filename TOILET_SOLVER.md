@@ -47,6 +47,26 @@ screen. These outputs are retained in `tests/toilet-tangent-pins/` and the
 `tangent-captured-seed2-weight12` independent reports. Neither weight is used by
 the production fitter.
 
+An isolated distributed-path objective replaces midpoint alignment with 401
+arc-spaced point-to-edge and tangent residuals. The ordinary 257-sample acceptance
+metric remains unchanged. Bowl-only passes after two refinement passes. Both
+guides in the shorter combined case now align, but full surface bounds reject
+the resulting distortion. The longer combined case still misses its lid tangent
+limit. See `tests/toilet-sampled-paths/captured-seed2-401/`. This isolates surface
+support as a remaining issue for the shorter case; it does not make that mesh a
+qualified result or change the production fitter.
+The distributed-path bowl export also passes the independent surface, guide,
+quality, topology and LP/BVH checks and the all-mixed-diagonal contact audit in
+the `sampled-path-401` reports. It remains an isolated experiment.
+
+Fitting additional source triangle-centroid support independently against both
+quad diagonals introduces contacts in all 15 captured-case attempts. Excluding
+support pairs with opposing normals also leaves contacts in all 15 attempts.
+These experiments are rejected, including candidates whose sparse distance
+screen passes. More support points and this normal filter alone do not solve
+the combined-guide cases. See `tests/toilet-both-diagonal-support/` and
+`tests/toilet-oriented-support/`.
+
 Dense testing of all five unique previously
 accepted exports found surface-distance errors using the validator's ear
 triangulation. With the viewer's fan triangulation, two exceed the same limit;

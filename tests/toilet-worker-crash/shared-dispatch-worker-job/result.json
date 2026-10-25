@@ -1,0 +1,197 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "Actual Blender child is held alive before killing only the actual toilet worker",
+      "observed": [
+        {
+          "pid": 26520,
+          "created": 1792909964.2748668,
+          "parentPid": 28720,
+          "name": "python.exe",
+          "command": [
+            "C:\\Users\\Buddy\\miniforge3\\python.exe",
+            "-X",
+            "utf8",
+            "C:\\dbva\\code\\retopo-1\\worker.py",
+            "--job",
+            "C:\\dbva\\code\\retopo-1\\runs\\aeb55633695a4aae9415604c62c9a793"
+          ],
+          "suspended": false
+        },
+        {
+          "pid": 50516,
+          "created": 1792909964.2842908,
+          "parentPid": 26520,
+          "name": "conhost.exe",
+          "command": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0x4"
+          ],
+          "suspended": false
+        },
+        {
+          "pid": 45924,
+          "created": 1792909966.611442,
+          "parentPid": 26520,
+          "name": "blender.exe",
+          "command": [
+            "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
+            "--background",
+            "--threads",
+            "8",
+            "--python",
+            "C:\\dbva\\code\\retopo-1\\scripts\\quadriflow_mesh.py",
+            "--",
+            "--input",
+            "C:\\dbva\\code\\retopo-1\\runs\\aeb55633695a4aae9415604c62c9a793\\quadri-input.json",
+            "--output",
+            "C:\\dbva\\code\\retopo-1\\runs\\aeb55633695a4aae9415604c62c9a793\\quadri-layout-0.json",
+            "--target",
+            "1800",
+            "--seed",
+            "0"
+          ],
+          "suspended": true
+        },
+        {
+          "pid": 17868,
+          "created": 1792909966.6253443,
+          "parentPid": 45924,
+          "name": "conhost.exe",
+          "command": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0x4"
+          ],
+          "suspended": false
+        }
+      ]
+    },
+    {
+      "passed": true,
+      "name": "Toilet worker is actually dead while its service remains alive"
+    },
+    {
+      "passed": true,
+      "name": "Worker death becomes a structured failed job",
+      "state": {
+        "id": "aeb55633695a4aae9415604c62c9a793",
+        "meshId": "toilet",
+        "target": 1800,
+        "state": "failed",
+        "stage": "Could not generate this network",
+        "createdAt": 1792909964.2721014,
+        "requestId": "c7d4b99a52654e6bb4a0f56f72ae4c89",
+        "startedAt": 1792909964.2731004,
+        "finishedAt": 1792909966.7081687,
+        "actualExitCode": 15,
+        "error": "The solver could not complete this guide network. Try a shorter stroke on one visible surface."
+      }
+    },
+    {
+      "passed": true,
+      "name": "Original service stays healthy through worker death"
+    },
+    {
+      "passed": true,
+      "name": "Worker death leaves no owned Blender or other descendant alive",
+      "survivors": []
+    },
+    {
+      "passed": true,
+      "name": "Failed worker cannot publish mesh.json"
+    },
+    {
+      "passed": true,
+      "name": "Failed worker cannot publish output.obj"
+    },
+    {
+      "passed": true,
+      "name": "Failed worker cannot publish features.json"
+    },
+    {
+      "passed": true,
+      "name": "Late cancellation preserves the actual failed state"
+    },
+    {
+      "passed": true,
+      "name": "Service admits and cancels a fresh request after worker death"
+    },
+    {
+      "passed": true,
+      "name": "Implementation remains fixed through the real worker-crash test"
+    }
+  ],
+  "errors": [],
+  "observedProcesses": [
+    {
+      "pid": 26520,
+      "created": 1792909964.2748668,
+      "parentPid": 28720,
+      "name": "python.exe",
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\dbva\\code\\retopo-1\\worker.py",
+        "--job",
+        "C:\\dbva\\code\\retopo-1\\runs\\aeb55633695a4aae9415604c62c9a793"
+      ],
+      "suspended": false
+    },
+    {
+      "pid": 50516,
+      "created": 1792909964.2842908,
+      "parentPid": 26520,
+      "name": "conhost.exe",
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ],
+      "suspended": false
+    },
+    {
+      "pid": 45924,
+      "created": 1792909966.611442,
+      "parentPid": 26520,
+      "name": "blender.exe",
+      "command": [
+        "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
+        "--background",
+        "--threads",
+        "8",
+        "--python",
+        "C:\\dbva\\code\\retopo-1\\scripts\\quadriflow_mesh.py",
+        "--",
+        "--input",
+        "C:\\dbva\\code\\retopo-1\\runs\\aeb55633695a4aae9415604c62c9a793\\quadri-input.json",
+        "--output",
+        "C:\\dbva\\code\\retopo-1\\runs\\aeb55633695a4aae9415604c62c9a793\\quadri-layout-0.json",
+        "--target",
+        "1800",
+        "--seed",
+        "0"
+      ],
+      "suspended": true
+    },
+    {
+      "pid": 17868,
+      "created": 1792909966.6253443,
+      "parentPid": 45924,
+      "name": "conhost.exe",
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ],
+      "suspended": false
+    }
+  ],
+  "sourceHashes": {
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9",
+    "tests/verify_toilet_worker_crash.py": "9aaaee0d0f761fa052864a77bfde77f729da73fe2b9f85019beae100fa2af24f"
+  },
+  "scope": "Actual worker-only abrupt exit, with its real Blender child suspended to prevent natural exit from masquerading as cleanup. Original isolated service remains alive; failure, publication denial and recovery admission are measured."
+}

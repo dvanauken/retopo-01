@@ -1,12 +1,15 @@
-"""Keep the Windows service and its future descendants in one lifetime job.
+"""Keep a Windows service or worker and its descendants in one lifetime job.
 
 The job handle is non-inheritable and intentionally lives until this process
 exits. Windows closes it even after a crash/forced termination, killing the
-owned workers and their children. Assigning the service before it spawns avoids
+owned children. A worker uses a nested job inside its service's lifetime job,
+so worker-only death also stops Blender while the service remains alive.
+Assigning each owner before it spawns avoids
 an unowned interval between child creation and individual job assignment.
 
 References:
 https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects
+https://learn.microsoft.com/en-us/windows/win32/procthread/nested-jobs
 https://learn.microsoft.com/en-us/windows/win32/api/jobapi2/nf-jobapi2-createjobobjectw
 https://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-jobobject_extended_limit_information
 """

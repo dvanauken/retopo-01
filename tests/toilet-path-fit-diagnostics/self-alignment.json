@@ -1,0 +1,112 @@
+[
+  {
+    "name": "bowl-only-1800",
+    "curve": 0,
+    "authoredSamples": 424,
+    "selfAlignment": {
+      "samples": 257,
+      "meanDistance": 1.4585268482917026e-17,
+      "p95Distance": 4.099871922568859e-17,
+      "maxDistance": 5.4769275184197445e-17,
+      "meanDistanceOverMedianEdge": 1.7502630384355812e-15,
+      "meanUnsignedTangentAngleDegrees": 3.379818673626093,
+      "p95UnsignedTangentAngleDegrees": 12.942917216189207,
+      "selectedEdgeCount": 227,
+      "selectedEdgeGraphComponents": 130,
+      "selectedEdgeGraphDegreeHistogram": {
+        "1": 260,
+        "2": 97
+      },
+      "selectedEdgesFormSingleCycle": false,
+      "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+    }
+  },
+  {
+    "name": "two-guides-short-1800",
+    "curve": 0,
+    "authoredSamples": 424,
+    "selfAlignment": {
+      "samples": 257,
+      "meanDistance": 1.4585268482917026e-17,
+      "p95Distance": 4.099871922568859e-17,
+      "maxDistance": 5.4769275184197445e-17,
+      "meanDistanceOverMedianEdge": 1.7502630384355812e-15,
+      "meanUnsignedTangentAngleDegrees": 3.379818673626093,
+      "p95UnsignedTangentAngleDegrees": 12.942917216189207,
+      "selectedEdgeCount": 227,
+      "selectedEdgeGraphComponents": 130,
+      "selectedEdgeGraphDegreeHistogram": {
+        "1": 260,
+        "2": 97
+      },
+      "selectedEdgesFormSingleCycle": false,
+      "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+    }
+  },
+  {
+    "name": "two-guides-short-1800",
+    "curve": 1,
+    "authoredSamples": 49,
+    "selfAlignment": {
+      "samples": 257,
+      "meanDistance": 2.0362351353549763e-17,
+      "p95Distance": 4.19441452928683e-17,
+      "maxDistance": 5.4656902226845036e-17,
+      "meanDistanceOverMedianEdge": 7.368271972130821e-16,
+      "meanUnsignedTangentAngleDegrees": 0.3148283219784146,
+      "p95UnsignedTangentAngleDegrees": 1.54822758221563,
+      "selectedEdgeCount": 48,
+      "selectedEdgeGraphComponents": 1,
+      "selectedEdgeGraphDegreeHistogram": {
+        "1": 2,
+        "2": 47
+      },
+      "selectedEdgesFormSingleCycle": false,
+      "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+    }
+  },
+  {
+    "name": "two-guides-long-1800",
+    "curve": 0,
+    "authoredSamples": 424,
+    "selfAlignment": {
+      "samples": 257,
+      "meanDistance": 1.4585268482917026e-17,
+      "p95Distance": 4.099871922568859e-17,
+      "maxDistance": 5.4769275184197445e-17,
+      "meanDistanceOverMedianEdge": 1.7502630384355812e-15,
+      "meanUnsignedTangentAngleDegrees": 3.379818673626093,
+      "p95UnsignedTangentAngleDegrees": 12.942917216189207,
+      "selectedEdgeCount": 227,
+      "selectedEdgeGraphComponents": 130,
+      "selectedEdgeGraphDegreeHistogram": {
+        "1": 260,
+        "2": 97
+      },
+      "selectedEdgesFormSingleCycle": false,
+      "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+    }
+  },
+  {
+    "name": "two-guides-long-1800",
+    "curve": 1,
+    "authoredSamples": 72,
+    "selfAlignment": {
+      "samples": 257,
+      "meanDistance": 2.0784578759277476e-17,
+      "p95Distance": 4.649251579396501e-17,
+      "maxDistance": 5.397232472505612e-17,
+      "meanDistanceOverMedianEdge": 8.6040752598956e-16,
+      "meanUnsignedTangentAngleDegrees": 0.39249936806074137,
+      "p95UnsignedTangentAngleDegrees": 1.722375319564133,
+      "selectedEdgeCount": 71,
+      "selectedEdgeGraphComponents": 1,
+      "selectedEdgeGraphDegreeHistogram": {
+        "1": 2,
+        "2": 70
+      },
+      "selectedEdgesFormSingleCycle": false,
+      "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+    }
+  }
+]

@@ -71,9 +71,12 @@ records its cancellation before delivery. A later matching submission returns
 Reset recover when the first admission response is lost. Request records are
 in-memory; job-ID cancellation remains available at `/api/jobs/{id}/cancel`.
 
-On Windows, the server joins a process job before accepting work. Its
-non-inheritable lifetime handle ensures workers and Blender exit when the server
-is forcibly terminated, as verified with actual processes. This uses the
+On Windows, the server joins a process job before accepting work. Each worker
+also joins a nested process job before starting Blender. Non-inheritable lifetime
+handles stop descendants when either the service or the worker alone is forcibly
+terminated, as verified with actual processes. The worker-only crash test holds
+its real Blender child alive before the crash so normal completion cannot be
+mistaken for cleanup. This uses the
 [Windows Job Object lifetime rules](https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects).
 Other platforms retain explicit cancellation and normal-shutdown handling;
 forced-exit tree cleanup is verified here on Windows only.

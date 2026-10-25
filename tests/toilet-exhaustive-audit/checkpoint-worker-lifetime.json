@@ -1,0 +1,104 @@
+{
+  "checkedAt": "2026-10-25T06:30:29.242570+00:00",
+  "parentRevision": "c8e5b8326d53addd8752705992842b48b512a128",
+  "exhaustiveGoalComplete": false,
+  "totalScopedChecks": 166,
+  "verifiedSuites": {
+    "worker-crash": {
+      "report": "tests\\toilet-worker-crash\\nested-worker-job\\result.json",
+      "sha256": "f868c15565b496a90100bbc7558cde3f32bbe626cc4e2b7214b8c437658e1fc5",
+      "checks": 11,
+      "sourceHashes": {
+        "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+        "worker.py": "be805b98af6ae4248f5b58d697dd500e4638702f91239236aa194af30f02146e",
+        "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9",
+        "tests/verify_toilet_worker_crash.py": "9aaaee0d0f761fa052864a77bfde77f729da73fe2b9f85019beae100fa2af24f"
+      }
+    },
+    "server-restart": {
+      "report": "tests\\toilet-server-restart\\nested-worker-job\\result.json",
+      "sha256": "c36ef382906bd6f3ace0141619d5abd9c45938b12a4e17d0ffbcaac04a17ca18",
+      "checks": 6,
+      "sourceHashes": {
+        "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+        "worker.py": "be805b98af6ae4248f5b58d697dd500e4638702f91239236aa194af30f02146e",
+        "tests/verify_toilet_server_restart.py": "4da9f7a1bca80e11c42d3d1beedd552f5609efac12f8a0318fe80ea7d0626a07",
+        "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9"
+      }
+    },
+    "process-timeout": {
+      "report": "tests\\toilet-process-timeout\\nested-worker-job\\result.json",
+      "sha256": "f2b8c047ac3602cd0508e363d61a6354bdf3562fe63d3a0575fe3892921ecd37",
+      "checks": 7,
+      "sourceHashes": {
+        "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+        "worker.py": "be805b98af6ae4248f5b58d697dd500e4638702f91239236aa194af30f02146e",
+        "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9",
+        "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+        "tests/verify_toilet_process_timeout.py": "a1f3b8416ec64d9478d66f2a2eb9ab2ed553364b6cee8bada59a07f96186d62b"
+      }
+    },
+    "file-locks": {
+      "report": "tests\\toilet-file-locks\\nested-worker-job\\result.json",
+      "sha256": "e105bf2f43d73173f4a2c084b2fef38b36c12763a9063bc88ab232633926e8ce",
+      "checks": 13,
+      "sourceHashes": {
+        "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+        "worker.py": "be805b98af6ae4248f5b58d697dd500e4638702f91239236aa194af30f02146e",
+        "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9",
+        "tests/verify_toilet_file_locks.py": "60cd51395963aea66b4d30ced278a231d9e6fe6ff9cb4346ac8e259445c80b91"
+      }
+    },
+    "unit-gates": {
+      "report": "tests\\toilet-unit-gates\\nested-worker-job\\result.json",
+      "sha256": "b500cdf23b3811f9fdc65f3307fecc083fa4568c653665c797cbd0e01798f5cc",
+      "checks": 53,
+      "sourceHashes": {
+        "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+        "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9",
+        "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+        "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+        "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+        "tests/test_quad_triangulation_contacts.py": "63eae34a57ec64529f334f7c21718faa3da07b44bc529ef1f2bc98c2f088242d",
+        "tests/test_quad_warpage.py": "d94c47094b340ae183bf844245e93380193c50113ca000b81aab37d88e66aa33",
+        "tests/test_server_admission_race.py": "bbe895edba0687edbd8cf6debf09e52ebd1880adf1c1b64db8f69ed381d11d09",
+        "tests/test_server_io_faults.py": "5d82d52221c3a1bed86dac3a3c0a95d517d6e25e3e486a412efc66ca4b9f167c",
+        "tests/test_server_job_races.py": "d01a05313fc8643e956aff2256c5dc4aabe2e28e50d12e53c8945931793f9a2e",
+        "tests/test_server_request_identity.py": "c8b4a9eae21ed1732e8be654a3a28607448d114697cfc67541d894cd393d379c",
+        "tests/test_surface_distance.py": "062eb8ff20df1ce0c097a01f553ce90ecd733f6b8dec4550498b5312f82f7bef",
+        "tests/test_surface_failures.py": "0663f2a7c71bd4451def6dbc2efc566218c8d7109a89bfc6efc625e09404189f",
+        "tests/test_surface_intersections.py": "5769c01f33a546b997781ba44b36e0b9dd61db5ad5d885881e3a14724d83c115"
+      }
+    },
+    "api": {
+      "report": "tests\\toilet-api\\nested-worker-job\\result.json",
+      "sha256": "67109a6947636031162703f0cb4701c7c0eda72bda627c357166b35962fe07c4",
+      "checks": 76,
+      "sourceHashes": {
+        "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+        "worker.py": "be805b98af6ae4248f5b58d697dd500e4638702f91239236aa194af30f02146e",
+        "tests/verify_toilet_api.py": "d99ca6f61277bfb1ed50cb99d473dbf059212a4ffab97fbdf96d57caf63f95a1"
+      }
+    }
+  },
+  "currentSourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9",
+    "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "testedSnapshots": [
+    "tests/toilet-exhaustive-audit/worker-nested-job-tested.py",
+    "tests/toilet-exhaustive-audit/curved-quad-nested-job-tested.py"
+  ],
+  "scope": "Nested worker lifetime-job fix. Each report retains its exact tested source hashes. The current worker also contains a concurrent opt-in guided-layout argument; the 166-check checkpoint precedes that independent dispatch edit. Tested worker bytes are reconstructed by removing that argument and restoring its original LF endings; their hash is verified. The shared working file is unchanged. The historical fitter is retained exactly from the parent commit. No qualification of the concurrent guided-layout route is claimed.",
+  "productionFix": "The actual toilet worker calls protect_service_tree before starting Blender. Nested non-inheritable Windows lifetime jobs kill Blender on worker-only forced exit while the service remains alive.",
+  "controlExport": "Fresh Circle job 96d8689909ac4605bebf9376d4156715 matches independently qualified OBJ f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0.",
+  "remaining": [
+    "Production bowl, captured combined-guide and coarse-density failures remain open.",
+    "Isolated fitting experiments are not production-generated results.",
+    "Shared guided-layout integration is preserved separately from this audit."
+  ]
+}

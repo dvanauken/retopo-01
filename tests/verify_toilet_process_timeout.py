@@ -7,6 +7,7 @@ real. This does not test a ten-minute wall-clock duration or invent a mesh.
 import os
 for key in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS'): os.environ[key]='1'
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import subprocess
@@ -19,7 +20,11 @@ import psutil
 
 ROOT=Path(__file__).resolve().parents[1]; sys.path.insert(0,str(ROOT))
 import server
-OUT=ROOT/'tests/toilet-process-timeout'; OUT.mkdir(exist_ok=True)
+parser=argparse.ArgumentParser();parser.add_argument('--label');args=parser.parse_args()
+if args.label and not args.label.replace('-','').isalnum():raise ValueError('Use a plain label')
+OUT=ROOT/'tests/toilet-process-timeout'
+if args.label:OUT=OUT/args.label
+OUT.mkdir(parents=True,exist_ok=True)
 folder=ROOT/'runs'/uuid.uuid4().hex; folder.mkdir()
 source=json.loads((ROOT/'assets/models/toilet.json').read_text())
 server.write(folder/'settings.json',dict(meshId='toilet',target=1800,guideMode=2,sourceSha256=source['sourceSha256']))
@@ -76,7 +81,7 @@ finally:
     for name in ('curves.json','settings.json','execution.json','worker.log'):
         if (folder/name).exists(): (OUT/name).write_bytes((folder/name).read_bytes())
     result=dict(passed=not errors and all(c['passed'] for c in checks),checks=checks,errors=errors,observedProcesses=observed,
-        sourceHashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ('server.py','worker.py','assets/models/toilet.obj','tests/verify_toilet_process_timeout.py')},
+        sourceHashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ('server.py','worker.py','process_ownership.py','assets/models/toilet.obj','tests/verify_toilet_process_timeout.py')},
         scope='Actual toilet worker and Blender subprocess; one timeout event injected at the production wait boundary after observing the real child. Does not wait ten wall-clock minutes or substitute generated geometry.')
     (OUT/'result.json').write_text(json.dumps(result,indent=2)+'\n')
 raise SystemExit(0 if result['passed'] else 1)

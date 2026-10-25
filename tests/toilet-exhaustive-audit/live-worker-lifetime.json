@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-25T06:42:46.863076+00:00",
+  "servers": [
+    {
+      "port": 8741,
+      "ready": true,
+      "catalogModels": 4,
+      "appMatchesWorktree": true,
+      "toiletSourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+      "sourceMatchesWorktree": true
+    },
+    {
+      "port": 8742,
+      "ready": true,
+      "catalogModels": 4,
+      "appMatchesWorktree": true,
+      "toiletSourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+      "sourceMatchesWorktree": true
+    }
+  ],
+  "scope": "Read-only localhost health, served frontend bytes and toilet source identity. No service restart, job submission or claim of newly imported runtime code."
+}

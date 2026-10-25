@@ -18,6 +18,7 @@ from measure_geometry import read_obj
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--probe', type=Path, required=True)
+parser.add_argument('--producer-kind', choices=['isolated-tangent-probe', 'isolated-sampled-path-probe', 'isolated-both-diagonal-support-probe'], default='isolated-tangent-probe')
 args = parser.parse_args()
 probe = json.loads(args.probe.read_text())
 folder = args.probe.parent
@@ -42,18 +43,18 @@ for case in probe['cases']:
     curves = json.loads(curve_file.read_text())['curves']
     paths = [cq._guide_path(np.asarray(layout['vertices']), edges, np.asarray(curve), spacing)[0] for curve in curves]
     mesh['guidePaths'] = paths
-    obj = '\n'.join(['# Isolated tangent-fitting experiment; no production worker job'] +
+    obj = '\n'.join(['# ' + args.producer_kind + '; no production worker job'] +
                     ['v ' + ' '.join(format(x, '.17g') for x in vertex) for vertex in mesh['vertices']] +
                     ['f ' + ' '.join(str(i+1) for i in face) for face in mesh['faces']]) + '\n'
     (output/'output.obj').write_text(obj, newline='\n')
     (output/'mesh.json').write_text(json.dumps(mesh) + '\n')
     (output/'curves.json').write_bytes(curve_file.read_bytes())
     (output/'settings.json').write_text(json.dumps(dict(meshId='toilet', target=1800)) + '\n')
-    report = dict(producerKind='isolated-tangent-probe', outputSha256=hashlib.sha256((output/'output.obj').read_bytes()).hexdigest(),
+    report = dict(producerKind=args.producer_kind, outputSha256=hashlib.sha256((output/'output.obj').read_bytes()).hexdigest(),
                   probeFile=str(args.probe), probeSha256=hashlib.sha256(args.probe.read_bytes()).hexdigest(),
                   candidateSha256=hashlib.sha256(candidate.read_bytes()).hexdigest(), attempt=attempt)
     (output/'report.json').write_text(json.dumps(report, indent=2) + '\n')
-    cases.append(dict(name=case['name'], state='complete', job=None, producerKind='isolated-tangent-probe'))
+    cases.append(dict(name=case['name'], state='complete', job=None, producerKind=args.producer_kind))
 assert cases, 'No passing experimental candidate to export'
 (folder/'export-matrix.json').write_text(json.dumps(dict(cases=cases, productionResult=False,
     scope='Completed isolated experiment, exported for independent validation. No service job or production result.'), indent=2) + '\n')

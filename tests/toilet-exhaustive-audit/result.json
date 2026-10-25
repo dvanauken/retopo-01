@@ -140,6 +140,14 @@
       "productionResult": false,
       "independentReport": "tests\\toilet-fresh-geometry\\tangent-captured-seed2-weight12\\result.json",
       "contactReport": "tests\\toilet-all-diagonal-audit\\tangent-captured-seed2-weight12\\result.json"
+    },
+    {
+      "name": "bowl-only-1800",
+      "outputSha256": "0539e947f9ec1909cb4b8be9e4868bd1950637165914d29e07ff41ed95995aca",
+      "producerKind": "isolated-sampled-path-probe",
+      "productionResult": false,
+      "independentReport": "tests\\toilet-fresh-geometry\\sampled-path-401\\result.json",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\sampled-path-401\\result.json"
     }
   ],
   "provisionalSpecificCases": [],
@@ -157,7 +165,7 @@
       }
     }
   ],
-  "updatedAt": "2026-10-25T06:01:57.515835+00:00",
+  "updatedAt": "2026-10-25T06:46:54.167913+00:00",
   "evidence": {
     "original-source": {
       "report": "tests/toilet-source/result.json",
@@ -275,6 +283,8 @@
       "implementationHashMismatches": [
         "app.js",
         "server.py",
+        "worker.py",
+        "curved_quad.py",
         "tests/verify_toilet_generated_ui.py"
       ]
     },
@@ -286,25 +296,33 @@
       "errors": [],
       "cases": [
         {
-          "name": "two-guides-short-1800"
+          "name": "two-guides-short-1800",
+          "qualified": false
         },
         {
-          "name": "two-guides-long-1800"
+          "name": "two-guides-long-1800",
+          "qualified": false
         },
         {
-          "name": "bowl-only-1800"
+          "name": "bowl-only-1800",
+          "qualified": false
         },
         {
-          "name": "two-guides-short-1800"
+          "name": "two-guides-short-1800",
+          "qualified": false
         },
         {
-          "name": "two-guides-long-1800"
+          "name": "two-guides-long-1800",
+          "qualified": false
         },
         {
-          "name": "bowl-only-1800"
+          "name": "bowl-only-1800",
+          "qualified": false
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
     },
     "sliding-pin-experiment": {
       "report": "tests/toilet-sliding-pins/bowl-seed-2/result.json",
@@ -313,10 +331,13 @@
       "errors": [],
       "cases": [
         {
-          "name": "bowl-only-1800"
+          "name": "bowl-only-1800",
+          "qualified": false
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
     },
     "api-boundaries-and-lifecycle": {
       "report": "tests/toilet-api/current/result.json",
@@ -327,6 +348,7 @@
       "passedChecks": 76,
       "implementationHashMismatches": [
         "server.py",
+        "worker.py",
         "tests/verify_toilet_api.py"
       ]
     },
@@ -449,7 +471,8 @@
       "tests": 41,
       "errors": 0,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "curved_quad.py"
       ]
     },
     "api-current-bowl-regression": {
@@ -461,6 +484,7 @@
       "passedChecks": 72,
       "implementationHashMismatches": [
         "server.py",
+        "worker.py",
         "tests/verify_toilet_api.py"
       ]
     },
@@ -472,7 +496,8 @@
       "checks": 76,
       "passedChecks": 76,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "worker.py"
       ]
     },
     "browser-after-admission-fix": {
@@ -547,6 +572,7 @@
       "implementationHashMismatches": [
         "app.js",
         "server.py",
+        "worker.py",
         "curved_quad.py",
         "surface_intersections.py",
         "tests/verify_toilet_strict_generation.py"
@@ -581,6 +607,7 @@
       "implementationHashMismatches": [
         "app.js",
         "server.py",
+        "worker.py",
         "curved_quad.py",
         "surface_intersections.py",
         "tests/verify_toilet_strict_generation.py"
@@ -637,6 +664,7 @@
       "implementationHashMismatches": [
         "app.js",
         "server.py",
+        "worker.py",
         "curved_quad.py",
         "tests/verify_toilet_generated_ui.py"
       ]
@@ -649,7 +677,9 @@
       "checks": 7,
       "passedChecks": 7,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "worker.py",
+        "tests/verify_toilet_process_timeout.py"
       ]
     },
     "guide-representations-and-density": {
@@ -721,6 +751,7 @@
       "implementationHashMismatches": [
         "app.js",
         "server.py",
+        "worker.py",
         "curved_quad.py",
         "surface_intersections.py",
         "tests/verify_toilet_variants.py"
@@ -871,7 +902,9 @@
           "passed": true
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
     },
     "recovered-lid-reversal": {
       "report": "tests/toilet-variants/recovered-lid/result.json",
@@ -892,6 +925,7 @@
       "implementationHashMismatches": [
         "app.js",
         "server.py",
+        "worker.py",
         "curved_quad.py",
         "surface_intersections.py",
         "tests/verify_toilet_variants.py"
@@ -925,7 +959,9 @@
       ],
       "implementationHashMismatches": [
         "app.js",
-        "server.py"
+        "server.py",
+        "worker.py",
+        "curved_quad.py"
       ]
     },
     "independent-all-diagonal-generations": {
@@ -970,7 +1006,9 @@
           "passed": true
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
     },
     "dense-ear-surface": {
       "report": "tests/toilet-dense-surface/result.json",
@@ -1156,6 +1194,7 @@
       "implementationHashMismatches": [
         "app.js",
         "server.py",
+        "worker.py",
         "curved_quad.py",
         "surface_intersections.py"
       ]
@@ -1184,6 +1223,7 @@
       "implementationHashMismatches": [
         "app.js",
         "server.py",
+        "worker.py",
         "curved_quad.py",
         "surface_intersections.py"
       ]
@@ -1192,7 +1232,11 @@
       "report": "tests/toilet-exhaustive-audit/live-server.json",
       "sha256": "923a1836edadef82b4674f5a825ce36e0c95aec66c1aa6e3129af5f53bb3de92",
       "passed": true,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "worker.py",
+        "process_ownership.py",
+        "curved_quad.py"
+      ]
     },
     "submission-transport-before-fix": {
       "report": "tests/toilet-submission-transport/before-fix/result.json",
@@ -1321,7 +1365,8 @@
       "checks": 0,
       "passedChecks": 0,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "worker.py"
       ]
     },
     "server-restart-recovered-before-fix": {
@@ -1332,7 +1377,8 @@
       "checks": 6,
       "passedChecks": 4,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "worker.py"
       ]
     },
     "server-restart-ownership-fixed": {
@@ -1343,7 +1389,63 @@
       "checks": 6,
       "passedChecks": 6,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "worker.py",
+        "process_ownership.py"
+      ]
+    },
+    "server-restart-nested-worker-job": {
+      "report": "tests/toilet-server-restart/nested-worker-job/result.json",
+      "sha256": "c36ef382906bd6f3ace0141619d5abd9c45938b12a4e17d0ffbcaac04a17ca18",
+      "passed": true,
+      "errors": [],
+      "checks": 6,
+      "passedChecks": 6,
+      "implementationHashMismatches": [
+        "worker.py"
+      ]
+    },
+    "worker-crash-before-fix": {
+      "report": "tests/toilet-worker-crash/before-fix/result.json",
+      "sha256": "d8e2d07f889ef8b417c4abb6ba22d3c28326932700955e84fddfd730698b601d",
+      "passed": false,
+      "errors": [],
+      "checks": 11,
+      "passedChecks": 10,
+      "implementationHashMismatches": [
+        "worker.py",
+        "process_ownership.py"
+      ]
+    },
+    "worker-crash-nested-worker-job": {
+      "report": "tests/toilet-worker-crash/nested-worker-job/result.json",
+      "sha256": "f868c15565b496a90100bbc7558cde3f32bbe626cc4e2b7214b8c437658e1fc5",
+      "passed": true,
+      "errors": [],
+      "checks": 11,
+      "passedChecks": 11,
+      "implementationHashMismatches": [
+        "worker.py"
+      ]
+    },
+    "worker-crash-shared-dispatch-worker-job": {
+      "report": "tests/toilet-worker-crash/shared-dispatch-worker-job/result.json",
+      "sha256": "55390f39799203f59f5db584cc49cc8fd37d6c7c393a708b3df432a85a478806",
+      "passed": true,
+      "errors": [],
+      "checks": 11,
+      "passedChecks": 11,
+      "implementationHashMismatches": []
+    },
+    "process-timeout-nested-worker-job": {
+      "report": "tests/toilet-process-timeout/nested-worker-job/result.json",
+      "sha256": "f2b8c047ac3602cd0508e363d61a6354bdf3562fe63d3a0575fe3892921ecd37",
+      "passed": true,
+      "errors": [],
+      "checks": 7,
+      "passedChecks": 7,
+      "implementationHashMismatches": [
+        "worker.py"
       ]
     },
     "restart-ui-ownership-final": {
@@ -1357,7 +1459,8 @@
         {}
       ],
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "process_ownership.py"
       ]
     },
     "restart-ui-ownership-io": {
@@ -1370,7 +1473,9 @@
       "cases": [
         {}
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "process_ownership.py"
+      ]
     },
     "cancel-transport-submission-identity": {
       "report": "tests/toilet-cancel-transport/submission-identity/result.json",
@@ -1450,7 +1555,8 @@
       "checks": 67,
       "passedChecks": 67,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "worker.py"
       ]
     },
     "api-ownership-final": {
@@ -1461,7 +1567,8 @@
       "checks": 76,
       "passedChecks": 76,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "worker.py"
       ]
     },
     "api-ownership-io": {
@@ -1471,7 +1578,20 @@
       "errors": [],
       "checks": 76,
       "passedChecks": 76,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "worker.py"
+      ]
+    },
+    "api-nested-worker-job": {
+      "report": "tests/toilet-api/nested-worker-job/result.json",
+      "sha256": "67109a6947636031162703f0cb4701c7c0eda72bda627c357166b35962fe07c4",
+      "passed": true,
+      "errors": [],
+      "checks": 76,
+      "passedChecks": 76,
+      "implementationHashMismatches": [
+        "worker.py"
+      ]
     },
     "unit-gates-submission-identity": {
       "report": "tests/toilet-unit-gates/submission-identity/result.json",
@@ -1480,7 +1600,8 @@
       "tests": 49,
       "errors": 0,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "curved_quad.py"
       ]
     },
     "unit-gates-ownership-final": {
@@ -1490,7 +1611,9 @@
       "tests": 49,
       "errors": 0,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "process_ownership.py",
+        "curved_quad.py"
       ]
     },
     "unit-gates-io-fault-before-fix": {
@@ -1500,7 +1623,9 @@
       "tests": 53,
       "errors": 4,
       "implementationHashMismatches": [
-        "server.py"
+        "server.py",
+        "process_ownership.py",
+        "curved_quad.py"
       ]
     },
     "unit-gates-io-fault-fixed": {
@@ -1509,7 +1634,20 @@
       "passed": true,
       "tests": 53,
       "errors": 0,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "process_ownership.py",
+        "curved_quad.py"
+      ]
+    },
+    "unit-gates-nested-worker-job": {
+      "report": "tests/toilet-unit-gates/nested-worker-job/result.json",
+      "sha256": "b500cdf23b3811f9fdc65f3307fecc083fa4568c653665c797cbd0e01798f5cc",
+      "passed": true,
+      "tests": 53,
+      "errors": 0,
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
     },
     "generated-ui-request-ownership": {
       "report": "tests/toilet-generated-ui/request-ownership/result.json",
@@ -1529,6 +1667,8 @@
       ],
       "implementationHashMismatches": [
         "server.py",
+        "worker.py",
+        "curved_quad.py",
         "tests/verify_toilet_generated_ui.py"
       ]
     },
@@ -1544,6 +1684,8 @@
       "passedChecks": 0,
       "cases": [],
       "implementationHashMismatches": [
+        "worker.py",
+        "curved_quad.py",
         "tests/verify_toilet_generated_ui.py"
       ]
     },
@@ -1561,7 +1703,10 @@
           "state": "complete"
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "worker.py",
+        "curved_quad.py"
+      ]
     },
     "file-locks-io-fault-fixed": {
       "report": "tests/toilet-file-locks/io-fault-fixed/result.json",
@@ -1570,7 +1715,21 @@
       "errors": [],
       "checks": 13,
       "passedChecks": 13,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "worker.py",
+        "process_ownership.py"
+      ]
+    },
+    "file-locks-nested-worker-job": {
+      "report": "tests/toilet-file-locks/nested-worker-job/result.json",
+      "sha256": "e105bf2f43d73173f4a2c084b2fef38b36c12763a9063bc88ab232633926e8ce",
+      "passed": true,
+      "errors": [],
+      "checks": 13,
+      "passedChecks": 13,
+      "implementationHashMismatches": [
+        "worker.py"
+      ]
     },
     "tangent-pins-bowl-seed-2-weight-8": {
       "report": "tests/toilet-tangent-pins/bowl-seed-2-weight-8/result.json",
@@ -1579,10 +1738,13 @@
       "errors": [],
       "cases": [
         {
-          "name": "bowl-only-1800"
+          "name": "bowl-only-1800",
+          "qualified": true
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
     },
     "tangent-pins-combined-seed-2-weight-8": {
       "report": "tests/toilet-tangent-pins/combined-seed-2-weight-8/result.json",
@@ -1591,13 +1753,17 @@
       "errors": [],
       "cases": [
         {
-          "name": "two-guides-short-1800"
+          "name": "two-guides-short-1800",
+          "qualified": false
         },
         {
-          "name": "two-guides-long-1800"
+          "name": "two-guides-long-1800",
+          "qualified": false
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
     },
     "tangent-pins-captured-seed-2-weight-12": {
       "report": "tests/toilet-tangent-pins/captured-seed-2-weight-12/result.json",
@@ -1606,20 +1772,38 @@
       "errors": [],
       "cases": [
         {
-          "name": "bowl-only-1800"
+          "name": "bowl-only-1800",
+          "qualified": true
         },
         {
-          "name": "two-guides-short-1800"
+          "name": "two-guides-short-1800",
+          "qualified": false
         },
         {
-          "name": "two-guides-long-1800"
+          "name": "two-guides-long-1800",
+          "qualified": false
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
     },
     "fresh-geometry-tangent-bowl-seed2": {
       "report": "tests/toilet-fresh-geometry/tangent-bowl-seed2/result.json",
       "sha256": "954413842cc7c9e8fafe865c140fcc7025b2344614177417802979f64ce66c00",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-sampled-path-401": {
+      "report": "tests/toilet-fresh-geometry/sampled-path-401/result.json",
+      "sha256": "f7e98a97587b19fc66aea3fd569cc1046b154f48298949be06bbe80ab24bc4b8",
       "passed": true,
       "complete": true,
       "cases": [
@@ -1641,6 +1825,131 @@
           "passed": true
         }
       ],
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
+    },
+    "all-diagonal-audit-sampled-path-401": {
+      "report": "tests/toilet-all-diagonal-audit/sampled-path-401/result.json",
+      "sha256": "743e34706cc138e9aa3618eef5fc6509fb1379671403bbf59e8fa5154512da94",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "sampled-paths-captured-seed2-401": {
+      "report": "tests/toilet-sampled-paths/captured-seed2-401/result.json",
+      "sha256": "81d71f3d7c4fc69a59e4c21a5323eda301c1af093ef4a2cea00c8200474e72e9",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "qualified": true
+        },
+        {
+          "name": "two-guides-short-1800",
+          "qualified": false
+        },
+        {
+          "name": "two-guides-long-1800",
+          "qualified": false
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "both-diagonal-support-captured-seed2-401": {
+      "report": "tests/toilet-both-diagonal-support/captured-seed2-401/result.json",
+      "sha256": "1a6c82f09011593c839cbdda01e7561b700e01a53cf354cbacce82a636fce3ae",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "qualified": false
+        },
+        {
+          "name": "two-guides-short-1800",
+          "qualified": false
+        },
+        {
+          "name": "two-guides-long-1800",
+          "qualified": false
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "oriented-support-captured-seed2-401": {
+      "report": "tests/toilet-oriented-support/captured-seed2-401/result.json",
+      "sha256": "0d53990bb4eb3535b47a45650646bbbdd85caf3e0de06b3672ccb761ee8b74c2",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "qualified": false
+        },
+        {
+          "name": "two-guides-short-1800",
+          "qualified": false
+        },
+        {
+          "name": "two-guides-long-1800",
+          "qualified": false
+        }
+      ],
+      "implementationHashMismatches": [
+        "tests/probe_toilet_oriented_support.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-oriented-support\\captured-seed2-401\\script-provenance.json",
+        "snapshot": "tests\\toilet-oriented-support\\captured-seed2-401\\executed-probe.py",
+        "sha256": "5b13234ab85df14b1fdec6aae06e659575ac04e681fe0205f0b5d22447c54283"
+      }
+    },
+    "path-fit-diagnostics": {
+      "report": "tests/toilet-path-fit-diagnostics/result.json",
+      "sha256": "7377c7d63406125aa56a2cb4364f18f305a3bae3613eabd16a1353a122b9489a",
+      "cases": [
+        {
+          "name": "bowl-only-1800"
+        },
+        {
+          "name": "two-guides-short-1800"
+        },
+        {
+          "name": "two-guides-long-1800"
+        }
+      ],
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
+    },
+    "authored-self-alignment": {
+      "report": "tests/toilet-path-fit-diagnostics/self-alignment.json",
+      "sha256": "0650b7d8ffbe6d9be512cbe5c472a92811607af6cbe2c5c6f8181376e25f5505",
+      "records": 5,
+      "scope": "Retained diagnostic records; no aggregate pass claim."
+    },
+    "support-normal-diagnostics": {
+      "report": "tests/toilet-support-normal-diagnostics/result.json",
+      "sha256": "1ca9de4e66a3c48ea6814a5cf302168eed4a189f2c62683eeadb12e2973c09d9",
+      "implementationHashMismatches": []
+    },
+    "worker-lifetime-shared-scope": {
+      "report": "tests/toilet-exhaustive-audit/worker-lifetime-shared-scope.json",
+      "sha256": "f1a79148b6b485618a78d1b859a8d866d28acf742caf2be5506b93671eddc161",
+      "passed": true,
+      "implementationHashMismatches": []
+    },
+    "live-worker-lifetime-readonly": {
+      "report": "tests/toilet-exhaustive-audit/live-worker-lifetime.json",
+      "sha256": "ba7509762a8ca743eaa2403717435bab949440ea2117953678911976d245a10b",
       "implementationHashMismatches": []
     },
     "fresh-geometry-tangent-captured-seed2-weight12": {
@@ -1667,15 +1976,20 @@
           "passed": true
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "curved_quad.py"
+      ]
     }
   },
   "interpretation": [
     "Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.",
     "Windows forced-exit tests use an actual toilet worker and Blender child; a service process job now owns their lifetime. Deduplication and early-cancellation records are per service lifetime. Non-Windows forced-exit cleanup is not claimed.",
+    "Worker-only forced exit reproduced a live orphan Blender while the service survived. A nested worker lifetime job fixes it. The nested-worker-job suites pass 166 scoped checks on their recorded hashes, before a concurrent opt-in guided-layout dispatch edit. Experimental fitting remains isolated from production.",
     "The request-ownership generated-UI run passed 12 checks before a genuine progress-file sharing violation cancelled its second Circle solve. The ownership-io attempt subsequently cancelled without a server traceback and is retained as incomplete. All 15 ownership-io-diagnostics workflow checks pass on final app/server code with two genuine fresh Circle solves; this does not establish the cause of the earlier unexplained interruption.",
-    "Final scoped lifecycle evidence totals 259 checks, including 53 units and 13 actual Windows file-lock checks. The six native crash controls use the final OS ownership module but precede the separate diagnostic-I/O correction; exact hashes and scopes are retained.",
+    "The c8e5b83 request-ownership checkpoint retains 274 scoped checks including 15 genuine generated-result browser checks. Exact hashes and component scopes are retained; later worker-lifetime tests are a distinct checkpoint, not an additive claim about a single final revision.",
     "The isolated tangent/sliding-pin bowl experiment passes existing production gates, but is not integrated. Independent experimental export reports are separate from actual service-generated mesh qualification.",
+    "The distributed 401-sample objective retains the unchanged 257-sample acceptance metric. Bowl-only passes solver gates; the shorter combined case reaches guide limits but fails whole-surface bounds, and the longer case still fails tangent alignment. Separate both-diagonal source-support experiments preserve all acceptance limits.",
+    "Both-diagonal vertex/centroid support and its opposing-normal-filter variant each fail all 15 captured-case attempts with contacts. These completed negative experiments do not change production fitting or excuse any failed acceptance gate.",
     "Extra genuine layout seeds 2/3 fail all six captured complex-guide cases. Sliding pins on seed 2 fail guide alignment in every pass. These isolated experiments are not in production and do not qualify geometry.",
     "Green lifecycle, editing or rejection checks do not qualify the generated geometry.",
     "Earlier API/browser reports retain their original implementation hashes. Current post-admission-fix suites separately verify 76 HTTP and 29 browser checks with a named Circle positive control; the original bowl-generation failure remains recorded.",
@@ -1691,6 +2005,6 @@
     "Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.",
     "Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.",
     "Actual worker/Blender timeout cleanup and generated-result browser workflow now pass; broader sustained process/memory recovery needs final reconciliation.",
-    "Final implementation/evidence reconciliation and authorized check-in remain required; live servers have been refreshed and verified separately."
+    "Final implementation/evidence reconciliation and authorized check-in remain required. Shared guided-layout edits are preserved separately; live-server reports identify their historical checkpoint and are not claims about subsequently changed files."
   ]
 }

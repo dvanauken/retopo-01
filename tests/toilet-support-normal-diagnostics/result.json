@@ -1,0 +1,489 @@
+{
+  "layoutSha256": "9a7b6bdf837dfcc540bff706258a2776c16de82cda9560e4b143e88f0b902147",
+  "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+  "diagonals": {
+    "02": {
+      "selectedSupportPoints": 2800,
+      "opposingNormals": 204,
+      "belowHalfDot": 723,
+      "implicatedFaces": [
+        {
+          "face": 828,
+          "supports": 0,
+          "opposingNormals": 0,
+          "normalDotMinimum": null,
+          "samples": []
+        },
+        {
+          "face": 884,
+          "supports": 20,
+          "opposingNormals": 19,
+          "normalDotMinimum": -0.9967182743041104,
+          "samples": [
+            {
+              "sourcePoint": [
+                -0.0131867999305,
+                0.113064720037,
+                -0.385836440285
+              ],
+              "nearestPoint": [
+                0.01606065167167405,
+                0.11578493173667537,
+                -0.38540174283391193
+              ],
+              "distance": 0.029376894641649012,
+              "normalDot": -0.9967182743041104,
+              "sourceKind": "vertex"
+            },
+            {
+              "sourcePoint": [
+                -0.013512399928800002,
+                0.10459912008136667,
+                -0.39072044025933333
+              ],
+              "nearestPoint": [
+                0.016910174921038548,
+                0.10742862622660049,
+                -0.3902682772496242
+              ],
+              "distance": 0.030557218736450707,
+              "normalDot": -0.9922686161537887,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.013512399928800002,
+                0.10215712009403333,
+                -0.382906026897
+              ],
+              "nearestPoint": [
+                0.017020178011949872,
+                0.1049968572740584,
+                -0.38245222893926595
+              ],
+              "distance": 0.03066770867779375,
+              "normalDot": -0.9919671291100995,
+              "sourceKind": "face-centroid"
+            }
+          ]
+        },
+        {
+          "face": 972,
+          "supports": 15,
+          "opposingNormals": 0,
+          "normalDotMinimum": 0.6818516268400382,
+          "samples": [
+            {
+              "sourcePoint": [
+                -0.016931199910766668,
+                0.19837202681566668,
+                -0.33553117353266665
+              ],
+              "nearestPoint": [
+                -0.022625036349149048,
+                0.20378780782771505,
+                -0.35566154683762397
+              ],
+              "distance": 0.021609775259230548,
+              "normalDot": 0.6818516268400382,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.0190475998996,
+                0.189743600054,
+                -0.335531160129
+              ],
+              "nearestPoint": [
+                -0.02516427760706428,
+                0.19556157311019753,
+                -0.3571564749707357
+              ],
+              "distance": 0.023214581595708914,
+              "normalDot": 0.842748415513803,
+              "sourceKind": "vertex"
+            },
+            {
+              "sourcePoint": [
+                -0.019373199897933333,
+                0.174928800132,
+                -0.3423687869
+              ],
+              "nearestPoint": [
+                -0.02476727958103439,
+                0.1800594628479655,
+                -0.36143937995840525
+              ],
+              "distance": 0.020472110666268313,
+              "normalDot": 0.8937651869688127,
+              "sourceKind": "face-centroid"
+            }
+          ]
+        },
+        {
+          "face": 973,
+          "supports": 0,
+          "opposingNormals": 0,
+          "normalDotMinimum": null,
+          "samples": []
+        },
+        {
+          "face": 987,
+          "supports": 11,
+          "opposingNormals": 0,
+          "normalDotMinimum": 0.7911739124227913,
+          "samples": [
+            {
+              "sourcePoint": [
+                -0.016442799913366668,
+                0.10248272009223332,
+                -0.3744404001346667
+              ],
+              "nearestPoint": [
+                -0.04106473686550523,
+                0.12482070500799036,
+                -0.37250616812098947
+              ],
+              "distance": 0.03330115017314581,
+              "normalDot": 0.7911739124227913,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.015465999918533334,
+                0.11794874681800001,
+                -0.37069600015433335
+              ],
+              "nearestPoint": [
+                -0.0328561430506415,
+                0.13383760641931258,
+                -0.3721483663384673
+              ],
+              "distance": 0.023600472561333335,
+              "normalDot": 0.794716584820715,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.0180707999048,
+                0.114529920029,
+                -0.368254000167
+              ],
+              "nearestPoint": [
+                -0.03568780696109857,
+                0.13072710602345222,
+                -0.37227179483517653
+              ],
+              "distance": 0.024266240865782662,
+              "normalDot": 0.8705201680382618,
+              "sourceKind": "vertex"
+            }
+          ]
+        },
+        {
+          "face": 988,
+          "supports": 33,
+          "opposingNormals": 0,
+          "normalDotMinimum": 0.2596023451643864,
+          "samples": [
+            {
+              "sourcePoint": [
+                -0.0507936399431,
+                0.0617827203068,
+                -0.381440840309
+              ],
+              "nearestPoint": [
+                -0.07714897111261915,
+                0.08554003313681778,
+                -0.37550777640522304
+              ],
+              "distance": 0.03597519480481872,
+              "normalDot": 0.2596023451643864,
+              "sourceKind": "vertex"
+            },
+            {
+              "sourcePoint": [
+                -0.052096053339866666,
+                0.09206352014713333,
+                -0.42230366690033333
+              ],
+              "nearestPoint": [
+                -0.06803981854496484,
+                0.10643560354952075,
+                -0.4187144356658548
+              ],
+              "distance": 0.02176334099110326,
+              "normalDot": 0.3109292718551005,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.04672363996456667,
+                0.0608059203119,
+                -0.382906040301
+              ],
+              "nearestPoint": [
+                -0.07591293067565694,
+                0.08711783065175992,
+                -0.37633500061339736
+              ],
+              "distance": 0.03984356761794076,
+              "normalDot": 0.3940629848349458,
+              "sourceKind": "face-centroid"
+            }
+          ]
+        }
+      ]
+    },
+    "13": {
+      "selectedSupportPoints": 3148,
+      "opposingNormals": 274,
+      "belowHalfDot": 909,
+      "implicatedFaces": [
+        {
+          "face": 828,
+          "supports": 0,
+          "opposingNormals": 0,
+          "normalDotMinimum": null,
+          "samples": []
+        },
+        {
+          "face": 884,
+          "supports": 43,
+          "opposingNormals": 17,
+          "normalDotMinimum": -0.990387735448205,
+          "samples": [
+            {
+              "sourcePoint": [
+                -0.017582399907366666,
+                0.09304032014206666,
+                -0.40781444016966667
+              ],
+              "nearestPoint": [
+                0.017891444596899175,
+                0.09765424269350413,
+                -0.3951250918094687
+              ],
+              "distance": 0.037956573699821146,
+              "normalDot": -0.990387735448205,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.01872199990136667,
+                0.08017912020983332,
+                -0.40911684016300004
+              ],
+              "nearestPoint": [
+                0.01902192221177912,
+                0.08528581454772385,
+                -0.39378817663145554
+              ],
+              "distance": 0.04105666704942281,
+              "normalDot": -0.9887699989481766,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.017582399907366666,
+                0.07610912023130001,
+                -0.40651204017666664
+              ],
+              "nearestPoint": [
+                0.01942117564264638,
+                0.08091762776840195,
+                -0.3933160151622017
+              ],
+              "distance": 0.03957930550682103,
+              "normalDot": -0.9833832040775791,
+              "sourceKind": "face-centroid"
+            }
+          ]
+        },
+        {
+          "face": 972,
+          "supports": 9,
+          "opposingNormals": 0,
+          "normalDotMinimum": 0.761953925063119,
+          "samples": [
+            {
+              "sourcePoint": [
+                -0.017745199906500003,
+                0.208954053567,
+                -0.32820516016766665
+              ],
+              "nearestPoint": [
+                -0.028091922588572345,
+                0.21433669714582157,
+                -0.3488108659356175
+              ],
+              "distance": 0.023677470987242325,
+              "normalDot": 0.761953925063119,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.016931199910766668,
+                0.19837202681566668,
+                -0.33553117353266665
+              ],
+              "nearestPoint": [
+                -0.025698548519555154,
+                0.20293303749919006,
+                -0.3529915241527497
+              ],
+              "distance": 0.020063226656235396,
+              "normalDot": 0.8032733107220641,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.0190475998996,
+                0.189743600054,
+                -0.335531160129
+              ],
+              "nearestPoint": [
+                -0.028267967882330075,
+                0.19454028360700634,
+                -0.35389370791947744
+              ],
+              "distance": 0.021099917540175463,
+              "normalDot": 0.9243068184021468,
+              "sourceKind": "vertex"
+            }
+          ]
+        },
+        {
+          "face": 973,
+          "supports": 1,
+          "opposingNormals": 0,
+          "normalDotMinimum": 0.9861898660522417,
+          "samples": [
+            {
+              "sourcePoint": [
+                -0.0205127998919,
+                0.151160000257,
+                -0.400000040211
+              ],
+              "nearestPoint": [
+                -0.031100260171548585,
+                0.1576549803328636,
+                -0.38317320578820846
+              ],
+              "distance": 0.020914622589256634,
+              "normalDot": 0.9861898660522417,
+              "sourceKind": "vertex"
+            }
+          ]
+        },
+        {
+          "face": 987,
+          "supports": 19,
+          "opposingNormals": 0,
+          "normalDotMinimum": 0.07391658323902943,
+          "samples": [
+            {
+              "sourcePoint": [
+                -0.014000799926233334,
+                0.12543754677866667,
+                -0.3871388268746667
+              ],
+              "nearestPoint": [
+                -0.028792501625290692,
+                0.13830139826110216,
+                -0.37197123756607164
+              ],
+              "distance": 0.024785658747555242,
+              "normalDot": 0.07391658323902943,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.0138379999271,
+                0.11746034682066668,
+                -0.37655681352700004
+              ],
+              "nearestPoint": [
+                -0.03247759327148492,
+                0.13425343233480033,
+                -0.3721318658526581
+              ],
+              "distance": 0.025475916530121306,
+              "normalDot": 0.23287083813816425,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.0376068400126,
+                0.0568987203325,
+                -0.389743640265
+              ],
+              "nearestPoint": [
+                -0.07362191994102006,
+                0.08905758690964907,
+                -0.3739252928092188
+              ],
+              "distance": 0.050808452033192085,
+              "normalDot": 0.461268543987586,
+              "sourceKind": "vertex"
+            }
+          ]
+        },
+        {
+          "face": 988,
+          "supports": 24,
+          "opposingNormals": 1,
+          "normalDotMinimum": -0.506793986305178,
+          "samples": [
+            {
+              "sourcePoint": [
+                -0.029466826651933332,
+                0.10801797367736667,
+                -0.366626000176
+              ],
+              "nearestPoint": [
+                -0.0440545389535414,
+                0.12153649442634704,
+                -0.3726364896523766
+              ],
+              "distance": 0.02077685580593787,
+              "normalDot": -0.506793986305178,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.0387464400066,
+                0.06129432030933333,
+                -0.4104192535596667
+              ],
+              "nearestPoint": [
+                -0.08549414112961025,
+                0.08382332071196327,
+                -0.405703851865197
+              ],
+              "distance": 0.05210699024668573,
+              "normalDot": 0.13423792188266365,
+              "sourceKind": "face-centroid"
+            },
+            {
+              "sourcePoint": [
+                -0.045584053374166676,
+                0.05592192033763333,
+                -0.3952788402356667
+              ],
+              "nearestPoint": [
+                -0.08614817959531985,
+                0.07919681490591497,
+                -0.39008360120115043
+              ],
+              "distance": 0.04705485694246699,
+              "normalDot": 0.1606136662257742,
+              "sourceKind": "face-centroid"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "scope": "Nearest Euclidean source-support ownership before refinement. Source vertex normals are averaged; triangle-centroid normals are exact source face normals. Opposing normals indicate correspondence ambiguity, not a geometric acceptance decision."
+}

@@ -1,0 +1,9 @@
+{
+  "originalPath": "tests/probe_toilet_oriented_support.py",
+  "restoredOriginalSha256": "13d89bede7aca724e4f1799abb745176b39f966f85f23ae00822285602eb1d9d",
+  "executedScript": "tests\\toilet-oriented-support\\captured-seed2-401\\executed-probe.py",
+  "executedSha256": "5b13234ab85df14b1fdec6aae06e659575ac04e681fe0205f0b5d22447c54283",
+  "reusableScript": "tests\\probe_toilet_sampled_oriented_support.py",
+  "reusableSha256": "b5a99369dfd6987cc90c7843a52704f444148100e4bbd75c164db701467b84ad",
+  "scope": "Final staging review caught a diagnostic filename collision. The original tracked script is restored byte-for-byte. The raw result and executed-refine.py remain unchanged. executed-probe.py preserves exactly the script used by the completed experiment; the reusable copy changes only its self-hash filename. The historical sourceHashes path therefore differs from the restored current file, with its exact historical bytes retained here."
+}

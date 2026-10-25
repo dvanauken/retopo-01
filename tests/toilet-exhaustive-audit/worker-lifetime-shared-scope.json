@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-25T06:35:48.846787+00:00",
+  "passed": true,
+  "workerOnlyCrashChecks": 11,
+  "crashReport": "tests\\toilet-worker-crash\\shared-dispatch-worker-job\\result.json",
+  "crashReportSha256": "55390f39799203f59f5db584cc49cc8fd37d6c7c393a708b3df432a85a478806",
+  "currentSourceHashes": {
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+    "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9",
+    "assets/models/toilet.json": "09e46f096677f7058bd0f6a2977dbdf2f6f7ea72a812a1ceb1b9fd8208b751f3",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "fitterSnapshot": "tests\\toilet-exhaustive-audit\\curved-quad-shared-during-probes.py",
+  "staticFindings": [
+    "Current worker AST equals the 166-check worker except the opt-in guided_layout keyword.",
+    "Toilet metadata disables that opt-in route.",
+    "Current fitter AST equals c8e5b83 except the module description, false-default argument and guarded new route.",
+    "Current worker-only forced-exit test passes all 11 checks on exact current bytes."
+  ],
+  "scope": "Static component-scope reconciliation plus a real worker-crash rerun. This is not a fresh 166-check run or validation of the separate opt-in guided-layout solver."
+}

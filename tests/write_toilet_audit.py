@@ -63,20 +63,30 @@ reports={
 for family, labels in {
     'submission-transport':['before-fix','request-id-fixed','ownership-fixed','ownership-final','ownership-io'],
     'early-submission':['request-identity','ownership-final','ownership-io'],
-    'server-restart':['before-fix','recovered-before-fix','ownership-fixed'],
+    'server-restart':['before-fix','recovered-before-fix','ownership-fixed','nested-worker-job'],
+    'worker-crash':['before-fix','nested-worker-job','shared-dispatch-worker-job'],
+    'process-timeout':['nested-worker-job'],
     'restart-ui':['ownership-final','ownership-io'],
     'cancel-transport':['submission-identity','ownership-final','ownership-io'],
     'async-ui':['submission-identity','ownership-final','ownership-io'],
-    'api':['submission-identity','ownership-final','ownership-io'],
-    'unit-gates':['submission-identity','ownership-final','io-fault-before-fix','io-fault-fixed'],
+    'api':['submission-identity','ownership-final','ownership-io','nested-worker-job'],
+    'unit-gates':['submission-identity','ownership-final','io-fault-before-fix','io-fault-fixed','nested-worker-job'],
     'generated-ui':['request-ownership','ownership-io','ownership-io-diagnostics'],
-    'file-locks':['io-fault-fixed'],
+    'file-locks':['io-fault-fixed','nested-worker-job'],
     'tangent-pins':['bowl-seed-2-weight-8','combined-seed-2-weight-8','captured-seed-2-weight-12'],
-    'fresh-geometry':['tangent-bowl-seed2'],
-    'all-diagonal-audit':['tangent-bowl-seed2'],
+    'fresh-geometry':['tangent-bowl-seed2','sampled-path-401'],
+    'all-diagonal-audit':['tangent-bowl-seed2','sampled-path-401'],
+    'sampled-paths':['captured-seed2-401'],
+    'both-diagonal-support':['captured-seed2-401'],
+    'oriented-support':['captured-seed2-401'],
 }.items():
     for label in labels:
         reports[family+'-'+label]='tests/toilet-'+family+'/'+label+'/result.json'
+reports['path-fit-diagnostics']='tests/toilet-path-fit-diagnostics/result.json'
+reports['authored-self-alignment']='tests/toilet-path-fit-diagnostics/self-alignment.json'
+reports['support-normal-diagnostics']='tests/toilet-support-normal-diagnostics/result.json'
+reports['worker-lifetime-shared-scope']='tests/toilet-exhaustive-audit/worker-lifetime-shared-scope.json'
+reports['live-worker-lifetime-readonly']='tests/toilet-exhaustive-audit/live-worker-lifetime.json'
 for family in ('fresh-geometry','all-diagonal-audit'):
     relative='tests/toilet-'+family+'/tangent-captured-seed2-weight12/result.json'
     if (ROOT/relative).exists():reports[family+'-tangent-captured-seed2-weight12']=relative
@@ -87,13 +97,23 @@ for name,relative in reports.items():
         evidence[name]=dict(report=relative,status='pending'); continue
     data=json.loads(path.read_text())
     item=dict(report=relative,sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+    if isinstance(data,list):
+        item.update(records=len(data),scope='Retained diagnostic records; no aggregate pass claim.')
+        evidence[name]=item
+        continue
     for key in ('passed','sourceValidationPassed','allReportedPairsConfirmed','complete','generationPassed','safetyChecksPassed','tests','errors'):
         if key in data: item[key]=data[key]
     if 'checks' in data:
         item['checks']=len(data['checks']); item['passedChecks']=sum(bool(c['passed']) for c in data['checks'])
     if 'cases' in data:
-        item['cases']=[{k:c[k] for k in ('name','state','passed','message') if k in c} for c in data['cases']]
+        item['cases']=[{k:c[k] for k in ('name','state','passed','qualified','message') if k in c} for c in data['cases']]
     item['implementationHashMismatches']=[]
+    provenance=path.parent/'script-provenance.json'
+    if provenance.exists():
+        note=json.loads(provenance.read_text())
+        snapshot=ROOT/note['executedScript']
+        assert hashlib.sha256(snapshot.read_bytes()).hexdigest()==note['executedSha256']
+        item['retainedHistoricalSource']=dict(provenance=str(provenance.relative_to(ROOT)),snapshot=note['executedScript'],sha256=note['executedSha256'])
     for file,digest in data.get('sourceHashes',{}).items():
         actual=ROOT/file
         if not actual.exists() or hashlib.sha256(actual.read_bytes()).hexdigest()!=digest:
@@ -127,7 +147,7 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
                 qualified.append(dict(item,contactProof=proof))
             else: provisional.append(dict(item,reason='All mixed-diagonal contact pairings have not yet been verified.'))
 experimental=[]
-for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12'):
+for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12','sampled-path-401','both-diagonal-support-401'):
     independent=ROOT/'tests/toilet-fresh-geometry'/label/'result.json'
     contacts=ROOT/'tests/toilet-all-diagonal-audit'/label/'result.json'
     if not independent.exists() or not contacts.exists():continue
@@ -144,9 +164,12 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
     interpretation=[
         'Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.',
         'Windows forced-exit tests use an actual toilet worker and Blender child; a service process job now owns their lifetime. Deduplication and early-cancellation records are per service lifetime. Non-Windows forced-exit cleanup is not claimed.',
+        'Worker-only forced exit reproduced a live orphan Blender while the service survived. A nested worker lifetime job fixes it. The nested-worker-job suites pass 166 scoped checks on their recorded hashes, before a concurrent opt-in guided-layout dispatch edit. Experimental fitting remains isolated from production.',
         'The request-ownership generated-UI run passed 12 checks before a genuine progress-file sharing violation cancelled its second Circle solve. The ownership-io attempt subsequently cancelled without a server traceback and is retained as incomplete. All 15 ownership-io-diagnostics workflow checks pass on final app/server code with two genuine fresh Circle solves; this does not establish the cause of the earlier unexplained interruption.',
-        'Final scoped lifecycle evidence totals 259 checks, including 53 units and 13 actual Windows file-lock checks. The six native crash controls use the final OS ownership module but precede the separate diagnostic-I/O correction; exact hashes and scopes are retained.',
+        'The c8e5b83 request-ownership checkpoint retains 274 scoped checks including 15 genuine generated-result browser checks. Exact hashes and component scopes are retained; later worker-lifetime tests are a distinct checkpoint, not an additive claim about a single final revision.',
         'The isolated tangent/sliding-pin bowl experiment passes existing production gates, but is not integrated. Independent experimental export reports are separate from actual service-generated mesh qualification.',
+        'The distributed 401-sample objective retains the unchanged 257-sample acceptance metric. Bowl-only passes solver gates; the shorter combined case reaches guide limits but fails whole-surface bounds, and the longer case still fails tangent alignment. Separate both-diagonal source-support experiments preserve all acceptance limits.',
+        'Both-diagonal vertex/centroid support and its opposing-normal-filter variant each fail all 15 captured-case attempts with contacts. These completed negative experiments do not change production fitting or excuse any failed acceptance gate.',
         'Extra genuine layout seeds 2/3 fail all six captured complex-guide cases. Sliding pins on seed 2 fail guide alignment in every pass. These isolated experiments are not in production and do not qualify geometry.',
         'Green lifecycle, editing or rejection checks do not qualify the generated geometry.',
         'Earlier API/browser reports retain their original implementation hashes. Current post-admission-fix suites separately verify 76 HTTP and 29 browser checks with a named Circle positive control; the original bowl-generation failure remains recorded.',
@@ -161,7 +184,7 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
         'Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.',
         'Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.',
         'Actual worker/Blender timeout cleanup and generated-result browser workflow now pass; broader sustained process/memory recovery needs final reconciliation.',
-        'Final implementation/evidence reconciliation and authorized check-in remain required; live servers have been refreshed and verified separately.',
+        'Final implementation/evidence reconciliation and authorized check-in remain required. Shared guided-layout edits are preserved separately; live-server reports identify their historical checkpoint and are not claims about subsequently changed files.',
     ])
 (OUT/'result.json').write_text(json.dumps(report,indent=2)+'\n',newline='\n')
 print(json.dumps(dict(completionProven=False,reports=len(evidence),pending=[k for k,v in evidence.items() if v.get('status')=='pending'],
