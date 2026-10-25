@@ -1,0 +1,482 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "dpr-1-pane-0: three native rays hit the toilet lid",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Polyline retains three authored lid points",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: body selection picks the visible toilet guide",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: selection adds no document history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: point preview leaves the accepted document unchanged",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: point release attaches to the actual lid surface",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: point edit preserves guide and point identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: point edit is one history command",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Undo restores exact authored values",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Redo restores exact edited values",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: invalid-release target is empty space",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: off-surface release rolls back the whole edit",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: off-surface rejection has a visible incident",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: point picking follows camera zoom",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Spline derives a dense curved-surface guide from three fits",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Shift selects both toilet guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Reverse preserves all selected guide identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: one Undo restores the entire group reversal",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Object Delete removes the selected group",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: one Undo restores both deleted guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: native export preserves IDs and authored guide records",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: native import restores exact toilet guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: rejected foreign source import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: rejected duplicate identities import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: rejected unknown schema import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: rejected malformed JSON import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: rejected file budget import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: three native rays hit the toilet lid",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Polyline retains three authored lid points",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: body selection picks the visible toilet guide",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: selection adds no document history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: point preview leaves the accepted document unchanged",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: point release attaches to the actual lid surface",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: point edit preserves guide and point identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: point edit is one history command",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Undo restores exact authored values",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Redo restores exact edited values",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: invalid-release target is empty space",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: off-surface release rolls back the whole edit",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: off-surface rejection has a visible incident",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: point picking follows camera zoom",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Spline derives a dense curved-surface guide from three fits",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Shift selects both toilet guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Reverse preserves all selected guide identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: one Undo restores the entire group reversal",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Object Delete removes the selected group",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: one Undo restores both deleted guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: native export preserves IDs and authored guide records",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: native import restores exact toilet guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: rejected foreign source import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: rejected duplicate identities import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: rejected unknown schema import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: rejected malformed JSON import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: rejected file budget import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: three native rays hit the toilet lid",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Polyline retains three authored lid points",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: body selection picks the visible toilet guide",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: selection adds no document history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: point preview leaves the accepted document unchanged",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: point release attaches to the actual lid surface",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: point edit preserves guide and point identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: point edit is one history command",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Undo restores exact authored values",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Redo restores exact edited values",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: invalid-release target is empty space",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: off-surface release rolls back the whole edit",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: off-surface rejection has a visible incident",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: point picking follows camera zoom",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Spline derives a dense curved-surface guide from three fits",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Shift selects both toilet guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Reverse preserves all selected guide identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: one Undo restores the entire group reversal",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Object Delete removes the selected group",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: one Undo restores both deleted guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: native export preserves IDs and authored guide records",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: native import restores exact toilet guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: rejected foreign source import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: rejected duplicate identities import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: rejected unknown schema import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: rejected malformed JSON import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: rejected file budget import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: three native rays hit the toilet lid",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Polyline retains three authored lid points",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: body selection picks the visible toilet guide",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: selection adds no document history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: point preview leaves the accepted document unchanged",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: point release attaches to the actual lid surface",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: point edit preserves guide and point identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: point edit is one history command",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Undo restores exact authored values",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Redo restores exact edited values",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: invalid-release target is empty space",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: off-surface release rolls back the whole edit",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: off-surface rejection has a visible incident",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: point picking follows camera zoom",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Spline derives a dense curved-surface guide from three fits",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Shift selects both toilet guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Reverse preserves all selected guide identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: one Undo restores the entire group reversal",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Object Delete removes the selected group",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: one Undo restores both deleted guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: native export preserves IDs and authored guide records",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: native import restores exact toilet guides",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: rejected foreign source import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: rejected duplicate identities import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: rejected unknown schema import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: rejected malformed JSON import preserves document/history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: rejected file budget import preserves document/history",
+      "passed": true
+    }
+  ],
+  "errors": [
+    "dpr-1-pane-0: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 145, in <module>\n    page.reload(wait_until='networkidle'); page.wait_for_function('window.retopoDemo?.getState().meshId===\"toilet\" && window.retopoDemo.getState().guideDocument.length===2')\n                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 11599, in wait_for_function\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_page.py\", line 1110, in wait_for_function\n    return await self._main_frame.wait_for_function(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 878, in wait_for_function\n    await self._channel.send(\"waitForFunction\", self._timeout, params)\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 30000ms exceeded.\n",
+    "dpr-2-pane-0: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 145, in <module>\n    page.reload(wait_until='networkidle'); page.wait_for_function('window.retopoDemo?.getState().meshId===\"toilet\" && window.retopoDemo.getState().guideDocument.length===2')\n                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 11599, in wait_for_function\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_page.py\", line 1110, in wait_for_function\n    return await self._main_frame.wait_for_function(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 878, in wait_for_function\n    await self._channel.send(\"waitForFunction\", self._timeout, params)\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 30000ms exceeded.\n",
+    "dpr-1-pane-1: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 145, in <module>\n    page.wait_for_function('(n)=>window.retopoDemo.getState().guideErrors.length>n',arg=count)\n                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 11599, in wait_for_function\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_page.py\", line 1110, in wait_for_function\n    return await self._main_frame.wait_for_function(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 878, in wait_for_function\n    await self._channel.send(\"waitForFunction\", self._timeout, params)\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 30000ms exceeded.\n",
+    "dpr-2-pane-1: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 145, in <module>\n    page.wait_for_function('(n)=>window.retopoDemo.getState().guideErrors.length>n',arg=count)\n                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 11599, in wait_for_function\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_page.py\", line 1110, in wait_for_function\n    return await self._main_frame.wait_for_function(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 878, in wait_for_function\n    await self._channel.send(\"waitForFunction\", self._timeout, params)\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 30000ms exceeded.\n"
+  ],
+  "scenarios": [
+    {
+      "name": "dpr-1-pane-0",
+      "complete": false
+    },
+    {
+      "name": "dpr-2-pane-0",
+      "complete": false
+    },
+    {
+      "name": "dpr-1-pane-1",
+      "complete": false
+    },
+    {
+      "name": "dpr-2-pane-1",
+      "complete": false
+    }
+  ],
+  "sourceHashes": {
+    "app.js": "c924302d4e58629092c4641bb4d7399fd5f41c111783c28401f26876a4100853",
+    "index.html": "eabc812b14e6296ca0f9e3e09d9b0fad10a7a9fa318ce655d2e8c599c12c0dc9",
+    "server.py": "dc2e2438cdb05c98d6af76d2e84292429ceadb2683dc24b9727e57b3e567b1ec",
+    "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
+    "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
+    "src/geometry/GuideCurve.js": "1fbaddc9a416b15550972c181e0b97616c57cd60ff045f8ee42b985dfd0f89ed",
+    "src/io/GuideSerializer.js": "405e343dc9697ea63ccd22ab813dd511e4adca340d504f59e097e01687df7ed1",
+    "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
+    "src/view/CircleConstruction.js": "866190bb43bded83034b2d94a24eec9603ab30c7e6594c77c209a6ea06e44170",
+    "src/view/GuideController.js": "556c4227867a7575909a689635d5f24ced3c1787e5a4005111833066e5ea228e",
+    "src/view/SurfaceGuides.js": "7e0456176fe1ee4687eb9534264fcbfc3975b66bd3dd971dccf3775d96059ed9",
+    "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
+  },
+  "renderingFixture": {
+    "file": "tests\\toilet-stress\\two-guides-short-1800\\mesh.json",
+    "sha256": "862c0ae47037035fcd6fca2ea5281d2daa7fa6e6f333ae8bec0c84588f3124db",
+    "qualified": false
+  },
+  "scope": "Native Chromium pointer/keyboard/file input on the original toilet at DPR 1/2. Right pane uses an explicitly unqualified historical rendering fixture; this is editor coverage, not solver qualification.",
+  "harnessNote": "Initial harness incorrectly expected the selected model to restore automatically on reload. The app starts on Hexagon; the corrected harness reselects Toilet and checks exact stored guide records. This timeout is not evidence of lost guide data."
+}

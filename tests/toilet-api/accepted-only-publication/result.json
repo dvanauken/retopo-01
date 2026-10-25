@@ -1,0 +1,375 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "Reject missing mesh with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject unknown mesh with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject mesh list with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject mesh null with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject target below minimum with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject target above maximum with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject target fractional with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject target boolean with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject target string with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject target null with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject target absent with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject mode unknown with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject mode boolean with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject mode unsupported for toilet with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject mode string with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject curves absent with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject curves object with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject curves null with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject 49 guides with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject empty guide with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject one sample with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject 2049 samples with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject sample budget 8193 with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject guide object with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject point object with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject XY point with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject XYZW point with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject boolean coordinate with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject string coordinate with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject NaN coordinate with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject infinite coordinate with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject positive coordinate boundary with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject negative coordinate boundary with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject root list with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject root scalar with a structured 400 response",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject malformed JSON without dropping the connection",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject empty body without dropping the connection",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject JSON null without dropping the connection",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject invalid UTF8 without dropping the connection",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject too deeply nested JSON without dropping the connection",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject wrong content type without dropping the connection",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject oversize declared body without dropping the connection",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject negative body length without dropping the connection",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "Reject foreign origin without dropping the connection",
+      "passed": true,
+      "status": 403
+    },
+    {
+      "name": "Malformed requests leave server healthy",
+      "passed": true
+    },
+    {
+      "name": "Admit schema boundary: minimum target",
+      "passed": true
+    },
+    {
+      "name": "Admit schema boundary: maximum target",
+      "passed": true
+    },
+    {
+      "name": "Admit schema boundary: 48 guides",
+      "passed": true
+    },
+    {
+      "name": "Admit schema boundary: 2048 samples",
+      "passed": true
+    },
+    {
+      "name": "Admit schema boundary: 8192 samples",
+      "passed": true
+    },
+    {
+      "name": "Unknown jobs and cancellations return 404",
+      "passed": true
+    },
+    {
+      "name": "Only one worker runs while the next two jobs remain queued",
+      "passed": true
+    },
+    {
+      "name": "A fourth active request is refused without starting another worker",
+      "passed": true
+    },
+    {
+      "name": "Running job cannot publish an existing output.obj",
+      "passed": true,
+      "status": 409
+    },
+    {
+      "name": "Running job cannot publish an existing mesh.json",
+      "passed": true,
+      "status": 409
+    },
+    {
+      "name": "Running job cannot publish an existing features.json",
+      "passed": true,
+      "status": 409
+    },
+    {
+      "name": "Queued cancellation is terminal",
+      "passed": true
+    },
+    {
+      "name": "Cancelled queued job never starts a worker",
+      "passed": true
+    },
+    {
+      "name": "Queued cancellation is terminal",
+      "passed": true
+    },
+    {
+      "name": "Cancelled queued job never starts a worker",
+      "passed": true
+    },
+    {
+      "name": "Running cancellation kills the exact owned suspended process tree",
+      "passed": true
+    },
+    {
+      "name": "Repeated cancellation is idempotent",
+      "passed": true
+    },
+    {
+      "name": "Cancelled job cannot publish leftover output.obj",
+      "passed": true
+    },
+    {
+      "name": "Cancelled job cannot publish leftover mesh.json",
+      "passed": true
+    },
+    {
+      "name": "Cancelled job cannot publish leftover features.json",
+      "passed": true
+    },
+    {
+      "name": "Cancelled job retains inspectable submitted guides",
+      "passed": true
+    },
+    {
+      "name": "Queue cancellation leaves the server healthy",
+      "passed": true
+    },
+    {
+      "name": "Fresh real toilet generation succeeds after queue saturation and cancellation",
+      "passed": true
+    },
+    {
+      "name": "Accepted download matches the actual worker output hash",
+      "passed": true
+    },
+    {
+      "name": "Accepted OBJ is served as an attachment",
+      "passed": true
+    },
+    {
+      "name": "Late cancellation cannot undo a completed accepted job",
+      "passed": true
+    },
+    {
+      "name": "A real unresolvable guide fails after the successful job",
+      "passed": true
+    },
+    {
+      "name": "Failed job cannot publish residual mesh.json",
+      "passed": true
+    },
+    {
+      "name": "Failed job cannot publish residual output.obj",
+      "passed": true
+    },
+    {
+      "name": "Failed job cannot publish residual features.json",
+      "passed": true
+    },
+    {
+      "name": "Failed job exposes its actual diagnostic report",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "workerJobs": [
+    "77031fe6e1f6458f8b969e6c6a8bbc88",
+    "189ccffb5ba346b49fbd4f921e7bf1ce",
+    "267f46f0a5f04d92baf2c5eca1a9a890",
+    "fedf89df62434a0db7054702c2db2f8a",
+    "cc3039d2ddae4f41b4ec0494d75cd716",
+    "041ccb3d494e4b0c80ff8431cd344c64",
+    "4f4f4c63e9734ac1a1a3ad887eaf7eb6",
+    "21cc697f744447ae8366e1617775c39f",
+    "f7e627680d784f16bbef4b1b4c80dd91",
+    "d8de1ad353af4faea60df2f4a578ea2f"
+  ],
+  "sourceHashes": {
+    "server.py": "63f981d6992d6a7b4e157eab0747375a3deb5651d8e11040b88fb70b86b7ee47",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "tests/verify_toilet_api.py": "e843998211d8b6953133f61597e77f14774dbc69c04457fa362be9c7dbee933c"
+  },
+  "scope": "Actual localhost HTTP requests, actual owned worker/queue lifecycle and a fresh toilet solve. Publication race uses explicitly unaccepted planted files in only this test server job directories."
+}

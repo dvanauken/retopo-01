@@ -1,0 +1,20 @@
+{
+  "id": "abae112033eb4283b5d6c84a397586f3",
+  "meshId": "toilet",
+  "target": 1800,
+  "state": "failed",
+  "stage": "Could not generate this network",
+  "createdAt": 1792893847.728526,
+  "startedAt": 1792893847.728526,
+  "finishedAt": 1792893869.486055,
+  "actualExitCode": 1,
+  "error": "[WinError 5] Access is denied: 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.tmp' -> 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.json'",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\abae112033eb4283b5d6c84a397586f3"
+  ]
+}

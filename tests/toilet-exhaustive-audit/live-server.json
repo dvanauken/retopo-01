@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "servers": [
+    {
+      "port": 8741,
+      "previousPid": 21844,
+      "pid": 47644,
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 4
+      },
+      "cancelledJob": "38e9363f23fa4b23ada16bbd6086b93c",
+      "cancelState": "cancelled",
+      "unacceptedResourceStatus": {
+        "mesh.json": 409,
+        "output.obj": 409,
+        "features.json": 409
+      },
+      "listeners": [
+        47644
+      ]
+    },
+    {
+      "port": 8742,
+      "previousPid": 49320,
+      "pid": 18604,
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 4
+      },
+      "cancelledJob": "7e78f1be6f3d4980b2e64564808e5083",
+      "cancelState": "cancelled",
+      "unacceptedResourceStatus": {
+        "mesh.json": 409,
+        "output.obj": 409,
+        "features.json": 409
+      },
+      "listeners": [
+        18604
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "server.py": "6e9e9c1b4f885f789e2a5fdf74207ee1daa4fc1398e30acea6de04ce475768bb",
+    "app.js": "c924302d4e58629092c4641bb4d7399fd5f41c111783c28401f26876a4100853",
+    "curved_quad.py": "8ca549ac352c86afe1308fd6e030f74ea81001a7d72177bb3146164dd4afdfa8",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "730724fc3ad953b4e305e3561fa2602dfea3460a4ea120f7350af662b2c0e8b4"
+  },
+  "scope": "Owned idle local servers restarted; each has one listener, accepts/cancels a genuine toilet job, and rejects unaccepted result downloads. No successful toilet solve is claimed."
+}

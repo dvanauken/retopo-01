@@ -1,0 +1,283 @@
+{
+  "completionProven": false,
+  "generatedToiletQualified": false,
+  "updatedAt": "2026-10-25T02:20:21.814298+00:00",
+  "evidence": {
+    "original-source": {
+      "report": "tests/toilet-source/result.json",
+      "sha256": "e5b5d372067d570cfad16f7614fbe2e99743fb55557968ad422e93a0945866bf",
+      "sourceValidationPassed": true,
+      "checks": 7,
+      "passedChecks": 7,
+      "implementationHashMismatches": []
+    },
+    "api-boundaries-and-lifecycle": {
+      "report": "tests/toilet-api/current/result.json",
+      "sha256": "692485c819c074f7e04cb761695d49370d14ba13b3e9ea37b62d5523d72339a3",
+      "passed": true,
+      "errors": [],
+      "checks": 76,
+      "passedChecks": 76,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "browser-async-lifecycle": {
+      "report": "tests/toilet-async-ui/request-context-complete/result.json",
+      "sha256": "2bb7807cc596ee87715f1c852ff9f0dfd3c06bc2090ad905b7cad2468aeef765",
+      "passed": true,
+      "errors": [],
+      "checks": 17,
+      "passedChecks": 17,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "toilet-editor": {
+      "report": "tests/toilet-editing/current/result.json",
+      "sha256": "2c177778638e73e81755e645947a632c74103f46a707892931a7379d3e62d912",
+      "passed": true,
+      "errors": [],
+      "checks": 130,
+      "passedChecks": 130,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "numeric-and-worker-units": {
+      "report": "tests/toilet-unit-gates/current/result.json",
+      "sha256": "8b95b75fe20342241abbd317e646f60fd5f10d306d41d76d3f8424e28c50111e",
+      "passed": true,
+      "tests": 33,
+      "errors": 0,
+      "implementationHashMismatches": []
+    },
+    "dense-ear-surface": {
+      "report": "tests/toilet-dense-surface/result.json",
+      "sha256": "61f528fd11a8bca7b58322c9fe9d7f93410011e2c2d5fee8a8a3eb7250f16358",
+      "passed": false,
+      "complete": true,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "passed": false
+        },
+        {
+          "name": "bowl-only-1800",
+          "passed": false
+        },
+        {
+          "name": "lid-only-1800",
+          "passed": false
+        },
+        {
+          "name": "unguided-1800",
+          "passed": false
+        },
+        {
+          "name": "browser-lid-circle",
+          "passed": false
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "dense-fan-surface": {
+      "report": "tests/toilet-dense-surface/fan-result.json",
+      "sha256": "2225404cb4b947b78ca9d51a5968198f7bb0d5bdf08244b8bf907341c126dffa",
+      "passed": false,
+      "complete": true,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "passed": false
+        },
+        {
+          "name": "bowl-only-1800",
+          "passed": false
+        },
+        {
+          "name": "lid-only-1800",
+          "passed": true
+        },
+        {
+          "name": "unguided-1800",
+          "passed": true
+        },
+        {
+          "name": "browser-lid-circle",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "adjacent-contacts": {
+      "report": "tests/toilet-adjacent-contacts/result.json",
+      "sha256": "b659b8b79940ac4965909f0e456578e7c69e7234b69e7aa968ae113f3f0bef45",
+      "passed": false,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "passed": false
+        },
+        {
+          "name": "bowl-only-1800",
+          "passed": false
+        },
+        {
+          "name": "lid-only-1800",
+          "passed": true
+        },
+        {
+          "name": "unguided-1800",
+          "passed": false
+        },
+        {
+          "name": "browser-lid-circle",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "independent-contact-witnesses": {
+      "report": "tests/toilet-adjacent-contacts/lp-witnesses.json",
+      "sha256": "19dc448521d33d96531d80c224a92253f53bd287b44cfa17e8b91120f32988e4",
+      "allReportedPairsConfirmed": true,
+      "cases": [
+        {
+          "name": "two-guides-short-1800"
+        },
+        {
+          "name": "bowl-only-1800"
+        },
+        {
+          "name": "lid-only-1800"
+        },
+        {
+          "name": "unguided-1800"
+        },
+        {
+          "name": "browser-lid-circle"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "whole-surface-and-contact-audit": {
+      "report": "tests/toilet-acceptance-audit/result.json",
+      "sha256": "16c48efd570c90f7a9108a4ed652c5667de74894a15818f179f66142a4437d04",
+      "passed": false,
+      "complete": true,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "passed": false
+        },
+        {
+          "name": "bowl-only-1800",
+          "passed": false
+        },
+        {
+          "name": "lid-only-1800",
+          "passed": false
+        },
+        {
+          "name": "unguided-1800",
+          "passed": false
+        },
+        {
+          "name": "browser-lid-circle",
+          "passed": false
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "first-strict-six-case-matrix": {
+      "report": "tests/toilet-strict-generation/result.json",
+      "sha256": "6efb6cb8b865c558feeb29f1ea6aa7379d42f3ecc5645a18711ea9e5b5c0be92",
+      "complete": true,
+      "generationPassed": false,
+      "safetyChecksPassed": true,
+      "errors": [],
+      "checks": 32,
+      "passedChecks": 32,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "state": "failed",
+          "message": "Self-crossing polygon projection"
+        },
+        {
+          "name": "two-guides-long-1800",
+          "state": "failed",
+          "message": "Generation failed: the closest candidate did not meet the limits for quad quality, face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged."
+        },
+        {
+          "name": "bowl-only-1800",
+          "state": "failed",
+          "message": "[WinError 5] Access is denied: 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.tmp' -> 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.json'"
+        },
+        {
+          "name": "lid-only-1800",
+          "state": "failed",
+          "message": "Generation failed: the closest candidate did not meet the limits for source-surface accuracy. No new mesh was accepted; your source and guides are unchanged."
+        },
+        {
+          "name": "unguided-1800",
+          "state": "failed",
+          "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged."
+        },
+        {
+          "name": "browser-lid-circle",
+          "state": "failed",
+          "message": "Generation failed: the closest candidate did not meet the limits for guide 1 alignment. No new mesh was accepted; your source and guides are unchanged."
+        }
+      ],
+      "implementationHashMismatches": [
+        "server.py",
+        "curved_quad.py"
+      ]
+    },
+    "fresh-strict-generation": {
+      "report": "tests/toilet-strict-generation/current/result.json",
+      "sha256": "00ac1b4fed13bfdbe7c3a3c7da0268c02d6e7a878325200aa9e51bd727b695a7",
+      "complete": true,
+      "generationPassed": false,
+      "safetyChecksPassed": true,
+      "errors": [],
+      "checks": 12,
+      "passedChecks": 12,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "state": "failed",
+          "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged."
+        },
+        {
+          "name": "bowl-only-1800",
+          "state": "failed",
+          "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged."
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "live-server-publication": {
+      "report": "tests/toilet-exhaustive-audit/live-server.json",
+      "sha256": "600f66196c5d6ff5da99c9ea6d7dc9207d5ae4c99ce73059c4e0436117fac66a",
+      "passed": true,
+      "implementationHashMismatches": []
+    }
+  },
+  "interpretation": [
+    "Green lifecycle, editing or rejection checks do not qualify the generated geometry.",
+    "The API and asynchronous browser suites predate the stronger geometric gates; their actual accepted jobs are historical, not newly qualified toilet results.",
+    "Right-pane editing uses an explicitly unqualified historical rendering fixture; it does not simulate or claim successful generation.",
+    "Sparse/dense sample audits and adaptive whole-triangle bounds have different scopes; both triangulation conventions are retained.",
+    "The original source is unchanged. Its four known contacts are spatially separate from the newly detected bowl overlaps."
+  ],
+  "remaining": [
+    "Captured two-guide networks and basic toilet solves must meet all geometric requirements.",
+    "Guide reversal/cyclic reindexing/order and perturbation families require solver coverage.",
+    "Toilet occlusion, marquee, group invalid-release and repeated navigation/stability cases need expanded coverage.",
+    "Pending-reset, late successful-result/import races, worker timeout and sustained process/memory recovery remain open.",
+    "Final implementation/evidence reconciliation and a qualified live generated result remain required."
+  ]
+}

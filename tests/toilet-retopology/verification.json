@@ -182,5 +182,7 @@
     "TOILET_SOLVER.md": "7f25fc68d115947eb8d17e81fa6108c2845ef08a96231390302fc0556b84558a",
     "README.md": "c900aab3b2ae03ead97f855e78d987dc2068c68845232f4f512c66f0cf2135e1"
   },
-  "scope": "This turn: browser workflows and source-relative geometry checks, including explicit unresolved regression. Suite hashes identify their execution versions; drawing/layout checks ran before the final failure-message wording and crossing-gate addition. Additional independent BVH intersection diagnostics retain their exclusions. No blanket claim for arbitrary guides or collision freedom."
+  "scope": "This turn: browser workflows and source-relative geometry checks, including explicit unresolved regression. Suite hashes identify their execution versions; drawing/layout checks ran before the final failure-message wording and crossing-gate addition. Additional independent BVH intersection diagnostics retain their exclusions. No blanket claim for arbitrary guides or collision freedom.",
+  "supersededBy": "tests/toilet-exhaustive-audit/result.json",
+  "currentStateNote": "Historical check totals predate dense proximity and adjacent-contact audits. Do not treat historical accepted outputs as geometrically qualified."
 }

@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "constructionCompleted": false,
+  "message": "[WinError 5] Access is denied: 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.tmp' -> 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.json'",
+  "technicalMessage": "[WinError 5] Access is denied: 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.tmp' -> 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.json'",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 32, in main\n    if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)\n                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 313, in construct\n    _progress(job, f'Fitting guides and refining quads \u00b7 pass {iteration + 1}')\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 54, in _progress\n    temporary.replace(job / 'progress.json')\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\pathlib.py\", line 1376, in replace\n    os.replace(self, target)\nPermissionError: [WinError 5] Access is denied: 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.tmp' -> 'C:\\\\dbva\\\\code\\\\retopo-1\\\\runs\\\\abae112033eb4283b5d6c84a397586f3\\\\progress.json'\n",
+  "elapsedSeconds": 19.65600000001723,
+  "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+  "workerSha256": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5"
+}

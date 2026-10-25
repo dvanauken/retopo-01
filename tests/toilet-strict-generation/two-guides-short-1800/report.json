@@ -1,0 +1,10 @@
+{
+  "passed": false,
+  "constructionCompleted": false,
+  "message": "Self-crossing polygon projection",
+  "technicalMessage": "Self-crossing polygon projection",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 32, in main\n    if spec.get('solver')=='surface-quads':positions,faces,meta=construct_curved_quads(v,f,curves,target=settings['target'],job=job)\n                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 316, in construct\n    validation = validate_surface(source, triangles, positions, faces, target, whole_surface=False)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 180, in validate_surface\n    st, ot = np.asarray(triangles), triangulate(positions, faces.tolist())\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\engine\\targets\\zbrush\\experiments\\python\\measure_polygon_geometry.py\", line 19, in triangulate\n    if v[0]*v[1]<-epsilon**2 and v[2]*v[3]<-epsilon**2:raise ValueError('Self-crossing polygon projection')\n                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: Self-crossing polygon projection\n",
+  "elapsedSeconds": 59.187999999994645,
+  "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+  "workerSha256": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5"
+}

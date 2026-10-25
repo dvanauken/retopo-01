@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "testedRevision": "38dc14c",
+  "test": "Cancellation snapshot must hold the same lock used by worker field insertion",
+  "failures": 1,
+  "errors": 0
+}

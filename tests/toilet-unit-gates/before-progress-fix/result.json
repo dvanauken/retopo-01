@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "tests": 33,
+  "failures": 1,
+  "errors": 3,
+  "sourceHashes": {
+    "server.py": "dc2e2438cdb05c98d6af76d2e84292429ceadb2683dc24b9727e57b3e567b1ec",
+    "curved_quad.py": "ca0d88ac63d02ce44a14458c9b525e842bd7ea456cfbf3c38925ad3fb60e11e8",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "730724fc3ad953b4e305e3561fa2602dfea3460a4ea120f7350af662b2c0e8b4",
+    "tests/test_server_job_races.py": "f0d9912d22341d23833c13cd2ac566fb675470c903e04033caeb3d2b42630b0a",
+    "tests/test_surface_distance.py": "062eb8ff20df1ce0c097a01f553ce90ecd733f6b8dec4550498b5312f82f7bef",
+    "tests/test_surface_failures.py": "0663f2a7c71bd4451def6dbc2efc566218c8d7109a89bfc6efc625e09404189f",
+    "tests/test_surface_intersections.py": "5769c01f33a546b997781ba44b36e0b9dd61db5ad5d885881e3a14724d83c115"
+  },
+  "harnessNote": "The three surface-recovery errors are genuine before-fix regressions. The snapshot test initially lacked Content-Type and received 400 before reaching the handler path; see cancel-snapshot-before for the corrected reproduction against committed code."
+}

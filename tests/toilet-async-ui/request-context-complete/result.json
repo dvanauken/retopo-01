@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "source-switch-before-response: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Changing source cancels generation even before its job ID arrives",
+      "passed": true
+    },
+    {
+      "name": "Late remesh acknowledgement is cancelled after source switch",
+      "passed": true,
+      "observed": "cancelled"
+    },
+    {
+      "name": "A stale toilet request cannot own the new source workspace",
+      "passed": true
+    },
+    {
+      "name": "cancel-before-response: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Cancel before acknowledgement immediately labels the attempt cancelled",
+      "passed": true
+    },
+    {
+      "name": "Late acknowledgement after explicit cancellation does not revive a job",
+      "passed": true
+    },
+    {
+      "name": "external-cancel: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "A second API client cancels the real pending job",
+      "passed": true
+    },
+    {
+      "name": "Cancellation observed by polling is reflected in persistent feedback",
+      "passed": true
+    },
+    {
+      "name": "failed-request-context: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Edits made while a request is pending remain in the current document",
+      "passed": true
+    },
+    {
+      "name": "Failure describes the submitted target and guides, not later edits",
+      "passed": true,
+      "attempt": {
+        "phase": "failed",
+        "message": "Two guides compete for the same output vertices. Increase density or separate their paths.",
+        "target": 150,
+        "guideCount": 2,
+        "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    },
+    {
+      "name": "Persistent failure text identifies the actual failed density",
+      "passed": true
+    },
+    {
+      "name": "late-source-preview: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Current Generate control is disabled while its request is pending",
+      "passed": true
+    },
+    {
+      "name": "Late preview for a previous source cannot replace geometry or re-enable Generate",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "workerJobs": [
+    "0770a13275c641289afd164fd03c3b3f",
+    "426e300eabc24e5f919a2fab06be20fd",
+    "ad5323a8aede4dc6b2ab6da610f88373",
+    "a89c942f11934d9aa265e215509786dd",
+    "69ef7a84405646c7a7c90e3e312251f7"
+  ],
+  "sourceHashes": {
+    "app.js": "c924302d4e58629092c4641bb4d7399fd5f41c111783c28401f26876a4100853",
+    "server.py": "dc2e2438cdb05c98d6af76d2e84292429ceadb2683dc24b9727e57b3e567b1ec",
+    "tests/verify_toilet_async_ui.py": "de3f7defd7c44185599b8f7056564c31a381395b9d6903a321359a4e5a7d96ed"
+  },
+  "scope": "Actual Chromium, delayed delivery of genuine HTTP responses, actual toilet workers and cancellation. No fabricated worker output."
+}

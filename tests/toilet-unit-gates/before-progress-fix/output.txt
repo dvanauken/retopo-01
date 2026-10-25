@@ -1,0 +1,92 @@
+test_cancel_response_snapshots_under_the_job_lock (test_server_job_races.WorkerStartup.test_cancel_response_snapshots_under_the_job_lock) ... FAIL
+test_cancellation_during_startup_failure_stays_cancelled (test_server_job_races.WorkerStartup.test_cancellation_during_startup_failure_stays_cancelled) ... ok
+test_cancelled_queued_job_never_spawns (test_server_job_races.WorkerStartup.test_cancelled_queued_job_never_spawns) ... ok
+test_startup_failure_is_reported (test_server_job_races.WorkerStartup.test_startup_failure_is_reported) ... ok
+test_worker_timeout_terminates_before_reporting_failure (test_server_job_races.WorkerStartup.test_worker_timeout_terminates_before_reporting_failure) ... ok
+test_bad_input_rejects (test_surface_distance.SurfaceBounds.test_bad_input_rejects) ... ok
+test_depth_exhaustion_never_passes (test_surface_distance.SurfaceBounds.test_depth_exhaustion_never_passes) ... ok
+test_equivalent_surface_with_opposite_diagonal (test_surface_distance.SurfaceBounds.test_equivalent_surface_with_opposite_diagonal) ... ok
+test_identical_surfaces (test_surface_distance.SurfaceBounds.test_identical_surfaces) ... ok
+test_parallel_surfaces_inside_tolerance (test_surface_distance.SurfaceBounds.test_parallel_surfaces_inside_tolerance) ... ok
+test_parallel_surfaces_outside_tolerance (test_surface_distance.SurfaceBounds.test_parallel_surfaces_outside_tolerance) ... ok
+test_vertex_correspondence_does_not_hide_an_interior_gap (test_surface_distance.SurfaceBounds.test_vertex_correspondence_does_not_hide_an_interior_gap) ... ok
+test_work_exhaustion_never_passes (test_surface_distance.SurfaceBounds.test_work_exhaustion_never_passes) ... ok
+test_invalid_quad_projection_is_a_recorded_rejection (test_surface_failures.RecoverableFailures.test_invalid_quad_projection_is_a_recorded_rejection) ... ERROR
+test_persistent_progress_lock_cannot_abort_geometry (test_surface_failures.RecoverableFailures.test_persistent_progress_lock_cannot_abort_geometry) ... ERROR
+test_transient_progress_sharing_violation_retries (test_surface_failures.RecoverableFailures.test_transient_progress_sharing_violation_retries) ... ERROR
+test_contact_classification_is_rotation_and_winding_independent (test_surface_intersections.Crossings.test_contact_classification_is_rotation_and_winding_independent) ... ok
+test_coplanar_containment (test_surface_intersections.Crossings.test_coplanar_containment) ... ok
+test_coplanar_crossing_without_containment (test_surface_intersections.Crossings.test_coplanar_crossing_without_containment) ... ok
+test_coplanar_disjoint (test_surface_intersections.Crossings.test_coplanar_disjoint) ... ok
+test_crossing (test_surface_intersections.Crossings.test_crossing) ... ok
+test_folded_shared_edge_is_rejected (test_surface_intersections.Crossings.test_folded_shared_edge_is_rejected) ... ok
+test_generated_contacts_against_independent_linear_programs (test_surface_intersections.Crossings.test_generated_contacts_against_independent_linear_programs) ... ok
+test_hinged_shared_edge_is_allowed (test_surface_intersections.Crossings.test_hinged_shared_edge_is_allowed) ... ok
+test_index_reports_nonadjacent_crossing (test_surface_intersections.Crossings.test_index_reports_nonadjacent_crossing) ... ok
+test_legitimate_coplanar_shared_edge (test_surface_intersections.Crossings.test_legitimate_coplanar_shared_edge) ... ok
+test_overlapping_boxes_without_intersection (test_surface_intersections.Crossings.test_overlapping_boxes_without_intersection) ... ok
+test_parallel_disjoint_planes (test_surface_intersections.Crossings.test_parallel_disjoint_planes) ... ok
+test_separate_vertex_ids_touch_is_rejected (test_surface_intersections.Crossings.test_separate_vertex_ids_touch_is_rejected) ... ok
+test_shared_diagonal_is_not_a_topological_boundary (test_surface_intersections.Crossings.test_shared_diagonal_is_not_a_topological_boundary) ... ok
+test_shared_edge_quads_overlap_away_from_edge (test_surface_intersections.Crossings.test_shared_edge_quads_overlap_away_from_edge) ... ok
+test_shared_vertex_does_not_hide_crossing (test_surface_intersections.Crossings.test_shared_vertex_does_not_hide_crossing) ... ok
+test_shared_vertex_touch_is_allowed (test_surface_intersections.Crossings.test_shared_vertex_touch_is_allowed) ... ok
+
+======================================================================
+ERROR: test_invalid_quad_projection_is_a_recorded_rejection (test_surface_failures.RecoverableFailures.test_invalid_quad_projection_is_a_recorded_rejection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_surface_failures.py", line 44, in test_invalid_quad_projection_is_a_recorded_rejection
+    result=cq.validate_surface(source,triangles,positions,np.array([[0,2,1,3]]),1800)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\curved_quad.py", line 180, in validate_surface
+    st, ot = np.asarray(triangles), triangulate(positions, faces.tolist())
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\engine\targets\zbrush\experiments\python\measure_polygon_geometry.py", line 19, in triangulate
+    if v[0]*v[1]<-epsilon**2 and v[2]*v[3]<-epsilon**2:raise ValueError('Self-crossing polygon projection')
+                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Self-crossing polygon projection
+
+======================================================================
+ERROR: test_persistent_progress_lock_cannot_abort_geometry (test_surface_failures.RecoverableFailures.test_persistent_progress_lock_cannot_abort_geometry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_surface_failures.py", line 37, in test_persistent_progress_lock_cannot_abort_geometry
+    cq._progress(folder,'Later fitting stage')
+  File "C:\dbva\code\retopo-1\curved_quad.py", line 54, in _progress
+    temporary.replace(job / 'progress.json')
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1198, in _execute_mock_call
+    raise effect
+PermissionError: Controlled persistent status lock
+
+======================================================================
+ERROR: test_transient_progress_sharing_violation_retries (test_surface_failures.RecoverableFailures.test_transient_progress_sharing_violation_retries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_surface_failures.py", line 28, in test_transient_progress_sharing_violation_retries
+    cq._progress(folder,'Actual fitting stage')
+  File "C:\dbva\code\retopo-1\curved_quad.py", line 54, in _progress
+    temporary.replace(job / 'progress.json')
+  File "C:\dbva\code\retopo-1\tests\test_surface_failures.py", line 23, in replace
+    if len(calls)==1: raise PermissionError('Controlled Windows sharing violation')
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: Controlled Windows sharing violation
+
+======================================================================
+FAIL: test_cancel_response_snapshots_under_the_job_lock (test_server_job_races.WorkerStartup.test_cancel_response_snapshots_under_the_job_lock)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_server_job_races.py", line 75, in test_cancel_response_snapshots_under_the_job_lock
+    self.assertEqual(status,200)
+AssertionError: 400 != 200
+
+----------------------------------------------------------------------
+Ran 33 tests in 1.010s
+
+FAILED (failures=1, errors=3)

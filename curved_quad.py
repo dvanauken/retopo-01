@@ -25,6 +25,7 @@ from measure_polygon_geometry import triangulate
 from mesh_validation import links
 from quad_quality import measure as quad_quality
 from surface_intersections import measure as surface_intersections
+from surface_distance import measure as surface_distance
 
 ROOT = Path(__file__).resolve().parent
 BACKEND = 'engineering-guided-surface-quads'
@@ -50,7 +51,17 @@ def _write(path, data):
 def _progress(job, stage):
     temporary = job / 'progress.tmp'
     _write(temporary, {'stage': stage})
-    temporary.replace(job / 'progress.json')
+    # Windows readers/AV can hold the destination without delete sharing.
+    # Progress is advisory: a briefly locked display file must not discard an
+    # otherwise usable solve. Keep the previous complete status on exhaustion.
+    for delay in (0., .01, .02, .04, .08):
+        if delay:
+            time.sleep(delay)
+        try:
+            temporary.replace(job / 'progress.json')
+            break
+        except PermissionError:
+            continue
     print(stage, flush=True)
 
 
@@ -164,18 +175,29 @@ def _guide_fit(positions, paths, curves):
     return result
 
 
-def validate_surface(source, triangles, positions, faces, target):
-    """Same source-relative limits as the reference validator, indexed proximity.
+def validate_surface(source, triangles, positions, faces, target, *, whole_surface=True):
+    """Preserve reference limits and require whole-triangle distance bounds.
 
-    R-tree acceleration changes nearest-triangle search, not its distance or
-    tolerance. Both directions retain the existing <=2048 deterministic samples.
+    Sparse samples remain useful diagnostics and an inexpensive rejection
+    screen. Acceptance additionally bounds both possible quad diagonals, since
+    nonplanar exported quads can be triangulated differently by OBJ consumers.
+    Set whole_surface=False only for intermediate refinement screening.
     """
     source, positions = np.asarray(source), np.asarray(positions)
     base, _, _ = topology(source, triangles.tolist())
     output, _, _ = topology(positions, faces.tolist())
     star = links(faces.tolist())
-    st, ot = np.asarray(triangles), triangulate(positions, faces.tolist())
+    st = np.asarray(triangles)
     source_mesh = trimesh.Trimesh(source, st, process=False)
+    tolerance = .5 * float(np.sqrt(source_mesh.area / target))
+    try:
+        ot = triangulate(positions, faces.tolist())
+    except ValueError as error:
+        # An intermediate fold is a rejected candidate, not an exception that
+        # prevents remaining refinement passes or layout seeds from being tried.
+        return dict(passed=False, checks=dict(validTriangulation=False), reason=str(error),
+                    sampledSurfaceTolerance=tolerance, topology=output, vertexLinks=star,
+                    wholeSurfaceDiagonals={}, scope='Rejected before proximity checks: invalid projected polygon triangulation.')
     output_mesh = trimesh.Trimesh(positions, ot, process=False)
     def distance_samples(p, tri, mesh):
         samples = np.r_[p[np.unique(tri)], p[tri].mean(axis=1)]
@@ -184,15 +206,23 @@ def validate_surface(source, triangles, positions, faces, target):
         return {'samples': len(distance), 'stride': stride, 'sampledMax': float(distance.max()), 'p95': float(np.percentile(distance, 95))}
     sd = distance_samples(source, st, output_mesh)
     od = distance_samples(positions, ot, source_mesh)
-    tolerance = .5 * float(np.sqrt(source_mesh.area / target))
-    checks = dict(closed=output['boundaryEdges'] == 0, components=output['faceConnectedComponents'] == base['faceConnectedComponents'],
+    checks = dict(validTriangulation=True, closed=output['boundaryEdges'] == 0, components=output['faceConnectedComponents'] == base['faceConnectedComponents'],
                   sourceEuler=output['eulerCharacteristic'] == base['eulerCharacteristic'],
                   noIncidenceDefects=all(output[k] == 0 for k in ('unusedVertices', 'nonmanifoldEdges', 'repeatedIndexFaces', 'zeroAreaFanTriangles')),
                   vertexManifold=not star['nonmanifoldVertices'], consistentWinding=star['inconsistentWindingEdges'] == 0,
                   sampledSurface=max(sd['sampledMax'], od['sampledMax']) <= tolerance)
+    bounds = {}
+    if whole_surface:
+        if all(checks.values()):
+            for name, a, b in (('02', [0, 1, 2], [0, 2, 3]), ('13', [0, 1, 3], [1, 2, 3])):
+                mesh = trimesh.Trimesh(positions, np.r_[faces[:, a], faces[:, b]], process=False)
+                bounds[name] = surface_distance(source_mesh, mesh, tolerance)
+        checks['wholeSurface'] = bool(bounds) and all(bound['passed'] for bound in bounds.values())
     return {'passed': all(checks.values()), 'checks': checks, 'sourceToOutput': sd, 'outputToSource': od,
             'sampledSurfaceTolerance': tolerance, 'topology': output, 'vertexLinks': star,
-            'scope': 'Exact nearest-triangle distances at deterministic bounded samples, not a Hausdorff certificate or a complete self-intersection test.'}
+            'wholeSurfaceDiagonals': bounds,
+            'scope': ('Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections.'
+                      if whole_surface else 'Intermediate deterministic sparse-sample screen only; not final surface acceptance.')}
 
 
 def _refine(source_mesh, positions, faces, edges, pins, targets, target):
@@ -301,14 +331,17 @@ def construct(source, triangles, curves, *, target, job):
             _progress(job, f'Fitting guides and refining quads · pass {iteration + 1}')
             positions, refinement = _refine(source_mesh, positions, faces, edges, pins, targets, target)
             quality = quad_quality(positions, faces, target)
-            validation = validate_surface(source, triangles, positions, faces, target)
+            validation = validate_surface(source, triangles, positions, faces, target, whole_surface=False)
             fit = _guide_fit(positions, paths, curves)
             intersections = surface_intersections(positions, faces)
             guided = all(p['p95Distance'] <= .20 * spacing and p['p95TangentAngleDegrees'] <= 30 for p in fit)
+            if quality['passed'] and validation['passed'] and guided and intersections['passed']:
+                _progress(job, 'Checking the full surface and both quad diagonals')
+                validation = validate_surface(source, triangles, positions, faces, target)
             history.append(dict(seed=seed, iteration=iteration, refinement=refinement, quality=quality, intersections=intersections,
                                 surface=validation, guideFit=[{k: p[k] for k in ('curve', 'p95Distance', 'p95TangentAngleDegrees')} for p in fit]))
             if quality['passed'] and validation['passed'] and guided and intersections['passed']:
-                files = [Path(__file__), ROOT / 'quad_quality.py', ROOT / 'surface_intersections.py', ROOT / 'scripts/quadriflow_mesh.py']
+                files = [Path(__file__), ROOT / 'quad_quality.py', ROOT / 'surface_intersections.py', ROOT / 'surface_distance.py', ROOT / 'scripts/quadriflow_mesh.py']
                 metadata = dict(backend=BACKEND, nativeComparisonPerformed=False, generalAlgorithmRecovered=False,
                                 target=target, guideMode=2, closedValidation=validation, guidePaths=fit, intersectionValidation=intersections,
                                 outputCreases=output_creases(positions, faces.tolist()), refinementHistory=history,
@@ -316,7 +349,7 @@ def construct(source, triangles, curves, *, target, job):
                                 sourceHashes={str(p.resolve()): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
                                 limitations=['Engineering layout and fitting route, not recovered native equivalence.',
                                              'Approximate surface and guide fitting; small details can be smoothed at coarse targets.',
-                                             'Bounded surface samples and topology checks do not certify every self-intersection.',
+                                             'Surface bounds and intersection predicates use double precision; topology and geometric contact are checked separately.',
                                              'Overlapping or unresolved guide paths reject; general crease/attribute transfer is not implemented.'])
                 _write(job / 'surface-solver.json', metadata)
                 return positions, faces.tolist(), metadata
@@ -327,7 +360,7 @@ def construct(source, triangles, curves, *, target, job):
         if not attempt['surface']['passed']:
             reasons.append('source-surface accuracy')
         if not attempt['intersections']['passed']:
-            reasons.append('non-adjacent face intersections')
+            reasons.append('face intersections, including overlaps between adjacent faces')
         for guide in attempt['guideFit']:
             if guide['p95Distance'] > .2 * spacing or guide['p95TangentAngleDegrees'] > 30:
                 reasons.append(f"guide {guide['curve'] + 1} alignment")

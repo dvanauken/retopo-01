@@ -42,7 +42,8 @@ def execute(job):
     if code==0 and report.get('passed') is True and (folder/'mesh.json').exists():job.update(state='complete',stage='Mesh ready',resultUrl='/api/jobs/'+job['id']+'/mesh.json')
     else:job.update(state='failed',stage='Could not generate this network',error=job.get('error') or report.get('message') or 'The solver could not complete this guide network. Try a shorter stroke on one visible surface.')
  except Exception as error:
-  with LOCK:job.update(state='failed',stage='Worker failed',error=str(error),finishedAt=time.time())
+  with LOCK:
+   if job['state']!='cancelled':job.update(state='failed',stage='Worker failed',error=str(error),finishedAt=time.time())
  finally:
   with LOCK:write(folder/'execution.json',dict(snapshot(job),command=command))
 
@@ -74,12 +75,16 @@ class Handler(BaseHTTPRequestHandler):
      try:data['stage']=read(job['directory']/'progress.json')['stage']
      except (FileNotFoundError,KeyError,json.JSONDecodeError):pass
     return self.respond(data)
+   # Worker files can exist before acceptance or survive cancellation/failure.
+   # Their presence is not authorization to publish a generated result.
+   if match[2] in ('mesh.json','output.obj','features.json') and data['state']!='complete':
+    return self.respond(dict(error='No accepted result is available for this job.'),409)
    return self.file(job['directory']/match[2],download=match[2] not in ('mesh.json','report.json'))
   if path=='/':return self.file(ROOT/'index.html')
   if path in ['/app.js','/favicon.svg','/index.css']:return self.file(ROOT/path[1:])
   if re.fullmatch(r'/src/(geometry|domain|view|io|snapping|contracts)/[A-Za-z0-9_-]+\.js',path):return self.file(ROOT/path[1:])
   if re.fullmatch('/vendor/[A-Za-z0-9_.-]+',path):return self.file(ROOT/path[1:])
-  if re.fullmatch('/assets/previews/[a-z-]+\.(json|obj)',path):return self.file(ROOT/path[1:])
+  if re.fullmatch(r'/assets/previews/[a-z-]+\.(json|obj)',path):return self.file(ROOT/path[1:])
   return self.respond(dict(error='Not found'),404)
  def do_POST(self):
   try:
@@ -101,7 +106,8 @@ class Handler(BaseHTTPRequestHandler):
       write(job['directory']/'cancel-request.json',snapshot(job))
       if previous=='queued':write(job['directory']/'execution.json',dict(snapshot(job),actualExitCode=None,processStarted=False))
       if job.get('process') and job['process'].poll() is None:terminate_worker(job['process'])
-    return self.respond(snapshot(job))
+     data=snapshot(job)
+    return self.respond(data)
    if self.path!='/api/remesh':return self.respond(dict(error='Not found'),404)
    mesh_id=data.get('meshId');target=data.get('target');curves=data.get('curves');mode=data.get('guideMode',2)
    if mesh_id not in MESHES:raise ValueError('Choose one of the example meshes.')

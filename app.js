@@ -184,8 +184,8 @@ function renderGuides() {
 function syncGuideVisibility() {
   guideGroups.forEach((group, pane) => group.visible = $('guidesToggle').checked && (pane === 0 || (state.view === 'split' && !!resultRender)));
 }
-function setAttempt(phase, message = '') {
-  state.lastAttempt = { phase, message, target: state.target, guideCount: state.guides.length, sourceSha256: state.mesh?.sourceSha256 };
+function setAttempt(phase, message = '', context = null) {
+  state.lastAttempt = { phase, message, target: context?.target ?? state.target, guideCount: context?.guideCount ?? state.guides.length, sourceSha256: context?.sourceSha256 ?? state.mesh?.sourceSha256 };
   if (state.mesh) try {
     const key = 'retopo-1:last-attempt:' + state.mesh.id;
     if (phase === 'failed' || phase === 'cancelled') localStorage.setItem(key, JSON.stringify(state.lastAttempt));
@@ -411,7 +411,7 @@ const densityButtons = [['halfButton', .5], ['sameButton', 1], ['doubleButton', 
 async function loadMesh(id) {
   $('notice').hidden = true;
   editor.run(() => { editor.cancel(); editor.select([]); }); ++importTicket;
-  const version = ++state.version; if (state.job) await cancelGeneration();
+  const version = ++state.version; if (state.busy || state.job) await cancelGeneration();
   $('generateButton').disabled = true; const mesh = await api('/api/mesh/' + id); if (version !== state.version) return;
   state.mesh = mesh; state.density = sourceDensity(mesh); state.result = null; state.resultJob = null; state.resultKey = null; state.selected = -1; state.lastAttempt = null;
   try { const attempt = JSON.parse(localStorage.getItem('retopo-1:last-attempt:' + id)); if (attempt?.sourceSha256 === mesh.sourceSha256 && ['failed', 'cancelled'].includes(attempt.phase) && typeof attempt.message === 'string') state.lastAttempt = attempt; } catch { /* Optional operation history. */ }
@@ -428,12 +428,13 @@ async function loadMesh(id) {
   if (mesh.previewUrl) {
     try { const preview = await api(mesh.previewUrl); if (version === state.version) showResult(preview, null, preview.curves || [], preview.target, preview.guideMode || 2); } catch { /* A missing preview does not disable live generation. */ }
   }
+  if (version !== state.version) return;
   $('generateButton').disabled = false; workspaceShell.addLog('Loaded ' + mesh.title + '.');
   syncResultFeedback();
 }
 function showResult(result, job, curves, target, mode) {
   state.result = result; state.resultJob = job; state.resultKey = JSON.stringify([state.mesh.id, curves, target, mode]);
-  if (job) setAttempt('complete');
+  if (job) setAttempt('complete', '', { target, guideCount: curves.length, sourceSha256: result.sourceSha256 });
   resultRender = buildMesh({ ...result, displayColor: state.mesh.displayColor, displaySmooth: state.mesh.displaySmooth, wireOpacity: state.mesh.wireOpacity }, resultGroup); $('resultEmpty').hidden = true; $('resultMeta').textContent = `${countText(result.faces.length)} faces`;
   $('resultLabel').textContent = job ? 'Retopology' : 'Example result'; $('exportMesh').disabled = false; $('detailsButton').disabled = false;
   updateMetrics(); displaySettings(); dirty(); setView(state.view);
@@ -454,9 +455,10 @@ async function generate() {
   if (state.busy || !state.mesh) return;
   if (editor.activity || editor.construction) return reportGuideError('Finish or cancel the current guide before generating.');
   const request = { meshId: state.mesh.id, curves: clone(state.guides), target: state.target, guideMode: state.guideMode };
+  const attempt = { target: request.target, guideCount: request.curves.length, sourceSha256: state.mesh.sourceSha256 };
   if ((request.meshId === 'cylinder' || state.mesh.requiresGuides) && !request.curves.length) return notify('Draw a guide or load the example network for this curved mesh.', true);
   workspaceShell.addLog('Generating retopology…');
-  setAttempt('running');
+  setAttempt('running', '', attempt);
   const token = ++generation; state.busy = true; $('processing').hidden = false; $('generateButton').disabled = true; $('notice').hidden = true;
   const started = performance.now(); const timer = setInterval(() => { $('processTime').textContent = `${Math.round((performance.now() - started) / 1000)}s`; }, 300);
   $('processTime').textContent = '0s'; $('processDetail').textContent = state.mesh.solver === 'surface-quads' ? 'Building a quad layout, fitting your guide paths and checking the source surface…' : request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
@@ -468,21 +470,22 @@ async function generate() {
     }
     state.job = first.id;
     while (token === generation) {
-      const job = await api('/api/jobs/' + first.id); $('processTitle').textContent = job.stage;
+      const job = await api('/api/jobs/' + first.id); if (token !== generation) return;
+      $('processTitle').textContent = job.stage;
       if (job.state === 'complete') {
         const result = await api(job.resultUrl); if (token !== generation) return;
         showResult(result, first.id, request.curves, request.target, request.guideMode); notify(`Generated ${countText(result.faces.length)} quads. Shape, spacing and density checks passed.`); return;
       }
       if (job.state === 'failed') throw new Error(job.error);
-      if (job.state === 'cancelled') return;
+      if (job.state === 'cancelled') { setAttempt('cancelled', '', attempt); return; }
       await new Promise(resolve => setTimeout(resolve, 500));
     }
-  } catch (error) { if (token === generation) { setAttempt('failed', error.message); notify(error.message, true, true); } }
+  } catch (error) { if (token === generation) { setAttempt('failed', error.message, attempt); notify(error.message, true, true); } }
   finally { clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false; } }
 }
 async function cancelGeneration() {
-  const id = state.job, wasBusy = state.busy; ++generation; state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false;
-  if (wasBusy) setAttempt('cancelled');
+  const id = state.job, wasBusy = state.busy, attempt = state.lastAttempt; ++generation; state.busy = false; state.job = null; $('processing').hidden = true; $('generateButton').disabled = false;
+  if (wasBusy) setAttempt('cancelled', '', attempt);
   if (id) { try { await api('/api/jobs/' + id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }); } catch (error) { notify(error.message, true); } }
 }
 function downloadBlob(name, data) {

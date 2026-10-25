@@ -1,0 +1,250 @@
+{
+  "allReportedPairsConfirmed": true,
+  "cases": [
+    {
+      "name": "two-guides-short-1800",
+      "reportedPairs": 2,
+      "independentlyConfirmedPairs": 2,
+      "witnesses": [
+        {
+          "faces": [
+            405,
+            467
+          ],
+          "triangles": [
+            [
+              303,
+              438,
+              464
+            ],
+            [
+              438,
+              353,
+              355
+            ]
+          ],
+          "point": [
+            -0.36291725418427095,
+            0.4926931725477831,
+            0.04260292564330712
+          ],
+          "barycentricA": [
+            0.3603920223843651,
+            0.0808683389117924,
+            0.5587396387038426
+          ],
+          "barycentricB": [
+            0.4926708730490336,
+            0.0808683389117924,
+            0.42646078803917403
+          ],
+          "minimumBarycentric": 0.0808683389117924,
+          "equalityError": 5.551115123125783e-17
+        },
+        {
+          "faces": [
+            467,
+            624
+          ],
+          "triangles": [
+            [
+              438,
+              353,
+              355
+            ],
+            [
+              464,
+              485,
+              303
+            ]
+          ],
+          "point": [
+            -0.3612945789866445,
+            0.4897929389295995,
+            0.04376437200161709
+          ],
+          "barycentricA": [
+            0.4962492443085305,
+            0.030588650318017174,
+            0.4731621053734523
+          ],
+          "barycentricB": [
+            0.6155735607379693,
+            0.030588650318017174,
+            0.3538377889440136
+          ],
+          "minimumBarycentric": 0.030588650318017174,
+          "equalityError": 5.551115123125783e-17
+        }
+      ]
+    },
+    {
+      "name": "bowl-only-1800",
+      "reportedPairs": 2,
+      "independentlyConfirmedPairs": 2,
+      "witnesses": [
+        {
+          "faces": [
+            728,
+            729
+          ],
+          "triangles": [
+            [
+              560,
+              626,
+              559
+            ],
+            [
+              559,
+              1868,
+              558
+            ]
+          ],
+          "point": [
+            -0.323696891569142,
+            0.2662741494967394,
+            0.05031156483550511
+          ],
+          "barycentricA": [
+            0.6758122307032269,
+            0.3128523163524745,
+            0.011335452944298465
+          ],
+          "barycentricB": [
+            0.2478837047738213,
+            0.7407808422818802,
+            0.011335452944298465
+          ],
+          "minimumBarycentric": 0.011335452944298465,
+          "equalityError": 0.0
+        },
+        {
+          "faces": [
+            729,
+            806
+          ],
+          "triangles": [
+            [
+              559,
+              626,
+              1868
+            ],
+            [
+              626,
+              560,
+              628
+            ]
+          ],
+          "point": [
+            -0.32290987628862444,
+            0.261874727863934,
+            0.05055637091299538
+          ],
+          "barycentricA": [
+            0.21754003450782178,
+            0.029104973787360412,
+            0.7533549917048178
+          ],
+          "barycentricB": [
+            0.32135260202109006,
+            0.6495424241915495,
+            0.029104973787360412
+          ],
+          "minimumBarycentric": 0.029104973787360412,
+          "equalityError": 5.551115123125783e-17
+        }
+      ]
+    },
+    {
+      "name": "lid-only-1800",
+      "reportedPairs": 0,
+      "independentlyConfirmedPairs": 0,
+      "witnesses": []
+    },
+    {
+      "name": "unguided-1800",
+      "reportedPairs": 2,
+      "independentlyConfirmedPairs": 2,
+      "witnesses": [
+        {
+          "faces": [
+            405,
+            467
+          ],
+          "triangles": [
+            [
+              303,
+              438,
+              464
+            ],
+            [
+              438,
+              353,
+              355
+            ]
+          ],
+          "point": [
+            -0.3489145125820409,
+            0.5000065262975579,
+            0.04708489881104391
+          ],
+          "barycentricA": [
+            0.4566134323980351,
+            0.03443180938024134,
+            0.5089547582217235
+          ],
+          "barycentricB": [
+            0.3434865228005287,
+            0.03443180938024134,
+            0.6220816678192299
+          ],
+          "minimumBarycentric": 0.03443180938024134,
+          "equalityError": 1.2432050435751766e-16
+        },
+        {
+          "faces": [
+            467,
+            624
+          ],
+          "triangles": [
+            [
+              438,
+              353,
+              355
+            ],
+            [
+              464,
+              485,
+              303
+            ]
+          ],
+          "point": [
+            -0.3475562549079728,
+            0.4987911152153377,
+            0.04811402061403194
+          ],
+          "barycentricA": [
+            0.33231136924969995,
+            0.011963673152691551,
+            0.6557249575976085
+          ],
+          "barycentricB": [
+            0.5270740398410096,
+            0.011963673152691551,
+            0.46096228700629877
+          ],
+          "minimumBarycentric": 0.011963673152691551,
+          "equalityError": 0.0
+        }
+      ]
+    },
+    {
+      "name": "browser-lid-circle",
+      "reportedPairs": 0,
+      "independentlyConfirmedPairs": 0,
+      "witnesses": []
+    }
+  ],
+  "verifierSha256": "d6507f1bd1380c3cf9203200ec034a9c23a3b272192f0297ef5ad9c006333d07",
+  "scope": "Independent HiGHS linear programs find equal XYZ points strictly inside both original triangles, minimum barycentric coordinate >=1e-5 and point equality error <=1e-9. Confirms reported positive contacts; does not search unreported pairs."
+}

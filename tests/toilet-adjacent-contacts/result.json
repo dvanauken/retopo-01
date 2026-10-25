@@ -1,0 +1,70 @@
+{
+  "passed": false,
+  "detectorControlsPassed": true,
+  "cases": [
+    {
+      "name": "two-guides-short-1800",
+      "outputSha256": "bd1e23d8be0502a65e8cd64e1a2f424de7511df5e7fd5c985248ed330616bbc9",
+      "adjacentPairsTested": 7735,
+      "intersectingInteriorPairs": [
+        [
+          405,
+          467
+        ],
+        [
+          467,
+          624
+        ]
+      ],
+      "passed": false
+    },
+    {
+      "name": "bowl-only-1800",
+      "outputSha256": "fd686d3bef060caf85d76ad134275d301ed4474ffcb7aa0943fb80ef7a451359",
+      "adjacentPairsTested": 7735,
+      "intersectingInteriorPairs": [
+        [
+          728,
+          729
+        ],
+        [
+          729,
+          806
+        ]
+      ],
+      "passed": false
+    },
+    {
+      "name": "lid-only-1800",
+      "outputSha256": "d2301589173db6abe7f2849a67bc82bf32e10d32d275de12a6c57b1cf9f48e1e",
+      "adjacentPairsTested": 7168,
+      "intersectingInteriorPairs": [],
+      "passed": true
+    },
+    {
+      "name": "unguided-1800",
+      "outputSha256": "50cf9857bb8ae208103929c8774c7eec8c76e9b1cae009247ebea808fd04e2b0",
+      "adjacentPairsTested": 7735,
+      "intersectingInteriorPairs": [
+        [
+          405,
+          467
+        ],
+        [
+          467,
+          624
+        ]
+      ],
+      "passed": false
+    },
+    {
+      "name": "browser-lid-circle",
+      "outputSha256": "506b2dc6a24296cc3258189e8ebf8832fc64a66a86aa3c7c3ac1a2087fd8c17b",
+      "adjacentPairsTested": 7168,
+      "intersectingInteriorPairs": [],
+      "passed": true
+    }
+  ],
+  "verifierSha256": "5bdd0ac25c2e8737297b60c4fadbe9c878680cbb8449a7c80afd3587b3c82eb6",
+  "scope": "Supplemental shared-vertex polygon-pair screen using triangle interiors shrunk by 0.01%, fan triangulation and 1e-12 tolerance. Reports positive intersection evidence; it does not prove absence of crossings in the removed boundary strip."
+}

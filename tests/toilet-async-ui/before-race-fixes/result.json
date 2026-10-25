@@ -1,0 +1,82 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "source-switch-before-response: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Changing source cancels generation even before its job ID arrives",
+      "passed": false
+    },
+    {
+      "name": "Late remesh acknowledgement is cancelled after source switch",
+      "passed": false,
+      "observed": "running"
+    },
+    {
+      "name": "A stale toilet request cannot own the new source workspace",
+      "passed": false
+    },
+    {
+      "name": "cancel-before-response: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Cancel before acknowledgement immediately labels the attempt cancelled",
+      "passed": true
+    },
+    {
+      "name": "Late acknowledgement after explicit cancellation does not revive a job",
+      "passed": true
+    },
+    {
+      "name": "external-cancel: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "A second API client cancels the real pending job",
+      "passed": true
+    },
+    {
+      "name": "Cancellation observed by polling is reflected in persistent feedback",
+      "passed": false
+    },
+    {
+      "name": "failed-request-context: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Edits made while a request is pending remain in the current document",
+      "passed": true
+    },
+    {
+      "name": "Failure describes the submitted target and guides, not later edits",
+      "passed": false,
+      "attempt": {
+        "phase": "failed",
+        "message": "Two guides compete for the same output vertices. Increase density or separate their paths.",
+        "target": 1800,
+        "guideCount": 0,
+        "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    },
+    {
+      "name": "Persistent failure text identifies the actual failed density",
+      "passed": false
+    }
+  ],
+  "errors": [],
+  "workerJobs": [
+    "4558f4284ed44ab9b9d59d7dce477caa",
+    "34810bbc8bd84455bb850abd3d5f2cf8",
+    "5992e24f24be442898561c4b6144aaf9",
+    "2edf0060231e43a6999afe17c3e44a74"
+  ],
+  "sourceHashes": {
+    "app.js": "24bd4b79a01b593ca62cad570ec11de250dbe809f41d5d471f9854dbb8d956de",
+    "server.py": "63f981d6992d6a7b4e157eab0747375a3deb5651d8e11040b88fb70b86b7ee47",
+    "tests/verify_toilet_async_ui.py": "babafeb0b6b326468b402761fa29df4e6f59d21085eecd821072a5640a66f654"
+  },
+  "scope": "Actual Chromium, delayed delivery of genuine HTTP responses, actual toilet workers and cancellation. No fabricated worker output."
+}

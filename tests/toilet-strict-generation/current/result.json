@@ -1,0 +1,85 @@
+{
+  "complete": true,
+  "generationPassed": false,
+  "safetyChecksPassed": true,
+  "cases": [
+    {
+      "name": "two-guides-short-1800",
+      "job": "f632a6c80bbc4a9d8ecaf803d8dced2f",
+      "state": "failed",
+      "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.",
+      "elapsedSeconds": 96.42199999999139,
+      "guides": 2
+    },
+    {
+      "name": "bowl-only-1800",
+      "job": "192e2de7f3aa4b03af717d399c7160ea",
+      "state": "failed",
+      "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.",
+      "elapsedSeconds": 89.125,
+      "guides": 1
+    }
+  ],
+  "checks": [
+    {
+      "name": "two-guides-short-1800: rejected candidate cannot publish mesh.json",
+      "passed": true
+    },
+    {
+      "name": "two-guides-short-1800: rejected candidate cannot publish output.obj",
+      "passed": true
+    },
+    {
+      "name": "two-guides-short-1800: rejected candidate cannot publish features.json",
+      "passed": true
+    },
+    {
+      "name": "two-guides-short-1800: failure retains a diagnostic report",
+      "passed": true
+    },
+    {
+      "name": "two-guides-short-1800: authored samples preserved",
+      "passed": true
+    },
+    {
+      "name": "bowl-only-1800: rejected candidate cannot publish mesh.json",
+      "passed": true
+    },
+    {
+      "name": "bowl-only-1800: rejected candidate cannot publish output.obj",
+      "passed": true
+    },
+    {
+      "name": "bowl-only-1800: rejected candidate cannot publish features.json",
+      "passed": true
+    },
+    {
+      "name": "bowl-only-1800: failure retains a diagnostic report",
+      "passed": true
+    },
+    {
+      "name": "bowl-only-1800: authored samples preserved",
+      "passed": true
+    },
+    {
+      "name": "Original toilet source is unchanged",
+      "passed": true
+    },
+    {
+      "name": "Implementation stayed fixed throughout this matrix",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "c924302d4e58629092c4641bb4d7399fd5f41c111783c28401f26876a4100853",
+    "server.py": "6e9e9c1b4f885f789e2a5fdf74207ee1daa4fc1398e30acea6de04ce475768bb",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "8ca549ac352c86afe1308fd6e030f74ea81001a7d72177bb3146164dd4afdfa8",
+    "surface_intersections.py": "730724fc3ad953b4e305e3561fa2602dfea3460a4ea120f7350af662b2c0e8b4",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "scope": "Fresh local worker and Blender solves on unchanged source/guide inputs. Rejection checks establish safe failure handling only; generationPassed stays false if a required solve fails."
+}

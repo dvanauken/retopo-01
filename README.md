@@ -23,7 +23,7 @@ This machine already has the qualified64-bit Windows Python numerical environmen
 
 The toilet's curved-surface quad solver also uses the locally installed Blender. On a new machine, install Blender or set `RETOPO_BLENDER` to its executable before starting the server. See [TOILET_SOLVER.md](TOILET_SOLVER.md) for construction, acceptance limits and verification.
 
-Toilet testing currently has a known failing regression: the longer captured bowl-plus-lid guide network cannot satisfy the added face-intersection checks. The bowl-only and shorter two-guide examples work. `npm run test:toilet:stress` retains both accepted and rejected outcomes and exits nonzero for the unresolved case; see [the test evidence](tests/toilet-stress/result.json).
+Exhaustive toilet testing remains open. Denser checks found surface-distance misses in all five unique previously accepted outputs, and additional checks confirmed shared-vertex face overlaps in three of them. The longer two-guide case also remains unresolved. See [the audit plan and coverage gaps](TOILET_TEST_PLAN.md) and [current solver limitations](TOILET_SOLVER.md); earlier passing checks do not establish complete geometry qualification.
 
 ## Try it
 

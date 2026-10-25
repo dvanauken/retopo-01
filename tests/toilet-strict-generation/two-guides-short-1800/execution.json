@@ -1,0 +1,20 @@
+{
+  "id": "b3ec8f3dbb794ff08481a825cf531ff4",
+  "meshId": "toilet",
+  "target": 1800,
+  "state": "failed",
+  "stage": "Could not generate this network",
+  "createdAt": 1792893695.559887,
+  "startedAt": 1792893695.5608892,
+  "finishedAt": 1792893756.8607566,
+  "actualExitCode": 1,
+  "error": "Self-crossing polygon projection",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\b3ec8f3dbb794ff08481a825cf531ff4"
+  ]
+}

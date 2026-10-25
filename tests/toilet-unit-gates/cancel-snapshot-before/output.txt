@@ -1,0 +1,19 @@
+test_cancel_response_snapshots_under_the_job_lock (test_server_job_races.WorkerStartup.test_cancel_response_snapshots_under_the_job_lock) ... FAIL
+
+======================================================================
+FAIL: test_cancel_response_snapshots_under_the_job_lock (test_server_job_races.WorkerStartup.test_cancel_response_snapshots_under_the_job_lock)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_server_job_races.py", line 74, in test_cancel_response_snapshots_under_the_job_lock
+    response,status = handler.do_POST()
+                      ^^^^^^^^^^^^^^^^^
+  File "<string>", line 104, in do_POST
+  File "<string>", line 14, in snapshot
+  File "C:\dbva\code\retopo-1\tests\test_server_job_races.py", line 66, in items
+    raise AssertionError('Job enumeration can race worker field insertion')
+AssertionError: Job enumeration can race worker field insertion
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
