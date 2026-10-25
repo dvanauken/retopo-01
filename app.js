@@ -32,7 +32,7 @@ for (const scene of scenes) {
 }
 const raycaster = new THREE.Raycaster();
 let sourceRender = null, resultRender = null, grids = [], draft = [], generation = 0, noticeTimer;
-const pendingSubmissions = new Map(), ownedJobs = new Map();
+const ownedOperations = new Map();
 const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const color = name => new THREE.Color(css(name));
 const samePoint = (a, b) => a && b && a.every((x, i) => Math.abs(x - b[i]) < 1e-8);
@@ -456,7 +456,7 @@ function updateMetrics() {
 async function generate() {
   if (state.busy || !state.mesh) return;
   if (editor.activity || editor.construction) return reportGuideError('Finish or cancel the current guide before generating.');
-  const request = { meshId: state.mesh.id, curves: clone(state.guides), target: state.target, guideMode: state.guideMode };
+  const request = { requestId: crypto.randomUUID().replaceAll('-', ''), meshId: state.mesh.id, curves: clone(state.guides), target: state.target, guideMode: state.guideMode };
   const attempt = { target: request.target, guideCount: request.curves.length, sourceSha256: state.mesh.sourceSha256 };
   if ((request.meshId === 'cylinder' || state.mesh.requiresGuides) && !request.curves.length) return notify('Draw a guide or load the example network for this curved mesh.', true);
   workspaceShell.addLog('Generating retopology…');
@@ -464,24 +464,20 @@ async function generate() {
   const token = ++generation; state.busy = true; $('processing').hidden = false; $('generateButton').disabled = true; $('notice').hidden = true;
   const started = performance.now(); const timer = setInterval(() => { if (token !== generation) { clearInterval(timer); return; } $('processTime').textContent = `${Math.round((performance.now() - started) / 1000)}s`; }, 300);
   $('processTitle').textContent = 'Generating retopology'; $('processTime').textContent = '0s'; $('processDetail').textContent = state.mesh.solver === 'surface-quads' ? 'Building a quad layout, fitting your guide paths and checking the source surface…' : request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
-  let submission;
-  const operation = {};
+  const operation = { requestId: request.requestId };
+  ownedOperations.set(operation.requestId, operation);
   $('cancelButton').textContent = 'Cancel calculation';
   try {
-    submission = api('/api/remesh', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) }).then(first => {
-      operation.id = first.id; ownedJobs.set(first.id, operation); return first;
-    });
-    pendingSubmissions.set(submission, operation);
-    const first = await submission;
-    pendingSubmissions.delete(submission);
+    const first = await api('/api/remesh', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(request) });
     if (token !== generation) {
-      await cancelOwnedJob(operation);
+      await cancelOperation(operation);
       return;
     }
+    if (first.state === 'cancelled') { ownedOperations.delete(operation.requestId); setAttempt('cancelled', '', attempt); return; }
     state.job = first.id;
     while (token === generation) {
       const job = await api('/api/jobs/' + first.id); if (token !== generation) return;
-      if (['complete', 'failed', 'cancelled'].includes(job.state)) ownedJobs.delete(first.id);
+      if (['complete', 'failed', 'cancelled'].includes(job.state)) { ownedOperations.delete(operation.requestId); }
       $('processTitle').textContent = job.stage;
       if (job.state === 'complete') {
         const result = await api(job.resultUrl); if (token !== generation) return;
@@ -494,11 +490,11 @@ async function generate() {
   } catch (error) {
     if (token === generation) { setAttempt('failed', error.message, attempt); notify(error.message, true, true); }
     // A polling/transport error does not prove that the worker stopped.
-    if (token === generation && operation.id && ownedJobs.has(operation.id)) { try { await cancelOwnedJob(operation); } catch { /* Ownership and retry feedback are retained. */ } }
+    if (ownedOperations.has(operation.requestId)) { try { await cancelOperation(operation); } catch { /* Ownership and retry feedback are retained. */ } }
   }
-  finally { pendingSubmissions.delete(submission); clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('generateButton').disabled = false; } syncCancellationUI(); }
+  finally { clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('generateButton').disabled = false; } syncCancellationUI(); }
 }
-function outstandingOperations() { return [...new Set([...pendingSubmissions.values(), ...ownedJobs.values()])]; }
+function outstandingOperations() { return [...ownedOperations.values()]; }
 function syncCancellationUI() {
   if (state.busy) return;
   const stopping = outstandingOperations().filter(operation => operation.cancelling);
@@ -516,15 +512,15 @@ function syncCancellationUI() {
     else setAttempt(relevant.some(operation => operation.cancelError) ? 'cancellation-failed' : 'cancelling', '', state.lastAttempt);
   }
 }
-async function cancelOwnedJob(operation) {
+async function cancelOperation(operation) {
   if (operation.cancelPromise) return operation.cancelPromise;
-  if (!ownedJobs.has(operation.id)) return;
+  if (!ownedOperations.has(operation.requestId)) return;
   operation.cancelling = true; operation.cancelError = null;
   operation.cancelPromise = (async () => {
     try {
-      const job = await api('/api/jobs/' + operation.id + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+      const job = await api('/api/requests/' + operation.requestId + '/cancel', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
       if (!['cancelled', 'complete', 'failed'].includes(job.state)) throw new Error('The local service has not confirmed cancellation.');
-      ownedJobs.delete(operation.id);
+      ownedOperations.delete(operation.requestId);
       if (!state.busy && !outstandingOperations().some(op => op.cancelling)) notify('Calculation stopped. Your guides are saved.');
     } catch (error) {
       operation.cancelError = error.message;
@@ -540,7 +536,7 @@ async function cancelGeneration(options = {}) {
   for (const operation of outstandingOperations()) { operation.cancelling = true; operation.feedbackToken = generation; }
   if (wasBusy || ['cancelling', 'cancellation-failed'].includes(attempt?.phase)) setAttempt('cancelling', '', attempt);
   syncCancellationUI();
-  const cancelled = await Promise.allSettled([...ownedJobs.values()].map(cancelOwnedJob));
+  const cancelled = await Promise.allSettled([...ownedOperations.values()].map(cancelOperation));
   const failure = cancelled.find(result => result.status === 'rejected');
   if (failure && options.propagateError) throw failure.reason;
 }
@@ -563,16 +559,13 @@ for (const id of ['wireToggle', 'guidesToggle', 'creasesToggle']) $(id).onchange
 $('fitButton').onclick = () => { editor.run(() => editor.cancel()); fit(); }; $('topButton').onclick = () => { editor.run(() => editor.cancel()); fit(true); };
 $('resetButton').onclick = () => $('resetDialog').showModal();
 $('confirmReset').onclick = async () => {
-  const pending = [...pendingSubmissions.keys()], button = $('confirmReset'), label = button.textContent;
+  const button = $('confirmReset'), label = button.textContent;
   button.disabled = true; button.textContent = 'Stopping calculation…';
   try {
     await cancelGeneration({ propagateError: true });
-    // A reload destroys the stale-response handler. Wait for every submitted
-    // request's acknowledgement and cancel it before discarding this page.
-    await Promise.allSettled(pending);
-    // Ownership survives an acknowledgement, an in-flight cancellation and a
-    // failed transport attempt. Retry every known job before discarding it.
-    await Promise.all([...ownedJobs.values()].map(cancelOwnedJob));
+    // Request IDs exist before submission. Server cancellation also records
+    // requests that have not arrived, so delayed delivery cannot start a worker
+    // after this page reloads. An admission acknowledgement is no longer needed.
     // The theme is a viewer preference, not part of the work being discarded.
     try { for (const key of Object.keys(localStorage)) if (key.startsWith('retopo-1:') && key !== 'retopo-1:theme') localStorage.removeItem(key); } catch { /* Storage is optional. */ }
     location.reload();

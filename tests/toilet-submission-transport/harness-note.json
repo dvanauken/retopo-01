@@ -1,0 +1,5 @@
+{
+  "report": "request-id-fixed/result.json",
+  "reason": "The first observer included all server descendants, incorrectly including the live server console host (PID 10340). The actual toilet worker (PID 38868) and its own console child had exited. Capture now records only actual worker roots and their descendants, including parent and command identity.",
+  "originalBugEvidence": "The before-fix report independently shows the admitted job remaining running after the lost acknowledgement and after Reset. That server-state failure is unaffected by the observer correction."
+}

@@ -1,0 +1,198 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "File locks are injected only after the actual toilet worker and Blender child exist",
+      "processes": [
+        {
+          "pid": 19172,
+          "created": 1792905079.773444,
+          "command": [
+            "C:\\Users\\Buddy\\miniforge3\\python.exe",
+            "-X",
+            "utf8",
+            "C:\\dbva\\code\\retopo-1\\worker.py",
+            "--job",
+            "C:\\dbva\\code\\retopo-1\\runs\\e36e1ec564a642c7923b08b180b10cc0"
+          ]
+        },
+        {
+          "pid": 41756,
+          "created": 1792905079.7790308,
+          "command": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0x4"
+          ]
+        },
+        {
+          "pid": 40228,
+          "created": 1792905081.9614785,
+          "command": [
+            "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
+            "--background",
+            "--threads",
+            "8",
+            "--python",
+            "C:\\dbva\\code\\retopo-1\\scripts\\quadriflow_mesh.py",
+            "--",
+            "--input",
+            "C:\\dbva\\code\\retopo-1\\runs\\e36e1ec564a642c7923b08b180b10cc0\\quadri-input.json",
+            "--output",
+            "C:\\dbva\\code\\retopo-1\\runs\\e36e1ec564a642c7923b08b180b10cc0\\quadri-layout-0.json",
+            "--target",
+            "1800",
+            "--seed",
+            "0"
+          ]
+        },
+        {
+          "pid": 37216,
+          "created": 1792905081.9732733,
+          "command": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0x4"
+          ]
+        }
+      ]
+    },
+    {
+      "passed": true,
+      "name": "Exclusive progress lock preserves structured running status",
+      "response": {
+        "id": "e36e1ec564a642c7923b08b180b10cc0",
+        "meshId": "toilet",
+        "target": 1800,
+        "state": "running",
+        "stage": "Constructing mesh",
+        "createdAt": 1792905079.7631166,
+        "requestId": "0874117a77d94139926f12362db06969",
+        "startedAt": 1792905079.7641165
+      }
+    },
+    {
+      "passed": true,
+      "name": "Exclusive progress lock preserves structured running status",
+      "response": {
+        "id": "e36e1ec564a642c7923b08b180b10cc0",
+        "meshId": "toilet",
+        "target": 1800,
+        "state": "running",
+        "stage": "Constructing mesh",
+        "createdAt": 1792905079.7631166,
+        "requestId": "0874117a77d94139926f12362db06969",
+        "startedAt": 1792905079.7641165
+      }
+    },
+    {
+      "passed": true,
+      "name": "Exclusive progress lock preserves structured running status",
+      "response": {
+        "id": "e36e1ec564a642c7923b08b180b10cc0",
+        "meshId": "toilet",
+        "target": 1800,
+        "state": "running",
+        "stage": "Constructing mesh",
+        "createdAt": 1792905079.7631166,
+        "requestId": "0874117a77d94139926f12362db06969",
+        "startedAt": 1792905079.7641165
+      }
+    },
+    {
+      "passed": true,
+      "name": "Locked queued diagnostics do not prevent cancellation"
+    },
+    {
+      "passed": true,
+      "name": "Locked cancellation log does not prevent running request cancellation"
+    },
+    {
+      "passed": true,
+      "name": "Real worker and Blender exit despite the diagnostic write lock",
+      "survivors": []
+    },
+    {
+      "passed": true,
+      "name": "Cancelled queued work never launches after the active worker exits"
+    },
+    {
+      "passed": true,
+      "name": "Cancelled job cannot publish mesh.json"
+    },
+    {
+      "passed": true,
+      "name": "Cancelled job cannot publish output.obj"
+    },
+    {
+      "passed": true,
+      "name": "Cancelled job cannot publish features.json"
+    },
+    {
+      "passed": true,
+      "name": "Huge JSON integer coordinate is rejected with structured HTTP 400"
+    },
+    {
+      "passed": true,
+      "name": "Implementation remains fixed during real file-lock testing"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "process_ownership.py": "26313c84836db316e655da7932f9e096f75b7c6f659c8b70a80d6b156f272d52",
+    "tests/verify_toilet_file_locks.py": "60cd51395963aea66b4d30ced278a231d9e6fe6ff9cb4346ac8e259445c80b91"
+  },
+  "observedProcesses": [
+    {
+      "pid": 19172,
+      "created": 1792905079.773444,
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\dbva\\code\\retopo-1\\worker.py",
+        "--job",
+        "C:\\dbva\\code\\retopo-1\\runs\\e36e1ec564a642c7923b08b180b10cc0"
+      ]
+    },
+    {
+      "pid": 41756,
+      "created": 1792905079.7790308,
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ]
+    },
+    {
+      "pid": 40228,
+      "created": 1792905081.9614785,
+      "command": [
+        "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
+        "--background",
+        "--threads",
+        "8",
+        "--python",
+        "C:\\dbva\\code\\retopo-1\\scripts\\quadriflow_mesh.py",
+        "--",
+        "--input",
+        "C:\\dbva\\code\\retopo-1\\runs\\e36e1ec564a642c7923b08b180b10cc0\\quadri-input.json",
+        "--output",
+        "C:\\dbva\\code\\retopo-1\\runs\\e36e1ec564a642c7923b08b180b10cc0\\quadri-layout-0.json",
+        "--target",
+        "1800",
+        "--seed",
+        "0"
+      ]
+    },
+    {
+      "pid": 37216,
+      "created": 1792905081.9732733,
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ]
+    }
+  ],
+  "scope": "Actual Windows exclusive handles against progress and cancellation files during real HTTP/worker execution. No mocked server, process or geometry result."
+}

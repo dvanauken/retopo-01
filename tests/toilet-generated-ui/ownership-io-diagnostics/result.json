@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "complete": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "Genuine Circle worker completes before its mesh response is released"
+    },
+    {
+      "passed": true,
+      "name": "Guide and density edits remain available while a completed mesh is in transit"
+    },
+    {
+      "passed": true,
+      "name": "Late success retains newer edits and labels the actual result as needing update"
+    },
+    {
+      "passed": true,
+      "name": "Successful attempt records its original parameters"
+    },
+    {
+      "passed": true,
+      "name": "Stale successful result has a visible update badge"
+    },
+    {
+      "passed": true,
+      "name": "Native OBJ download matches the accepted worker output byte for byte"
+    },
+    {
+      "passed": true,
+      "name": "Native right-pane Polyline is authored over a genuine accepted toilet mesh"
+    },
+    {
+      "passed": true,
+      "name": "Generated-pane point edit snaps to the original source and commits once"
+    },
+    {
+      "passed": true,
+      "name": "Undo restores exact values after editing in the generated pane"
+    },
+    {
+      "passed": true,
+      "name": "Overlay uses one guide display over the accepted mesh"
+    },
+    {
+      "passed": true,
+      "name": "Actual rejected two-guide solve preserves the previous accepted mesh"
+    },
+    {
+      "passed": true,
+      "name": "Failure with a prior result is clearly labeled in the viewport"
+    },
+    {
+      "passed": true,
+      "name": "Retry produces a second genuinely completed toilet job"
+    },
+    {
+      "passed": true,
+      "name": "Late successful toilet mesh cannot overwrite a different source or its preview"
+    },
+    {
+      "passed": true,
+      "name": "Implementation remains fixed through the generated-result workflow"
+    }
+  ],
+  "errors": [],
+  "cases": [
+    {
+      "name": "circle-success",
+      "state": "complete",
+      "job": "643c09bd6922461f99af3403484596fe",
+      "target": 1800
+    }
+  ],
+  "browserObservations": [],
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "tests/verify_toilet_generated_ui.py": "017ffa805ef82a8d15431e6feb8f03c082cdab3a185d32704a73f363a1bf0ec6"
+  },
+  "scope": "Real browser/HTTP/Blender generations with genuine delayed successful responses; native OBJ download and editing on accepted geometry, stale success and prior-result failure handling. No substituted result fixture."
+}

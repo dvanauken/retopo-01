@@ -4,21 +4,41 @@ The active request is to keep testing until the toilet workflow has been tested
 exhaustively. Prior check counts are evidence, not completion criteria. An
 unresolved case, unchecked requirement or weak test keeps this audit open.
 
-The latest continuation fixes ownership lost after a cancellation transport
-failure: Cancel/Reset now retain known jobs until terminal confirmation, support
-retry, and report unconfirmed cancellation truthfully. It also fixes stale timer
-updates and obsolete error notices. All 52 real-worker transport checks and all
-30 request/Reset checks pass on the final frontend. The 15-check genuine generated-
-result workflow passed before the final timer/notification-only correction; its
-exact tested hash is retained separately. The exported Circle bytes match the
-previous independently qualified result.
+The latest continuation adds ownership before the initial submission: the browser
+creates a request identity, and the service deduplicates delivery and remembers
+early cancellation. Cancel/Reset can now stop work even if the first admission
+response is lost or delivery has not reached the service. Real forced-exit tests
+also found orphan workers; a Windows process job now owns the service and future
+worker/Blender descendants. Exact negative and corrected reports are retained.
 
-Fresh QuadriFlow seeds 2 and 3 fail all six captured bowl/combined-guide cases.
-An isolated sliding-pin experiment reduces overlaps in four of five passes but
-never meets guide-fit limits; it is not integrated. Production fitting, source
-assets, recovered engine and every acceptance threshold remain unchanged. Bowl,
-combined-guide and coarse-density cases remain unsolved. This is progress, not
-completion.
+The genuine generated-result browser run then exposed a progress-file sharing
+violation, which broke polling and cancelled its second Circle solve. Twelve
+earlier workflow checks passed, including a fresh accepted Circle/export and
+preservation of that result after a real rejected replacement. That interrupted
+run is not a complete pass. Progress reads now tolerate transient I/O failure;
+diagnostic writes cannot prevent cancellation. All 53 unit checks and 13 actual
+Windows file-lock/HTTP/process checks pass. The final integrated rerun passes
+76 API, 52 cancellation, 30 asynchronous UI, 7 lost-submission, 14 early-cancel
+and 8 restart-UI checks. All 15 genuine generated-result browser checks also pass
+on the final app/server code, with two fresh Circle solves. Its OBJ exactly
+matches the independently qualified Circle. The earlier unexplained client
+cancellation is retained separately; a later pass does not establish its cause.
+
+Production fitting, source assets, recovered engine and acceptance thresholds
+remain unchanged. An isolated tangent-plus-sliding-pin experiment on seed 2 now
+passes all production gates for the bowl-only case after four passes (guide p95
+distance 0.01033, tangent mismatch 29.70 degrees). Independent export validation
+and all mixed-diagonal checks also pass. It is not integrated. Both captured
+combined-guide inputs still fail guide alignment in all ten passes, and some
+shorter-case passes also fail surface checks. Integration regression coverage
+and resolution of these failures remain required. Production bowl,
+combined-guide and coarse-density failures therefore remain unresolved.
+
+A second isolated experiment raises the tangent weight from 8 to 12. Its bowl
+candidate also passes independent export and all mixed-diagonal checks, with
+p95 distance 0.00901 and tangent mismatch 27.77 degrees. Both combined-guide
+inputs still fail in all ten passes. Increasing that weight alone therefore
+does not resolve the captured networks; neither experiment is in production.
 
 ## Current evidence and gaps
 
@@ -32,7 +52,7 @@ completion.
 | Geometry acceptance | Actual exported quads; all relevant topology, shape, target, guide, surface and intersection checks | All five historical meshes remain unqualified. With the warpage correction, fresh unguided, lid-guide and Circle exports pass both production bounds and independent dense/LP/BVH/reference audits. Complex inputs and representation/density families remain under audit. |
 | Job lifecycle | Queue, admission limits, queued/running cancellation, repeat cancellation, late results, worker errors, timeout, recovery, no orphan processes | Queue/admission/cancellation/publication and worker-start races pass. Seven actual worker/Blender timeout-cleanup checks pass. The deterministic initial-response snapshot race is fixed. Broader sustained process behavior remains open. |
 | API contract | Valid boundaries, malformed/type/size limits, status/resource consistency, accepted-only result downloads | 76 current HTTP checks pass with a named Circle positive control. The original bowl recovery run still records a generation failure; it was not replaced by that control. |
-| UI lifecycle | Cancel before response, switching source while pending, edits/density changes while solving, stale completion, previous accepted result, error persistence | Reset before acknowledgement reproduced an orphan worker; Reset now waits and cancels submitted jobs before reloading. Seventeen checks pass for Reset and earlier races, plus seven for two pending acknowledgements. Fifteen actual successful-result/prior-result checks pass. Another 52 transport checks and 30 current asynchronous checks cover retry ownership and Reset. |
+| UI lifecycle | Cancel before response, switching source while pending, edits/density changes while solving, stale completion, previous accepted result, error persistence | Reset before acknowledgement reproduced an orphan worker; Reset now confirms cancellation of browser request identities before reloading, including submissions whose acknowledgement has not arrived. Seventeen checks pass for Reset and earlier races, plus seven for two pending acknowledgements. Fifteen actual successful-result/prior-result checks pass. Another 52 transport checks and 30 current asynchronous checks cover retry ownership and Reset. |
 | Workspace | Ribbon/nav/main/properties/dock, both themes, narrow layouts, split/overlay, orbit/zoom/fit, panel resizing, keyboard ownership | Existing shell suite passed. Cover interactions with the toilet and in-flight work, including repeated use. |
 | Runtime | Sustained drawing/editing/generation, memory/process cleanup, responsiveness, console errors | Forty source switches plus native camera actions retain exact guides and pass a bounded JavaScript heap/document-count check without console errors. This is not a GPU-memory or universal leak certificate. Multi-generation/process recovery remains to reconcile. |
 | Evidence | Current implementation hashes, actual input/output, actionable failure records, reproducible commands, live app verification | Existing suites retain evidence. Reconcile obsolete claims and produce a final requirement-by-requirement audit before completion. |
@@ -172,11 +192,31 @@ it does not prove a replacement fitting algorithm. Five sliding-pin passes on
 seed 2 remain unqualified. Exact layouts, candidates, executed residual and
 original curve hashes are retained, and production still uses seeds 0/1.
 
-Remaining network coverage includes loss of the initial submission acknowledgement
-before the browser learns any job ID and service restart during work. These cases
-are not covered by cancellation-response loss, and remain unverified. The user
-confirmed that the earlier output stall occurred while Windows was asleep or
-locked; completed reruns remain separate from the interrupted observations.
+Initial-acknowledgement loss and service restart are now exercised separately from
+cancellation-response loss. The lost-admission test aborts a genuine response
+after a real worker exists; the early-delivery tests hold the POST before any
+bytes reach the service. All 7 lost-response, 14 early-cancel/Reset, 8 real browser
+restart and 6 native crash checks pass at their recorded implementation hashes.
+Windows crash cleanup is tested with an actual Blender descendant. Request
+deduplication/tombstones are in-memory for one service lifetime; non-Windows hard
+exit cleanup is not claimed.
+
+The first lost-response observer incorrectly counted the server's own console
+host as an orphan worker. The correction and original report remain under
+`tests/toilet-submission-transport/`; the initial bug independently failed real
+server-state assertions and was not an observer-only failure. Preliminary
+parallel transport/async/API/crash runs also timed out during observed CPU
+contention. Sequential completed reruns remain separate; observation failure is
+not a failed geometry measurement. The user confirmed that an earlier output
+stall occurred while Windows was asleep or locked.
+
+The subsequent real progress sharing violation is retained in
+`tests/toilet-generated-ui/request-ownership/server.log`. Four targeted controls
+then reproduced progress-read failure, cancellation diagnostic writes preventing
+running/queued cleanup, and a 4,001-digit integer coordinate raising OverflowError.
+The fixed 53-test suite passes. Thirteen real Windows exclusive-file-handle checks
+also pass against the HTTP service and actual toilet worker/Blender tree; no
+mocked success or cached geometry is used.
 
 Testing arbitrary continuous guide coordinates cannot enumerate every possible
 input. Coverage must therefore include documented finite control/state cases,

@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "complete": false,
+  "checks": [],
+  "errors": [
+    "Traceback (most recent call last):\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\locks.py\", line 212, in wait\n    await fut\nasyncio.exceptions.CancelledError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_generated_ui.py\", line 134, in <module>\n    asyncio.run(run())\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_generated_ui.py\", line 67, in run\n    await asyncio.wait_for(ready.wait(),timeout=650)\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\tasks.py\", line 519, in wait_for\n    async with timeouts.timeout(timeout):\n               ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\timeouts.py\", line 115, in __aexit__\n    raise TimeoutError from exc_val\nTimeoutError\n"
+  ],
+  "cases": [],
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "tests/verify_toilet_generated_ui.py": "9709ba0821de2380023a1b83c2ba4b1df8c724a4e90f4f5237552a5c38002c4f"
+  },
+  "scope": "Real browser/HTTP/Blender generations with genuine delayed successful responses; native OBJ download and editing on accepted geometry, stale success and prior-result failure handling. No substituted result fixture."
+}

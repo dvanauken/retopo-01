@@ -1,0 +1,31 @@
+Retopo1 is ready at http://127.0.0.1:54866
+24/Oct/2026 23:48:59 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET / HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /index.css HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /app.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /vendor/three.module.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /vendor/OrbitControls.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /src/domain/GuideDocument.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /src/view/WorkspaceShell.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /src/view/GuideController.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /src/snapping/GuideSnap.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /src/io/GuideSerializer.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /src/view/SurfaceGuides.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /src/geometry/GuideCurve.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /src/view/CircleConstruction.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /src/contracts/GuideData.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /vendor/three.core.js HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 23:49:00 "GET /api/catalog HTTP/1.1" 200 -
+24/Oct/2026 23:49:01 "GET /api/mesh/hexagon HTTP/1.1" 200 -
+24/Oct/2026 23:49:01 "GET /assets/previews/hexagon.json HTTP/1.1" 200 -
+24/Oct/2026 23:49:02 "GET /api/mesh/toilet HTTP/1.1" 200 -
+24/Oct/2026 23:49:03 "POST /api/remesh HTTP/1.1" 202 -
+Retopo1 is ready at http://127.0.0.1:54866
+24/Oct/2026 23:49:04 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 23:49:04 "GET /api/jobs/92b4a437a0fe4d26aacf04dad28326e2 HTTP/1.1" 404 -
+24/Oct/2026 23:49:04 "POST /api/requests/11f8f4fb0ce643d1a17afc378233b0f3/cancel HTTP/1.1" 200 -
+24/Oct/2026 23:49:05 "POST /api/remesh HTTP/1.1" 202 -
+24/Oct/2026 23:49:05 "GET /api/jobs/7c4603012e284134b87b69c4699f4f7b HTTP/1.1" 200 -
+24/Oct/2026 23:49:06 "POST /api/requests/497793217e8d4c3b843d81e507ece0f3/cancel HTTP/1.1" 200 -
+24/Oct/2026 23:49:06 "GET /api/jobs/7c4603012e284134b87b69c4699f4f7b HTTP/1.1" 200 -

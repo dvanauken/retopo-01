@@ -3,15 +3,15 @@
   "servers": [
     {
       "port": 8741,
-      "pid": 32312,
-      "replacedPid": 47644,
+      "pid": 34472,
+      "replacedPid": 46192,
       "passed": true,
       "listenerPids": [
-        32312
+        34472
       ],
       "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
-      "servedAppSha256": "7d94773f58770feb0a1250bc445241c1ee6f313367d32f7f60c6d05ee835650a",
-      "cancelledJob": "70cf333097df43c0bdaf6f31e5be8f53",
+      "servedAppSha256": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+      "cancelledJob": "b75996b7f9bb4478ad4824189ab0ddec",
       "unacceptedResources": {
         "mesh.json": 409,
         "output.obj": 409,
@@ -20,15 +20,15 @@
     },
     {
       "port": 8742,
-      "pid": 47152,
-      "replacedPid": 18604,
+      "pid": 6136,
+      "replacedPid": 34424,
       "passed": true,
       "listenerPids": [
-        47152
+        6136
       ],
       "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
-      "servedAppSha256": "7d94773f58770feb0a1250bc445241c1ee6f313367d32f7f60c6d05ee835650a",
-      "cancelledJob": "323c7f666992463b85b80c8c702db89c",
+      "servedAppSha256": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+      "cancelledJob": "113ed8fef5f54d718e703b41fad0299b",
       "unacceptedResources": {
         "mesh.json": 409,
         "output.obj": 409,
@@ -37,9 +37,10 @@
     }
   ],
   "sourceHashes": {
-    "app.js": "7d94773f58770feb0a1250bc445241c1ee6f313367d32f7f60c6d05ee835650a",
-    "server.py": "f65051ca9ae0589756ca1b77f965fd78bc7c29fb2818f644e756e682bbdcd429",
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
     "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "process_ownership.py": "26313c84836db316e655da7932f9e096f75b7c6f659c8b70a80d6b156f272d52",
     "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
     "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
     "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"

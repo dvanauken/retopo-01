@@ -1,0 +1,131 @@
+test_actual_toilet_patch_exposes_contacts_hidden_by_renderer_fan (test_quad_triangulation_contacts.QuadTriangulations.test_actual_toilet_patch_exposes_contacts_hidden_by_renderer_fan) ... ok
+test_cyclic_origin_and_winding_cannot_hide_the_actual_contacts (test_quad_triangulation_contacts.QuadTriangulations.test_cyclic_origin_and_winding_cannot_hide_the_actual_contacts) ... ok
+test_legal_hinged_and_coplanar_shared_boundaries_still_pass (test_quad_triangulation_contacts.QuadTriangulations.test_legal_hinged_and_coplanar_shared_boundaries_still_pass) ... ok
+test_mixed_choices_can_cross_when_both_uniform_choices_are_clear (test_quad_triangulation_contacts.QuadTriangulations.test_mixed_choices_can_cross_when_both_uniform_choices_are_clear) ... ok
+test_planar_and_warped_quad (test_quad_warpage.Warpage.test_planar_and_warped_quad) ... ok
+test_rigid_transform_and_uniform_scale (test_quad_warpage.Warpage.test_rigid_transform_and_uniform_scale) ... ok
+test_vertex_origin_and_winding_do_not_change_magnitude (test_quad_warpage.Warpage.test_vertex_origin_and_winding_do_not_change_magnitude) ... ok
+test_new_job_response_cannot_race_worker_field_insertion (test_server_admission_race.AdmissionSnapshot.test_new_job_response_cannot_race_worker_field_insertion) ... ok
+test_cancel_log_failure_still_terminates_real_process (test_server_io_faults.JobIoFaults.test_cancel_log_failure_still_terminates_real_process) ... ERROR
+test_huge_integer_coordinate_returns_structured_validation_error (test_server_io_faults.JobIoFaults.test_huge_integer_coordinate_returns_structured_validation_error) ... ERROR
+test_progress_sharing_violation_preserves_authoritative_status (test_server_io_faults.JobIoFaults.test_progress_sharing_violation_preserves_authoritative_status) ... ERROR
+test_queued_cancel_log_failure_cannot_start_worker (test_server_io_faults.JobIoFaults.test_queued_cancel_log_failure_cannot_start_worker) ... ERROR
+test_cancel_response_snapshots_under_the_job_lock (test_server_job_races.WorkerStartup.test_cancel_response_snapshots_under_the_job_lock) ... ok
+test_cancellation_during_startup_failure_stays_cancelled (test_server_job_races.WorkerStartup.test_cancellation_during_startup_failure_stays_cancelled) ... ok
+test_cancelled_queued_job_never_spawns (test_server_job_races.WorkerStartup.test_cancelled_queued_job_never_spawns) ... ok
+test_startup_failure_is_reported (test_server_job_races.WorkerStartup.test_startup_failure_is_reported) ... ok
+test_worker_timeout_terminates_before_reporting_failure (test_server_job_races.WorkerStartup.test_worker_timeout_terminates_before_reporting_failure) ... ok
+test_cancel_after_admission_before_scheduling_never_spawns (test_server_request_identity.RequestIdentity.test_cancel_after_admission_before_scheduling_never_spawns) ... ok
+test_cancellation_before_delivery_prevents_admission (test_server_request_identity.RequestIdentity.test_cancellation_before_delivery_prevents_admission) ... ok
+test_cancelled_request_retains_parameter_binding (test_server_request_identity.RequestIdentity.test_cancelled_request_retains_parameter_binding) ... ok
+test_eight_concurrent_replays_enqueue_exactly_once (test_server_request_identity.RequestIdentity.test_eight_concurrent_replays_enqueue_exactly_once) ... ok
+test_invalid_id_values_cannot_allocate_jobs (test_server_request_identity.RequestIdentity.test_invalid_id_values_cannot_allocate_jobs) ... ok
+test_replay_does_not_consume_admission_capacity (test_server_request_identity.RequestIdentity.test_replay_does_not_consume_admission_capacity) ... ok
+test_reused_id_with_different_parameters_conflicts (test_server_request_identity.RequestIdentity.test_reused_id_with_different_parameters_conflicts) ... ok
+test_terminal_replay_returns_original_job_without_restarting (test_server_request_identity.RequestIdentity.test_terminal_replay_returns_original_job_without_restarting) ... ok
+test_bad_input_rejects (test_surface_distance.SurfaceBounds.test_bad_input_rejects) ... ok
+test_depth_exhaustion_never_passes (test_surface_distance.SurfaceBounds.test_depth_exhaustion_never_passes) ... ok
+test_equivalent_surface_with_opposite_diagonal (test_surface_distance.SurfaceBounds.test_equivalent_surface_with_opposite_diagonal) ... ok
+test_identical_surfaces (test_surface_distance.SurfaceBounds.test_identical_surfaces) ... ok
+test_parallel_surfaces_inside_tolerance (test_surface_distance.SurfaceBounds.test_parallel_surfaces_inside_tolerance) ... ok
+test_parallel_surfaces_outside_tolerance (test_surface_distance.SurfaceBounds.test_parallel_surfaces_outside_tolerance) ... ok
+test_vertex_correspondence_does_not_hide_an_interior_gap (test_surface_distance.SurfaceBounds.test_vertex_correspondence_does_not_hide_an_interior_gap) ... ok
+test_work_exhaustion_never_passes (test_surface_distance.SurfaceBounds.test_work_exhaustion_never_passes) ... ok
+test_invalid_quad_projection_is_a_recorded_rejection (test_surface_failures.RecoverableFailures.test_invalid_quad_projection_is_a_recorded_rejection) ... ok
+test_persistent_progress_lock_cannot_abort_geometry (test_surface_failures.RecoverableFailures.test_persistent_progress_lock_cannot_abort_geometry) ... ok
+test_transient_progress_sharing_violation_retries (test_surface_failures.RecoverableFailures.test_transient_progress_sharing_violation_retries) ... ok
+test_contact_classification_is_rotation_and_winding_independent (test_surface_intersections.Crossings.test_contact_classification_is_rotation_and_winding_independent) ... ok
+test_coplanar_containment (test_surface_intersections.Crossings.test_coplanar_containment) ... ok
+test_coplanar_crossing_without_containment (test_surface_intersections.Crossings.test_coplanar_crossing_without_containment) ... ok
+test_coplanar_disjoint (test_surface_intersections.Crossings.test_coplanar_disjoint) ... ok
+test_crossing (test_surface_intersections.Crossings.test_crossing) ... ok
+test_folded_shared_edge_is_rejected (test_surface_intersections.Crossings.test_folded_shared_edge_is_rejected) ... ok
+test_generated_contacts_against_independent_linear_programs (test_surface_intersections.Crossings.test_generated_contacts_against_independent_linear_programs) ... ok
+test_hinged_shared_edge_is_allowed (test_surface_intersections.Crossings.test_hinged_shared_edge_is_allowed) ... ok
+test_index_reports_nonadjacent_crossing (test_surface_intersections.Crossings.test_index_reports_nonadjacent_crossing) ... ok
+test_legitimate_coplanar_shared_edge (test_surface_intersections.Crossings.test_legitimate_coplanar_shared_edge) ... ok
+test_overlapping_boxes_without_intersection (test_surface_intersections.Crossings.test_overlapping_boxes_without_intersection) ... ok
+test_parallel_disjoint_planes (test_surface_intersections.Crossings.test_parallel_disjoint_planes) ... ok
+test_separate_vertex_ids_touch_is_rejected (test_surface_intersections.Crossings.test_separate_vertex_ids_touch_is_rejected) ... ok
+test_shared_diagonal_is_not_a_topological_boundary (test_surface_intersections.Crossings.test_shared_diagonal_is_not_a_topological_boundary) ... ok
+test_shared_edge_quads_overlap_away_from_edge (test_surface_intersections.Crossings.test_shared_edge_quads_overlap_away_from_edge) ... ok
+test_shared_vertex_does_not_hide_crossing (test_surface_intersections.Crossings.test_shared_vertex_does_not_hide_crossing) ... ok
+test_shared_vertex_touch_is_allowed (test_surface_intersections.Crossings.test_shared_vertex_touch_is_allowed) ... ok
+
+======================================================================
+ERROR: test_cancel_log_failure_still_terminates_real_process (test_server_io_faults.JobIoFaults.test_cancel_log_failure_still_terminates_real_process)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_server_io_faults.py", line 46, in test_cancel_log_failure_still_terminates_real_process
+    result = server.cancel_job(self.job)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\server.py", line 31, in cancel_job
+    write(job['directory']/'cancel-request.json',snapshot(job))
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1198, in _execute_mock_call
+    raise effect
+PermissionError: diagnostic file locked
+
+======================================================================
+ERROR: test_huge_integer_coordinate_returns_structured_validation_error (test_server_io_faults.JobIoFaults.test_huge_integer_coordinate_returns_structured_validation_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_server_io_faults.py", line 71, in test_huge_integer_coordinate_returns_structured_validation_error
+    data, status = handler.do_POST()
+                   ^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\server.py", line 146, in do_POST
+    if not isinstance(point,list) or len(point)!=3 or not all(type(x) in (float,int) and math.isfinite(x) and abs(x)<1e6 for x in point):raise ValueError('Guides must contain finite XYZ surface positions.')
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\server.py", line 146, in <genexpr>
+    if not isinstance(point,list) or len(point)!=3 or not all(type(x) in (float,int) and math.isfinite(x) and abs(x)<1e6 for x in point):raise ValueError('Guides must contain finite XYZ surface positions.')
+                                                                                         ^^^^^^^^^^^^^^^^
+OverflowError: int too large to convert to float
+
+======================================================================
+ERROR: test_progress_sharing_violation_preserves_authoritative_status (test_server_io_faults.JobIoFaults.test_progress_sharing_violation_preserves_authoritative_status)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_server_io_faults.py", line 33, in test_progress_sharing_violation_preserves_authoritative_status
+    data, status = handler.do_GET()
+                   ^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\server.py", line 92, in do_GET
+    try:data['stage']=read(job['directory']/'progress.json')['stage']
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1198, in _execute_mock_call
+    raise effect
+PermissionError: progress temporarily locked
+
+======================================================================
+ERROR: test_queued_cancel_log_failure_cannot_start_worker (test_server_io_faults.JobIoFaults.test_queued_cancel_log_failure_cannot_start_worker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_server_io_faults.py", line 59, in test_queued_cancel_log_failure_cannot_start_worker
+    result = server.cancel_job(self.job)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\server.py", line 31, in cancel_job
+    write(job['directory']/'cancel-request.json',snapshot(job))
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Buddy\miniforge3\Lib\unittest\mock.py", line 1198, in _execute_mock_call
+    raise effect
+PermissionError: diagnostic file locked
+
+----------------------------------------------------------------------
+Ran 53 tests in 10.508s
+
+FAILED (errors=4)

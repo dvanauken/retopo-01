@@ -1,0 +1,28 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "bowl-only-1800",
+      "job": null,
+      "matrix": "C:\\dbva\\code\\retopo-1\\tests\\toilet-tangent-pins\\captured-seed-2-weight-12\\export-matrix.json",
+      "outputSha256": "068140452f629a59e204abcdb8d53c0b4f3d6a546f58bbcfa85e76134b629615",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    }
+  ],
+  "sourceHashes": {
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "tests/verify_toilet_all_diagonal_audit.py": "25ac58c4724997d3ddc85553d68603df3de05af1c0e66fa7307b65489119b433",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "scope": "Retained actual exports evaluated under all combinations of quad diagonals, with independent strict-interior LP witnesses for reported face pairs. This screen uses floating-point tolerances; witness absence does not clear boundary contacts or unresolved programs."
+}

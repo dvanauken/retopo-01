@@ -23,7 +23,7 @@ if not args.label.replace('-', '').isalnum(): raise ValueError('Use a plain labe
 OUT=ROOT/'tests/toilet-generated-ui'/args.label; OUT.mkdir(parents=True,exist_ok=True)
 FILES=('app.js','server.py','worker.py','curved_quad.py','tests/verify_toilet_generated_ui.py')
 hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in FILES}
-checks,errors,jobs,cases=[],[],[],[]
+checks,errors,jobs,cases,observations=[],[],[],[],[]
 with socket.socket() as sock: sock.bind(('127.0.0.1',0)); port=sock.getsockname()[1]
 url=f'http://127.0.0.1:{port}'
 
@@ -39,6 +39,8 @@ async def run():
         browser=await playwright.chromium.launch(headless=True)
         context=await browser.new_context(viewport={'width':1700,'height':1050},device_scale_factor=2)
         page=await context.new_page(); page.on('pageerror',lambda error:errors.append(str(error)))
+        page.on('requestfailed', lambda request: observations.append(dict(kind='requestfailed',url=request.url,method=request.method,failure=request.failure)))
+        page.on('console', lambda message: observations.append(dict(kind='console',type=message.type,text=message.text)) if message.type=='error' else None)
         async def state(): return await page.evaluate('window.retopoDemo.getState()')
         async def tool(name): await page.locator(f'[data-tool="{name}"]').click()
         async def number(value):
@@ -62,9 +64,19 @@ async def run():
             captured.update(data=data,url=route.request.url); ready.set()
             await release.wait(); await route.fulfill(response=response)
         await page.route('**/api/jobs/*/mesh.json',hold)
+        async def await_result():
+            deadline=asyncio.get_running_loop().time()+650
+            while not ready.is_set():
+                current=await state()
+                if not current['busy']:
+                    raise AssertionError('Generation ended before an accepted mesh response: '+json.dumps(current.get('lastAttempt')))
+                if asyncio.get_running_loop().time()>=deadline:
+                    raise TimeoutError('No accepted mesh response within the unchanged 650-second observation limit')
+                try: await asyncio.wait_for(ready.wait(),timeout=.5)
+                except TimeoutError: pass
         try:
             await page.locator('#generateButton').click()
-            await asyncio.wait_for(ready.wait(),timeout=650)
+            await await_result()
             job=captured['url'].split('/')[-2]; jobs.append(job)
             actual=await asyncio.to_thread(http,'/api/jobs/'+job)
             check(actual['state']=='complete' and captured['data']['surfaceValidation']['passed'],'Genuine Circle worker completes before its mesh response is released')
@@ -113,13 +125,20 @@ async def run():
             # Retry through a fresh real solve, then switch sources while the
             # completed mesh response is held. The old response cannot win.
             await load(circle); await number(1800); ready.clear(); release.clear()
-            await page.locator('#generateButton').click(); await asyncio.wait_for(ready.wait(),timeout=650)
+            await page.locator('#generateButton').click(); await await_result()
             second=captured['url'].split('/')[-2]; jobs.append(second)
             check(second!=job and (await asyncio.to_thread(http,'/api/jobs/'+second))['state']=='complete','Retry produces a second genuinely completed toilet job')
             await page.locator('#meshSelect').select_option('hexagon'); await page.wait_for_function('window.retopoDemo.getState().meshId==="hexagon" && window.retopoDemo.getState().resultFaces>0')
             before=await state(); release.set(); await page.wait_for_timeout(600); after=await state()
             check(after['meshId']=='hexagon' and after['resultJob']==before['resultJob'] and after['resultFaces']==before['resultFaces'] and not after['busy'],'Late successful toilet mesh cannot overwrite a different source or its preview')
             check(all(hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==h for p,h in hashes.items()),'Implementation remains fixed through the generated-result workflow')
+        except Exception:
+            try:
+                (OUT/'failure-state.json').write_text(json.dumps(await state(),indent=2)+'\n')
+                await page.screenshot(path=str(OUT/'failure.png'),timeout=15000)
+            except Exception as capture_error:
+                observations.append(dict(kind='failure-capture-error',message=str(capture_error)))
+            raise
         finally:
             release.set(); await context.close(); await browser.close()
 
@@ -142,7 +161,7 @@ finally:
         try: child.kill()
         except psutil.NoSuchProcess: pass
     server.terminate(); server.wait(timeout=20); log.close()
-    report=dict(passed=not errors and all(c['passed'] for c in checks),complete=not errors,checks=checks,errors=errors,cases=cases,sourceHashes=hashes,
+    report=dict(passed=not errors and all(c['passed'] for c in checks),complete=not errors,checks=checks,errors=errors,cases=cases,browserObservations=observations,sourceHashes=hashes,
         scope='Real browser/HTTP/Blender generations with genuine delayed successful responses; native OBJ download and editing on accepted geometry, stale success and prior-result failure handling. No substituted result fixture.')
     (OUT/'result.json').write_text(json.dumps(report,indent=2)+'\n'); print(json.dumps(dict(passed=report['passed'],checks=len(checks))),flush=True)
 raise SystemExit(0 if report['passed'] else 1)

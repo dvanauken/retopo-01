@@ -105,7 +105,8 @@ for matrix in args.matrix:
             path_valid=(ids[0]==ids[-1])==closed and len(set(unique))==len(unique) and all(tuple(sorted(e)) in valid_edges for e in zip(ids[:-1],ids[1:]))
             fits.append(dict(pathValid=path_valid,measurement=fit,passed=bool(path_valid and fit['p95Distance']<=.4*tolerance and fit['p95UnsignedTangentAngleDegrees']<=30)))
         passed=exact and reference['passed'] and shape['passed'] and adjacent['passed'] and bvh['passed'] and len(fits)==len(curves) and all(x['passed'] for x in fits) and all(x['passed'] for d in diagonal.values() for x in d.values())
-        record=dict(name=case['name'],job=case['job'],outputFile=str(obj),outputSha256=digest,sourceSha256=hashes['assets/models/toilet.obj'],exportMatchesWorker=exact,
+        producer=case.get('producerKind','worker')
+        record=dict(name=case['name'],job=case['job'],producerKind=producer,outputFile=str(obj),outputSha256=digest,sourceSha256=hashes['assets/models/toilet.obj'],exportMatchesProducer=exact,exportMatchesWorker=exact if producer=='worker' else None,
                     passed=bool(passed),target=target,tolerance=float(tolerance),referenceValidation=reference,shape=shape,denseDiagonals=diagonal,adjacentInteriors=adjacent,blenderBVH=bvh,guideFits=fits,elapsedSeconds=time.monotonic()-start)
         cases.append(record); print(case['name'],'independent validation',passed,'seconds',round(record['elapsedSeconds'],1),flush=True)
         (OUT/'result.json').write_text(json.dumps(dict(complete=False,passed=False,cases=cases,unqualifiedCases=unqualified,sourceHashes=hashes),indent=2)+'\n')

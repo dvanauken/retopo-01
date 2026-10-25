@@ -60,6 +60,26 @@ reports={
     'fresh-strict-generation':'tests/toilet-strict-generation/current/result.json',
     'live-server-publication':'tests/toilet-exhaustive-audit/live-server.json',
 }
+for family, labels in {
+    'submission-transport':['before-fix','request-id-fixed','ownership-fixed','ownership-final','ownership-io'],
+    'early-submission':['request-identity','ownership-final','ownership-io'],
+    'server-restart':['before-fix','recovered-before-fix','ownership-fixed'],
+    'restart-ui':['ownership-final','ownership-io'],
+    'cancel-transport':['submission-identity','ownership-final','ownership-io'],
+    'async-ui':['submission-identity','ownership-final','ownership-io'],
+    'api':['submission-identity','ownership-final','ownership-io'],
+    'unit-gates':['submission-identity','ownership-final','io-fault-before-fix','io-fault-fixed'],
+    'generated-ui':['request-ownership','ownership-io','ownership-io-diagnostics'],
+    'file-locks':['io-fault-fixed'],
+    'tangent-pins':['bowl-seed-2-weight-8','combined-seed-2-weight-8','captured-seed-2-weight-12'],
+    'fresh-geometry':['tangent-bowl-seed2'],
+    'all-diagonal-audit':['tangent-bowl-seed2'],
+}.items():
+    for label in labels:
+        reports[family+'-'+label]='tests/toilet-'+family+'/'+label+'/result.json'
+for family in ('fresh-geometry','all-diagonal-audit'):
+    relative='tests/toilet-'+family+'/tangent-captured-seed2-weight12/result.json'
+    if (ROOT/relative).exists():reports[family+'-tangent-captured-seed2-weight12']=relative
 evidence={}
 for name,relative in reports.items():
     path=ROOT/relative
@@ -106,11 +126,27 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
             elif proof:
                 qualified.append(dict(item,contactProof=proof))
             else: provisional.append(dict(item,reason='All mixed-diagonal contact pairings have not yet been verified.'))
-report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpecificCases=qualified,
+experimental=[]
+for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12'):
+    independent=ROOT/'tests/toilet-fresh-geometry'/label/'result.json'
+    contacts=ROOT/'tests/toilet-all-diagonal-audit'/label/'result.json'
+    if not independent.exists() or not contacts.exists():continue
+    surface_report=json.loads(independent.read_text());contact_report=json.loads(contacts.read_text())
+    if not surface_report.get('complete') or not contact_report.get('complete'):continue
+    for case in surface_report.get('cases',[]):
+        proof=next((p for p in contact_report.get('cases',[]) if p['outputSha256']==case['outputSha256'] and p['passed']),None)
+        if case['passed'] and proof and case['sourceSha256']==current_source_hash and hashlib.sha256((ROOT/case['outputFile']).read_bytes()).hexdigest()==case['outputSha256']:
+            experimental.append(dict(name=case['name'],outputSha256=case['outputSha256'],producerKind=case['producerKind'],
+                productionResult=False,independentReport=str(independent.relative_to(ROOT)),contactReport=str(contacts.relative_to(ROOT))))
+report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpecificCases=qualified,qualifiedExperimentalCases=experimental,
     provisionalSpecificCases=provisional,disqualifiedSpecificCases=disqualified,
     updatedAt=datetime.now(timezone.utc).isoformat(),evidence=evidence,
     interpretation=[
-        'Current cancellation-ownership tests pass 52 real-worker transport checks and 30 asynchronous request/reset checks. The 15-check successful-generated-result workflow passed before the final timer/notification-only correction; both exact frontend hashes are retained.',
+        'Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.',
+        'Windows forced-exit tests use an actual toilet worker and Blender child; a service process job now owns their lifetime. Deduplication and early-cancellation records are per service lifetime. Non-Windows forced-exit cleanup is not claimed.',
+        'The request-ownership generated-UI run passed 12 checks before a genuine progress-file sharing violation cancelled its second Circle solve. The ownership-io attempt subsequently cancelled without a server traceback and is retained as incomplete. All 15 ownership-io-diagnostics workflow checks pass on final app/server code with two genuine fresh Circle solves; this does not establish the cause of the earlier unexplained interruption.',
+        'Final scoped lifecycle evidence totals 259 checks, including 53 units and 13 actual Windows file-lock checks. The six native crash controls use the final OS ownership module but precede the separate diagnostic-I/O correction; exact hashes and scopes are retained.',
+        'The isolated tangent/sliding-pin bowl experiment passes existing production gates, but is not integrated. Independent experimental export reports are separate from actual service-generated mesh qualification.',
         'Extra genuine layout seeds 2/3 fail all six captured complex-guide cases. Sliding pins on seed 2 fail guide alignment in every pass. These isolated experiments are not in production and do not qualify geometry.',
         'Green lifecycle, editing or rejection checks do not qualify the generated geometry.',
         'Earlier API/browser reports retain their original implementation hashes. Current post-admission-fix suites separately verify 76 HTTP and 29 browser checks with a named Circle positive control; the original bowl-generation failure remains recorded.',
@@ -123,9 +159,10 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
         'Captured two-guide networks and basic toilet solves must meet all geometric requirements.',
         'Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.',
         'Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.',
-        'Source-pane occlusion/marquee/group rollback, delayed imports and pending-reset checks pass; broader runtime/network-failure coverage remains open.',
+        'Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.',
         'Actual worker/Blender timeout cleanup and generated-result browser workflow now pass; broader sustained process/memory recovery needs final reconciliation.',
         'Final implementation/evidence reconciliation and authorized check-in remain required; live servers have been refreshed and verified separately.',
     ])
 (OUT/'result.json').write_text(json.dumps(report,indent=2)+'\n',newline='\n')
-print(json.dumps(dict(completionProven=False,reports=len(evidence),pending=[k for k,v in evidence.items() if v.get('status')=='pending' or v.get('complete') is False])))
+print(json.dumps(dict(completionProven=False,reports=len(evidence),pending=[k for k,v in evidence.items() if v.get('status')=='pending'],
+                      incompleteWorkflows=[k for k,v in evidence.items() if v.get('complete') is False])))

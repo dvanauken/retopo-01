@@ -2,16 +2,21 @@
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from concurrent.futures import ThreadPoolExecutor
-import argparse,datetime,json,mimetypes,os,re,socket,subprocess,sys,threading,time,uuid
+import argparse,datetime,hashlib,json,mimetypes,os,re,socket,subprocess,sys,threading,time,uuid
 import psutil
+from process_ownership import protect_service_tree
 
 ROOT=Path(__file__).resolve().parent
 CATALOG=json.loads((ROOT/'assets/catalog.json').read_text(encoding='utf-8'))
-MESHES={m['id']:m for m in CATALOG};JOBS={};LOCK=threading.Lock();QUEUE=ThreadPoolExecutor(max_workers=1)
+MESHES={m['id']:m for m in CATALOG};JOBS={};REQUESTS={};LOCK=threading.Lock();QUEUE=ThreadPoolExecutor(max_workers=1)
 
 def read(p):return json.loads(p.read_text(encoding='utf-8'))
 def write(p,data):p.write_text(json.dumps(data,indent=2,allow_nan=False)+'\n',encoding='utf-8')
 def snapshot(job):return {k:v for k,v in job.items() if k not in ('process','directory')}
+def diagnostic(path,data):
+ # Diagnostic files are advisory. A sharing violation must not stop cleanup.
+ try:write(path,data)
+ except OSError as error:print(f'Could not write {path.name}: {error}',file=sys.stderr,flush=True)
 
 def terminate_worker(process):
  if process.poll() is not None:return
@@ -22,6 +27,21 @@ def terminate_worker(process):
    try:child.kill()
    except psutil.NoSuchProcess:pass
  except psutil.NoSuchProcess:pass
+def cancel_job(job):
+ # Caller holds LOCK, shared with admission and worker state changes.
+ if job['state'] in ('queued','running'):
+  previous=job['state']
+  # Stop the process before confirming cancellation, regardless of log access.
+  # If termination itself fails, retain the active state so cancellation retries.
+  if job.get('process') and job['process'].poll() is None:terminate_worker(job['process'])
+  job.update(state='cancelled',stage='Cancelled',finishedAt=time.time())
+  diagnostic(job['directory']/'cancel-request.json',snapshot(job))
+  if previous=='queued':diagnostic(job['directory']/'execution.json',dict(snapshot(job),actualExitCode=None,processStarted=False))
+ return snapshot(job)
+
+def cancelled_request(request_id):
+ return dict(id=None,requestId=request_id,state='cancelled',stage='Cancelled before admission')
+
 def execute(job):
  with LOCK:
   if job['state']=='cancelled':return
@@ -48,7 +68,7 @@ def execute(job):
   with LOCK:
    if job['state']!='cancelled':job.update(state='failed',stage='Worker failed',error=str(error),finishedAt=time.time())
  finally:
-  with LOCK:write(folder/'execution.json',dict(snapshot(job),command=command))
+  with LOCK:diagnostic(folder/'execution.json',dict(snapshot(job),command=command))
 
 class Handler(BaseHTTPRequestHandler):
  server_version='RetopoDemo/1.0'
@@ -76,7 +96,7 @@ class Handler(BaseHTTPRequestHandler):
    if not match[2]:
     if data['state']=='running':
      try:data['stage']=read(job['directory']/'progress.json')['stage']
-     except (FileNotFoundError,KeyError,json.JSONDecodeError):pass
+     except (OSError,KeyError,json.JSONDecodeError):pass
     return self.respond(data)
    # Worker files can exist before acceptance or survive cancellation/failure.
    # Their presence is not authorization to publish a generated result.
@@ -103,15 +123,20 @@ class Handler(BaseHTTPRequestHandler):
     with LOCK:
      job=JOBS.get(match[1])
      if not job:return self.respond(dict(error='Unknown job'),404)
-     if job['state'] in ('queued','running'):
-      previous=job['state']
-      job.update(state='cancelled',stage='Cancelled',finishedAt=time.time())
-      write(job['directory']/'cancel-request.json',snapshot(job))
-      if previous=='queued':write(job['directory']/'execution.json',dict(snapshot(job),actualExitCode=None,processStarted=False))
-      if job.get('process') and job['process'].poll() is None:terminate_worker(job['process'])
-     data=snapshot(job)
+     data=cancel_job(job)
+    return self.respond(data)
+   match=re.fullmatch('/api/requests/([a-f0-9]{32})/cancel',self.path)
+   if match:
+    request_id=match[1]
+    with LOCK:
+     # A cancellation may arrive before the original request. Keep a tombstone
+     # so delayed delivery cannot create a worker after the page has reset.
+     record=REQUESTS.setdefault(request_id,dict(jobId=None,fingerprint=None))
+     data=cancel_job(JOBS[record['jobId']]) if record['jobId'] else cancelled_request(request_id)
     return self.respond(data)
    if self.path!='/api/remesh':return self.respond(dict(error='Not found'),404)
+   request_id=data.get('requestId')
+   if 'requestId' in data and (not isinstance(request_id,str) or not re.fullmatch('[a-f0-9]{32}',request_id)):raise ValueError('Request ID must contain 32 lowercase hexadecimal characters.')
    mesh_id=data.get('meshId');target=data.get('target');curves=data.get('curves');mode=data.get('guideMode',2)
    if mesh_id not in MESHES:raise ValueError('Choose one of the example meshes.')
    if isinstance(target,bool) or not isinstance(target,int) or not 150<=target<=1800:raise ValueError('Target must be an integer from150 to1800.')
@@ -124,15 +149,28 @@ class Handler(BaseHTTPRequestHandler):
     if not isinstance(curve,list) or not 2<=len(curve)<=2048:raise ValueError('Each guide needs2–2048 surface samples.')
     total+=len(curve)
     for point in curve:
-     if not isinstance(point,list) or len(point)!=3 or not all(type(x) in (float,int) and math.isfinite(x) and abs(x)<1e6 for x in point):raise ValueError('Guides must contain finite XYZ surface positions.')
+     if not isinstance(point,list) or len(point)!=3 or not all(type(x) in (float,int) and abs(x)<1e6 and math.isfinite(x) for x in point):raise ValueError('Guides must contain finite XYZ surface positions.')
    if total>8192:raise ValueError('Use fewer guide samples.')
    if (mesh_id=='cylinder' or MESHES[mesh_id].get('requiresGuides')) and not curves:raise ValueError('Draw a guide or load the example network for the curved mesh.')
+   fingerprint=hashlib.sha256(json.dumps(dict(meshId=mesh_id,target=target,curves=curves,guideMode=mode,sourceSha256=MESHES[mesh_id]['sourceSha256']),sort_keys=True,allow_nan=False).encode()).hexdigest()
+   replay=None;conflict=False
    with LOCK:
-    if sum(j['state'] in ('queued','running') for j in JOBS.values())>=3:raise ValueError('Wait for the current calculation or cancel it first.')
-    job_id=uuid.uuid4().hex;folder=ROOT/'runs'/job_id;folder.mkdir(parents=True)
-    write(folder/'settings.json',dict(meshId=mesh_id,target=target,guideMode=mode,sourceSha256=MESHES[mesh_id]['sourceSha256'],createdAt=datetime.datetime.now(datetime.timezone.utc).isoformat()))
-    write(folder/'curves.json',dict(coordinateFrame='source',curves=curves))
-    job=dict(id=job_id,meshId=mesh_id,target=target,state='queued',stage='Waiting for solver',createdAt=time.time(),directory=folder);JOBS[job_id]=job
+    record=REQUESTS.get(request_id) if request_id else None
+    if record is not None:
+     conflict=record['fingerprint'] not in (None,fingerprint)
+     if not conflict:
+      record['fingerprint']=fingerprint
+      replay=snapshot(JOBS[record['jobId']]) if record['jobId'] else cancelled_request(request_id)
+    else:
+     if sum(j['state'] in ('queued','running') for j in JOBS.values())>=3:raise ValueError('Wait for the current calculation or cancel it first.')
+     job_id=uuid.uuid4().hex;folder=ROOT/'runs'/job_id;folder.mkdir(parents=True)
+     write(folder/'settings.json',dict(meshId=mesh_id,target=target,guideMode=mode,sourceSha256=MESHES[mesh_id]['sourceSha256'],createdAt=datetime.datetime.now(datetime.timezone.utc).isoformat()))
+     write(folder/'curves.json',dict(coordinateFrame='source',curves=curves))
+     job=dict(id=job_id,meshId=mesh_id,target=target,state='queued',stage='Waiting for solver',createdAt=time.time(),directory=folder);JOBS[job_id]=job
+     if request_id:
+      job['requestId']=request_id;REQUESTS[request_id]=dict(jobId=job_id,fingerprint=fingerprint)
+   if conflict:return self.respond(dict(error='This request ID already belongs to different generation parameters.'),409)
+   if replay is not None:return self.respond(replay,202)
    QUEUE.submit(execute,job)
    # A worker can insert process/exit fields immediately after submission.
    # Copy the acknowledgement under the same lock as every worker update.
@@ -150,6 +188,7 @@ class LocalHTTPServer(ThreadingHTTPServer):
 
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--port',type=int,default=8741);args=ap.parse_args()
+ protect_service_tree()
  server=LocalHTTPServer(('127.0.0.1',args.port),Handler);(ROOT/'runs').mkdir(exist_ok=True)
  write(ROOT/'runs/server.json',dict(pid=os.getpid(),url=f'http://127.0.0.1:{args.port}',port=args.port));print(f'Retopo1 is ready at http://127.0.0.1:{args.port}',flush=True)
  try:server.serve_forever()

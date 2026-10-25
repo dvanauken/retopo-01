@@ -1,0 +1,22 @@
+{
+  "passed": false,
+  "tests": 53,
+  "failures": 0,
+  "errors": 4,
+  "sourceHashes": {
+    "server.py": "445fa9b571ea484fccfadf9c1d25397aad458a291889e6ddfad2583b36cb8837",
+    "process_ownership.py": "26313c84836db316e655da7932f9e096f75b7c6f659c8b70a80d6b156f272d52",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "tests/test_quad_triangulation_contacts.py": "63eae34a57ec64529f334f7c21718faa3da07b44bc529ef1f2bc98c2f088242d",
+    "tests/test_quad_warpage.py": "d94c47094b340ae183bf844245e93380193c50113ca000b81aab37d88e66aa33",
+    "tests/test_server_admission_race.py": "bbe895edba0687edbd8cf6debf09e52ebd1880adf1c1b64db8f69ed381d11d09",
+    "tests/test_server_io_faults.py": "5d82d52221c3a1bed86dac3a3c0a95d517d6e25e3e486a412efc66ca4b9f167c",
+    "tests/test_server_job_races.py": "d01a05313fc8643e956aff2256c5dc4aabe2e28e50d12e53c8945931793f9a2e",
+    "tests/test_server_request_identity.py": "c8b4a9eae21ed1732e8be654a3a28607448d114697cfc67541d894cd393d379c",
+    "tests/test_surface_distance.py": "062eb8ff20df1ce0c097a01f553ce90ecd733f6b8dec4550498b5312f82f7bef",
+    "tests/test_surface_failures.py": "0663f2a7c71bd4451def6dbc2efc566218c8d7109a89bfc6efc625e09404189f",
+    "tests/test_surface_intersections.py": "5769c01f33a546b997781ba44b36e0b9dd61db5ad5d885881e3a14724d83c115"
+  }
+}

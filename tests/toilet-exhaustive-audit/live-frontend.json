@@ -8,7 +8,7 @@
         "engine": "Local reference engine",
         "models": 4
       },
-      "servedAppSha256": "c44c5c5c6130e1019ac4a3c37bff157ac1eac89fd7accf3318571663257a0f7d",
+      "servedAppSha256": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
       "passed": true
     },
     {
@@ -18,10 +18,10 @@
         "engine": "Local reference engine",
         "models": 4
       },
-      "servedAppSha256": "c44c5c5c6130e1019ac4a3c37bff157ac1eac89fd7accf3318571663257a0f7d",
+      "servedAppSha256": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
       "passed": true
     }
   ],
-  "checkedAt": "2026-10-25T04:16:34.554204+00:00",
-  "scope": "Read-only verification of live service health and exact current frontend bytes; existing servers and calculations are not restarted."
+  "checkedAt": "2026-10-25T06:01:52.631539+00:00",
+  "scope": "Read-only health and exact frontend verification after verified idle-server refresh."
 }

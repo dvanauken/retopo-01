@@ -124,6 +124,24 @@
       }
     }
   ],
+  "qualifiedExperimentalCases": [
+    {
+      "name": "bowl-only-1800",
+      "outputSha256": "333bf1f81db153be6bad2b2f42b79904efdf7ffa1f9136afe5bdabc1f6c57660",
+      "producerKind": "isolated-tangent-probe",
+      "productionResult": false,
+      "independentReport": "tests\\toilet-fresh-geometry\\tangent-bowl-seed2\\result.json",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\tangent-bowl-seed2\\result.json"
+    },
+    {
+      "name": "bowl-only-1800",
+      "outputSha256": "068140452f629a59e204abcdb8d53c0b4f3d6a546f58bbcfa85e76134b629615",
+      "producerKind": "isolated-tangent-probe",
+      "productionResult": false,
+      "independentReport": "tests\\toilet-fresh-geometry\\tangent-captured-seed2-weight12\\result.json",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\tangent-captured-seed2-weight12\\result.json"
+    }
+  ],
   "provisionalSpecificCases": [],
   "disqualifiedSpecificCases": [
     {
@@ -139,7 +157,7 @@
       }
     }
   ],
-  "updatedAt": "2026-10-25T04:16:34.863196+00:00",
+  "updatedAt": "2026-10-25T06:01:57.515835+00:00",
   "evidence": {
     "original-source": {
       "report": "tests/toilet-source/result.json",
@@ -158,6 +176,7 @@
       "passedChecks": 7,
       "implementationHashMismatches": [
         "app.js",
+        "server.py",
         "tests/verify_toilet_cancel_transport.py"
       ]
     },
@@ -170,6 +189,7 @@
       "passedChecks": 14,
       "implementationHashMismatches": [
         "app.js",
+        "server.py",
         "tests/verify_toilet_cancel_transport.py"
       ]
     },
@@ -182,6 +202,7 @@
       "passedChecks": 41,
       "implementationHashMismatches": [
         "app.js",
+        "server.py",
         "tests/verify_toilet_cancel_transport.py"
       ]
     },
@@ -193,7 +214,9 @@
       "checks": 52,
       "passedChecks": 51,
       "implementationHashMismatches": [
-        "app.js"
+        "app.js",
+        "server.py",
+        "tests/verify_toilet_cancel_transport.py"
       ]
     },
     "cancel-transport-final": {
@@ -203,7 +226,11 @@
       "errors": [],
       "checks": 52,
       "passedChecks": 52,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js",
+        "server.py",
+        "tests/verify_toilet_cancel_transport.py"
+      ]
     },
     "cancel-timer-before-fix": {
       "report": "tests/toilet-async-ui/cancellation-timer-before-fix/result.json",
@@ -213,7 +240,9 @@
       "checks": 4,
       "passedChecks": 3,
       "implementationHashMismatches": [
-        "app.js"
+        "app.js",
+        "server.py",
+        "tests/verify_toilet_async_ui.py"
       ]
     },
     "async-cancellation-final": {
@@ -223,7 +252,11 @@
       "errors": [],
       "checks": 30,
       "passedChecks": 30,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js",
+        "server.py",
+        "tests/verify_toilet_async_ui.py"
+      ]
     },
     "successful-ui-after-ownership-fix": {
       "report": "tests/toilet-generated-ui/cancellation-ownership/result.json",
@@ -240,7 +273,9 @@
         }
       ],
       "implementationHashMismatches": [
-        "app.js"
+        "app.js",
+        "server.py",
+        "tests/verify_toilet_generated_ui.py"
       ]
     },
     "fresh-extra-layout-seeds": {
@@ -402,6 +437,7 @@
       "tests": 37,
       "errors": 0,
       "implementationHashMismatches": [
+        "server.py",
         "curved_quad.py",
         "surface_intersections.py"
       ]
@@ -412,7 +448,9 @@
       "passed": true,
       "tests": 41,
       "errors": 0,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "server.py"
+      ]
     },
     "api-current-bowl-regression": {
       "report": "tests/toilet-api/warpage-before-admission/result.json",
@@ -433,7 +471,9 @@
       "errors": [],
       "checks": 76,
       "passedChecks": 76,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "server.py"
+      ]
     },
     "browser-after-admission-fix": {
       "report": "tests/toilet-async-ui/admission-fixed/result.json",
@@ -444,6 +484,7 @@
       "passedChecks": 29,
       "implementationHashMismatches": [
         "app.js",
+        "server.py",
         "tests/verify_toilet_async_ui.py"
       ]
     },
@@ -607,7 +648,9 @@
       "errors": [],
       "checks": 7,
       "passedChecks": 7,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "server.py"
+      ]
     },
     "guide-representations-and-density": {
       "report": "tests/toilet-variants/current/result.json",
@@ -848,6 +891,7 @@
       ],
       "implementationHashMismatches": [
         "app.js",
+        "server.py",
         "curved_quad.py",
         "surface_intersections.py",
         "tests/verify_toilet_variants.py"
@@ -880,7 +924,8 @@
         }
       ],
       "implementationHashMismatches": [
-        "app.js"
+        "app.js",
+        "server.py"
       ]
     },
     "independent-all-diagonal-generations": {
@@ -902,7 +947,9 @@
           "passed": true
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "tests/verify_toilet_fresh_geometry.py"
+      ]
     },
     "mixed-diagonal-fresh-export-audit": {
       "report": "tests/toilet-all-diagonal-audit/fresh-new-gate/result.json",
@@ -1143,15 +1190,492 @@
     },
     "live-server-publication": {
       "report": "tests/toilet-exhaustive-audit/live-server.json",
-      "sha256": "65451167b104003728d77985057164acf5f7d7db56d929eb06da968bb392a862",
+      "sha256": "923a1836edadef82b4674f5a825ce36e0c95aec66c1aa6e3129af5f53bb3de92",
       "passed": true,
+      "implementationHashMismatches": []
+    },
+    "submission-transport-before-fix": {
+      "report": "tests/toilet-submission-transport/before-fix/result.json",
+      "sha256": "298d515bdf2fad425d059fd3b9b8328a9a1f7e7308a979ad513168f6afedab32",
+      "passed": false,
+      "errors": [],
+      "checks": 7,
+      "passedChecks": 4,
+      "cases": [
+        {}
+      ],
       "implementationHashMismatches": [
-        "app.js"
+        "app.js",
+        "server.py",
+        "tests/verify_toilet_submission_transport.py"
       ]
+    },
+    "submission-transport-request-id-fixed": {
+      "report": "tests/toilet-submission-transport/request-id-fixed/result.json",
+      "sha256": "294df946e17cc61b7c28e0012a772f7500795576aa6d32d1b6aa2363b284acbf",
+      "passed": false,
+      "errors": [],
+      "checks": 7,
+      "passedChecks": 5,
+      "cases": [
+        {}
+      ],
+      "implementationHashMismatches": [
+        "app.js",
+        "server.py",
+        "tests/verify_toilet_submission_transport.py"
+      ]
+    },
+    "submission-transport-ownership-fixed": {
+      "report": "tests/toilet-submission-transport/ownership-fixed/result.json",
+      "sha256": "faea21f092cd0994c76f751392b2c5cf71b7dfbba45536945f696cb0cb086f9d",
+      "passed": true,
+      "errors": [],
+      "checks": 7,
+      "passedChecks": 7,
+      "cases": [
+        {}
+      ],
+      "implementationHashMismatches": [
+        "app.js",
+        "server.py"
+      ]
+    },
+    "submission-transport-ownership-final": {
+      "report": "tests/toilet-submission-transport/ownership-final/result.json",
+      "sha256": "82caf3a8169d124320dae31ca5790886fc7357aef3af86a794aebda359ac0a93",
+      "passed": true,
+      "errors": [],
+      "checks": 7,
+      "passedChecks": 7,
+      "cases": [
+        {}
+      ],
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "submission-transport-ownership-io": {
+      "report": "tests/toilet-submission-transport/ownership-io/result.json",
+      "sha256": "d96f318833342fd8552798e353de4232e106920d26aebb9da78a5323bd629d68",
+      "passed": true,
+      "errors": [],
+      "checks": 7,
+      "passedChecks": 7,
+      "cases": [
+        {}
+      ],
+      "implementationHashMismatches": []
+    },
+    "early-submission-request-identity": {
+      "report": "tests/toilet-early-submission/request-identity/result.json",
+      "sha256": "5ea455608607c12b0e362e71b723f58e1898ede3f491b969b39221163858e5e5",
+      "passed": true,
+      "errors": [],
+      "checks": 14,
+      "passedChecks": 14,
+      "cases": [
+        {},
+        {}
+      ],
+      "implementationHashMismatches": [
+        "app.js",
+        "server.py"
+      ]
+    },
+    "early-submission-ownership-final": {
+      "report": "tests/toilet-early-submission/ownership-final/result.json",
+      "sha256": "e4e010bbcc6d251e55d2a6e525972a10838bd6b658749ab1357adde949a03079",
+      "passed": true,
+      "errors": [],
+      "checks": 14,
+      "passedChecks": 14,
+      "cases": [
+        {},
+        {}
+      ],
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "early-submission-ownership-io": {
+      "report": "tests/toilet-early-submission/ownership-io/result.json",
+      "sha256": "a8cb0361f7de035c730f469ead668225ea28e21999906011be38f3e253fe9fc5",
+      "passed": true,
+      "errors": [],
+      "checks": 14,
+      "passedChecks": 14,
+      "cases": [
+        {},
+        {}
+      ],
+      "implementationHashMismatches": []
+    },
+    "server-restart-before-fix": {
+      "report": "tests/toilet-server-restart/before-fix/result.json",
+      "sha256": "69affb3658c77beb2efdfb843dbfd3f813c61f12d4f812d52a66b6821c929443",
+      "passed": false,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_server_restart.py\", line 53, in <module>\n    if not observed:raise AssertionError('No real toilet worker with Blender child before crash injection')\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: No real toilet worker with Blender child before crash injection\n"
+      ],
+      "checks": 0,
+      "passedChecks": 0,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "server-restart-recovered-before-fix": {
+      "report": "tests/toilet-server-restart/recovered-before-fix/result.json",
+      "sha256": "a4201f48065800c9c3a6c2a0e916b05dfc421a96b1af132e7695892da0688e76",
+      "passed": false,
+      "errors": [],
+      "checks": 6,
+      "passedChecks": 4,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "server-restart-ownership-fixed": {
+      "report": "tests/toilet-server-restart/ownership-fixed/result.json",
+      "sha256": "f5bed59eb390348cbe807458222cb4a27069e685ac55687ba5c266fb81a43143",
+      "passed": true,
+      "errors": [],
+      "checks": 6,
+      "passedChecks": 6,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "restart-ui-ownership-final": {
+      "report": "tests/toilet-restart-ui/ownership-final/result.json",
+      "sha256": "31487671af06ed860f0ff3e6418edce58baf106e5c6069b0ba107e1dbae43160",
+      "passed": true,
+      "errors": [],
+      "checks": 8,
+      "passedChecks": 8,
+      "cases": [
+        {}
+      ],
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "restart-ui-ownership-io": {
+      "report": "tests/toilet-restart-ui/ownership-io/result.json",
+      "sha256": "1e4512d6a5a7192b0bc15036747b1864e5f56e6cfa5da74b121cc8658aef392c",
+      "passed": true,
+      "errors": [],
+      "checks": 8,
+      "passedChecks": 8,
+      "cases": [
+        {}
+      ],
+      "implementationHashMismatches": []
+    },
+    "cancel-transport-submission-identity": {
+      "report": "tests/toilet-cancel-transport/submission-identity/result.json",
+      "sha256": "3b982f3e7230cf3564f30d740de7f127f8d13da3ae14b9b017ff526b4809494b",
+      "passed": false,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_cancel_transport.py\", line 221, in <module>\n    asyncio.run(run())\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_cancel_transport.py\", line 198, in run\n    await exercise(browser, scenario)\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_cancel_transport.py\", line 176, in exercise\n    await page.wait_for_function('window.retopoDemo?.getState().meshId===\"hexagon\"', timeout=15000)\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\async_api\\_generated.py\", line 11537, in wait_for_function\n    await self._impl_obj.wait_for_function(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_page.py\", line 1110, in wait_for_function\n    return await self._main_frame.wait_for_function(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 878, in wait_for_function\n    await self._channel.send(\"waitForFunction\", self._timeout, params)\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 15000ms exceeded.\n"
+      ],
+      "checks": 43,
+      "passedChecks": 43,
+      "implementationHashMismatches": [
+        "app.js",
+        "server.py"
+      ]
+    },
+    "cancel-transport-ownership-final": {
+      "report": "tests/toilet-cancel-transport/ownership-final/result.json",
+      "sha256": "1700256ce53560257566b4dbd23341a733449825ba4ccbfd04883fb1d7a04c99",
+      "passed": true,
+      "errors": [],
+      "checks": 52,
+      "passedChecks": 52,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "cancel-transport-ownership-io": {
+      "report": "tests/toilet-cancel-transport/ownership-io/result.json",
+      "sha256": "9231b81ab2576bb9d7d45236f6dbb990c8d34e152a8ce1b75ae69ae73bff7081",
+      "passed": true,
+      "errors": [],
+      "checks": 52,
+      "passedChecks": 52,
+      "implementationHashMismatches": []
+    },
+    "async-ui-submission-identity": {
+      "report": "tests/toilet-async-ui/submission-identity/result.json",
+      "sha256": "233c030564fb01d5073136317cff23e52b6c2cee69db0a3a3e8346b57992d9ea",
+      "passed": false,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_async_ui.py\", line 211, in <module>\n    asyncio.run(run())\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_async_ui.py\", line 191, in run\n    await exercise(browser, scenario)\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_async_ui.py\", line 97, in exercise\n    await page.locator('#generateButton').click()\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\async_api\\_generated.py\", line 15603, in click\n    await self._impl_obj.click(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_locator.py\", line 162, in click\n    return await self._frame._click(self._selector, strict=True, **params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 566, in _click\n    await self._channel.send(\"click\", self._timeout, locals_to_params(locals()))\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#generateButton\")\n    - locator resolved to <button id=\"generateButton\" class=\"primary run\">\u2026</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - performing click action\n\n"
+      ],
+      "checks": 23,
+      "passedChecks": 23,
+      "implementationHashMismatches": [
+        "app.js",
+        "server.py"
+      ]
+    },
+    "async-ui-ownership-final": {
+      "report": "tests/toilet-async-ui/ownership-final/result.json",
+      "sha256": "9519c6ec2fb08b7f9ce89db779f5f0ebd97c46820e0307dfec6bb726584b9882",
+      "passed": true,
+      "errors": [],
+      "checks": 30,
+      "passedChecks": 30,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "async-ui-ownership-io": {
+      "report": "tests/toilet-async-ui/ownership-io/result.json",
+      "sha256": "b998209f9723cbab03cd32807a29c34848a2c6bb3a0963cf125f56e1854d41bd",
+      "passed": true,
+      "errors": [],
+      "checks": 30,
+      "passedChecks": 30,
+      "implementationHashMismatches": []
+    },
+    "api-submission-identity": {
+      "report": "tests/toilet-api/submission-identity/result.json",
+      "sha256": "c8af44b15ede29215b639f3681cc3db870ced510c734933783f0cbeb19f66318",
+      "passed": false,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_api.py\", line 195, in <module>\n    completed = wait_terminal(fresh)\n                ^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_api.py\", line 81, in wait_terminal\n    value = status(job)\n            ^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_api.py\", line 70, in status\n    raise RuntimeError((code, value))\nRuntimeError: (None, {'connectionError': 'timed out'})\n"
+      ],
+      "checks": 67,
+      "passedChecks": 67,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "api-ownership-final": {
+      "report": "tests/toilet-api/ownership-final/result.json",
+      "sha256": "dc83f4c7124b750ae1bb3865a674948d70254cebf1379cc2c34bea2db5f732fb",
+      "passed": true,
+      "errors": [],
+      "checks": 76,
+      "passedChecks": 76,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "api-ownership-io": {
+      "report": "tests/toilet-api/ownership-io/result.json",
+      "sha256": "8178f6aff6cd555d85c5db670b633c260b538d5e1dc7f94c34a7a01071e86562",
+      "passed": true,
+      "errors": [],
+      "checks": 76,
+      "passedChecks": 76,
+      "implementationHashMismatches": []
+    },
+    "unit-gates-submission-identity": {
+      "report": "tests/toilet-unit-gates/submission-identity/result.json",
+      "sha256": "2e721257fe4ba59aa9f35f00ae307cb30f2e165304142d9f2338304a98f0c3c8",
+      "passed": true,
+      "tests": 49,
+      "errors": 0,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "unit-gates-ownership-final": {
+      "report": "tests/toilet-unit-gates/ownership-final/result.json",
+      "sha256": "28dca508a227afd1fc8282055f4586a64256f77e04c6c3e7f15c8e16f72d68ac",
+      "passed": true,
+      "tests": 49,
+      "errors": 0,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "unit-gates-io-fault-before-fix": {
+      "report": "tests/toilet-unit-gates/io-fault-before-fix/result.json",
+      "sha256": "e8af1abc1fe1eafe2c6720680efca5d4c9bcd8a3dacc30b13a92aa2367e5d95a",
+      "passed": false,
+      "tests": 53,
+      "errors": 4,
+      "implementationHashMismatches": [
+        "server.py"
+      ]
+    },
+    "unit-gates-io-fault-fixed": {
+      "report": "tests/toilet-unit-gates/io-fault-fixed/result.json",
+      "sha256": "ef9d2146020c62f89ffec0cc1e2f42e4787bf363bc0c7000046c0ac16d237023",
+      "passed": true,
+      "tests": 53,
+      "errors": 0,
+      "implementationHashMismatches": []
+    },
+    "generated-ui-request-ownership": {
+      "report": "tests/toilet-generated-ui/request-ownership/result.json",
+      "sha256": "7a37572b3c1ed5a0e2785cec8e3be09f642a537b3dd8585624c63bed8c67d6e9",
+      "passed": false,
+      "complete": false,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\locks.py\", line 212, in wait\n    await fut\nasyncio.exceptions.CancelledError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_generated_ui.py\", line 134, in <module>\n    asyncio.run(run())\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_generated_ui.py\", line 116, in run\n    await page.locator('#generateButton').click(); await asyncio.wait_for(ready.wait(),timeout=650)\n                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\tasks.py\", line 519, in wait_for\n    async with timeouts.timeout(timeout):\n               ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\timeouts.py\", line 115, in __aexit__\n    raise TimeoutError from exc_val\nTimeoutError\n"
+      ],
+      "checks": 12,
+      "passedChecks": 12,
+      "cases": [
+        {
+          "name": "circle-success",
+          "state": "complete"
+        }
+      ],
+      "implementationHashMismatches": [
+        "server.py",
+        "tests/verify_toilet_generated_ui.py"
+      ]
+    },
+    "generated-ui-ownership-io": {
+      "report": "tests/toilet-generated-ui/ownership-io/result.json",
+      "sha256": "5d0c34742ed3a48e5471d0f6dfa08c66151e336c31be2c496c799e1f7aead5c5",
+      "passed": false,
+      "complete": false,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\locks.py\", line 212, in wait\n    await fut\nasyncio.exceptions.CancelledError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_generated_ui.py\", line 134, in <module>\n    asyncio.run(run())\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_generated_ui.py\", line 67, in run\n    await asyncio.wait_for(ready.wait(),timeout=650)\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\tasks.py\", line 519, in wait_for\n    async with timeouts.timeout(timeout):\n               ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\timeouts.py\", line 115, in __aexit__\n    raise TimeoutError from exc_val\nTimeoutError\n"
+      ],
+      "checks": 0,
+      "passedChecks": 0,
+      "cases": [],
+      "implementationHashMismatches": [
+        "tests/verify_toilet_generated_ui.py"
+      ]
+    },
+    "generated-ui-ownership-io-diagnostics": {
+      "report": "tests/toilet-generated-ui/ownership-io-diagnostics/result.json",
+      "sha256": "cf7a1f1b8ff2117fcfd5998994c77ebfffb0228e48a1e61ca2db0b9e96f8408d",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 15,
+      "passedChecks": 15,
+      "cases": [
+        {
+          "name": "circle-success",
+          "state": "complete"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "file-locks-io-fault-fixed": {
+      "report": "tests/toilet-file-locks/io-fault-fixed/result.json",
+      "sha256": "3bdb49a03b5fa3d4e339f011f244aaaaddb571d3552b93ea4fe8774b8f06a973",
+      "passed": true,
+      "errors": [],
+      "checks": 13,
+      "passedChecks": 13,
+      "implementationHashMismatches": []
+    },
+    "tangent-pins-bowl-seed-2-weight-8": {
+      "report": "tests/toilet-tangent-pins/bowl-seed-2-weight-8/result.json",
+      "sha256": "90541ace3780dd5b0f8d5f4c971041e7e687fae46becabcd783126304a528959",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "bowl-only-1800"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "tangent-pins-combined-seed-2-weight-8": {
+      "report": "tests/toilet-tangent-pins/combined-seed-2-weight-8/result.json",
+      "sha256": "5c015eed8c56f7e44802b5ca8b9a7542eb6790cace0e283c84e4e80a3cd404fd",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "two-guides-short-1800"
+        },
+        {
+          "name": "two-guides-long-1800"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "tangent-pins-captured-seed-2-weight-12": {
+      "report": "tests/toilet-tangent-pins/captured-seed-2-weight-12/result.json",
+      "sha256": "e9af87b78fb9795161b0656b60b5b6fbd63804517b15268c2a05f687a3734999",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "bowl-only-1800"
+        },
+        {
+          "name": "two-guides-short-1800"
+        },
+        {
+          "name": "two-guides-long-1800"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-tangent-bowl-seed2": {
+      "report": "tests/toilet-fresh-geometry/tangent-bowl-seed2/result.json",
+      "sha256": "954413842cc7c9e8fafe865c140fcc7025b2344614177417802979f64ce66c00",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "all-diagonal-audit-tangent-bowl-seed2": {
+      "report": "tests/toilet-all-diagonal-audit/tangent-bowl-seed2/result.json",
+      "sha256": "ffbbff8a33198336212382549b165a9e62220513782cc5e7abaab79cb27f9a2b",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-tangent-captured-seed2-weight12": {
+      "report": "tests/toilet-fresh-geometry/tangent-captured-seed2-weight12/result.json",
+      "sha256": "02d700e78edb5d7c93c038b175450120058856bfa1523f36b890fa7a9426d034",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "all-diagonal-audit-tangent-captured-seed2-weight12": {
+      "report": "tests/toilet-all-diagonal-audit/tangent-captured-seed2-weight12/result.json",
+      "sha256": "f365bbf366dd78a814bdcd2af58f2d1c48eb627ae4fa40f411f4a69f70a0609b",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "bowl-only-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
     }
   },
   "interpretation": [
-    "Current cancellation-ownership tests pass 52 real-worker transport checks and 30 asynchronous request/reset checks. The 15-check successful-generated-result workflow passed before the final timer/notification-only correction; both exact frontend hashes are retained.",
+    "Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.",
+    "Windows forced-exit tests use an actual toilet worker and Blender child; a service process job now owns their lifetime. Deduplication and early-cancellation records are per service lifetime. Non-Windows forced-exit cleanup is not claimed.",
+    "The request-ownership generated-UI run passed 12 checks before a genuine progress-file sharing violation cancelled its second Circle solve. The ownership-io attempt subsequently cancelled without a server traceback and is retained as incomplete. All 15 ownership-io-diagnostics workflow checks pass on final app/server code with two genuine fresh Circle solves; this does not establish the cause of the earlier unexplained interruption.",
+    "Final scoped lifecycle evidence totals 259 checks, including 53 units and 13 actual Windows file-lock checks. The six native crash controls use the final OS ownership module but precede the separate diagnostic-I/O correction; exact hashes and scopes are retained.",
+    "The isolated tangent/sliding-pin bowl experiment passes existing production gates, but is not integrated. Independent experimental export reports are separate from actual service-generated mesh qualification.",
     "Extra genuine layout seeds 2/3 fail all six captured complex-guide cases. Sliding pins on seed 2 fail guide alignment in every pass. These isolated experiments are not in production and do not qualify geometry.",
     "Green lifecycle, editing or rejection checks do not qualify the generated geometry.",
     "Earlier API/browser reports retain their original implementation hashes. Current post-admission-fix suites separately verify 76 HTTP and 29 browser checks with a named Circle positive control; the original bowl-generation failure remains recorded.",
@@ -1165,7 +1689,7 @@
     "Captured two-guide networks and basic toilet solves must meet all geometric requirements.",
     "Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.",
     "Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.",
-    "Source-pane occlusion/marquee/group rollback, delayed imports and pending-reset checks pass; broader runtime/network-failure coverage remains open.",
+    "Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.",
     "Actual worker/Blender timeout cleanup and generated-result browser workflow now pass; broader sustained process/memory recovery needs final reconciliation.",
     "Final implementation/evidence reconciliation and authorized check-in remain required; live servers have been refreshed and verified separately."
   ]

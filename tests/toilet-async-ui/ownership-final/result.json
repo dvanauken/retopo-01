@@ -1,0 +1,155 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "source-switch-before-response: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Changing source cancels generation even before its job ID arrives",
+      "passed": true
+    },
+    {
+      "name": "Late remesh acknowledgement is cancelled after source switch",
+      "passed": true,
+      "observed": "cancelled"
+    },
+    {
+      "name": "A stale toilet request cannot own the new source workspace",
+      "passed": true
+    },
+    {
+      "name": "cancel-before-response: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Cancel before admission acknowledgement only claims completion after server confirmation",
+      "passed": true
+    },
+    {
+      "name": "A cancelled pending request cannot keep updating the calculation timer",
+      "passed": true
+    },
+    {
+      "name": "Late acknowledgement after explicit cancellation does not revive a job",
+      "passed": true
+    },
+    {
+      "name": "external-cancel: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "A second API client cancels the real pending job",
+      "passed": true
+    },
+    {
+      "name": "Cancellation observed by polling is reflected in persistent feedback",
+      "passed": true
+    },
+    {
+      "name": "failed-request-context: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Edits made while a request is pending remain in the current document",
+      "passed": true
+    },
+    {
+      "name": "Failure describes the submitted target and guides, not later edits",
+      "passed": true,
+      "attempt": {
+        "phase": "failed",
+        "message": "Two guides compete for the same output vertices. Increase density or separate their paths.",
+        "target": 150,
+        "guideCount": 2,
+        "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    },
+    {
+      "name": "Persistent failure text identifies the actual failed density",
+      "passed": true
+    },
+    {
+      "name": "late-source-preview: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Current Generate control is disabled while its request is pending",
+      "passed": true
+    },
+    {
+      "name": "Late preview for a previous source cannot replace geometry or re-enable Generate",
+      "passed": true
+    },
+    {
+      "name": "reset-before-response: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Reset cancels the submitted job before discarding its acknowledgement",
+      "passed": true,
+      "observed": "cancelled"
+    },
+    {
+      "name": "Reset cancels each pending request, including earlier cancelled attempts",
+      "passed": true,
+      "job": "8f1ab1489aa04292be2444c422dd333a"
+    },
+    {
+      "name": "Reset clears the saved workspace after cancellation",
+      "passed": true
+    },
+    {
+      "name": "Reset leaves the default workspace ready",
+      "passed": true
+    },
+    {
+      "name": "reset-two-pending: browser is pending a real submitted request",
+      "passed": true
+    },
+    {
+      "name": "Two real submissions remain pending acknowledgement before Reset",
+      "passed": true
+    },
+    {
+      "name": "Reset cancels the submitted job before discarding its acknowledgement",
+      "passed": true,
+      "observed": "cancelled"
+    },
+    {
+      "name": "Reset cancels each pending request, including earlier cancelled attempts",
+      "passed": true,
+      "job": "1704167f4404429aa0a426d604d9621a"
+    },
+    {
+      "name": "Reset cancels each pending request, including earlier cancelled attempts",
+      "passed": true,
+      "job": "6045ba95898f4895b333c7624d25f96b"
+    },
+    {
+      "name": "Reset clears the saved workspace after cancellation",
+      "passed": true
+    },
+    {
+      "name": "Reset leaves the default workspace ready",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "workerJobs": [
+    "0a4117070c9246ecb87de82a79180b49",
+    "ed6f5513b85c456a8d488e85340ba796",
+    "5fda1356882f4e55bffb08491a74886a",
+    "4931ce39c3d04d138a0490972a550759",
+    "21f0b9ccad4d4e7095867e0657720924",
+    "8f1ab1489aa04292be2444c422dd333a",
+    "1704167f4404429aa0a426d604d9621a",
+    "6045ba95898f4895b333c7624d25f96b"
+  ],
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "445fa9b571ea484fccfadf9c1d25397aad458a291889e6ddfad2583b36cb8837",
+    "tests/verify_toilet_async_ui.py": "7c89afeff0992d27738e0cbae52d7e9fd5d491efbb64c414d7b32d751d068026"
+  },
+  "scope": "Actual Chromium, delayed delivery of genuine HTTP responses, actual toilet workers and cancellation. No fabricated worker output."
+}

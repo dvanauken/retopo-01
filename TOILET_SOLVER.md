@@ -26,6 +26,27 @@ miss guide-fit limits and the last intersects. Neither experiment is integrated.
 See `tests/toilet-layout-seeds/` and `tests/toilet-sliding-pins/`. More layout seeds
 alone have not solved the reported bowl/combined-guide failure.
 
+An isolated tangent-alignment residual added to sliding pins now produces a
+bowl-only candidate on retained seed 2 that passes the unchanged gates after
+four passes. Its exported OBJ also passes the independent surface, guide,
+topology, quality, LP/BVH and all-mixed-diagonal checks. This is experimental
+output, explicitly labeled separately from a service-generated result. Production
+still uses its existing fitter and seeds 0/1. Both captured combined-guide inputs
+were also tested: all ten refinement passes fail guide alignment. The last long
+case reaches tangent p95 values of 30.75 and 31.31 degrees, above the unchanged
+30-degree limit. Some shorter-case passes also fail surface checks. None is
+accepted. Integration regression coverage therefore remains required. See
+`tests/toilet-tangent-pins/bowl-seed-2-weight-8/` and the `tangent-bowl-seed2`
+independent audit reports.
+
+Repeating the isolated experiment at tangent weight 12 also qualifies the bowl
+candidate independently (p95 distance 0.00901, tangent angle 27.77 degrees).
+Both combined-guide cases still fail all five passes each. Their final tangent
+values remain above 30 degrees, and the shorter case also misses the surface
+screen. These outputs are retained in `tests/toilet-tangent-pins/` and the
+`tangent-captured-seed2-weight12` independent reports. Neither weight is used by
+the production fitter.
+
 Dense testing of all five unique previously
 accepted exports found surface-distance errors using the validator's ear
 triangulation. With the viewer's fan triangulation, two exceed the same limit;

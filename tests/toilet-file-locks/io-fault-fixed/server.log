@@ -1,0 +1,18 @@
+Retopo1 is ready at http://127.0.0.1:64902
+25/Oct/2026 00:11:19 "GET /api/health HTTP/1.1" 200 -
+25/Oct/2026 00:11:19 "POST /api/remesh HTTP/1.1" 202 -
+25/Oct/2026 00:11:21 "GET /api/jobs/e36e1ec564a642c7923b08b180b10cc0 HTTP/1.1" 200 -
+25/Oct/2026 00:11:22 "GET /api/jobs/e36e1ec564a642c7923b08b180b10cc0 HTTP/1.1" 200 -
+25/Oct/2026 00:11:22 "GET /api/jobs/e36e1ec564a642c7923b08b180b10cc0 HTTP/1.1" 200 -
+25/Oct/2026 00:11:22 "POST /api/remesh HTTP/1.1" 202 -
+Could not write cancel-request.json: [Errno 13] Permission denied: 'C:\\dbva\\code\\retopo-1\\runs\\5e8f62f9122e4ca9bb1fb17dc5a2e082\\cancel-request.json'
+Could not write execution.json: [Errno 13] Permission denied: 'C:\\dbva\\code\\retopo-1\\runs\\5e8f62f9122e4ca9bb1fb17dc5a2e082\\execution.json'
+25/Oct/2026 00:11:22 "POST /api/jobs/5e8f62f9122e4ca9bb1fb17dc5a2e082/cancel HTTP/1.1" 200 -
+Could not write cancel-request.json: [Errno 13] Permission denied: 'C:\\dbva\\code\\retopo-1\\runs\\e36e1ec564a642c7923b08b180b10cc0\\cancel-request.json'
+25/Oct/2026 00:11:22 "POST /api/requests/0874117a77d94139926f12362db06969/cancel HTTP/1.1" 200 -
+25/Oct/2026 00:11:22 "GET /api/jobs/e36e1ec564a642c7923b08b180b10cc0/mesh.json HTTP/1.1" 409 -
+25/Oct/2026 00:11:22 "GET /api/jobs/e36e1ec564a642c7923b08b180b10cc0/output.obj HTTP/1.1" 409 -
+25/Oct/2026 00:11:22 "GET /api/jobs/e36e1ec564a642c7923b08b180b10cc0/features.json HTTP/1.1" 409 -
+25/Oct/2026 00:11:22 "POST /api/remesh HTTP/1.1" 400 -
+25/Oct/2026 00:11:22 "POST /api/jobs/e36e1ec564a642c7923b08b180b10cc0/cancel HTTP/1.1" 200 -
+25/Oct/2026 00:11:22 "POST /api/jobs/5e8f62f9122e4ca9bb1fb17dc5a2e082/cancel HTTP/1.1" 200 -

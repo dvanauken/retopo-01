@@ -1,0 +1,73 @@
+{
+  "passed": false,
+  "complete": false,
+  "checks": [
+    {
+      "passed": true,
+      "name": "Genuine Circle worker completes before its mesh response is released"
+    },
+    {
+      "passed": true,
+      "name": "Guide and density edits remain available while a completed mesh is in transit"
+    },
+    {
+      "passed": true,
+      "name": "Late success retains newer edits and labels the actual result as needing update"
+    },
+    {
+      "passed": true,
+      "name": "Successful attempt records its original parameters"
+    },
+    {
+      "passed": true,
+      "name": "Stale successful result has a visible update badge"
+    },
+    {
+      "passed": true,
+      "name": "Native OBJ download matches the accepted worker output byte for byte"
+    },
+    {
+      "passed": true,
+      "name": "Native right-pane Polyline is authored over a genuine accepted toilet mesh"
+    },
+    {
+      "passed": true,
+      "name": "Generated-pane point edit snaps to the original source and commits once"
+    },
+    {
+      "passed": true,
+      "name": "Undo restores exact values after editing in the generated pane"
+    },
+    {
+      "passed": true,
+      "name": "Overlay uses one guide display over the accepted mesh"
+    },
+    {
+      "passed": true,
+      "name": "Actual rejected two-guide solve preserves the previous accepted mesh"
+    },
+    {
+      "passed": true,
+      "name": "Failure with a prior result is clearly labeled in the viewport"
+    }
+  ],
+  "errors": [
+    "Traceback (most recent call last):\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\tasks.py\", line 520, in wait_for\n    return await fut\n           ^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\locks.py\", line 212, in wait\n    await fut\nasyncio.exceptions.CancelledError\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_generated_ui.py\", line 134, in <module>\n    asyncio.run(run())\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 195, in run\n    return runner.run(main)\n           ^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\runners.py\", line 118, in run\n    return self._loop.run_until_complete(task)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\base_events.py\", line 691, in run_until_complete\n    return future.result()\n           ^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_generated_ui.py\", line 116, in run\n    await page.locator('#generateButton').click(); await asyncio.wait_for(ready.wait(),timeout=650)\n                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\tasks.py\", line 519, in wait_for\n    async with timeouts.timeout(timeout):\n               ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\asyncio\\timeouts.py\", line 115, in __aexit__\n    raise TimeoutError from exc_val\nTimeoutError\n"
+  ],
+  "cases": [
+    {
+      "name": "circle-success",
+      "state": "complete",
+      "job": "9ff07d927141434cbf67062e080e9528",
+      "target": 1800
+    }
+  ],
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "445fa9b571ea484fccfadf9c1d25397aad458a291889e6ddfad2583b36cb8837",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "tests/verify_toilet_generated_ui.py": "9709ba0821de2380023a1b83c2ba4b1df8c724a4e90f4f5237552a5c38002c4f"
+  },
+  "scope": "Real browser/HTTP/Blender generations with genuine delayed successful responses; native OBJ download and editing on accepted geometry, stale success and prior-result failure handling. No substituted result fixture."
+}

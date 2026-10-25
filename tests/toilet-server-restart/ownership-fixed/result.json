@@ -1,0 +1,159 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "Server crash is injected only after a real toilet worker and Blender child exist",
+      "observed": [
+        {
+          "pid": 46084,
+          "created": 1792903091.753626,
+          "name": "python.exe",
+          "parentPid": 52076,
+          "command": [
+            "C:\\Users\\Buddy\\miniforge3\\python.exe",
+            "-X",
+            "utf8",
+            "C:\\dbva\\code\\retopo-1\\worker.py",
+            "--job",
+            "C:\\dbva\\code\\retopo-1\\runs\\6c1e90865c9d42779d80ccee6ac7fd62"
+          ]
+        },
+        {
+          "pid": 46456,
+          "created": 1792903091.759144,
+          "name": "conhost.exe",
+          "parentPid": 46084,
+          "command": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0x4"
+          ]
+        },
+        {
+          "pid": 50440,
+          "created": 1792903093.834701,
+          "name": "blender.exe",
+          "parentPid": 46084,
+          "command": [
+            "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
+            "--background",
+            "--threads",
+            "8",
+            "--python",
+            "C:\\dbva\\code\\retopo-1\\scripts\\quadriflow_mesh.py",
+            "--",
+            "--input",
+            "C:\\dbva\\code\\retopo-1\\runs\\6c1e90865c9d42779d80ccee6ac7fd62\\quadri-input.json",
+            "--output",
+            "C:\\dbva\\code\\retopo-1\\runs\\6c1e90865c9d42779d80ccee6ac7fd62\\quadri-layout-0.json",
+            "--target",
+            "1800",
+            "--seed",
+            "0"
+          ]
+        },
+        {
+          "pid": 8704,
+          "created": 1792903093.8384044,
+          "name": "conhost.exe",
+          "parentPid": 50440,
+          "command": [
+            "\\??\\C:\\Windows\\system32\\conhost.exe",
+            "0x4"
+          ]
+        }
+      ]
+    },
+    {
+      "passed": true,
+      "name": "Original server is actually dead before restart"
+    },
+    {
+      "passed": true,
+      "name": "Abrupt server death leaves no live owned toilet worker or Blender child",
+      "survivors": []
+    },
+    {
+      "passed": true,
+      "name": "Cancellation on the replacement service corresponds to no old worker running",
+      "status": 200,
+      "survivors": []
+    },
+    {
+      "passed": true,
+      "name": "Replacement service cannot publish an abandoned old result"
+    },
+    {
+      "passed": true,
+      "name": "Restart admits and cancels a fresh request"
+    }
+  ],
+  "errors": [],
+  "observedProcesses": [
+    {
+      "pid": 46084,
+      "created": 1792903091.753626,
+      "name": "python.exe",
+      "parentPid": 52076,
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\dbva\\code\\retopo-1\\worker.py",
+        "--job",
+        "C:\\dbva\\code\\retopo-1\\runs\\6c1e90865c9d42779d80ccee6ac7fd62"
+      ]
+    },
+    {
+      "pid": 46456,
+      "created": 1792903091.759144,
+      "name": "conhost.exe",
+      "parentPid": 46084,
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ]
+    },
+    {
+      "pid": 50440,
+      "created": 1792903093.834701,
+      "name": "blender.exe",
+      "parentPid": 46084,
+      "command": [
+        "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
+        "--background",
+        "--threads",
+        "8",
+        "--python",
+        "C:\\dbva\\code\\retopo-1\\scripts\\quadriflow_mesh.py",
+        "--",
+        "--input",
+        "C:\\dbva\\code\\retopo-1\\runs\\6c1e90865c9d42779d80ccee6ac7fd62\\quadri-input.json",
+        "--output",
+        "C:\\dbva\\code\\retopo-1\\runs\\6c1e90865c9d42779d80ccee6ac7fd62\\quadri-layout-0.json",
+        "--target",
+        "1800",
+        "--seed",
+        "0"
+      ]
+    },
+    {
+      "pid": 8704,
+      "created": 1792903093.8384044,
+      "name": "conhost.exe",
+      "parentPid": 50440,
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ]
+    }
+  ],
+  "sourceHashes": {
+    "server.py": "445fa9b571ea484fccfadf9c1d25397aad458a291889e6ddfad2583b36cb8837",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "tests/verify_toilet_server_restart.py": "4da9f7a1bca80e11c42d3d1beedd552f5609efac12f8a0318fe80ea7d0626a07",
+    "process_ownership.py": "26313c84836db316e655da7932f9e096f75b7c6f659c8b70a80d6b156f272d52"
+  },
+  "implementationUnchanged": true,
+  "scope": "Actual isolated server is forcibly killed only after a real toilet worker and Blender child exist. Server restarts on the same port; old-worker liveness and new admission are measured. No live user server is touched."
+}

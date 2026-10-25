@@ -97,7 +97,7 @@ async def exercise(browser, scenario):
         await page.wait_for_timeout(150)
         check(bool(observed), scenario + ': a genuine toilet worker is alive before interruption')
         worker = [dict(pid=p.pid, created=p.create_time()) for p in observed]
-        await page.route('**/api/jobs/*/cancel', abort_cancel)
+        await page.route('**/api/requests/*/cancel', abort_cancel)
         if scenario == 'reset-failure':
             await page.locator('#resetButton').click()
             await page.locator('#confirmReset').click()
@@ -132,7 +132,7 @@ async def exercise(browser, scenario):
                   and await page.evaluate('localStorage.getItem("retopo-1:transport-probe")') == 'preserve me',
                   scenario + ': failed cancellation preserves the current workspace')
         await page.screenshot(path=str(OUT/(scenario+'-interrupted.png')))
-        await page.unroute('**/api/jobs/*/cancel', abort_cancel)
+        await page.unroute('**/api/requests/*/cancel', abort_cancel)
         if scenario == 'poll-and-cancel-failure':
             await page.unroute('**/api/jobs/*', abort_poll)
         if scenario == 'source-switch-after-cancel-failure':

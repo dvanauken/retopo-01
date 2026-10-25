@@ -1,0 +1,9 @@
+Retopo1 is ready at http://127.0.0.1:62953
+24/Oct/2026 23:36:58 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 23:36:58 "POST /api/remesh HTTP/1.1" 202 -
+Retopo1 is ready at http://127.0.0.1:62953
+24/Oct/2026 23:37:17 "GET /api/health HTTP/1.1" 200 -
+24/Oct/2026 23:37:17 "POST /api/requests/f3eb350e184248e584691bc613b867a6/cancel HTTP/1.1" 200 -
+24/Oct/2026 23:37:17 "GET /api/jobs/9d3218c9070044699e8a42af68950c00/mesh.json HTTP/1.1" 404 -
+24/Oct/2026 23:37:17 "POST /api/remesh HTTP/1.1" 202 -
+24/Oct/2026 23:37:17 "POST /api/jobs/175854a5c8aa4d94970a49ce4be424bc/cancel HTTP/1.1" 200 -

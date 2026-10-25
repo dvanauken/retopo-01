@@ -54,7 +54,33 @@ Every live solve has a fresh `runs/<id>/` directory containing original source O
 
 `assets/previews/` contains previously completed example results for immediate startup and source switching. They are explicitly labeled **Example**. Live Generate uses the current inputs through an independent worker, not a library of canned results. Preview provenance records their origins. Original-input baseline/loop/crossing checks and independent surface/topology measurements are under `tests/candidate/`.
 
-The app starts a new owned Python process per calculation, with one solve running at a time. Cancellation terminates only that worker. The service binds127.0.0.1. API settings are validated, project paths are not accepted from the browser, and job files are retained locally.
+The app starts a new owned Python process per calculation, with one solve running
+at a time. Cancellation terminates the requested worker and its descendants. The
+service binds 127.0.0.1. API settings are validated, project paths are not accepted
+from the browser, and job files are retained locally.
+
+Each browser submission has a random `requestId` before sending `/api/remesh`.
+The optional field contains 32 lowercase hexadecimal characters. Within one
+service lifetime, an identical retry returns the same job; reuse with different
+accepted parameters returns HTTP 409. Legacy requests without this field retain
+the existing admission behavior.
+
+`POST /api/requests/{requestId}/cancel` with `{}` cancels an admitted request or
+records its cancellation before delivery. A later matching submission returns
+`state: "cancelled", id: null` without creating a worker. This lets Cancel and
+Reset recover when the first admission response is lost. Request records are
+in-memory; job-ID cancellation remains available at `/api/jobs/{id}/cancel`.
+
+On Windows, the server joins a process job before accepting work. Its
+non-inheritable lifetime handle ensures workers and Blender exit when the server
+is forcibly terminated, as verified with actual processes. This uses the
+[Windows Job Object lifetime rules](https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects).
+Other platforms retain explicit cancellation and normal-shutdown handling;
+forced-exit tree cleanup is verified here on Windows only.
+
+Progress and cancellation diagnostics are advisory: a temporary Windows file
+lock cannot turn a status poll into a transport failure or prevent worker
+termination. Required input and accepted result files retain their normal checks.
 
 ## What this demonstrates
 
@@ -69,7 +95,7 @@ General overlapping/degenerate constraints, thin-sheet projection, arbitrary sou
 ## Files
 
 - `index.html`, `app.js`: canvas viewport, surface picking/drawing, editing, comparison and exports.
-- `server.py`, `worker.py`: local API, owned-job execution and measured geometry.
+- `server.py`, `worker.py`, `process_ownership.py`: local API, owned-process execution and measured geometry.
 - `assets/`: online source, CC0 license, clean source meshes, source/preview provenance.
 - `vendor/`: pinned Three.js0.180.0 and MIT license, served locally.
 - `engine/`: relocatable previously qualified reference closure and numerical backend.

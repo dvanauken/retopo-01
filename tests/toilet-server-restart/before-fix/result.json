@@ -1,0 +1,15 @@
+{
+  "passed": false,
+  "checks": [],
+  "errors": [
+    "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_server_restart.py\", line 53, in <module>\n    if not observed:raise AssertionError('No real toilet worker with Blender child before crash injection')\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: No real toilet worker with Blender child before crash injection\n"
+  ],
+  "observedProcesses": [],
+  "sourceHashes": {
+    "server.py": "9b0f6e52fe1e4aac6a06f68da91f8b3ccd2674036f23178686a042c173c8265a",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "tests/verify_toilet_server_restart.py": "4da9f7a1bca80e11c42d3d1beedd552f5609efac12f8a0318fe80ea7d0626a07"
+  },
+  "implementationUnchanged": true,
+  "scope": "Actual isolated server is forcibly killed only after a real toilet worker and Blender child exist. Server restarts on the same port; old-worker liveness and new admission are measured. No live user server is touched."
+}

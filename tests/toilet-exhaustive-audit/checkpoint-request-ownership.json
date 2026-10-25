@@ -1,0 +1,117 @@
+{
+  "checkedAt": "2026-10-25T06:01:52.631539+00:00",
+  "parentRevision": "c5efa3e1c59dd466253e3ae84128ccdf33a75708",
+  "exhaustiveGoalComplete": false,
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "process_ownership.py": "26313c84836db316e655da7932f9e096f75b7c6f659c8b70a80d6b156f272d52",
+    "worker.py": "3a1527b1ce5375c55d0b36d2d8714420c75c5e35cbba0648958167c9b9e69db5",
+    "curved_quad.py": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "sourceEngineFitterAndAcceptanceUnchanged": true,
+  "verifiedLifecycleSuites": {
+    "unit": {
+      "report": "tests/toilet-unit-gates/io-fault-fixed/result.json",
+      "sha256": "ef9d2146020c62f89ffec0cc1e2f42e4787bf363bc0c7000046c0ac16d237023",
+      "checks": 53
+    },
+    "api": {
+      "report": "tests/toilet-api/ownership-io/result.json",
+      "sha256": "8178f6aff6cd555d85c5db670b633c260b538d5e1dc7f94c34a7a01071e86562",
+      "checks": 76
+    },
+    "transport": {
+      "report": "tests/toilet-cancel-transport/ownership-io/result.json",
+      "sha256": "9231b81ab2576bb9d7d45236f6dbb990c8d34e152a8ce1b75ae69ae73bff7081",
+      "checks": 52
+    },
+    "async": {
+      "report": "tests/toilet-async-ui/ownership-io/result.json",
+      "sha256": "b998209f9723cbab03cd32807a29c34848a2c6bb3a0963cf125f56e1854d41bd",
+      "checks": 30
+    },
+    "lostSubmission": {
+      "report": "tests/toilet-submission-transport/ownership-io/result.json",
+      "sha256": "d96f318833342fd8552798e353de4232e106920d26aebb9da78a5323bd629d68",
+      "checks": 7
+    },
+    "earlyCancellation": {
+      "report": "tests/toilet-early-submission/ownership-io/result.json",
+      "sha256": "a8cb0361f7de035c730f469ead668225ea28e21999906011be38f3e253fe9fc5",
+      "checks": 14
+    },
+    "browserRestart": {
+      "report": "tests/toilet-restart-ui/ownership-io/result.json",
+      "sha256": "1e4512d6a5a7192b0bc15036747b1864e5f56e6cfa5da74b121cc8658aef392c",
+      "checks": 8
+    },
+    "fileLocks": {
+      "report": "tests/toilet-file-locks/io-fault-fixed/result.json",
+      "sha256": "3bdb49a03b5fa3d4e339f011f244aaaaddb571d3552b93ea4fe8774b8f06a973",
+      "checks": 13
+    },
+    "nativeCrash": {
+      "report": "tests/toilet-server-restart/ownership-fixed/result.json",
+      "sha256": "f5bed59eb390348cbe807458222cb4a27069e685ac55687ba5c266fb81a43143",
+      "checks": 6,
+      "scope": "Same final OS ownership module; this test precedes the separate diagnostic-I/O correction."
+    }
+  },
+  "lifecycleChecks": 259,
+  "generatedWorkflow": {
+    "report": "tests/toilet-generated-ui/ownership-io-diagnostics/result.json",
+    "passed": true,
+    "checks": 15,
+    "errors": []
+  },
+  "earlierGeneratedFailure": "request-ownership passed12 before real progress sharing violation; ownership-io cancelled before its first result without a server traceback. Both reports retained.",
+  "experimentalBowl": {
+    "productionResult": false,
+    "independentAuditPassed": true,
+    "allMixedDiagonalsPassed": true,
+    "outputSha256": "333bf1f81db153be6bad2b2f42b79904efdf7ffa1f9136afe5bdabc1f6c57660"
+  },
+  "combinedExperiments": [
+    {
+      "name": "two-guides-short-1800",
+      "qualified": false,
+      "attempts": 5
+    },
+    {
+      "name": "two-guides-long-1800",
+      "qualified": false,
+      "attempts": 5
+    }
+  ],
+  "remaining": "Production bowl, combined-guide and coarse targets remain unresolved. Both isolated tangent weights qualify the bowl independently but fail the combined inputs. No experimental fitting is integrated. Earlier unexplained client cancellation remains retained without a cause attributed to the passing rerun.",
+  "tangentWeight12": {
+    "productionResult": false,
+    "cases": [
+      {
+        "name": "bowl-only-1800",
+        "qualified": true,
+        "attempts": 4
+      },
+      {
+        "name": "two-guides-short-1800",
+        "qualified": false,
+        "attempts": 5
+      },
+      {
+        "name": "two-guides-long-1800",
+        "qualified": false,
+        "attempts": 5
+      }
+    ],
+    "independentAuditPassed": true,
+    "allMixedDiagonalsPassed": true,
+    "outputSha256": "068140452f629a59e204abcdb8d53c0b4f3d6a546f58bbcfa85e76134b629615"
+  },
+  "freshBrowserExportMatchesIndependentlyQualifiedCircle": true,
+  "totalScopedChecks": 274,
+  "remainingObservedTestOrWorkerProcesses": []
+}
