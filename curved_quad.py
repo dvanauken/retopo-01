@@ -368,12 +368,11 @@ def construct(source, triangles, curves, *, target, job):
                                              'Overlapping or unresolved guide paths reject; general crease/attribute transfer is not implemented.'])
                 _write(job / 'surface-solver.json', metadata)
                 return positions, faces.tolist(), metadata
-    if curves:
-        from surface_guide_repair import construct as construct_sampled_guides
-        recovered = construct_sampled_guides(source_mesh, curves, target=target, job=job,
-                                             blender=blender, input_path=input_path, history=history)
-        if recovered is not None:
-            return recovered
+    from surface_guide_repair import construct as construct_sampled_guides
+    recovered = construct_sampled_guides(source_mesh, curves, target=target, job=job,
+                                         blender=blender, input_path=input_path, history=history)
+    if recovered is not None:
+        return recovered
     def failures(attempt):
         reasons = []
         if not attempt['quality']['passed']:

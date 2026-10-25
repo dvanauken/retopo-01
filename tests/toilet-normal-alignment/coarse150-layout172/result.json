@@ -1,0 +1,917 @@
+{
+  "complete": true,
+  "productionResult": false,
+  "cases": [
+    {
+      "name": "weight-8-0",
+      "target": 150,
+      "job": null,
+      "state": "failed",
+      "producerKind": "isolated-source-normal-fit",
+      "weight": 8.0,
+      "fitterSha256": "837e8bd7e009303690980dc3eae008ee9d7a78d0dae098ad186c7a1976804979",
+      "attempts": [
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 44.02607288697992,
+            "angleP05Degrees": 49.76444766936319,
+            "maximumAngleDegrees": 135.7051867843534,
+            "edgeRatioP95": 3.4076581769899916,
+            "edgeRatioMax": 3.4896133754946055,
+            "scaledJacobianMin": 0.6911445791256209,
+            "scaledJacobianP05": 0.6986812975311594,
+            "edgeLengthCV": 0.37466954524934537,
+            "adjacentAreaRatioP95": 3.9000741740180525,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": false,
+            "nonAdjacentIntersectingFacePairs": [
+              [
+                31,
+                41
+              ],
+              [
+                31,
+                62
+              ]
+            ],
+            "adjacentIntersectingFacePairs": [
+              [
+                30,
+                31
+              ],
+              [
+                30,
+                41
+              ],
+              [
+                31,
+                36
+              ]
+            ],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 5,
+          "iteration": 0,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 68,
+            "sourceSupportPoints": 481
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 44.20843918200648,
+            "angleP05Degrees": 48.28157492333053,
+            "maximumAngleDegrees": 135.649268070286,
+            "edgeRatioP95": 3.405712121098015,
+            "edgeRatioMax": 3.4160397320226794,
+            "scaledJacobianMin": 0.6868125057981663,
+            "scaledJacobianP05": 0.6988798343505671,
+            "edgeLengthCV": 0.3884352831715953,
+            "adjacentAreaRatioP95": 4.621505185636714,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 13,
+          "iteration": 1,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 149,
+            "sourceSupportPoints": 338
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.933368394148275,
+            "angleP05Degrees": 49.6097404221189,
+            "maximumAngleDegrees": 135.81700059594772,
+            "edgeRatioP95": 3.41096194274913,
+            "edgeRatioMax": 3.4224661975065755,
+            "scaledJacobianMin": 0.6866616245935651,
+            "scaledJacobianP05": 0.6987954456905073,
+            "edgeLengthCV": 0.3980008607292498,
+            "adjacentAreaRatioP95": 4.184654467102866,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 25,
+          "iteration": 2,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 87,
+            "sourceSupportPoints": 844
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.83039322819024,
+            "angleP05Degrees": 49.20424730653285,
+            "maximumAngleDegrees": 135.77141801299285,
+            "edgeRatioP95": 3.410586051359338,
+            "edgeRatioMax": 3.41978533550422,
+            "scaledJacobianMin": 0.690496155626939,
+            "scaledJacobianP05": 0.6985248576728031,
+            "edgeLengthCV": 0.3998864027565059,
+            "adjacentAreaRatioP95": 4.091154613682987,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 20,
+          "iteration": 3,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 88,
+            "sourceSupportPoints": 525
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.90365594350905,
+            "angleP05Degrees": 48.71835456221511,
+            "maximumAngleDegrees": 135.76918280929567,
+            "edgeRatioP95": 3.411227550694137,
+            "edgeRatioMax": 3.429720747741816,
+            "scaledJacobianMin": 0.6925652460929377,
+            "scaledJacobianP05": 0.6987055360986968,
+            "edgeLengthCV": 0.4218073082663152,
+            "adjacentAreaRatioP95": 4.322121144363988,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 39,
+          "iteration": 4,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 104,
+            "sourceSupportPoints": 683
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.6534942744339,
+            "angleP05Degrees": 49.074671604198926,
+            "maximumAngleDegrees": 135.67228767525117,
+            "edgeRatioP95": 3.4086992458920826,
+            "edgeRatioMax": 3.449074712174179,
+            "scaledJacobianMin": 0.6883016272840938,
+            "scaledJacobianP05": 0.6984179911541553,
+            "edgeLengthCV": 0.420777955705057,
+            "adjacentAreaRatioP95": 4.669372608184167,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 32,
+          "iteration": 5,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 27,
+            "sourceSupportPoints": 565
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.559946979865515,
+            "angleP05Degrees": 48.152940268105226,
+            "maximumAngleDegrees": 135.67572246139446,
+            "edgeRatioP95": 3.4091804263696104,
+            "edgeRatioMax": 3.4304887508610498,
+            "scaledJacobianMin": 0.688788498278189,
+            "scaledJacobianP05": 0.6987532479221317,
+            "edgeLengthCV": 0.42999652696270807,
+            "adjacentAreaRatioP95": 4.499288064711435,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 27,
+          "iteration": 6,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 93,
+            "sourceSupportPoints": 426
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.938467271144674,
+            "angleP05Degrees": 47.78605826465705,
+            "maximumAngleDegrees": 135.71193250958913,
+            "edgeRatioP95": 3.410211365824201,
+            "edgeRatioMax": 3.4221620683212044,
+            "scaledJacobianMin": 0.6930482056850902,
+            "scaledJacobianP05": 0.6986717970959323,
+            "edgeLengthCV": 0.43423414760256646,
+            "adjacentAreaRatioP95": 4.94666041642368,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 25,
+          "iteration": 7,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 117,
+            "sourceSupportPoints": 416
+          }
+        }
+      ],
+      "elapsedSeconds": 50.70299999997951
+    },
+    {
+      "name": "weight-32-0",
+      "target": 150,
+      "job": null,
+      "state": "failed",
+      "producerKind": "isolated-source-normal-fit",
+      "weight": 32.0,
+      "fitterSha256": "4a88bdb2b466c0c39c432b3eb2ff68a6ae2d316cc757af9cd9b85b84abab982c",
+      "attempts": [
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.82501078459279,
+            "angleP05Degrees": 48.642309899228046,
+            "maximumAngleDegrees": 137.0150579600355,
+            "edgeRatioP95": 3.424649152998535,
+            "edgeRatioMax": 3.603627300179763,
+            "scaledJacobianMin": 0.6736772613132015,
+            "scaledJacobianP05": 0.6965554136152741,
+            "edgeLengthCV": 0.3806495161196639,
+            "adjacentAreaRatioP95": 4.702120970985022,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 12,
+          "iteration": 0,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 60,
+            "sourceSupportPoints": 481
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.03495562485212,
+            "angleP05Degrees": 48.55412247005906,
+            "maximumAngleDegrees": 136.5750339581636,
+            "edgeRatioP95": 3.4158411309210064,
+            "edgeRatioMax": 3.518525093930112,
+            "scaledJacobianMin": 0.6701942788609034,
+            "scaledJacobianP05": 0.6967642739280914,
+            "edgeLengthCV": 0.3814505270510381,
+            "adjacentAreaRatioP95": 4.471148974710575,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 26,
+          "iteration": 1,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 107,
+            "sourceSupportPoints": 390
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.939514212748946,
+            "angleP05Degrees": 47.25757836697932,
+            "maximumAngleDegrees": 135.9571066940978,
+            "edgeRatioP95": 3.4110808871130645,
+            "edgeRatioMax": 3.496497352306157,
+            "scaledJacobianMin": 0.688766397251644,
+            "scaledJacobianP05": 0.6978491791037233,
+            "edgeLengthCV": 0.4013537650193732,
+            "adjacentAreaRatioP95": 4.191999493199812,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 25,
+          "iteration": 2,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 27,
+            "sourceSupportPoints": 672
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 44.001717236236516,
+            "angleP05Degrees": 49.11568563526171,
+            "maximumAngleDegrees": 135.91209748046506,
+            "edgeRatioP95": 3.4144321026992226,
+            "edgeRatioMax": 3.448129950269246,
+            "scaledJacobianMin": 0.6864462770239855,
+            "scaledJacobianP05": 0.6982433593698807,
+            "edgeLengthCV": 0.40080823595773263,
+            "adjacentAreaRatioP95": 4.394031229026019,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 42,
+          "iteration": 3,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 58,
+            "sourceSupportPoints": 502
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 41.357816525853615,
+            "angleP05Degrees": 47.963540761077574,
+            "maximumAngleDegrees": 136.21557048124478,
+            "edgeRatioP95": 3.4126896388622234,
+            "edgeRatioMax": 3.5888593006349714,
+            "scaledJacobianMin": 0.6489526081076671,
+            "scaledJacobianP05": 0.6974015474287445,
+            "edgeLengthCV": 0.4271797724651255,
+            "adjacentAreaRatioP95": 4.7018235856226696,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 67,
+          "iteration": 4,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 118,
+            "sourceSupportPoints": 532
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 44.18571261868777,
+            "angleP05Degrees": 49.06557955097786,
+            "maximumAngleDegrees": 135.62333344825709,
+            "edgeRatioP95": 3.4101408829918607,
+            "edgeRatioMax": 3.5073805527425996,
+            "scaledJacobianMin": 0.6762055593122926,
+            "scaledJacobianP05": 0.6982057966899154,
+            "edgeLengthCV": 0.4229150041959989,
+            "adjacentAreaRatioP95": 4.275469019906025,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 25,
+          "iteration": 5,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 150,
+            "sourceSupportPoints": 351
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.464781593967196,
+            "angleP05Degrees": 47.45564175097008,
+            "maximumAngleDegrees": 135.8479211402,
+            "edgeRatioP95": 3.40643931414121,
+            "edgeRatioMax": 3.4188383140086294,
+            "scaledJacobianMin": 0.6811039735862868,
+            "scaledJacobianP05": 0.6986692722408995,
+            "edgeLengthCV": 0.4176286841681879,
+            "adjacentAreaRatioP95": 4.563812528585843,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 30,
+          "iteration": 6,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 112,
+            "sourceSupportPoints": 523
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 134,
+            "minimumAngleDegrees": 43.433815788900624,
+            "angleP05Degrees": 47.10699596830887,
+            "maximumAngleDegrees": 135.67481835071405,
+            "edgeRatioP95": 3.412617833322492,
+            "edgeRatioMax": 3.4580726237636648,
+            "scaledJacobianMin": 0.6856045592366756,
+            "scaledJacobianP05": 0.6976873300282845,
+            "edgeLengthCV": 0.42774805273496974,
+            "adjacentAreaRatioP95": 4.4788370761654654,
+            "valence4Fraction": 0.7352941176470589,
+            "irregularVertices": 36,
+            "targetRelativeError": 0.10666666666666667,
+            "passed": false,
+            "failures": [
+              "adjacentAreaRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "measuredContactPairs": 47,
+          "iteration": 7,
+          "refinement": {
+            "vertices": 136,
+            "evaluations": 65,
+            "sourceSupportPoints": 553
+          }
+        }
+      ],
+      "elapsedSeconds": 38.14100000000326
+    }
+  ],
+  "errors": [],
+  "inputFile": "tests\\toilet-objective-controls\\coarse150-layout172-ratio34\\coarse-150\\final-candidate.json",
+  "inputSha256": "fd49b3bea357c6c4e5f687615ccdfa821c4d3dcc51fb89109dcba5d8ce8be14d",
+  "sourceHashes": {
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "8d33a0f6c531047abc7a2effc34e6b678bb60e41c318d88850d83b483d67d87c",
+    "surface_guide_repair.py": "87cc84376f36dbd936e502db26e94e7a21696a9e36247c9ae9e99d3cdf2bb645",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/probe_toilet_normal_alignment.py": "c1ec19d34abeae5f238d8ad2dd94518abfaa57ca01845a4e6563f04e1a9a7e12"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 88.92099999997299,
+  "scope": "Detached fitting adds a hinge penalty for face normals opposing the nearest source centroid normal; those faces become active. Shape objective aims3.4 while acceptance stays3.5. Nearest-source normals update each fitting pass; no correspondence or qualification is assumed. All ordinary gates remain mandatory."
+}

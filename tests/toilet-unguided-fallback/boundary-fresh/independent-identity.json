@@ -1,0 +1,41 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "unguided-150",
+      "passed": true,
+      "outputSha256": "f43626770a5085611b6c177d532095b8176262ea42cf620c8092c7bb566fd937",
+      "target": 150,
+      "faces": 152,
+      "audits": {
+        "toilet-fresh-geometry": {
+          "report": "tests\\toilet-fresh-geometry\\coarse150-bridge-seed4\\result.json",
+          "sha256": "eb8f8f6d002bc4f146f3d6e111a1872541e2aa3095a2e152e31cd486cee825c4"
+        },
+        "toilet-all-diagonal-audit": {
+          "report": "tests\\toilet-all-diagonal-audit\\coarse150-bridge-seed4\\result.json",
+          "sha256": "060ba3ea48b892b871c4d04633516b33dae652ce496ed565b01df87c641aa11b"
+        }
+      }
+    },
+    {
+      "name": "unguided-600",
+      "passed": true,
+      "outputSha256": "c7d5fd4bf7a12dea2a77f5c335e572afe07083418f786ea4b7291863071e90ec",
+      "target": 600,
+      "faces": 605,
+      "audits": {
+        "toilet-fresh-geometry": {
+          "report": "tests\\toilet-fresh-geometry\\coarse600-neighbor\\result.json",
+          "sha256": "2cb7dc3ef8021ced66e9154cf5ed4993482d6a78c6b3565c44ca01d04a3c778d"
+        },
+        "toilet-all-diagonal-audit": {
+          "report": "tests\\toilet-all-diagonal-audit\\coarse600-neighbor\\result.json",
+          "sha256": "0887d9272605776946b1dead621c7a1f8a6b38afc03d5a261f537b214a2f929b"
+        }
+      }
+    }
+  ],
+  "scope": "Fresh original-source results from frozen current modules are byte-identical to independently audited150/600 experimental exports. Source, target, empty guide list, positions, faces and paths match; the shared application dispatch is still unchanged."
+}

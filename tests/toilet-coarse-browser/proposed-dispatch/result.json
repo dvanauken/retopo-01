@@ -1,0 +1,51 @@
+{
+  "complete": true,
+  "passed": false,
+  "productionResult": false,
+  "isolatedRealWorker": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "Isolated service serves the unchanged original toilet"
+    },
+    {
+      "passed": false,
+      "name": "unguided-150 has no guides"
+    },
+    {
+      "passed": false,
+      "name": "unguided-150 completes through the real worker",
+      "lastAttempt": {
+        "phase": "cancelled",
+        "message": "",
+        "target": 150,
+        "guideCount": 1,
+        "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    },
+    {
+      "passed": true,
+      "name": "Observed test processes exit",
+      "survivors": [],
+      "observedProcesses": 15
+    }
+  ],
+  "cases": [
+    {
+      "name": "unguided-150",
+      "target": 150,
+      "state": "cancelled",
+      "job": null,
+      "producerKind": "isolated-real-worker-browser"
+    }
+  ],
+  "errors": [
+    "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_coarse_browser.py\", line 87, in <module>\n    if case['state']!='complete' or not case['job']:raise AssertionError('No accepted result: '+json.dumps(state['lastAttempt']))\n                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: No accepted result: {\"phase\": \"cancelled\", \"message\": \"\", \"target\": 150, \"guideCount\": 1, \"sourceSha256\": \"c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053\"}\n"
+  ],
+  "sourceHashes": {
+    "tests/verify_toilet_coarse_browser.py": "586b957ef4a14572ae6ece68e37bc420555be79b2824ffdef21c59616bf4b291"
+  },
+  "frozenImplementationUnchanged": true,
+  "elapsedSeconds": 56.89100000000326,
+  "scope": "Native Chromium Generate and OBJ downloads from an isolated frozen real HTTP/worker service. The reviewed guard-removal patch enables unguided fallback only in that copy. No mocked results or retained output geometry are inputs. This does not claim the shared live application dispatch has been changed."
+}

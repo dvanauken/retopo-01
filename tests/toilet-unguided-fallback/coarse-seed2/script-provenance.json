@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/probe_toilet_unguided_fallback.py",
+  "executedScript": "tests\\toilet-unguided-fallback\\coarse-seed2\\executed-probe.py",
+  "executedSha256": "b147b156f4c45565abd70bc80e8040cf0ba3374ee287e0c86193a12d53b8aab2",
+  "currentScriptSha256": "7af504a6485646729672d5263342b1613e062ba3bf785c3d8ef187c9b670f333",
+  "scope": "Exact historical harness retained. Later extensions do not alter the recorded input or outcome; numerical module hashes remain separately scoped."
+}

@@ -1,0 +1,12 @@
+{
+  "complete": true,
+  "passed": false,
+  "tests": 0,
+  "sourceHashes": {
+    "tests/verify_surface_boundary_integration.py": "4cc9779c222855fb07843b1b75e416475381303e4241f8844af51cb8a46de474"
+  },
+  "errors": [
+    "AST identity assertion for _assess detected a concurrent external change from fixed guide-angle check to cq.guides_pass. No numerical/unit test ran in this attempt."
+  ],
+  "scope": "Retained initial verifier failure with exact snapshots. The shared guide-policy change is preserved; subsequent verification must distinguish unguided equivalence from guided behavior."
+}

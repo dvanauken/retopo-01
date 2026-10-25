@@ -1,0 +1,23 @@
+{
+  "complete": true,
+  "parent": "425b1083bf8a9642bd4cf89c8a69c4563d50e7a3",
+  "ownedBlobHashes": {
+    "surface_guide_refine.py": "4c8163380230f47fb5cce902d7ddba3a9d9002d1c6b346c1d96f6a4aacc6dd97",
+    "surface_boundary_repair.py": "a45897fe6711ba9d33cd37cf8b92f67819a5569b3c5c1d6f42f6895737129268",
+    "tests/test_surface_boundary_repair.py": "5cfaa7410e2ab6871c6f36b124e1e364c51a9c6b3b1ee6a00edba0af987824dc",
+    "tests/verify_surface_boundary_integration.py": "75a2bbe206720fe5ae762fff9882c2ff5137aa98127d63c9e7714860bf710037",
+    "surface_guide_repair.py": "f7ab1624370cb8b92b268bd1eeec6f8c30814a4ea78bab4ae4593118c74c7918",
+    "tests/test_surface_layout_retries.py": "a8dd597684c5593c00b8eed41d2e482b5527ecb38e92be7e8f744648b5ceccbe",
+    "curved_quad.py": "14fc6b65f791c4909f3510ce8e2c6ff191fec78b4314fb4d4ba53b37af7a7a03"
+  },
+  "worktreeHashes": {
+    "surface_guide_refine.py": "4c8163380230f47fb5cce902d7ddba3a9d9002d1c6b346c1d96f6a4aacc6dd97",
+    "surface_boundary_repair.py": "a45897fe6711ba9d33cd37cf8b92f67819a5569b3c5c1d6f42f6895737129268",
+    "tests/test_surface_boundary_repair.py": "5cfaa7410e2ab6871c6f36b124e1e364c51a9c6b3b1ee6a00edba0af987824dc",
+    "tests/verify_surface_boundary_integration.py": "75a2bbe206720fe5ae762fff9882c2ff5137aa98127d63c9e7714860bf710037",
+    "surface_guide_repair.py": "9711155402d14d6728b086405e3544edec5ec20b7c4d2345b1d48cfb8a13c22b",
+    "tests/test_surface_layout_retries.py": "723827d01fe217f8af63644b81675c058bcfa27b24c2fb43f263a7b1809e13dd",
+    "curved_quad.py": "a460fb64a92e0a68c33a638dda2cd2fec56c0bcc347a3a50d98347cb007ac6f2"
+  },
+  "scope": "Exact proposed owned runtime/test blobs over HEAD425b108. Shared guide-policy edits in repair and the guided layout-test fixture are excluded; CQ contains only guard removal over HEAD. Worktree files and real index remain untouched. This is a concrete candidate for separate verification and scoped staging."
+}

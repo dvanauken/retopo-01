@@ -47,7 +47,7 @@ def _assess(source_mesh, positions, faces, guides, target):
                 qualified=bool(eligible and surface['passed']))
 
 
-def _repair(source_mesh, positions, faces, edges, guides, target, current, record, job):
+def _repair(source_mesh, positions, faces, edges, guides, target, current, record, job, *, edge_ratio_aim=3.5):
     spacing = np.sqrt(source_mesh.area / target)
     for step in range(6):
         if current['qualified']:
@@ -68,7 +68,8 @@ def _repair(source_mesh, positions, faces, edges, guides, target, current, recor
             patch.update(faces[np.any(np.isin(faces, list(patch)), axis=1)].ravel())
         cq._progress(job, f'Refining local surface accuracy · pass {step + 1}')
         proposal, refinement = fitter.refine(source_mesh, positions, faces, edges, guides, target,
-                                             patch_vertices=patch, witness_source=source_points)
+                                             patch_vertices=patch, witness_source=source_points,
+                                             edge_ratio_aim=edge_ratio_aim)
         accepted = False
         for power in range(5):
             alpha = .5 ** power
@@ -185,4 +186,8 @@ def construct(source_mesh, curves, *, target, job, blender, input_path, history)
         if layout_target != targets[-1]:
             for name in artifacts:
                 (job / name).unlink(missing_ok=True)
+    if not curves:
+        from surface_boundary_repair import construct as construct_boundary_layout
+        return construct_boundary_layout(source_mesh, target=target, job=job, blender=blender,
+                                         input_path=input_path, history=history)
     return None

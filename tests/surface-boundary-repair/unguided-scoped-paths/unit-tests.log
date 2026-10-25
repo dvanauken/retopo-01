@@ -1,0 +1,49 @@
+test_contact_rejection_cannot_enter_surface_repair (test_surface_guide_repair.AcceptanceTests.test_contact_rejection_cannot_enter_surface_repair) ... ok
+test_full_surface_failure_still_rejects_a_repairable_candidate (test_surface_guide_repair.AcceptanceTests.test_full_surface_failure_still_rejects_a_repairable_candidate) ... ok
+test_guide_boundaries_reject_before_expensive_checks (test_surface_guide_repair.AcceptanceTests.test_guide_boundaries_reject_before_expensive_checks) ... ok
+test_limits_are_inclusive_and_all_gates_are_required (test_surface_guide_repair.AcceptanceTests.test_limits_are_inclusive_and_all_gates_are_required) ... ok
+test_shape_rejection_does_not_claim_unchecked_geometry_passes (test_surface_guide_repair.AcceptanceTests.test_shape_rejection_does_not_claim_unchecked_geometry_passes) ... ok
+test_single_mild_tangent_outlier_remains_eligible (test_surface_guide_repair.AcceptanceTests.test_single_mild_tangent_outlier_remains_eligible) ... ok
+test_unresolved_surface_without_witness_cannot_trigger_speculative_repair (test_surface_guide_repair.AcceptanceTests.test_unresolved_surface_without_witness_cannot_trigger_speculative_repair) ... ok
+test_boundary_acceptance_requires_surface_validator_as_well (test_surface_guide_joint.JointAcceptanceTests.test_boundary_acceptance_requires_surface_validator_as_well) ... ok
+test_failing_guide_can_be_repaired_but_cannot_be_accepted (test_surface_guide_joint.JointAcceptanceTests.test_failing_guide_can_be_repaired_but_cannot_be_accepted) ... ok
+test_invalid_topology_cannot_be_overridden_by_surface_measurement (test_surface_guide_joint.JointAcceptanceTests.test_invalid_topology_cannot_be_overridden_by_surface_measurement) ... ok
+test_previously_passing_direction_cannot_be_sacrificed (test_surface_guide_joint.JointAcceptanceTests.test_previously_passing_direction_cannot_be_sacrificed) ... ok
+test_protected_guide_cannot_be_sacrificed (test_surface_guide_joint.JointAcceptanceTests.test_protected_guide_cannot_be_sacrificed) ... ok
+test_shape_and_contact_failures_block_repair (test_surface_guide_joint.JointAcceptanceTests.test_shape_and_contact_failures_block_repair) ... ok
+test_single_mild_outlier_passes_but_higher_error_does_not (test_surface_guide_joint.JointAcceptanceTests.test_single_mild_outlier_passes_but_higher_error_does_not) ... ok
+test_unresolved_bound_never_counts_as_passed_despite_low_samples (test_surface_guide_joint.JointAcceptanceTests.test_unresolved_bound_never_counts_as_passed_despite_low_samples) ... ok
+test_all_supported_targets_have_bounded_unique_layout_counts (test_surface_layout_retries.LayoutRetryTests.test_all_supported_targets_have_bounded_unique_layout_counts) ... ok
+test_execution_error_propagates_without_trying_another_layout (test_surface_layout_retries.LayoutRetryTests.test_execution_error_propagates_without_trying_another_layout) ... ok
+test_first_success_preserves_result_and_avoids_further_layouts (test_surface_layout_retries.LayoutRetryTests.test_first_success_preserves_result_and_avoids_further_layouts) ... ok
+test_retries_preserve_requested_target_and_separate_diagnostics (test_surface_layout_retries.LayoutRetryTests.test_retries_preserve_requested_target_and_separate_diagnostics) ... ok
+test_total_failure_keeps_final_candidate_and_all_prior_artifacts (test_surface_layout_retries.LayoutRetryTests.test_total_failure_keeps_final_candidate_and_all_prior_artifacts) ... FAIL
+test_real_toilet_layout_preserves_euler_zero_and_matches_qualified_candidate (test_surface_boundary_repair.BridgeTests.test_real_toilet_layout_preserves_euler_zero_and_matches_qualified_candidate) ... ok
+test_rejects_nonmanifold_and_inconsistent_winding (test_surface_boundary_repair.BridgeTests.test_rejects_nonmanifold_and_inconsistent_winding) ... ok
+test_rejects_repeated_vertices_and_closed_mesh (test_surface_boundary_repair.BridgeTests.test_rejects_repeated_vertices_and_closed_mesh) ... ok
+test_rejects_unbounded_and_unequal_or_single_loops (test_surface_boundary_repair.BridgeTests.test_rejects_unbounded_and_unequal_or_single_loops) ... ok
+test_simple_strips_close_with_opposite_edge_directions_and_same_euler (test_surface_boundary_repair.BridgeTests.test_simple_strips_close_with_opposite_edge_directions_and_same_euler) ... FAIL
+
+======================================================================
+FAIL: test_total_failure_keeps_final_candidate_and_all_prior_artifacts (test_surface_layout_retries.LayoutRetryTests.test_total_failure_keeps_final_candidate_and_all_prior_artifacts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_surface_layout_retries.py", line 79, in test_total_failure_keeps_final_candidate_and_all_prior_artifacts
+    result, count, _ = self.run_construct(folder, attempt)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\dbva\code\retopo-1\tests\test_surface_layout_retries.py", line 33, in run_construct
+    self.assertEqual(boundary.call_count, 1 if result is None else 0)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_simple_strips_close_with_opposite_edge_directions_and_same_euler (test_surface_boundary_repair.BridgeTests.test_simple_strips_close_with_opposite_edge_directions_and_same_euler)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dbva\code\retopo-1\tests\test_surface_boundary_repair.py", line 31, in test_simple_strips_close_with_opposite_edge_directions_and_same_euler
+    self.assertTrue(all(len(items)==2 and items[0]==items[1][::-1] for items in incidence.values()))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.129s
+
+FAILED (failures=2)

@@ -24,9 +24,11 @@ class LayoutRetryTests(unittest.TestCase):
 
     def run_construct(self, folder, implementation):
         source, curves, history = object(), [], []
-        with patch.object(repair, '_construct_layout', side_effect=implementation) as call:
+        with patch.object(repair, '_construct_layout', side_effect=implementation) as call, \
+             patch('surface_boundary_repair.construct', return_value=None) as boundary:
             result = repair.construct(source, curves, target=600, job=folder, blender=Path('blender'),
                                       input_path=folder / 'input.json', history=history)
+        self.assertEqual(boundary.call_count, 1 if not curves and result is None else 0)
         for args in call.call_args_list:
             self.assertIs(args.args[0], source)
             self.assertIs(args.args[1], curves)
@@ -86,6 +88,17 @@ class LayoutRetryTests(unittest.TestCase):
                     repair.construct(object(), [], target=600, job=Path(directory), blender=Path('blender'),
                                      input_path=Path(directory) / 'input.json', history=[])
             self.assertEqual(call.call_count, 1)
+
+    def test_unguided_failure_reaches_boundary_fallback_once(self):
+        accepted = object()
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.object(repair, '_construct_layout', return_value=None), \
+                 patch('surface_boundary_repair.construct', return_value=accepted) as boundary:
+                result = repair.construct(object(), [], target=600, job=Path(directory), blender=Path('blender'),
+                                          input_path=Path(directory) / 'input.json', history=[])
+            self.assertIs(result, accepted)
+            self.assertEqual(boundary.call_count, 1)
+            self.assertEqual(boundary.call_args.kwargs['target'], 600)
 
 
 if __name__ == '__main__':

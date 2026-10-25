@@ -1,0 +1,21 @@
+{
+  "id": "e978a297fd7548eca55ec8cd13475266",
+  "meshId": "toilet",
+  "target": 150,
+  "state": "complete",
+  "stage": "Mesh ready",
+  "createdAt": 1792930513.0848587,
+  "requestId": "82c5903c04a440a1afed0e90b553bd82",
+  "startedAt": 1792930513.0858543,
+  "finishedAt": 1792930642.3419774,
+  "actualExitCode": 0,
+  "resultUrl": "/api/jobs/e978a297fd7548eca55ec8cd13475266/mesh.json",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\runs\\frozen-boundary-service\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\frozen-boundary-service\\runs\\e978a297fd7548eca55ec8cd13475266"
+  ]
+}

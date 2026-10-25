@@ -1,0 +1,33 @@
+{
+  "complete": true,
+  "passed": true,
+  "helperFunctions": [
+    "_arc",
+    "_corners",
+    "_edges",
+    "_guide_fit",
+    "_guide_path",
+    "_nearest_curve",
+    "_progress",
+    "_refine",
+    "_sample",
+    "_targets",
+    "_warpage",
+    "_write",
+    "find_blender",
+    "validate_surface"
+  ],
+  "ownedSourceHashes": {
+    "curved_quad.py": "14fc6b65f791c4909f3510ce8e2c6ff191fec78b4314fb4d4ba53b37af7a7a03",
+    "surface_guide_repair.py": "f7ab1624370cb8b92b268bd1eeec6f8c30814a4ea78bab4ae4593118c74c7918",
+    "surface_guide_refine.py": "4c8163380230f47fb5cce902d7ddba3a9d9002d1c6b346c1d96f6a4aacc6dd97",
+    "surface_boundary_repair.py": "a45897fe6711ba9d33cd37cf8b92f67819a5569b3c5c1d6f42f6895737129268"
+  },
+  "exercisedSourceHashes": {
+    "curved_quad.py": "c59473c8e1f69c890e92eb6f18619c4082ddeb2dd201afd7fb73b9fa4068355c",
+    "surface_guide_repair.py": "9711155402d14d6728b086405e3544edec5ec20b7c4d2345b1d48cfb8a13c22b",
+    "surface_guide_refine.py": "4c8163380230f47fb5cce902d7ddba3a9d9002d1c6b346c1d96f6a4aacc6dd97",
+    "surface_boundary_repair.py": "a45897fe6711ba9d33cd37cf8b92f67819a5569b3c5c1d6f42f6895737129268"
+  },
+  "scope": "All pre-existing CQ numerical helpers are AST-identical. Construction differs only in optional guided dispatch and empty guide checks/diagnostics; those branches have no work for these unguided inputs. Owned and exercised boundary/refinement modules and complete geometric gate modules are byte-identical. Separate scoped acceptance verification covers the repair assessment helper. Shared guide policy is excluded from the owned candidate, not silently treated as unchanged for nonempty inputs."
+}

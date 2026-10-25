@@ -1,0 +1,45 @@
+{
+  "complete": true,
+  "productionResult": false,
+  "generationPassed": true,
+  "cases": [
+    {
+      "name": "unguided-150",
+      "target": 150,
+      "state": "complete",
+      "job": null,
+      "producerKind": "isolated-unguided-sampled-fallback",
+      "elapsedSeconds": 99.84400000004098,
+      "attempts": 23,
+      "outputSha256": "f43626770a5085611b6c177d532095b8176262ea42cf620c8092c7bb566fd937",
+      "faces": 152
+    },
+    {
+      "name": "unguided-600",
+      "target": 600,
+      "state": "complete",
+      "job": null,
+      "producerKind": "isolated-unguided-sampled-fallback",
+      "elapsedSeconds": 177.64000000001397,
+      "attempts": 24,
+      "outputSha256": "c7d5fd4bf7a12dea2a77f5c335e572afe07083418f786ea4b7291863071e90ec",
+      "faces": 605
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "curved_quad.py": "a460fb64a92e0a68c33a638dda2cd2fec56c0bcc347a3a50d98347cb007ac6f2",
+    "surface_guide_refine.py": "4c8163380230f47fb5cce902d7ddba3a9d9002d1c6b346c1d96f6a4aacc6dd97",
+    "surface_guide_repair.py": "9711155402d14d6728b086405e3544edec5ec20b7c4d2345b1d48cfb8a13c22b",
+    "surface_boundary_repair.py": "a45897fe6711ba9d33cd37cf8b92f67819a5569b3c5c1d6f42f6895737129268",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+    "tests/probe_toilet_unguided_fallback.py": "7af504a6485646729672d5263342b1613e062ba3bf785c3d8ef187c9b670f333"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 277.6720000000205,
+  "scope": "Original toilet source and the actual explicit unguided fallback: fresh bounded nearby seed2 layouts followed by a fresh seed4 boundary proposal when needed. Production dispatch is unchanged. Rejected candidates remain unqualified; every accepted export needs separate independent geometry audits."
+}

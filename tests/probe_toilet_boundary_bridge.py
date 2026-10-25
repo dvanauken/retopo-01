@@ -28,9 +28,14 @@ from measure_geometry import topology
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--label', required=True)
+parser.add_argument('--layout', type=Path)
+parser.add_argument('--edge-ratio-aim', type=float, default=3.4)
+parser.add_argument('--shifts', type=int, nargs='+')
 args = parser.parse_args()
 if not args.label.replace('-', '').isalnum():
     raise ValueError('Use a plain label')
+if not 1 < args.edge_ratio_aim <= 3.5:
+    raise ValueError('Invalid shape objective')
 OUT = ROOT / 'tests/toilet-boundary-bridge' / args.label
 OUT.mkdir(parents=True, exist_ok=False)
 (OUT / 'executed-probe.py').write_bytes(Path(__file__).read_bytes())
@@ -38,8 +43,11 @@ sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
 hashes = {p: sha(ROOT / p) for p in ('assets/models/toilet.obj','curved_quad.py','surface_guide_refine.py','surface_guide_repair.py',
                                    'surface_intersections.py','surface_distance.py','quad_quality.py','tests/probe_toilet_boundary_bridge.py')}
 definition = (ROOT / 'surface_guide_refine.py').read_text()
-assert definition.count('np.maximum(ratio - 3.5, 0) * 10') == 1
-definition = definition.replace('np.maximum(ratio - 3.5, 0) * 10','np.maximum(ratio - 3.4, 0) * 10')
+if 'np.maximum(ratio - 3.5, 0) * 10' in definition:
+    definition = definition.replace('np.maximum(ratio - 3.5, 0) * 10',f'np.maximum(ratio - {args.edge_ratio_aim!r}, 0) * 10')
+else:
+    assert definition.count('edge_ratio_aim=3.5') == 1
+    definition = definition.replace('edge_ratio_aim=3.5',f'edge_ratio_aim={args.edge_ratio_aim!r}')
 module_path = OUT / 'executed-fitter.py'
 module_path.write_text(definition, newline='\n')
 spec = importlib.util.spec_from_file_location('boundary_bridge_fitter', module_path)
@@ -51,6 +59,9 @@ vertices, triangles = read_obj(ROOT / 'assets/models/toilet.obj')
 source = trimesh.Trimesh(vertices, triangles, process=False)
 source_topology, _, _ = topology(np.asarray(vertices), np.asarray(triangles).tolist())
 layout = ROOT / 'tests/toilet-unguided-fallback/coarse-seed2/unguided-150/quadri-layout-2.json'
+if args.layout:
+    layout = args.layout.resolve()
+    layout.relative_to(ROOT)
 raw = json.loads(layout.read_text())
 (OUT / 'layout.json').write_bytes(layout.read_bytes())
 positions, original_faces = np.asarray(raw['vertices']), np.asarray(raw['faces'])
@@ -80,15 +91,17 @@ started = time.monotonic()
 
 def save(complete):
     (OUT / 'result.json').write_text(json.dumps(dict(complete=complete, productionResult=False, cases=cases, errors=errors,
-        boundaryLoops=loop_data, layoutSha256=sha(layout), sourceHashes=hashes,
+        boundaryLoops=loop_data, layoutSha256=sha(layout), edgeRatioAim=args.edge_ratio_aim, sourceHashes=hashes,
         implementationUnchanged=all(sha(ROOT / p) == h for p,h in hashes.items()), elapsedSeconds=time.monotonic()-started,
-        scope='All cyclic correspondences between the two directed equal-length boundary loops of this retained raw layout. Each bridge reverses existing boundary edge directions and preserves Euler characteristic. Fitting aims for edge ratio3.4 but acceptance remains3.5 and every ordinary gate applies. No production connectivity change.'), indent=2) + '\n')
+        scope='Selected or all cyclic correspondences between the two directed equal-length boundary loops of this retained raw layout. Each bridge reverses existing boundary edge directions and preserves Euler characteristic. The explicit fitting objective does not change acceptance3.5 or any other ordinary gate. No production connectivity change.'), indent=2) + '\n')
 
 
 try:
     a, b = loops
     n = len(a)
-    for shift in range(n):
+    shifts = range(n) if args.shifts is None else args.shifts
+    assert all(0 <= shift < n for shift in shifts)
+    for shift in shifts:
         name = f'bridge-{shift}'
         folder = OUT / name
         folder.mkdir()
@@ -121,7 +134,7 @@ try:
             if current['qualified']:
                 break
         if current['eligibleForRepair'] and not current['qualified']:
-            p,current=repair._repair(source,p,faces,edges,guides,150,current,record,folder)
+            p,current=repair._repair(source,p,faces,edges,guides,150,current,record,folder,edge_ratio_aim=args.edge_ratio_aim)
         case['state']='complete' if current['qualified'] else 'failed'
         (folder / 'final-candidate.json').write_text(json.dumps(dict(vertices=p.tolist(),faces=faces.tolist())))
         if current['qualified']:

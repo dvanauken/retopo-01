@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/probe_toilet_boundary_bridge.py",
+  "executedScript": "tests\\toilet-boundary-bridge\\coarse150-seed4-default\\executed-probe.py",
+  "executedSha256": "2e068f25f5304b028d92c8da96347ecfb97e2fa55bdff21d70929caa8307c000",
+  "currentScriptSha256": "7800a39297d67a3bda37da5eadc8bd5b04213b5c4cd317f8cc424736133b21d8",
+  "scope": "Exact historical harness retained. Later extensions do not alter the recorded input or outcome; numerical module hashes remain separately scoped."
+}

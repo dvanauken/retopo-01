@@ -26,7 +26,7 @@ protect_service_tree()
 OUT = ROOT / 'tests/toilet-unguided-fallback' / args.label
 OUT.mkdir(parents=True, exist_ok=False)
 (OUT / 'executed-probe.py').write_bytes(Path(__file__).read_bytes())
-files = ['curved_quad.py', 'surface_guide_refine.py', 'surface_guide_repair.py', 'surface_distance.py', 'surface_intersections.py',
+files = ['curved_quad.py', 'surface_guide_refine.py', 'surface_guide_repair.py', 'surface_boundary_repair.py', 'surface_distance.py', 'surface_intersections.py',
          'quad_quality.py', 'assets/models/toilet.obj', 'scripts/quadriflow_mesh.py', 'tests/probe_toilet_unguided_fallback.py']
 sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
 hashes = {file: sha(ROOT / file) for file in files}
@@ -42,7 +42,7 @@ def save(complete):
         generationPassed=complete and not errors and all(c['state'] == 'complete' for c in cases), cases=cases, errors=errors,
         sourceHashes=hashes, implementationUnchanged=all(sha(ROOT / p) == h for p, h in hashes.items()),
         elapsedSeconds=time.monotonic() - started,
-        scope='Original toilet source, fresh seed2 Blender layout at each requested target, and the actual explicit sampled/local-surface fallback with no guides. Production dispatch is unchanged. Rejected candidates remain unqualified; every accepted export still needs separate independent geometry audits.'), indent=2) + '\n', newline='\n')
+        scope='Original toilet source and the actual explicit unguided fallback: fresh bounded nearby seed2 layouts followed by a fresh seed4 boundary proposal when needed. Production dispatch is unchanged. Rejected candidates remain unqualified; every accepted export needs separate independent geometry audits.'), indent=2) + '\n', newline='\n')
 
 
 try:

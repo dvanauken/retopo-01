@@ -1,0 +1,40 @@
+Building the quad surface layout
+Fitting guides and refining quads · pass 1
+Fitting guides and refining quads · pass 2
+Fitting guides and refining quads · pass 3
+Fitting guides and refining quads · pass 4
+Fitting guides and refining quads · pass 5
+Building the quad surface layout
+Fitting guides and refining quads · pass 1
+Fitting guides and refining quads · pass 2
+Fitting guides and refining quads · pass 3
+Fitting guides and refining quads · pass 4
+Fitting guides and refining quads · pass 5
+Building an additional layout for guide fitting
+Fitting sampled guide paths · pass 1
+Fitting sampled guide paths · pass 2
+Fitting sampled guide paths · pass 3
+Fitting sampled guide paths · pass 4
+Fitting sampled guide paths · pass 5
+Building an additional layout for guide fitting
+Fitting sampled guide paths · pass 1
+C:\Users\Buddy\miniforge3\Lib\site-packages\trimesh\triangles.py:656: RuntimeWarning: invalid value encountered in divide
+  v = (d1[is_ab] / (d1[is_ab] - d3[is_ab])).reshape((-1, 1))
+Fitting sampled guide paths · pass 2
+Fitting sampled guide paths · pass 3
+Fitting sampled guide paths · pass 4
+Fitting sampled guide paths · pass 5
+Building an additional layout for guide fitting
+Fitting sampled guide paths · pass 1
+Fitting sampled guide paths · pass 2
+Fitting sampled guide paths · pass 3
+Fitting sampled guide paths · pass 4
+Fitting sampled guide paths · pass 5
+Building an alternate closed-surface layout
+Fitting closed-surface layout · pass 1
+Fitting closed-surface layout · pass 2
+Fitting closed-surface layout · pass 3
+Fitting closed-surface layout · pass 4
+Fitting closed-surface layout · pass 5
+Refining local surface accuracy · pass 1
+{"passed": true, "vertices": 152, "faces": 152, "elapsedSeconds": 127.09399999998277}

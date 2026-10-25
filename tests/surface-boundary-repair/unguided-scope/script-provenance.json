@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/verify_surface_boundary_integration.py",
+  "executedScript": "tests\\surface-boundary-repair\\unguided-scope\\executed-test.py",
+  "executedSha256": "a6e13ff9b7c0eeb5c386e20ebe4eea6f2ddfd056c22fdea179ff6200f92350d0",
+  "currentScriptSha256": "75a2bbe206720fe5ae762fff9882c2ff5137aa98127d63c9e7714860bf710037",
+  "scope": "Exact historical harness retained. Later extensions do not alter the recorded input or outcome; numerical module hashes remain separately scoped."
+}

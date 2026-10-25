@@ -1,0 +1,110 @@
+{
+  "complete": true,
+  "passed": true,
+  "goalComplete": false,
+  "checkedAt": "2026-10-25T12:35:45.173310+00:00",
+  "evidence": {
+    "ownedControls": {
+      "report": "tests/surface-boundary-repair/owned-candidate/result.json",
+      "sha256": "0f2d7ddca21d89cecfc9a53c7424cccb1db27b92944f676584575dabee0b85e6"
+    },
+    "sharedControls": {
+      "report": "tests/surface-boundary-repair/shared-final/result.json",
+      "sha256": "50e0e7bf668ed73a47d99c2ac6322026f89690d7a7c51a89c606e88709a6a566"
+    },
+    "experimentalGeometry": {
+      "report": "tests/toilet-fresh-geometry/coarse150-bridge-seed4/result.json",
+      "sha256": "eb8f8f6d002bc4f146f3d6e111a1872541e2aa3095a2e152e31cd486cee825c4"
+    },
+    "experimentalContacts": {
+      "report": "tests/toilet-all-diagonal-audit/coarse150-bridge-seed4/result.json",
+      "sha256": "060ba3ea48b892b871c4d04633516b33dae652ce496ed565b01df87c641aa11b"
+    },
+    "freshSource": {
+      "report": "tests/toilet-unguided-fallback/boundary-fresh/result.json",
+      "sha256": "13c119ff7b0aa99b3f22341f5e0588112666d7e6d086e432472f9eb98e2251d8"
+    },
+    "freshSourceIdentity": {
+      "report": "tests/toilet-unguided-fallback/boundary-fresh/independent-identity.json",
+      "sha256": "5053b805f66a358b3292a38e2789a0667fd17826666ca332cf2b95dca36e1d61"
+    },
+    "browser": {
+      "report": "tests/toilet-coarse-browser/no-guides/result.json",
+      "sha256": "e17c325b2adb7d4d3b142b680b78888cd8297696faba3359ce32d3bda12aec6d"
+    },
+    "browserGeometry": {
+      "report": "tests/toilet-fresh-geometry/coarse-browser-proposed/result.json",
+      "sha256": "ed58d0c1f458ee17f68d96fba93d04739380ead386786455275a540d9bd00824"
+    },
+    "browserContacts": {
+      "report": "tests/toilet-all-diagonal-audit/coarse-browser-proposed/result.json",
+      "sha256": "a618f389600a4e4b9eca0613073bf6cde9193e5ebb70daafa3a9d964ea31a175"
+    },
+    "browserCleanup": {
+      "report": "tests/toilet-coarse-browser/no-guides/process-observation.json",
+      "sha256": "c53bf3fadf7a2f8b6baee20a4f326e960dee3a9e4680ef50ba82c7658589fe0e"
+    },
+    "appliedRuntime": {
+      "report": "tests/surface-boundary-repair/runtime-identity/result.json",
+      "sha256": "960d85000ce3b1acdae8cb1fef9a28a95c6a2792c43dcdc6f7210a8dda3df4c8"
+    },
+    "ownedNumericalScope": {
+      "report": "tests/surface-boundary-repair/commit-scope/result.json",
+      "sha256": "dfd7b74d4e3e2220484ec97012b8789f6a833b76f8b02cb1f502b9889e5c6144"
+    }
+  },
+  "sourceHashes": {
+    "surface_boundary_repair.py": "a45897fe6711ba9d33cd37cf8b92f67819a5569b3c5c1d6f42f6895737129268",
+    "surface_guide_refine.py": "4c8163380230f47fb5cce902d7ddba3a9d9002d1c6b346c1d96f6a4aacc6dd97",
+    "surface_guide_repair.py": "9711155402d14d6728b086405e3544edec5ec20b7c4d2345b1d48cfb8a13c22b",
+    "curved_quad.py": "c59473c8e1f69c890e92eb6f18619c4082ddeb2dd201afd7fb73b9fa4068355c",
+    "worker.py": "29a030de9c11024a0992e8ba8af65d9700d2c373228fb1597232555044160c9f",
+    "surface_guide_joint.py": "1d809f3c6f09ecaa27e2c59b70af97c3bd7303c1888d7fa2a6b15e1c681b7da2",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/record_toilet_boundary_checkpoint.py": "bf02df7df491c51e3239dfbba138a2b630d0c243123a822da6e887e0e9dc5342"
+  },
+  "cases": [
+    {
+      "name": "unguided-150",
+      "target": 150,
+      "state": "complete",
+      "job": "e978a297fd7548eca55ec8cd13475266",
+      "producerKind": "isolated-real-worker-browser",
+      "elapsedSeconds": 129.2561230659485,
+      "faces": 152,
+      "outputSha256": "f43626770a5085611b6c177d532095b8176262ea42cf620c8092c7bb566fd937"
+    },
+    {
+      "name": "unguided-600",
+      "target": 600,
+      "state": "complete",
+      "job": "2eb32677a4e44f9aa0eb701af70452ea",
+      "producerKind": "isolated-real-worker-browser",
+      "elapsedSeconds": 279.1776387691498,
+      "faces": 605,
+      "outputSha256": "c7d5fd4bf7a12dea2a77f5c335e572afe07083418f786ea4b7291863071e90ec"
+    }
+  ],
+  "negativeReports": {
+    "tests/toilet-normal-alignment/coarse150-layout172/result.json": "97952715a3e8b643460487bc94a323c1b1e81fb8a2e990c44080f5c1476569ef",
+    "tests/toilet-boundary-bridge/coarse150-seed4-default/result.json": "8497d28da92c4e82d110c8d93bd24f2523ce9f119560f71effd8b13c6d8fba3c",
+    "tests/toilet-coarse-browser/proposed-dispatch/result.json": "89428851cfa84961730090a36c1274fd4c44c35f4df822fcf16cba714f91d508",
+    "tests/surface-boundary-repair/integrated/result.json": "6965a3c3f0a69bd1af87b4035f8247842c303a32cae2d1abd046238c4bd81287",
+    "tests/surface-boundary-repair/unguided-scope/result.json": "d3c7413eb2671f6c8d92f80086b12138b515b1db8bd11c2f46d7396ffa20eaf9",
+    "tests/surface-boundary-repair/unguided-scoped-paths/result.json": "d92f392d4a7d107f7ff5bffbc62497e8e64cae956e043e66aa6316ab9bf57913"
+  },
+  "ownedControls": 25,
+  "sharedControls": 27,
+  "overlappingControlCounts": true,
+  "sourceAndGeometryLimitsUnchanged": true,
+  "sharedGuidePolicyPreserved": true,
+  "remaining": [
+    "Reconcile broader guide/input variations and shared policy changes against final requirements.",
+    "Paired1799browser runtime near600seconds remains a limitation; coarse browser jobs take129/279seconds.",
+    "No universal input robustness or interactive-speed claim. Exhaustive audit remains active."
+  ],
+  "scope": "Fresh original-source fallback, native real-worker browser exports, independent geometry/contact audits and247-file applied runtime identity qualify these unguided150/600cases. Source and geometry limits are unchanged. The owned baseline candidate preserves original guide policy; current shared policy is separately tested and left outside the owned commit. Negative controls and setup failures remain retained."
+}

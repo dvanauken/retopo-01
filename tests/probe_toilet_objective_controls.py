@@ -55,8 +55,11 @@ def detached(path, name):
 
 
 definition = (ROOT / 'surface_guide_refine.py').read_text()
-assert definition.count('np.maximum(ratio - 3.5, 0) * 10') == 1
-definition = definition.replace('np.maximum(ratio - 3.5, 0) * 10', f'np.maximum(ratio - {args.edge_ratio_aim!r}, 0) * 10')
+if 'np.maximum(ratio - 3.5, 0) * 10' in definition:
+    definition = definition.replace('np.maximum(ratio - 3.5, 0) * 10', f'np.maximum(ratio - {args.edge_ratio_aim!r}, 0) * 10')
+else:
+    assert definition.count('edge_ratio_aim=3.5') == 1
+    definition = definition.replace('edge_ratio_aim=3.5', f'edge_ratio_aim={args.edge_ratio_aim!r}')
 if definition.count('/ spacing * 32 * sample_weights[:, None]') == 2:
     definition = definition.replace('/ spacing * 32 * sample_weights[:, None]', f'/ spacing * {args.distance_weight!r} * sample_weights[:, None]')
 else:
@@ -151,7 +154,8 @@ try:
         if curves and not current['qualified']:
             positions, current = joint.repair(source, positions, faces, edges, guides, target, job=folder, record=record)
         elif not curves and current['eligibleForRepair'] and not current['qualified']:
-            positions, current = repair._repair(source, positions, faces, edges, guides, target, current, record, folder)
+            positions, current = repair._repair(source, positions, faces, edges, guides, target, current, record, folder,
+                                                edge_ratio_aim=args.edge_ratio_aim)
         (folder / 'final-candidate.json').write_text(json.dumps(dict(vertices=positions.tolist(), faces=faces.tolist())))
         case.update(state='complete' if current['qualified'] else 'failed', elapsedSeconds=time.monotonic() - begin)
         if current['qualified']:

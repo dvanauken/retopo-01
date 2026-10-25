@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/verify_toilet_coarse_browser.py",
+  "executedScript": "tests\\toilet-coarse-browser\\proposed-dispatch\\executed-test.py",
+  "executedSha256": "586b957ef4a14572ae6ece68e37bc420555be79b2824ffdef21c59616bf4b291",
+  "currentScriptSha256": "2b809e44e1f9134de15b554f8dc5200c13240c781288f8ffcac56593fbbd053e",
+  "scope": "Exact historical harness retained. Later extensions do not alter the recorded input or outcome; numerical module hashes remain separately scoped."
+}

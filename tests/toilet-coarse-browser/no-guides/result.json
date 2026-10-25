@@ -1,0 +1,125 @@
+{
+  "complete": true,
+  "passed": true,
+  "productionResult": false,
+  "isolatedRealWorker": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "Isolated service serves the unchanged original toilet"
+    },
+    {
+      "passed": true,
+      "name": "unguided-150 has no guides"
+    },
+    {
+      "passed": true,
+      "name": "unguided-150 completes through the real worker",
+      "lastAttempt": {
+        "phase": "complete",
+        "message": "",
+        "target": 150,
+        "guideCount": 0,
+        "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    },
+    {
+      "passed": true,
+      "name": "unguided-150 honors requested density tolerance"
+    },
+    {
+      "passed": true,
+      "name": "unguided-150 preserves the document and clears the update badge"
+    },
+    {
+      "passed": true,
+      "name": "unguided-150 replaces the empty or previous result with generated geometry"
+    },
+    {
+      "passed": true,
+      "name": "unguided-150 downloads exactly the accepted worker OBJ"
+    },
+    {
+      "passed": true,
+      "name": "unguided-150 retains all geometry gates"
+    },
+    {
+      "passed": true,
+      "name": "unguided-600 has no guides"
+    },
+    {
+      "passed": true,
+      "name": "unguided-600 completes through the real worker",
+      "lastAttempt": {
+        "phase": "complete",
+        "message": "",
+        "target": 600,
+        "guideCount": 0,
+        "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    },
+    {
+      "passed": true,
+      "name": "unguided-600 honors requested density tolerance"
+    },
+    {
+      "passed": true,
+      "name": "unguided-600 preserves the document and clears the update badge"
+    },
+    {
+      "passed": true,
+      "name": "unguided-600 replaces the empty or previous result with generated geometry"
+    },
+    {
+      "passed": true,
+      "name": "unguided-600 downloads exactly the accepted worker OBJ"
+    },
+    {
+      "passed": true,
+      "name": "unguided-600 retains all geometry gates"
+    },
+    {
+      "passed": true,
+      "name": "Frozen implementation remains unchanged through both browser jobs"
+    },
+    {
+      "passed": true,
+      "name": "Shared live-service pointer stays untouched"
+    },
+    {
+      "passed": true,
+      "name": "Observed test processes exit",
+      "survivors": [],
+      "observedProcesses": 33
+    }
+  ],
+  "cases": [
+    {
+      "name": "unguided-150",
+      "target": 150,
+      "state": "complete",
+      "job": "e978a297fd7548eca55ec8cd13475266",
+      "producerKind": "isolated-real-worker-browser",
+      "elapsedSeconds": 129.2561230659485,
+      "faces": 152,
+      "outputSha256": "f43626770a5085611b6c177d532095b8176262ea42cf620c8092c7bb566fd937"
+    },
+    {
+      "name": "unguided-600",
+      "target": 600,
+      "state": "complete",
+      "job": "2eb32677a4e44f9aa0eb701af70452ea",
+      "producerKind": "isolated-real-worker-browser",
+      "elapsedSeconds": 279.1776387691498,
+      "faces": 605,
+      "outputSha256": "c7d5fd4bf7a12dea2a77f5c335e572afe07083418f786ea4b7291863071e90ec"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "tests/verify_toilet_coarse_browser.py": "2b809e44e1f9134de15b554f8dc5200c13240c781288f8ffcac56593fbbd053e"
+  },
+  "frozenImplementationUnchanged": true,
+  "elapsedSeconds": 414.10899999999674,
+  "scope": "Native Chromium Generate and OBJ downloads from an isolated frozen real HTTP/worker service. The reviewed guard-removal patch enables unguided fallback only in that copy. No mocked results or retained output geometry are inputs. This does not claim the shared live application dispatch has been changed."
+}

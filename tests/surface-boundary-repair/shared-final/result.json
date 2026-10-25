@@ -1,0 +1,39 @@
+{
+  "complete": true,
+  "passed": true,
+  "tests": 27,
+  "checks": [
+    {
+      "name": "Default fitting AST unchanged",
+      "passed": true
+    },
+    {
+      "name": "Explicit3.4objective AST matches independently qualified experiment",
+      "passed": true
+    },
+    {
+      "name": "Existing unguided assessment/layout/local-repair bodies unchanged except forwarding shape objective",
+      "passed": true
+    }
+  ],
+  "sharedGuidePolicyChanged": true,
+  "baselineRevision": "425b1083bf8a9642bd4cf89c8a69c4563d50e7a3",
+  "sourceHashes": {
+    "surface_guide_refine.py": "4c8163380230f47fb5cce902d7ddba3a9d9002d1c6b346c1d96f6a4aacc6dd97",
+    "surface_guide_repair.py": "9711155402d14d6728b086405e3544edec5ec20b7c4d2345b1d48cfb8a13c22b",
+    "surface_boundary_repair.py": "a45897fe6711ba9d33cd37cf8b92f67819a5569b3c5c1d6f42f6895737129268",
+    "surface_guide_joint.py": "1d809f3c6f09ecaa27e2c59b70af97c3bd7303c1888d7fa2a6b15e1c681b7da2",
+    "curved_quad.py": "c59473c8e1f69c890e92eb6f18619c4082ddeb2dd201afd7fb73b9fa4068355c",
+    "worker.py": "29a030de9c11024a0992e8ba8af65d9700d2c373228fb1597232555044160c9f",
+    "tests/test_surface_guide_repair.py": "61f4a7c71ad188262d081029e15cce279d58fdf7812da1b7bfed4631e1b6fb3e",
+    "tests/test_surface_guide_joint.py": "c167be850ab1fa22ac3b2cde81873d58f2cf10c23200d7c621cc492e81c683df",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/test_surface_layout_retries.py": "723827d01fe217f8af63644b81675c058bcfa27b24c2fb43f263a7b1809e13dd",
+    "tests/test_surface_boundary_repair.py": "5cfaa7410e2ab6871c6f36b124e1e364c51a9c6b3b1ee6a00edba0af987824dc",
+    "tests/verify_surface_boundary_integration.py": "75a2bbe206720fe5ae762fff9882c2ff5137aa98127d63c9e7714860bf710037"
+  },
+  "scope": "Exact AST specialization proves prior fitting defaults and the qualified detached3.4objective. The shared session changed guided acceptance; this report verifies equivalence only for empty guide lists and preserves that external edit. Executable acceptance/retry/topology controls include all bounded loop sizes, winding/manifold rejection, Euler preservation and the actual152quad bridge. Fresh-source generation and independent export audits are separate."
+}

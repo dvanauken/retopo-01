@@ -63,7 +63,8 @@ def _sample_targets(positions, guides):
 
 
 def refine(source_mesh, positions, faces, edges, guides, target, *, patch_vertices=None, witness_source=None,
-           tangent_tail_weight=0., surface_constraints=None, constraint_weight=8., guide_distance_weight=32.):
+           tangent_tail_weight=0., surface_constraints=None, constraint_weight=8., guide_distance_weight=32.,
+           edge_ratio_aim=3.5):
     """Return a fitted candidate without altering the input arrays or gates."""
     positions, faces, edges = np.asarray(positions), np.asarray(faces), np.asarray(edges)
     spacing = np.sqrt(source_mesh.area / target)
@@ -177,7 +178,7 @@ def refine(source_mesh, positions, faces, edges, guides, target, *, patch_vertic
         surface_delta = (q[support] * barycentric[:, :, None]).sum(axis=1) - support_target
         return np.r_[np.maximum(.7 - jacobian, 0).ravel() * 60,
                      np.maximum(np.abs(cosine) - .7, 0).ravel(), cosine.ravel() * .1,
-                     np.maximum(ratio - 3.5, 0) * 10, cq._warpage(q, local_faces) / spacing * 8,
+                     np.maximum(ratio - edge_ratio_aim, 0) * 10, cq._warpage(q, local_faces) / spacing * 8,
                      np.maximum(.4 - length / spacing, 0) * 5,
                      np.maximum(length / spacing - 1.7, 0), (delta * normal).sum(axis=1) / spacing * 6,
                      delta.ravel() / spacing * 2, pin_residual(q[pins]),

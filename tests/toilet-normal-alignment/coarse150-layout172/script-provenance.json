@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/probe_toilet_normal_alignment.py",
+  "executedScript": "tests\\toilet-normal-alignment\\coarse150-layout172\\executed-probe.py",
+  "executedSha256": "c1ec19d34abeae5f238d8ad2dd94518abfaa57ca01845a4e6563f04e1a9a7e12",
+  "currentScriptSha256": "d710bb1f0face6688a52157ff93b3d061caef209b0b5141bc9dce3bebe480913",
+  "scope": "Exact historical harness retained. Later extensions do not alter the recorded input or outcome; numerical module hashes remain separately scoped."
+}

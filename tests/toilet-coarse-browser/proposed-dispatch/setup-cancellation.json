@@ -1,0 +1,16 @@
+{
+  "job": "f6a99b55decc49a69ca05162aa03a1b6",
+  "guideCount": 1,
+  "reason": "Browser precondition expected zero guides but selecting the toilet loads an example. Stop this test-owned job; correct native clear-guide setup before rerunning.",
+  "cancellation": {
+    "id": "f6a99b55decc49a69ca05162aa03a1b6",
+    "meshId": "toilet",
+    "target": 150,
+    "state": "cancelled",
+    "stage": "Cancelled",
+    "createdAt": 1792930421.3435483,
+    "requestId": "918f1c33f6f04f30a54f5dd2d00d5abe",
+    "startedAt": 1792930421.3445501,
+    "finishedAt": 1792930474.8158977
+  }
+}

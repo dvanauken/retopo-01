@@ -1,0 +1,436 @@
+{
+  "complete": true,
+  "productionResult": false,
+  "cases": [
+    {
+      "name": "bridge-0",
+      "target": 150,
+      "job": null,
+      "state": "failed",
+      "producerKind": "isolated-boundary-bridge",
+      "addedFaces": [
+        [
+          80,
+          79,
+          81,
+          146
+        ],
+        [
+          92,
+          80,
+          146,
+          145
+        ],
+        [
+          79,
+          92,
+          145,
+          81
+        ]
+      ],
+      "initialTopology": {
+        "vertices": 152,
+        "usedVertices": 152,
+        "unusedVertices": 0,
+        "faces": 152,
+        "edges": 304,
+        "faceSizes": {
+          "4": 152
+        },
+        "triangles": 0,
+        "quads": 152,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          152
+        ],
+        "boundaryEdges": 0,
+        "boundaryComponents": 0,
+        "closedBoundaryLoops": 0,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 8,
+        "maxQuadFourthPointPlaneDistance": 0.27894307990585004,
+        "eulerCharacteristic": 0,
+        "bounds": [
+          [
+            -0.6169436573982239,
+            -0.9940217137336731,
+            -1.0006130933761597
+          ],
+          [
+            0.595037043094635,
+            0.994670569896698,
+            0.9610417485237122
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.06667381896084372,
+          "median": 0.26088974622585526,
+          "max": 0.421634859823031
+        },
+        "canonicalGeometrySignature": "7711bd46de4dd1158b7ae345b29abdb560d079469d55fc98d766b4c6f35c6f53"
+      },
+      "attempts": [
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 152,
+            "minimumAngleDegrees": 40.34429139902261,
+            "angleP05Degrees": 50.644840241631414,
+            "maximumAngleDegrees": 135.59107229520654,
+            "edgeRatioP95": 3.3374406614931797,
+            "edgeRatioMax": 3.5055735847343823,
+            "scaledJacobianMin": 0.6399427709981238,
+            "scaledJacobianP05": 0.6981283891416878,
+            "edgeLengthCV": 0.3343816582902582,
+            "adjacentAreaRatioP95": 2.7393989190713266,
+            "valence4Fraction": 0.7368421052631579,
+            "irregularVertices": 40,
+            "targetRelativeError": 0.013333333333333334,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": false,
+            "nonAdjacentIntersectingFacePairs": [
+              [
+                92,
+                98
+              ],
+              [
+                98,
+                102
+              ],
+              [
+                98,
+                104
+              ]
+            ],
+            "adjacentIntersectingFacePairs": [],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 0,
+          "refinement": {
+            "vertices": 152,
+            "evaluations": 103,
+            "sourceSupportPoints": 2597
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 152,
+            "minimumAngleDegrees": 44.035421478025846,
+            "angleP05Degrees": 48.3424351170804,
+            "maximumAngleDegrees": 135.7170991153514,
+            "edgeRatioP95": 3.5027442484601936,
+            "edgeRatioMax": 3.5194582615095507,
+            "scaledJacobianMin": 0.6940325728903007,
+            "scaledJacobianP05": 0.6988970570025304,
+            "edgeLengthCV": 0.37148293386531367,
+            "adjacentAreaRatioP95": 3.5738557314801973,
+            "valence4Fraction": 0.7368421052631579,
+            "irregularVertices": 40,
+            "targetRelativeError": 0.013333333333333334,
+            "passed": false,
+            "failures": [
+              "edgeRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 1,
+          "refinement": {
+            "vertices": 152,
+            "evaluations": 91,
+            "sourceSupportPoints": 767
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 152,
+            "minimumAngleDegrees": 44.08090989103115,
+            "angleP05Degrees": 47.62762895029125,
+            "maximumAngleDegrees": 135.67449128120208,
+            "edgeRatioP95": 3.502148474116398,
+            "edgeRatioMax": 3.5088629048255298,
+            "scaledJacobianMin": 0.6956674206262692,
+            "scaledJacobianP05": 0.6993165138275275,
+            "edgeLengthCV": 0.3831243591044479,
+            "adjacentAreaRatioP95": 3.677911131721121,
+            "valence4Fraction": 0.7368421052631579,
+            "irregularVertices": 40,
+            "targetRelativeError": 0.013333333333333334,
+            "passed": false,
+            "failures": [
+              "edgeRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 2,
+          "refinement": {
+            "vertices": 152,
+            "evaluations": 87,
+            "sourceSupportPoints": 520
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 152,
+            "minimumAngleDegrees": 44.02515397677541,
+            "angleP05Degrees": 48.23473980788974,
+            "maximumAngleDegrees": 135.67548439864265,
+            "edgeRatioP95": 3.503654957354582,
+            "edgeRatioMax": 3.5173714146468384,
+            "scaledJacobianMin": 0.6948353641849128,
+            "scaledJacobianP05": 0.6994038680096606,
+            "edgeLengthCV": 0.392860615686738,
+            "adjacentAreaRatioP95": 3.8818936114001126,
+            "valence4Fraction": 0.7368421052631579,
+            "irregularVertices": 40,
+            "targetRelativeError": 0.013333333333333334,
+            "passed": false,
+            "failures": [
+              "edgeRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 3,
+          "refinement": {
+            "vertices": 152,
+            "evaluations": 96,
+            "sourceSupportPoints": 518
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 152,
+            "minimumAngleDegrees": 44.165565498114,
+            "angleP05Degrees": 47.04220922362653,
+            "maximumAngleDegrees": 135.6336178061594,
+            "edgeRatioP95": 3.504051433458961,
+            "edgeRatioMax": 3.522089051574665,
+            "scaledJacobianMin": 0.6963661521540703,
+            "scaledJacobianP05": 0.6993473272583648,
+            "edgeLengthCV": 0.3955387828338104,
+            "adjacentAreaRatioP95": 3.8386122112413434,
+            "valence4Fraction": 0.7368421052631579,
+            "irregularVertices": 40,
+            "targetRelativeError": 0.013333333333333334,
+            "passed": false,
+            "failures": [
+              "edgeRatioP95 above limit"
+            ],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 4,
+          "refinement": {
+            "vertices": 152,
+            "evaluations": 93,
+            "sourceSupportPoints": 498
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "boundaryLoops": [
+    {
+      "vertices": [
+        79,
+        80,
+        92
+      ],
+      "coordinates": [
+        [
+          -0.07280735671520233,
+          0.47361209988594055,
+          -0.305925190448761
+        ],
+        [
+          -0.10765108466148376,
+          0.3891107439994812,
+          -0.44313716888427734
+        ],
+        [
+          -0.0054628257639706135,
+          0.4807233214378357,
+          -0.5198407769203186
+        ]
+      ],
+      "center": [
+        -0.06197375571355224,
+        0.4478153884410858,
+        -0.42296771208445233
+      ]
+    },
+    {
+      "vertices": [
+        81,
+        145,
+        146
+      ],
+      "coordinates": [
+        [
+          0.11321628093719482,
+          0.5737369656562805,
+          -0.514610230922699
+        ],
+        [
+          -0.018187303096055984,
+          0.8481060266494751,
+          -0.6775965094566345
+        ],
+        [
+          0.016467303037643433,
+          0.5181620121002197,
+          -0.7142531275749207
+        ]
+      ],
+      "center": [
+        0.03716542695959409,
+        0.6466683348019918,
+        -0.6354866226514181
+      ]
+    }
+  ],
+  "layoutSha256": "af8e35eec350b9652338a2a38271976e37508266dbeddbdbbff6091282193349",
+  "edgeRatioAim": 3.5,
+  "sourceHashes": {
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "curved_quad.py": "a460fb64a92e0a68c33a638dda2cd2fec56c0bcc347a3a50d98347cb007ac6f2",
+    "surface_guide_refine.py": "8d33a0f6c531047abc7a2effc34e6b678bb60e41c318d88850d83b483d67d87c",
+    "surface_guide_repair.py": "658a6e7e341c80a5afb722b677c92cc789cf081681aba562ab5dd7c30aadf09b",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "tests/probe_toilet_boundary_bridge.py": "2e068f25f5304b028d92c8da96347ecfb97e2fa55bdff21d70929caa8307c000"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 25.969000000040978,
+  "scope": "Selected or all cyclic correspondences between the two directed equal-length boundary loops of this retained raw layout. Each bridge reverses existing boundary edge directions and preserves Euler characteristic. The explicit fitting objective does not change acceptance3.5 or any other ordinary gate. No production connectivity change."
+}
