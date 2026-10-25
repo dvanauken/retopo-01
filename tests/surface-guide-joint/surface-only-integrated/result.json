@@ -1,0 +1,43 @@
+{
+  "complete": true,
+  "passed": true,
+  "checks": [
+    {
+      "name": "tests/surface-guide-joint/surface-only-long-control",
+      "passed": true,
+      "reportSha256": "92db96951eed3ed68862dbede60d3040660331c9cd0e5adb2ae202839f27a252",
+      "numericalChecks": 13
+    },
+    {
+      "name": "tests/surface-guide-joint/surface-only-perturbed",
+      "passed": true,
+      "reportSha256": "82d878a706299b71bcb60cae30c0aa0a0e3b3cb842189de2664054d0811690b7",
+      "numericalChecks": 14
+    },
+    {
+      "name": "tests/surface-guide-refine/surface-only-defaults",
+      "passed": true,
+      "reportSha256": "2b8f0f8aeb13cee039dc9120bb7b5c1595d0e558440a08a95d7b5d57e33adfe4",
+      "numericalChecks": 33
+    },
+    {
+      "name": "Acceptance controls on applied modules",
+      "passed": true,
+      "tests": 13
+    }
+  ],
+  "tests": 13,
+  "sourceHashes": {
+    "surface_guide_refine.py": "8d33a0f6c531047abc7a2effc34e6b678bb60e41c318d88850d83b483d67d87c",
+    "surface_guide_joint.py": "b1c5297400c62a05251781bb7cec94d9570bbc8cf339f7ac5de5bb328b2ea0fe",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/test_surface_guide_repair.py": "228b2dcb7a30b039fb08867961cf193f9e4e413f4b01e897bbc35df4247fae3a",
+    "tests/test_surface_guide_joint.py": "bf5c77ca00b93e523906a057eb6c04308f96c12bb989168fb94a6e8f02ee5708",
+    "tests/verify_surface_only_integration.py": "391e3eec5219754381e9b8093ae8404af54b4b16da58b940042aa3fb3a699dbf"
+  },
+  "scope": "Applied source is byte-identical to the tested adaptive modules. Separate numerical reports reproduce prior long/bowl/short coordinates and the qualified perturbed candidate; acceptance controls run on applied modules. Actual service and browser coverage are recorded separately."
+}

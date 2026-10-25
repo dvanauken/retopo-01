@@ -1,0 +1,2964 @@
+{
+  "complete": true,
+  "generationPassed": true,
+  "productionResult": false,
+  "cases": [
+    {
+      "name": "short-perturbed",
+      "target": 1800,
+      "job": null,
+      "state": "complete",
+      "producerKind": "isolated-objective-controls",
+      "layoutSource": "runs\\5dfcee62ddbd4af587c799220909463e\\quadri-layout-2.json",
+      "layoutSha256": "9a7b6bdf837dfcc540bff706258a2776c16de82cda9560e4b143e88f0b902147",
+      "attempts": [
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 1845,
+            "minimumAngleDegrees": 44.262355944212764,
+            "angleP05Degrees": 70.115709790522,
+            "maximumAngleDegrees": 139.73783147410612,
+            "edgeRatioP95": 2.1427161695512913,
+            "edgeRatioMax": 4.248149202567901,
+            "scaledJacobianMin": 0.6360816655405209,
+            "scaledJacobianP05": 0.8668926501950274,
+            "edgeLengthCV": 0.1738458118488458,
+            "adjacentAreaRatioP95": 1.7180506664462665,
+            "valence4Fraction": 0.9566395663956639,
+            "irregularVertices": 80,
+            "targetRelativeError": 0.025,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [
+            {
+              "vertices": [
+                738,
+                604,
+                590,
+                605,
+                486,
+                758,
+                791,
+                741,
+                742,
+                716,
+                715,
+                592,
+                565,
+                568,
+                567,
+                569,
+                571,
+                539,
+                523,
+                1841,
+                593,
+                414,
+                368,
+                403,
+                378,
+                377,
+                379,
+                1472,
+                1332,
+                1330,
+                1329,
+                380,
+                382,
+                370,
+                1782,
+                446,
+                447,
+                519,
+                520,
+                521,
+                534,
+                651,
+                687,
+                586,
+                585,
+                535,
+                537,
+                522,
+                484,
+                587,
+                588,
+                712,
+                538,
+                589,
+                738
+              ],
+              "closed": true,
+              "curve": 0,
+              "p95Distance": 0.012809969936848041,
+              "p95TangentAngleDegrees": 34.3434232158419,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.0033958204719050514,
+                "p95Distance": 0.012809969936848041,
+                "maxDistance": 0.026870385384909296,
+                "meanDistanceOverMedianEdge": 0.042259764124863534,
+                "meanUnsignedTangentAngleDegrees": 8.054314416792604,
+                "p95UnsignedTangentAngleDegrees": 34.3434232158419,
+                "selectedEdgeCount": 54,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "2": 54
+                },
+                "selectedEdgesFormSingleCycle": true,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            },
+            {
+              "vertices": [
+                488,
+                485,
+                487,
+                385,
+                387,
+                429,
+                428,
+                426,
+                457,
+                455,
+                454,
+                562,
+                482,
+                453,
+                451,
+                405,
+                406,
+                1723,
+                375
+              ],
+              "closed": false,
+              "curve": 1,
+              "p95Distance": 0.011137853629536247,
+              "p95TangentAngleDegrees": 17.20716503153881,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.003999553489180064,
+                "p95Distance": 0.011137853629536247,
+                "maxDistance": 0.015565725412930258,
+                "meanDistanceOverMedianEdge": 0.048989331670347434,
+                "meanUnsignedTangentAngleDegrees": 6.686474485265719,
+                "p95UnsignedTangentAngleDegrees": 17.20716503153881,
+                "selectedEdgeCount": 18,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "1": 2,
+                  "2": 17
+                },
+                "selectedEdgesFormSingleCycle": false,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            }
+          ],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 0,
+          "refinement": {
+            "vertices": 1557,
+            "evaluations": 33,
+            "sourceSupportPoints": 984
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 1845,
+            "minimumAngleDegrees": 44.29158363428934,
+            "angleP05Degrees": 68.2968079303049,
+            "maximumAngleDegrees": 138.87837491704315,
+            "edgeRatioP95": 2.364717413274744,
+            "edgeRatioMax": 3.9173920864901337,
+            "scaledJacobianMin": 0.6413913240118762,
+            "scaledJacobianP05": 0.8514516608533348,
+            "edgeLengthCV": 0.18972374337016704,
+            "adjacentAreaRatioP95": 1.8533608279531262,
+            "valence4Fraction": 0.9566395663956639,
+            "irregularVertices": 80,
+            "targetRelativeError": 0.025,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [
+            {
+              "vertices": [
+                738,
+                604,
+                590,
+                605,
+                486,
+                758,
+                791,
+                741,
+                742,
+                716,
+                715,
+                592,
+                565,
+                568,
+                567,
+                569,
+                571,
+                539,
+                523,
+                1841,
+                593,
+                414,
+                368,
+                403,
+                378,
+                377,
+                379,
+                1472,
+                1332,
+                1330,
+                1329,
+                380,
+                382,
+                370,
+                1782,
+                446,
+                447,
+                519,
+                520,
+                521,
+                534,
+                651,
+                687,
+                586,
+                585,
+                535,
+                537,
+                522,
+                484,
+                587,
+                588,
+                712,
+                538,
+                589,
+                738
+              ],
+              "closed": true,
+              "curve": 0,
+              "p95Distance": 0.006702622190741596,
+              "p95TangentAngleDegrees": 32.43381787873796,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.002645621387906099,
+                "p95Distance": 0.006702622190741596,
+                "maxDistance": 0.020268646783302976,
+                "meanDistanceOverMedianEdge": 0.034695154158956826,
+                "meanUnsignedTangentAngleDegrees": 7.628892539560725,
+                "p95UnsignedTangentAngleDegrees": 32.43381787873796,
+                "selectedEdgeCount": 54,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "2": 54
+                },
+                "selectedEdgesFormSingleCycle": true,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            },
+            {
+              "vertices": [
+                488,
+                485,
+                487,
+                385,
+                387,
+                429,
+                428,
+                426,
+                457,
+                455,
+                454,
+                562,
+                482,
+                453,
+                451,
+                405,
+                406,
+                1723,
+                375
+              ],
+              "closed": false,
+              "curve": 1,
+              "p95Distance": 0.008411304992654096,
+              "p95TangentAngleDegrees": 15.11163282434371,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.003358659758155555,
+                "p95Distance": 0.008411304992654096,
+                "maxDistance": 0.016676592919973848,
+                "meanDistanceOverMedianEdge": 0.0405359558010257,
+                "meanUnsignedTangentAngleDegrees": 5.889905680217971,
+                "p95UnsignedTangentAngleDegrees": 15.11163282434371,
+                "selectedEdgeCount": 18,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "1": 2,
+                  "2": 17
+                },
+                "selectedEdgesFormSingleCycle": false,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            }
+          ],
+          "intersections": {
+            "passed": null,
+            "checked": false,
+            "reason": "Shape or guide gate rejected before contact checking."
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 1,
+          "refinement": {
+            "vertices": 1500,
+            "evaluations": 25,
+            "sourceSupportPoints": 541
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 1845,
+            "minimumAngleDegrees": 43.919793351730696,
+            "angleP05Degrees": 67.62371519320543,
+            "maximumAngleDegrees": 138.6007283588603,
+            "edgeRatioP95": 2.4943814676546996,
+            "edgeRatioMax": 3.7227812415650905,
+            "scaledJacobianMin": 0.6446680597919547,
+            "scaledJacobianP05": 0.8353465045570572,
+            "edgeLengthCV": 0.19502099240963597,
+            "adjacentAreaRatioP95": 1.9035255788460241,
+            "valence4Fraction": 0.9566395663956639,
+            "irregularVertices": 80,
+            "targetRelativeError": 0.025,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [
+            {
+              "vertices": [
+                738,
+                604,
+                590,
+                605,
+                486,
+                758,
+                791,
+                741,
+                742,
+                716,
+                715,
+                592,
+                565,
+                568,
+                567,
+                569,
+                571,
+                539,
+                523,
+                1841,
+                593,
+                414,
+                368,
+                403,
+                378,
+                377,
+                379,
+                1472,
+                1332,
+                1330,
+                1329,
+                380,
+                382,
+                370,
+                1782,
+                446,
+                447,
+                519,
+                520,
+                521,
+                534,
+                651,
+                687,
+                586,
+                585,
+                535,
+                537,
+                522,
+                484,
+                587,
+                588,
+                712,
+                538,
+                589,
+                738
+              ],
+              "closed": true,
+              "curve": 0,
+              "p95Distance": 0.006566904044850606,
+              "p95TangentAngleDegrees": 27.26610719871302,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.002512299200487031,
+                "p95Distance": 0.006566904044850606,
+                "maxDistance": 0.015927850861725292,
+                "meanDistanceOverMedianEdge": 0.03317958335294906,
+                "meanUnsignedTangentAngleDegrees": 6.993767542842869,
+                "p95UnsignedTangentAngleDegrees": 27.26610719871302,
+                "selectedEdgeCount": 54,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "2": 54
+                },
+                "selectedEdgesFormSingleCycle": true,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            },
+            {
+              "vertices": [
+                488,
+                485,
+                487,
+                385,
+                387,
+                429,
+                428,
+                426,
+                457,
+                455,
+                454,
+                562,
+                482,
+                453,
+                451,
+                405,
+                406,
+                1723,
+                375
+              ],
+              "closed": false,
+              "curve": 1,
+              "p95Distance": 0.008968839609847932,
+              "p95TangentAngleDegrees": 15.002854945827796,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.003165978926863314,
+                "p95Distance": 0.008968839609847932,
+                "maxDistance": 0.016631170730406125,
+                "meanDistanceOverMedianEdge": 0.03988031725786902,
+                "meanUnsignedTangentAngleDegrees": 5.533757483754931,
+                "p95UnsignedTangentAngleDegrees": 15.002854945827796,
+                "selectedEdgeCount": 18,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "1": 2,
+                  "2": 17
+                },
+                "selectedEdgesFormSingleCycle": false,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            }
+          ],
+          "intersections": {
+            "passed": true,
+            "nonAdjacentIntersectingFacePairs": [],
+            "adjacentIntersectingFacePairs": [],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": false,
+            "checks": {
+              "validTriangulation": true,
+              "closed": true,
+              "components": true,
+              "sourceEuler": true,
+              "noIncidenceDefects": true,
+              "vertexManifold": true,
+              "consistentWinding": true,
+              "sampledSurface": false,
+              "wholeSurface": false
+            },
+            "sourceToOutput": {
+              "samples": 2000,
+              "stride": 18,
+              "sampledMax": 0.04059934200413461,
+              "p95": 0.017412926800579
+            },
+            "outputToSource": {
+              "samples": 1845,
+              "stride": 3,
+              "sampledMax": 0.02564779195742302,
+              "p95": 0.011717086031921726
+            },
+            "sampledSurfaceTolerance": 0.04004054613430094,
+            "topology": {
+              "vertices": 1845,
+              "usedVertices": 1845,
+              "unusedVertices": 0,
+              "faces": 1845,
+              "edges": 3690,
+              "faceSizes": {
+                "4": 1845
+              },
+              "triangles": 0,
+              "quads": 1845,
+              "triangleFraction": 0.0,
+              "quadFraction": 1.0,
+              "otherPolygonFraction": 0.0,
+              "faceConnectedComponents": 1,
+              "componentFaceCounts": [
+                1845
+              ],
+              "boundaryEdges": 0,
+              "boundaryComponents": 0,
+              "closedBoundaryLoops": 0,
+              "nonmanifoldEdges": 0,
+              "repeatedIndexFaces": 0,
+              "zeroAreaFanTriangles": 0,
+              "nonconvexProjectedPolygons": 0,
+              "maxQuadFourthPointPlaneDistance": 0.07978732637074361,
+              "eulerCharacteristic": 0,
+              "bounds": [
+                [
+                  -0.6011916266206704,
+                  -0.997166283270039,
+                  -0.9066322445869446
+                ],
+                [
+                  0.6024511548410091,
+                  0.9991967819321657,
+                  0.9050144359628792
+                ]
+              ],
+              "edgeLengths": {
+                "min": 0.01606303323064871,
+                "median": 0.0790950547389587,
+                "max": 0.16123396362182296
+              },
+              "canonicalGeometrySignature": "06a3d9edc99ad61259826f166c22e54618eab15ad4a1f24a366754d67fd3fd17"
+            },
+            "vertexLinks": {
+              "nonmanifoldVertices": [],
+              "inconsistentWindingEdges": 0
+            },
+            "wholeSurfaceDiagonals": {},
+            "scope": "Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections.",
+            "checked": true
+          },
+          "witnessBounds": {
+            "02": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.04098463315371273,
+                "testedTriangles": 24000,
+                "subdivisionDepth": 0,
+                "unresolvedTriangles": 24000,
+                "witness": [
+                  -0.2526658399333333,
+                  -0.8686202398493333,
+                  0.18461535987
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.04002613036277307,
+                "sampledMax": 0.03917832654347608,
+                "testedTriangles": 13854,
+                "subdivisionDepth": 6,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.24580980128032218,
+                  -0.8128356322533511,
+                  0.1663429155509277
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            },
+            "13": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.04946686999622462,
+                "testedTriangles": 24000,
+                "subdivisionDepth": 0,
+                "unresolvedTriangles": 24000,
+                "witness": [
+                  -0.21619864012533332,
+                  -0.9076923200650001,
+                  0.18591775986333334
+                ]
+              },
+              "outputToSource": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.04190815299705335,
+                "testedTriangles": 14158,
+                "subdivisionDepth": 2,
+                "unresolvedTriangles": 980,
+                "witness": [
+                  -0.19557953531332747,
+                  -0.8615801160976849,
+                  0.16572345313964454
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            }
+          },
+          "eligibleForRepair": true,
+          "maxObservedSurfaceError": 0.04946686999622462,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 2,
+          "refinement": {
+            "vertices": 1474,
+            "evaluations": 17,
+            "sourceSupportPoints": 326
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 1845,
+            "minimumAngleDegrees": 43.79125537359907,
+            "angleP05Degrees": 66.98855873295028,
+            "maximumAngleDegrees": 138.38743039145453,
+            "edgeRatioP95": 2.559574069701493,
+            "edgeRatioMax": 3.7184159908924763,
+            "scaledJacobianMin": 0.6445512200536666,
+            "scaledJacobianP05": 0.828226109245332,
+            "edgeLengthCV": 0.1977944504545056,
+            "adjacentAreaRatioP95": 1.9220545001315885,
+            "valence4Fraction": 0.9566395663956639,
+            "irregularVertices": 80,
+            "targetRelativeError": 0.025,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [
+            {
+              "vertices": [
+                738,
+                604,
+                590,
+                605,
+                486,
+                758,
+                791,
+                741,
+                742,
+                716,
+                715,
+                592,
+                565,
+                568,
+                567,
+                569,
+                571,
+                539,
+                523,
+                1841,
+                593,
+                414,
+                368,
+                403,
+                378,
+                377,
+                379,
+                1472,
+                1332,
+                1330,
+                1329,
+                380,
+                382,
+                370,
+                1782,
+                446,
+                447,
+                519,
+                520,
+                521,
+                534,
+                651,
+                687,
+                586,
+                585,
+                535,
+                537,
+                522,
+                484,
+                587,
+                588,
+                712,
+                538,
+                589,
+                738
+              ],
+              "closed": true,
+              "curve": 0,
+              "p95Distance": 0.006652909066101957,
+              "p95TangentAngleDegrees": 27.125770516730157,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.002509658664068164,
+                "p95Distance": 0.006652909066101957,
+                "maxDistance": 0.015711193667318366,
+                "meanDistanceOverMedianEdge": 0.03345591870067932,
+                "meanUnsignedTangentAngleDegrees": 6.990237762456735,
+                "p95UnsignedTangentAngleDegrees": 27.125770516730157,
+                "selectedEdgeCount": 54,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "2": 54
+                },
+                "selectedEdgesFormSingleCycle": true,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            },
+            {
+              "vertices": [
+                488,
+                485,
+                487,
+                385,
+                387,
+                429,
+                428,
+                426,
+                457,
+                455,
+                454,
+                562,
+                482,
+                453,
+                451,
+                405,
+                406,
+                1723,
+                375
+              ],
+              "closed": false,
+              "curve": 1,
+              "p95Distance": 0.009162594827979154,
+              "p95TangentAngleDegrees": 15.353686723890451,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.0030252152231353573,
+                "p95Distance": 0.009162594827979154,
+                "maxDistance": 0.016515328517656348,
+                "meanDistanceOverMedianEdge": 0.037985606440949185,
+                "meanUnsignedTangentAngleDegrees": 5.581499876504198,
+                "p95UnsignedTangentAngleDegrees": 15.353686723890451,
+                "selectedEdgeCount": 18,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "1": 2,
+                  "2": 17
+                },
+                "selectedEdgesFormSingleCycle": false,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            }
+          ],
+          "intersections": {
+            "passed": true,
+            "nonAdjacentIntersectingFacePairs": [],
+            "adjacentIntersectingFacePairs": [],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": false,
+            "checks": {
+              "validTriangulation": true,
+              "closed": true,
+              "components": true,
+              "sourceEuler": true,
+              "noIncidenceDefects": true,
+              "vertexManifold": true,
+              "consistentWinding": true,
+              "sampledSurface": false,
+              "wholeSurface": false
+            },
+            "sourceToOutput": {
+              "samples": 2000,
+              "stride": 18,
+              "sampledMax": 0.04079582547296033,
+              "p95": 0.017272169779862817
+            },
+            "outputToSource": {
+              "samples": 1845,
+              "stride": 3,
+              "sampledMax": 0.02567327729181449,
+              "p95": 0.01178908469809018
+            },
+            "sampledSurfaceTolerance": 0.04004054613430094,
+            "topology": {
+              "vertices": 1845,
+              "usedVertices": 1845,
+              "unusedVertices": 0,
+              "faces": 1845,
+              "edges": 3690,
+              "faceSizes": {
+                "4": 1845
+              },
+              "triangles": 0,
+              "quads": 1845,
+              "triangleFraction": 0.0,
+              "quadFraction": 1.0,
+              "otherPolygonFraction": 0.0,
+              "faceConnectedComponents": 1,
+              "componentFaceCounts": [
+                1845
+              ],
+              "boundaryEdges": 0,
+              "boundaryComponents": 0,
+              "closedBoundaryLoops": 0,
+              "nonmanifoldEdges": 0,
+              "repeatedIndexFaces": 0,
+              "zeroAreaFanTriangles": 0,
+              "nonconvexProjectedPolygons": 0,
+              "maxQuadFourthPointPlaneDistance": 0.07614774775145544,
+              "eulerCharacteristic": 0,
+              "bounds": [
+                [
+                  -0.601378192765355,
+                  -0.9971373219336213,
+                  -0.9066322445869446
+                ],
+                [
+                  0.6027172699391998,
+                  0.9991967819321657,
+                  0.9044439551908571
+                ]
+              ],
+              "edgeLengths": {
+                "min": 0.01606226824918939,
+                "median": 0.07910725959262749,
+                "max": 0.1616655810795112
+              },
+              "canonicalGeometrySignature": "89ed3df3e320577f2fb1582023255332c23fbc3b5951ce0393611d701875c71c"
+            },
+            "vertexLinks": {
+              "nonmanifoldVertices": [],
+              "inconsistentWindingEdges": 0
+            },
+            "wholeSurfaceDiagonals": {},
+            "scope": "Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections.",
+            "checked": true
+          },
+          "witnessBounds": {
+            "02": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.04086220329508698,
+                "testedTriangles": 24000,
+                "subdivisionDepth": 0,
+                "unresolvedTriangles": 24000,
+                "witness": [
+                  -0.2526658399333333,
+                  -0.8686202398493333,
+                  0.18461535987
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.04003462086257428,
+                "sampledMax": 0.039351503658263606,
+                "testedTriangles": 13918,
+                "subdivisionDepth": 6,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.24444550460102252,
+                  -0.8147833283791815,
+                  0.16608165670402827
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            },
+            "13": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.04960098781623846,
+                "testedTriangles": 24000,
+                "subdivisionDepth": 0,
+                "unresolvedTriangles": 24000,
+                "witness": [
+                  -0.225966640074,
+                  -0.8982498933076667,
+                  0.18591775986333334
+                ]
+              },
+              "outputToSource": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.041948665900682885,
+                "testedTriangles": 14098,
+                "subdivisionDepth": 2,
+                "unresolvedTriangles": 928,
+                "witness": [
+                  -0.19734538157513778,
+                  -0.859504984125116,
+                  0.1657497299401756
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            }
+          },
+          "eligibleForRepair": true,
+          "maxObservedSurfaceError": 0.04960098781623846,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 3,
+          "refinement": {
+            "vertices": 1459,
+            "evaluations": 13,
+            "sourceSupportPoints": 290
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 1845,
+            "minimumAngleDegrees": 43.87331789386543,
+            "angleP05Degrees": 66.81459724290748,
+            "maximumAngleDegrees": 138.43310774013736,
+            "edgeRatioP95": 2.5803808089763423,
+            "edgeRatioMax": 3.7092046055064833,
+            "scaledJacobianMin": 0.6438093805747614,
+            "scaledJacobianP05": 0.8270002771381839,
+            "edgeLengthCV": 0.19844016825280875,
+            "adjacentAreaRatioP95": 1.9286900853444173,
+            "valence4Fraction": 0.9566395663956639,
+            "irregularVertices": 80,
+            "targetRelativeError": 0.025,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [
+            {
+              "vertices": [
+                738,
+                604,
+                590,
+                605,
+                486,
+                758,
+                791,
+                741,
+                742,
+                716,
+                715,
+                592,
+                565,
+                568,
+                567,
+                569,
+                571,
+                539,
+                523,
+                1841,
+                593,
+                414,
+                368,
+                403,
+                378,
+                377,
+                379,
+                1472,
+                1332,
+                1330,
+                1329,
+                380,
+                382,
+                370,
+                1782,
+                446,
+                447,
+                519,
+                520,
+                521,
+                534,
+                651,
+                687,
+                586,
+                585,
+                535,
+                537,
+                522,
+                484,
+                587,
+                588,
+                712,
+                538,
+                589,
+                738
+              ],
+              "closed": true,
+              "curve": 0,
+              "p95Distance": 0.006652577345147366,
+              "p95TangentAngleDegrees": 27.07760965526142,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.002507217868939692,
+                "p95Distance": 0.006652577345147366,
+                "maxDistance": 0.015599211252934293,
+                "meanDistanceOverMedianEdge": 0.03348192484961845,
+                "meanUnsignedTangentAngleDegrees": 7.006299670559104,
+                "p95UnsignedTangentAngleDegrees": 27.07760965526142,
+                "selectedEdgeCount": 54,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "2": 54
+                },
+                "selectedEdgesFormSingleCycle": true,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            },
+            {
+              "vertices": [
+                488,
+                485,
+                487,
+                385,
+                387,
+                429,
+                428,
+                426,
+                457,
+                455,
+                454,
+                562,
+                482,
+                453,
+                451,
+                405,
+                406,
+                1723,
+                375
+              ],
+              "closed": false,
+              "curve": 1,
+              "p95Distance": 0.009253360575399442,
+              "p95TangentAngleDegrees": 15.517955680548127,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.003009962445901304,
+                "p95Distance": 0.009253360575399442,
+                "maxDistance": 0.01649345805980553,
+                "meanDistanceOverMedianEdge": 0.03776878663739783,
+                "meanUnsignedTangentAngleDegrees": 5.589090440447644,
+                "p95UnsignedTangentAngleDegrees": 15.517955680548127,
+                "selectedEdgeCount": 18,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "1": 2,
+                  "2": 17
+                },
+                "selectedEdgesFormSingleCycle": false,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            }
+          ],
+          "intersections": {
+            "passed": true,
+            "nonAdjacentIntersectingFacePairs": [],
+            "adjacentIntersectingFacePairs": [],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": false,
+            "checks": {
+              "validTriangulation": true,
+              "closed": true,
+              "components": true,
+              "sourceEuler": true,
+              "noIncidenceDefects": true,
+              "vertexManifold": true,
+              "consistentWinding": true,
+              "sampledSurface": false,
+              "wholeSurface": false
+            },
+            "sourceToOutput": {
+              "samples": 2000,
+              "stride": 18,
+              "sampledMax": 0.040857818675056896,
+              "p95": 0.017339950306834304
+            },
+            "outputToSource": {
+              "samples": 1845,
+              "stride": 3,
+              "sampledMax": 0.025700981140755225,
+              "p95": 0.011808353208268394
+            },
+            "sampledSurfaceTolerance": 0.04004054613430094,
+            "topology": {
+              "vertices": 1845,
+              "usedVertices": 1845,
+              "unusedVertices": 0,
+              "faces": 1845,
+              "edges": 3690,
+              "faceSizes": {
+                "4": 1845
+              },
+              "triangles": 0,
+              "quads": 1845,
+              "triangleFraction": 0.0,
+              "quadFraction": 1.0,
+              "otherPolygonFraction": 0.0,
+              "faceConnectedComponents": 1,
+              "componentFaceCounts": [
+                1845
+              ],
+              "boundaryEdges": 0,
+              "boundaryComponents": 0,
+              "closedBoundaryLoops": 0,
+              "nonmanifoldEdges": 0,
+              "repeatedIndexFaces": 0,
+              "zeroAreaFanTriangles": 0,
+              "nonconvexProjectedPolygons": 0,
+              "maxQuadFourthPointPlaneDistance": 0.07482912619727881,
+              "eulerCharacteristic": 0,
+              "bounds": [
+                [
+                  -0.6014340746745281,
+                  -0.997140906977277,
+                  -0.9066322445869446
+                ],
+                [
+                  0.6027617299344271,
+                  0.9991967819321657,
+                  0.9043041180960227
+                ]
+              ],
+              "edgeLengths": {
+                "min": 0.016059482043682016,
+                "median": 0.07910939334622043,
+                "max": 0.16193094402431682
+              },
+              "canonicalGeometrySignature": "79eee2043a779b99b8fb546f66bd0304497e9ec44d17258a0c082e0b9a06739e"
+            },
+            "vertexLinks": {
+              "nonmanifoldVertices": [],
+              "inconsistentWindingEdges": 0
+            },
+            "wholeSurfaceDiagonals": {},
+            "scope": "Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections.",
+            "checked": true
+          },
+          "witnessBounds": {
+            "02": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.04078391699005807,
+                "testedTriangles": 24000,
+                "subdivisionDepth": 0,
+                "unresolvedTriangles": 24000,
+                "witness": [
+                  -0.2526658399333333,
+                  -0.8686202398493333,
+                  0.18461535987
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.040037569630497885,
+                "sampledMax": 0.039435461585416935,
+                "testedTriangles": 13926,
+                "subdivisionDepth": 6,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.24470054485524795,
+                  -0.814495170964153,
+                  0.16597631149585582
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            },
+            "13": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.049822850654142305,
+                "testedTriangles": 24000,
+                "subdivisionDepth": 0,
+                "unresolvedTriangles": 24000,
+                "witness": [
+                  -0.225966640074,
+                  -0.8982498933076667,
+                  0.18591775986333334
+                ]
+              },
+              "outputToSource": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.041958726955484915,
+                "testedTriangles": 14110,
+                "subdivisionDepth": 2,
+                "unresolvedTriangles": 936,
+                "witness": [
+                  -0.1980776645332382,
+                  -0.858644809934283,
+                  0.1657673585561312
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            }
+          },
+          "eligibleForRepair": true,
+          "maxObservedSurfaceError": 0.049822850654142305,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 4,
+          "refinement": {
+            "vertices": 1464,
+            "evaluations": 15,
+            "sourceSupportPoints": 262
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 1845,
+            "minimumAngleDegrees": 43.87331789386543,
+            "angleP05Degrees": 66.81459724290748,
+            "maximumAngleDegrees": 138.43310774013736,
+            "edgeRatioP95": 2.5803808089763423,
+            "edgeRatioMax": 3.7092046055064833,
+            "scaledJacobianMin": 0.6438093805747614,
+            "scaledJacobianP05": 0.8270002771381839,
+            "edgeLengthCV": 0.19844016825280875,
+            "adjacentAreaRatioP95": 1.9286900853444173,
+            "valence4Fraction": 0.9566395663956639,
+            "irregularVertices": 80,
+            "targetRelativeError": 0.025,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [
+            {
+              "vertices": [
+                738,
+                604,
+                590,
+                605,
+                486,
+                758,
+                791,
+                741,
+                742,
+                716,
+                715,
+                592,
+                565,
+                568,
+                567,
+                569,
+                571,
+                539,
+                523,
+                1841,
+                593,
+                414,
+                368,
+                403,
+                378,
+                377,
+                379,
+                1472,
+                1332,
+                1330,
+                1329,
+                380,
+                382,
+                370,
+                1782,
+                446,
+                447,
+                519,
+                520,
+                521,
+                534,
+                651,
+                687,
+                586,
+                585,
+                535,
+                537,
+                522,
+                484,
+                587,
+                588,
+                712,
+                538,
+                589,
+                738
+              ],
+              "closed": true,
+              "curve": 0,
+              "p95Distance": 0.006652577345147366,
+              "p95TangentAngleDegrees": 27.07760965526142,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.002507217868939692,
+                "p95Distance": 0.006652577345147366,
+                "maxDistance": 0.015599211252934293,
+                "meanDistanceOverMedianEdge": 0.03348192484961845,
+                "meanUnsignedTangentAngleDegrees": 7.006299670559104,
+                "p95UnsignedTangentAngleDegrees": 27.07760965526142,
+                "selectedEdgeCount": 54,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "2": 54
+                },
+                "selectedEdgesFormSingleCycle": true,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            },
+            {
+              "vertices": [
+                488,
+                485,
+                487,
+                385,
+                387,
+                429,
+                428,
+                426,
+                457,
+                455,
+                454,
+                562,
+                482,
+                453,
+                451,
+                405,
+                406,
+                1723,
+                375
+              ],
+              "closed": false,
+              "curve": 1,
+              "p95Distance": 0.009253360575399442,
+              "p95TangentAngleDegrees": 15.517955680548127,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.003009962445901304,
+                "p95Distance": 0.009253360575399442,
+                "maxDistance": 0.01649345805980553,
+                "meanDistanceOverMedianEdge": 0.03776878663739783,
+                "meanUnsignedTangentAngleDegrees": 5.589090440447644,
+                "p95UnsignedTangentAngleDegrees": 15.517955680548127,
+                "selectedEdgeCount": 18,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "1": 2,
+                  "2": 17
+                },
+                "selectedEdgesFormSingleCycle": false,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            }
+          ],
+          "intersections": {
+            "passed": true,
+            "nonAdjacentIntersectingFacePairs": [],
+            "adjacentIntersectingFacePairs": [],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": false,
+            "checks": {
+              "validTriangulation": true,
+              "closed": true,
+              "components": true,
+              "sourceEuler": true,
+              "noIncidenceDefects": true,
+              "vertexManifold": true,
+              "consistentWinding": true,
+              "sampledSurface": false,
+              "wholeSurface": false
+            },
+            "sourceToOutput": {
+              "samples": 2000,
+              "stride": 18,
+              "sampledMax": 0.040857818675056896,
+              "p95": 0.017339950306834304
+            },
+            "outputToSource": {
+              "samples": 1845,
+              "stride": 3,
+              "sampledMax": 0.025700981140755225,
+              "p95": 0.011808353208268394
+            },
+            "sampledSurfaceTolerance": 0.04004054613430094,
+            "topology": {
+              "vertices": 1845,
+              "usedVertices": 1845,
+              "unusedVertices": 0,
+              "faces": 1845,
+              "edges": 3690,
+              "faceSizes": {
+                "4": 1845
+              },
+              "triangles": 0,
+              "quads": 1845,
+              "triangleFraction": 0.0,
+              "quadFraction": 1.0,
+              "otherPolygonFraction": 0.0,
+              "faceConnectedComponents": 1,
+              "componentFaceCounts": [
+                1845
+              ],
+              "boundaryEdges": 0,
+              "boundaryComponents": 0,
+              "closedBoundaryLoops": 0,
+              "nonmanifoldEdges": 0,
+              "repeatedIndexFaces": 0,
+              "zeroAreaFanTriangles": 0,
+              "nonconvexProjectedPolygons": 0,
+              "maxQuadFourthPointPlaneDistance": 0.07482912619727881,
+              "eulerCharacteristic": 0,
+              "bounds": [
+                [
+                  -0.6014340746745281,
+                  -0.997140906977277,
+                  -0.9066322445869446
+                ],
+                [
+                  0.6027617299344271,
+                  0.9991967819321657,
+                  0.9043041180960227
+                ]
+              ],
+              "edgeLengths": {
+                "min": 0.016059482043682016,
+                "median": 0.07910939334622043,
+                "max": 0.16193094402431682
+              },
+              "canonicalGeometrySignature": "79eee2043a779b99b8fb546f66bd0304497e9ec44d17258a0c082e0b9a06739e"
+            },
+            "vertexLinks": {
+              "nonmanifoldVertices": [],
+              "inconsistentWindingEdges": 0
+            },
+            "wholeSurfaceDiagonals": {},
+            "scope": "Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections.",
+            "checked": true
+          },
+          "witnessBounds": {
+            "02": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.04078391699005807,
+                "testedTriangles": 24000,
+                "subdivisionDepth": 0,
+                "unresolvedTriangles": 24000,
+                "witness": [
+                  -0.2526658399333333,
+                  -0.8686202398493333,
+                  0.18461535987
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.040037569630497885,
+                "sampledMax": 0.039435461585416935,
+                "testedTriangles": 13926,
+                "subdivisionDepth": 6,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.24470054485524795,
+                  -0.814495170964153,
+                  0.16597631149585582
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            },
+            "13": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.049822850654142305,
+                "testedTriangles": 24000,
+                "subdivisionDepth": 0,
+                "unresolvedTriangles": 24000,
+                "witness": [
+                  -0.225966640074,
+                  -0.8982498933076667,
+                  0.18591775986333334
+                ]
+              },
+              "outputToSource": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.041958726955484915,
+                "testedTriangles": 14110,
+                "subdivisionDepth": 2,
+                "unresolvedTriangles": 936,
+                "witness": [
+                  -0.1980776645332382,
+                  -0.858644809934283,
+                  0.1657673585561312
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            }
+          },
+          "gateRatios": {
+            "guide0Distance": 0.4153650478963124,
+            "guide0Angle": 0.902586988508714,
+            "guide1Distance": 0.5777493983450255,
+            "guide1Angle": 0.5172651893516043,
+            "02sourceToOutput": 1.0185654524607073,
+            "02outputToSource": 0.9848882044002477,
+            "13sourceToOutput": 1.2443099673773257,
+            "13outputToSource": 1.0479059604919014
+          },
+          "gatePassed": {
+            "quality": true,
+            "guide0Distance": true,
+            "guide0Angle": true,
+            "guide1Distance": true,
+            "guide1Angle": true,
+            "02sourceToOutput": false,
+            "02outputToSource": true,
+            "13sourceToOutput": false,
+            "13outputToSource": false
+          },
+          "protectedGateFailures": [],
+          "eligibleForRepair": true,
+          "violationScore": 1.2443099673773257,
+          "qualified": false,
+          "phase": "joint-guide-surface",
+          "initial": true
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 1845,
+            "minimumAngleDegrees": 43.8181604476905,
+            "angleP05Degrees": 66.60961566946828,
+            "maximumAngleDegrees": 139.08319692166367,
+            "edgeRatioP95": 2.5803808089763423,
+            "edgeRatioMax": 3.742776699871827,
+            "scaledJacobianMin": 0.6310026840785934,
+            "scaledJacobianP05": 0.8252799137504003,
+            "edgeLengthCV": 0.1992678188162039,
+            "adjacentAreaRatioP95": 1.9244878982676907,
+            "valence4Fraction": 0.9566395663956639,
+            "irregularVertices": 80,
+            "targetRelativeError": 0.025,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [
+            {
+              "vertices": [
+                738,
+                604,
+                590,
+                605,
+                486,
+                758,
+                791,
+                741,
+                742,
+                716,
+                715,
+                592,
+                565,
+                568,
+                567,
+                569,
+                571,
+                539,
+                523,
+                1841,
+                593,
+                414,
+                368,
+                403,
+                378,
+                377,
+                379,
+                1472,
+                1332,
+                1330,
+                1329,
+                380,
+                382,
+                370,
+                1782,
+                446,
+                447,
+                519,
+                520,
+                521,
+                534,
+                651,
+                687,
+                586,
+                585,
+                535,
+                537,
+                522,
+                484,
+                587,
+                588,
+                712,
+                538,
+                589,
+                738
+              ],
+              "closed": true,
+              "curve": 0,
+              "p95Distance": 0.009386946635714748,
+              "p95TangentAngleDegrees": 27.07760965526142,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.0027330225270470274,
+                "p95Distance": 0.009386946635714748,
+                "maxDistance": 0.02142831361740787,
+                "meanDistanceOverMedianEdge": 0.0364973686557209,
+                "meanUnsignedTangentAngleDegrees": 7.10226543759473,
+                "p95UnsignedTangentAngleDegrees": 27.07760965526142,
+                "selectedEdgeCount": 54,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "2": 54
+                },
+                "selectedEdgesFormSingleCycle": true,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            },
+            {
+              "vertices": [
+                488,
+                485,
+                487,
+                385,
+                387,
+                429,
+                428,
+                426,
+                457,
+                455,
+                454,
+                562,
+                482,
+                453,
+                451,
+                405,
+                406,
+                1723,
+                375
+              ],
+              "closed": false,
+              "curve": 1,
+              "p95Distance": 0.01582908348766643,
+              "p95TangentAngleDegrees": 18.30271293385933,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.0037192595317476268,
+                "p95Distance": 0.01582908348766643,
+                "maxDistance": 0.021301715851981054,
+                "meanDistanceOverMedianEdge": 0.046668994124815844,
+                "meanUnsignedTangentAngleDegrees": 6.088692039558212,
+                "p95UnsignedTangentAngleDegrees": 18.30271293385933,
+                "selectedEdgeCount": 18,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "1": 2,
+                  "2": 17
+                },
+                "selectedEdgesFormSingleCycle": false,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            }
+          ],
+          "intersections": {
+            "passed": true,
+            "nonAdjacentIntersectingFacePairs": [],
+            "adjacentIntersectingFacePairs": [],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": false,
+            "checks": {
+              "validTriangulation": true,
+              "closed": true,
+              "components": true,
+              "sourceEuler": true,
+              "noIncidenceDefects": true,
+              "vertexManifold": true,
+              "consistentWinding": true,
+              "sampledSurface": true,
+              "wholeSurface": false
+            },
+            "sourceToOutput": {
+              "samples": 2000,
+              "stride": 18,
+              "sampledMax": 0.030979788221118718,
+              "p95": 0.017096805991724813
+            },
+            "outputToSource": {
+              "samples": 1845,
+              "stride": 3,
+              "sampledMax": 0.030059611787572577,
+              "p95": 0.01183422809952149
+            },
+            "sampledSurfaceTolerance": 0.04004054613430094,
+            "topology": {
+              "vertices": 1845,
+              "usedVertices": 1845,
+              "unusedVertices": 0,
+              "faces": 1845,
+              "edges": 3690,
+              "faceSizes": {
+                "4": 1845
+              },
+              "triangles": 0,
+              "quads": 1845,
+              "triangleFraction": 0.0,
+              "quadFraction": 1.0,
+              "otherPolygonFraction": 0.0,
+              "faceConnectedComponents": 1,
+              "componentFaceCounts": [
+                1845
+              ],
+              "boundaryEdges": 0,
+              "boundaryComponents": 0,
+              "closedBoundaryLoops": 0,
+              "nonmanifoldEdges": 0,
+              "repeatedIndexFaces": 0,
+              "zeroAreaFanTriangles": 0,
+              "nonconvexProjectedPolygons": 0,
+              "maxQuadFourthPointPlaneDistance": 0.08585560686024808,
+              "eulerCharacteristic": 0,
+              "bounds": [
+                [
+                  -0.6014340746745281,
+                  -0.997140906977277,
+                  -0.9066322445869446
+                ],
+                [
+                  0.6027617299344271,
+                  0.9991967819321657,
+                  0.9043041180960227
+                ]
+              ],
+              "edgeLengths": {
+                "min": 0.016059482043682016,
+                "median": 0.07910034553904334,
+                "max": 0.16193094402431682
+              },
+              "canonicalGeometrySignature": "5693e92908b045a772503f8a3a3e196beb0b2b6d96793b4cab717f5cda75497a"
+            },
+            "vertexLinks": {
+              "nonmanifoldVertices": [],
+              "inconsistentWindingEdges": 0
+            },
+            "wholeSurfaceDiagonals": {
+              "02": {
+                "passed": true,
+                "tolerance": 0.04004054613430094,
+                "sourceToOutput": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.04002726782610372,
+                  "sampledMax": 0.039241392514966916,
+                  "testedTriangles": 40780,
+                  "subdivisionDepth": 5,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    0.5443935850818958,
+                    0.7704721434536251,
+                    0.5436507631732709
+                  ]
+                },
+                "outputToSource": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.040037569630497885,
+                  "sampledMax": 0.037889686129434684,
+                  "testedTriangles": 13826,
+                  "subdivisionDepth": 4,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    -0.2510728313973526,
+                    -0.8071115333915136,
+                    0.1671637703923384
+                  ]
+                },
+                "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+              },
+              "13": {
+                "passed": false,
+                "tolerance": 0.04004054613430094,
+                "sourceToOutput": {
+                  "passed": false,
+                  "status": "exceeded",
+                  "reason": "A surface point exceeds the distance tolerance",
+                  "maximumUpperBound": null,
+                  "sampledMax": 0.0401696425192735,
+                  "testedTriangles": 24000,
+                  "subdivisionDepth": 0,
+                  "unresolvedTriangles": 24000,
+                  "witness": [
+                    -0.221733840096,
+                    -0.901831520096,
+                    0.189010959847
+                  ]
+                },
+                "outputToSource": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.04003911593819751,
+                  "sampledMax": 0.0333826237851539,
+                  "testedTriangles": 14150,
+                  "subdivisionDepth": 3,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    -0.20321975899135425,
+                    -0.8665895200135232,
+                    0.17170220362990704
+                  ]
+                },
+                "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+              }
+            },
+            "scope": "Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections.",
+            "checked": true
+          },
+          "witnessBounds": {
+            "02": {
+              "passed": true,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.04002726782610372,
+                "sampledMax": 0.039241392514966916,
+                "testedTriangles": 40780,
+                "subdivisionDepth": 5,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  0.5443935850818958,
+                  0.7704721434536251,
+                  0.5436507631732709
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.040037569630497885,
+                "sampledMax": 0.037889686129434684,
+                "testedTriangles": 13826,
+                "subdivisionDepth": 4,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.2510728313973526,
+                  -0.8071115333915136,
+                  0.1671637703923384
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            },
+            "13": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.0401696425192735,
+                "testedTriangles": 24000,
+                "subdivisionDepth": 0,
+                "unresolvedTriangles": 24000,
+                "witness": [
+                  -0.221733840096,
+                  -0.901831520096,
+                  0.189010959847
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.04003911593819751,
+                "sampledMax": 0.0333826237851539,
+                "testedTriangles": 14150,
+                "subdivisionDepth": 3,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.20321975899135425,
+                  -0.8665895200135232,
+                  0.17170220362990704
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            }
+          },
+          "gateRatios": {
+            "guide0Distance": 0.5860900725623078,
+            "guide0Angle": 0.902586988508714,
+            "guide1Distance": 0.98831590824047,
+            "guide1Angle": 0.6100904311286443,
+            "02sourceToOutput": 0.9800413906280507,
+            "02outputToSource": 0.9462829503460816,
+            "13sourceToOutput": 1.0032241414624954,
+            "13outputToSource": 0.8337204910538546
+          },
+          "gatePassed": {
+            "quality": true,
+            "guide0Distance": true,
+            "guide0Angle": true,
+            "guide1Distance": true,
+            "guide1Angle": true,
+            "02sourceToOutput": true,
+            "02outputToSource": true,
+            "13sourceToOutput": false,
+            "13outputToSource": true
+          },
+          "protectedGateFailures": [],
+          "eligibleForRepair": true,
+          "violationScore": 1.0032241414624954,
+          "qualified": false,
+          "phase": "joint-guide-surface",
+          "step": 0,
+          "alpha": 1.0,
+          "refinement": {
+            "vertices": 41,
+            "evaluations": 17,
+            "sourceSupportPoints": 358
+          },
+          "patchVertices": 41,
+          "surfaceConstraintCount": 1
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 1845,
+            "minimumAngleDegrees": 43.87331789386543,
+            "angleP05Degrees": 66.63013521349271,
+            "maximumAngleDegrees": 138.82635237841566,
+            "edgeRatioP95": 2.5803808089763423,
+            "edgeRatioMax": 3.749354775734903,
+            "scaledJacobianMin": 0.6296558413185436,
+            "scaledJacobianP05": 0.8252799137504003,
+            "edgeLengthCV": 0.19940214026629416,
+            "adjacentAreaRatioP95": 1.9244878982676907,
+            "valence4Fraction": 0.9566395663956639,
+            "irregularVertices": 80,
+            "targetRelativeError": 0.025,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [
+            {
+              "vertices": [
+                738,
+                604,
+                590,
+                605,
+                486,
+                758,
+                791,
+                741,
+                742,
+                716,
+                715,
+                592,
+                565,
+                568,
+                567,
+                569,
+                571,
+                539,
+                523,
+                1841,
+                593,
+                414,
+                368,
+                403,
+                378,
+                377,
+                379,
+                1472,
+                1332,
+                1330,
+                1329,
+                380,
+                382,
+                370,
+                1782,
+                446,
+                447,
+                519,
+                520,
+                521,
+                534,
+                651,
+                687,
+                586,
+                585,
+                535,
+                537,
+                522,
+                484,
+                587,
+                588,
+                712,
+                538,
+                589,
+                738
+              ],
+              "closed": true,
+              "curve": 0,
+              "p95Distance": 0.009386946635714748,
+              "p95TangentAngleDegrees": 27.07760965526142,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.0027410809831120778,
+                "p95Distance": 0.009386946635714748,
+                "maxDistance": 0.02045023857670511,
+                "meanDistanceOverMedianEdge": 0.036604983005361795,
+                "meanUnsignedTangentAngleDegrees": 7.07979283109555,
+                "p95UnsignedTangentAngleDegrees": 27.07760965526142,
+                "selectedEdgeCount": 54,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "2": 54
+                },
+                "selectedEdgesFormSingleCycle": true,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            },
+            {
+              "vertices": [
+                488,
+                485,
+                487,
+                385,
+                387,
+                429,
+                428,
+                426,
+                457,
+                455,
+                454,
+                562,
+                482,
+                453,
+                451,
+                405,
+                406,
+                1723,
+                375
+              ],
+              "closed": false,
+              "curve": 1,
+              "p95Distance": 0.015228737348699397,
+              "p95TangentAngleDegrees": 17.039324657010344,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.0036483554902953888,
+                "p95Distance": 0.015228737348699397,
+                "maxDistance": 0.02147650177587444,
+                "meanDistanceOverMedianEdge": 0.04513206202684506,
+                "meanUnsignedTangentAngleDegrees": 6.042457595544545,
+                "p95UnsignedTangentAngleDegrees": 17.039324657010344,
+                "selectedEdgeCount": 18,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "1": 2,
+                  "2": 17
+                },
+                "selectedEdgesFormSingleCycle": false,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            }
+          ],
+          "intersections": {
+            "passed": true,
+            "nonAdjacentIntersectingFacePairs": [],
+            "adjacentIntersectingFacePairs": [],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": false,
+            "checks": {
+              "validTriangulation": true,
+              "closed": true,
+              "components": true,
+              "sourceEuler": true,
+              "noIncidenceDefects": true,
+              "vertexManifold": true,
+              "consistentWinding": true,
+              "sampledSurface": true,
+              "wholeSurface": false
+            },
+            "sourceToOutput": {
+              "samples": 2000,
+              "stride": 18,
+              "sampledMax": 0.030418045253030213,
+              "p95": 0.01711857309074716
+            },
+            "outputToSource": {
+              "samples": 1845,
+              "stride": 3,
+              "sampledMax": 0.03173700946831549,
+              "p95": 0.01183422809952149
+            },
+            "sampledSurfaceTolerance": 0.04004054613430094,
+            "topology": {
+              "vertices": 1845,
+              "usedVertices": 1845,
+              "unusedVertices": 0,
+              "faces": 1845,
+              "edges": 3690,
+              "faceSizes": {
+                "4": 1845
+              },
+              "triangles": 0,
+              "quads": 1845,
+              "triangleFraction": 0.0,
+              "quadFraction": 1.0,
+              "otherPolygonFraction": 0.0,
+              "faceConnectedComponents": 1,
+              "componentFaceCounts": [
+                1845
+              ],
+              "boundaryEdges": 0,
+              "boundaryComponents": 0,
+              "closedBoundaryLoops": 0,
+              "nonmanifoldEdges": 0,
+              "repeatedIndexFaces": 0,
+              "zeroAreaFanTriangles": 0,
+              "nonconvexProjectedPolygons": 0,
+              "maxQuadFourthPointPlaneDistance": 0.08861721792374021,
+              "eulerCharacteristic": 0,
+              "bounds": [
+                [
+                  -0.6014340746745281,
+                  -0.997140906977277,
+                  -0.9066322445869446
+                ],
+                [
+                  0.6027617299344271,
+                  0.9991967819321657,
+                  0.9043041180960227
+                ]
+              ],
+              "edgeLengths": {
+                "min": 0.016059482043682016,
+                "median": 0.07910939334622043,
+                "max": 0.16193094402431682
+              },
+              "canonicalGeometrySignature": "a76c52faf50bbe0343e76cffe08fd0b93af09aa4c6c1c613c734349d960881f8"
+            },
+            "vertexLinks": {
+              "nonmanifoldVertices": [],
+              "inconsistentWindingEdges": 0
+            },
+            "wholeSurfaceDiagonals": {
+              "02": {
+                "passed": true,
+                "tolerance": 0.04004054613430094,
+                "sourceToOutput": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.04002726782610372,
+                  "sampledMax": 0.039241392514966916,
+                  "testedTriangles": 40792,
+                  "subdivisionDepth": 5,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    0.5443935850818958,
+                    0.7704721434536251,
+                    0.5436507631732709
+                  ]
+                },
+                "outputToSource": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.040037569630497885,
+                  "sampledMax": 0.038509045174656656,
+                  "testedTriangles": 13834,
+                  "subdivisionDepth": 4,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    -0.25022887913370295,
+                    -0.8070216742476205,
+                    0.1668839278702808
+                  ]
+                },
+                "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+              },
+              "13": {
+                "passed": false,
+                "tolerance": 0.04004054613430094,
+                "sourceToOutput": {
+                  "passed": false,
+                  "status": "exceeded",
+                  "reason": "A surface point exceeds the distance tolerance",
+                  "maximumUpperBound": null,
+                  "sampledMax": 0.04010325428098637,
+                  "testedTriangles": 35552,
+                  "subdivisionDepth": 2,
+                  "unresolvedTriangles": 5948,
+                  "witness": [
+                    -0.2252747400775,
+                    -0.898534800008,
+                    0.18876675984825
+                  ]
+                },
+                "outputToSource": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.04003911593819751,
+                  "sampledMax": 0.03320251162533646,
+                  "testedTriangles": 14142,
+                  "subdivisionDepth": 3,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    -0.20249892927220534,
+                    -0.8679221608968252,
+                    0.17164802092474737
+                  ]
+                },
+                "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+              }
+            },
+            "scope": "Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections.",
+            "checked": true
+          },
+          "witnessBounds": {
+            "02": {
+              "passed": true,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.04002726782610372,
+                "sampledMax": 0.039241392514966916,
+                "testedTriangles": 40792,
+                "subdivisionDepth": 5,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  0.5443935850818958,
+                  0.7704721434536251,
+                  0.5436507631732709
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.040037569630497885,
+                "sampledMax": 0.038509045174656656,
+                "testedTriangles": 13834,
+                "subdivisionDepth": 4,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.25022887913370295,
+                  -0.8070216742476205,
+                  0.1668839278702808
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            },
+            "13": {
+              "passed": false,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": false,
+                "status": "exceeded",
+                "reason": "A surface point exceeds the distance tolerance",
+                "maximumUpperBound": null,
+                "sampledMax": 0.04010325428098637,
+                "testedTriangles": 35552,
+                "subdivisionDepth": 2,
+                "unresolvedTriangles": 5948,
+                "witness": [
+                  -0.2252747400775,
+                  -0.898534800008,
+                  0.18876675984825
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.04003911593819751,
+                "sampledMax": 0.03320251162533646,
+                "testedTriangles": 14142,
+                "subdivisionDepth": 3,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.20249892927220534,
+                  -0.8679221608968252,
+                  0.17164802092474737
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            }
+          },
+          "gateRatios": {
+            "guide0Distance": 0.5860900725623078,
+            "guide0Angle": 0.902586988508714,
+            "guide1Distance": 0.9508322699708147,
+            "guide1Angle": 0.5679774885670115,
+            "02sourceToOutput": 0.9800413906280507,
+            "02outputToSource": 0.9617512469858068,
+            "13sourceToOutput": 1.0015661161682234,
+            "13outputToSource": 0.8292222467188917
+          },
+          "gatePassed": {
+            "quality": true,
+            "guide0Distance": true,
+            "guide0Angle": true,
+            "guide1Distance": true,
+            "guide1Angle": true,
+            "02sourceToOutput": true,
+            "02outputToSource": true,
+            "13sourceToOutput": false,
+            "13outputToSource": true
+          },
+          "protectedGateFailures": [],
+          "eligibleForRepair": true,
+          "violationScore": 1.0015661161682234,
+          "qualified": false,
+          "phase": "joint-guide-surface",
+          "step": 1,
+          "alpha": 1.0,
+          "refinement": {
+            "vertices": 36,
+            "evaluations": 16,
+            "sourceSupportPoints": 201
+          },
+          "patchVertices": 36,
+          "surfaceConstraintCount": 2
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 1845,
+            "minimumAngleDegrees": 43.87331789386543,
+            "angleP05Degrees": 66.61468948504536,
+            "maximumAngleDegrees": 138.72816458595577,
+            "edgeRatioP95": 2.5803808089763423,
+            "edgeRatioMax": 3.7452302384736402,
+            "scaledJacobianMin": 0.6166538957412806,
+            "scaledJacobianP05": 0.8252799137504003,
+            "edgeLengthCV": 0.19951019245257856,
+            "adjacentAreaRatioP95": 1.9286900853444173,
+            "valence4Fraction": 0.9566395663956639,
+            "irregularVertices": 80,
+            "targetRelativeError": 0.025,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [
+            {
+              "vertices": [
+                738,
+                604,
+                590,
+                605,
+                486,
+                758,
+                791,
+                741,
+                742,
+                716,
+                715,
+                592,
+                565,
+                568,
+                567,
+                569,
+                571,
+                539,
+                523,
+                1841,
+                593,
+                414,
+                368,
+                403,
+                378,
+                377,
+                379,
+                1472,
+                1332,
+                1330,
+                1329,
+                380,
+                382,
+                370,
+                1782,
+                446,
+                447,
+                519,
+                520,
+                521,
+                534,
+                651,
+                687,
+                586,
+                585,
+                535,
+                537,
+                522,
+                484,
+                587,
+                588,
+                712,
+                538,
+                589,
+                738
+              ],
+              "closed": true,
+              "curve": 0,
+              "p95Distance": 0.009442355127395764,
+              "p95TangentAngleDegrees": 27.07760965526142,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.0027453209001428417,
+                "p95Distance": 0.009442355127395764,
+                "maxDistance": 0.020251572416272668,
+                "meanDistanceOverMedianEdge": 0.03666160376622638,
+                "meanUnsignedTangentAngleDegrees": 7.082909172978966,
+                "p95UnsignedTangentAngleDegrees": 27.07760965526142,
+                "selectedEdgeCount": 54,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "2": 54
+                },
+                "selectedEdgesFormSingleCycle": true,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            },
+            {
+              "vertices": [
+                488,
+                485,
+                487,
+                385,
+                387,
+                429,
+                428,
+                426,
+                457,
+                455,
+                454,
+                562,
+                482,
+                453,
+                451,
+                405,
+                406,
+                1723,
+                375
+              ],
+              "closed": false,
+              "curve": 1,
+              "p95Distance": 0.015148665990874548,
+              "p95TangentAngleDegrees": 17.06840233413258,
+              "alignment": {
+                "samples": 257,
+                "meanDistance": 0.0036257857607508723,
+                "p95Distance": 0.015148665990874548,
+                "maxDistance": 0.021464266524423986,
+                "meanDistanceOverMedianEdge": 0.04481033201586821,
+                "meanUnsignedTangentAngleDegrees": 6.117107967345461,
+                "p95UnsignedTangentAngleDegrees": 17.06840233413258,
+                "selectedEdgeCount": 18,
+                "selectedEdgeGraphComponents": 1,
+                "selectedEdgeGraphDegreeHistogram": {
+                  "1": 2,
+                  "2": 17
+                },
+                "selectedEdgesFormSingleCycle": false,
+                "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+              },
+              "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+            }
+          ],
+          "intersections": {
+            "passed": true,
+            "nonAdjacentIntersectingFacePairs": [],
+            "adjacentIntersectingFacePairs": [],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": true,
+            "checks": {
+              "validTriangulation": true,
+              "closed": true,
+              "components": true,
+              "sourceEuler": true,
+              "noIncidenceDefects": true,
+              "vertexManifold": true,
+              "consistentWinding": true,
+              "sampledSurface": true,
+              "wholeSurface": true
+            },
+            "sourceToOutput": {
+              "samples": 2000,
+              "stride": 18,
+              "sampledMax": 0.029953994138561327,
+              "p95": 0.017096805991724813
+            },
+            "outputToSource": {
+              "samples": 1845,
+              "stride": 3,
+              "sampledMax": 0.03249300692957925,
+              "p95": 0.01183422809952149
+            },
+            "sampledSurfaceTolerance": 0.04004054613430094,
+            "topology": {
+              "vertices": 1845,
+              "usedVertices": 1845,
+              "unusedVertices": 0,
+              "faces": 1845,
+              "edges": 3690,
+              "faceSizes": {
+                "4": 1845
+              },
+              "triangles": 0,
+              "quads": 1845,
+              "triangleFraction": 0.0,
+              "quadFraction": 1.0,
+              "otherPolygonFraction": 0.0,
+              "faceConnectedComponents": 1,
+              "componentFaceCounts": [
+                1845
+              ],
+              "boundaryEdges": 0,
+              "boundaryComponents": 0,
+              "closedBoundaryLoops": 0,
+              "nonmanifoldEdges": 0,
+              "repeatedIndexFaces": 0,
+              "zeroAreaFanTriangles": 0,
+              "nonconvexProjectedPolygons": 0,
+              "maxQuadFourthPointPlaneDistance": 0.09044899950556737,
+              "eulerCharacteristic": 0,
+              "bounds": [
+                [
+                  -0.6014340746745281,
+                  -0.997140906977277,
+                  -0.9066322445869446
+                ],
+                [
+                  0.6027617299344271,
+                  0.9991967819321657,
+                  0.9043041180960227
+                ]
+              ],
+              "edgeLengths": {
+                "min": 0.016059482043682016,
+                "median": 0.07910939334622043,
+                "max": 0.16193094402431682
+              },
+              "canonicalGeometrySignature": "89217bd1178b57f4bb23386abc84bf0fa5d7d2f2ddfefcdfaa17208f8aded798"
+            },
+            "vertexLinks": {
+              "nonmanifoldVertices": [],
+              "inconsistentWindingEdges": 0
+            },
+            "wholeSurfaceDiagonals": {
+              "02": {
+                "passed": true,
+                "tolerance": 0.04004054613430094,
+                "sourceToOutput": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.04002726782610372,
+                  "sampledMax": 0.039241392514966916,
+                  "testedTriangles": 40800,
+                  "subdivisionDepth": 5,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    0.5443935850818958,
+                    0.7704721434536251,
+                    0.5436507631732709
+                  ]
+                },
+                "outputToSource": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.040037569630497885,
+                  "sampledMax": 0.03867223007577963,
+                  "testedTriangles": 13866,
+                  "subdivisionDepth": 5,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    -0.24964835207827316,
+                    -0.807118949095821,
+                    0.16694206893340544
+                  ]
+                },
+                "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+              },
+              "13": {
+                "passed": true,
+                "tolerance": 0.04004054613430094,
+                "sourceToOutput": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.04003671679608864,
+                  "sampledMax": 0.040005272918158453,
+                  "testedTriangles": 41576,
+                  "subdivisionDepth": 10,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    0.5441792741455248,
+                    0.7708503716516771,
+                    0.5383157186916209
+                  ]
+                },
+                "outputToSource": {
+                  "passed": true,
+                  "status": "bounded",
+                  "maximumUpperBound": 0.04003911593819751,
+                  "sampledMax": 0.0329240247441125,
+                  "testedTriangles": 14158,
+                  "subdivisionDepth": 3,
+                  "unresolvedTriangles": 0,
+                  "witness": [
+                    -0.20177573716915623,
+                    -0.8690415246507032,
+                    0.17178488115192633
+                  ]
+                },
+                "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+              }
+            },
+            "scope": "Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections.",
+            "checked": true
+          },
+          "witnessBounds": {
+            "02": {
+              "passed": true,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.04002726782610372,
+                "sampledMax": 0.039241392514966916,
+                "testedTriangles": 40800,
+                "subdivisionDepth": 5,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  0.5443935850818958,
+                  0.7704721434536251,
+                  0.5436507631732709
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.040037569630497885,
+                "sampledMax": 0.03867223007577963,
+                "testedTriangles": 13866,
+                "subdivisionDepth": 5,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.24964835207827316,
+                  -0.807118949095821,
+                  0.16694206893340544
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            },
+            "13": {
+              "passed": true,
+              "tolerance": 0.04004054613430094,
+              "sourceToOutput": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.04003671679608864,
+                "sampledMax": 0.040005272918158453,
+                "testedTriangles": 41576,
+                "subdivisionDepth": 10,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  0.5441792741455248,
+                  0.7708503716516771,
+                  0.5383157186916209
+                ]
+              },
+              "outputToSource": {
+                "passed": true,
+                "status": "bounded",
+                "maximumUpperBound": 0.04003911593819751,
+                "sampledMax": 0.0329240247441125,
+                "testedTriangles": 14158,
+                "subdivisionDepth": 3,
+                "unresolvedTriangles": 0,
+                "witness": [
+                  -0.20177573716915623,
+                  -0.8690415246507032,
+                  0.17178488115192633
+                ]
+              },
+              "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+            }
+          },
+          "gateRatios": {
+            "guide0Distance": 0.5895495965342816,
+            "guide0Angle": 0.902586988508714,
+            "guide1Distance": 0.9458328777574643,
+            "guide1Angle": 0.568946744471086,
+            "02sourceToOutput": 0.9800413906280507,
+            "02outputToSource": 0.9658267383783474,
+            "13sourceToOutput": 0.99911906256163,
+            "13outputToSource": 0.822267124771007
+          },
+          "gatePassed": {
+            "quality": true,
+            "guide0Distance": true,
+            "guide0Angle": true,
+            "guide1Distance": true,
+            "guide1Angle": true,
+            "02sourceToOutput": true,
+            "02outputToSource": true,
+            "13sourceToOutput": true,
+            "13outputToSource": true
+          },
+          "protectedGateFailures": [],
+          "eligibleForRepair": true,
+          "violationScore": 0.99911906256163,
+          "qualified": true,
+          "phase": "joint-guide-surface",
+          "step": 2,
+          "alpha": 1.0,
+          "refinement": {
+            "vertices": 36,
+            "evaluations": 16,
+            "sourceSupportPoints": 206
+          },
+          "patchVertices": 36,
+          "surfaceConstraintCount": 2
+        }
+      ],
+      "unusedLayoutVertices": 0,
+      "initialGuideMetricsExactlyReproduced": true,
+      "elapsedSeconds": 159.4529999999795,
+      "faces": 1845,
+      "outputSha256": "94fcde54a3314758c59288d4f004e7d4eb341f64eb3fe7f5c32f330f922d40e9"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "surface_guide_refine.py": "c4582f52a53c034edc1f811f15bf1c72792a6e7bc3ada7839f22236a845180ed",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "surface_guide_joint.py": "1661756024df04285ba1e0a50318d3662913fc548ed8eb184587ca8b1d72b44c",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/probe_toilet_objective_controls.py": "b09736f115c291454269b731666dfea3a9162c4be5c5c7940d3256c1ca362b7f"
+  },
+  "implementationUnchanged": true,
+  "detachedModules": {
+    "executed-fitter.py": "f1d737fe24ff8581f7912067db72176a15bfec180cb11cf18822dc05714c893e",
+    "executed-joint.py": "2cbffaceff47df6cb7b504f46d84caaca70daec9ed70fcbd16f2bb964bece27a"
+  },
+  "controls": {
+    "edgeRatioAim": 3.5,
+    "guideDistanceWeight": 64.0,
+    "tangentTailWeight": 0.0
+  },
+  "elapsedSeconds": 159.65600000001723,
+  "scope": "Isolated real numerical fitting on retained genuine source layouts. Coarse cases use changed objective for global/local fitting; perturbed case reproduces five unchanged global passes before modified joint fitting. Original shape/topology/guide/contact/whole-surface acceptance is mandatory. Accepted experimental exports require separate independent audits; no production dispatch change."
+}

@@ -85,7 +85,9 @@ try:
         page.wait_for_function('window.retopoDemo.getState().meshId === "toilet" && !document.getElementById("generateButton").disabled')
         source = http('/api/mesh/toilet')
         for name in args.cases:
-            curves = json.loads((ROOT / 'tests/toilet-stress' / name / 'curves.json').read_text())['curves']
+            curve_file = (ROOT / 'tests/toilet-paired-variants/sampling-and-density/short-small-perturbation/curves.json'
+                          if name == 'short-small-perturbation' else ROOT / 'tests/toilet-stress' / name / 'curves.json')
+            curves = json.loads(curve_file.read_text())['curves']
             packet = dict(coordinateFrame='source', sourceSha256=source['sourceSha256'], curves=curves)
             page.locator('#guideFile').set_input_files(dict(name='toilet-guides.json', mimeType='application/json', buffer=json.dumps(packet).encode()))
             page.wait_for_function('(n) => window.retopoDemo.getState().guides.length === n', arg=len(curves))

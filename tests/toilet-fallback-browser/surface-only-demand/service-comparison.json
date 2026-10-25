@@ -1,0 +1,57 @@
+{
+  "browserOutputSha256": "122218bfa3b014f1e23590a15f58cc21c86b9b6dfdd52bfea66a804ed47c5339",
+  "serviceOutputSha256": "94fcde54a3314758c59288d4f004e7d4eb341f64eb3fe7f5c32f330f922d40e9",
+  "curves": [
+    {
+      "browserPoints": 424,
+      "servicePoints": 424,
+      "exact": true,
+      "maxCoordinateDifference": 0.0,
+      "authoredPointsPreservedInOrder": true,
+      "extraSamples": [],
+      "segmentsExceedingPoint04": []
+    },
+    {
+      "browserPoints": 50,
+      "servicePoints": 49,
+      "exact": false,
+      "maxCoordinateDifference": null,
+      "authoredPointsPreservedInOrder": true,
+      "extraSamples": [
+        {
+          "index": 21,
+          "point": [
+            0.24769597146627223,
+            -0.7968173583353869,
+            0.2094496524463119
+          ]
+        }
+      ],
+      "segmentsExceedingPoint04": [
+        {
+          "index": 20,
+          "length": 0.041088677464445424
+        }
+      ]
+    }
+  ],
+  "sameFaces": true,
+  "maxVertexCoordinateDifference": 0.008752851045319532,
+  "browserEqualsImportedFixture": false,
+  "serviceEqualsImportedFixture": true,
+  "importedFixture": "tests\\toilet-paired-variants\\sampling-and-density\\short-small-perturbation\\curves.json",
+  "importedFixtureSha256": "863875fcf2cb4c189c98fb40edb73d38e361d246c49b00b249de7d95f1ef5383",
+  "importedFixturePointCounts": [
+    424,
+    49
+  ],
+  "browserJob": {
+    "name": "short-small-perturbation",
+    "state": "complete",
+    "job": "45482461a6904afdaea784c110871d5e",
+    "resultFaces": 1845,
+    "elapsedSeconds": 480.14639353752136,
+    "outputSha256": "122218bfa3b014f1e23590a15f58cc21c86b9b6dfdd52bfea66a804ed47c5339"
+  },
+  "scope": "Comparison only. Different exported meshes require independent audits; an earlier passing mesh cannot qualify the browser download."
+}

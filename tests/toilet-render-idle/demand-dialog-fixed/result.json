@@ -1,0 +1,72 @@
+{
+  "complete": true,
+  "passed": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "Idle original toilet stops issuing WebGL draw calls",
+      "drawCalls": 40
+    },
+    {
+      "passed": true,
+      "name": "Mesh-edge toggle repaints the actual viewport"
+    },
+    {
+      "passed": true,
+      "name": "Mesh edges repaint when restored"
+    },
+    {
+      "passed": true,
+      "name": "Hiding guides repaints the viewport"
+    },
+    {
+      "passed": true,
+      "name": "Showing guides repaints the viewport"
+    },
+    {
+      "passed": true,
+      "name": "Overlay mode repaints"
+    },
+    {
+      "passed": true,
+      "name": "Split mode repaints"
+    },
+    {
+      "passed": true,
+      "name": "Theme changes repaint materials and background"
+    },
+    {
+      "passed": true,
+      "name": "Window resizing repaints and resizes the canvas"
+    },
+    {
+      "passed": true,
+      "name": "Native orbit repaints through damping"
+    },
+    {
+      "passed": true,
+      "name": "Top command repaints after orbit settles"
+    },
+    {
+      "passed": true,
+      "name": "Clearing guides repaints the source"
+    },
+    {
+      "passed": true,
+      "name": "Viewport returns to zero drawing after native interactions",
+      "drawCalls": 622
+    },
+    {
+      "passed": true,
+      "name": "Implementation remains fixed during rendering checks"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "1aa692cdf1fc18bc12e43a60cc55b0fe42d706475afaf4bd6e89a3495dded5d5",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_toilet_render_idle.py": "bb16f2684aa69fcf1cd2a6a26912abd9f28dbc911ea127336bbcc7250765cb84"
+  },
+  "scope": "Actual WebGL draw-call observation and pixel changes on the original toilet with native controls. No solver response substitution. Idle checks are finite observations; editing and generation have separate suites."
+}

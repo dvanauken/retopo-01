@@ -1,0 +1,7 @@
+{
+  "complete": true,
+  "passed": false,
+  "cases": [],
+  "errors": ["Diagnostic setup passed ndarray faces to the reference topology helper, whose face[1:] + face[:1] expects list concatenation. This produced an IndexError before any bridge or fitting was attempted."],
+  "scope": "Interrupted diagnostic setup only. Exact executed probe retained; this is not a geometry rejection."
+}

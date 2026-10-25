@@ -1,0 +1,13 @@
+{
+  "job": "e96d45e98fe04ae288da6647bf1169c7",
+  "acceptedResult": false,
+  "retainedFiles": {
+    "curves.json": "ca76415b927b14dee36ed28e335315d3572fa6fc3db084ba01c81764aaf5f85f",
+    "settings.json": "c2ef2d7af73861431c27df0ce2b5442bfa474b442d1252ede8fd4a0d5f802843",
+    "progress.json": "102139b8179908ffe88b9af83e8c3a4964bbb21750091a5be9904ebf28ca8da3",
+    "worker.log": "25273fc498e1d2199cc27131dcfba2fe0aafd0ee22d949947453b18adc9cfa47",
+    "sampled-guide-history.json": "b2b503685cf5c8a88e6966d37460bdbc7cdd5d315d5f8483f4c006fdae25ed27"
+  },
+  "executedAppSha256": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+  "scope": "Actual browser job reached the unchanged600-second service timeout during local surface repair. Exact pre-rendering-change app recovered from b63828f with matching recorded SHA. Native dialog reported failure; runtime-cleanup separately proves sampled descendants exited. No qualified output exists for this run."
+}

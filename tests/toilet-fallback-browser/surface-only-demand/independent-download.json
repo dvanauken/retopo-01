@@ -1,0 +1,22 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "short-small-perturbation",
+      "passed": true,
+      "outputSha256": "122218bfa3b014f1e23590a15f58cc21c86b9b6dfdd52bfea66a804ed47c5339",
+      "audits": {
+        "toilet-fresh-geometry": {
+          "report": "tests\\toilet-fresh-geometry\\surface-only-browser\\result.json",
+          "sha256": "a53200157b3b043465a394bf0418d103fa1e63cac85114a4509a9a828d7bfa18"
+        },
+        "toilet-all-diagonal-audit": {
+          "report": "tests\\toilet-all-diagonal-audit\\surface-only-browser\\result.json",
+          "sha256": "1798f31d44170c671ef3405d1f4ca3b70da873f1e0da83b546a59ee658cd3b26"
+        }
+      }
+    }
+  ],
+  "scope": "Native downloaded bytes equal the worker OBJ independently re-read and audited for this browser run. No equality with a different service input or mesh is assumed."
+}

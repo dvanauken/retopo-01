@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/probe_toilet_objective_controls.py",
+  "executedScript": "tests\\toilet-objective-controls\\perturb-distance64-tail0-serialized\\executed-probe.py",
+  "executedSha256": "b09736f115c291454269b731666dfea3a9162c4be5c5c7940d3256c1ca362b7f",
+  "currentScriptSha256": "2ae74b43adea09ad42241aea1ee4c2f7b89a78c9a49584d0316e8727db6b4303",
+  "scope": "Retained exact script from this historical run. Later harness edits do not change the recorded input, implementation or outcome."
+}

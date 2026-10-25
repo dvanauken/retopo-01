@@ -63,7 +63,7 @@ def _sample_targets(positions, guides):
 
 
 def refine(source_mesh, positions, faces, edges, guides, target, *, patch_vertices=None, witness_source=None,
-           tangent_tail_weight=0., surface_constraints=None, constraint_weight=8.):
+           tangent_tail_weight=0., surface_constraints=None, constraint_weight=8., guide_distance_weight=32.):
     """Return a fitted candidate without altering the input arrays or gates."""
     positions, faces, edges = np.asarray(positions), np.asarray(faces), np.asarray(edges)
     spacing = np.sqrt(source_mesh.area / target)
@@ -156,9 +156,9 @@ def refine(source_mesh, positions, faces, edges, guides, target, *, patch_vertic
             cross = np.cross(unit, sample_tangents)
             sine = np.linalg.norm(cross, axis=1)
             factor = 12 + tangent_tail_weight * np.maximum(sine - np.sin(np.radians(25)), 0) / np.maximum(sine, 1e-12)
-            return np.r_[((near - sample_points) / spacing * 32 * sample_weights[:, None]).ravel(),
+            return np.r_[((near - sample_points) / spacing * guide_distance_weight * sample_weights[:, None]).ravel(),
                          (cross * factor[:, None] * sample_weights[:, None]).ravel()]
-        return np.r_[((near - sample_points) / spacing * 32 * sample_weights[:, None]).ravel(),
+        return np.r_[((near - sample_points) / spacing * guide_distance_weight * sample_weights[:, None]).ravel(),
                      (np.cross(unit, sample_tangents) * 12 * sample_weights[:, None]).ravel()]
 
     def memory_residual(points):

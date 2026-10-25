@@ -1,0 +1,9 @@
+{
+  "complete": true,
+  "passed": false,
+  "cases": [],
+  "errors": [
+    "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_browser_export_identity.py\", line 31, in <module>\n    assert digest == sha(reference / 'output.obj')\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  ],
+  "scope": "Fresh browser downloads are byte-identical to independent qualified exports, with identical source curves and connected path indices. This links existing independent measurements to the same geometry; it does not claim a redundant numerical rerun."
+}

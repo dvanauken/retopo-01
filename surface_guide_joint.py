@@ -115,7 +115,10 @@ def repair(source_mesh, positions, faces, edges, guides, target, *, job, record)
     """Return an assessed candidate after at most eight constrained local passes."""
     spacing = np.sqrt(source_mesh.area / target)
     current = assess(source_mesh, positions, faces, guides, target)
-    record(current, phase='joint-guide-surface', initial=True)
+    guide_repair = any(not passed for key, passed in current['gatePassed'].items() if key.startswith('guide'))
+    tail_weight, distance_weight = (80., 32.) if guide_repair else (0., 64.)
+    record(current, phase='joint-guide-surface', initial=True,
+           tangentTailWeight=tail_weight, guideDistanceWeight=distance_weight)
     if not current['eligibleForRepair']:
         return positions, current
     constraints, keys, steps = [], set(), []
@@ -145,7 +148,8 @@ def repair(source_mesh, positions, faces, edges, guides, target, *, job, record)
         cq._progress(job, f'Refining guide alignment and surface accuracy · pass {step + 1}')
         proposal, refinement = fitter.refine(source_mesh, positions, faces, edges, guides, target,
                                              patch_vertices=patch, witness_source=source_points,
-                                             tangent_tail_weight=80., surface_constraints=constraints, constraint_weight=8.)
+                                             tangent_tail_weight=tail_weight, surface_constraints=constraints, constraint_weight=8.,
+                                             guide_distance_weight=distance_weight)
         accepted = False
         step_record = dict(step=step, patchVertices=len(patch), constraintsBefore=before, continued=False)
         steps.append(step_record)
@@ -164,7 +168,7 @@ def repair(source_mesh, positions, faces, edges, guides, target, *, job, record)
                 break
         step_record['constraintsAfter'] = len(constraints)
         cq._write(job / 'joint-guide-repair.json', dict(steps=steps, constraints=constraints, qualified=current['qualified'],
-                                                       tangentTailWeight=80., constraintWeight=8.))
+                                                       tangentTailWeight=tail_weight, guideDistanceWeight=distance_weight, constraintWeight=8.))
         if not accepted and len(constraints) == before:
             break
     return positions, current

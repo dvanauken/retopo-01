@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "constructionCompleted": true,
+  "vertices": 1845,
+  "faces": 1845,
+  "elapsedSeconds": 459.9070000000065,
+  "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+  "curvesSha256": "863875fcf2cb4c189c98fb40edb73d38e361d246c49b00b249de7d95f1ef5383",
+  "outputSha256": "94fcde54a3314758c59288d4f004e7d4eb341f64eb3fe7f5c32f330f922d40e9",
+  "workerSha256": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+  "backend": "engineering-guided-surface-quads",
+  "qualityPassed": true,
+  "quality": {
+    "quadOnly": true,
+    "faces": 1845,
+    "minimumAngleDegrees": 43.87331789386543,
+    "angleP05Degrees": 66.61468948504536,
+    "maximumAngleDegrees": 138.72816458595577,
+    "edgeRatioP95": 2.5803808089763423,
+    "edgeRatioMax": 3.7452302384736402,
+    "scaledJacobianMin": 0.6166538957412806,
+    "scaledJacobianP05": 0.8252799137504003,
+    "edgeLengthCV": 0.19951019245257856,
+    "adjacentAreaRatioP95": 1.9286900853444173,
+    "valence4Fraction": 0.9566395663956639,
+    "irregularVertices": 80,
+    "targetRelativeError": 0.025,
+    "passed": true,
+    "failures": [],
+    "limits": {
+      "minimumAngleDegrees": 30.0,
+      "edgeRatioP95": 3.5,
+      "edgeRatioMax": 6.0,
+      "scaledJacobianMin": 0.45,
+      "adjacentAreaRatioP95": 4.0,
+      "targetRelativeError": 0.15
+    },
+    "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+  },
+  "scope": "Actual original-input construction from user surface guides. No native process or native output oracle. Geometry validation and methods retained."
+}

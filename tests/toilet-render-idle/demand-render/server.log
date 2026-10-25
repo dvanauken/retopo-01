@@ -1,0 +1,23 @@
+Retopo1 is ready at http://127.0.0.1:61293
+25/Oct/2026 05:37:08 "GET /api/health HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET / HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /index.css HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /app.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /vendor/three.module.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /vendor/OrbitControls.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /src/snapping/GuideSnap.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /src/domain/GuideDocument.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /src/view/GuideController.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /src/view/WorkspaceShell.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /src/geometry/GuideCurve.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /src/view/SurfaceGuides.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /src/io/GuideSerializer.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /src/view/CircleConstruction.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /src/contracts/GuideData.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /vendor/three.core.js HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /api/health HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /api/catalog HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /api/mesh/hexagon HTTP/1.1" 200 -
+25/Oct/2026 05:37:09 "GET /assets/previews/hexagon.json HTTP/1.1" 200 -
+25/Oct/2026 05:37:10 "GET /api/mesh/toilet HTTP/1.1" 200 -
+25/Oct/2026 05:37:11 "GET /api/mesh/toilet HTTP/1.1" 200 -

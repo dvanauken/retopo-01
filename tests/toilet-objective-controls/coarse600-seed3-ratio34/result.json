@@ -1,0 +1,1032 @@
+{
+  "complete": true,
+  "generationPassed": false,
+  "productionResult": false,
+  "cases": [
+    {
+      "name": "coarse-600",
+      "target": 600,
+      "job": null,
+      "state": "failed",
+      "producerKind": "isolated-objective-controls",
+      "layoutSource": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-600-seed-3.json",
+      "layoutSha256": "1ac14ef1d40e7880489f42e2f92e2a1ec26e4ccd220164382dd6bb50f97f6441",
+      "attempts": [
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 582,
+            "minimumAngleDegrees": 37.92354310531021,
+            "angleP05Degrees": 63.96630884396041,
+            "maximumAngleDegrees": 136.5264694969247,
+            "edgeRatioP95": 2.6372181285747733,
+            "edgeRatioMax": 3.4114388047637174,
+            "scaledJacobianMin": 0.61022927474053,
+            "scaledJacobianP05": 0.7502634892782296,
+            "edgeLengthCV": 0.2220519508004093,
+            "adjacentAreaRatioP95": 2.102495182819254,
+            "valence4Fraction": 0.9072164948453608,
+            "irregularVertices": 54,
+            "targetRelativeError": 0.03,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": false,
+            "nonAdjacentIntersectingFacePairs": [
+              [
+                153,
+                274
+              ],
+              [
+                153,
+                275
+              ],
+              [
+                153,
+                278
+              ],
+              [
+                153,
+                291
+              ],
+              [
+                180,
+                251
+              ],
+              [
+                180,
+                313
+              ],
+              [
+                205,
+                251
+              ],
+              [
+                205,
+                292
+              ],
+              [
+                205,
+                313
+              ],
+              [
+                344,
+                351
+              ],
+              [
+                344,
+                359
+              ],
+              [
+                344,
+                370
+              ],
+              [
+                344,
+                384
+              ],
+              [
+                365,
+                385
+              ],
+              [
+                375,
+                576
+              ],
+              [
+                376,
+                399
+              ],
+              [
+                385,
+                579
+              ],
+              [
+                399,
+                417
+              ],
+              [
+                399,
+                418
+              ],
+              [
+                399,
+                419
+              ],
+              [
+                400,
+                418
+              ],
+              [
+                400,
+                419
+              ]
+            ],
+            "adjacentIntersectingFacePairs": [
+              [
+                167,
+                274
+              ],
+              [
+                167,
+                275
+              ],
+              [
+                341,
+                365
+              ],
+              [
+                341,
+                576
+              ],
+              [
+                360,
+                581
+              ],
+              [
+                365,
+                576
+              ],
+              [
+                367,
+                579
+              ],
+              [
+                576,
+                579
+              ]
+            ],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 0,
+          "refinement": {
+            "vertices": 581,
+            "evaluations": 66,
+            "sourceSupportPoints": 1318
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 582,
+            "minimumAngleDegrees": 44.11986503145172,
+            "angleP05Degrees": 60.065547175054036,
+            "maximumAngleDegrees": 135.6043564543476,
+            "edgeRatioP95": 3.004961065112261,
+            "edgeRatioMax": 3.4150736637889647,
+            "scaledJacobianMin": 0.6944718561313034,
+            "scaledJacobianP05": 0.7248817810593549,
+            "edgeLengthCV": 0.2517444304534491,
+            "adjacentAreaRatioP95": 2.385284383514546,
+            "valence4Fraction": 0.9072164948453608,
+            "irregularVertices": 54,
+            "targetRelativeError": 0.03,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": false,
+            "nonAdjacentIntersectingFacePairs": [
+              [
+                153,
+                274
+              ],
+              [
+                153,
+                275
+              ],
+              [
+                193,
+                269
+              ],
+              [
+                193,
+                280
+              ],
+              [
+                195,
+                269
+              ],
+              [
+                195,
+                280
+              ],
+              [
+                317,
+                328
+              ],
+              [
+                317,
+                351
+              ],
+              [
+                324,
+                328
+              ],
+              [
+                324,
+                329
+              ],
+              [
+                324,
+                359
+              ],
+              [
+                325,
+                351
+              ],
+              [
+                325,
+                359
+              ],
+              [
+                344,
+                359
+              ],
+              [
+                367,
+                405
+              ],
+              [
+                367,
+                581
+              ],
+              [
+                579,
+                581
+              ]
+            ],
+            "adjacentIntersectingFacePairs": [
+              [
+                167,
+                274
+              ],
+              [
+                167,
+                275
+              ],
+              [
+                365,
+                576
+              ],
+              [
+                367,
+                408
+              ],
+              [
+                367,
+                579
+              ],
+              [
+                405,
+                579
+              ],
+              [
+                408,
+                579
+              ],
+              [
+                576,
+                579
+              ]
+            ],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 1,
+          "refinement": {
+            "vertices": 561,
+            "evaluations": 82,
+            "sourceSupportPoints": 450
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 582,
+            "minimumAngleDegrees": 44.32709521475731,
+            "angleP05Degrees": 58.79693232620921,
+            "maximumAngleDegrees": 135.6912213972923,
+            "edgeRatioP95": 3.1821818820569083,
+            "edgeRatioMax": 3.424781475854855,
+            "scaledJacobianMin": 0.6965091349650039,
+            "scaledJacobianP05": 0.7286864938067645,
+            "edgeLengthCV": 0.26318253623480875,
+            "adjacentAreaRatioP95": 2.5048847947721,
+            "valence4Fraction": 0.9072164948453608,
+            "irregularVertices": 54,
+            "targetRelativeError": 0.03,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": false,
+            "nonAdjacentIntersectingFacePairs": [
+              [
+                153,
+                274
+              ],
+              [
+                153,
+                275
+              ],
+              [
+                153,
+                278
+              ],
+              [
+                153,
+                291
+              ],
+              [
+                193,
+                269
+              ],
+              [
+                193,
+                281
+              ],
+              [
+                195,
+                269
+              ],
+              [
+                195,
+                280
+              ],
+              [
+                195,
+                281
+              ],
+              [
+                342,
+                365
+              ],
+              [
+                344,
+                351
+              ],
+              [
+                344,
+                359
+              ],
+              [
+                344,
+                370
+              ],
+              [
+                344,
+                384
+              ],
+              [
+                361,
+                370
+              ],
+              [
+                361,
+                384
+              ],
+              [
+                367,
+                405
+              ],
+              [
+                367,
+                581
+              ],
+              [
+                376,
+                399
+              ],
+              [
+                378,
+                418
+              ],
+              [
+                379,
+                418
+              ],
+              [
+                399,
+                417
+              ],
+              [
+                399,
+                418
+              ],
+              [
+                399,
+                419
+              ],
+              [
+                400,
+                418
+              ],
+              [
+                400,
+                419
+              ],
+              [
+                579,
+                581
+              ]
+            ],
+            "adjacentIntersectingFacePairs": [
+              [
+                167,
+                274
+              ],
+              [
+                167,
+                275
+              ],
+              [
+                341,
+                365
+              ],
+              [
+                341,
+                576
+              ],
+              [
+                342,
+                576
+              ],
+              [
+                365,
+                576
+              ],
+              [
+                367,
+                408
+              ],
+              [
+                367,
+                579
+              ],
+              [
+                405,
+                579
+              ],
+              [
+                408,
+                579
+              ],
+              [
+                576,
+                579
+              ]
+            ],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 2,
+          "refinement": {
+            "vertices": 540,
+            "evaluations": 46,
+            "sourceSupportPoints": 555
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 582,
+            "minimumAngleDegrees": 44.164181997645564,
+            "angleP05Degrees": 56.90322584287472,
+            "maximumAngleDegrees": 135.61530123625295,
+            "edgeRatioP95": 3.4000516231419184,
+            "edgeRatioMax": 3.416236263575889,
+            "scaledJacobianMin": 0.6964005194183838,
+            "scaledJacobianP05": 0.7200051887650051,
+            "edgeLengthCV": 0.27095626916182847,
+            "adjacentAreaRatioP95": 2.6218348607042588,
+            "valence4Fraction": 0.9072164948453608,
+            "irregularVertices": 54,
+            "targetRelativeError": 0.03,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": false,
+            "nonAdjacentIntersectingFacePairs": [
+              [
+                153,
+                274
+              ],
+              [
+                153,
+                275
+              ],
+              [
+                153,
+                278
+              ],
+              [
+                153,
+                291
+              ],
+              [
+                193,
+                269
+              ],
+              [
+                193,
+                280
+              ],
+              [
+                193,
+                281
+              ],
+              [
+                195,
+                269
+              ],
+              [
+                195,
+                280
+              ],
+              [
+                195,
+                281
+              ],
+              [
+                342,
+                365
+              ],
+              [
+                342,
+                367
+              ],
+              [
+                342,
+                579
+              ],
+              [
+                360,
+                367
+              ],
+              [
+                367,
+                405
+              ],
+              [
+                367,
+                581
+              ],
+              [
+                378,
+                419
+              ],
+              [
+                379,
+                418
+              ],
+              [
+                379,
+                419
+              ],
+              [
+                399,
+                419
+              ],
+              [
+                400,
+                418
+              ],
+              [
+                400,
+                419
+              ],
+              [
+                579,
+                581
+              ]
+            ],
+            "adjacentIntersectingFacePairs": [
+              [
+                167,
+                274
+              ],
+              [
+                167,
+                275
+              ],
+              [
+                209,
+                578
+              ],
+              [
+                251,
+                578
+              ],
+              [
+                341,
+                365
+              ],
+              [
+                341,
+                576
+              ],
+              [
+                342,
+                576
+              ],
+              [
+                365,
+                576
+              ],
+              [
+                367,
+                408
+              ],
+              [
+                367,
+                579
+              ],
+              [
+                405,
+                579
+              ],
+              [
+                408,
+                579
+              ],
+              [
+                576,
+                579
+              ]
+            ],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 3,
+          "refinement": {
+            "vertices": 533,
+            "evaluations": 103,
+            "sourceSupportPoints": 305
+          }
+        },
+        {
+          "quality": {
+            "quadOnly": true,
+            "faces": 582,
+            "minimumAngleDegrees": 44.29397756357422,
+            "angleP05Degrees": 56.20750977666671,
+            "maximumAngleDegrees": 135.60033182596143,
+            "edgeRatioP95": 3.3814953511632853,
+            "edgeRatioMax": 3.4220091670963253,
+            "scaledJacobianMin": 0.6983019949982503,
+            "scaledJacobianP05": 0.7192994773712611,
+            "edgeLengthCV": 0.2779276976824721,
+            "adjacentAreaRatioP95": 2.771984440279896,
+            "valence4Fraction": 0.9072164948453608,
+            "irregularVertices": 54,
+            "targetRelativeError": 0.03,
+            "passed": true,
+            "failures": [],
+            "limits": {
+              "minimumAngleDegrees": 30.0,
+              "edgeRatioP95": 3.5,
+              "edgeRatioMax": 6.0,
+              "scaledJacobianMin": 0.45,
+              "adjacentAreaRatioP95": 4.0,
+              "targetRelativeError": 0.15
+            },
+            "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+          },
+          "guideFit": [],
+          "intersections": {
+            "passed": false,
+            "nonAdjacentIntersectingFacePairs": [
+              [
+                121,
+                274
+              ],
+              [
+                121,
+                278
+              ],
+              [
+                153,
+                274
+              ],
+              [
+                153,
+                275
+              ],
+              [
+                153,
+                278
+              ],
+              [
+                153,
+                291
+              ],
+              [
+                187,
+                207
+              ],
+              [
+                187,
+                275
+              ],
+              [
+                193,
+                269
+              ],
+              [
+                193,
+                280
+              ],
+              [
+                193,
+                281
+              ],
+              [
+                195,
+                269
+              ],
+              [
+                195,
+                280
+              ],
+              [
+                195,
+                281
+              ],
+              [
+                199,
+                251
+              ],
+              [
+                199,
+                275
+              ],
+              [
+                199,
+                313
+              ],
+              [
+                207,
+                578
+              ],
+              [
+                275,
+                578
+              ],
+              [
+                342,
+                365
+              ],
+              [
+                342,
+                367
+              ],
+              [
+                342,
+                579
+              ],
+              [
+                365,
+                385
+              ],
+              [
+                367,
+                405
+              ],
+              [
+                367,
+                581
+              ],
+              [
+                378,
+                418
+              ],
+              [
+                378,
+                419
+              ],
+              [
+                379,
+                418
+              ],
+              [
+                385,
+                579
+              ],
+              [
+                399,
+                419
+              ],
+              [
+                400,
+                418
+              ],
+              [
+                400,
+                419
+              ],
+              [
+                579,
+                581
+              ]
+            ],
+            "adjacentIntersectingFacePairs": [
+              [
+                167,
+                274
+              ],
+              [
+                167,
+                275
+              ],
+              [
+                187,
+                209
+              ],
+              [
+                199,
+                578
+              ],
+              [
+                209,
+                578
+              ],
+              [
+                251,
+                578
+              ],
+              [
+                341,
+                365
+              ],
+              [
+                341,
+                576
+              ],
+              [
+                342,
+                576
+              ],
+              [
+                365,
+                576
+              ],
+              [
+                367,
+                408
+              ],
+              [
+                367,
+                579
+              ],
+              [
+                405,
+                579
+              ],
+              [
+                408,
+                579
+              ],
+              [
+                576,
+                579
+              ]
+            ],
+            "quadDiagonalPolicy": "all_pairings",
+            "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.",
+            "checked": true
+          },
+          "surface": {
+            "passed": null,
+            "checked": false,
+            "wholeSurfaceDiagonals": {}
+          },
+          "witnessBounds": {},
+          "eligibleForRepair": false,
+          "maxObservedSurfaceError": null,
+          "qualified": false,
+          "phase": "global",
+          "iteration": 4,
+          "refinement": {
+            "vertices": 530,
+            "evaluations": 80,
+            "sourceSupportPoints": 447
+          }
+        }
+      ],
+      "unusedLayoutVertices": 0,
+      "elapsedSeconds": 43.25
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "surface_guide_refine.py": "c4582f52a53c034edc1f811f15bf1c72792a6e7bc3ada7839f22236a845180ed",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "surface_guide_joint.py": "1661756024df04285ba1e0a50318d3662913fc548ed8eb184587ca8b1d72b44c",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/probe_toilet_objective_controls.py": "ce84a54bc343a68dedfa85c2cc985d3c30c85898b38101cfd4309d90422c89fb"
+  },
+  "implementationUnchanged": true,
+  "detachedModules": {
+    "executed-fitter.py": "7c4dce91e0cf57e789878ceec625ad813192830868fca7daead1644dd0b2d603",
+    "executed-joint.py": "4d384c80762b0a7a584adc9f0c848915ee69a050a4eb93cff2ce7a1ef7b485de"
+  },
+  "controls": {
+    "edgeRatioAim": 3.4,
+    "guideDistanceWeight": 32.0,
+    "tangentTailWeight": 80.0
+  },
+  "elapsedSeconds": 43.26499999995576,
+  "scope": "Isolated real numerical fitting on retained genuine source layouts. Coarse cases use changed objective for global/local fitting; perturbed case reproduces five unchanged global passes before modified joint fitting. Original shape/topology/guide/contact/whole-surface acceptance is mandatory. Accepted experimental exports require separate independent audits; no production dispatch change."
+}

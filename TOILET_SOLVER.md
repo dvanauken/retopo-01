@@ -1,5 +1,46 @@
 # Curved-surface quad solver
 
+The latest adaptive repair also solves the captured source-projected 0.001-unit
+paired-guide perturbation: a fresh service request produces 1,845 quads in
+462.75 seconds. Its exported OBJ passes the independent geometry and all-mixed
+diagonal contact audits under the `surface-only` labels. If guide checks already
+pass when joint repair starts, fitting doubles the guide-distance weight and
+omits the extra tangent-tail penalty while repairing surface accuracy. The
+ordinary tangent objective remains. Inputs with failing guide checks retain
+the earlier settings. Sixty numerical checks reproduce the prior long/bowl/short
+results and the perturbed candidate; thirteen acceptance controls pass on the
+exact applied modules. Source geometry and acceptance limits are unchanged.
+Browser verification is recorded separately from this service result.
+
+The first adaptive browser run reached the unchanged 600-second service limit.
+Its idle software renderer consumed about ten logical CPUs in the recorded
+sample. The viewport now renders on geometry, guide, camera, display or size
+changes and through camera damping, then stops when idle. Fourteen actual-draw
+and viewport-pixel checks pass. This also exposed an error-dialog focus race:
+the displayed incident is now removed from the pending queue before opening,
+so closing it cannot re-display that same incident during focus restoration.
+All 130 native toilet editing and 18 selection/repeated-use checks pass on the
+final app. Both the timeout and intermediate dialog failures remain retained.
+The new full generation run under `surface-only-demand` passes seven checks:
+1,845 quads in 480.15 seconds, visible accepted geometry and a native OBJ download.
+All ten sampled test processes exit. The browser adds one projected sample to a
+0.04109-unit polyline segment while preserving all authored points. Its mesh
+therefore differs from the service-only export. Both independent audits of this
+actual browser download pass under `surface-only-browser`; the failed exact-
+identity comparison is retained separately. The final rendering suite passes
+eighteen checks, including navigator/dock resizing and ribbon collapse/expansion.
+
+Coarse targets 150/600 and paired target 1,799 remain unsolved. Extra layout
+seeds and a stronger edge-ratio objective still produce face overlaps. The raw
+150-face-target layout also has two triangular boundary loops. Bridging all
+three cyclic correspondences restores closed Euler-0 connectivity, but every
+fitted candidate fails contacts. This experiment does not change production
+connectivity. Failed candidates and preliminary harness errors are retained
+under `tests/toilet-objective-controls/`, `tests/toilet-layout-failures/`,
+`tests/toilet-layout-inventory/` and `tests/toilet-boundary-bridge/`.
+The additional 1,799-target seed-5 experiment avoids contacts but still fails
+guide/surface requirements after three joint passes; it is also rejected.
+
 The exhaustive audit is still open. The captured bowl-only, shorter paired-guide
 and longer paired-guide inputs now produce 1,845 quads at target 1,800 through
 the real HTTP service and worker, under unchanged acceptance limits. The latest
@@ -36,10 +77,11 @@ rotated closed-guide start all generated independently qualified results.
 A small paired-guide perturbation failed surface accuracy, and target 1,799
 failed contacts. Unguided targets 150/600 remain unsolved. These failures are
 retained as failures; passing rejection checks does not qualify their geometry.
-With joint correction enabled, the small perturbation still failed, reaching
+At the earlier `b63828f` checkpoint, the small perturbation still failed, reaching
 the existing 600-second service limit during joint pass seven. Its retained
 trial history shows a surface-bound/guide-distance tradeoff. This is a runtime
-and robustness limitation, not a qualified result.
+and robustness failure retained as historical evidence. The adaptive service
+result above now resolves this specific input.
 The paired-guide target 1,799 rerun still rejects face overlaps after about
 265 seconds. Joint repair refuses that intersecting starting mesh. Neither
 failed request leaves a live worker/Blender process or a downloadable result.

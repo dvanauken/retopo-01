@@ -14,6 +14,7 @@ if not args.label.replace('-', '').isalnum():
 folder = ROOT / 'tests/toilet-fallback-browser' / args.label
 sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
 mapping = {
+    'short-small-perturbation': ('tests/toilet-paired-variants/surface-only/short-small-perturbation', 'surface-only', 'surface-only'),
     'two-guides-long-1800': ('tests/toilet-sampled-worker/joint-integrated/two-guides-long-1800', 'joint-integrated', 'joint-integrated'),
     'two-guides-short-1800': ('tests/toilet-sampled-worker/integrated-fallback/two-guides-short-1800', 'integrated-fallback', 'integrated-fallback'),
     'browser-lid-circle': ('tests/toilet-variants/all-diagonal/circle-repeat', 'all-diagonal-generations', 'fresh-new-gate'),

@@ -111,6 +111,33 @@ reports['live-joint-readonly']='tests/toilet-exhaustive-audit/live-joint-readonl
 reports['joint-browser-export-identity']='tests/toilet-fallback-browser/joint-integrated/independent-identity.json'
 reports['joint-browser-runtime-cleanup']='tests/toilet-fallback-browser/joint-integrated/runtime-cleanup.json'
 reports['joint-variant-process-cleanup']='tests/toilet-paired-variants/joint-integrated/process-cleanup.json'
+for family, labels in {
+    'objective-controls':['coarse-ratio34','perturb-distance64-tail0','perturb-distance64-tail0-serialized','coarse150-seed3-ratio34','coarse600-seed3-ratio34','short1799-seed3','short1799-seed5'],
+    'layout-failures':['coarse-and-adjacent-density','coarse-and-adjacent-density-arrays'],
+    'layout-inventory':['alternative-seeds-345'],
+    'boundary-bridge':['coarse150-seed2','coarse150-seed2-lists'],
+    'fresh-geometry':['perturb-distance64-tail0','surface-only','surface-only-browser'],
+    'all-diagonal-audit':['perturb-distance64-tail0','surface-only','surface-only-browser'],
+    'paired-variants':['surface-only'],
+    'fallback-browser':['surface-only','surface-only-demand'],
+    'render-idle':['demand-render','demand-dialog-fixed','demand-layout-final'],
+    'editing':['demand-render','demand-dialog-fixed'],
+    'selection-stability':['demand-render'],
+}.items():
+    for label in labels:
+        reports[family+'-'+label]='tests/toilet-'+family+'/'+label+'/result.json'
+for label in ('surface-only-long-control','surface-only-perturbed','surface-only-integrated'):
+    reports[label]='tests/surface-guide-joint/'+label+'/result.json'
+reports['surface-only-default-parity']='tests/surface-guide-refine/surface-only-defaults/result.json'
+reports['surface-only-variant-cleanup']='tests/toilet-paired-variants/surface-only/process-cleanup.json'
+reports['surface-only-browser-timeout-cleanup']='tests/toilet-fallback-browser/surface-only/runtime-cleanup.json'
+reports['surface-only-browser-timeout-diagnostics']='tests/toilet-fallback-browser/surface-only/failure-diagnostics.json'
+reports['surface-only-live-readonly']='tests/toilet-exhaustive-audit/live-surface-only-readonly.json'
+reports['surface-only-browser-input-comparison']='tests/toilet-fallback-browser/surface-only-demand/service-comparison.json'
+reports['surface-only-browser-nonidentical-export']='tests/toilet-fallback-browser/surface-only-demand/independent-identity.json'
+reports['surface-only-browser-audited-download']='tests/toilet-fallback-browser/surface-only-demand/independent-download.json'
+reports['surface-only-browser-cleanup']='tests/toilet-fallback-browser/surface-only-demand/runtime-cleanup.json'
+reports['surface-only-checkpoint']='tests/toilet-exhaustive-audit/checkpoint-surface-only.json'
 for family in ('path-reselection','long-surface-diagnostics','guided-route-review'):
     reports[family]='tests/toilet-'+family+'/result.json'
 for family in ('fresh-geometry','all-diagonal-audit'):
@@ -137,10 +164,13 @@ for name,relative in reports.items():
     provenance=path.parent/'script-provenance.json'
     if provenance.exists():
         note=json.loads(provenance.read_text())
-        snapshot=ROOT/note['executedScript']
-        assert hashlib.sha256(snapshot.read_bytes()).hexdigest()==note['executedSha256']
-        assert data.get('sourceHashes',{}).get(note['originalPath'])==note['executedSha256']
-        item['retainedHistoricalSource']=dict(provenance=str(provenance.relative_to(ROOT)),snapshot=note['executedScript'],sha256=note['executedSha256'])
+        # A sibling cleanup/download report did not execute the generation
+        # script. Attach that provenance only to reports that hash the script.
+        if note['originalPath'] in data.get('sourceHashes',{}):
+            snapshot=ROOT/note['executedScript']
+            assert hashlib.sha256(snapshot.read_bytes()).hexdigest()==note['executedSha256']
+            assert data['sourceHashes'][note['originalPath']]==note['executedSha256']
+            item['retainedHistoricalSource']=dict(provenance=str(provenance.relative_to(ROOT)),snapshot=note['executedScript'],sha256=note['executedSha256'])
     for file,digest in data.get('sourceHashes',{}).items():
         actual=ROOT/file
         if not actual.exists() or hashlib.sha256(actual.read_bytes()).hexdigest()!=digest:
@@ -152,7 +182,9 @@ for relative in ('tests/toilet-all-diagonal-audit/before-new-gate/result.json',
                  'tests/toilet-all-diagonal-audit/integrated-fallback/result.json',
                  'tests/toilet-all-diagonal-audit/paired-order-and-direction/result.json',
                  'tests/toilet-all-diagonal-audit/paired-sampling-and-density/result.json',
-                 'tests/toilet-all-diagonal-audit/joint-integrated/result.json'):
+                 'tests/toilet-all-diagonal-audit/joint-integrated/result.json',
+                 'tests/toilet-all-diagonal-audit/surface-only/result.json',
+                 'tests/toilet-all-diagonal-audit/surface-only-browser/result.json'):
     path=ROOT/relative
     if path.exists():
         data=json.loads(path.read_text())
@@ -168,7 +200,9 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
                  'tests/toilet-fresh-geometry/integrated-fallback/result.json',
                  'tests/toilet-fresh-geometry/paired-order-and-direction/result.json',
                  'tests/toilet-fresh-geometry/paired-sampling-and-density/result.json',
-                 'tests/toilet-fresh-geometry/joint-integrated/result.json'):
+                 'tests/toilet-fresh-geometry/joint-integrated/result.json',
+                 'tests/toilet-fresh-geometry/surface-only/result.json',
+                 'tests/toilet-fresh-geometry/surface-only-browser/result.json'):
     path=ROOT/relative
     if path.exists():
         data=json.loads(path.read_text())
@@ -182,7 +216,7 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
                 qualified.append(dict(item,contactProof=proof))
             else: provisional.append(dict(item,reason='All mixed-diagonal contact pairings have not yet been verified.'))
 experimental=[]
-for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12','sampled-path-401','both-diagonal-support-401','witness-short-seed2','fresh-short-seed2-export','long-constraint-memory','fresh-long-direct-tail80-export'):
+for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12','sampled-path-401','both-diagonal-support-401','witness-short-seed2','fresh-short-seed2-export','long-constraint-memory','fresh-long-direct-tail80-export','perturb-distance64-tail0'):
     independent=ROOT/'tests/toilet-fresh-geometry'/label/'result.json'
     contacts=ROOT/'tests/toilet-all-diagonal-audit'/label/'result.json'
     if not independent.exists() or not contacts.exists():continue
@@ -197,11 +231,16 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
     provisionalSpecificCases=provisional,disqualifiedSpecificCases=disqualified,
     updatedAt=datetime.now(timezone.utc).isoformat(),evidence=evidence,
     interpretation=[
+        'The final surface-only-demand browser run passes7checks and generates1845quads in480.15seconds. All10 sampled processes exit. The browser preserves every authored input point and adds one projected sample where an imported polyline segment exceeds0.04; its mesh therefore differs from the service-only export. The exact-identity comparison correctly fails and remains recorded. Independent fresh-geometry and all-mixed-diagonal audits of the actual browser OBJ both pass under surface-only-browser; the native download equals that independently audited OBJ. Final layout-aware rendering coverage passes18checks, including navigator/dock resizing and ribbon collapse without a window resize.',
+        'The first adaptive browser run surface-only timed out during local repair. Its idle software renderer sampled about10logicalCPUs. On-demand rendering now stops when idle and repaints scene/guide/camera/display/size changes and damping. Fourteen rendering,130 editing and18 selection/repeated-use checks pass on final app bytes. The faster UI exposed duplicate error-dialog reopening during focus restoration; consuming the queued incident before showModal fixes it. Exact negative and corrected reports remain separate. Full generation retry uses surface-only-demand.',
+        'The additional paired1799seed5 experiment has no contacts but remains unqualified on guide/surface requirements after three joint passes. It is not a production dispatch change or a successful generation.',
+        'Adaptive surface repair now qualifies the captured perturbed paired guides through a fresh actual worker:1845quads in462.75seconds. Independent exported-geometry and all-mixed-diagonal audits pass under surface-only. When guide gates already pass, joint fitting uses distance weight64 and no extra tangent-tail penalty; otherwise the earlier80/32 settings remain. Sixty numerical checks reproduce the expected candidates and13 acceptance controls pass on the exact applied modules. Browser coverage is reported separately.',
+        'Coarse targets150/600 and paired1799 remain unsolved. Alternative layout seeds and stronger edge-ratio objectives still create face contacts. Bridging all three cyclic correspondences between the raw150 layout boundary loops restores closed Euler0 connectivity but fails contacts in every fitted candidate. These are rejected experimental candidates; production connectivity and acceptance limits are unchanged. Preliminary harness type/serialization errors are retained separately from geometry failures.',
         'The sampled-path fitter is now a bounded production fallback after the original guided attempts fail. Fresh HTTP/worker bowl-only and short combined requests both produce1845quads; their actual exported OBJs pass the independent and all-diagonal audits. The source asset and acceptance thresholds are unchanged. Exact executed code and retained historical reports are distinguished below.',
         'The earlier joint repair stalled at31.938degrees. Remembering rejected surface witnesses as barycentric triangle constraints subsequently qualifies the longer guide. A fresh source pipeline with tangent tail weight80 needs two joint steps and passes both independent audits. The explicit production modules reproduce that candidate exactly; service/browser qualification is recorded separately.',
         'The integrated real-service long-guide request produces1845quads in309.8seconds. Its actual worker OBJ passes the independent surface/path/reference/LP/BVH audit and allmixeddiagonal contact audit. Browser/runtime and cancellation are separate observations; no threshold or source mesh changed.',
         'The fresh long/Circle browser run passes13checks; downloads/curves/paths match independently qualified exports. The long job takes493.6seconds with software-renderer contention. All10 sampled test processes exit, and actual joint-stage cancellation passes11checks.',
-        'After joint integration, the perturbed paired-guide request times out at600seconds during joint pass7. Target1799 still rejects contacts after265seconds. Both are generation failures; rejection/input-preservation and process-cleanup checks pass. These are material robustness/runtime limitations, not solved meshes.',
+        'At the earlier b63828f checkpoint, the perturbed paired-guide request timed out at600seconds during joint pass7. That exact negative report remains; the later adaptive worker pass above supersedes this specific perturbation failure. Target1799 still rejects contacts after265seconds. Rejection/input-preservation and process-cleanup checks pass.',
         'Paired-guide reversal, order, densification and closed-start rotation produce accepted meshes. Small source-projected perturbation fails surface accuracy, and paired target1799 fails contacts before joint integration. These are unsolved generations, even though rejection and input-preservation checks pass. Coarse unguided seed2 targets150/600 also fail shape limits; that experimental route is not enabled for unguided production requests.',
         'The initial sampled-stage cancellation observer incorrectly included the live service console among worker-owned processes. Its failed result is retained with exact executed source and timestamps. The worker-owned rerun identifies the exact job worker and its descendants; no production cancellation code changed for this observer correction.',
         'Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.',
@@ -224,7 +263,7 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
         'The original source is unchanged. Its four known contacts are spatially separate from the newly detected bowl overlaps.',
     ],remaining=[
         'Captured two-guide networks and basic toilet solves must meet all geometric requirements.',
-        'Bowl-only, short paired and long paired cases at1800 now have independently qualified production results. The long case also passes actual browser/export and cancellation coverage. Perturbed paired input still times out, and target1799 still fails contacts.',
+        'Bowl-only, short paired, long paired and captured perturbed paired cases at1800 now have independently qualified production results. The long case passes actual browser/export and cancellation coverage. The native perturbed browser variant also passes independent export audits. Target1799 and coarse targets still fail; broader robustness and final reconciliation remain required.',
         'Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.',
         'Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.',
         'Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.',

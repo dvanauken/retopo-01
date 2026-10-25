@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/probe_toilet_objective_controls.py",
+  "executedScript": "tests\\toilet-objective-controls\\short1799-seed3\\executed-probe.py",
+  "executedSha256": "ce84a54bc343a68dedfa85c2cc985d3c30c85898b38101cfd4309d90422c89fb",
+  "currentScriptSha256": "2ae74b43adea09ad42241aea1ee4c2f7b89a78c9a49584d0316e8727db6b4303",
+  "scope": "Retained exact script from this historical run. Later harness edits do not change the recorded input, implementation or outcome."
+}

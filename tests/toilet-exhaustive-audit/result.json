@@ -199,6 +199,28 @@
         "passed": true,
         "report": "tests/toilet-all-diagonal-audit/joint-integrated/result.json"
       }
+    },
+    {
+      "name": "short-small-perturbation",
+      "report": "tests/toilet-fresh-geometry/surface-only/result.json",
+      "job": "176384784d3745dfaf054fe284e4808e",
+      "outputSha256": "94fcde54a3314758c59288d4f004e7d4eb341f64eb3fe7f5c32f330f922d40e9",
+      "faces": 1845,
+      "contactProof": {
+        "passed": true,
+        "report": "tests/toilet-all-diagonal-audit/surface-only/result.json"
+      }
+    },
+    {
+      "name": "short-small-perturbation",
+      "report": "tests/toilet-fresh-geometry/surface-only-browser/result.json",
+      "job": "45482461a6904afdaea784c110871d5e",
+      "outputSha256": "122218bfa3b014f1e23590a15f58cc21c86b9b6dfdd52bfea66a804ed47c5339",
+      "faces": 1845,
+      "contactProof": {
+        "passed": true,
+        "report": "tests/toilet-all-diagonal-audit/surface-only-browser/result.json"
+      }
     }
   ],
   "qualifiedExperimentalCases": [
@@ -257,6 +279,14 @@
       "productionResult": false,
       "independentReport": "tests\\toilet-fresh-geometry\\fresh-long-direct-tail80-export\\result.json",
       "contactReport": "tests\\toilet-all-diagonal-audit\\fresh-long-direct-tail80-export\\result.json"
+    },
+    {
+      "name": "short-perturbed",
+      "outputSha256": "94fcde54a3314758c59288d4f004e7d4eb341f64eb3fe7f5c32f330f922d40e9",
+      "producerKind": "isolated-objective-controls",
+      "productionResult": false,
+      "independentReport": "tests\\toilet-fresh-geometry\\perturb-distance64-tail0\\result.json",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\perturb-distance64-tail0\\result.json"
     }
   ],
   "provisionalSpecificCases": [],
@@ -274,7 +304,7 @@
       }
     }
   ],
-  "updatedAt": "2026-10-25T09:47:47.512412+00:00",
+  "updatedAt": "2026-10-25T10:56:50.446846+00:00",
   "evidence": {
     "original-source": {
       "report": "tests/toilet-source/result.json",
@@ -1342,6 +1372,7 @@
       "sha256": "923a1836edadef82b4674f5a825ce36e0c95aec66c1aa6e3129af5f53bb3de92",
       "passed": true,
       "implementationHashMismatches": [
+        "app.js",
         "worker.py",
         "process_ownership.py",
         "curved_quad.py"
@@ -1405,6 +1436,7 @@
         {}
       ],
       "implementationHashMismatches": [
+        "app.js",
         "server.py"
       ]
     },
@@ -1418,7 +1450,9 @@
       "cases": [
         {}
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js"
+      ]
     },
     "early-submission-request-identity": {
       "report": "tests/toilet-early-submission/request-identity/result.json",
@@ -1448,6 +1482,7 @@
         {}
       ],
       "implementationHashMismatches": [
+        "app.js",
         "server.py"
       ]
     },
@@ -1462,7 +1497,9 @@
         {},
         {}
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js"
+      ]
     },
     "server-restart-before-fix": {
       "report": "tests/toilet-server-restart/before-fix/result.json",
@@ -1568,6 +1605,7 @@
         {}
       ],
       "implementationHashMismatches": [
+        "app.js",
         "server.py",
         "process_ownership.py"
       ]
@@ -1583,6 +1621,7 @@
         {}
       ],
       "implementationHashMismatches": [
+        "app.js",
         "process_ownership.py"
       ]
     },
@@ -1608,6 +1647,7 @@
       "checks": 52,
       "passedChecks": 52,
       "implementationHashMismatches": [
+        "app.js",
         "server.py"
       ]
     },
@@ -1618,7 +1658,9 @@
       "errors": [],
       "checks": 52,
       "passedChecks": 52,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js"
+      ]
     },
     "async-ui-submission-identity": {
       "report": "tests/toilet-async-ui/submission-identity/result.json",
@@ -1642,6 +1684,7 @@
       "checks": 30,
       "passedChecks": 30,
       "implementationHashMismatches": [
+        "app.js",
         "server.py"
       ]
     },
@@ -1652,7 +1695,9 @@
       "errors": [],
       "checks": 30,
       "passedChecks": 30,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js"
+      ]
     },
     "api-submission-identity": {
       "report": "tests/toilet-api/submission-identity/result.json",
@@ -1775,6 +1820,7 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "server.py",
         "worker.py",
         "curved_quad.py",
@@ -1793,6 +1839,7 @@
       "passedChecks": 0,
       "cases": [],
       "implementationHashMismatches": [
+        "app.js",
         "worker.py",
         "curved_quad.py",
         "tests/verify_toilet_generated_ui.py"
@@ -1813,6 +1860,7 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "worker.py",
         "curved_quad.py"
       ]
@@ -2521,6 +2569,7 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "surface_guide_refine.py",
         "surface_guide_repair.py",
         "tests/verify_toilet_paired_variants.py"
@@ -2558,6 +2607,7 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "surface_guide_refine.py",
         "surface_guide_repair.py",
         "tests/verify_toilet_paired_variants.py"
@@ -2584,7 +2634,11 @@
           "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged."
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js",
+        "surface_guide_refine.py",
+        "surface_guide_joint.py"
+      ]
     },
     "unguided-fallback-coarse-seed2": {
       "report": "tests/toilet-unguided-fallback/coarse-seed2/result.json",
@@ -2645,7 +2699,10 @@
           "state": "complete"
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "surface_guide_refine.py",
+        "surface_guide_joint.py"
+      ]
     },
     "fallback-browser-integrated-fallback": {
       "report": "tests/toilet-fallback-browser/integrated-fallback/result.json",
@@ -2666,10 +2723,16 @@
         }
       ],
       "implementationHashMismatches": [
+        "app.js",
         "surface_guide_refine.py",
         "surface_guide_repair.py",
         "tests/verify_toilet_fallback_browser.py"
-      ]
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-fallback-browser\\integrated-fallback\\script-provenance.json",
+        "snapshot": "tests\\toilet-fallback-browser\\integrated-fallback\\executed-test.py",
+        "sha256": "4c2eda924b5e77edd2db733ed08722cecb8dc4431245c30c4a80d86902e54bc1"
+      }
     },
     "fallback-browser-joint-integrated": {
       "report": "tests/toilet-fallback-browser/joint-integrated/result.json",
@@ -2689,7 +2752,17 @@
           "state": "complete"
         }
       ],
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "app.js",
+        "surface_guide_refine.py",
+        "surface_guide_joint.py",
+        "tests/verify_toilet_fallback_browser.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-fallback-browser\\joint-integrated\\script-provenance.json",
+        "snapshot": "tests\\toilet-fallback-browser\\joint-integrated\\executed-test.py",
+        "sha256": "3b25aa1a3df0a165bc46f2663082ac12c705e35fb3db73c6295aec5331b823af"
+      }
     },
     "fallback-cancel-integrated-fallback": {
       "report": "tests/toilet-fallback-cancel/integrated-fallback/result.json",
@@ -2732,7 +2805,10 @@
       "errors": [],
       "checks": 11,
       "passedChecks": 11,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "surface_guide_refine.py",
+        "surface_guide_joint.py"
+      ]
     },
     "path-fit-diagnostics": {
       "report": "tests/toilet-path-fit-diagnostics/result.json",
@@ -2852,7 +2928,9 @@
       "errors": [],
       "checks": 11,
       "passedChecks": 11,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "C:\\dbva\\code\\retopo-1\\surface_guide_joint.py"
+      ]
     },
     "joint-fitter-default-parity": {
       "report": "tests/surface-guide-refine/detached-joint-defaults/result.json",
@@ -2874,7 +2952,10 @@
       "tests": 13,
       "checks": 4,
       "passedChecks": 4,
-      "implementationHashMismatches": []
+      "implementationHashMismatches": [
+        "surface_guide_refine.py",
+        "surface_guide_joint.py"
+      ]
     },
     "live-joint-readonly": {
       "report": "tests/toilet-exhaustive-audit/live-joint-readonly.json",
@@ -2911,6 +2992,593 @@
     "joint-variant-process-cleanup": {
       "report": "tests/toilet-paired-variants/joint-integrated/process-cleanup.json",
       "sha256": "c12a2bdc570290bbcad2b08e94317e3bfb0d96e5f38c87a3dc53007c55f28718",
+      "passed": true,
+      "complete": true,
+      "implementationHashMismatches": []
+    },
+    "objective-controls-coarse-ratio34": {
+      "report": "tests/toilet-objective-controls/coarse-ratio34/result.json",
+      "sha256": "82fef4de0687f395cd25e9256baf0fde37f988ac94e7eddaeca367fc194a9288",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "coarse-150",
+          "state": "failed"
+        },
+        {
+          "name": "coarse-600",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_refine.py",
+        "surface_guide_joint.py",
+        "tests/probe_toilet_objective_controls.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-objective-controls\\coarse-ratio34\\script-provenance.json",
+        "snapshot": "tests\\toilet-objective-controls\\coarse-ratio34\\executed-probe.py",
+        "sha256": "9cee45fb523968f4f0e1b219c3a4c61f446f16220ded5d52a76b5d249d026f97"
+      }
+    },
+    "objective-controls-perturb-distance64-tail0": {
+      "report": "tests/toilet-objective-controls/perturb-distance64-tail0/result.json",
+      "sha256": "d7df7273eceb4e0f54aa1d74b5f5b4a7880ab3c3808534feabf5a13feac4b6ff",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\probe_toilet_objective_controls.py\", line 129, in <module>\n    assert current['guideFit'] == expected['guideFit'], 'Unchanged initial fitting must reproduce the captured guide metrics'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Unchanged initial fitting must reproduce the captured guide metrics\n"
+      ],
+      "cases": [
+        {
+          "name": "short-perturbed",
+          "state": "running"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_refine.py",
+        "surface_guide_joint.py",
+        "tests/probe_toilet_objective_controls.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-objective-controls\\perturb-distance64-tail0\\script-provenance.json",
+        "snapshot": "tests\\toilet-objective-controls\\perturb-distance64-tail0\\executed-probe.py",
+        "sha256": "9cee45fb523968f4f0e1b219c3a4c61f446f16220ded5d52a76b5d249d026f97"
+      }
+    },
+    "objective-controls-perturb-distance64-tail0-serialized": {
+      "report": "tests/toilet-objective-controls/perturb-distance64-tail0-serialized/result.json",
+      "sha256": "ce5c32c3089c43a253fad766d7358b7bb0e6101d54a11b7a8f6452671accd013",
+      "complete": true,
+      "generationPassed": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "short-perturbed",
+          "state": "complete"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_refine.py",
+        "surface_guide_joint.py",
+        "tests/probe_toilet_objective_controls.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-objective-controls\\perturb-distance64-tail0-serialized\\script-provenance.json",
+        "snapshot": "tests\\toilet-objective-controls\\perturb-distance64-tail0-serialized\\executed-probe.py",
+        "sha256": "b09736f115c291454269b731666dfea3a9162c4be5c5c7940d3256c1ca362b7f"
+      }
+    },
+    "objective-controls-coarse150-seed3-ratio34": {
+      "report": "tests/toilet-objective-controls/coarse150-seed3-ratio34/result.json",
+      "sha256": "cb1fb26873addf8fd6ed0636c181e2760be1429b9566baccea84ed22b13fa670",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "coarse-150",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_refine.py",
+        "surface_guide_joint.py",
+        "tests/probe_toilet_objective_controls.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-objective-controls\\coarse150-seed3-ratio34\\script-provenance.json",
+        "snapshot": "tests\\toilet-objective-controls\\coarse150-seed3-ratio34\\executed-probe.py",
+        "sha256": "ce84a54bc343a68dedfa85c2cc985d3c30c85898b38101cfd4309d90422c89fb"
+      }
+    },
+    "objective-controls-coarse600-seed3-ratio34": {
+      "report": "tests/toilet-objective-controls/coarse600-seed3-ratio34/result.json",
+      "sha256": "53a5906795264a8487b73e9110ee42ef87c86c8e8d6aade926e16b1492f83ed3",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "coarse-600",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_refine.py",
+        "surface_guide_joint.py",
+        "tests/probe_toilet_objective_controls.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-objective-controls\\coarse600-seed3-ratio34\\script-provenance.json",
+        "snapshot": "tests\\toilet-objective-controls\\coarse600-seed3-ratio34\\executed-probe.py",
+        "sha256": "ce84a54bc343a68dedfa85c2cc985d3c30c85898b38101cfd4309d90422c89fb"
+      }
+    },
+    "objective-controls-short1799-seed3": {
+      "report": "tests/toilet-objective-controls/short1799-seed3/result.json",
+      "sha256": "f6bb53f49582e04cb5b5426f36975718e3d8a64d14a32ac048bb428173f2f751",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "short-1799",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": [
+        "surface_guide_refine.py",
+        "surface_guide_joint.py",
+        "tests/probe_toilet_objective_controls.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-objective-controls\\short1799-seed3\\script-provenance.json",
+        "snapshot": "tests\\toilet-objective-controls\\short1799-seed3\\executed-probe.py",
+        "sha256": "ce84a54bc343a68dedfa85c2cc985d3c30c85898b38101cfd4309d90422c89fb"
+      }
+    },
+    "objective-controls-short1799-seed5": {
+      "report": "tests/toilet-objective-controls/short1799-seed5/result.json",
+      "sha256": "b55840b99ffffd338c64795cb5ed6758f1380458ef1b9469fcd9220383a12326",
+      "complete": true,
+      "generationPassed": false,
+      "errors": [],
+      "cases": [
+        {
+          "name": "short-1799",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "layout-failures-coarse-and-adjacent-density": {
+      "report": "tests/toilet-layout-failures/coarse-and-adjacent-density/result.json",
+      "sha256": "cb2307eb818049925f12cf7ac0bcfa051dc95b38afed68da85c858f2ea355a0d",
+      "passed": false,
+      "complete": true,
+      "errors": [
+        "Diagnostic harness passed the source triangle list to validate_surface, which requires an ndarray: AttributeError: 'list' object has no attribute 'tolist'."
+      ],
+      "cases": [],
+      "implementationHashMismatches": []
+    },
+    "layout-failures-coarse-and-adjacent-density-arrays": {
+      "report": "tests/toilet-layout-failures/coarse-and-adjacent-density-arrays/result.json",
+      "sha256": "ca23daa7f287a2eaf16d07036e5bd2b1f90122ce5eb487a2917df88559e9e07d",
+      "complete": true,
+      "cases": [
+        {
+          "name": "raw-150"
+        },
+        {
+          "name": "ratio34-150"
+        },
+        {
+          "name": "raw-600"
+        },
+        {
+          "name": "ratio34-600"
+        },
+        {
+          "name": "raw-1799"
+        },
+        {
+          "name": "fitted-1799"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "layout-inventory-alternative-seeds-345": {
+      "report": "tests/toilet-layout-inventory/alternative-seeds-345/result.json",
+      "sha256": "35508115e4fe3fac272fe8b8d8760f206541f93021d71c4d401661376345da90",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "target-150-seed-3"
+        },
+        {
+          "name": "target-150-seed-4"
+        },
+        {
+          "name": "target-150-seed-5"
+        },
+        {
+          "name": "target-600-seed-3"
+        },
+        {
+          "name": "target-600-seed-4"
+        },
+        {
+          "name": "target-600-seed-5"
+        },
+        {
+          "name": "target-1799-seed-3"
+        },
+        {
+          "name": "target-1799-seed-4"
+        },
+        {
+          "name": "target-1799-seed-5"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "boundary-bridge-coarse150-seed2": {
+      "report": "tests/toilet-boundary-bridge/coarse150-seed2/result.json",
+      "sha256": "6e23a375d8788dce0fb748757c49f5809863f21a9f785c5cb4c649c9818db055",
+      "passed": false,
+      "complete": true,
+      "errors": [
+        "Diagnostic setup passed ndarray faces to the reference topology helper, whose face[1:] + face[:1] expects list concatenation. This produced an IndexError before any bridge or fitting was attempted."
+      ],
+      "cases": [],
+      "implementationHashMismatches": []
+    },
+    "boundary-bridge-coarse150-seed2-lists": {
+      "report": "tests/toilet-boundary-bridge/coarse150-seed2-lists/result.json",
+      "sha256": "fe41e0ea402c13f70dc6d65164069785f524480d4ff77cc72524bd0a39cfc854",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "bridge-0",
+          "state": "failed"
+        },
+        {
+          "name": "bridge-1",
+          "state": "failed"
+        },
+        {
+          "name": "bridge-2",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-perturb-distance64-tail0": {
+      "report": "tests/toilet-fresh-geometry/perturb-distance64-tail0/result.json",
+      "sha256": "003c5ebef5749c5f0056d3663dcfa67e135ece2426daddbc3a8bf25483e3b379",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-perturbed",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-surface-only": {
+      "report": "tests/toilet-fresh-geometry/surface-only/result.json",
+      "sha256": "6894ef1696df1c52cfc2584f0fc726a0b4cec1784b78190a01101230e139c664",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-small-perturbation",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-surface-only-browser": {
+      "report": "tests/toilet-fresh-geometry/surface-only-browser/result.json",
+      "sha256": "a53200157b3b043465a394bf0418d103fa1e63cac85114a4509a9a828d7bfa18",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-small-perturbation",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "all-diagonal-audit-perturb-distance64-tail0": {
+      "report": "tests/toilet-all-diagonal-audit/perturb-distance64-tail0/result.json",
+      "sha256": "027483d79d59fb1749d043a88e12f733bff30963ff67b551fce68373d8a8e2af",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-perturbed",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "all-diagonal-audit-surface-only": {
+      "report": "tests/toilet-all-diagonal-audit/surface-only/result.json",
+      "sha256": "fe9ca74405ff292ec23d82d81956349a1fbe8e4ff6ae102b98e16076e194ec05",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-small-perturbation",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "all-diagonal-audit-surface-only-browser": {
+      "report": "tests/toilet-all-diagonal-audit/surface-only-browser/result.json",
+      "sha256": "1798f31d44170c671ef3405d1f4ca3b70da873f1e0da83b546a59ee658cd3b26",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-small-perturbation",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "paired-variants-surface-only": {
+      "report": "tests/toilet-paired-variants/surface-only/result.json",
+      "sha256": "a87e2e8cc17dfe7905ca4925c24d1d3862855478859bcdc9e39a06530f37d629",
+      "complete": true,
+      "generationPassed": true,
+      "safetyChecksPassed": true,
+      "errors": [],
+      "checks": 4,
+      "passedChecks": 4,
+      "cases": [
+        {
+          "name": "short-small-perturbation",
+          "state": "complete",
+          "message": null
+        }
+      ],
+      "implementationHashMismatches": [
+        "app.js"
+      ]
+    },
+    "fallback-browser-surface-only": {
+      "report": "tests/toilet-fallback-browser/surface-only/result.json",
+      "sha256": "5d54ff4b0b2537e8e30a89e036ec1b21f6196cf69e5d3bf29164800bb5fde488",
+      "passed": false,
+      "complete": true,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_fallback_browser.py\", line 115, in <module>\n    raise AssertionError('No accepted mesh in browser: ' + json.dumps(state['lastAttempt']))\nAssertionError: No accepted mesh in browser: {\"phase\": \"failed\", \"message\": \"The mesh calculation exceeded the ten-minute limit.\", \"target\": 1800, \"guideCount\": 2, \"sourceSha256\": \"c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053\"}\n"
+      ],
+      "checks": 1,
+      "passedChecks": 0,
+      "cases": [
+        {
+          "name": "short-small-perturbation",
+          "state": "failed"
+        }
+      ],
+      "implementationHashMismatches": [
+        "app.js"
+      ]
+    },
+    "fallback-browser-surface-only-demand": {
+      "report": "tests/toilet-fallback-browser/surface-only-demand/result.json",
+      "sha256": "5b199c614a9efd86c8d58d2ed468bae9d2e79714d04bc46424af30eb0e9fa0da",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 7,
+      "passedChecks": 7,
+      "cases": [
+        {
+          "name": "short-small-perturbation",
+          "state": "complete"
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "render-idle-demand-render": {
+      "report": "tests/toilet-render-idle/demand-render/result.json",
+      "sha256": "fd08acb613421ed23dce088663a5531efe72a5a311eed4fddfefb95fd4ecb9b8",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 14,
+      "passedChecks": 14,
+      "implementationHashMismatches": [
+        "app.js",
+        "tests/verify_toilet_render_idle.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-render-idle\\demand-render\\script-provenance.json",
+        "snapshot": "tests\\toilet-render-idle\\demand-render\\executed-test.py",
+        "sha256": "bb16f2684aa69fcf1cd2a6a26912abd9f28dbc911ea127336bbcc7250765cb84"
+      }
+    },
+    "render-idle-demand-dialog-fixed": {
+      "report": "tests/toilet-render-idle/demand-dialog-fixed/result.json",
+      "sha256": "679a4341c37393579fad1ed317c3959956f661e6619e2c8502757d0d6d351d31",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 14,
+      "passedChecks": 14,
+      "implementationHashMismatches": [
+        "tests/verify_toilet_render_idle.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-render-idle\\demand-dialog-fixed\\script-provenance.json",
+        "snapshot": "tests\\toilet-render-idle\\demand-dialog-fixed\\executed-test.py",
+        "sha256": "bb16f2684aa69fcf1cd2a6a26912abd9f28dbc911ea127336bbcc7250765cb84"
+      }
+    },
+    "render-idle-demand-layout-final": {
+      "report": "tests/toilet-render-idle/demand-layout-final/result.json",
+      "sha256": "1801afe247a7acd44e5d9098f8794de1fc1e8ed23785bebc1748bc04cbd511b6",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 18,
+      "passedChecks": 18,
+      "implementationHashMismatches": []
+    },
+    "editing-demand-render": {
+      "report": "tests/toilet-editing/demand-render/result.json",
+      "sha256": "f635bbdb6ae55a65d1ddc318333649a14880b372739842d51fefebfa6ffb1e9c",
+      "passed": false,
+      "errors": [
+        "dpr-1-pane-0: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 111, in <module>\n    tool('select'); page.locator('.guide-name').first.click(); page.keyboard.press('a')\n    ^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 58, in tool\n    def tool(name): page.locator(f'[data-tool={name}]').click()\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 15631, in click\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_locator.py\", line 162, in click\n    return await self._frame._click(self._selector, strict=True, **params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 566, in _click\n    await self._channel.send(\"click\", self._timeout, locals_to_params(locals()))\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-tool=select]\")\n    - locator resolved to <button data-tool=\"select\" aria-pressed=\"true\" class=\"tool active\" title=\"Select guides \u00b7 V\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    57 \u00d7 waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n\n",
+        "dpr-2-pane-0: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 111, in <module>\n    tool('select'); page.locator('.guide-name').first.click(); page.keyboard.press('a')\n    ^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 58, in tool\n    def tool(name): page.locator(f'[data-tool={name}]').click()\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 15631, in click\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_locator.py\", line 162, in click\n    return await self._frame._click(self._selector, strict=True, **params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 566, in _click\n    await self._channel.send(\"click\", self._timeout, locals_to_params(locals()))\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-tool=select]\")\n    - locator resolved to <button data-tool=\"select\" aria-pressed=\"true\" class=\"tool active\" title=\"Select guides \u00b7 V\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    57 \u00d7 waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n\n",
+        "dpr-1-pane-1: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 111, in <module>\n    tool('select'); page.locator('.guide-name').first.click(); page.keyboard.press('a')\n    ^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 58, in tool\n    def tool(name): page.locator(f'[data-tool={name}]').click()\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 15631, in click\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_locator.py\", line 162, in click\n    return await self._frame._click(self._selector, strict=True, **params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 566, in _click\n    await self._channel.send(\"click\", self._timeout, locals_to_params(locals()))\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-tool=select]\")\n    - locator resolved to <button data-tool=\"select\" aria-pressed=\"true\" class=\"tool active\" title=\"Select guides \u00b7 V\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    58 \u00d7 waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n\n",
+        "dpr-2-pane-1: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 111, in <module>\n    tool('select'); page.locator('.guide-name').first.click(); page.keyboard.press('a')\n    ^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 58, in tool\n    def tool(name): page.locator(f'[data-tool={name}]').click()\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 15631, in click\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_locator.py\", line 162, in click\n    return await self._frame._click(self._selector, strict=True, **params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 566, in _click\n    await self._channel.send(\"click\", self._timeout, locals_to_params(locals()))\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-tool=select]\")\n    - locator resolved to <button data-tool=\"select\" aria-pressed=\"true\" class=\"tool active\" title=\"Select guides \u00b7 V\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    57 \u00d7 waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n\n"
+      ],
+      "checks": 52,
+      "passedChecks": 52,
+      "implementationHashMismatches": [
+        "app.js"
+      ]
+    },
+    "editing-demand-dialog-fixed": {
+      "report": "tests/toilet-editing/demand-dialog-fixed/result.json",
+      "sha256": "786091a2943423d8830dd565dd3a1288557bb4c0860d8ba23d8621eb36c5f000",
+      "passed": true,
+      "errors": [],
+      "checks": 130,
+      "passedChecks": 130,
+      "implementationHashMismatches": []
+    },
+    "selection-stability-demand-render": {
+      "report": "tests/toilet-selection-stability/demand-render/result.json",
+      "sha256": "6fdb8cf2f3291b33f7938c61528b82bec158da402961f44e02b965f0c0168e69",
+      "passed": true,
+      "errors": [],
+      "checks": 18,
+      "passedChecks": 18,
+      "implementationHashMismatches": []
+    },
+    "surface-only-long-control": {
+      "report": "tests/surface-guide-joint/surface-only-long-control/result.json",
+      "sha256": "92db96951eed3ed68862dbede60d3040660331c9cd0e5adb2ae202839f27a252",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 13,
+      "passedChecks": 13,
+      "implementationHashMismatches": []
+    },
+    "surface-only-perturbed": {
+      "report": "tests/surface-guide-joint/surface-only-perturbed/result.json",
+      "sha256": "82d878a706299b71bcb60cae30c0aa0a0e3b3cb842189de2664054d0811690b7",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 14,
+      "passedChecks": 14,
+      "implementationHashMismatches": []
+    },
+    "surface-only-integrated": {
+      "report": "tests/surface-guide-joint/surface-only-integrated/result.json",
+      "sha256": "cb2f390e3b4b1cd24865b06075fd4c2c01a53f0272cdc3929c5cf7e5668a9dce",
+      "passed": true,
+      "complete": true,
+      "tests": 13,
+      "checks": 4,
+      "passedChecks": 4,
+      "implementationHashMismatches": []
+    },
+    "surface-only-default-parity": {
+      "report": "tests/surface-guide-refine/surface-only-defaults/result.json",
+      "sha256": "2b8f0f8aeb13cee039dc9120bb7b5c1595d0e558440a08a95d7b5d57e33adfe4",
+      "passed": true,
+      "complete": true,
+      "errors": [],
+      "checks": 33,
+      "passedChecks": 33,
+      "implementationHashMismatches": [
+        "surface_guide_refine.py"
+      ]
+    },
+    "surface-only-variant-cleanup": {
+      "report": "tests/toilet-paired-variants/surface-only/process-cleanup.json",
+      "sha256": "aff4f8c143763fff7fccda6e3cff9fa6a4a0487a3b4cc8b7c30642f5a2b8d515",
+      "passed": true,
+      "complete": true,
+      "implementationHashMismatches": []
+    },
+    "surface-only-browser-timeout-cleanup": {
+      "report": "tests/toilet-fallback-browser/surface-only/runtime-cleanup.json",
+      "sha256": "2a48cfc9460779e6fdd46adf40937250e378808d696be07e91ad006fbb726aa0",
+      "passed": true,
+      "complete": true,
+      "implementationHashMismatches": []
+    },
+    "surface-only-browser-timeout-diagnostics": {
+      "report": "tests/toilet-fallback-browser/surface-only/failure-diagnostics.json",
+      "sha256": "6712ac677d395b38afdcf9f3668ad7cbb4ad3d7674b6e2a90ad35c81fd9a40d1",
+      "implementationHashMismatches": []
+    },
+    "surface-only-live-readonly": {
+      "report": "tests/toilet-exhaustive-audit/live-surface-only-readonly.json",
+      "sha256": "986b1c31cb30a5a2581538bd93cc3cd18a771adce60c26bf7bd62a24d20b0af9",
+      "passed": true,
+      "complete": true,
+      "implementationHashMismatches": []
+    },
+    "surface-only-browser-input-comparison": {
+      "report": "tests/toilet-fallback-browser/surface-only-demand/service-comparison.json",
+      "sha256": "43c4d130bc1efd535731c8d8128b396754a146fe7514465d922ce7f2c6a6d7f3",
+      "implementationHashMismatches": []
+    },
+    "surface-only-browser-nonidentical-export": {
+      "report": "tests/toilet-fallback-browser/surface-only-demand/independent-identity.json",
+      "sha256": "c54c714c8d56a0d662b05986c87adcab43612ee2e297df421f1e786db68dda35",
+      "passed": false,
+      "complete": true,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_browser_export_identity.py\", line 31, in <module>\n    assert digest == sha(reference / 'output.obj')\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+      ],
+      "cases": [],
+      "implementationHashMismatches": []
+    },
+    "surface-only-browser-audited-download": {
+      "report": "tests/toilet-fallback-browser/surface-only-demand/independent-download.json",
+      "sha256": "65e6c8c6d19ddade9be1b19ad0206f5aee65a20bbf748a3d5212471e3b6486a2",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "short-small-perturbation",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "surface-only-browser-cleanup": {
+      "report": "tests/toilet-fallback-browser/surface-only-demand/runtime-cleanup.json",
+      "sha256": "ecadefeb0131e5239fd38fd0f861bdc87e71fe48b4e355cf9b8d04c96b11a90b",
+      "passed": true,
+      "complete": true,
+      "implementationHashMismatches": []
+    },
+    "surface-only-checkpoint": {
+      "report": "tests/toilet-exhaustive-audit/checkpoint-surface-only.json",
+      "sha256": "8161dc4af6fb1bf73057803242828d22aa6c278175942b5c3e0e74f0c0167bd9",
       "passed": true,
       "complete": true,
       "implementationHashMismatches": []
@@ -2999,11 +3667,16 @@
     }
   },
   "interpretation": [
+    "The final surface-only-demand browser run passes7checks and generates1845quads in480.15seconds. All10 sampled processes exit. The browser preserves every authored input point and adds one projected sample where an imported polyline segment exceeds0.04; its mesh therefore differs from the service-only export. The exact-identity comparison correctly fails and remains recorded. Independent fresh-geometry and all-mixed-diagonal audits of the actual browser OBJ both pass under surface-only-browser; the native download equals that independently audited OBJ. Final layout-aware rendering coverage passes18checks, including navigator/dock resizing and ribbon collapse without a window resize.",
+    "The first adaptive browser run surface-only timed out during local repair. Its idle software renderer sampled about10logicalCPUs. On-demand rendering now stops when idle and repaints scene/guide/camera/display/size changes and damping. Fourteen rendering,130 editing and18 selection/repeated-use checks pass on final app bytes. The faster UI exposed duplicate error-dialog reopening during focus restoration; consuming the queued incident before showModal fixes it. Exact negative and corrected reports remain separate. Full generation retry uses surface-only-demand.",
+    "The additional paired1799seed5 experiment has no contacts but remains unqualified on guide/surface requirements after three joint passes. It is not a production dispatch change or a successful generation.",
+    "Adaptive surface repair now qualifies the captured perturbed paired guides through a fresh actual worker:1845quads in462.75seconds. Independent exported-geometry and all-mixed-diagonal audits pass under surface-only. When guide gates already pass, joint fitting uses distance weight64 and no extra tangent-tail penalty; otherwise the earlier80/32 settings remain. Sixty numerical checks reproduce the expected candidates and13 acceptance controls pass on the exact applied modules. Browser coverage is reported separately.",
+    "Coarse targets150/600 and paired1799 remain unsolved. Alternative layout seeds and stronger edge-ratio objectives still create face contacts. Bridging all three cyclic correspondences between the raw150 layout boundary loops restores closed Euler0 connectivity but fails contacts in every fitted candidate. These are rejected experimental candidates; production connectivity and acceptance limits are unchanged. Preliminary harness type/serialization errors are retained separately from geometry failures.",
     "The sampled-path fitter is now a bounded production fallback after the original guided attempts fail. Fresh HTTP/worker bowl-only and short combined requests both produce1845quads; their actual exported OBJs pass the independent and all-diagonal audits. The source asset and acceptance thresholds are unchanged. Exact executed code and retained historical reports are distinguished below.",
     "The earlier joint repair stalled at31.938degrees. Remembering rejected surface witnesses as barycentric triangle constraints subsequently qualifies the longer guide. A fresh source pipeline with tangent tail weight80 needs two joint steps and passes both independent audits. The explicit production modules reproduce that candidate exactly; service/browser qualification is recorded separately.",
     "The integrated real-service long-guide request produces1845quads in309.8seconds. Its actual worker OBJ passes the independent surface/path/reference/LP/BVH audit and allmixeddiagonal contact audit. Browser/runtime and cancellation are separate observations; no threshold or source mesh changed.",
     "The fresh long/Circle browser run passes13checks; downloads/curves/paths match independently qualified exports. The long job takes493.6seconds with software-renderer contention. All10 sampled test processes exit, and actual joint-stage cancellation passes11checks.",
-    "After joint integration, the perturbed paired-guide request times out at600seconds during joint pass7. Target1799 still rejects contacts after265seconds. Both are generation failures; rejection/input-preservation and process-cleanup checks pass. These are material robustness/runtime limitations, not solved meshes.",
+    "At the earlier b63828f checkpoint, the perturbed paired-guide request timed out at600seconds during joint pass7. That exact negative report remains; the later adaptive worker pass above supersedes this specific perturbation failure. Target1799 still rejects contacts after265seconds. Rejection/input-preservation and process-cleanup checks pass.",
     "Paired-guide reversal, order, densification and closed-start rotation produce accepted meshes. Small source-projected perturbation fails surface accuracy, and paired target1799 fails contacts before joint integration. These are unsolved generations, even though rejection and input-preservation checks pass. Coarse unguided seed2 targets150/600 also fail shape limits; that experimental route is not enabled for unguided production requests.",
     "The initial sampled-stage cancellation observer incorrectly included the live service console among worker-owned processes. Its failed result is retained with exact executed source and timestamps. The worker-owned rerun identifies the exact job worker and its descendants; no production cancellation code changed for this observer correction.",
     "Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.",
@@ -3027,7 +3700,7 @@
   ],
   "remaining": [
     "Captured two-guide networks and basic toilet solves must meet all geometric requirements.",
-    "Bowl-only, short paired and long paired cases at1800 now have independently qualified production results. The long case also passes actual browser/export and cancellation coverage. Perturbed paired input still times out, and target1799 still fails contacts.",
+    "Bowl-only, short paired, long paired and captured perturbed paired cases at1800 now have independently qualified production results. The long case passes actual browser/export and cancellation coverage. The native perturbed browser variant also passes independent export audits. Target1799 and coarse targets still fail; broader robustness and final reconciliation remain required.",
     "Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.",
     "Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.",
     "Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.",

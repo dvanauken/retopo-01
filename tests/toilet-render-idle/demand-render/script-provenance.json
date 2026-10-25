@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/verify_toilet_render_idle.py",
+  "executedScript": "tests\\toilet-render-idle\\demand-render\\executed-test.py",
+  "executedSha256": "bb16f2684aa69fcf1cd2a6a26912abd9f28dbc911ea127336bbcc7250765cb84",
+  "currentScriptSha256": "6eb940d876ae6ac836fe0acf51b4234eef20f230521f7eb6b676c7761ac6fafc",
+  "scope": "Retained exact script from this historical run. Later harness edits do not change the recorded input, implementation or outcome."
+}

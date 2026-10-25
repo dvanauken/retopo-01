@@ -1,0 +1,7 @@
+{
+  "complete": true,
+  "passed": false,
+  "cases": [],
+  "errors": ["Diagnostic harness passed the source triangle list to validate_surface, which requires an ndarray: AttributeError: 'list' object has no attribute 'tolist'."],
+  "scope": "Interrupted diagnostic only; no geometry qualification or numerical fitting was performed. Exact executed script retained."
+}

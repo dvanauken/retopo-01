@@ -1,0 +1,258 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "name": "dpr-1-pane-0: three native rays hit the toilet lid",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Polyline retains three authored lid points",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: body selection picks the visible toilet guide",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: selection adds no document history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: point preview leaves the accepted document unchanged",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: point release attaches to the actual lid surface",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: point edit preserves guide and point identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: point edit is one history command",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Undo restores exact authored values",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: Redo restores exact edited values",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: invalid-release target is empty space",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: off-surface release rolls back the whole edit",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-0: off-surface rejection has a visible incident",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: three native rays hit the toilet lid",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Polyline retains three authored lid points",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: body selection picks the visible toilet guide",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: selection adds no document history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: point preview leaves the accepted document unchanged",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: point release attaches to the actual lid surface",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: point edit preserves guide and point identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: point edit is one history command",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Undo restores exact authored values",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: Redo restores exact edited values",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: invalid-release target is empty space",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: off-surface release rolls back the whole edit",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-0: off-surface rejection has a visible incident",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: three native rays hit the toilet lid",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Polyline retains three authored lid points",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: body selection picks the visible toilet guide",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: selection adds no document history",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: point preview leaves the accepted document unchanged",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: point release attaches to the actual lid surface",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: point edit preserves guide and point identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: point edit is one history command",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Undo restores exact authored values",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: Redo restores exact edited values",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: invalid-release target is empty space",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: off-surface release rolls back the whole edit",
+      "passed": true
+    },
+    {
+      "name": "dpr-1-pane-1: off-surface rejection has a visible incident",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: three native rays hit the toilet lid",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Polyline retains three authored lid points",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: body selection picks the visible toilet guide",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: selection adds no document history",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: point preview leaves the accepted document unchanged",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: point release attaches to the actual lid surface",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: point edit preserves guide and point identities",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: point edit is one history command",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Undo restores exact authored values",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: Redo restores exact edited values",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: invalid-release target is empty space",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: off-surface release rolls back the whole edit",
+      "passed": true
+    },
+    {
+      "name": "dpr-2-pane-1: off-surface rejection has a visible incident",
+      "passed": true
+    }
+  ],
+  "errors": [
+    "dpr-1-pane-0: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 111, in <module>\n    tool('select'); page.locator('.guide-name').first.click(); page.keyboard.press('a')\n    ^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 58, in tool\n    def tool(name): page.locator(f'[data-tool={name}]').click()\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 15631, in click\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_locator.py\", line 162, in click\n    return await self._frame._click(self._selector, strict=True, **params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 566, in _click\n    await self._channel.send(\"click\", self._timeout, locals_to_params(locals()))\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-tool=select]\")\n    - locator resolved to <button data-tool=\"select\" aria-pressed=\"true\" class=\"tool active\" title=\"Select guides \u00b7 V\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    57 \u00d7 waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n\n",
+    "dpr-2-pane-0: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 111, in <module>\n    tool('select'); page.locator('.guide-name').first.click(); page.keyboard.press('a')\n    ^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 58, in tool\n    def tool(name): page.locator(f'[data-tool={name}]').click()\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 15631, in click\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_locator.py\", line 162, in click\n    return await self._frame._click(self._selector, strict=True, **params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 566, in _click\n    await self._channel.send(\"click\", self._timeout, locals_to_params(locals()))\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-tool=select]\")\n    - locator resolved to <button data-tool=\"select\" aria-pressed=\"true\" class=\"tool active\" title=\"Select guides \u00b7 V\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    57 \u00d7 waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n\n",
+    "dpr-1-pane-1: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 111, in <module>\n    tool('select'); page.locator('.guide-name').first.click(); page.keyboard.press('a')\n    ^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 58, in tool\n    def tool(name): page.locator(f'[data-tool={name}]').click()\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 15631, in click\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_locator.py\", line 162, in click\n    return await self._frame._click(self._selector, strict=True, **params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 566, in _click\n    await self._channel.send(\"click\", self._timeout, locals_to_params(locals()))\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-tool=select]\")\n    - locator resolved to <button data-tool=\"select\" aria-pressed=\"true\" class=\"tool active\" title=\"Select guides \u00b7 V\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    58 \u00d7 waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n\n",
+    "dpr-2-pane-1: Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 111, in <module>\n    tool('select'); page.locator('.guide-name').first.click(); page.keyboard.press('a')\n    ^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_editing.py\", line 58, in tool\n    def tool(name): page.locator(f'[data-tool={name}]').click()\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\sync_api\\_generated.py\", line 15631, in click\n    self._sync(\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_locator.py\", line 162, in click\n    return await self._frame._click(self._selector, strict=True, **params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_frame.py\", line 566, in _click\n    await self._channel.send(\"click\", self._timeout, locals_to_params(locals()))\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 69, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\_impl\\_connection.py\", line 559, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"[data-tool=select]\")\n    - locator resolved to <button data-tool=\"select\" aria-pressed=\"true\" class=\"tool active\" title=\"Select guides \u00b7 V\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    57 \u00d7 waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <dialog open=\"\" id=\"guideErrorDialog\" aria-labelledby=\"guideErrorTitle\">\u2026</dialog> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n\n"
+  ],
+  "scenarios": [
+    {
+      "name": "dpr-1-pane-0",
+      "complete": false
+    },
+    {
+      "name": "dpr-2-pane-0",
+      "complete": false
+    },
+    {
+      "name": "dpr-1-pane-1",
+      "complete": false
+    },
+    {
+      "name": "dpr-2-pane-1",
+      "complete": false
+    }
+  ],
+  "sourceHashes": {
+    "app.js": "cbc92926a9266a6cb94066008b139c6d9459384fae79dbe2dd6e5182900af78f",
+    "index.html": "eabc812b14e6296ca0f9e3e09d9b0fad10a7a9fa318ce655d2e8c599c12c0dc9",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "tests/verify_toilet_editing.py": "ea22cff930ebf5010bfca9988a38a5bd070421e403d310591400c724b34f3570",
+    "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
+    "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
+    "src/geometry/GuideCurve.js": "1fbaddc9a416b15550972c181e0b97616c57cd60ff045f8ee42b985dfd0f89ed",
+    "src/io/GuideSerializer.js": "405e343dc9697ea63ccd22ab813dd511e4adca340d504f59e097e01687df7ed1",
+    "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
+    "src/view/CircleConstruction.js": "866190bb43bded83034b2d94a24eec9603ab30c7e6594c77c209a6ea06e44170",
+    "src/view/GuideController.js": "556c4227867a7575909a689635d5f24ced3c1787e5a4005111833066e5ea228e",
+    "src/view/SurfaceGuides.js": "7e0456176fe1ee4687eb9534264fcbfc3975b66bd3dd971dccf3775d96059ed9",
+    "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
+  },
+  "renderingFixture": {
+    "file": "tests\\toilet-stress\\two-guides-short-1800\\mesh.json",
+    "sha256": "862c0ae47037035fcd6fca2ea5281d2daa7fa6e6f333ae8bec0c84588f3124db",
+    "qualified": false
+  },
+  "scope": "Native Chromium pointer/keyboard/file input on the original toilet at DPR 1/2. Right pane uses an explicitly unqualified historical rendering fixture; this is editor coverage, not solver qualification."
+}

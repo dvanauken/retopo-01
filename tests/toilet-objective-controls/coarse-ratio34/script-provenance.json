@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/probe_toilet_objective_controls.py",
+  "executedScript": "tests\\toilet-objective-controls\\coarse-ratio34\\executed-probe.py",
+  "executedSha256": "9cee45fb523968f4f0e1b219c3a4c61f446f16220ded5d52a76b5d249d026f97",
+  "currentScriptSha256": "2ae74b43adea09ad42241aea1ee4c2f7b89a78c9a49584d0316e8727db6b4303",
+  "scope": "Retained exact script from this historical run. Later harness edits do not change the recorded input, implementation or outcome."
+}

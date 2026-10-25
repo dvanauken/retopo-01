@@ -1,0 +1,1107 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "name": "target-150-seed-3",
+      "target": 150,
+      "seed": 3,
+      "layoutFile": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-150-seed-3.json",
+      "layoutSha256": "18c8fc277da2f6cbe831cc4db6432be41facf93eeae9826e408bd603f7faa1a8",
+      "topology": {
+        "vertices": 137,
+        "usedVertices": 137,
+        "unusedVertices": 0,
+        "faces": 137,
+        "edges": 274,
+        "faceSizes": {
+          "4": 137
+        },
+        "triangles": 0,
+        "quads": 137,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          137
+        ],
+        "boundaryEdges": 0,
+        "boundaryComponents": 0,
+        "closedBoundaryLoops": 0,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 8,
+        "maxQuadFourthPointPlaneDistance": 0.23246259896443466,
+        "eulerCharacteristic": 0,
+        "bounds": [
+          [
+            -0.5591793060302734,
+            -0.9875128269195557,
+            -0.9602356553077698
+          ],
+          [
+            0.5691019892692566,
+            0.9981756806373596,
+            0.9455164074897766
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.12189233345805965,
+          "median": 0.2743158324376992,
+          "max": 0.4219556889336104
+        },
+        "canonicalGeometrySignature": "caf6ffcb58fff19af6221fe1d7eb4a30906dfda37ac68714af344de8423bab09"
+      },
+      "quality": {
+        "quadOnly": true,
+        "faces": 137,
+        "minimumAngleDegrees": 18.31741574544626,
+        "angleP05Degrees": 50.86981047097087,
+        "maximumAngleDegrees": 156.4654335701554,
+        "edgeRatioP95": 2.023843138675869,
+        "edgeRatioMax": 2.718332639192053,
+        "scaledJacobianMin": -0.35311481980489307,
+        "scaledJacobianP05": 0.5262463835097538,
+        "edgeLengthCV": 0.2035130733445061,
+        "adjacentAreaRatioP95": 2.2972755959337587,
+        "valence4Fraction": 0.6934306569343066,
+        "irregularVertices": 42,
+        "targetRelativeError": 0.08666666666666667,
+        "passed": false,
+        "failures": [
+          "minimumAngleDegrees below limit",
+          "scaledJacobianMin below limit"
+        ],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "contacts": {
+        "passed": false,
+        "nonAdjacentIntersectingFacePairs": [
+          [
+            5,
+            8
+          ],
+          [
+            6,
+            9
+          ],
+          [
+            8,
+            78
+          ],
+          [
+            8,
+            90
+          ],
+          [
+            9,
+            90
+          ],
+          [
+            91,
+            125
+          ]
+        ],
+        "adjacentIntersectingFacePairs": [
+          [
+            0,
+            5
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            6,
+            133
+          ],
+          [
+            7,
+            70
+          ],
+          [
+            7,
+            106
+          ],
+          [
+            42,
+            72
+          ],
+          [
+            60,
+            72
+          ],
+          [
+            70,
+            135
+          ],
+          [
+            92,
+            133
+          ],
+          [
+            102,
+            125
+          ],
+          [
+            106,
+            135
+          ],
+          [
+            108,
+            125
+          ]
+        ],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "connectivityScreenPassed": true,
+      "countScreenPassed": true,
+      "elapsedSeconds": 2.7339999999967404,
+      "blenderVersion": "5.1.1"
+    },
+    {
+      "name": "target-150-seed-4",
+      "target": 150,
+      "seed": 4,
+      "layoutFile": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-150-seed-4.json",
+      "layoutSha256": "af8e35eec350b9652338a2a38271976e37508266dbeddbdbbff6091282193349",
+      "topology": {
+        "vertices": 152,
+        "usedVertices": 152,
+        "unusedVertices": 0,
+        "faces": 149,
+        "edges": 301,
+        "faceSizes": {
+          "4": 149
+        },
+        "triangles": 0,
+        "quads": 149,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          149
+        ],
+        "boundaryEdges": 6,
+        "boundaryComponents": 2,
+        "closedBoundaryLoops": 2,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 6,
+        "maxQuadFourthPointPlaneDistance": 0.2515198343215246,
+        "eulerCharacteristic": 0,
+        "bounds": [
+          [
+            -0.6169436573982239,
+            -0.9940217137336731,
+            -1.0006130933761597
+          ],
+          [
+            0.595037043094635,
+            0.994670569896698,
+            0.9610417485237122
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.06667381896084372,
+          "median": 0.26052914341424227,
+          "max": 0.421634859823031
+        },
+        "canonicalGeometrySignature": "38f2887150cf185882724d1be7c6ebf7e1f8adcd60faef392739f5d964a252a3"
+      },
+      "quality": {
+        "quadOnly": true,
+        "faces": 149,
+        "minimumAngleDegrees": 23.716395841619274,
+        "angleP05Degrees": 55.418721918099735,
+        "maximumAngleDegrees": 144.5148673633111,
+        "edgeRatioP95": 2.5042362012461976,
+        "edgeRatioMax": 4.461700325215672,
+        "scaledJacobianMin": -0.5084091253522496,
+        "scaledJacobianP05": 0.5891076221653473,
+        "edgeLengthCV": 0.22649029282157243,
+        "adjacentAreaRatioP95": 2.4737219985711003,
+        "valence4Fraction": 0.75,
+        "irregularVertices": 38,
+        "targetRelativeError": 0.006666666666666667,
+        "passed": false,
+        "failures": [
+          "minimumAngleDegrees below limit",
+          "scaledJacobianMin below limit"
+        ],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "contacts": {
+        "passed": false,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [
+          [
+            127,
+            140
+          ]
+        ],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "connectivityScreenPassed": false,
+      "countScreenPassed": true,
+      "elapsedSeconds": 2.875,
+      "blenderVersion": "5.1.1"
+    },
+    {
+      "name": "target-150-seed-5",
+      "target": 150,
+      "seed": 5,
+      "layoutFile": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-150-seed-5.json",
+      "layoutSha256": "654665c7817ca74c503effbd475857cedb4b17cd1f9ae94fbff2bb3586bb91d3",
+      "topology": {
+        "vertices": 136,
+        "usedVertices": 136,
+        "unusedVertices": 0,
+        "faces": 134,
+        "edges": 268,
+        "faceSizes": {
+          "4": 134
+        },
+        "triangles": 0,
+        "quads": 134,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          134
+        ],
+        "boundaryEdges": 0,
+        "boundaryComponents": 0,
+        "closedBoundaryLoops": 0,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 5,
+        "maxQuadFourthPointPlaneDistance": 0.24059296448079076,
+        "eulerCharacteristic": 2,
+        "bounds": [
+          [
+            -0.5480119585990906,
+            -0.9812798500061035,
+            -0.8981685638427734
+          ],
+          [
+            0.5835267901420593,
+            1.0062994956970215,
+            0.8965535759925842
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.11676703850338803,
+          "median": 0.25753445755198845,
+          "max": 0.4586014279930955
+        },
+        "canonicalGeometrySignature": "899b3c750cb15112e7727b8f93a25ae3cac09074f46070c343598670907a674e"
+      },
+      "quality": {
+        "quadOnly": true,
+        "faces": 134,
+        "minimumAngleDegrees": 14.23220040712934,
+        "angleP05Degrees": 56.061897874180325,
+        "maximumAngleDegrees": 170.5773511422756,
+        "edgeRatioP95": 1.911036915032422,
+        "edgeRatioMax": 2.398038005859932,
+        "scaledJacobianMin": -0.7408332632549581,
+        "scaledJacobianP05": 0.6453553401940102,
+        "edgeLengthCV": 0.2202692146916633,
+        "adjacentAreaRatioP95": 1.8120440835107536,
+        "valence4Fraction": 0.7352941176470589,
+        "irregularVertices": 36,
+        "targetRelativeError": 0.10666666666666667,
+        "passed": false,
+        "failures": [
+          "minimumAngleDegrees below limit",
+          "scaledJacobianMin below limit"
+        ],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "contacts": {
+        "passed": false,
+        "nonAdjacentIntersectingFacePairs": [
+          [
+            67,
+            70
+          ],
+          [
+            67,
+            79
+          ],
+          [
+            67,
+            87
+          ],
+          [
+            70,
+            75
+          ],
+          [
+            75,
+            79
+          ],
+          [
+            75,
+            87
+          ],
+          [
+            75,
+            97
+          ]
+        ],
+        "adjacentIntersectingFacePairs": [
+          [
+            70,
+            130
+          ],
+          [
+            70,
+            131
+          ],
+          [
+            75,
+            88
+          ],
+          [
+            75,
+            131
+          ]
+        ],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "connectivityScreenPassed": false,
+      "countScreenPassed": true,
+      "elapsedSeconds": 2.625,
+      "blenderVersion": "5.1.1"
+    },
+    {
+      "name": "target-600-seed-3",
+      "target": 600,
+      "seed": 3,
+      "layoutFile": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-600-seed-3.json",
+      "layoutSha256": "1ac14ef1d40e7880489f42e2f92e2a1ec26e4ccd220164382dd6bb50f97f6441",
+      "topology": {
+        "vertices": 582,
+        "usedVertices": 582,
+        "unusedVertices": 0,
+        "faces": 582,
+        "edges": 1164,
+        "faceSizes": {
+          "4": 582
+        },
+        "triangles": 0,
+        "quads": 582,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          582
+        ],
+        "boundaryEdges": 0,
+        "boundaryComponents": 0,
+        "closedBoundaryLoops": 0,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 4,
+        "maxQuadFourthPointPlaneDistance": 0.13721090922868578,
+        "eulerCharacteristic": 0,
+        "bounds": [
+          [
+            -0.6100786924362183,
+            -0.9951894283294678,
+            -0.9255656599998474
+          ],
+          [
+            0.615940511226654,
+            0.999745786190033,
+            0.9125884771347046
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.05205997739153098,
+          "median": 0.13760216125816763,
+          "max": 0.22642855258011227
+        },
+        "canonicalGeometrySignature": "dc8c57d2a9b0afc3f41fb1e03be905b0adc14e815d1424d8b11ebc6c7ec3f574"
+      },
+      "quality": {
+        "quadOnly": true,
+        "faces": 582,
+        "minimumAngleDegrees": 7.7761523398831605,
+        "angleP05Degrees": 68.67579759753872,
+        "maximumAngleDegrees": 178.92375789272268,
+        "edgeRatioP95": 1.767000065657756,
+        "edgeRatioMax": 2.824889370241245,
+        "scaledJacobianMin": -0.3625410992473548,
+        "scaledJacobianP05": 0.8128319072867707,
+        "edgeLengthCV": 0.14932710309677527,
+        "adjacentAreaRatioP95": 1.6133678033011718,
+        "valence4Fraction": 0.9072164948453608,
+        "irregularVertices": 54,
+        "targetRelativeError": 0.03,
+        "passed": false,
+        "failures": [
+          "minimumAngleDegrees below limit",
+          "scaledJacobianMin below limit"
+        ],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "contacts": {
+        "passed": false,
+        "nonAdjacentIntersectingFacePairs": [
+          [
+            375,
+            576
+          ],
+          [
+            385,
+            579
+          ]
+        ],
+        "adjacentIntersectingFacePairs": [
+          [
+            365,
+            576
+          ],
+          [
+            367,
+            579
+          ],
+          [
+            405,
+            408
+          ],
+          [
+            576,
+            579
+          ]
+        ],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "connectivityScreenPassed": true,
+      "countScreenPassed": true,
+      "elapsedSeconds": 5.702999999979511,
+      "blenderVersion": "5.1.1"
+    },
+    {
+      "name": "target-600-seed-4",
+      "target": 600,
+      "seed": 4,
+      "layoutFile": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-600-seed-4.json",
+      "layoutSha256": "f000bc107965d3cf9daec6bda1137fb516a7738817b284b58dd1ac2f413ce6eb",
+      "topology": {
+        "vertices": 593,
+        "usedVertices": 593,
+        "unusedVertices": 0,
+        "faces": 593,
+        "edges": 1186,
+        "faceSizes": {
+          "4": 593
+        },
+        "triangles": 0,
+        "quads": 593,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          593
+        ],
+        "boundaryEdges": 0,
+        "boundaryComponents": 0,
+        "closedBoundaryLoops": 0,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 8,
+        "maxQuadFourthPointPlaneDistance": 0.14242109908573836,
+        "eulerCharacteristic": 0,
+        "bounds": [
+          [
+            -0.586452305316925,
+            -0.9952929019927979,
+            -0.9162575602531433
+          ],
+          [
+            0.604324221611023,
+            1.0015665292739868,
+            0.9235140681266785
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.03947009320740914,
+          "median": 0.13763825956824025,
+          "max": 0.22404782422560585
+        },
+        "canonicalGeometrySignature": "bee3396499116186a89c0973c8403fc8ab0e92de0e149c4b699d52da14a75728"
+      },
+      "quality": {
+        "quadOnly": true,
+        "faces": 593,
+        "minimumAngleDegrees": 7.919277430927549,
+        "angleP05Degrees": 68.26372956907328,
+        "maximumAngleDegrees": 157.7425567143052,
+        "edgeRatioP95": 1.722948995370575,
+        "edgeRatioMax": 3.5192478971528516,
+        "scaledJacobianMin": -0.9825425579201436,
+        "scaledJacobianP05": 0.8033395263489593,
+        "edgeLengthCV": 0.14587212852218537,
+        "adjacentAreaRatioP95": 1.6625004995476664,
+        "valence4Fraction": 0.9055649241146712,
+        "irregularVertices": 56,
+        "targetRelativeError": 0.011666666666666667,
+        "passed": false,
+        "failures": [
+          "minimumAngleDegrees below limit",
+          "scaledJacobianMin below limit"
+        ],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "contacts": {
+        "passed": false,
+        "nonAdjacentIntersectingFacePairs": [
+          [
+            5,
+            339
+          ],
+          [
+            5,
+            592
+          ],
+          [
+            339,
+            340
+          ],
+          [
+            339,
+            582
+          ],
+          [
+            339,
+            587
+          ]
+        ],
+        "adjacentIntersectingFacePairs": [
+          [
+            4,
+            582
+          ],
+          [
+            144,
+            233
+          ],
+          [
+            157,
+            266
+          ],
+          [
+            233,
+            589
+          ],
+          [
+            582,
+            592
+          ]
+        ],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "connectivityScreenPassed": true,
+      "countScreenPassed": true,
+      "elapsedSeconds": 5.5310000000172295,
+      "blenderVersion": "5.1.1"
+    },
+    {
+      "name": "target-600-seed-5",
+      "target": 600,
+      "seed": 5,
+      "layoutFile": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-600-seed-5.json",
+      "layoutSha256": "781c4d7046061ecdbe4da7e7f466439bc2629764e32f62d77505e946014ec2e4",
+      "topology": {
+        "vertices": 580,
+        "usedVertices": 580,
+        "unusedVertices": 0,
+        "faces": 580,
+        "edges": 1160,
+        "faceSizes": {
+          "4": 580
+        },
+        "triangles": 0,
+        "quads": 580,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          580
+        ],
+        "boundaryEdges": 0,
+        "boundaryComponents": 0,
+        "closedBoundaryLoops": 0,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 6,
+        "maxQuadFourthPointPlaneDistance": 0.1627263504676095,
+        "eulerCharacteristic": 0,
+        "bounds": [
+          [
+            -0.6054186224937439,
+            -0.9971338510513306,
+            -0.9162411689758301
+          ],
+          [
+            0.6248842477798462,
+            0.999052107334137,
+            0.9179721474647522
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.025121143720222845,
+          "median": 0.13855629427777505,
+          "max": 0.2027037627772163
+        },
+        "canonicalGeometrySignature": "d259005d5e97b864495201ed4d121e2d6a5f530ad9a0b31a0ea3713400a44cd2"
+      },
+      "quality": {
+        "quadOnly": true,
+        "faces": 580,
+        "minimumAngleDegrees": 32.23983143415203,
+        "angleP05Degrees": 68.15090691723827,
+        "maximumAngleDegrees": 154.35209385848842,
+        "edgeRatioP95": 1.808584683099437,
+        "edgeRatioMax": 5.603743111308065,
+        "scaledJacobianMin": -0.6742733160527385,
+        "scaledJacobianP05": 0.8039903011203305,
+        "edgeLengthCV": 0.15307819483617913,
+        "adjacentAreaRatioP95": 1.644796600595431,
+        "valence4Fraction": 0.903448275862069,
+        "irregularVertices": 56,
+        "targetRelativeError": 0.03333333333333333,
+        "passed": false,
+        "failures": [
+          "scaledJacobianMin below limit"
+        ],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "contacts": {
+        "passed": false,
+        "nonAdjacentIntersectingFacePairs": [
+          [
+            6,
+            414
+          ],
+          [
+            363,
+            364
+          ],
+          [
+            363,
+            414
+          ],
+          [
+            363,
+            442
+          ]
+        ],
+        "adjacentIntersectingFacePairs": [
+          [
+            6,
+            7
+          ],
+          [
+            364,
+            575
+          ]
+        ],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "connectivityScreenPassed": true,
+      "countScreenPassed": true,
+      "elapsedSeconds": 5.625,
+      "blenderVersion": "5.1.1"
+    },
+    {
+      "name": "target-1799-seed-3",
+      "target": 1799,
+      "seed": 3,
+      "layoutFile": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-1799-seed-3.json",
+      "layoutSha256": "cb0cf6ae2f51f0a23d508c4180f4d9359fee05218574a50a47cbc4902a06b3a9",
+      "topology": {
+        "vertices": 1749,
+        "usedVertices": 1749,
+        "unusedVertices": 0,
+        "faces": 1749,
+        "edges": 3498,
+        "faceSizes": {
+          "4": 1749
+        },
+        "triangles": 0,
+        "quads": 1749,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          1749
+        ],
+        "boundaryEdges": 0,
+        "boundaryComponents": 0,
+        "closedBoundaryLoops": 0,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 4,
+        "maxQuadFourthPointPlaneDistance": 0.09991930413305769,
+        "eulerCharacteristic": 0,
+        "bounds": [
+          [
+            -0.6104081273078918,
+            -0.9999964237213135,
+            -0.9076160788536072
+          ],
+          [
+            0.5785142183303833,
+            0.9998422861099243,
+            0.9036093950271606
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.029485346885903322,
+          "median": 0.08048545706814635,
+          "max": 0.14273262816669738
+        },
+        "canonicalGeometrySignature": "123c6428aecf773470aa8d212fe5e74bd06ddbb4cc181892d155c11d13bdae90"
+      },
+      "quality": {
+        "quadOnly": true,
+        "faces": 1749,
+        "minimumAngleDegrees": 25.859350571997272,
+        "angleP05Degrees": 75.04950929437294,
+        "maximumAngleDegrees": 155.99608660420213,
+        "edgeRatioP95": 1.6977978399214146,
+        "edgeRatioMax": 2.518736993769436,
+        "scaledJacobianMin": 0.017060822157954132,
+        "scaledJacobianP05": 0.9046403284222385,
+        "edgeLengthCV": 0.1433952785939707,
+        "adjacentAreaRatioP95": 1.3632100771889135,
+        "valence4Fraction": 0.9508290451686678,
+        "irregularVertices": 86,
+        "targetRelativeError": 0.027793218454697052,
+        "passed": false,
+        "failures": [
+          "minimumAngleDegrees below limit",
+          "scaledJacobianMin below limit"
+        ],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "contacts": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "connectivityScreenPassed": true,
+      "countScreenPassed": true,
+      "elapsedSeconds": 13.546999999962281,
+      "blenderVersion": "5.1.1"
+    },
+    {
+      "name": "target-1799-seed-4",
+      "target": 1799,
+      "seed": 4,
+      "layoutFile": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-1799-seed-4.json",
+      "layoutSha256": "a18cc7e4c036fb64a12c9b4b071fa7c90cc66015c2c7c5b4f6c8f61b2d28d85a",
+      "topology": {
+        "vertices": 1779,
+        "usedVertices": 1779,
+        "unusedVertices": 0,
+        "faces": 1779,
+        "edges": 3558,
+        "faceSizes": {
+          "4": 1779
+        },
+        "triangles": 0,
+        "quads": 1779,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          1779
+        ],
+        "boundaryEdges": 0,
+        "boundaryComponents": 0,
+        "closedBoundaryLoops": 0,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 6,
+        "maxQuadFourthPointPlaneDistance": 0.07780522420575768,
+        "eulerCharacteristic": 0,
+        "bounds": [
+          [
+            -0.6104012131690979,
+            -1.0003632307052612,
+            -0.9023065567016602
+          ],
+          [
+            0.628217339515686,
+            0.9998123645782471,
+            0.9071143269538879
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.030871815947550278,
+          "median": 0.08039862546539908,
+          "max": 0.1511889329266164
+        },
+        "canonicalGeometrySignature": "75147800a84063144ccea08e096943b4539c83c6cdbb5616fcd15cb6306c13af"
+      },
+      "quality": {
+        "quadOnly": true,
+        "faces": 1779,
+        "minimumAngleDegrees": 5.97439432029183,
+        "angleP05Degrees": 72.77157394814634,
+        "maximumAngleDegrees": 168.81799854991755,
+        "edgeRatioP95": 1.8004629664578389,
+        "edgeRatioMax": 3.4432510367949867,
+        "scaledJacobianMin": -0.09588419141468282,
+        "scaledJacobianP05": 0.8829760243698597,
+        "edgeLengthCV": 0.1443107153383817,
+        "adjacentAreaRatioP95": 1.407073239601771,
+        "valence4Fraction": 0.9539066891512086,
+        "irregularVertices": 82,
+        "targetRelativeError": 0.011117287381878822,
+        "passed": false,
+        "failures": [
+          "minimumAngleDegrees below limit",
+          "scaledJacobianMin below limit"
+        ],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "contacts": {
+        "passed": false,
+        "nonAdjacentIntersectingFacePairs": [
+          [
+            987,
+            1776
+          ],
+          [
+            1059,
+            1060
+          ],
+          [
+            1059,
+            1066
+          ]
+        ],
+        "adjacentIntersectingFacePairs": [
+          [
+            1036,
+            1776
+          ],
+          [
+            1060,
+            1776
+          ],
+          [
+            1066,
+            1776
+          ]
+        ],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "connectivityScreenPassed": true,
+      "countScreenPassed": true,
+      "elapsedSeconds": 13.39100000000326,
+      "blenderVersion": "5.1.1"
+    },
+    {
+      "name": "target-1799-seed-5",
+      "target": 1799,
+      "seed": 5,
+      "layoutFile": "tests\\toilet-layout-inventory\\alternative-seeds-345\\target-1799-seed-5.json",
+      "layoutSha256": "b29757a01b7c9504e4aa631b8b07b25fd4d5dc68c10df0c3ce68d56fd000b098",
+      "topology": {
+        "vertices": 1830,
+        "usedVertices": 1830,
+        "unusedVertices": 0,
+        "faces": 1830,
+        "edges": 3660,
+        "faceSizes": {
+          "4": 1830
+        },
+        "triangles": 0,
+        "quads": 1830,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          1830
+        ],
+        "boundaryEdges": 0,
+        "boundaryComponents": 0,
+        "closedBoundaryLoops": 0,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 6,
+        "maxQuadFourthPointPlaneDistance": 0.07775998560089559,
+        "eulerCharacteristic": 0,
+        "bounds": [
+          [
+            -0.6105394959449768,
+            -0.9966288208961487,
+            -0.9163596034049988
+          ],
+          [
+            0.6113232374191284,
+            1.001512050628662,
+            0.9080632328987122
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.016925563301611404,
+          "median": 0.07957000098951836,
+          "max": 0.1288892953804526
+        },
+        "canonicalGeometrySignature": "fa2d0377931a1bcc97fa171df56a56ba383f249ee46ee846124e6485e3f8dd73"
+      },
+      "quality": {
+        "quadOnly": true,
+        "faces": 1830,
+        "minimumAngleDegrees": 23.637144852170433,
+        "angleP05Degrees": 72.29264770727006,
+        "maximumAngleDegrees": 170.47487323816603,
+        "edgeRatioP95": 1.7218784710258492,
+        "edgeRatioMax": 4.618673569058409,
+        "scaledJacobianMin": -0.10919738368913806,
+        "scaledJacobianP05": 0.883958188360721,
+        "edgeLengthCV": 0.13934115364055483,
+        "adjacentAreaRatioP95": 1.3962136752036531,
+        "valence4Fraction": 0.9519125683060109,
+        "irregularVertices": 88,
+        "targetRelativeError": 0.017231795441912175,
+        "passed": false,
+        "failures": [
+          "minimumAngleDegrees below limit",
+          "scaledJacobianMin below limit"
+        ],
+        "limits": {
+          "minimumAngleDegrees": 30.0,
+          "edgeRatioP95": 3.5,
+          "edgeRatioMax": 6.0,
+          "scaledJacobianMin": 0.45,
+          "adjacentAreaRatioP95": 4.0,
+          "targetRelativeError": 0.15
+        },
+        "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+      },
+      "contacts": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "connectivityScreenPassed": true,
+      "countScreenPassed": true,
+      "elapsedSeconds": 13.73499999998603,
+      "blenderVersion": "5.1.1"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+    "tests/probe_toilet_layout_inventory.py": "48205860537f5640d5ed7e38ae7131fc64a7db3488ddc3f7bb023766a3717942"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 65.81199999997625,
+  "scope": "Fresh original-source Blender layouts at requested target counts/seeds. Connectivity, count, shape and all-diagonal contacts are measured before fitting. Passing this preliminary screen does not establish surface/guide accuracy or qualify a final mesh."
+}

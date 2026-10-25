@@ -13,6 +13,7 @@ const $ = id => document.getElementById(id);
 const clone = value => JSON.parse(JSON.stringify(value));
 const state = { mesh: null, result: null, guides: [], tool: 'draw', view: 'split', selected: -1, target: 600, guideMode: 2, busy: false, job: null, resultJob: null, dirty: false, space: false, version: 0, resultKey: null, density: null, lastAttempt: null };
 const canvas = $('viewport');
+let renderFrame = null;
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, preserveDrawingBuffer: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -43,7 +44,7 @@ const guideDocument = new GuideDocument(createGuideId);
 const guideChrome = document.createElement('canvas'); guideChrome.id = 'guideChrome'; guideChrome.setAttribute('aria-hidden', 'true'); canvas.after(guideChrome);
 const chromeContext = guideChrome.getContext('2d');
 let cameraRevision = 0, persistedGeneration = '', importTicket = 0;
-controls.addEventListener('change', () => cameraRevision++);
+controls.addEventListener('change', () => { cameraRevision++; requestRender(); });
 const surfaceGuides = new SurfaceGuides({
   project, surface: (x, y, pane) => hit(x, y, pane)?.point.toArray() || null,
   inside: (x, y, pane) => { const r = canvas.getBoundingClientRect(); return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom && paneAt(x) === pane && (pane === 0 || !!resultRender); },
@@ -70,9 +71,11 @@ function reportGuideError(message) {
 }
 function flushGuideErrors() {
   if (!pendingGuideErrors.length || $('guideErrorDialog').open || editor.gate || editor.activity?.pointerId !== undefined) return;
-  $('guideErrorMessage').textContent = pendingGuideErrors[0].message; $('guideErrorDialog').showModal();
+  // Consume before showing: close() restores focus before its close event, and
+  // that focus change can otherwise show the same queued incident again.
+  $('guideErrorMessage').textContent = pendingGuideErrors.shift().message; $('guideErrorDialog').showModal();
 }
-$('guideErrorDialog').addEventListener('close', () => { pendingGuideErrors.shift(); queueMicrotask(flushGuideErrors); });
+$('guideErrorDialog').addEventListener('close', () => queueMicrotask(flushGuideErrors));
 const expectedCaptureReleases = new Map(), captureOwners = new Map();
 const editor = new GuideController(guideDocument, {
   id: createGuideId, changed: syncGuideState, clearSnap: () => guideSnap.clear(), resolve: (x, y, pane, options) => guideSnap.resolve(x, y, pane, options), report: reportGuideError, busy: () => state.busy || !state.mesh,
@@ -126,6 +129,7 @@ function notify(message, error = false, persistent = false) {
 }
 $('dismissNotice').onclick = () => { $('notice').hidden = true; };
 function dispose(group) {
+  requestRender();
   for (const child of [...group.children]) {
     group.remove(child); child.traverse(o => { o.geometry?.dispose(); if (Array.isArray(o.material)) o.material.forEach(m => m.dispose()); else o.material?.dispose(); });
   }
@@ -183,6 +187,7 @@ function renderGuides() {
   syncGuideVisibility();
 }
 function syncGuideVisibility() {
+  requestRender();
   guideGroups.forEach((group, pane) => group.visible = $('guidesToggle').checked && (pane === 0 || (state.view === 'split' && !!resultRender)));
 }
 function setAttempt(phase, message = '', context = null) {
@@ -619,18 +624,26 @@ window.addEventListener('keydown', event => {
 });
 window.addEventListener('keyup', event => { if (event.code === 'Space') editor.navigate(false); });
 window.addEventListener('blur', () => editor.contextLost());
-document.addEventListener('visibilitychange', () => { if (document.hidden) editor.contextLost(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) editor.contextLost(); else requestRender(); });
 document.addEventListener('focusin', event => { if (!event.target.closest('[data-app-shell],dialog')) editor.contextLost(); });
 window.addEventListener('resize', () => { if (editor.activity) editor.escape(); fit(); });
 window.addEventListener('pagehide', () => editor.contextLost());
+// Render changed views and damping frames; an idle mesh must not compete with
+// the solver for CPU when WebGL falls back to software rendering.
+function requestRender() {
+  if (renderFrame === null) renderFrame = requestAnimationFrame(render);
+}
+new ResizeObserver(requestRender).observe(canvas);
+canvas.addEventListener('webglcontextrestored', requestRender);
 function render() {
+  renderFrame = null;
   const r = canvas.getBoundingClientRect(), w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
   if (canvas.width !== Math.round(w * renderer.getPixelRatio()) || canvas.height !== Math.round(h * renderer.getPixelRatio())) renderer.setSize(w, h, false);
   controls.update(); renderer.setScissorTest(true);
   const half = state.view === 'split' ? w / 2 : w;
   camera.aspect = half / h; camera.updateProjectionMatrix(); renderer.setViewport(0, 0, half, h); renderer.setScissor(0, 0, half, h); renderer.clear(); renderer.render(scenes[0], camera);
   if (state.view === 'split') { renderer.setViewport(half, 0, half, h); renderer.setScissor(half, 0, half, h); renderer.clear(); renderer.render(scenes[1], camera); }
-  drawGuideChrome(); requestAnimationFrame(render);
+  drawGuideChrome();
 }
 async function start() {
   try {
@@ -643,4 +656,4 @@ async function start() {
 }
 // Read-only inspection hooks support reproducible canvas interaction checks.
 window.retopoDemo = { getState: () => ({ meshId: state.mesh?.id, guides: clone(state.guides), target: state.target, mode: state.guideMode, resultFaces: state.result?.faces.length, resultJob: state.resultJob, lastAttempt: clone(state.lastAttempt), resultGuideOverlayVisible: guideGroups[1].visible, busy: state.busy, dirty: state.dirty, view: state.view, tool: state.tool, draft: clone(draft), sourceStats: state.mesh?.stats, sourceMaterial: sourceRender ? { color: sourceRender.solid.material.color.getHexString(), metalness: sourceRender.solid.material.metalness } : null, guideDocument: clone(guideDocument.guides), guideHistory: guideDocument.history, guideRevisions: Object.fromEntries(guideDocument.guides.map(g => [g.id, guideDocument.revision(g.id)])), interaction: editor.observe(), guideErrors: clone(guideErrors) }), projectPoint: (point, pane = 0) => project(point, pane), pickSource: (x, y, pane = 0) => hit(x, y, pane)?.point.toArray() || null };
-renderer.setClearColor(color('--bg')); render(); start();
+renderer.setClearColor(color('--bg')); requestRender(); start();

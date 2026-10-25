@@ -1,0 +1,46 @@
+{
+  "complete": true,
+  "passed": false,
+  "productionResult": true,
+  "checks": [
+    {
+      "passed": false,
+      "name": "short-small-perturbation finishes in the browser with an accepted result",
+      "lastAttempt": {
+        "phase": "failed",
+        "message": "The mesh calculation exceeded the ten-minute limit.",
+        "target": 1800,
+        "guideCount": 2,
+        "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "name": "short-small-perturbation",
+      "state": "failed",
+      "job": null,
+      "resultFaces": null
+    }
+  ],
+  "errors": [
+    "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\verify_toilet_fallback_browser.py\", line 115, in <module>\n    raise AssertionError('No accepted mesh in browser: ' + json.dumps(state['lastAttempt']))\nAssertionError: No accepted mesh in browser: {\"phase\": \"failed\", \"message\": \"The mesh calculation exceeded the ten-minute limit.\", \"target\": 1800, \"guideCount\": 2, \"sourceSha256\": \"c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053\"}\n"
+  ],
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "8d33a0f6c531047abc7a2effc34e6b678bb60e41c318d88850d83b483d67d87c",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "surface_guide_joint.py": "b1c5297400c62a05251781bb7cec94d9570bbc8cf339f7ac5de5bb328b2ea0fe",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_toilet_fallback_browser.py": "afdfd5830fd78e53e92c71cc6a167087d7331bbc0ecc8ca455a0fbf790422ff5"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 605.5,
+  "scope": "Fresh real browser imports, Generate actions, HTTP/worker solves, accepted viewport state and native OBJ downloads. No replaced network responses or saved candidate inputs. DPR1 limits software-rendering load."
+}

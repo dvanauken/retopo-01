@@ -1,0 +1,126 @@
+{
+  "complete": true,
+  "passed": true,
+  "goalComplete": false,
+  "checkedAt": "2026-10-25T10:55:26.233017+00:00",
+  "sourceHashes": {
+    "app.js": "1aa692cdf1fc18bc12e43a60cc55b0fe42d706475afaf4bd6e89a3495dded5d5",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "8d33a0f6c531047abc7a2effc34e6b678bb60e41c318d88850d83b483d67d87c",
+    "surface_guide_joint.py": "b1c5297400c62a05251781bb7cec94d9570bbc8cf339f7ac5de5bb328b2ea0fe",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/record_toilet_surface_only_checkpoint.py": "36ac9b4553b6bb94eb2ec093bd934877bfd7446ade69459c268eeaaff0509ee7"
+  },
+  "evidence": {
+    "appliedCode": {
+      "report": "tests/surface-guide-joint/surface-only-integrated/result.json",
+      "sha256": "cb2f390e3b4b1cd24865b06075fd4c2c01a53f0272cdc3929c5cf7e5668a9dce"
+    },
+    "service": {
+      "report": "tests/toilet-paired-variants/surface-only/result.json",
+      "sha256": "a87e2e8cc17dfe7905ca4925c24d1d3862855478859bcdc9e39a06530f37d629"
+    },
+    "geometry": {
+      "report": "tests/toilet-fresh-geometry/surface-only/result.json",
+      "sha256": "6894ef1696df1c52cfc2584f0fc726a0b4cec1784b78190a01101230e139c664"
+    },
+    "contacts": {
+      "report": "tests/toilet-all-diagonal-audit/surface-only/result.json",
+      "sha256": "fe9ca74405ff292ec23d82d81956349a1fbe8e4ff6ae102b98e16076e194ec05"
+    },
+    "serviceCleanup": {
+      "report": "tests/toilet-paired-variants/surface-only/process-cleanup.json",
+      "sha256": "aff4f8c143763fff7fccda6e3cff9fa6a4a0487a3b4cc8b7c30642f5a2b8d515"
+    },
+    "browser": {
+      "report": "tests/toilet-fallback-browser/surface-only-demand/result.json",
+      "sha256": "5b199c614a9efd86c8d58d2ed468bae9d2e79714d04bc46424af30eb0e9fa0da"
+    },
+    "browserIdentity": {
+      "report": "tests/toilet-fallback-browser/surface-only-demand/independent-download.json",
+      "sha256": "65e6c8c6d19ddade9be1b19ad0206f5aee65a20bbf748a3d5212471e3b6486a2"
+    },
+    "browserGeometry": {
+      "report": "tests/toilet-fresh-geometry/surface-only-browser/result.json",
+      "sha256": "a53200157b3b043465a394bf0418d103fa1e63cac85114a4509a9a828d7bfa18"
+    },
+    "browserContacts": {
+      "report": "tests/toilet-all-diagonal-audit/surface-only-browser/result.json",
+      "sha256": "1798f31d44170c671ef3405d1f4ca3b70da873f1e0da83b546a59ee658cd3b26"
+    },
+    "browserCleanup": {
+      "report": "tests/toilet-fallback-browser/surface-only-demand/runtime-cleanup.json",
+      "sha256": "ecadefeb0131e5239fd38fd0f861bdc87e71fe48b4e355cf9b8d04c96b11a90b"
+    },
+    "idleRendering": {
+      "report": "tests/toilet-render-idle/demand-layout-final/result.json",
+      "sha256": "1801afe247a7acd44e5d9098f8794de1fc1e8ed23785bebc1748bc04cbd511b6"
+    },
+    "editing": {
+      "report": "tests/toilet-editing/demand-dialog-fixed/result.json",
+      "sha256": "786091a2943423d8830dd565dd3a1288557bb4c0860d8ba23d8621eb36c5f000"
+    },
+    "selection": {
+      "report": "tests/toilet-selection-stability/demand-render/result.json",
+      "sha256": "6fdb8cf2f3291b33f7938c61528b82bec158da402961f44e02b965f0c0168e69"
+    },
+    "liveApp": {
+      "report": "tests/toilet-exhaustive-audit/live-surface-only-readonly.json",
+      "sha256": "986b1c31cb30a5a2581538bd93cc3cd18a771adce60c26bf7bd62a24d20b0af9"
+    }
+  },
+  "outputSha256": "94fcde54a3314758c59288d4f004e7d4eb341f64eb3fe7f5c32f330f922d40e9",
+  "faces": 1845,
+  "browserOutputSha256": "122218bfa3b014f1e23590a15f58cc21c86b9b6dfdd52bfea66a804ed47c5339",
+  "serviceSeconds": 462.75,
+  "browserSeconds": 480.14639353752136,
+  "rejectedExperiments": [
+    {
+      "report": "tests/toilet-objective-controls/coarse-ratio34/result.json",
+      "sha256": "82fef4de0687f395cd25e9256baf0fde37f988ac94e7eddaeca367fc194a9288",
+      "cases": 2,
+      "interpretation": "Completed experiment; no qualified generation."
+    },
+    {
+      "report": "tests/toilet-objective-controls/coarse150-seed3-ratio34/result.json",
+      "sha256": "cb1fb26873addf8fd6ed0636c181e2760be1429b9566baccea84ed22b13fa670",
+      "cases": 1,
+      "interpretation": "Completed experiment; no qualified generation."
+    },
+    {
+      "report": "tests/toilet-objective-controls/coarse600-seed3-ratio34/result.json",
+      "sha256": "53a5906795264a8487b73e9110ee42ef87c86c8e8d6aade926e16b1492f83ed3",
+      "cases": 1,
+      "interpretation": "Completed experiment; no qualified generation."
+    },
+    {
+      "report": "tests/toilet-objective-controls/short1799-seed3/result.json",
+      "sha256": "f6bb53f49582e04cb5b5426f36975718e3d8a64d14a32ac048bb428173f2f751",
+      "cases": 1,
+      "interpretation": "Completed experiment; no qualified generation."
+    },
+    {
+      "report": "tests/toilet-boundary-bridge/coarse150-seed2-lists/result.json",
+      "sha256": "fe41e0ea402c13f70dc6d65164069785f524480d4ff77cc72524bd0a39cfc854",
+      "cases": 3,
+      "interpretation": "Completed experiment; no qualified generation."
+    },
+    {
+      "report": "tests\\toilet-objective-controls\\short1799-seed5\\result.json",
+      "sha256": "b55840b99ffffd338c64795cb5ed6758f1380458ef1b9469fcd9220383a12326",
+      "cases": 1,
+      "interpretation": "Completed experiment; no qualified generation."
+    }
+  ],
+  "remaining": [
+    "Coarse targets150/600 and paired target1799 remain unsolved.",
+    "Further robustness and final requirement reconciliation remain open."
+  ],
+  "scope": "Exact applied module bytes, accepted fresh worker/browser exports, independent geometry/contact audits and observed cleanup for the named perturbed input. Sixty numerical checks and13 acceptance units are linked through appliedCode. Earlier long/bowl/short numerical behavior is preserved. Source/gates unchanged; shared optional dispatch remains outside this change. No universal robustness or interactive-timing claim."
+}
