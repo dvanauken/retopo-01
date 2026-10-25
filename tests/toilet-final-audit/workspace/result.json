@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "New workspace defaults to the requested light theme",
+      "passed": true
+    },
+    {
+      "name": "Blue primary, gold accent and white neutral surfaces are applied",
+      "passed": true
+    },
+    {
+      "name": "Ribbon, navigator, center, inspector and bottom dock occupy their standard regions",
+      "passed": true
+    },
+    {
+      "name": "Every guide tool uses a flat SVG icon",
+      "passed": true
+    },
+    {
+      "name": "Ribbon tab focus preserves unfinished construction",
+      "passed": true
+    },
+    {
+      "name": "Collapsing properties grows the canvas without discarding construction",
+      "passed": true
+    },
+    {
+      "name": "Ribbon collapse preserves the activity and gives its space to the viewport",
+      "passed": true
+    },
+    {
+      "name": "Native splitter dragging resizes the navigator and preserves accepted guide points",
+      "passed": true
+    },
+    {
+      "name": "Panel splitters support keyboard resizing",
+      "passed": true
+    },
+    {
+      "name": "Bottom dock focus preserves construction without creating history",
+      "passed": true
+    },
+    {
+      "name": "Inspector exposes contextual Circle properties",
+      "passed": true
+    },
+    {
+      "name": "Numeric Circle radius uses one validated history command",
+      "passed": true
+    },
+    {
+      "name": "Ribbon Undo restores the exact Circle radius",
+      "passed": true
+    },
+    {
+      "name": "History dock displays actual commands and the redo tail",
+      "passed": true
+    },
+    {
+      "name": "Log dock displays actual application operations",
+      "passed": true
+    },
+    {
+      "name": "Bottom dock can be collapsed",
+      "passed": true
+    },
+    {
+      "name": "Panel preferences and authored guides restore independently after reload",
+      "passed": true
+    },
+    {
+      "name": "Selection remains transient after reload while authored guides persist",
+      "passed": true
+    },
+    {
+      "name": "Existing dark-theme option remains functional",
+      "passed": true
+    },
+    {
+      "name": "Three-panel workspace remains usable at 900 px width",
+      "passed": true
+    },
+    {
+      "name": "Compact layout prioritizes the canvas and folds side panels",
+      "passed": true
+    },
+    {
+      "name": "Compact layout can reopen contextual properties",
+      "passed": true
+    },
+    {
+      "name": "No browser JavaScript errors",
+      "passed": true
+    }
+  ],
+  "browserErrors": [],
+  "colors": {
+    "primary": "rgb(36, 99, 207)",
+    "gold": "rgb(181, 136, 44)",
+    "panel": "rgb(255, 255, 255)"
+  },
+  "sourceHashes": {
+    "app.js": "1aa692cdf1fc18bc12e43a60cc55b0fe42d706475afaf4bd6e89a3495dded5d5",
+    "index.html": "eabc812b14e6296ca0f9e3e09d9b0fad10a7a9fa318ce655d2e8c599c12c0dc9",
+    "index.css": "8862da3e249a870c35039778d50ddc3819571977cea957d51fe53da5286c1fc1",
+    "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
+  }
+}

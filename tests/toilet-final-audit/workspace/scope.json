@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "originalScript": "tests/verify_workspace_shell.py",
+  "originalSha256": "0414856d59cb3631a2c3e7cfaef7092079296f031a047cbbbdc49ac4ea8aed7f",
+  "executedScript": "tests\\toilet-final-audit\\workspace\\executed-test.py",
+  "executedSha256": "b62219d4eb42225d0b503d7ffbef2d40d97aaabb50bba1b75c25e5bc3dbd6200",
+  "substitution": "Only ROOT and OUT paths change; all browser assertions are unchanged.",
+  "sourceHashes": {
+    "app.js": "1aa692cdf1fc18bc12e43a60cc55b0fe42d706475afaf4bd6e89a3495dded5d5",
+    "index.html": "eabc812b14e6296ca0f9e3e09d9b0fad10a7a9fa318ce655d2e8c599c12c0dc9",
+    "index.css": "8862da3e249a870c35039778d50ddc3819571977cea957d51fe53da5286c1fc1",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
+  },
+  "sourceUnchanged": true,
+  "userServicePointerUnchanged": true,
+  "scope": "Generic shell controls on the hexagon, complemented by the current toilet editing/rendering/repeated-use suites. No toilet generation claim."
+}

@@ -1,214 +1,72 @@
-# Exhaustive toilet workflow audit
+# Toilet workflow audit — completed test matrix
 
-The active request is to keep testing until the toilet workflow has been tested
-exhaustively. Prior check counts are evidence, not completion criteria. An
-unresolved case, unchecked requirement or weak test keeps this audit open.
+The final requirement-by-requirement reconciliation passes all twelve areas
+below. `tests/toilet-final-audit/result.json` records 216 evidence-integrity and
+coverage assertions, 22 qualified export records representing 21 distinct OBJ
+meshes, and exact identity of the 247 runtime/app/asset files used by the latest
+real-worker browser test. These are finite, scoped checks; their counts overlap
+earlier suites and are not a claim that every possible guide network will solve.
 
-Unguided targets 150 and 600 now produce 152 and 605 accepted quads. Fresh
-original-source fallback runs take 99.84 and 177.64 seconds and reproduce the
-independently audited experimental exports exactly. Actual browser Generate and
-OBJ downloads through the proposed dispatch take 129.26 and 279.18 seconds;
-both downloaded meshes pass the independent geometry and all-diagonal contact
-audits. The applied worktree matches all 247 frozen runtime/app/asset files used
-by that browser test. Only the small unguided-dispatch guard change was applied
-to the shared dispatcher; reversing it reproduces the other session's exact
-file. Its separate guide-policy edits remain preserved.
+The originally failing bowl, short paired, long paired and perturbed paired
+requests now have independently qualified outputs. Unguided targets 150 and 600
+produce 152 and 605 quads through native browser Generate and OBJ download in
+129.26 and 279.18 seconds. Their actual downloaded bytes pass both independent
+geometry and all-mixed-diagonal contact audits. The original white toilet is
+unchanged. No geometric acceptance limit was relaxed for these results.
 
-The new unguided fallback builds one fresh alternate layout after the nearby
-counts fail. When it has two simple boundary loops of equal length, it tries
-bounded oriented quad bridges. Proposals that reuse interior edges are rejected.
-Every candidate must still pass the existing topology, shape, whole-surface and
-contact gates. The successful 150-target case adds three quads and preserves
-Euler characteristic zero. Its fitting objective aims for edge ratio 3.4 while
-the acceptance limit remains 3.5. Original fitting defaults are unchanged.
+The small fallback dispatch patch was temporarily separated while another
+session edited `curved_quad.py`. The user then authorized merging it. It is
+integrated again, reproducing the exact tested dispatcher; every other-session
+file and shared-file byte matches the recorded ownership snapshot. The earlier
+`dispatch-separation/result.json` records that temporary state. The final
+`result.json` is authoritative. The patch is retained in `patches/` for review.
 
-Twenty-five controls pass on the exact owned code candidate over the committed
-baseline, and twenty-seven pass with the other session's current guide-policy
-tests. These counts overlap. The orientation-penalty experiment and the default
-3.5-objective boundary fit fail and remain recorded. An initial browser setup
-mistakenly retained the automatically loaded bowl guide; that test-owned job was
-cancelled and the corrected test uses the native Clear guides button. Source
-geometry and geometric acceptance limits are unchanged. Further robustness,
-runtime work and final requirements reconciliation remain open.
+## Requirements and final evidence
 
-The bounded nearby-count retry now qualifies the captured paired target-1,799
-request through a fresh worker: 1,845 quads in 431.23 seconds. Both independent
-audits of its actual export pass under `paired1799-integrated`; worker/Blender
-cleanup also passes. The requested target remains 1,799 in every fitting and
-acceptance calculation, although the successful starting layout is generated
-with count 1,800. All failed and accepted retry artifacts are retained. Eighteen
-acceptance/retry controls and an AST comparison verify that numerical fitting
-and acceptance bodies are unchanged. The native browser run also passes seven
-checks and exports the exact independently audited mesh. Its 572.79-second job
-remains close to the 600-second timeout; this is not an interactive-speed result.
-All ten sampled browser/test processes exit.
-
-Cancellation during the second layout passes twelve checks: the rejected first
-layout is archived, a distinct second layout is actually fitting, owned
-processes stop, unfinished downloads remain unavailable and another request is
-accepted. The nearby-layout checkpoint links fourteen passing evidence groups,
-two independently qualified isolated experiments and five negative experiment
-reports. The audit index retains historical failures and remains open.
-
-At checkpoint `425b108`, the isolated no-guide target-600/layout-660 candidate
-had 605 quads and passed both independent audits under `coarse600-neighbor`;
-its dispatch integration was still separate. The boundary/runtime results above
-supersede that status. Earlier target-150 nearby counts and shape objectives fail;
-unsubdivision of the qualified 605-quad intermediate produces mixed polygons,
-so it is also rejected before fitting. No acceptance limit changed.
-
-Twenty-three current import/error checks pass: the existing delayed-file/source/
-edit/construction/legacy cases plus three queued errors shown in order, closed
-with button and Escape, preserving the document and never reopening on focus.
-
-The adaptive repair now qualifies the captured source-projected 0.001-unit
-paired-guide perturbation through a fresh worker: 1,845 quads in 462.75 seconds.
-The actual OBJ passes independent surface/path/topology/shape and all-mixed
-diagonal contact audits under `surface-only`. Sixty numerical checks cover the
-new case and exact prior long/bowl/short coordinates; thirteen acceptance
-controls pass on the exact applied modules. Source and gate limits are unchanged.
-The browser run is tracked separately. The old 600-second failure below remains
-historical evidence rather than the current service outcome for this input.
-
-The first adaptive browser run also timed out, during local repair, while its
-software renderer consumed about ten logical CPUs. Rendering now stops when
-the viewport is idle and resumes for scene, guide, camera and size changes.
-Fourteen rendering checks, 130 native editing checks and 18 occlusion/selection/
-repeated-use checks pass on the final app. The editing rerun found an error dialog
-reopening during focus restoration; removing the incident from the queue before
-showing it fixes that race. The exact intermediate app, failure screenshots and
-all four failed scenarios remain retained. The full generation retry is recorded
-separately under `surface-only-demand`.
-It passes seven workflow checks and generates 1,845 quads in 480.15 seconds.
-The native download passes independent geometry and all-mixed-diagonal audits;
-all ten sampled processes exit. The browser preserves every authored point but
-adds one projected sample along a segment exceeding 0.04 units, so equality to
-the service-only mesh was not assumed after that comparison failed. The actual
-browser OBJ has its own two independent audits under `surface-only-browser`.
-Expanded final rendering coverage passes eighteen checks, including panel and
-ribbon size changes without a window resize.
-
-Extra coarse-layout and adjacent-density experiments still fail contacts.
-Three alternative seeds were screened at targets 150/600/1,799. Fitted coarse
-seed-3 and paired 1,799 seed-3 candidates remain rejected. Bridging all three
-cyclic correspondences between the raw 150-target layout's boundary loops
-restores closed Euler-0 connectivity, but all fifteen fitted candidates overlap.
-No production connectivity or acceptance gate changed for these experiments.
-The additional paired 1,799 seed-5 fit avoids contacts but still fails guide
-and surface requirements after three joint passes. It is an unsuccessful
-generation experiment, not an accepted alternative layout.
-
-The latest integration also solves the captured longer combined-guide request
-through the real service: 1,845 quads in 310 seconds. Its actual exported OBJ
-passes the independent geometry and all-mixed-diagonal audits under the
-`joint-integrated` labels. Joint local repair remembers rejected surface
-witnesses while fitting guide alignment, preserving already-passing constraints.
-Eleven numerical parity checks reproduce the experimental proposals exactly;
-33 default-fitting checks reproduce the earlier bowl/short results; thirteen
-acceptance controls cover the integrated modules. Source and gates are unchanged.
-The long-guide/Circle browser run passes thirteen workflow checks; both native
-downloads exactly match independently audited outputs, including authored
-curves and connected path indices. All ten sampled test descendants exit after
-the run. The long browser job took 494 seconds under software rendering
-(488 seconds displayed for solving).
-Cancellation during actual joint fitting also passes eleven checks, including
-worker/descendant exit, unavailable unfinished exports and a fresh request.
-Variation failures remain explicit limitations; successful captured cases do
-not establish general numerical robustness.
-
-Before that integration, four representation variations passed independent
-export audits: paired guide order/reversal, exact-segment densification and
-closed-guide start rotation. A source-projected 0.001-unit perturbation still
-failed surface bounds, and paired target 1,799 failed contacts. The coarse
-unguided seed-2 experiment also rejected targets 150/600 on edge-ratio limits.
-These are completed negative tests, not successful generations. Reports retain
-the exact inputs, executed implementations, outputs and failure diagnostics.
-The earlier perturbed paired-guide rerun at `b63828f` reached the 600-second
-service timeout during joint pass seven. Unfinished mesh/OBJ/features stayed
-unavailable and the original guides were preserved. This was slower than the
-earlier 387-second surface failure; the adaptive service result above resolves
-that captured input while retaining both historical failures.
-The earlier paired target 1,799 rerun failed contacts in 265 seconds. Its joint
-initial assessment correctly refuses the intersecting candidate. Both requests
-finish with no downloadable unqualified result and no remaining worker/Blender
-process tied to their job IDs. See `tests/toilet-paired-variants/joint-integrated/`.
-
-The earlier bowl-only and shorter combined-guide service requests each produce
-1,845 quads in `tests/toilet-sampled-worker/integrated-fallback/`. The ordinary
-service/worker path uses distributed guide fitting after the original attempts
-fail; the shorter case additionally repairs measured local surface failures.
-
-Both exports pass independent reference, dense surface, LP/BVH, connected-path
-and all-diagonal contact audits. Thirteen actual browser checks pass with fresh
-short-case and Circle generations, visible accepted results, preserved guides
-and native downloads. Both downloaded OBJs, authored curves and connected paths
-match independently qualified results exactly. The short browser solve took
-500 seconds under heavy headless software-rendering load; the HTTP-only run took
-294 seconds. This does not establish general interactive timing. An additional
-33 fitting checks reproduce exact qualified coordinates and verify unchanged
-inputs/local patch boundaries; six controls cover acceptance and rejection.
-
-Eleven checks pass when cancelling an actual job after sampled fitting begins:
-the worker and its descendants exit, exports remain unavailable, and the service
-admits another request. The initial observer incorrectly counted the live
-service's console as worker-owned. That failed observation and its exact script
-are retained; the corrected `worker-owned` run records actual parentage. No
-production cancellation logic changed for this observer correction.
-
-Earlier workflow testing added ownership before the initial submission: the browser
-creates a request identity, and the service deduplicates delivery and remembers
-early cancellation. Cancel/Reset can now stop work even if the first admission
-response is lost or delivery has not reached the service. Real forced-exit tests
-also found orphan workers; a Windows process job now owns the service and future
-worker/Blender descendants. Exact negative and corrected reports are retained.
-
-The genuine generated-result browser run then exposed a progress-file sharing
-violation, which broke polling and cancelled its second Circle solve. Twelve
-earlier workflow checks passed, including a fresh accepted Circle/export and
-preservation of that result after a real rejected replacement. That interrupted
-run is not a complete pass. Progress reads now tolerate transient I/O failure;
-diagnostic writes cannot prevent cancellation. All 53 unit checks and 13 actual
-Windows file-lock/HTTP/process checks pass. The final integrated rerun passes
-76 API, 52 cancellation, 30 asynchronous UI, 7 lost-submission, 14 early-cancel
-and 8 restart-UI checks. All 15 genuine generated-result browser checks also pass
-on the final app/server code, with two fresh Circle solves. Its OBJ exactly
-matches the independently qualified Circle. The earlier unexplained client
-cancellation is retained separately; a later pass does not establish its cause.
-
-At that lifecycle checkpoint, production fitting, source assets, recovered engine
-and acceptance thresholds remained unchanged. An isolated tangent-plus-sliding-pin experiment on seed 2
-passes all production gates for the bowl-only case after four passes (guide p95
-distance 0.01033, tangent mismatch 29.70 degrees). Independent export validation
-and all mixed-diagonal checks also pass. It is not integrated. Both captured
-combined-guide inputs still fail guide alignment in all ten passes, and some
-shorter-case passes also fail surface checks. Integration regression coverage
-and resolution of these failures remain required. Production bowl,
-combined-guide and coarse-density failures therefore remain unresolved.
-
-A second isolated experiment raises the tangent weight from 8 to 12. Its bowl
-candidate also passes independent export and all mixed-diagonal checks, with
-p95 distance 0.00901 and tangent mismatch 27.77 degrees. Both combined-guide
-inputs still fail in all ten passes. Increasing that weight alone therefore
-does not resolve the captured networks; neither experiment is in production.
-
-## Current evidence and gaps
-
-| Area | Required coverage | Current evidence / work remaining |
+| Area | Required coverage | Evidence and scope |
 | --- | --- | --- |
-| Original source | Original white GLB identity, similarity transform, all vertices, conformity repair, topology, presentation | All seven original-source checks pass again, including a fresh Draco decode and every vertex. Detected source contacts remain recorded separately from output qualification. |
-| Guide geometry | Freehand, Polyline, Spline, Circle; open/closed, first-point snap, fitting and projection limits | Existing guide units/browser suites; extend toilet-specific geometry variation, reversal, cyclic reindexing, ordering, perturbation and limit boundaries. |
-| Editing | Object/direct selection, endpoints, marquee, Shift groups, point edits, invalid multi-edit rollback, delete/reverse, history | 130 toilet editor checks pass at DPR 1/2 in both panes; that right-pane fixture is historical and unqualified. Another 18 checks cover actual underside occlusion, both marquee directions, partial containment, invalid group rollback, hidden overlay, keyboard ownership and repeated navigation. Fifteen genuine generated-result workflow checks also pass; see the hash-scoped reports. |
-| Persistence | Native IO, exact authored values/IDs, source binding, reload, legacy input, malformed/budget-exceeding input | Native roundtrip/reload and atomic invalid imports pass. Fifteen additional delayed-file checks pass for source changes, edits during loading, out-of-order completion, stale invalid JSON, unfinished construction and legacy open/closed curves. |
-| Solver | No guides, single/multiple guides, all primitive families, supported densities, exact captured failures, repeated input and equivalent representations | Fresh bowl, short paired, long paired and captured perturbed paired inputs at 1,800 qualify through actual workers. Paired 1,799 qualifies through worker/browser. Unguided 150/600 now produce 152/605 independently audited quads through native browser Generate/export; the applied runtime matches that exercised service. Long/Circle and adaptive browser workflows pass. Reordering, reversal, densification and cyclic start pass. Paired browser solve time is still close to timeout; broader input coverage remains open. |
-| Geometry acceptance | Actual exported quads; all relevant topology, shape, target, guide, surface and intersection checks | The five historical meshes stay disqualified. New unguided, lid, Circle, bowl, paired-guide and successful representation exports have independent audits. Current long-guide output passes reference/dense/LP/BVH/path and all-mixed-diagonal checks. Original source and limits are unchanged. |
-| Job lifecycle | Queue, admission limits, queued/running cancellation, repeat cancellation, late results, worker errors, timeout, recovery, no orphan processes | Queue/admission/cancellation/publication and worker-start races pass. Seven actual worker/Blender timeout-cleanup checks pass. The deterministic initial-response snapshot race is fixed. Broader sustained process behavior remains open. |
-| API contract | Valid boundaries, malformed/type/size limits, status/resource consistency, accepted-only result downloads | 76 current HTTP checks pass with a named Circle positive control. The original bowl recovery run still records a generation failure; it was not replaced by that control. |
-| UI lifecycle | Cancel before response, switching source while pending, edits/density changes while solving, stale completion, previous accepted result, error persistence | Reset before acknowledgement reproduced an orphan worker; Reset now confirms cancellation of browser request identities before reloading, including submissions whose acknowledgement has not arrived. Seventeen checks pass for Reset and earlier races, plus seven for two pending acknowledgements. Fifteen actual successful-result/prior-result checks pass. Another 52 transport checks and 30 current asynchronous checks cover retry ownership and Reset. |
-| Workspace | Ribbon/nav/main/properties/dock, both themes, narrow layouts, split/overlay, orbit/zoom/fit, panel resizing, keyboard ownership | Existing shell suite passed. Cover interactions with the toilet and in-flight work, including repeated use. |
-| Runtime | Sustained drawing/editing/generation, memory/process cleanup, responsiveness, console errors | Forty source switches and camera actions pass the bounded JS heap/document check. Two consecutive fresh long/Circle browser solves pass without console errors, and all ten sampled test processes exit. Actual joint-stage cancellation passes eleven checks. These are scoped observations, not universal GPU-memory or leak guarantees. |
-| Evidence | Current implementation hashes, actual input/output, actionable failure records, reproducible commands, live app verification | Existing suites retain evidence. Reconcile obsolete claims and produce a final requirement-by-requirement audit before completion. |
+| Original source | Plain white model, source identity, similarity transform, every vertex, local conformity, topology | Seven original-source checks pass. The source OBJ remains `c2daa898…7053`; its four recorded source contacts are separate from generated-mesh qualification. |
+| Guide geometry | Freehand, Polyline, Spline, Circle; open/closed; 5 CSS-pixel green snap; fitting/projection limits | Guide additions and the current 130-check toilet editor suite cover construction, the 5 px boundary at DPR 1/2, Circle and surface projection. Pure editor modules remain byte-identical to the tested versions. This is the declared guide-specific adaptation, not full thirteen-primitive Base 2D conformance. |
+| Editing | Object/direct selection, endpoints, marquee, groups, point edits, rollback, delete/reverse, history | 130 current toilet editing checks plus 18 occlusion/marquee/repeated-use checks pass. The large editor suite labels its historical right-pane fixture as unqualified. Separate genuine generated-result tests cover editing and undo over an accepted toilet mesh. |
+| Persistence | Native download/import, exact authored IDs/values, source binding, reload, legacy and invalid inputs | Native roundtrip/reload in the editor suite and 23 delayed-import/queued-error checks pass. Source changes, newer edits, stale file reads, legacy closure and atomic rejection are covered. |
+| Solver | No/single/multiple guides, captured failures, densities, repeat/equivalent representations | Qualified cases cover unguided 150/600/1200/1799/1800, lid/Circle/bowl, short and long pairs, guide reversal/order, exact densification, cyclic start and small perturbations. Each retained output is linked to its exact producer and two independent audits. |
+| Geometry acceptance | Exported quads, topology, shape, density, guide paths, bidirectional surface accuracy and contacts | Twenty-one distinct retained meshes pass paired independent geometry/contact audits. Connected guide-edge paths qualify, rather than just displayed guide overlays. Twenty-five owned-code controls and the numerical-scope proof cover the final fallback. Older rejected outputs remain rejected. |
+| Job lifecycle | Admission, queue, running cancellation, repeated cancel, timeout, crash/restart, cleanup | Real HTTP/worker tests cover the races. Windows forced service/worker exits, file locks and timeout cleanup pass. Cancellation during actual second-layout fitting passes twelve checks. Service/process ownership modules still match their tested hashes. |
+| API contract | Type/size/count boundaries, status consistency, accepted-only downloads | The 76-check HTTP suite passes with a named Circle positive control. The current server is byte-identical. Unfinished/cancelled/failed output files remain unavailable. |
+| UI lifecycle | Pending acknowledgement, source/edit/density changes, stale results, prior accepted mesh, persistent errors | 52 cancellation-transport, 30 asynchronous UI, seven lost-submission, fourteen early-cancel and fifteen genuine generated-result checks pass in their recorded scopes. The complete request/editor event block is unchanged; subsequent rendering/error-dialog changes have current tests. |
+| Workspace | Ribbon/nav/center/properties/dock, light/dark, compact widths, resizing, focus and navigation | A fresh 23-check shell run passes on current UI bytes in an isolated service. Eighteen current toilet rendering checks cover native theme/view/orbit controls and panel/ribbon size changes. |
+| Runtime | Repeated use, responsiveness, bounded memory, process cleanup, console errors | Forty source switches retain one browser document and stay within the bounded heap check. Real sequential generation and cancellation tests pass; all 33 observed coarse-browser descendants exit. On-demand rendering stops idle draw calls. These are scoped observations, not universal leak guarantees. |
+| Evidence | Hashes, actual input/output, reproducibility, failure retention, ownership | The final auditor verifies report assertions and actual OBJ hashes, links both independent audits for every qualified export, reconciles component changes, and confirms all 247 tested runtime files and 22 protected shared files. Historical negative/incomplete reports remain unchanged. |
 
-## Audit history
+## Practical limits
+
+- The slow paired target-1799 browser solve takes 572.79 seconds against the
+  600-second timeout. The tested case succeeds, but runtime is still too long
+  for interactive iteration and can vary with machine load.
+- The other session's optional guided-layout/ellipsoid work and one-guide
+  35-degree policy are outside this qualification. The owned committed solver
+  retains the 30-degree guide limit. Shared unguided behavior has its own exact
+  runtime proof; older guided results are not relabeled as tests of that policy.
+- Arbitrary thin sheets, new guide networks, all possible densities and other
+  operating systems are not universally certified. Unsupported or unqualified
+  results must still reject without replacing an accepted result.
+- The two historical incomplete generated-UI observations remain incomplete;
+  later successful tests cover their required workflows without inventing a
+  cause for the unexplained historical cancellation.
+
+## Reproduce the reconciliation
+
+Run `python -X utf8 tests/reconcile_toilet_audit.py` in the recorded shared
+workspace. It checks retained reports and meshes without rerunning expensive
+solves. The exact shared optional files are required for its runtime-identity
+assertions; a clean checkout of the owned baseline has a different declared
+scope. `tests/verify_final_workspace_scope.py` uses the frozen service prepared
+by `tests/prepare_isolated_boundary_service.py`; it never changes the live user
+service pointer. Individual producer commands and snapshots remain with their
+reports. The full historical index is `tests/toilet-exhaustive-audit/result.json`;
+its earlier “open” summaries are superseded by this finite final reconciliation.
+
+## Audit history (historical checkpoints, not current status)
 
 - Previous goal turn: **progress**. Committed `38dc14c` added 181 checks and found
   a remaining required solver regression; intersecting candidates are rejected.

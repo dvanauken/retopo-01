@@ -1,0 +1,1553 @@
+{
+  "complete": true,
+  "passed": true,
+  "requirementsCovered": [
+    "original-source",
+    "guide-geometry",
+    "editing",
+    "persistence",
+    "solver",
+    "geometry-acceptance",
+    "job-lifecycle",
+    "api-contract",
+    "ui-lifecycle",
+    "workspace",
+    "runtime",
+    "evidence"
+  ],
+  "groups": {
+    "original-source": [
+      "tests/toilet-source/result.json"
+    ],
+    "guide-geometry": [
+      "tests/guide-additions/result.json",
+      "tests/toilet-editing/demand-dialog-fixed/result.json"
+    ],
+    "editing": [
+      "tests/toilet-editing/demand-dialog-fixed/result.json",
+      "tests/toilet-selection-stability/demand-render/result.json"
+    ],
+    "persistence": [
+      "tests/toilet-editing/demand-dialog-fixed/result.json",
+      "tests/toilet-import-races/queued-errors/result.json"
+    ],
+    "solver": [
+      "tests/toilet-sampled-worker/integrated-fallback/result.json",
+      "tests/toilet-sampled-worker/joint-integrated/result.json",
+      "tests/toilet-paired-variants/surface-only/result.json",
+      "tests/toilet-paired-variants/nearby-layouts/result.json",
+      "tests/toilet-coarse-browser/no-guides/result.json"
+    ],
+    "geometry-acceptance": [
+      "tests/surface-boundary-repair/owned-candidate/result.json",
+      "tests/surface-boundary-repair/commit-scope/result.json",
+      "tests/toilet-unit-gates/nested-worker-job/result.json"
+    ],
+    "job-lifecycle": [
+      "tests/toilet-server-restart/nested-worker-job/result.json",
+      "tests/toilet-worker-crash/shared-dispatch-worker-job/result.json",
+      "tests/toilet-process-timeout/nested-worker-job/result.json",
+      "tests/toilet-file-locks/nested-worker-job/result.json",
+      "tests/toilet-fallback-cancel/nearby-layouts/result.json"
+    ],
+    "api-contract": [
+      "tests/toilet-api/ownership-io/result.json"
+    ],
+    "ui-lifecycle": [
+      "tests/toilet-cancel-transport/ownership-io/result.json",
+      "tests/toilet-async-ui/ownership-io/result.json",
+      "tests/toilet-submission-transport/ownership-io/result.json",
+      "tests/toilet-early-submission/ownership-io/result.json",
+      "tests/toilet-generated-ui/ownership-io-diagnostics/result.json",
+      "tests/toilet-fallback-browser/surface-only-demand/result.json"
+    ],
+    "workspace": [
+      "tests/toilet-final-audit/workspace/result.json",
+      "tests/toilet-final-audit/workspace/scope.json",
+      "tests/toilet-render-idle/demand-layout-final/result.json"
+    ],
+    "runtime": [
+      "tests/toilet-selection-stability/demand-render/result.json",
+      "tests/toilet-fallback-browser/joint-integrated/runtime-cleanup.json",
+      "tests/toilet-fallback-browser/surface-only-demand/runtime-cleanup.json",
+      "tests/toilet-fallback-browser/nearby-layouts/runtime-cleanup.json",
+      "tests/toilet-coarse-browser/no-guides/process-observation.json"
+    ],
+    "evidence": [
+      "tests/toilet-exhaustive-audit/checkpoint-boundary-repair.json",
+      "tests/surface-boundary-repair/runtime-identity/result.json",
+      "tests/toilet-final-audit/dispatch-separation/result.json"
+    ]
+  },
+  "checkedAt": "2026-10-25T12:57:30.487696+00:00",
+  "testedCommittedBaseline": "23a8818cf7cdccd04b98f8944df0dc9cfce87cb8",
+  "checks": [
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-source/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-source/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/guide-additions/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/guide-additions/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-editing/demand-dialog-fixed/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-editing/demand-dialog-fixed/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-selection-stability/demand-render/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-selection-stability/demand-render/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-import-races/queued-errors/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-import-races/queued-errors/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-sampled-worker/integrated-fallback/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-sampled-worker/integrated-fallback/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-sampled-worker/joint-integrated/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-sampled-worker/joint-integrated/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-paired-variants/surface-only/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-paired-variants/surface-only/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-paired-variants/nearby-layouts/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-paired-variants/nearby-layouts/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-coarse-browser/no-guides/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-coarse-browser/no-guides/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/surface-boundary-repair/owned-candidate/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/surface-boundary-repair/owned-candidate/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/surface-boundary-repair/commit-scope/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/surface-boundary-repair/commit-scope/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-unit-gates/nested-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-unit-gates/nested-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-server-restart/nested-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-server-restart/nested-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-worker-crash/shared-dispatch-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-worker-crash/shared-dispatch-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-process-timeout/nested-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-process-timeout/nested-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-file-locks/nested-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-file-locks/nested-worker-job/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-fallback-cancel/nearby-layouts/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-fallback-cancel/nearby-layouts/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-api/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-api/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-cancel-transport/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-cancel-transport/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-async-ui/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-async-ui/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-submission-transport/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-submission-transport/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-early-submission/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-early-submission/ownership-io/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-generated-ui/ownership-io-diagnostics/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-generated-ui/ownership-io-diagnostics/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-fallback-browser/surface-only-demand/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-fallback-browser/surface-only-demand/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-final-audit/workspace/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-final-audit/workspace/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-final-audit/workspace/scope.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-final-audit/workspace/scope.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-render-idle/demand-layout-final/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-render-idle/demand-layout-final/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-fallback-browser/joint-integrated/runtime-cleanup.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-fallback-browser/joint-integrated/runtime-cleanup.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-fallback-browser/surface-only-demand/runtime-cleanup.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-fallback-browser/surface-only-demand/runtime-cleanup.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-fallback-browser/nearby-layouts/runtime-cleanup.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-fallback-browser/nearby-layouts/runtime-cleanup.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-coarse-browser/no-guides/process-observation.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-coarse-browser/no-guides/process-observation.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-exhaustive-audit/checkpoint-boundary-repair.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-exhaustive-audit/checkpoint-boundary-repair.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/surface-boundary-repair/runtime-identity/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/surface-boundary-repair/runtime-identity/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Completed passing evidence: tests/toilet-final-audit/dispatch-separation/result.json"
+    },
+    {
+      "passed": true,
+      "name": "All listed assertions pass: tests/toilet-final-audit/dispatch-separation/result.json"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: unguided-warpage"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: unguided-warpage"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: unguided-1800"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: unguided-1800"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: unguided-1800"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: guided-warpage"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: guided-warpage"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: lid-only-1800"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: lid-only-1800"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: lid-only-1800"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: lid-only-1800"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: browser-lid-circle"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: browser-lid-circle"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: browser-lid-circle"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: browser-lid-circle"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: representation-variants"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: representation-variants"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: circle-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: circle-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: circle-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: circle-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: circle-cyclic-start"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: circle-cyclic-start"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: circle-cyclic-start"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: circle-cyclic-start"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: remaining-variants"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: remaining-variants"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: unguided-1200"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: unguided-1200"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: unguided-1200"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: unguided-1799"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: unguided-1799"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: unguided-1799"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: all-diagonal-generations"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: all-diagonal-generations"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: circle-repeat"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: circle-repeat"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: circle-repeat"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: circle-repeat"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: lid-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: lid-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: lid-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: lid-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: circle-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: circle-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: circle-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: circle-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: integrated-fallback"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: integrated-fallback"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: two-guides-short-1800"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: two-guides-short-1800"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: two-guides-short-1800"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: two-guides-short-1800"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: two-guides-short-1800"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: bowl-only-1800"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: bowl-only-1800"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: bowl-only-1800"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: bowl-only-1800"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: paired-order-and-direction"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: paired-order-and-direction"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: short-reordered"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: short-reordered"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: short-reordered"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-reordered"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-reordered"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: short-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: short-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: short-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-reversed"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: paired-sampling-and-density"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: paired-sampling-and-density"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: short-densified"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: short-densified"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: short-densified"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-densified"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-densified"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: bowl-cyclic-start"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: bowl-cyclic-start"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: bowl-cyclic-start"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: bowl-cyclic-start"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: joint-integrated"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: joint-integrated"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: two-guides-long-1800"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: two-guides-long-1800"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: two-guides-long-1800"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: two-guides-long-1800"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: two-guides-long-1800"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: surface-only"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: surface-only"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: surface-only-browser"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: surface-only-browser"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-small-perturbation"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: paired1799-integrated"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: paired1799-integrated"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: short-1799"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: short-1799"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: short-1799"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-1799"
+    },
+    {
+      "passed": true,
+      "name": "Connected guide path qualifies: short-1799"
+    },
+    {
+      "passed": true,
+      "name": "Independent audits completed: coarse-browser-proposed"
+    },
+    {
+      "passed": true,
+      "name": "Named geometry coverage: coarse-browser-proposed"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: unguided-150"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: unguided-150"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: unguided-150"
+    },
+    {
+      "passed": true,
+      "name": "Geometry and all-diagonal contacts qualify: unguided-600"
+    },
+    {
+      "passed": true,
+      "name": "Audited OBJ bytes retained: unguided-600"
+    },
+    {
+      "passed": true,
+      "name": "Actual quad shape qualifies: unguided-600"
+    },
+    {
+      "passed": true,
+      "name": "Current app and every editor module match the 130-check toilet suite"
+    },
+    {
+      "passed": true,
+      "name": "Original toilet source unchanged"
+    },
+    {
+      "passed": true,
+      "name": "Request ownership, generation, cancellation and editor event block unchanged since lifecycle suites"
+    },
+    {
+      "passed": true,
+      "name": "Current server matches 76-check API suite"
+    },
+    {
+      "passed": true,
+      "name": "Current process ownership matches forced-exit/timeout tests"
+    },
+    {
+      "passed": true,
+      "name": "All 247 runtime/app/assets match the real-worker coarse browser run after authorized patch integration"
+    },
+    {
+      "passed": true,
+      "name": "Reintegrated dispatcher exactly matches validated code"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: GUIDED_LAYOUT.md"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: TOILET_SOLVER.md"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: assets/catalog.json"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: assets/models/ellipsoid.json"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: assets/models/ellipsoid.obj"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: engine/guided-quadriflow/LICENSE.txt"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: engine/guided-quadriflow/manifest.json"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: engine/guided-quadriflow/quadriflow.exe"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: engine/guided-quadriflow/source.zip"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: guide_embedding.py"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: guide_embedding_check.py"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: guide_ordered_targets.py"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: guided_layout.py"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: requirements.txt"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: surface_guide_joint.py"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: tests/test_guide_tangent_policy.py"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: tests/test_surface_guide_joint.py"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: tests/test_surface_guide_repair.py"
+    },
+    {
+      "passed": true,
+      "name": "Other-session file preserved: worker.py"
+    },
+    {
+      "passed": true,
+      "name": "Shared file restored/preserved exactly: curved_quad.py"
+    },
+    {
+      "passed": true,
+      "name": "Shared file restored/preserved exactly: surface_guide_repair.py"
+    },
+    {
+      "passed": true,
+      "name": "Shared file restored/preserved exactly: tests/test_surface_layout_retries.py"
+    }
+  ],
+  "evidence": {
+    "tests/toilet-source/result.json": {
+      "sha256": "e5b5d372067d570cfad16f7614fbe2e99743fb55557968ad422e93a0945866bf",
+      "checks": 7,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/guide-additions/result.json": {
+      "sha256": "1de2967e6d7a2f2d8ebe13cef18a915ea7f7cecfa4978dd5c7525ec24570abf4",
+      "checks": 31,
+      "tests": null,
+      "componentHashDifferences": [
+        "app.js",
+        "server.py"
+      ]
+    },
+    "tests/toilet-editing/demand-dialog-fixed/result.json": {
+      "sha256": "786091a2943423d8830dd565dd3a1288557bb4c0860d8ba23d8621eb36c5f000",
+      "checks": 130,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-selection-stability/demand-render/result.json": {
+      "sha256": "6fdb8cf2f3291b33f7938c61528b82bec158da402961f44e02b965f0c0168e69",
+      "checks": 18,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-import-races/queued-errors/result.json": {
+      "sha256": "f1e1105128f277c4ee19d641b9725fc90bc78fafa4137082450275c19309d1f1",
+      "checks": 23,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-sampled-worker/integrated-fallback/result.json": {
+      "sha256": "b1d84f88b8391c4e5ec70624ffa720b9ecca39c44e9742a70add6bbd35c5db84",
+      "checks": 13,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py",
+        "curved_quad.py",
+        "surface_guide_refine.py",
+        "surface_guide_repair.py",
+        "tests/verify_toilet_sampled_worker.py"
+      ]
+    },
+    "tests/toilet-sampled-worker/joint-integrated/result.json": {
+      "sha256": "eaaf37c1b6a14ebe19ecfbfba9bd58bade54a58beb772c5d7759daca7acdd25e",
+      "checks": 7,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py",
+        "curved_quad.py",
+        "surface_guide_refine.py",
+        "surface_guide_repair.py",
+        "surface_guide_joint.py"
+      ]
+    },
+    "tests/toilet-paired-variants/surface-only/result.json": {
+      "sha256": "a87e2e8cc17dfe7905ca4925c24d1d3862855478859bcdc9e39a06530f37d629",
+      "checks": 4,
+      "tests": null,
+      "componentHashDifferences": [
+        "app.js",
+        "worker.py",
+        "curved_quad.py",
+        "surface_guide_refine.py",
+        "surface_guide_repair.py",
+        "surface_guide_joint.py"
+      ]
+    },
+    "tests/toilet-paired-variants/nearby-layouts/result.json": {
+      "sha256": "2cd56ff85593c3d428b7d879e9613fad8d46c11f814386934dc005854d0f70a8",
+      "checks": 4,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py",
+        "curved_quad.py",
+        "surface_guide_refine.py",
+        "surface_guide_repair.py",
+        "surface_guide_joint.py"
+      ]
+    },
+    "tests/toilet-coarse-browser/no-guides/result.json": {
+      "sha256": "e17c325b2adb7d4d3b142b680b78888cd8297696faba3359ce32d3bda12aec6d",
+      "checks": 18,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/surface-boundary-repair/owned-candidate/result.json": {
+      "sha256": "0f2d7ddca21d89cecfc9a53c7424cccb1db27b92944f676584575dabee0b85e6",
+      "checks": 3,
+      "tests": 25,
+      "componentHashDifferences": [
+        "surface_guide_repair.py",
+        "surface_guide_joint.py",
+        "curved_quad.py",
+        "worker.py",
+        "tests/test_surface_guide_repair.py",
+        "tests/test_surface_guide_joint.py",
+        "tests/test_surface_layout_retries.py"
+      ]
+    },
+    "tests/surface-boundary-repair/commit-scope/result.json": {
+      "sha256": "dfd7b74d4e3e2220484ec97012b8789f6a833b76f8b02cb1f502b9889e5c6144",
+      "checks": 0,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-unit-gates/nested-worker-job/result.json": {
+      "sha256": "b500cdf23b3811f9fdc65f3307fecc083fa4568c653665c797cbd0e01798f5cc",
+      "checks": 0,
+      "tests": 53,
+      "componentHashDifferences": [
+        "curved_quad.py"
+      ]
+    },
+    "tests/toilet-server-restart/nested-worker-job/result.json": {
+      "sha256": "c36ef382906bd6f3ace0141619d5abd9c45938b12a4e17d0ffbcaac04a17ca18",
+      "checks": 6,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py"
+      ]
+    },
+    "tests/toilet-worker-crash/shared-dispatch-worker-job/result.json": {
+      "sha256": "55390f39799203f59f5db584cc49cc8fd37d6c7c393a708b3df432a85a478806",
+      "checks": 11,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py"
+      ]
+    },
+    "tests/toilet-process-timeout/nested-worker-job/result.json": {
+      "sha256": "f2b8c047ac3602cd0508e363d61a6354bdf3562fe63d3a0575fe3892921ecd37",
+      "checks": 7,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py"
+      ]
+    },
+    "tests/toilet-file-locks/nested-worker-job/result.json": {
+      "sha256": "e105bf2f43d73173f4a2c084b2fef38b36c12763a9063bc88ab232633926e8ce",
+      "checks": 13,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py"
+      ]
+    },
+    "tests/toilet-fallback-cancel/nearby-layouts/result.json": {
+      "sha256": "f8b08d0ba32051490b1dfbe1a01ffd248c7c4fa18f4bc026537bad3c1f169560",
+      "checks": 12,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py",
+        "curved_quad.py",
+        "surface_guide_refine.py",
+        "surface_guide_repair.py",
+        "surface_guide_joint.py"
+      ]
+    },
+    "tests/toilet-api/ownership-io/result.json": {
+      "sha256": "8178f6aff6cd555d85c5db670b633c260b538d5e1dc7f94c34a7a01071e86562",
+      "checks": 76,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py"
+      ]
+    },
+    "tests/toilet-cancel-transport/ownership-io/result.json": {
+      "sha256": "9231b81ab2576bb9d7d45236f6dbb990c8d34e152a8ce1b75ae69ae73bff7081",
+      "checks": 52,
+      "tests": null,
+      "componentHashDifferences": [
+        "app.js"
+      ]
+    },
+    "tests/toilet-async-ui/ownership-io/result.json": {
+      "sha256": "b998209f9723cbab03cd32807a29c34848a2c6bb3a0963cf125f56e1854d41bd",
+      "checks": 30,
+      "tests": null,
+      "componentHashDifferences": [
+        "app.js"
+      ]
+    },
+    "tests/toilet-submission-transport/ownership-io/result.json": {
+      "sha256": "d96f318833342fd8552798e353de4232e106920d26aebb9da78a5323bd629d68",
+      "checks": 7,
+      "tests": null,
+      "componentHashDifferences": [
+        "app.js"
+      ]
+    },
+    "tests/toilet-early-submission/ownership-io/result.json": {
+      "sha256": "a8cb0361f7de035c730f469ead668225ea28e21999906011be38f3e253fe9fc5",
+      "checks": 14,
+      "tests": null,
+      "componentHashDifferences": [
+        "app.js"
+      ]
+    },
+    "tests/toilet-generated-ui/ownership-io-diagnostics/result.json": {
+      "sha256": "cf7a1f1b8ff2117fcfd5998994c77ebfffb0228e48a1e61ca2db0b9e96f8408d",
+      "checks": 15,
+      "tests": null,
+      "componentHashDifferences": [
+        "app.js",
+        "worker.py",
+        "curved_quad.py"
+      ]
+    },
+    "tests/toilet-fallback-browser/surface-only-demand/result.json": {
+      "sha256": "5b199c614a9efd86c8d58d2ed468bae9d2e79714d04bc46424af30eb0e9fa0da",
+      "checks": 7,
+      "tests": null,
+      "componentHashDifferences": [
+        "worker.py",
+        "curved_quad.py",
+        "surface_guide_refine.py",
+        "surface_guide_repair.py",
+        "surface_guide_joint.py",
+        "tests/verify_toilet_fallback_browser.py"
+      ]
+    },
+    "tests/toilet-final-audit/workspace/result.json": {
+      "sha256": "977a0a46ba99f4fe67b2ae27613bebbeaf9d65ec96c1299bc8cd3eda2f193222",
+      "checks": 23,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-final-audit/workspace/scope.json": {
+      "sha256": "e7d0c9078cd7822f9413b4eeb437f1233b4f9cfc233cd18ebdb4d152a60d3c47",
+      "checks": 0,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-render-idle/demand-layout-final/result.json": {
+      "sha256": "1801afe247a7acd44e5d9098f8794de1fc1e8ed23785bebc1748bc04cbd511b6",
+      "checks": 18,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-fallback-browser/joint-integrated/runtime-cleanup.json": {
+      "sha256": "73d01fa8df7efff98c6da57e56b0e1d227ae12d6e8369a255b227ef4276be199",
+      "checks": 0,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-fallback-browser/surface-only-demand/runtime-cleanup.json": {
+      "sha256": "ecadefeb0131e5239fd38fd0f861bdc87e71fe48b4e355cf9b8d04c96b11a90b",
+      "checks": 0,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-fallback-browser/nearby-layouts/runtime-cleanup.json": {
+      "sha256": "2cc56b00dd428422dbbefc59a868165486f8984233b3702b007c8bb2e4406b13",
+      "checks": 0,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-coarse-browser/no-guides/process-observation.json": {
+      "sha256": "c53bf3fadf7a2f8b6baee20a4f326e960dee3a9e4680ef50ba82c7658589fe0e",
+      "checks": 0,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-exhaustive-audit/checkpoint-boundary-repair.json": {
+      "sha256": "b6d8237c404d08430fe166a173ba7b406bd82ae526a806bac2344d07b1b73839",
+      "checks": 0,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/surface-boundary-repair/runtime-identity/result.json": {
+      "sha256": "960d85000ce3b1acdae8cb1fef9a28a95c6a2792c43dcdc6f7210a8dda3df4c8",
+      "checks": 0,
+      "tests": null,
+      "componentHashDifferences": []
+    },
+    "tests/toilet-final-audit/dispatch-separation/result.json": {
+      "sha256": "f35bc0e118258574feb3e754005dee065b0277b2440556ace63e475d4ed90d50",
+      "checks": 0,
+      "tests": null,
+      "componentHashDifferences": []
+    }
+  },
+  "qualifiedExports": [
+    {
+      "name": "unguided-1800",
+      "target": 1800,
+      "faces": 1923,
+      "outputFile": "tests\\toilet-strict-generation\\warpage\\unguided-1800\\output.obj",
+      "outputSha256": "f33fdf0778ae50a2c5950e10fe78d159e3cc79ee8325d761d008225e98b563ee",
+      "guideCount": 0,
+      "geometryReport": "tests/toilet-fresh-geometry/unguided-warpage/result.json",
+      "geometryReportSha256": "eb1deada9618ba23a1b4f81588761ba1ad2977985830c64ecac16299f6bff616",
+      "contactReport": "tests/toilet-all-diagonal-audit/before-new-gate/result.json",
+      "contactReportSha256": "edc3fb8bd21e2f168a999494f9fe14cb5a73d05f0a50ce66bf2d3a7033a51e2b",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "lid-only-1800",
+      "target": 1800,
+      "faces": 1782,
+      "outputFile": "tests\\toilet-strict-generation\\warpage-guided\\lid-only-1800\\output.obj",
+      "outputSha256": "7b80829cc8251cbff505a23d8a61a9c19ab5847993ddfe6a7bdf13096e38c361",
+      "guideCount": 1,
+      "geometryReport": "tests/toilet-fresh-geometry/guided-warpage/result.json",
+      "geometryReportSha256": "87a0b69bc5e79d4c31c9d45a763dcd314cfc934d36d51dc2ca1b57feef600a6d",
+      "contactReport": "tests/toilet-all-diagonal-audit/before-new-gate/result.json",
+      "contactReportSha256": "edc3fb8bd21e2f168a999494f9fe14cb5a73d05f0a50ce66bf2d3a7033a51e2b",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "browser-lid-circle",
+      "target": 1800,
+      "faces": 1782,
+      "outputFile": "tests\\toilet-strict-generation\\warpage-guided\\browser-lid-circle\\output.obj",
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+      "guideCount": 1,
+      "geometryReport": "tests/toilet-fresh-geometry/guided-warpage/result.json",
+      "geometryReportSha256": "87a0b69bc5e79d4c31c9d45a763dcd314cfc934d36d51dc2ca1b57feef600a6d",
+      "contactReport": "tests/toilet-all-diagonal-audit/before-new-gate/result.json",
+      "contactReportSha256": "edc3fb8bd21e2f168a999494f9fe14cb5a73d05f0a50ce66bf2d3a7033a51e2b",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "circle-reversed",
+      "target": 1800,
+      "faces": 1782,
+      "outputFile": "tests\\toilet-variants\\current\\circle-reversed\\output.obj",
+      "outputSha256": "6bbfb7cf548874314032f98d1555784bdf8490ba2a7088050a8770d0cc1c615b",
+      "guideCount": 1,
+      "geometryReport": "tests/toilet-fresh-geometry/representation-variants/result.json",
+      "geometryReportSha256": "943072ab8ff190f9c18b9f0937ed418a3952edf14f7426e021064d20c77fbd9b",
+      "contactReport": "tests/toilet-all-diagonal-audit/before-new-gate/result.json",
+      "contactReportSha256": "edc3fb8bd21e2f168a999494f9fe14cb5a73d05f0a50ce66bf2d3a7033a51e2b",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "circle-cyclic-start",
+      "target": 1800,
+      "faces": 1782,
+      "outputFile": "tests\\toilet-variants\\current\\circle-cyclic-start\\output.obj",
+      "outputSha256": "82b14ceb13f7970a736c988fc36af88557bbff74539ec92c99e31636896eca1d",
+      "guideCount": 1,
+      "geometryReport": "tests/toilet-fresh-geometry/representation-variants/result.json",
+      "geometryReportSha256": "943072ab8ff190f9c18b9f0937ed418a3952edf14f7426e021064d20c77fbd9b",
+      "contactReport": "tests/toilet-all-diagonal-audit/before-new-gate/result.json",
+      "contactReportSha256": "edc3fb8bd21e2f168a999494f9fe14cb5a73d05f0a50ce66bf2d3a7033a51e2b",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "unguided-1200",
+      "target": 1200,
+      "faces": 1224,
+      "outputFile": "tests\\toilet-variants\\current\\unguided-1200\\output.obj",
+      "outputSha256": "bf51b70718db05c4d27b7f087e3b03d4b2ebc48def539a9ba23d54fb28c640a6",
+      "guideCount": 0,
+      "geometryReport": "tests/toilet-fresh-geometry/remaining-variants/result.json",
+      "geometryReportSha256": "dbe57dfd9e656f4df43cda1c636698b0c148acba3a34e91e8ca7ae3e8fcc5005",
+      "contactReport": "tests/toilet-all-diagonal-audit/before-new-gate/result.json",
+      "contactReportSha256": "edc3fb8bd21e2f168a999494f9fe14cb5a73d05f0a50ce66bf2d3a7033a51e2b",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "unguided-1799",
+      "target": 1799,
+      "faces": 1777,
+      "outputFile": "tests\\toilet-variants\\current\\unguided-1799\\output.obj",
+      "outputSha256": "0250ecf588111d2aab90bf6018b5fc5a9a36b69244d51a8ca554e0332b6fcdb9",
+      "guideCount": 0,
+      "geometryReport": "tests/toilet-fresh-geometry/remaining-variants/result.json",
+      "geometryReportSha256": "dbe57dfd9e656f4df43cda1c636698b0c148acba3a34e91e8ca7ae3e8fcc5005",
+      "contactReport": "tests/toilet-all-diagonal-audit/before-new-gate/result.json",
+      "contactReportSha256": "edc3fb8bd21e2f168a999494f9fe14cb5a73d05f0a50ce66bf2d3a7033a51e2b",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "circle-repeat",
+      "target": 1800,
+      "faces": 1782,
+      "outputFile": "tests\\toilet-variants\\all-diagonal\\circle-repeat\\output.obj",
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+      "guideCount": 1,
+      "geometryReport": "tests/toilet-fresh-geometry/all-diagonal-generations/result.json",
+      "geometryReportSha256": "ce80bcec83aa0ce80e24ef7ae7bc48f5ab957a577134ca4ff72f7ef0138ad479",
+      "contactReport": "tests/toilet-all-diagonal-audit/fresh-new-gate/result.json",
+      "contactReportSha256": "1947da737efc6f370a48eb60bb67ec866a5acb50a9585b69aebbaf9627c22378",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "lid-reversed",
+      "target": 1800,
+      "faces": 1782,
+      "outputFile": "tests\\toilet-variants\\all-diagonal\\lid-reversed\\output.obj",
+      "outputSha256": "a3a2a959ece2f9d93e9117694ec704652a2d51447499932c51ee99b79c52bdc1",
+      "guideCount": 1,
+      "geometryReport": "tests/toilet-fresh-geometry/all-diagonal-generations/result.json",
+      "geometryReportSha256": "ce80bcec83aa0ce80e24ef7ae7bc48f5ab957a577134ca4ff72f7ef0138ad479",
+      "contactReport": "tests/toilet-all-diagonal-audit/fresh-new-gate/result.json",
+      "contactReportSha256": "1947da737efc6f370a48eb60bb67ec866a5acb50a9585b69aebbaf9627c22378",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "circle-small-perturbation",
+      "target": 1800,
+      "faces": 1782,
+      "outputFile": "tests\\toilet-variants\\all-diagonal\\circle-small-perturbation\\output.obj",
+      "outputSha256": "9851150ba73b9947e5e2de559f3ac1c802204d8de4ef6272b2f76d6cdb9c6167",
+      "guideCount": 1,
+      "geometryReport": "tests/toilet-fresh-geometry/all-diagonal-generations/result.json",
+      "geometryReportSha256": "ce80bcec83aa0ce80e24ef7ae7bc48f5ab957a577134ca4ff72f7ef0138ad479",
+      "contactReport": "tests/toilet-all-diagonal-audit/fresh-new-gate/result.json",
+      "contactReportSha256": "1947da737efc6f370a48eb60bb67ec866a5acb50a9585b69aebbaf9627c22378",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "two-guides-short-1800",
+      "target": 1800,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-sampled-worker\\integrated-fallback\\two-guides-short-1800\\output.obj",
+      "outputSha256": "c0b5fca59adfbfa06ddc70fc2479a8ccc06705d26a7f6bb07fc564e1b258c5c5",
+      "guideCount": 2,
+      "geometryReport": "tests/toilet-fresh-geometry/integrated-fallback/result.json",
+      "geometryReportSha256": "0f8314d8ab971bb540ea1493e9154fbca82156240c7809f500b4b5238214429a",
+      "contactReport": "tests/toilet-all-diagonal-audit/integrated-fallback/result.json",
+      "contactReportSha256": "059a4896a2e7e5cb747746982ec08d4f389ef6861ad0c0a368994732b5ee3c08",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "bowl-only-1800",
+      "target": 1800,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-sampled-worker\\integrated-fallback\\bowl-only-1800\\output.obj",
+      "outputSha256": "602348c3f63937b28e7335183187fccda11c5f065a2c04fc2a30e1fe50780c52",
+      "guideCount": 1,
+      "geometryReport": "tests/toilet-fresh-geometry/integrated-fallback/result.json",
+      "geometryReportSha256": "0f8314d8ab971bb540ea1493e9154fbca82156240c7809f500b4b5238214429a",
+      "contactReport": "tests/toilet-all-diagonal-audit/integrated-fallback/result.json",
+      "contactReportSha256": "059a4896a2e7e5cb747746982ec08d4f389ef6861ad0c0a368994732b5ee3c08",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "short-reordered",
+      "target": 1800,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-paired-variants\\order-and-direction\\short-reordered\\output.obj",
+      "outputSha256": "fef6e7aec45c5227a5580f6f74ac5f4b81bfa2cdf4dec255db8d1b2f2261b118",
+      "guideCount": 2,
+      "geometryReport": "tests/toilet-fresh-geometry/paired-order-and-direction/result.json",
+      "geometryReportSha256": "03288e58979e5f50eb88ae621f1a092fb7bd64e4aa5bb0a2d7f687b25ec3dee3",
+      "contactReport": "tests/toilet-all-diagonal-audit/paired-order-and-direction/result.json",
+      "contactReportSha256": "4dbe7fb34805ea49ac62b95beedbb7c86a2ea5eac4f5e4cd5789a60faf558938",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "short-reversed",
+      "target": 1800,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-paired-variants\\order-and-direction\\short-reversed\\output.obj",
+      "outputSha256": "945a218faf898a2011732a2f2ccd13431867613f3de6b81886c93c5aa6e87349",
+      "guideCount": 2,
+      "geometryReport": "tests/toilet-fresh-geometry/paired-order-and-direction/result.json",
+      "geometryReportSha256": "03288e58979e5f50eb88ae621f1a092fb7bd64e4aa5bb0a2d7f687b25ec3dee3",
+      "contactReport": "tests/toilet-all-diagonal-audit/paired-order-and-direction/result.json",
+      "contactReportSha256": "4dbe7fb34805ea49ac62b95beedbb7c86a2ea5eac4f5e4cd5789a60faf558938",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "short-densified",
+      "target": 1800,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-paired-variants\\sampling-and-density\\short-densified\\output.obj",
+      "outputSha256": "fa3b78bc6b90405cae750c0900ef974c5fb1a6d426b67ba8d5750149859928e9",
+      "guideCount": 2,
+      "geometryReport": "tests/toilet-fresh-geometry/paired-sampling-and-density/result.json",
+      "geometryReportSha256": "f4475df68cdac7712cbca8b6a9d906fa56a21783813d85602fd84d4ecd4ded26",
+      "contactReport": "tests/toilet-all-diagonal-audit/paired-sampling-and-density/result.json",
+      "contactReportSha256": "8de88bb7ed83c8eb577960a146d79df1b2d9d5005868eef484949332f07f1c92",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "bowl-cyclic-start",
+      "target": 1800,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-paired-variants\\sampling-and-density\\bowl-cyclic-start\\output.obj",
+      "outputSha256": "d3c040c448007cb617290103dc2bd929f47abf25a38dc7c8e15c513cc93f551e",
+      "guideCount": 1,
+      "geometryReport": "tests/toilet-fresh-geometry/paired-sampling-and-density/result.json",
+      "geometryReportSha256": "f4475df68cdac7712cbca8b6a9d906fa56a21783813d85602fd84d4ecd4ded26",
+      "contactReport": "tests/toilet-all-diagonal-audit/paired-sampling-and-density/result.json",
+      "contactReportSha256": "8de88bb7ed83c8eb577960a146d79df1b2d9d5005868eef484949332f07f1c92",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "two-guides-long-1800",
+      "target": 1800,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-sampled-worker\\joint-integrated\\two-guides-long-1800\\output.obj",
+      "outputSha256": "4fca5b193da2583c8e064e1556f25e8ff09570a7d4564c557989e3bd57ab65a2",
+      "guideCount": 2,
+      "geometryReport": "tests/toilet-fresh-geometry/joint-integrated/result.json",
+      "geometryReportSha256": "26d3923a4db8c7721c181564fe9f2971ad2923937dcb24eb096cb73c7de8058b",
+      "contactReport": "tests/toilet-all-diagonal-audit/joint-integrated/result.json",
+      "contactReportSha256": "acc1a8ef360f721cb2f82c028689cdc65c8dd0334310f516348cbb80ea14e5c0",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "short-small-perturbation",
+      "target": 1800,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-paired-variants\\surface-only\\short-small-perturbation\\output.obj",
+      "outputSha256": "94fcde54a3314758c59288d4f004e7d4eb341f64eb3fe7f5c32f330f922d40e9",
+      "guideCount": 2,
+      "geometryReport": "tests/toilet-fresh-geometry/surface-only/result.json",
+      "geometryReportSha256": "6894ef1696df1c52cfc2584f0fc726a0b4cec1784b78190a01101230e139c664",
+      "contactReport": "tests/toilet-all-diagonal-audit/surface-only/result.json",
+      "contactReportSha256": "fe9ca74405ff292ec23d82d81956349a1fbe8e4ff6ae102b98e16076e194ec05",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "short-small-perturbation",
+      "target": 1800,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-fallback-browser\\surface-only-demand\\short-small-perturbation\\output.obj",
+      "outputSha256": "122218bfa3b014f1e23590a15f58cc21c86b9b6dfdd52bfea66a804ed47c5339",
+      "guideCount": 2,
+      "geometryReport": "tests/toilet-fresh-geometry/surface-only-browser/result.json",
+      "geometryReportSha256": "a53200157b3b043465a394bf0418d103fa1e63cac85114a4509a9a828d7bfa18",
+      "contactReport": "tests/toilet-all-diagonal-audit/surface-only-browser/result.json",
+      "contactReportSha256": "1798f31d44170c671ef3405d1f4ca3b70da873f1e0da83b546a59ee658cd3b26",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "short-1799",
+      "target": 1799,
+      "faces": 1845,
+      "outputFile": "tests\\toilet-paired-variants\\nearby-layouts\\short-1799\\output.obj",
+      "outputSha256": "fff3731be7e367462ae52b63dfb56f69f3d91ba01353cb5bfd4215c5acfcdd24",
+      "guideCount": 2,
+      "geometryReport": "tests/toilet-fresh-geometry/paired1799-integrated/result.json",
+      "geometryReportSha256": "261f507ddbbe96f8077a9df09588c0eed37d734fd62d942a370c5636f29f9184",
+      "contactReport": "tests/toilet-all-diagonal-audit/paired1799-integrated/result.json",
+      "contactReportSha256": "aff6984127a574660bda6d09d4b9999a265bbb47ca600cdd7dbe5e5395cf1d1a",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "unguided-150",
+      "target": 150,
+      "faces": 152,
+      "outputFile": "tests\\toilet-coarse-browser\\no-guides\\unguided-150\\output.obj",
+      "outputSha256": "f43626770a5085611b6c177d532095b8176262ea42cf620c8092c7bb566fd937",
+      "guideCount": 0,
+      "geometryReport": "tests/toilet-fresh-geometry/coarse-browser-proposed/result.json",
+      "geometryReportSha256": "ed58d0c1f458ee17f68d96fba93d04739380ead386786455275a540d9bd00824",
+      "contactReport": "tests/toilet-all-diagonal-audit/coarse-browser-proposed/result.json",
+      "contactReportSha256": "a618f389600a4e4b9eca0613073bf6cde9193e5ebb70daafa3a9d964ea31a175",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    },
+    {
+      "name": "unguided-600",
+      "target": 600,
+      "faces": 605,
+      "outputFile": "tests\\toilet-coarse-browser\\no-guides\\unguided-600\\output.obj",
+      "outputSha256": "c7d5fd4bf7a12dea2a77f5c335e572afe07083418f786ea4b7291863071e90ec",
+      "guideCount": 0,
+      "geometryReport": "tests/toilet-fresh-geometry/coarse-browser-proposed/result.json",
+      "geometryReportSha256": "ed58d0c1f458ee17f68d96fba93d04739380ead386786455275a540d9bd00824",
+      "contactReport": "tests/toilet-all-diagonal-audit/coarse-browser-proposed/result.json",
+      "contactReportSha256": "a618f389600a4e4b9eca0613073bf6cde9193e5ebb70daafa3a9d964ea31a175",
+      "scope": "This exact generated/exported mesh. Producer implementations remain identified in the linked reports."
+    }
+  ],
+  "uniqueQualifiedMeshes": 21,
+  "runtimeFilesMatched": 247,
+  "dispatchIntegrated": true,
+  "dispatchAuthorization": "User subsequently authorized merging the patch; exact tested bytes restored.",
+  "sourceHashes": {
+    "app.js": "1aa692cdf1fc18bc12e43a60cc55b0fe42d706475afaf4bd6e89a3495dded5d5",
+    "index.html": "eabc812b14e6296ca0f9e3e09d9b0fad10a7a9fa318ce655d2e8c599c12c0dc9",
+    "index.css": "8862da3e249a870c35039778d50ddc3819571977cea957d51fe53da5286c1fc1",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "29a030de9c11024a0992e8ba8af65d9700d2c373228fb1597232555044160c9f",
+    "curved_quad.py": "c59473c8e1f69c890e92eb6f18619c4082ddeb2dd201afd7fb73b9fa4068355c",
+    "surface_guide_refine.py": "4c8163380230f47fb5cce902d7ddba3a9d9002d1c6b346c1d96f6a4aacc6dd97",
+    "surface_guide_repair.py": "9711155402d14d6728b086405e3544edec5ec20b7c4d2345b1d48cfb8a13c22b",
+    "surface_guide_joint.py": "1d809f3c6f09ecaa27e2c59b70af97c3bd7303c1888d7fa2a6b15e1c681b7da2",
+    "surface_boundary_repair.py": "a45897fe6711ba9d33cd37cf8b92f67819a5569b3c5c1d6f42f6895737129268",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "tests/reconcile_toilet_audit.py": "c65556899ee75ca0b3a8a1ba8641c4a9357fd73eb5b432d6d7491ed399471cf4"
+  },
+  "limitations": [
+    "Finite test matrix, not a proof for every possible guide network, density or machine.",
+    "Slow paired browser case: 572.79 seconds against a 600-second timeout. Performance remains a product limitation.",
+    "Historical rejection, incomplete observer and failed experiment reports remain unchanged; they do not qualify their meshes.",
+    "Other-session optional guided-layout/ellipsoid and one-35-degree guide policy are excluded from this solver certification. Owned baseline keeps all guide limits at 30 degrees; shared unguided behavior is separately qualified.",
+    "Right-pane editor stress fixture is historical/unqualified; genuine accepted-pane editing is separately covered by generated-ui tests.",
+    "Bounded memory/process observations do not establish universal leak freedom or crash recovery on other operating systems.",
+    "Guide-specific 2D adaptation covers Freehand/Polyline/Spline/Circle; it is not full thirteen-primitive Base 2D conformance."
+  ],
+  "scope": "Final finite requirements reconciliation. Independent retained geometry audits plus component-scoped UI/lifecycle tests and current runtime identity. No blanket claim that all historical suites executed together on the latest shared worktree."
+}

@@ -1,0 +1,53 @@
+{
+  "unownedFiles": [
+    "GUIDED_LAYOUT.md",
+    "TOILET_SOLVER.md",
+    "assets/catalog.json",
+    "assets/models/ellipsoid.json",
+    "assets/models/ellipsoid.obj",
+    "engine/guided-quadriflow/LICENSE.txt",
+    "engine/guided-quadriflow/manifest.json",
+    "engine/guided-quadriflow/quadriflow.exe",
+    "engine/guided-quadriflow/source.zip",
+    "guide_embedding.py",
+    "guide_embedding_check.py",
+    "guide_ordered_targets.py",
+    "guided_layout.py",
+    "requirements.txt",
+    "surface_guide_joint.py",
+    "tests/test_guide_tangent_policy.py",
+    "tests/test_surface_guide_joint.py",
+    "tests/test_surface_guide_repair.py",
+    "worker.py"
+  ],
+  "partialFiles": [
+    "curved_quad.py",
+    "surface_guide_repair.py",
+    "tests/test_surface_layout_retries.py"
+  ],
+  "worktreeHashesBefore": {
+    "GUIDED_LAYOUT.md": "8a7788a33c174798acd74d7386669e201e0aa0dca2e66241ea3537fdcf4c9270",
+    "TOILET_SOLVER.md": "9ba768e8b2e581bfb565ff4306c6fb6bc59c50952f800b91d5e44c830efb24eb",
+    "assets/catalog.json": "1c87037f0f47eaf104467c158d8c05680c95dcb203e678c00fd4933ffdf911aa",
+    "assets/models/ellipsoid.json": "f1a1c993ebb2ebf93c42558b84a59a3fe42944e24a711e2f5ec4f8bb2522fd95",
+    "assets/models/ellipsoid.obj": "75813381047fe0f94d50f4b3dc55b331b85543837833e7818647bd672acaba13",
+    "engine/guided-quadriflow/LICENSE.txt": "e052d7748952330e148cb9f1d70583229faf75320e82596733db9ec049db0365",
+    "engine/guided-quadriflow/manifest.json": "1490317e7effb28104bc4d3de5c630bf8d45c2e4394156b5dd57512cf17edc12",
+    "engine/guided-quadriflow/quadriflow.exe": "c6e60083469265d197633798e342bd65b72f8cd6e35a92b9e0fb3a2ccad9f2cb",
+    "engine/guided-quadriflow/source.zip": "bbce9cf25072e7db7c4571274694391d9cc66f40e76d42ca2ce9e626ea89a0a0",
+    "guide_embedding.py": "1164426e57dc4c2ef93ee673290c9c394d4adb2e3905e775ba0088f5ac6158bf",
+    "guide_embedding_check.py": "d60f4b6223d89d68679dd177e9b83a132729cdcecd99f2da88013b349a0abcd4",
+    "guide_ordered_targets.py": "9822787eb90a0dc5cd76b6c21cab32d28a826a3aa6c066153cb5ca749ba5589e",
+    "guided_layout.py": "c5c7d6365dc6169eb93c241007365eac8730433fe76fe1ab3260ae74b840c507",
+    "requirements.txt": "951170a5142f71a26d3ea3fecb5a5f2ddb3705bb303684753ed4c19afc875b56",
+    "surface_guide_joint.py": "1d809f3c6f09ecaa27e2c59b70af97c3bd7303c1888d7fa2a6b15e1c681b7da2",
+    "tests/test_guide_tangent_policy.py": "e9dfc38134786ff38a4eb38c82707361b2cf4a9543eea55e0278f48d900ebf54",
+    "tests/test_surface_guide_joint.py": "c167be850ab1fa22ac3b2cde81873d58f2cf10c23200d7c621cc492e81c683df",
+    "tests/test_surface_guide_repair.py": "61f4a7c71ad188262d081029e15cce279d58fdf7812da1b7bfed4631e1b6fb3e",
+    "worker.py": "29a030de9c11024a0992e8ba8af65d9700d2c373228fb1597232555044160c9f",
+    "curved_quad.py": "c59473c8e1f69c890e92eb6f18619c4082ddeb2dd201afd7fb73b9fa4068355c",
+    "surface_guide_repair.py": "9711155402d14d6728b086405e3544edec5ec20b7c4d2345b1d48cfb8a13c22b",
+    "tests/test_surface_layout_retries.py": "723827d01fe217f8af63644b81675c058bcfa27b24c2fb43f263a7b1809e13dd"
+  },
+  "scope": "Protected other-session full/shared bytes at the boundary checkpoint; final reconciliation requires exact preservation."
+}

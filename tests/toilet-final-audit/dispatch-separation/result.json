@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "baseline": "23a8818cf7cdccd04b98f8944df0dc9cfce87cb8",
+  "reason": "User explicitly requested keeping the fallback patch separate while another session edits curved_quad.py.",
+  "patch": "patches\\enable-unguided-fallback.patch",
+  "patchSha256": "ddf3deb34eee6659961cc6680a0172e1bc803bb8be802380e062a8df0a1670e5",
+  "sharedBeforeSha256": "c59473c8e1f69c890e92eb6f18619c4082ddeb2dd201afd7fb73b9fa4068355c",
+  "sharedAfterSha256": "a460fb64a92e0a68c33a638dda2cd2fec56c0bcc347a3a50d98347cb007ac6f2",
+  "ownedAfterSha256": "d6646f544dd6f38a04e6e34e1466d70f1042f809cd79cb5e95ec94e737a44dfe",
+  "exactTestedDispatcherRecoveredByPatch": true,
+  "otherSessionDispatcherRecoveredExactly": true,
+  "worktreeUnchangedDuringVerification": true,
+  "scope": "The owned dispatch guard removal is reverted. Applying the standalone patch to the shared file reconstructs the exact dispatcher tested in native 150/600 browser solves. Those successful cases require this patch; the unpatched app is not claimed to solve them."
+}
