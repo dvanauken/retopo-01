@@ -1,0 +1,220 @@
+{
+  "recordedAt": "2026-10-25T09:47:45.411936+00:00",
+  "exhaustiveGoalComplete": false,
+  "evidence": {
+    "worker": {
+      "report": "tests/toilet-sampled-worker/joint-integrated/result.json",
+      "sha256": "eaaf37c1b6a14ebe19ecfbfba9bd58bade54a58beb772c5d7759daca7acdd25e",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 7,
+      "cases": [
+        {
+          "name": "two-guides-long-1800",
+          "state": "complete",
+          "outputSha256": "4fca5b193da2583c8e064e1556f25e8ff09570a7d4564c557989e3bd57ab65a2",
+          "elapsedSeconds": 309.8174464702606
+        }
+      ]
+    },
+    "independentGeometry": {
+      "report": "tests/toilet-fresh-geometry/joint-integrated/result.json",
+      "sha256": "26d3923a4db8c7721c181564fe9f2971ad2923937dcb24eb096cb73c7de8058b",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 0,
+      "cases": [
+        {
+          "name": "two-guides-long-1800",
+          "outputSha256": "4fca5b193da2583c8e064e1556f25e8ff09570a7d4564c557989e3bd57ab65a2",
+          "elapsedSeconds": 55.57900000002701
+        }
+      ]
+    },
+    "allDiagonals": {
+      "report": "tests/toilet-all-diagonal-audit/joint-integrated/result.json",
+      "sha256": "acc1a8ef360f721cb2f82c028689cdc65c8dd0334310f516348cbb80ea14e5c0",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 0,
+      "cases": [
+        {
+          "name": "two-guides-long-1800",
+          "outputSha256": "4fca5b193da2583c8e064e1556f25e8ff09570a7d4564c557989e3bd57ab65a2"
+        }
+      ]
+    },
+    "browser": {
+      "report": "tests/toilet-fallback-browser/joint-integrated/result.json",
+      "sha256": "cd04c9fd748b8a39a6f9a775e8e914347839e5ab8faa2f74041468d5a13a58c7",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 13,
+      "cases": [
+        {
+          "name": "two-guides-long-1800",
+          "state": "complete",
+          "outputSha256": "4fca5b193da2583c8e064e1556f25e8ff09570a7d4564c557989e3bd57ab65a2",
+          "elapsedSeconds": 493.5997965335846
+        },
+        {
+          "name": "browser-lid-circle",
+          "state": "complete",
+          "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+          "elapsedSeconds": 260.8860013484955
+        }
+      ]
+    },
+    "browserIdentity": {
+      "report": "tests/toilet-fallback-browser/joint-integrated/independent-identity.json",
+      "sha256": "5f061dea8f9ba1af01304786cb21f801d273a9cf4b2657b3d90c589aaaf3c297",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 0,
+      "cases": [
+        {
+          "name": "two-guides-long-1800",
+          "outputSha256": "4fca5b193da2583c8e064e1556f25e8ff09570a7d4564c557989e3bd57ab65a2"
+        },
+        {
+          "name": "browser-lid-circle",
+          "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0"
+        }
+      ]
+    },
+    "browserCleanup": {
+      "report": "tests/toilet-fallback-browser/joint-integrated/runtime-cleanup.json",
+      "sha256": "73d01fa8df7efff98c6da57e56b0e1d227ae12d6e8369a255b227ef4276be199",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 0,
+      "cases": []
+    },
+    "cancellation": {
+      "report": "tests/toilet-fallback-cancel/joint-integrated/result.json",
+      "sha256": "ab42d7be66b3cd5cc807354af834d73c48804548892744adb83640a257f89b9d",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 11,
+      "cases": []
+    },
+    "numericalParity": {
+      "report": "tests/surface-guide-joint/detached-candidate/result.json",
+      "sha256": "e8e899e56f111be9e91e1dccea2068c0c8bd264edf731639f51b70e8ac89c14a",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 11,
+      "cases": []
+    },
+    "defaultParity": {
+      "report": "tests/surface-guide-refine/detached-joint-defaults/result.json",
+      "sha256": "1604095b35368c8d3c665f7d6f88606b145a8b7cfeacb06eacaa9b7e5f19ac7a",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 33,
+      "cases": []
+    },
+    "appliedCodeAndUnits": {
+      "report": "tests/surface-guide-joint/integrated-code/result.json",
+      "sha256": "c609011164a89e78c0652c5ca339a8be681c1e011518e834de7d451d16fbc48b",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 4,
+      "cases": []
+    },
+    "variationsBefore": {
+      "report": "tests/toilet-paired-variants/sampling-and-density/result.json",
+      "sha256": "05facaf8f70ea6ef67838cc9eb5f2f791a1220ad2199d3698f20e265f3633933",
+      "passed": null,
+      "generationPassed": false,
+      "checks": 15,
+      "cases": [
+        {
+          "name": "short-densified",
+          "state": "complete",
+          "outputSha256": "fa3b78bc6b90405cae750c0900ef974c5fb1a6d426b67ba8d5750149859928e9",
+          "elapsedSeconds": 311.84399999998277,
+          "message": null
+        },
+        {
+          "name": "bowl-cyclic-start",
+          "state": "complete",
+          "outputSha256": "d3c040c448007cb617290103dc2bd929f47abf25a38dc7c8e15c513cc93f551e",
+          "elapsedSeconds": 216.4220000000205,
+          "message": null
+        },
+        {
+          "name": "short-small-perturbation",
+          "state": "failed",
+          "elapsedSeconds": 386.5929999999935,
+          "message": "Generation failed: the closest candidate did not meet the limits for source-surface accuracy. No new mesh was accepted; your source and guides are unchanged."
+        },
+        {
+          "name": "short-1799",
+          "state": "failed",
+          "elapsedSeconds": 268.75,
+          "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged."
+        }
+      ]
+    },
+    "variationsAfter": {
+      "report": "tests/toilet-paired-variants/joint-integrated/result.json",
+      "sha256": "03dcf10c36aef880db7a44eea3450841e36c1dd40e3c70f3c1eb62dbb23ff452",
+      "passed": null,
+      "generationPassed": false,
+      "checks": 9,
+      "cases": [
+        {
+          "name": "short-small-perturbation",
+          "state": "failed",
+          "elapsedSeconds": 600.3439999999828,
+          "message": "The mesh calculation exceeded the ten-minute limit."
+        },
+        {
+          "name": "short-1799",
+          "state": "failed",
+          "elapsedSeconds": 265.06299999996554,
+          "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged."
+        }
+      ]
+    },
+    "variantCleanup": {
+      "report": "tests/toilet-paired-variants/joint-integrated/process-cleanup.json",
+      "sha256": "c12a2bdc570290bbcad2b08e94317e3bfb0d96e5f38c87a3dc53007c55f28718",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 0,
+      "cases": []
+    },
+    "liveReadOnly": {
+      "report": "tests/toilet-exhaustive-audit/live-joint-readonly.json",
+      "sha256": "bc2d86aae8d75cc4c093d807b8f75f863b6f18630754cf96c565bdb15fd1d346",
+      "passed": true,
+      "generationPassed": null,
+      "checks": 0,
+      "cases": []
+    }
+  },
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "c4582f52a53c034edc1f811f15bf1c72792a6e7bc3ada7839f22236a845180ed",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "surface_guide_joint.py": "1661756024df04285ba1e0a50318d3662913fc548ed8eb184587ca8b1d72b44c",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "sourceAndAcceptanceGatesUnchanged": true,
+  "previousSharedDispatchScopeStillApplies": true,
+  "preservedIndependentFiles": 15,
+  "interpretation": "The captured long two-guide input now qualifies through fresh actual service and browser workers. Its1845quad export passes independent geometry and allmixeddiagonal audits. The source and acceptance limits are unchanged. Exact-module parity links detached numerical tests to applied code; prior runtime reports retain their original implementation hashes. Successful cases do not imply all arbitrary inputs can be solved.",
+  "remaining": [
+    "Perturbation and adjacent density outcomes are retained explicitly below. Coarse unguided150/600 remain unsolved; finite testing cannot prove all continuous inputs.",
+    "No universal numerical robustness or interactive performance claim. Headless software-renderer CPU contention is measured separately.",
+    "Commit only owned code/evidence; keep the independent guided-layout deployment files unchanged and unstaged."
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "originalPath": "tests/probe_toilet_fresh_memory_pipeline.py",
+  "executedScript": "tests/toilet-fresh-memory/fresh-long-direct-memory/executed-probe.py",
+  "executedSha256": "55de2ce66dc3c1f7b8e6600f4ca3410852e949890aa93357bd4f88bba30c1a2c",
+  "reason": "Later orchestration accepts explicit fitting weights; the default40/8 run and its failure remain retained unchanged."
+}

@@ -1,0 +1,20 @@
+{
+  "id": "664ee51b30de4125baacfc8b7708bfc4",
+  "meshId": "toilet",
+  "target": 1799,
+  "state": "failed",
+  "stage": "Could not generate this network",
+  "createdAt": 1792921345.0905418,
+  "startedAt": 1792921345.0905418,
+  "finishedAt": 1792921610.017479,
+  "actualExitCode": 1,
+  "error": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\664ee51b30de4125baacfc8b7708bfc4"
+  ]
+}

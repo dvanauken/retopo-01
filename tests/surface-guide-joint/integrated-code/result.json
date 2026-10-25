@@ -1,0 +1,32 @@
+{
+  "complete": true,
+  "passed": true,
+  "checks": [
+    {
+      "name": "Integrated fitter bytes equal the joint and default numerical test snapshots",
+      "passed": true
+    },
+    {
+      "name": "tests/surface-guide-joint/detached-candidate/result.json",
+      "passed": true,
+      "reportSha256": "e8e899e56f111be9e91e1dccea2068c0c8bd264edf731639f51b70e8ac89c14a"
+    },
+    {
+      "name": "tests/surface-guide-refine/detached-joint-defaults/result.json",
+      "passed": true,
+      "reportSha256": "1604095b35368c8d3c665f7d6f88606b145a8b7cfeacb06eacaa9b7e5f19ac7a"
+    },
+    {
+      "name": "13 acceptance tests pass on integrated source",
+      "passed": true
+    }
+  ],
+  "sourceHashes": {
+    "surface_guide_refine.py": "c4582f52a53c034edc1f811f15bf1c72792a6e7bc3ada7839f22236a845180ed",
+    "surface_guide_joint.py": "1661756024df04285ba1e0a50318d3662913fc548ed8eb184587ca8b1d72b44c",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "tests/test_surface_guide_joint.py": "bf5c77ca00b93e523906a057eb6c04308f96c12bb989168fb94a6e8f02ee5708",
+    "tests/test_surface_guide_repair.py": "228b2dcb7a30b039fb08867961cf193f9e4e413f4b01e897bbc35df4247fae3a"
+  },
+  "tests": 13
+}

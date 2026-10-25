@@ -1,0 +1,40 @@
+{
+  "complete": true,
+  "productionResult": false,
+  "generationPassed": false,
+  "cases": [
+    {
+      "name": "unguided-150",
+      "target": 150,
+      "state": "failed",
+      "job": null,
+      "producerKind": "isolated-unguided-sampled-fallback",
+      "elapsedSeconds": 21.625,
+      "attempts": 5
+    },
+    {
+      "name": "unguided-600",
+      "target": 600,
+      "state": "failed",
+      "job": null,
+      "producerKind": "isolated-unguided-sampled-fallback",
+      "elapsedSeconds": 35.0,
+      "attempts": 5
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "2496ba7b6ce3fc73786a50f19169fb15208444bc67fa47a71c39dcb788d81396",
+    "surface_guide_repair.py": "ecec89c96675d33ca0c92eac25be3beb2e9fd01092065f0f10169427dd87bcc2",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+    "tests/probe_toilet_unguided_fallback.py": "b147b156f4c45565abd70bc80e8040cf0ba3374ee287e0c86193a12d53b8aab2"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 56.70300000003772,
+  "scope": "Original toilet source, fresh seed2 Blender layout at each requested target, and the actual explicit sampled/local-surface fallback with no guides. Production dispatch is unchanged. Rejected candidates remain unqualified; every accepted export still needs separate independent geometry audits."
+}

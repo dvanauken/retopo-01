@@ -1,0 +1,12 @@
+{
+  "cases": [
+    {
+      "name": "two-guides-long-1800",
+      "state": "complete",
+      "job": null,
+      "producerKind": "isolated-constraint-memory-probe"
+    }
+  ],
+  "productionResult": false,
+  "scope": "Completed isolated experiment, exported for independent validation. No service job or production result."
+}

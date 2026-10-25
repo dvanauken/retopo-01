@@ -1,0 +1,46 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "two-guides-long-1800",
+      "passed": true,
+      "outputSha256": "4fca5b193da2583c8e064e1556f25e8ff09570a7d4564c557989e3bd57ab65a2",
+      "referenceExport": "tests\\toilet-sampled-worker\\joint-integrated\\two-guides-long-1800\\output.obj",
+      "sameAuthoredCurves": true,
+      "sameConnectedPaths": true,
+      "samePositionsAndFaces": true,
+      "audits": {
+        "toilet-fresh-geometry": {
+          "report": "tests\\toilet-fresh-geometry\\joint-integrated\\result.json",
+          "sha256": "26d3923a4db8c7721c181564fe9f2971ad2923937dcb24eb096cb73c7de8058b"
+        },
+        "toilet-all-diagonal-audit": {
+          "report": "tests\\toilet-all-diagonal-audit\\joint-integrated\\result.json",
+          "sha256": "acc1a8ef360f721cb2f82c028689cdc65c8dd0334310f516348cbb80ea14e5c0"
+        }
+      }
+    },
+    {
+      "name": "browser-lid-circle",
+      "passed": true,
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+      "referenceExport": "tests\\toilet-variants\\all-diagonal\\circle-repeat\\output.obj",
+      "sameAuthoredCurves": true,
+      "sameConnectedPaths": true,
+      "samePositionsAndFaces": true,
+      "audits": {
+        "toilet-fresh-geometry": {
+          "report": "tests\\toilet-fresh-geometry\\all-diagonal-generations\\result.json",
+          "sha256": "ce80bcec83aa0ce80e24ef7ae7bc48f5ab957a577134ca4ff72f7ef0138ad479"
+        },
+        "toilet-all-diagonal-audit": {
+          "report": "tests\\toilet-all-diagonal-audit\\fresh-new-gate\\result.json",
+          "sha256": "1947da737efc6f370a48eb60bb67ec866a5acb50a9585b69aebbaf9627c22378"
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "scope": "Fresh browser downloads are byte-identical to independent qualified exports, with identical source curves and connected path indices. This links existing independent measurements to the same geometry; it does not claim a redundant numerical rerun."
+}

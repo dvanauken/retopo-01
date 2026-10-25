@@ -28,7 +28,7 @@ protect_service_tree()
 OUT = ROOT / 'tests/toilet-sampled-worker' / args.label
 OUT.mkdir(parents=True, exist_ok=False)
 (OUT / 'executed-probe.py').write_bytes(Path(__file__).read_bytes())
-files = ['server.py', 'worker.py', 'curved_quad.py', 'surface_guide_refine.py', 'surface_guide_repair.py',
+files = ['server.py', 'worker.py', 'curved_quad.py', 'surface_guide_refine.py', 'surface_guide_repair.py', 'surface_guide_joint.py',
          'surface_distance.py', 'surface_intersections.py', 'quad_quality.py', 'process_ownership.py',
          'assets/models/toilet.obj', 'assets/models/toilet.json', 'scripts/quadriflow_mesh.py',
          'tests/verify_toilet_sampled_worker.py']
@@ -111,7 +111,7 @@ try:
         retained = OUT / name
         retained.mkdir()
         for filename in ('curves.json', 'settings.json', 'report.json', 'output.obj', 'mesh.json', 'surface-solver.json',
-                         'surface-solver-failure.json', 'sampled-guide-history.json', 'engine-provenance.json',
+                         'surface-solver-failure.json', 'sampled-guide-history.json', 'joint-guide-repair.json', 'engine-provenance.json',
                          'worker.log', 'execution.json'):
             if (folder / filename).exists():
                 shutil.copyfile(folder / filename, retained / filename)

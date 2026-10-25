@@ -1,0 +1,77 @@
+{
+  "complete": true,
+  "generationPassed": false,
+  "safetyChecksPassed": true,
+  "cases": [
+    {
+      "name": "short-small-perturbation",
+      "target": 1800,
+      "job": "5dfcee62ddbd4af587c799220909463e",
+      "state": "failed",
+      "message": "The mesh calculation exceeded the ten-minute limit.",
+      "elapsedSeconds": 600.3439999999828
+    },
+    {
+      "name": "short-1799",
+      "target": 1799,
+      "job": "664ee51b30de4125baacfc8b7708bfc4",
+      "state": "failed",
+      "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.",
+      "elapsedSeconds": 265.06299999996554
+    }
+  ],
+  "checks": [
+    {
+      "name": "short-small-perturbation: unaccepted mesh.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-small-perturbation: unaccepted output.obj is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-small-perturbation: unaccepted features.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-small-perturbation: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "short-1799: unaccepted mesh.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-1799: unaccepted output.obj is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-1799: unaccepted features.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-1799: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "Source and implementation remain fixed through the matrix",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "surface_guide_refine.py": "c4582f52a53c034edc1f811f15bf1c72792a6e7bc3ada7839f22236a845180ed",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "surface_guide_joint.py": "1661756024df04285ba1e0a50318d3662913fc548ed8eb184587ca8b1d72b44c",
+    "tests/verify_toilet_paired_variants.py": "bcc7351fefa7350c80daafc694205edf5277571fce91469ce27ac5282ccb4ef6"
+  },
+  "scope": "Fresh Blender layouts and actual worker requests for the named cases. Available partitions cover equivalent representations, 0.001-unit Gaussian paired-guide perturbation projected to source (consecutive duplicate points removed), and the adjacent target1799 boundary. Additional module hashes cover the production sampled fallback. Failed geometry remains unsolved; does not prove all continuous inputs."
+}

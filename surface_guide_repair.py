@@ -110,6 +110,23 @@ def construct(source_mesh, curves, *, target, job, blender, input_path, history)
         history.append(assessment)
         cq._write(job / 'sampled-guide-history.json', dict(attempts=fallback_history))
 
+    def accepted(positions, current, method, extra_files=()):
+        files = [Path(cq.__file__), Path(__file__), Path(fitter.__file__), cq.ROOT / 'quad_quality.py',
+                 cq.ROOT / 'surface_intersections.py', cq.ROOT / 'surface_distance.py', cq.ROOT / 'scripts/quadriflow_mesh.py',
+                 *extra_files]
+        metadata = dict(backend=cq.BACKEND, nativeComparisonPerformed=False, generalAlgorithmRecovered=False,
+                        target=target, guideMode=2, closedValidation=current['surface'], guidePaths=current['guideFit'],
+                        intersectionValidation=current['intersections'], outputCreases=output_creases(positions, faces.tolist()),
+                        refinementHistory=history, fittingMethod=method,
+                        layoutEngine=dict(name='Blender QuadriFlow', version=packet['blenderVersion'], executable=str(blender), seed=seed),
+                        sourceHashes={str(p.resolve()): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
+                        limitations=['Engineering layout and fitting route, not recovered native equivalence.',
+                                     'Guide fitting and surface preservation are approximate and can reject incompatible inputs.',
+                                     'Whole-surface bounds and contact predicates use double precision; topology is checked separately.',
+                                     'One additional layout and bounded refinement; general crease/attribute transfer is not implemented.'])
+        cq._write(job / 'surface-solver.json', metadata)
+        return positions, faces.tolist(), metadata
+
     repaired = False
     for iteration in range(5):
         cq._progress(job, f'Fitting sampled guide paths · pass {iteration + 1}')
@@ -123,19 +140,11 @@ def construct(source_mesh, curves, *, target, job, blender, input_path, history)
             if repaired_assessment['qualified']:
                 positions, current = repaired_positions, repaired_assessment
         if current['qualified']:
-            files = [Path(cq.__file__), Path(__file__), Path(fitter.__file__), cq.ROOT / 'quad_quality.py',
-                     cq.ROOT / 'surface_intersections.py', cq.ROOT / 'surface_distance.py', cq.ROOT / 'scripts/quadriflow_mesh.py']
-            metadata = dict(backend=cq.BACKEND, nativeComparisonPerformed=False, generalAlgorithmRecovered=False,
-                            target=target, guideMode=2, closedValidation=current['surface'], guidePaths=current['guideFit'],
-                            intersectionValidation=current['intersections'], outputCreases=output_creases(positions, faces.tolist()),
-                            refinementHistory=history, fittingMethod='sampled-guide-paths-with-local-surface-repair',
-                            layoutEngine=dict(name='Blender QuadriFlow', version=packet['blenderVersion'], executable=str(blender), seed=seed),
-                            sourceHashes={str(p.resolve()): hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
-                            limitations=['Engineering layout and fitting route, not recovered native equivalence.',
-                                         'Guide fitting and surface preservation are approximate and can reject incompatible inputs.',
-                                         'Whole-surface bounds and contact predicates use double precision; topology is checked separately.',
-                                         'One additional layout and bounded refinement; general crease/attribute transfer is not implemented.'])
-            cq._write(job / 'surface-solver.json', metadata)
-            return positions, faces.tolist(), metadata
+            return accepted(positions, current, 'sampled-guide-paths-with-local-surface-repair')
+    if curves:
+        import surface_guide_joint as joint
+        positions, current = joint.repair(source_mesh, positions, faces, edges, guides, target, job=job, record=record)
+        if current['qualified']:
+            return accepted(positions, current, 'sampled-guide-paths-with-joint-surface-repair', [Path(joint.__file__)])
     cq._write(job / 'failed-sampled-guide-candidate.json', dict(vertices=positions.tolist(), faces=faces.tolist()))
     return None

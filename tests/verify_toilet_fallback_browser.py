@@ -26,7 +26,8 @@ if any(not name.replace('-', '').isalnum() for name in [args.label, *args.cases]
 protect_service_tree()
 OUT = ROOT / 'tests/toilet-fallback-browser' / args.label
 OUT.mkdir(parents=True, exist_ok=False)
-files = ['app.js', 'server.py', 'worker.py', 'curved_quad.py', 'surface_guide_refine.py', 'surface_guide_repair.py',
+(OUT / 'executed-test.py').write_bytes(Path(__file__).read_bytes())
+files = ['app.js', 'server.py', 'worker.py', 'curved_quad.py', 'surface_guide_refine.py', 'surface_guide_repair.py', 'surface_guide_joint.py',
          'surface_distance.py', 'surface_intersections.py', 'quad_quality.py', 'assets/models/toilet.obj',
          'tests/verify_toilet_fallback_browser.py']
 sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
@@ -112,12 +113,16 @@ try:
                 raise AssertionError('No accepted mesh in browser: ' + json.dumps(state['lastAttempt']))
             actual = http('/api/jobs/' + state['resultJob'])
             case['state'] = actual['state']
+            case['elapsedSeconds'] = actual['finishedAt'] - actual['startedAt']
             check(actual['state'] == 'complete', name + ' viewport references a genuinely completed service job')
             retained = OUT / name
             retained.mkdir()
             job = ROOT / 'runs' / state['resultJob']
             for filename in ('curves.json', 'settings.json', 'report.json', 'output.obj', 'mesh.json', 'surface-solver.json', 'engine-provenance.json', 'worker.log'):
                 shutil.copyfile(job / filename, retained / filename)
+            for filename in ('sampled-guide-history.json', 'joint-guide-repair.json'):
+                if (job / filename).exists():
+                    shutil.copyfile(job / filename, retained / filename)
             check(state['guideDocument'] == before and not state['dirty'], name + ' preserves authored guides and clears the update badge')
             check(state['resultGuideOverlayVisible'] and page.locator('#generationFeedback').is_hidden(), name + ' replaces the empty-state panel with generated geometry')
             with page.expect_download() as event:

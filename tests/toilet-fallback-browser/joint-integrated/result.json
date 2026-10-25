@@ -1,0 +1,109 @@
+{
+  "complete": true,
+  "passed": true,
+  "productionResult": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "two-guides-long-1800 finishes in the browser with an accepted result",
+      "lastAttempt": {
+        "phase": "complete",
+        "message": "",
+        "target": 1800,
+        "guideCount": 2,
+        "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    },
+    {
+      "passed": true,
+      "name": "two-guides-long-1800 viewport references a genuinely completed service job"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-long-1800 preserves authored guides and clears the update badge"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-long-1800 replaces the empty-state panel with generated geometry"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-long-1800 browser download exactly matches the worker OBJ"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-long-1800 downloaded result retains every geometry gate"
+    },
+    {
+      "passed": true,
+      "name": "browser-lid-circle finishes in the browser with an accepted result",
+      "lastAttempt": {
+        "phase": "complete",
+        "message": "",
+        "target": 1800,
+        "guideCount": 1,
+        "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+      }
+    },
+    {
+      "passed": true,
+      "name": "browser-lid-circle viewport references a genuinely completed service job"
+    },
+    {
+      "passed": true,
+      "name": "browser-lid-circle preserves authored guides and clears the update badge"
+    },
+    {
+      "passed": true,
+      "name": "browser-lid-circle replaces the empty-state panel with generated geometry"
+    },
+    {
+      "passed": true,
+      "name": "browser-lid-circle browser download exactly matches the worker OBJ"
+    },
+    {
+      "passed": true,
+      "name": "browser-lid-circle downloaded result retains every geometry gate"
+    },
+    {
+      "passed": true,
+      "name": "Implementation unchanged through actual browser solves"
+    }
+  ],
+  "cases": [
+    {
+      "name": "two-guides-long-1800",
+      "state": "complete",
+      "job": "93d19251c0d0483abf913db108d9a559",
+      "resultFaces": 1845,
+      "elapsedSeconds": 493.5997965335846,
+      "outputSha256": "4fca5b193da2583c8e064e1556f25e8ff09570a7d4564c557989e3bd57ab65a2"
+    },
+    {
+      "name": "browser-lid-circle",
+      "state": "complete",
+      "job": "6a13c0d837ea47a2adb0234e527e0056",
+      "resultFaces": 1782,
+      "elapsedSeconds": 260.8860013484955,
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "c4582f52a53c034edc1f811f15bf1c72792a6e7bc3ada7839f22236a845180ed",
+    "surface_guide_repair.py": "0c1e208298719d6f6044c49f599b8f52465008c587e91dea3423456f7f886a21",
+    "surface_guide_joint.py": "1661756024df04285ba1e0a50318d3662913fc548ed8eb184587ca8b1d72b44c",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_toilet_fallback_browser.py": "3b25aa1a3df0a165bc46f2663082ac12c705e35fb3db73c6295aec5331b823af"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 772.6410000000033,
+  "scope": "Fresh real browser imports, Generate actions, HTTP/worker solves, accepted viewport state and native OBJ downloads. No replaced network responses or saved candidate inputs. DPR1 limits software-rendering load."
+}

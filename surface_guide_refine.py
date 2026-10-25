@@ -62,12 +62,17 @@ def _sample_targets(positions, guides):
             np.asarray(tangents).reshape(-1, 3), np.asarray(weights))
 
 
-def refine(source_mesh, positions, faces, edges, guides, target, *, patch_vertices=None, witness_source=None):
+def refine(source_mesh, positions, faces, edges, guides, target, *, patch_vertices=None, witness_source=None,
+           tangent_tail_weight=0., surface_constraints=None, constraint_weight=8.):
     """Return a fitted candidate without altering the input arrays or gates."""
     positions, faces, edges = np.asarray(positions), np.asarray(faces), np.asarray(edges)
     spacing = np.sqrt(source_mesh.area / target)
     pins, targets = guides.pins, guides.targets
     sample_edges, sample_points, sample_tangents, sample_weights = _sample_targets(positions, guides)
+    surface_constraints = surface_constraints or []
+    memory_tri = np.asarray([item['vertices'] for item in surface_constraints], dtype=int).reshape(-1, 3)
+    memory_bary = np.asarray([item['barycentric'] for item in surface_constraints]).reshape(-1, 3)
+    memory_target = np.asarray([item['target'] for item in surface_constraints]).reshape(-1, 3)
     jacobian, cosine = cq._corners(positions, faces)
     bad = (jacobian.min(axis=1) < .7) | (np.abs(cosine).max(axis=1) > .75)
     bad |= np.abs(cq._warpage(positions, faces)) > spacing * .05
@@ -116,6 +121,7 @@ def refine(source_mesh, positions, faces, edges, guides, target, *, patch_vertic
     groups += [(len(ids), ids[:, None]), (len(ids) * 3, ids[:, None]), (len(pins) * 3, pins[:, None]), (len(support) * 3, support),
                (len(ids), ids[:, None]), (len(support), support)]
     groups += [(len(sample_edges) * 3, sample_edges)] * 2
+    groups += [(len(memory_tri) * 3, memory_tri), (len(memory_tri), memory_tri)]
     sparsity = lil_matrix((sum(size for size, _ in groups), len(ids) * 3), dtype=int)
     offset = 0
     for size, owners in groups:
@@ -146,8 +152,19 @@ def refine(source_mesh, positions, faces, edges, guides, target, *, patch_vertic
         t = np.clip(((sample_points - a) * delta).sum(axis=1) / denominator, 0, 1)
         near = a + t[:, None] * delta
         unit = delta / np.sqrt(denominator)[:, None]
+        if tangent_tail_weight:
+            cross = np.cross(unit, sample_tangents)
+            sine = np.linalg.norm(cross, axis=1)
+            factor = 12 + tangent_tail_weight * np.maximum(sine - np.sin(np.radians(25)), 0) / np.maximum(sine, 1e-12)
+            return np.r_[((near - sample_points) / spacing * 32 * sample_weights[:, None]).ravel(),
+                         (cross * factor[:, None] * sample_weights[:, None]).ravel()]
         return np.r_[((near - sample_points) / spacing * 32 * sample_weights[:, None]).ravel(),
                      (np.cross(unit, sample_tangents) * 12 * sample_weights[:, None]).ravel()]
+
+    def memory_residual(points):
+        delta = (points[memory_tri] * memory_bary[:, :, None]).sum(axis=1) - memory_target
+        return np.r_[(delta / spacing * constraint_weight).ravel(),
+                     np.maximum(np.linalg.norm(delta, axis=1) / spacing - .4, 0) * 40]
 
     def residual(x):
         q = positions.copy()
@@ -167,7 +184,7 @@ def refine(source_mesh, positions, faces, edges, guides, target, *, patch_vertic
                      surface_delta.ravel() / spacing * 4,
                      np.maximum(np.linalg.norm(delta, axis=1) / spacing - .35, 0) * 40,
                      np.maximum(np.linalg.norm(surface_delta, axis=1) / spacing - .35, 0) * 40,
-                     sampled_path_residual(q)]
+                     sampled_path_residual(q), memory_residual(q)]
     result = least_squares(residual, positions[ids].ravel(), jac_sparsity=sparsity.tocsr(), max_nfev=150, ftol=1e-6, xtol=1e-5)
     output = positions.copy()
     output[ids] = result.x.reshape(-1, 3)

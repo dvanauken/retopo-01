@@ -1,7 +1,7 @@
 """Compare the explicit numerical module with independently qualified artifacts."""
 import os
 for key in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS'):os.environ[key]='1'
-import argparse,hashlib,json,sys,time,traceback
+import argparse,hashlib,importlib.util,json,sys,time,traceback
 from pathlib import Path
 import numpy as np
 import trimesh
@@ -10,12 +10,18 @@ sys.path[:0]=[str(ROOT),str(ROOT/'engine/targets/zbrush/clone'),str(ROOT/'engine
 import curved_quad as cq
 import surface_guide_refine as fitter
 from measure_geometry import read_obj
-parser=argparse.ArgumentParser();parser.add_argument('--label',required=True);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--label',required=True);parser.add_argument('--module',type=Path);args=parser.parse_args()
+if args.module:
+ spec=importlib.util.spec_from_file_location('tested_sampled_fitter',args.module.resolve())
+ fitter=importlib.util.module_from_spec(spec);sys.modules[spec.name]=fitter;spec.loader.exec_module(fitter)
 if not args.label.replace('-','').isalnum():raise ValueError('Use a plain label')
 OUT=ROOT/'tests/surface-guide-refine'/args.label;OUT.mkdir(parents=True,exist_ok=False)
+(OUT/'executed-test.py').write_bytes(Path(__file__).read_bytes())
+(OUT/'executed-fitter.py').write_bytes(Path(fitter.__file__).read_bytes())
 sv,sf=read_obj(ROOT/'assets/models/toilet.obj');source=trimesh.Trimesh(sv,sf,process=False);spacing=np.sqrt(source.area/1800)
 folder=ROOT/'tests/toilet-sampled-paths/captured-seed2-401';raw=json.loads((folder/'layout.json').read_text());faces=np.asarray(raw['faces']);edges=cq._edges(faces)
 hashes={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in ('surface_guide_refine.py','curved_quad.py','assets/models/toilet.obj','tests/verify_surface_guide_refine.py')}
+hashes[str(Path(fitter.__file__).resolve())]=hashlib.sha256(Path(fitter.__file__).read_bytes()).hexdigest()
 checks=[];errors=[];started=time.monotonic()
 def check(passed,name,**details):
  checks.append(dict(passed=bool(passed),name=name,**details));print(('PASS ' if passed else 'FAIL ')+name,flush=True)

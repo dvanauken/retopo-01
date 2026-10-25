@@ -1,0 +1,11 @@
+{
+  "complete": true,
+  "passed": true,
+  "checkedAt": "2026-10-25T09:47:05.791135+00:00",
+  "jobs": [
+    "5dfcee62ddbd4af587c799220909463e",
+    "664ee51b30de4125baacfc8b7708bfc4"
+  ],
+  "survivors": [],
+  "scope": "After the real service matrix has shut down, no Python worker or Blender command still references any of its exact job IDs. Does not enumerate unrelated processes or prove universal leak freedom."
+}

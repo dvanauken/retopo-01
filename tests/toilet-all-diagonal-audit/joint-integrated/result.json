@@ -1,0 +1,28 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "two-guides-long-1800",
+      "job": "5a2b3c19c540477db4c6bbc84d516f15",
+      "matrix": "tests\\toilet-sampled-worker\\joint-integrated\\result.json",
+      "outputSha256": "4fca5b193da2583c8e064e1556f25e8ff09570a7d4564c557989e3bd57ab65a2",
+      "passed": true,
+      "screen": {
+        "passed": true,
+        "nonAdjacentIntersectingFacePairs": [],
+        "adjacentIntersectingFacePairs": [],
+        "quadDiagonalPolicy": "all_pairings",
+        "scope": "Indexed polygon bounds and triangle contact vertices, both quad diagonals with every mixed triangle pairing, 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate."
+      },
+      "witnesses": []
+    }
+  ],
+  "sourceHashes": {
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "tests/verify_toilet_all_diagonal_audit.py": "25ac58c4724997d3ddc85553d68603df3de05af1c0e66fa7307b65489119b433",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "scope": "Retained actual exports evaluated under all combinations of quad diagonals, with independent strict-interior LP witnesses for reported face pairs. This screen uses floating-point tolerances; witness absence does not clear boundary contacts or unresolved programs."
+}

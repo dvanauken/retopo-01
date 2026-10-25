@@ -74,18 +74,23 @@ for family, labels in {
     'generated-ui':['request-ownership','ownership-io','ownership-io-diagnostics'],
     'file-locks':['io-fault-fixed','nested-worker-job'],
     'tangent-pins':['bowl-seed-2-weight-8','combined-seed-2-weight-8','captured-seed-2-weight-12'],
-    'fresh-geometry':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export','integrated-fallback'],
-    'all-diagonal-audit':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export','integrated-fallback'],
-    'sampled-paths':['captured-seed2-401','fresh-short-seed2-fit'],
+    'fresh-geometry':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export','integrated-fallback','long-constraint-memory','fresh-long-direct-tail80-export','paired-order-and-direction','paired-sampling-and-density','joint-integrated'],
+    'all-diagonal-audit':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export','integrated-fallback','long-constraint-memory','fresh-long-direct-tail80-export','paired-order-and-direction','paired-sampling-and-density','joint-integrated'],
+    'sampled-paths':['captured-seed2-401','fresh-short-seed2-fit','fresh-long-direct-memory-fit','fresh-long-direct-tail80-fit'],
     'both-diagonal-support':['captured-seed2-401'],
     'oriented-support':['captured-seed2-401'],
     'feasible-blend':['captured-seed2','captured-seed2-arrays'],
     'witness-repair':['short-seed2-local','fresh-short-seed2-repair'],
     'fresh-witness':['fresh-short-seed2'],
     'joint-repair':['long-seed2-protected'],
-    'sampled-worker':['integrated-fallback'],
-    'fallback-browser':['integrated-fallback'],
-    'fallback-cancel':['integrated-fallback','worker-owned'],
+    'tangent-tail':['long-protected-tail40'],
+    'constraint-memory':['long-protected-memory8','fresh-long-direct-memory-repair','fresh-long-direct-tail80-repair'],
+    'fresh-memory':['fresh-long-direct-memory','fresh-long-direct-tail80'],
+    'paired-variants':['order-and-direction','sampling-and-density','joint-integrated'],
+    'unguided-fallback':['coarse-seed2'],
+    'sampled-worker':['integrated-fallback','joint-integrated'],
+    'fallback-browser':['integrated-fallback','joint-integrated'],
+    'fallback-cancel':['integrated-fallback','worker-owned','joint-integrated'],
 }.items():
     for label in labels:
         reports[family+'-'+label]='tests/toilet-'+family+'/'+label+'/result.json'
@@ -99,6 +104,13 @@ reports['integrated-fitter-inputs']='tests/surface-guide-refine/integrated-input
 reports['sampled-repair-unit-gates']='tests/surface-guide-refine/unit-gates/result.json'
 reports['sampled-production-scope']='tests/toilet-exhaustive-audit/sampled-production-scope.json'
 reports['browser-export-identity']='tests/toilet-fallback-browser/integrated-fallback/independent-identity.json'
+reports['joint-fitter-parity']='tests/surface-guide-joint/detached-candidate/result.json'
+reports['joint-fitter-default-parity']='tests/surface-guide-refine/detached-joint-defaults/result.json'
+reports['joint-integrated-code']='tests/surface-guide-joint/integrated-code/result.json'
+reports['live-joint-readonly']='tests/toilet-exhaustive-audit/live-joint-readonly.json'
+reports['joint-browser-export-identity']='tests/toilet-fallback-browser/joint-integrated/independent-identity.json'
+reports['joint-browser-runtime-cleanup']='tests/toilet-fallback-browser/joint-integrated/runtime-cleanup.json'
+reports['joint-variant-process-cleanup']='tests/toilet-paired-variants/joint-integrated/process-cleanup.json'
 for family in ('path-reselection','long-surface-diagnostics','guided-route-review'):
     reports[family]='tests/toilet-'+family+'/result.json'
 for family in ('fresh-geometry','all-diagonal-audit'):
@@ -137,7 +149,10 @@ for name,relative in reports.items():
 contact_proofs={}
 for relative in ('tests/toilet-all-diagonal-audit/before-new-gate/result.json',
                  'tests/toilet-all-diagonal-audit/fresh-new-gate/result.json',
-                 'tests/toilet-all-diagonal-audit/integrated-fallback/result.json'):
+                 'tests/toilet-all-diagonal-audit/integrated-fallback/result.json',
+                 'tests/toilet-all-diagonal-audit/paired-order-and-direction/result.json',
+                 'tests/toilet-all-diagonal-audit/paired-sampling-and-density/result.json',
+                 'tests/toilet-all-diagonal-audit/joint-integrated/result.json'):
     path=ROOT/relative
     if path.exists():
         data=json.loads(path.read_text())
@@ -150,7 +165,10 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
                  'tests/toilet-fresh-geometry/representation-variants/result.json',
                  'tests/toilet-fresh-geometry/remaining-variants/result.json',
                  'tests/toilet-fresh-geometry/all-diagonal-generations/result.json',
-                 'tests/toilet-fresh-geometry/integrated-fallback/result.json'):
+                 'tests/toilet-fresh-geometry/integrated-fallback/result.json',
+                 'tests/toilet-fresh-geometry/paired-order-and-direction/result.json',
+                 'tests/toilet-fresh-geometry/paired-sampling-and-density/result.json',
+                 'tests/toilet-fresh-geometry/joint-integrated/result.json'):
     path=ROOT/relative
     if path.exists():
         data=json.loads(path.read_text())
@@ -164,7 +182,7 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
                 qualified.append(dict(item,contactProof=proof))
             else: provisional.append(dict(item,reason='All mixed-diagonal contact pairings have not yet been verified.'))
 experimental=[]
-for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12','sampled-path-401','both-diagonal-support-401','witness-short-seed2','fresh-short-seed2-export'):
+for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12','sampled-path-401','both-diagonal-support-401','witness-short-seed2','fresh-short-seed2-export','long-constraint-memory','fresh-long-direct-tail80-export'):
     independent=ROOT/'tests/toilet-fresh-geometry'/label/'result.json'
     contacts=ROOT/'tests/toilet-all-diagonal-audit'/label/'result.json'
     if not independent.exists() or not contacts.exists():continue
@@ -180,7 +198,11 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
     updatedAt=datetime.now(timezone.utc).isoformat(),evidence=evidence,
     interpretation=[
         'The sampled-path fitter is now a bounded production fallback after the original guided attempts fail. Fresh HTTP/worker bowl-only and short combined requests both produce1845quads; their actual exported OBJs pass the independent and all-diagonal audits. The source asset and acceptance thresholds are unchanged. Exact executed code and retained historical reports are distinguished below.',
-        'Joint protected local repair makes the longer guide candidate pass whole-surface bounds, but stalls at lid tangent31.938degrees. It is unqualified. Later candidate movement that further reduces angle breaks a previously passing surface bound.',
+        'The earlier joint repair stalled at31.938degrees. Remembering rejected surface witnesses as barycentric triangle constraints subsequently qualifies the longer guide. A fresh source pipeline with tangent tail weight80 needs two joint steps and passes both independent audits. The explicit production modules reproduce that candidate exactly; service/browser qualification is recorded separately.',
+        'The integrated real-service long-guide request produces1845quads in309.8seconds. Its actual worker OBJ passes the independent surface/path/reference/LP/BVH audit and allmixeddiagonal contact audit. Browser/runtime and cancellation are separate observations; no threshold or source mesh changed.',
+        'The fresh long/Circle browser run passes13checks; downloads/curves/paths match independently qualified exports. The long job takes493.6seconds with software-renderer contention. All10 sampled test processes exit, and actual joint-stage cancellation passes11checks.',
+        'After joint integration, the perturbed paired-guide request times out at600seconds during joint pass7. Target1799 still rejects contacts after265seconds. Both are generation failures; rejection/input-preservation and process-cleanup checks pass. These are material robustness/runtime limitations, not solved meshes.',
+        'Paired-guide reversal, order, densification and closed-start rotation produce accepted meshes. Small source-projected perturbation fails surface accuracy, and paired target1799 fails contacts before joint integration. These are unsolved generations, even though rejection and input-preservation checks pass. Coarse unguided seed2 targets150/600 also fail shape limits; that experimental route is not enabled for unguided production requests.',
         'The initial sampled-stage cancellation observer incorrectly included the live service console among worker-owned processes. Its failed result is retained with exact executed source and timestamps. The worker-owned rerun identifies the exact job worker and its descendants; no production cancellation code changed for this observer correction.',
         'Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.',
         'Windows forced-exit tests use an actual toilet worker and Blender child; a service process job now owns their lifetime. Deduplication and early-cancellation records are per service lifetime. Non-Windows forced-exit cleanup is not claimed.',
@@ -202,7 +224,7 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
         'The original source is unchanged. Its four known contacts are spatially separate from the newly detected bowl overlaps.',
     ],remaining=[
         'Captured two-guide networks and basic toilet solves must meet all geometric requirements.',
-        'The bowl-only and short combined cases now have independently qualified production results. Complete browser/cancellation and variation/runtime reconciliation; the longer captured case still needs tangent repair that preserves the surface.',
+        'Bowl-only, short paired and long paired cases at1800 now have independently qualified production results. The long case also passes actual browser/export and cancellation coverage. Perturbed paired input still times out, and target1799 still fails contacts.',
         'Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.',
         'Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.',
         'Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.',

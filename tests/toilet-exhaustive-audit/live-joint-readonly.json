@@ -1,0 +1,30 @@
+{
+  "complete": true,
+  "passed": true,
+  "observedAt": "2026-10-25T09:27:21.565454+00:00",
+  "servers": [
+    {
+      "port": 8741,
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 4
+      },
+      "appSha256": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+      "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+      "passed": true
+    },
+    {
+      "port": 8742,
+      "health": {
+        "ready": true,
+        "engine": "Local reference engine",
+        "models": 4
+      },
+      "appSha256": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+      "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+      "passed": true
+    }
+  ],
+  "scope": "Read-only health, app bytes and original source checks on existing local servers. No restart or solve was requested. New numerical code is tested through separate real-service workers; this observation does not claim a completed solve on these live servers."
+}

@@ -1,0 +1,120 @@
+{
+  "complete": true,
+  "generationPassed": false,
+  "safetyChecksPassed": true,
+  "cases": [
+    {
+      "name": "short-densified",
+      "target": 1800,
+      "job": "3464f5e3775c4daca646521c295b6697",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 311.84399999998277,
+      "faces": 1845,
+      "outputSha256": "fa3b78bc6b90405cae750c0900ef974c5fb1a6d426b67ba8d5750149859928e9"
+    },
+    {
+      "name": "bowl-cyclic-start",
+      "target": 1800,
+      "job": "0d343621e21049cca15f7d293a49a0c2",
+      "state": "complete",
+      "message": null,
+      "elapsedSeconds": 216.4220000000205,
+      "faces": 1845,
+      "outputSha256": "d3c040c448007cb617290103dc2bd929f47abf25a38dc7c8e15c513cc93f551e"
+    },
+    {
+      "name": "short-small-perturbation",
+      "target": 1800,
+      "job": "1e8133d4ba704d58b0d3a681c136e44e",
+      "state": "failed",
+      "message": "Generation failed: the closest candidate did not meet the limits for source-surface accuracy. No new mesh was accepted; your source and guides are unchanged.",
+      "elapsedSeconds": 386.5929999999935
+    },
+    {
+      "name": "short-1799",
+      "target": 1799,
+      "job": "125dec5943d64e318e006d57c6886049",
+      "state": "failed",
+      "message": "Generation failed: the closest candidate did not meet the limits for face intersections, including overlaps between adjacent faces. No new mesh was accepted; your source and guides are unchanged.",
+      "elapsedSeconds": 268.75
+    }
+  ],
+  "checks": [
+    {
+      "name": "short-densified: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "short-densified: all mixed diagonal contact pairings were checked",
+      "passed": true
+    },
+    {
+      "name": "short-densified: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "bowl-cyclic-start: accepted geometry includes both diagonal bounds and contact checks",
+      "passed": true
+    },
+    {
+      "name": "bowl-cyclic-start: all mixed diagonal contact pairings were checked",
+      "passed": true
+    },
+    {
+      "name": "bowl-cyclic-start: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "short-small-perturbation: unaccepted mesh.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-small-perturbation: unaccepted output.obj is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-small-perturbation: unaccepted features.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-small-perturbation: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "short-1799: unaccepted mesh.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-1799: unaccepted output.obj is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-1799: unaccepted features.json is unavailable",
+      "passed": true
+    },
+    {
+      "name": "short-1799: authored samples are unchanged",
+      "passed": true
+    },
+    {
+      "name": "Source and implementation remain fixed through the matrix",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "surface_guide_refine.py": "2496ba7b6ce3fc73786a50f19169fb15208444bc67fa47a71c39dcb788d81396",
+    "surface_guide_repair.py": "ecec89c96675d33ca0c92eac25be3beb2e9fd01092065f0f10169427dd87bcc2",
+    "tests/verify_toilet_paired_variants.py": "b7e39a3bdeb88c9d339559f97112887333897b0a3f244a25b52ef4264037d6ac"
+  },
+  "scope": "Fresh Blender layouts and actual worker requests for the named cases. Available partitions cover equivalent representations, 0.001-unit Gaussian paired-guide perturbation projected to source (consecutive duplicate points removed), and the adjacent target1799 boundary. Additional module hashes cover the production sampled fallback. Failed geometry remains unsolved; does not prove all continuous inputs."
+}

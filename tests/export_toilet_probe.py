@@ -18,7 +18,7 @@ from measure_geometry import read_obj
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--probe', type=Path, required=True)
-parser.add_argument('--producer-kind', choices=['isolated-tangent-probe', 'isolated-sampled-path-probe', 'isolated-both-diagonal-support-probe', 'isolated-witness-repair-probe'], default='isolated-tangent-probe')
+parser.add_argument('--producer-kind', choices=['isolated-tangent-probe', 'isolated-sampled-path-probe', 'isolated-both-diagonal-support-probe', 'isolated-witness-repair-probe', 'isolated-constraint-memory-probe'], default='isolated-tangent-probe')
 args = parser.parse_args()
 probe = json.loads(args.probe.read_text())
 folder = args.probe.parent

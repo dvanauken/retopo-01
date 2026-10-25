@@ -1,13 +1,48 @@
 # Curved-surface quad solver
 
-The exhaustive audit is still open. A production fallback now solves the captured
-bowl-only and shorter two-guide inputs at target 1,800. Both real HTTP/worker
-requests produce 1,845 quads under every unchanged acceptance gate. Service times
-were 213 and 294 seconds respectively. The fallback generates a fresh additional
-layout, fits distributed guide samples, and repairs local surface failures when
-needed. It uses the original source, submitted guides and target; no saved test
-candidate participates. See `tests/toilet-sampled-worker/integrated-fallback/`.
-Longer guides, coarse targets and input variation remain unresolved coverage.
+The exhaustive audit is still open. The captured bowl-only, shorter paired-guide
+and longer paired-guide inputs now produce 1,845 quads at target 1,800 through
+the real HTTP service and worker, under unchanged acceptance limits. The latest
+long-guide request took 310 seconds; its result is retained in
+`tests/toilet-sampled-worker/joint-integrated/`. Earlier bowl/short requests took
+213/294 seconds in `tests/toilet-sampled-worker/integrated-fallback/`.
+Every solve uses a fresh layout, the original source and submitted guides.
+No saved candidate participates in production generation.
+
+The joint repair fits guide alignment and surface accuracy together after the
+ordinary sampled passes fail. Rejected full-surface witnesses become barycentric
+triangle constraints in later local fits. Each proposal must preserve every
+already-passing guide and directional surface check; shape and contact checks
+always apply. Eight local passes bound this fallback. The final result still
+requires the ordinary complete acceptance checks. The numerical module exactly
+reproduces the independently audited experiment, while its default settings
+reproduce the prior bowl/short candidates exactly. See `tests/surface-guide-joint/`
+and `tests/surface-guide-refine/detached-joint-defaults/`.
+The actual long-guide worker OBJ also passes both independent audits under
+`tests/toilet-fresh-geometry/joint-integrated/` and
+`tests/toilet-all-diagonal-audit/joint-integrated/`.
+A fresh browser solve also displays the accepted long-guide mesh and downloads
+the identical independently audited OBJ. The Circle control passes in the same
+browser session. All thirteen workflow checks pass; the ten sampled test-owned
+processes are gone after exit. See `tests/toilet-fallback-browser/joint-integrated/`.
+The long browser job took about 494 seconds (488 seconds displayed for solving) with a CPU-intensive headless
+software renderer; this is separate from the 310-second service-only observation.
+Cancellation during actual joint repair passes eleven checks: the worker and
+its descendants stop, unfinished exports remain unavailable, and the service
+admits a fresh request. Evidence is in `tests/toilet-fallback-cancel/joint-integrated/`.
+
+Before joint integration, guide reversal, order changes, densification and a
+rotated closed-guide start all generated independently qualified results.
+A small paired-guide perturbation failed surface accuracy, and target 1,799
+failed contacts. Unguided targets 150/600 remain unsolved. These failures are
+retained as failures; passing rejection checks does not qualify their geometry.
+With joint correction enabled, the small perturbation still failed, reaching
+the existing 600-second service limit during joint pass seven. Its retained
+trial history shows a surface-bound/guide-distance tradeoff. This is a runtime
+and robustness limitation, not a qualified result.
+The paired-guide target 1,799 rerun still rejects face overlaps after about
+265 seconds. Joint repair refuses that intersecting starting mesh. Neither
+failed request leaves a live worker/Blender process or a downloadable result.
 
 Both actual worker exports pass the independent reference/dense/LP/BVH/path
 audit and all mixed-diagonal contact checks under the `integrated-fallback`
@@ -69,7 +104,7 @@ at that checkpoint used its existing fitter and seeds 0/1. Both captured combine
 were also tested: all ten refinement passes fail guide alignment. The last long
 case reaches tangent p95 values of 30.75 and 31.31 degrees, above the unchanged
 30-degree limit. Some shorter-case passes also fail surface checks. None is
-accepted. Integration regression coverage therefore remains required. See
+accepted by that experimental fitter. See
 `tests/toilet-tangent-pins/bowl-seed-2-weight-8/` and the `tangent-bowl-seed2`
 independent audit reports.
 
@@ -78,8 +113,8 @@ candidate independently (p95 distance 0.00901, tangent angle 27.77 degrees).
 Both combined-guide cases still fail all five passes each. Their final tangent
 values remain above 30 degrees, and the shorter case also misses the surface
 screen. These outputs are retained in `tests/toilet-tangent-pins/` and the
-`tangent-captured-seed2-weight12` independent reports. Neither weight is used by
-the production fitter.
+`tangent-captured-seed2-weight12` independent reports. Neither midpoint-based
+experimental variant is used by the production fitter.
 
 An isolated distributed-path objective replaces midpoint alignment with 401
 arc-spaced point-to-edge and tangent residuals. The ordinary 257-sample acceptance
@@ -106,7 +141,7 @@ surface failure witnesses. Four full steps are rejected because they exceed the
 lid-guide distance limit; each half step preserves shape, contacts and both guide
 limits while reducing the observed surface error. The fourth half step also
 passes complete adaptive bounds. The earlier global-support experiments remain
-rejected. The longer guide still has tangent p95 32.47 degrees and full surface
+rejected. Before the joint correction, the longer guide had tangent p95 32.47 degrees and full surface
 failures under both diagonals. Re-selecting paths at its fitted positions returns
 the same chains. Independent per-edge direction fits suggest remaining tangent
 freedom, but those directions need not be realizable by shared mesh vertices;
@@ -122,11 +157,10 @@ both triangles for all six reported pairs. The previous non-adjacent crossing
 screen excluded these pairs. See `tests/toilet-dense-surface/`,
 `tests/toilet-adjacent-contacts/` and `TOILET_TEST_PLAN.md`.
 
-The longer captured bowl-plus-lid guide network also remains a failing regression
-at 1,800 quads. Rejecting its candidate is correct failure handling, not a solved
-retopology case. The implementation still needs stronger fitting;
-old green checks and the UI's quality label are not exhaustive geometry
-qualification.
+The longer captured bowl-plus-lid guide network was also a failing regression
+at that checkpoint. Its later accepted result is described at the top of this
+document and has new independent export audits. The old rejection records and
+UI quality labels are not evidence that those earlier candidates were valid.
 
 Acceptance now checks adjacent contacts, permitting only the actual shared
 topological boundary. It tests every triangle pairing from either quad diagonal,
@@ -227,8 +261,9 @@ physical source against the original decoded Draco asset.
 
 Run `python -X utf8 tests/verify_toilet_stress.py` for both captured guide sets,
 repeatability, density changes, real browser retry/cancel/export, guide save/load,
-failure persistence and a Circle drawn on the lid. The longer guide regression
-currently makes this suite exit nonzero. Historical candidates accepted before
+failure persistence and a Circle drawn on the lid. Its retained historical run
+exited nonzero for the longer guide; the new joint-worker/browser reports cover
+the corrected input separately. Historical candidates accepted before
 the crossing check are retained under `tests/toilet-stress/pre-intersection-check/`
 and are explicitly superseded. Run `python tests/test_surface_intersections.py`
 for the geometric detector controls.

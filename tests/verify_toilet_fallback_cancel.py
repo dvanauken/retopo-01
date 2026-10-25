@@ -8,12 +8,14 @@ sys.path.insert(0, str(ROOT))
 from process_ownership import protect_service_tree
 parser = argparse.ArgumentParser()
 parser.add_argument('--label', required=True)
+parser.add_argument('--stage', choices=['sampled', 'joint'], default='sampled')
 args = parser.parse_args()
 if not args.label.replace('-', '').isalnum(): raise ValueError('Use a plain label')
 protect_service_tree()
 OUT = ROOT / 'tests/toilet-fallback-cancel' / args.label
 OUT.mkdir(parents=True, exist_ok=False)
-files = ['server.py', 'worker.py', 'curved_quad.py', 'surface_guide_refine.py', 'surface_guide_repair.py', 'process_ownership.py', 'tests/verify_toilet_fallback_cancel.py']
+(OUT / 'executed-test.py').write_bytes(Path(__file__).read_bytes())
+files = ['server.py', 'worker.py', 'curved_quad.py', 'surface_guide_refine.py', 'surface_guide_repair.py', 'surface_guide_joint.py', 'process_ownership.py', 'tests/verify_toilet_fallback_cancel.py']
 sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
 hashes = {name: sha(ROOT / name) for name in files}
 checks, errors, observed, service_observed = [], [], [], []
@@ -53,14 +55,16 @@ try:
         except OSError: pass
         if time.monotonic() > deadline: raise RuntimeError('Test service startup failed')
         time.sleep(.1)
-    curves = json.loads((ROOT / 'tests/toilet-stress/two-guides-short-1800/curves.json').read_text())['curves']
+    case_name = 'two-guides-long-1800' if args.stage == 'joint' else 'two-guides-short-1800'
+    stage_prefix = 'Refining guide alignment and surface accuracy' if args.stage == 'joint' else 'Fitting sampled guide paths'
+    curves = json.loads((ROOT / 'tests/toilet-stress' / case_name / 'curves.json').read_text())['curves']
     code, job = http('/api/remesh', dict(requestId=uuid.uuid4().hex, meshId='toilet', target=1800, guideMode=2, curves=curves))
     check(code == 202, 'Captured two-guide request admitted')
     deadline = time.monotonic() + 600; previous = None
     while True:
         _, state = http('/api/jobs/' + job['id'])
         if state['stage'] != previous: print(state['stage'], flush=True); previous = state['stage']
-        if state['stage'].startswith('Fitting sampled guide paths'): break
+        if state['stage'].startswith(stage_prefix): break
         if state['state'] not in ('queued', 'running') or time.monotonic() > deadline: raise AssertionError('Did not observe actual sampled fitting: ' + json.dumps(state))
         time.sleep(.2)
     check(state['state'] == 'running', 'Real worker reached the new fallback before cancellation', state=state)
@@ -104,5 +108,6 @@ finally:
         else: pointer.write_bytes(old_pointer)
     (OUT / 'result.json').write_text(json.dumps(dict(complete=True, passed=not errors and all(c['passed'] for c in checks), checks=checks,
         errors=errors, observedProcesses=observed, serviceDescendantsBeforeCancellation=service_observed, job=job, sourceHashes=hashes, elapsedSeconds=time.monotonic()-started,
-        scope='Real production two-guide solve observed in the sampled-fitting stage, then cancelled through HTTP. No injected successful geometry or suspended worker.'), indent=2) + '\n', newline='\n')
+        requestedStage=args.stage,
+        scope='Real production two-guide solve observed in the requested fitting stage, then cancelled through HTTP. No injected successful geometry or suspended worker.'), indent=2) + '\n', newline='\n')
 raise SystemExit(0 if not errors and all(c['passed'] for c in checks) else 1)

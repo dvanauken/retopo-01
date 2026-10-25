@@ -1,0 +1,20 @@
+{
+  "id": "1e8133d4ba704d58b0d3a681c136e44e",
+  "meshId": "toilet",
+  "target": 1800,
+  "state": "failed",
+  "stage": "Could not generate this network",
+  "createdAt": 1792918582.1494153,
+  "startedAt": 1792918582.1494153,
+  "finishedAt": 1792918968.644461,
+  "actualExitCode": 1,
+  "error": "Generation failed: the closest candidate did not meet the limits for source-surface accuracy. No new mesh was accepted; your source and guides are unchanged.",
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\1e8133d4ba704d58b0d3a681c136e44e"
+  ]
+}
