@@ -2,7 +2,8 @@
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from concurrent.futures import ThreadPoolExecutor
-import argparse,datetime,hashlib,json,mimetypes,os,re,socket,subprocess,sys,threading,time,uuid
+import argparse,datetime,errno,hashlib,json,mimetypes,os,re,socket,subprocess,sys,threading,time,uuid
+from urllib.request import ProxyHandler,build_opener
 import psutil
 from process_ownership import protect_service_tree
 
@@ -186,10 +187,43 @@ class LocalHTTPServer(ThreadingHTTPServer):
   if os.name=='nt':self.socket.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
   super().server_bind()
 
+def existing_server(port):
+ # A health response alone could be another checkout. Verify the listening
+ # process runs this server.py, without trusting a stale runs/server.json.
+ try:
+  for connection in psutil.net_connections(kind='tcp'):
+   if connection.status!=psutil.CONN_LISTEN or not connection.pid or connection.laddr.port!=port:continue
+   if connection.laddr.ip not in ('127.0.0.1','0.0.0.0','::','::ffff:127.0.0.1'):continue
+   try:
+    process=psutil.Process(connection.pid)
+    for argument in process.cmdline()[1:]:
+     script=Path(argument)
+     if script.name.lower()!='server.py':continue
+     if not script.is_absolute():script=Path(process.cwd())/script
+     if script.resolve()!=Path(__file__).resolve():continue
+     opener=build_opener(ProxyHandler({}))
+     with opener.open(f'http://127.0.0.1:{port}/api/health',timeout=2) as response:
+      health=json.loads(response.read(4096))
+     if isinstance(health,dict) and health.get('ready') is True and health.get('engine')=='Local reference engine':return process.pid
+   except (psutil.Error,OSError,ValueError):continue
+ except psutil.Error:pass
+ return None
+
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--port',type=int,default=8741);args=ap.parse_args()
  protect_service_tree()
- server=LocalHTTPServer(('127.0.0.1',args.port),Handler);(ROOT/'runs').mkdir(exist_ok=True)
+ try:server=LocalHTTPServer(('127.0.0.1',args.port),Handler)
+ except OSError as error:
+  if error.errno==errno.EADDRINUSE or getattr(error,'winerror',None)==10048:
+   owner=existing_server(args.port)
+   if owner is not None:
+    print(f'Retopo1 is already running on port {args.port} (PID {owner}). Keep using your existing browser tab, or open http://localhost:{args.port}',flush=True)
+    return 0
+   alternative=8742 if args.port!=8742 else 8743
+   print(f'Port {args.port} is already in use by another process or an unresponsive server. Try start.cmd --port {alternative}',file=sys.stderr,flush=True)
+  else:print(f'Could not listen on port {args.port}: {error}',file=sys.stderr,flush=True)
+  return 1
+ (ROOT/'runs').mkdir(exist_ok=True)
  write(ROOT/'runs/server.json',dict(pid=os.getpid(),url=f'http://127.0.0.1:{args.port}',port=args.port));print(f'Retopo1 is ready at http://127.0.0.1:{args.port}',flush=True)
  try:server.serve_forever()
  except KeyboardInterrupt:pass
@@ -198,4 +232,4 @@ def main():
    for job in JOBS.values():
     if job.get('process') and job['process'].poll() is None:terminate_worker(job['process'])
   server.server_close();QUEUE.shutdown(wait=False,cancel_futures=True)
-if __name__=='__main__':main()
+if __name__=='__main__':raise SystemExit(main())

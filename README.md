@@ -19,6 +19,10 @@ python -X utf8 server.py
 
 Open **http://127.0.0.1:8741**. Choose another local port with `start.cmd --port 8742` if needed. The app and its renderer work without an Internet connection after installation. Keep the terminal open when starting this way.
 
+Running `start.cmd` again recognizes a healthy server from this checkout and
+prints its URL without restarting it or interrupting calculations. If another
+process owns the port, startup reports the conflict and an alternate-port command.
+
 This machine already has the qualified64-bit Windows Python numerical environment. On a new environment, install `requirements.txt`; Python3.12 is the reference environment. The independent SuiteSparse CHOLMOD DLL and its source/build evidence accompany `engine/`. No ZBrush process or Maxon binary is used. Node/npm is optional; `npm start` simply starts the same Python service. There is no frontend build step.
 
 The toilet's curved-surface quad solver also uses the locally installed Blender. On a new machine, install Blender or set `RETOPO_BLENDER` to its executable before starting the server. See [TOILET_SOLVER.md](TOILET_SOLVER.md) for construction, acceptance limits and verification.
