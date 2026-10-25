@@ -273,6 +273,44 @@ in `script-provenance.json`; the reusable script is now
 `tests/probe_toilet_sampled_oriented_support.py`. This filename correction does
 not change measured candidates or reinterpret their failures.
 
+A nine-weight blend diagnostic tests both captured combined inputs between the
+qualified bowl-only candidate and their fitted candidates. All 18 trials remain
+unqualified. In the short case, following the lid guide and preserving the
+surface are competing constraints. An initial harness-only triangle-list type
+error is retained separately from the corrected completed run under
+`tests/toilet-feasible-blend/`; it is not a geometry rejection.
+
+Local witness repair qualifies the shorter combined case without changing any
+limit. The initial worst observed surface error is 0.04992 versus tolerance
+0.04004. Four accepted half steps reduce it to 0.03947 while preserving shape,
+contacts and both guides; each rejected full step exceeds lid-guide distance.
+Final complete surface bounds pass, as do independent audits of the actual OBJ.
+`tests/toilet-witness-repair/short-seed2-local/repair-tradeoff.png` plots the
+measured tradeoff. The p95 lid distance ends at 0.01581 versus limit 0.01602;
+this narrow margin requires input-variation testing before a robustness claim.
+
+`tests/probe_toilet_fresh_witness_pipeline.py --label <new-label>` reproduces the
+short case from the original source and authored guides. It generates a fresh
+Blender layout, runs sampled fitting, selects an eligible surface-failing
+candidate from that run, repairs it and independently audits its export. The
+`fresh-short-seed2` run completes in about 316 seconds including the independent
+audits and reproduces the exact accepted experimental OBJ bytes. No previous
+candidate is used as input. This remains separate from the production worker.
+
+The longer captured case remains unqualified. Path reselection produces the
+same connected chains and tangent error. Its full surface check, previously
+skipped after guide rejection, also fails: diagonal 02 source-to-output reaches
+0.04031; diagonal 13 reaches 0.04570 forward and 0.04053 backward, versus the same
+0.04004 limit. The exact witnesses are in `tests/toilet-long-surface-diagnostics/`.
+Independent direction fits to fixed edge-owner groups reduce the diagnostic
+tangent p95, but ignore shared-vertex and surface constraints and do not qualify
+geometry. See `tests/toilet-path-reselection/`.
+
+Read-only review of the separate guided-layout deployment confirms the bytes of
+all 15 shared files and preserves its failed five-attempt toilet bowl regression.
+Its ellipsoid controls do not qualify the toilet. The existing shared integration
+is unchanged; evidence is retained in `tests/toilet-guided-route-review/`.
+
 Testing arbitrary continuous guide coordinates cannot enumerate every possible
 input. Coverage must therefore include documented finite control/state cases,
 boundary partitions, deterministic generated families, geometric invariants and

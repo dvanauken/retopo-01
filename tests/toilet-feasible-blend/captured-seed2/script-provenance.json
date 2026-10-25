@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/probe_toilet_feasible_blend.py",
+  "executedScript": "tests/toilet-feasible-blend/captured-seed2/executed-probe.py",
+  "executedSha256": "209163c982dd96dc9b292bdc5c7c27d89de422a55a6c043832269438be2f8e49",
+  "currentScriptSha256": "96438a7cf3e429028c1a347867197a9dc762f9205063a908b9c86b4ce88e5e62",
+  "scope": "The first harness failed before evaluating geometry because triangle indices were a list. The current reusable script converts them to a NumPy array. Its completed corrected run is separate."
+}

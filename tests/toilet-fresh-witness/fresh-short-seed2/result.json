@@ -1,0 +1,126 @@
+{
+  "complete": true,
+  "generationPassed": true,
+  "productionResult": false,
+  "freshSourceGeneration": true,
+  "case": "two-guides-short-1800",
+  "seed": 2,
+  "stages": [
+    {
+      "name": "fresh-layout",
+      "command": [
+        "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
+        "--background",
+        "--threads",
+        "8",
+        "--python",
+        "C:\\dbva\\code\\retopo-1\\scripts\\quadriflow_mesh.py",
+        "--",
+        "--input",
+        "C:\\dbva\\code\\retopo-1\\tests\\toilet-fresh-witness\\fresh-short-seed2\\source.json",
+        "--output",
+        "C:\\dbva\\code\\retopo-1\\tests\\toilet-fresh-witness\\fresh-short-seed2\\layout.json",
+        "--target",
+        "1800",
+        "--seed",
+        "2"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 2.7040000000270084
+    },
+    {
+      "name": "sampled-fit",
+      "arguments": [
+        "tests/probe_toilet_sampled_paths.py",
+        "--layout",
+        "C:\\dbva\\code\\retopo-1\\tests\\toilet-fresh-witness\\fresh-short-seed2\\layout.json",
+        "--label",
+        "fresh-short-seed2-fit",
+        "--cases",
+        "two-guides-short-1800"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 92.07799999997951
+    },
+    {
+      "name": "witness-repair",
+      "arguments": [
+        "tests/probe_toilet_witness_repair.py",
+        "--label",
+        "fresh-short-seed2-repair",
+        "--input-folder",
+        "C:\\dbva\\code\\retopo-1\\tests\\toilet-sampled-paths\\fresh-short-seed2-fit",
+        "--case",
+        "two-guides-short-1800",
+        "--candidate-iteration",
+        "1"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 150.5
+    },
+    {
+      "name": "experimental-export",
+      "arguments": [
+        "tests/export_toilet_probe.py",
+        "--probe",
+        "C:\\dbva\\code\\retopo-1\\tests\\toilet-witness-repair\\fresh-short-seed2-repair\\result.json",
+        "--producer-kind",
+        "isolated-witness-repair-probe"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 1.702999999979511
+    },
+    {
+      "name": "independent-export-audit",
+      "arguments": [
+        "tests/verify_toilet_fresh_geometry.py",
+        "--matrix",
+        "C:\\dbva\\code\\retopo-1\\tests\\toilet-witness-repair\\fresh-short-seed2-repair\\export-matrix.json",
+        "--label",
+        "fresh-short-seed2-export"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 55.95300000003772
+    },
+    {
+      "name": "mixed-diagonal-audit",
+      "arguments": [
+        "tests/verify_toilet_all_diagonal_audit.py",
+        "--matrix",
+        "C:\\dbva\\code\\retopo-1\\tests\\toilet-witness-repair\\fresh-short-seed2-repair\\export-matrix.json",
+        "--label",
+        "fresh-short-seed2-export"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 12.375
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+    "tests/probe_toilet_sampled_paths.py": "d9f9cd4b17b862521dcfeddabef869261245c180ca56578cc9f51edc1cf64b9b",
+    "tests/probe_toilet_witness_repair.py": "42db07b52cdf8c85dae15b6886bf2a833a310f5d7b6349758687d0554fd9266c",
+    "tests/probe_toilet_fresh_witness_pipeline.py": "eb6ab80b6c62b600efe75e4ddb1c287b70b77fb06749841eed7fcfd83cc91b8f",
+    "tests/export_toilet_probe.py": "530c43abdbb0bbb3b4e6cfafc8b50e01869f8d9cbbbdbe1bb543c044050307e0",
+    "tests/verify_toilet_fresh_geometry.py": "ddf685d642aac362ab5b0ca49e92c57b94fdfd9985a9f2d9c8b6c117fddb3e6f",
+    "tests/verify_toilet_all_diagonal_audit.py": "25ac58c4724997d3ddc85553d68603df3de05af1c0e66fa7307b65489119b433",
+    "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9"
+  },
+  "curvesSha256": "130f3b62e4feb17006327038396b62fdbb589c8306a4b68a2d844c2992e29132",
+  "layoutSha256": "9a7b6bdf837dfcc540bff706258a2776c16de82cda9560e4b143e88f0b902147",
+  "blender": "C:\\Program Files\\Blender Foundation\\Blender 5.1\\blender.exe",
+  "blenderSha256": "b952b58cafe44050ae016bda94c91de0968b028b1c7082a824d7087985619642",
+  "chosenRepairCandidate": {
+    "iteration": 1,
+    "candidateSha256": "0b9416007efccbf829d8428a02f1aa321af609fac0d377f330472f0e806c8145"
+  },
+  "exportMatrix": "tests\\toilet-witness-repair\\fresh-short-seed2-repair\\export-matrix.json",
+  "implementationUnchanged": true,
+  "elapsedSeconds": 315.63999999995576,
+  "scope": "Fresh original-source Blender layout, distributed sampled-path fitting, automatic selection of the best measured guide/shape/contact-valid surface-failing candidate, local witness repair, and independent OBJ audits. Every intermediate mesh is produced during this run. No prior candidate or saved result is used as input. This is an isolated experimental pipeline; the production toilet route is unchanged."
+}

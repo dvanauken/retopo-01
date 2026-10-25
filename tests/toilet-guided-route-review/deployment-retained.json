@@ -1,0 +1,96 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\curved_quad.py",
+      "sha256": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+      "previousSha256": "5f61d636cdcef465e94cc6329a0b4834e25f9ea6b3dc28bccf8c5cb6032b777d",
+      "retained": "after/curved_quad.py"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\worker.py",
+      "sha256": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+      "previousSha256": "be805b98af6ae4248f5b58d697dd500e4638702f91239236aa194af30f02146e",
+      "retained": "after/worker.py"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\requirements.txt",
+      "sha256": "951170a5142f71a26d3ea3fecb5a5f2ddb3705bb303684753ed4c19afc875b56",
+      "previousSha256": "488cb69e537ac4615d8b0b3fee342f252de648ada39664bac3b4510d88efa7bb",
+      "retained": "after/requirements.txt"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\assets\\catalog.json",
+      "sha256": "1c87037f0f47eaf104467c158d8c05680c95dcb203e678c00fd4933ffdf911aa",
+      "previousSha256": "bc8fd85345bec4f26d7433182006febad2285e5b32998f8e2f80344f43d5612e",
+      "retained": "after/assets/catalog.json"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\guided_layout.py",
+      "sha256": "efe61f5f1f8619754db1fbcd9f8c77d2ed542d0f76c2c29c37a5bb06c6695b98",
+      "previousSha256": null,
+      "retained": "after/guided_layout.py"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\guide_embedding.py",
+      "sha256": "1164426e57dc4c2ef93ee673290c9c394d4adb2e3905e775ba0088f5ac6158bf",
+      "previousSha256": null,
+      "retained": "after/guide_embedding.py"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\guide_embedding_check.py",
+      "sha256": "d60f4b6223d89d68679dd177e9b83a132729cdcecd99f2da88013b349a0abcd4",
+      "previousSha256": null,
+      "retained": "after/guide_embedding_check.py"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\guide_ordered_targets.py",
+      "sha256": "9822787eb90a0dc5cd76b6c21cab32d28a826a3aa6c066153cb5ca749ba5589e",
+      "previousSha256": null,
+      "retained": "after/guide_ordered_targets.py"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\assets\\models\\ellipsoid.json",
+      "sha256": "f1a1c993ebb2ebf93c42558b84a59a3fe42944e24a711e2f5ec4f8bb2522fd95",
+      "previousSha256": null,
+      "retained": "after/assets/models/ellipsoid.json"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\assets\\models\\ellipsoid.obj",
+      "sha256": "75813381047fe0f94d50f4b3dc55b331b85543837833e7818647bd672acaba13",
+      "previousSha256": null,
+      "retained": "after/assets/models/ellipsoid.obj"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\GUIDED_LAYOUT.md",
+      "sha256": "8a7788a33c174798acd74d7386669e201e0aa0dca2e66241ea3537fdcf4c9270",
+      "previousSha256": null,
+      "retained": "after/GUIDED_LAYOUT.md"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\LICENSE.txt",
+      "sha256": "e052d7748952330e148cb9f1d70583229faf75320e82596733db9ec049db0365",
+      "previousSha256": null,
+      "retained": "after/engine/guided-quadriflow/LICENSE.txt"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\manifest.json",
+      "sha256": "1490317e7effb28104bc4d3de5c630bf8d45c2e4394156b5dd57512cf17edc12",
+      "previousSha256": null,
+      "retained": "after/engine/guided-quadriflow/manifest.json"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\quadriflow.exe",
+      "sha256": "c6e60083469265d197633798e342bd65b72f8cd6e35a92b9e0fb3a2ccad9f2cb",
+      "previousSha256": null,
+      "retained": "after/engine/guided-quadriflow/quadriflow.exe"
+    },
+    {
+      "path": "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\source.zip",
+      "sha256": "bbce9cf25072e7db7c4571274694391d9cc66f40e76d42ca2ce9e626ea89a0a0",
+      "previousSha256": null,
+      "retained": "after/engine/guided-quadriflow/source.zip"
+    }
+  ],
+  "scope": "Narrow file deployment only; browser qualification remains separate."
+}

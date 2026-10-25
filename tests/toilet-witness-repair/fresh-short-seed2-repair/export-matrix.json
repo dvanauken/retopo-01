@@ -1,0 +1,12 @@
+{
+  "cases": [
+    {
+      "name": "two-guides-short-1800",
+      "state": "complete",
+      "job": null,
+      "producerKind": "isolated-witness-repair-probe"
+    }
+  ],
+  "productionResult": false,
+  "scope": "Completed isolated experiment, exported for independent validation. No service job or production result."
+}

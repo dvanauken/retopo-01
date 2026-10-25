@@ -1,0 +1,223 @@
+{
+  "complete": true,
+  "recordedAt": "2026-10-25T07:01:14.932422+00:00",
+  "retained": {
+    "deployment": {
+      "source": "C:\\dbva\\code\\ghidra-workbench\\work\\retopo-guided-layout\\deployments\\guided-curved-01\\result.json",
+      "sha256": "05305048d9db5c0d1b22a08183eb92471127082de806523e66991b4ab49d4c70",
+      "retained": "tests\\toilet-guided-route-review\\deployment-retained.json"
+    },
+    "bowl": {
+      "source": "C:\\dbva\\code\\ghidra-workbench\\work\\retopo-guided-layout\\experiments\\bowl-oriented-faces-19\\result.json",
+      "sha256": "1dc3cc71f2304bbac57bb7ca970d11a1c15dc76c39bb1396350829b9a08d892b",
+      "retained": "tests\\toilet-guided-route-review\\bowl-retained.json"
+    }
+  },
+  "currentFilesMatchRetainedDeployment": true,
+  "sharedFiles": [
+    {
+      "file": "curved_quad.py",
+      "deploymentSha256": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+      "currentSha256": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+      "matches": true
+    },
+    {
+      "file": "worker.py",
+      "deploymentSha256": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+      "currentSha256": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+      "matches": true
+    },
+    {
+      "file": "requirements.txt",
+      "deploymentSha256": "951170a5142f71a26d3ea3fecb5a5f2ddb3705bb303684753ed4c19afc875b56",
+      "currentSha256": "951170a5142f71a26d3ea3fecb5a5f2ddb3705bb303684753ed4c19afc875b56",
+      "matches": true
+    },
+    {
+      "file": "assets\\catalog.json",
+      "deploymentSha256": "1c87037f0f47eaf104467c158d8c05680c95dcb203e678c00fd4933ffdf911aa",
+      "currentSha256": "1c87037f0f47eaf104467c158d8c05680c95dcb203e678c00fd4933ffdf911aa",
+      "matches": true
+    },
+    {
+      "file": "guided_layout.py",
+      "deploymentSha256": "efe61f5f1f8619754db1fbcd9f8c77d2ed542d0f76c2c29c37a5bb06c6695b98",
+      "currentSha256": "efe61f5f1f8619754db1fbcd9f8c77d2ed542d0f76c2c29c37a5bb06c6695b98",
+      "matches": true
+    },
+    {
+      "file": "guide_embedding.py",
+      "deploymentSha256": "1164426e57dc4c2ef93ee673290c9c394d4adb2e3905e775ba0088f5ac6158bf",
+      "currentSha256": "1164426e57dc4c2ef93ee673290c9c394d4adb2e3905e775ba0088f5ac6158bf",
+      "matches": true
+    },
+    {
+      "file": "guide_embedding_check.py",
+      "deploymentSha256": "d60f4b6223d89d68679dd177e9b83a132729cdcecd99f2da88013b349a0abcd4",
+      "currentSha256": "d60f4b6223d89d68679dd177e9b83a132729cdcecd99f2da88013b349a0abcd4",
+      "matches": true
+    },
+    {
+      "file": "guide_ordered_targets.py",
+      "deploymentSha256": "9822787eb90a0dc5cd76b6c21cab32d28a826a3aa6c066153cb5ca749ba5589e",
+      "currentSha256": "9822787eb90a0dc5cd76b6c21cab32d28a826a3aa6c066153cb5ca749ba5589e",
+      "matches": true
+    },
+    {
+      "file": "assets\\models\\ellipsoid.json",
+      "deploymentSha256": "f1a1c993ebb2ebf93c42558b84a59a3fe42944e24a711e2f5ec4f8bb2522fd95",
+      "currentSha256": "f1a1c993ebb2ebf93c42558b84a59a3fe42944e24a711e2f5ec4f8bb2522fd95",
+      "matches": true
+    },
+    {
+      "file": "assets\\models\\ellipsoid.obj",
+      "deploymentSha256": "75813381047fe0f94d50f4b3dc55b331b85543837833e7818647bd672acaba13",
+      "currentSha256": "75813381047fe0f94d50f4b3dc55b331b85543837833e7818647bd672acaba13",
+      "matches": true
+    },
+    {
+      "file": "GUIDED_LAYOUT.md",
+      "deploymentSha256": "8a7788a33c174798acd74d7386669e201e0aa0dca2e66241ea3537fdcf4c9270",
+      "currentSha256": "8a7788a33c174798acd74d7386669e201e0aa0dca2e66241ea3537fdcf4c9270",
+      "matches": true
+    },
+    {
+      "file": "engine\\guided-quadriflow\\LICENSE.txt",
+      "deploymentSha256": "e052d7748952330e148cb9f1d70583229faf75320e82596733db9ec049db0365",
+      "currentSha256": "e052d7748952330e148cb9f1d70583229faf75320e82596733db9ec049db0365",
+      "matches": true
+    },
+    {
+      "file": "engine\\guided-quadriflow\\manifest.json",
+      "deploymentSha256": "1490317e7effb28104bc4d3de5c630bf8d45c2e4394156b5dd57512cf17edc12",
+      "currentSha256": "1490317e7effb28104bc4d3de5c630bf8d45c2e4394156b5dd57512cf17edc12",
+      "matches": true
+    },
+    {
+      "file": "engine\\guided-quadriflow\\quadriflow.exe",
+      "deploymentSha256": "c6e60083469265d197633798e342bd65b72f8cd6e35a92b9e0fb3a2ccad9f2cb",
+      "currentSha256": "c6e60083469265d197633798e342bd65b72f8cd6e35a92b9e0fb3a2ccad9f2cb",
+      "matches": true
+    },
+    {
+      "file": "engine\\guided-quadriflow\\source.zip",
+      "deploymentSha256": "bbce9cf25072e7db7c4571274694391d9cc66f40e76d42ca2ce9e626ea89a0a0",
+      "currentSha256": "bbce9cf25072e7db7c4571274694391d9cc66f40e76d42ca2ce9e626ea89a0a0",
+      "matches": true
+    }
+  ],
+  "toiletUsesGuidedLayout": false,
+  "retainedBowlGenerationPassed": false,
+  "cases": [
+    {
+      "iteration": 0,
+      "passed": false,
+      "qualityPassed": false,
+      "qualityFailures": [
+        "minimumAngleDegrees below limit",
+        "scaledJacobianMin below limit"
+      ],
+      "contactsPassed": false,
+      "contactPairs": 66,
+      "minimumAngle": 9.63993725290181,
+      "minimumJacobian": -0.28612373082765724,
+      "surfacePassed": false,
+      "fullSurfaceBoundsPerformed": false,
+      "guideFit": [
+        {
+          "curve": 0,
+          "p95Distance": 0.015869530293882633,
+          "p95TangentAngleDegrees": 39.46670106539015
+        }
+      ]
+    },
+    {
+      "iteration": 1,
+      "passed": false,
+      "qualityPassed": false,
+      "qualityFailures": [
+        "minimumAngleDegrees below limit",
+        "scaledJacobianMin below limit"
+      ],
+      "contactsPassed": false,
+      "contactPairs": 86,
+      "minimumAngle": 23.77459942654226,
+      "minimumJacobian": 0.0749451001610096,
+      "surfacePassed": false,
+      "fullSurfaceBoundsPerformed": false,
+      "guideFit": [
+        {
+          "curve": 0,
+          "p95Distance": 0.017477447139222203,
+          "p95TangentAngleDegrees": 47.10256467402075
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "passed": false,
+      "qualityPassed": false,
+      "qualityFailures": [
+        "minimumAngleDegrees below limit",
+        "scaledJacobianMin below limit"
+      ],
+      "contactsPassed": false,
+      "contactPairs": 78,
+      "minimumAngle": 27.17291442983451,
+      "minimumJacobian": 0.32134009966588944,
+      "surfacePassed": false,
+      "fullSurfaceBoundsPerformed": false,
+      "guideFit": [
+        {
+          "curve": 0,
+          "p95Distance": 0.014752337372930321,
+          "p95TangentAngleDegrees": 45.370443513641725
+        }
+      ]
+    },
+    {
+      "iteration": 3,
+      "passed": false,
+      "qualityPassed": false,
+      "qualityFailures": [
+        "minimumAngleDegrees below limit",
+        "scaledJacobianMin below limit"
+      ],
+      "contactsPassed": false,
+      "contactPairs": 85,
+      "minimumAngle": 27.895379352748996,
+      "minimumJacobian": 0.4451778397441619,
+      "surfacePassed": false,
+      "fullSurfaceBoundsPerformed": false,
+      "guideFit": [
+        {
+          "curve": 0,
+          "p95Distance": 0.01527521476544686,
+          "p95TangentAngleDegrees": 45.26637720539829
+        }
+      ]
+    },
+    {
+      "iteration": 4,
+      "passed": false,
+      "qualityPassed": false,
+      "qualityFailures": [
+        "minimumAngleDegrees below limit"
+      ],
+      "contactsPassed": false,
+      "contactPairs": 101,
+      "minimumAngle": 29.19326029448446,
+      "minimumJacobian": 0.48390769252605775,
+      "surfacePassed": false,
+      "fullSurfaceBoundsPerformed": false,
+      "guideFit": [
+        {
+          "curve": 0,
+          "p95Distance": 0.016041291344340115,
+          "p95TangentAngleDegrees": 43.470146121728256
+        }
+      ]
+    }
+  ],
+  "scope": "Read-only review of separate existing guided-layout deployment and retained toilet failure. Confirms the origin and bytes of preserved shared edits, not new numerical execution or qualification of that solver. The default toilet route remains unchanged. Other research project claims are outside this audit."
+}

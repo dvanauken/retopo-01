@@ -1,0 +1,128 @@
+{
+  "checkedAt": "2026-10-25T07:20:47.225719+00:00",
+  "exhaustiveGoalComplete": false,
+  "productionWorkerChanged": false,
+  "productionFitterChanged": false,
+  "freshPipeline": {
+    "report": "tests/toilet-fresh-witness/fresh-short-seed2/result.json",
+    "sha256": "de6994b4313c4f10e62f97d4bff08b6945c31906dc2f2b49897166d774874703",
+    "elapsedSeconds": 315.63999999995576,
+    "layoutSha256": "9a7b6bdf837dfcc540bff706258a2776c16de82cda9560e4b143e88f0b902147",
+    "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "verifiedExperimentalExport": {
+    "outputSha256": "4c0c434ecbb80901851e5edc72d69f4a68660c253a92adf667bca3540712b9c9",
+    "faces": 1845,
+    "minAngle": 43.399918384729226,
+    "minJacobian": 0.6506897220104719,
+    "guideFit": [
+      {
+        "curve": 0,
+        "p95Distance": 0.007567043046389793,
+        "p95TangentAngleDegrees": 27.854169459603938
+      },
+      {
+        "curve": 1,
+        "p95Distance": 0.015808779950817465,
+        "p95TangentAngleDegrees": 16.649502744618488
+      }
+    ],
+    "guideDistanceLimit": 0.016016218453720376,
+    "minimumGuideDistanceMarginFraction": 0.01295177781836046,
+    "finalObservedSurfaceError": 0.03946623550188303,
+    "surfaceTolerance": 0.04004054613430094,
+    "completeSurfaceBounds": {
+      "02": {
+        "passed": true,
+        "tolerance": 0.04004054613430094,
+        "sourceToOutput": {
+          "passed": true,
+          "status": "bounded",
+          "maximumUpperBound": 0.04002726782610372,
+          "sampledMax": 0.03936765302979474,
+          "testedTriangles": 40780,
+          "subdivisionDepth": 5,
+          "unresolvedTriangles": 0,
+          "witness": [
+            -0.25250303993437506,
+            -0.8688644398478751,
+            0.188034159852
+          ]
+        },
+        "outputToSource": {
+          "passed": true,
+          "status": "bounded",
+          "maximumUpperBound": 0.04002207957498857,
+          "sampledMax": 0.03799985729786776,
+          "testedTriangles": 13694,
+          "subdivisionDepth": 4,
+          "unresolvedTriangles": 0,
+          "witness": [
+            -0.24805714117361521,
+            -0.8105738085151787,
+            0.16730884676712454
+          ]
+        },
+        "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+      },
+      "13": {
+        "passed": true,
+        "tolerance": 0.04004054613430094,
+        "sourceToOutput": {
+          "passed": true,
+          "status": "bounded",
+          "maximumUpperBound": 0.040029789968253515,
+          "sampledMax": 0.03946623550188303,
+          "testedTriangles": 41360,
+          "subdivisionDepth": 4,
+          "unresolvedTriangles": 0,
+          "witness": [
+            -0.21868134011208337,
+            -0.9045177200818334,
+            0.18905165984675
+          ]
+        },
+        "outputToSource": {
+          "passed": true,
+          "status": "bounded",
+          "maximumUpperBound": 0.040034562690853724,
+          "sampledMax": 0.033303560419056036,
+          "testedTriangles": 14074,
+          "subdivisionDepth": 3,
+          "unresolvedTriangles": 0,
+          "witness": [
+            -0.38827444013038154,
+            0.26550740081198443,
+            0.03090947176786382
+          ]
+        },
+        "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+      }
+    },
+    "productionResult": false
+  },
+  "independentAudits": {
+    "fresh-geometry/witness-short-seed2": {
+      "report": "tests/toilet-fresh-geometry/witness-short-seed2/result.json",
+      "sha256": "57aaf5e7ea0e78441bffd63ac2d8cc42b1058b470b047d29621b982dfefdd02b"
+    },
+    "all-diagonal-audit/witness-short-seed2": {
+      "report": "tests/toilet-all-diagonal-audit/witness-short-seed2/result.json",
+      "sha256": "13ac62a944560580f88381debf8adf5995caf2d52ac88edf6a879a8c16e18915"
+    },
+    "fresh-geometry/fresh-short-seed2-export": {
+      "report": "tests/toilet-fresh-geometry/fresh-short-seed2-export/result.json",
+      "sha256": "3071e3eac750b2ca53dfe7c8519a6faf622689a5ccf3639c3e6fa27052cf54b7"
+    },
+    "all-diagonal-audit/fresh-short-seed2-export": {
+      "report": "tests/toilet-all-diagonal-audit/fresh-short-seed2-export/result.json",
+      "sha256": "90e66a5edbaf52a5511bee94c93b305c40f8dbe69f4b6740406f7cab4015ca4b"
+    }
+  },
+  "longCase": {
+    "report": "tests/toilet-long-surface-diagnostics/result.json",
+    "sha256": "20b3f23ad26fbfcb75bd9c36ffe75951718bce1517717058e3821e86d4acae51",
+    "geometryQualified": false
+  },
+  "scope": "The captured short combined case is independently qualified in a retained-layout experiment and a fresh original-source pipeline, with identical actual OBJ bytes. The method is not in the production worker. The longer captured case still fails tangent alignment and full surface bounds; variation, runtime and production integration work remain."
+}

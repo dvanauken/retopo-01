@@ -1,0 +1,788 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "selection": "original",
+      "guideGatePassed": false,
+      "guideFit": [
+        {
+          "vertices": [
+            738,
+            604,
+            590,
+            605,
+            486,
+            758,
+            791,
+            741,
+            742,
+            716,
+            715,
+            592,
+            565,
+            568,
+            567,
+            569,
+            571,
+            539,
+            523,
+            1841,
+            593,
+            414,
+            368,
+            403,
+            378,
+            377,
+            379,
+            1472,
+            1332,
+            1330,
+            1329,
+            380,
+            382,
+            370,
+            1782,
+            446,
+            447,
+            519,
+            520,
+            521,
+            534,
+            651,
+            687,
+            586,
+            585,
+            535,
+            537,
+            522,
+            484,
+            587,
+            588,
+            712,
+            538,
+            589,
+            738
+          ],
+          "closed": true,
+          "curve": 0,
+          "p95Distance": 0.006703463890426665,
+          "p95TangentAngleDegrees": 29.121827505270943,
+          "alignment": {
+            "samples": 257,
+            "meanDistance": 0.002354399667370563,
+            "p95Distance": 0.006703463890426665,
+            "maxDistance": 0.011610821516700379,
+            "meanDistanceOverMedianEdge": 0.032638571593304216,
+            "meanUnsignedTangentAngleDegrees": 6.496943229370368,
+            "p95UnsignedTangentAngleDegrees": 29.121827505270943,
+            "selectedEdgeCount": 54,
+            "selectedEdgeGraphComponents": 1,
+            "selectedEdgeGraphDegreeHistogram": {
+              "2": 54
+            },
+            "selectedEdgesFormSingleCycle": true,
+            "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+          },
+          "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+        },
+        {
+          "vertices": [
+            1823,
+            1719,
+            411,
+            563,
+            1478,
+            1806,
+            1825,
+            488,
+            485,
+            487,
+            385,
+            386,
+            391,
+            430,
+            431,
+            428,
+            426,
+            457,
+            455,
+            454,
+            562,
+            482,
+            453,
+            451,
+            405,
+            406,
+            1723
+          ],
+          "closed": false,
+          "curve": 1,
+          "p95Distance": 0.008180712027356535,
+          "p95TangentAngleDegrees": 32.47171138093218,
+          "alignment": {
+            "samples": 257,
+            "meanDistance": 0.0025566731069098115,
+            "p95Distance": 0.008180712027356535,
+            "maxDistance": 0.016193793906387796,
+            "meanDistanceOverMedianEdge": 0.03305807606956035,
+            "meanUnsignedTangentAngleDegrees": 6.787724681431337,
+            "p95UnsignedTangentAngleDegrees": 32.47171138093218,
+            "selectedEdgeCount": 26,
+            "selectedEdgeGraphComponents": 1,
+            "selectedEdgeGraphDegreeHistogram": {
+              "1": 2,
+              "2": 25
+            },
+            "selectedEdgesFormSingleCycle": false,
+            "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+          },
+          "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+        }
+      ]
+    },
+    {
+      "selection": "reselected",
+      "guideGatePassed": false,
+      "guideFit": [
+        {
+          "vertices": [
+            589,
+            738,
+            604,
+            590,
+            605,
+            486,
+            758,
+            791,
+            741,
+            742,
+            716,
+            715,
+            592,
+            565,
+            568,
+            567,
+            569,
+            571,
+            539,
+            523,
+            1841,
+            593,
+            414,
+            368,
+            403,
+            378,
+            377,
+            379,
+            1472,
+            1332,
+            1330,
+            1329,
+            380,
+            382,
+            370,
+            1782,
+            446,
+            447,
+            519,
+            520,
+            521,
+            534,
+            651,
+            687,
+            586,
+            585,
+            535,
+            537,
+            522,
+            484,
+            587,
+            588,
+            712,
+            538,
+            589
+          ],
+          "closed": true,
+          "curve": 0,
+          "p95Distance": 0.006703463890426665,
+          "p95TangentAngleDegrees": 29.121827505270943,
+          "alignment": {
+            "samples": 257,
+            "meanDistance": 0.002354399667370563,
+            "p95Distance": 0.006703463890426665,
+            "maxDistance": 0.011610821516700379,
+            "meanDistanceOverMedianEdge": 0.032638571593304216,
+            "meanUnsignedTangentAngleDegrees": 6.496943229370368,
+            "p95UnsignedTangentAngleDegrees": 29.121827505270943,
+            "selectedEdgeCount": 54,
+            "selectedEdgeGraphComponents": 1,
+            "selectedEdgeGraphDegreeHistogram": {
+              "2": 54
+            },
+            "selectedEdgesFormSingleCycle": true,
+            "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+          },
+          "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+        },
+        {
+          "vertices": [
+            1823,
+            1719,
+            411,
+            563,
+            1478,
+            1806,
+            1825,
+            488,
+            485,
+            487,
+            385,
+            386,
+            391,
+            430,
+            431,
+            428,
+            426,
+            457,
+            455,
+            454,
+            562,
+            482,
+            453,
+            451,
+            405,
+            406,
+            1723
+          ],
+          "closed": false,
+          "curve": 1,
+          "p95Distance": 0.008180712027356535,
+          "p95TangentAngleDegrees": 32.47171138093218,
+          "alignment": {
+            "samples": 257,
+            "meanDistance": 0.0025566731069098115,
+            "p95Distance": 0.008180712027356535,
+            "maxDistance": 0.016193793906387796,
+            "meanDistanceOverMedianEdge": 0.03305807606956035,
+            "meanUnsignedTangentAngleDegrees": 6.787724681431337,
+            "p95UnsignedTangentAngleDegrees": 32.47171138093218,
+            "selectedEdgeCount": 26,
+            "selectedEdgeGraphComponents": 1,
+            "selectedEdgeGraphDegreeHistogram": {
+              "1": 2,
+              "2": 25
+            },
+            "selectedEdgesFormSingleCycle": false,
+            "loopContinuity": "Nearest-edge selection graph only; not a global topological guarantee or certified curve correspondence."
+          },
+          "sampleMethod": "257 samples uniformly spaced by authored polyline arc length; measured against this connected output-edge path."
+        }
+      ]
+    }
+  ],
+  "tangentDiagnostics": [
+    {
+      "originalP95": 29.12182750527093,
+      "unconstrainedPrincipalP95": 21.190225115104028,
+      "badSampleCount": 13,
+      "unconstrainedBadSampleCount": 3,
+      "badEdgeGroups": [
+        {
+          "edge": [
+            486,
+            758
+          ],
+          "samples": [
+            20,
+            21
+          ],
+          "actualAngles": [
+            42.70910799508342,
+            41.77048152878836
+          ],
+          "unconstrainedPrincipalAngles": [
+            0.7180193568921317,
+            0.7180193568921317
+          ],
+          "unconstrainedDirection": [
+            -0.6991990810765292,
+            0.7149270207662717,
+            0.0
+          ],
+          "midpoint": [
+            -0.2683416963660055,
+            -0.855149895901198,
+            0.10265777015186771
+          ]
+        },
+        {
+          "edge": [
+            716,
+            715
+          ],
+          "samples": [
+            46
+          ],
+          "actualAngles": [
+            69.16522507903001
+          ],
+          "unconstrainedPrincipalAngles": [
+            0.0
+          ],
+          "unconstrainedDirection": [
+            -0.24874812917012376,
+            0.9685682052567923,
+            0.0
+          ],
+          "midpoint": [
+            -0.4499769822191526,
+            -0.5084552909675535,
+            0.10178867038187109
+          ]
+        },
+        {
+          "edge": [
+            523,
+            1841
+          ],
+          "samples": [
+            91,
+            92
+          ],
+          "actualAngles": [
+            1.0813449313006147,
+            30.36898730586887
+          ],
+          "unconstrainedPrincipalAngles": [
+            14.685646249802863,
+            14.685646249802863
+          ],
+          "unconstrainedDirection": [
+            -0.9274445287626941,
+            -0.37396075471651313,
+            -0.0
+          ],
+          "midpoint": [
+            -0.34671089055241167,
+            0.15236268168252248,
+            0.10046608962095266
+          ]
+        },
+        {
+          "edge": [
+            593,
+            414
+          ],
+          "samples": [
+            96,
+            97,
+            98,
+            99
+          ],
+          "actualAngles": [
+            15.220316838635707,
+            5.902975966544429,
+            34.477727990114445,
+            17.661938213782943
+          ],
+          "unconstrainedPrincipalAngles": [
+            22.618450687047694,
+            13.14151770747518,
+            26.94714254742027,
+            10.087816179535748
+          ],
+          "unconstrainedDirection": [
+            -0.7838487531707522,
+            -0.6209517953534374,
+            -0.0
+          ],
+          "midpoint": [
+            -0.2760902866122376,
+            0.18015577139908706,
+            0.09973842685699988
+          ]
+        },
+        {
+          "edge": [
+            1332,
+            1330
+          ],
+          "samples": [
+            135,
+            136,
+            137
+          ],
+          "actualAngles": [
+            5.192346794047336,
+            2.4815571499613567,
+            44.99627710880512
+          ],
+          "unconstrainedPrincipalAngles": [
+            17.487350473827103,
+            9.817294993353991,
+            32.6999181520826
+          ],
+          "unconstrainedDirection": [
+            -0.9538645173655492,
+            -0.30023737693862823,
+            -0.0
+          ],
+          "midpoint": [
+            0.10484374603680538,
+            0.25076302228664255,
+            0.10003441348880007
+          ]
+        },
+        {
+          "edge": [
+            380,
+            382
+          ],
+          "samples": [
+            148,
+            149,
+            150
+          ],
+          "actualAngles": [
+            18.557383531453308,
+            11.836760077260196,
+            31.438346165035302
+          ],
+          "unconstrainedPrincipalAngles": [
+            27.3451864262525,
+            3.0286809139711175,
+            22.63847349068036
+          ],
+          "unconstrainedDirection": [
+            -0.5830566643015302,
+            0.8124314901661387,
+            0.0
+          ],
+          "midpoint": [
+            0.2258524517385181,
+            0.3237259489562425,
+            0.09994980155907572
+          ]
+        },
+        {
+          "edge": [
+            370,
+            1782
+          ],
+          "samples": [
+            154
+          ],
+          "actualAngles": [
+            42.172180306048176
+          ],
+          "unconstrainedPrincipalAngles": [
+            0.0
+          ],
+          "unconstrainedDirection": [
+            0.02030379952512868,
+            0.9997938566148741,
+            0.0
+          ],
+          "midpoint": [
+            0.24302413553228278,
+            0.24914072830708614,
+            0.0998490578448519
+          ]
+        },
+        {
+          "edge": [
+            1782,
+            446
+          ],
+          "samples": [
+            155,
+            156,
+            157,
+            158
+          ],
+          "actualAngles": [
+            4.979238627907591,
+            4.354750303316326,
+            10.475572934353819,
+            54.92799003552069
+          ],
+          "unconstrainedPrincipalAngles": [
+            14.714678752998864,
+            12.073854375305674,
+            2.749387610422962,
+            42.52320676400522
+          ],
+          "unconstrainedDirection": [
+            -0.24466348795546636,
+            0.969608053628612,
+            0.0
+          ],
+          "midpoint": [
+            0.2476507227570053,
+            0.21626197749984202,
+            0.09847204140470411
+          ]
+        },
+        {
+          "edge": [
+            446,
+            447
+          ],
+          "samples": [
+            159,
+            160,
+            161,
+            162,
+            163,
+            164,
+            165,
+            166
+          ],
+          "actualAngles": [
+            5.86817496176296,
+            31.487201382713106,
+            35.52776269982473,
+            3.054268790310937,
+            19.3095631961091,
+            18.39814827921061,
+            12.967457100812837,
+            17.089015579520375
+          ],
+          "unconstrainedPrincipalAngles": [
+            7.885041576495093,
+            29.46203350715226,
+            33.50276435710624,
+            5.064528351131412,
+            21.33145468700062,
+            20.419928459061524,
+            14.98826124378598,
+            15.062664541596009
+          ],
+          "unconstrainedDirection": [
+            -0.9183318216345208,
+            0.39581140126760245,
+            0.0
+          ],
+          "midpoint": [
+            0.30117783244557794,
+            0.16864889485314638,
+            0.10024887505272075
+          ]
+        },
+        {
+          "edge": [
+            484,
+            587
+          ],
+          "samples": [
+            234,
+            235
+          ],
+          "actualAngles": [
+            33.22566038788996,
+            33.18850379516643
+          ],
+          "unconstrainedPrincipalAngles": [
+            0.2189591101367993,
+            0.21895911013846386
+          ],
+          "unconstrainedDirection": [
+            0.6694222787875422,
+            0.742882098763252,
+            0.0
+          ],
+          "midpoint": [
+            0.2843239389801999,
+            -0.8269942182560454,
+            0.10071247960166883
+          ]
+        }
+      ]
+    },
+    {
+      "originalP95": 32.47171138093218,
+      "unconstrainedPrincipalP95": 7.811441071706262,
+      "badSampleCount": 17,
+      "unconstrainedBadSampleCount": 0,
+      "badEdgeGroups": [
+        {
+          "edge": [
+            411,
+            563
+          ],
+          "samples": [
+            27,
+            28,
+            29
+          ],
+          "actualAngles": [
+            43.370161761037025,
+            43.38804194400014,
+            44.99118925317486
+          ],
+          "unconstrainedPrincipalAngles": [
+            0.5988711194147052,
+            0.5792100568271104,
+            1.1783303205076738
+          ],
+          "unconstrainedDirection": [
+            -0.16991216708616128,
+            0.9849140044379696,
+            0.03277589568641746
+          ],
+          "midpoint": [
+            -0.3641753636311287,
+            -0.4767901077498101,
+            0.22195195152839264
+          ]
+        },
+        {
+          "edge": [
+            385,
+            386
+          ],
+          "samples": [
+            112,
+            113,
+            114,
+            115
+          ],
+          "actualAngles": [
+            39.82812049368707,
+            40.22412750384604,
+            40.224127503846105,
+            42.144189864482726
+          ],
+          "unconstrainedPrincipalAngles": [
+            0.8205778257690666,
+            0.3949371200869407,
+            0.3949371200850951,
+            1.6105808990255455
+          ],
+          "unconstrainedDirection": [
+            -0.9810322339396392,
+            0.19383517120212082,
+            0.0019189519133304032
+          ],
+          "midpoint": [
+            -0.02080181722008873,
+            -0.9468591646924895,
+            0.2042316521698078
+          ]
+        },
+        {
+          "edge": [
+            431,
+            428
+          ],
+          "samples": [
+            155,
+            156,
+            157,
+            158
+          ],
+          "actualAngles": [
+            31.747832857261113,
+            31.74783285726105,
+            31.857681213466133,
+            32.02290232464523
+          ],
+          "unconstrainedPrincipalAngles": [
+            0.4737811258214285,
+            0.47378112582065923,
+            0.08728634943376079,
+            0.8603621701119997
+          ],
+          "unconstrainedDirection": [
+            -0.5550012001784037,
+            -0.8311742321924536,
+            -0.03351214018555836
+          ],
+          "midpoint": [
+            0.23333540880023157,
+            -0.8243170706991498,
+            0.20906678135084084
+          ]
+        },
+        {
+          "edge": [
+            457,
+            455
+          ],
+          "samples": [
+            178,
+            179,
+            180
+          ],
+          "actualAngles": [
+            38.19428460286746,
+            38.023760805432815,
+            37.49027446036374
+          ],
+          "unconstrainedPrincipalAngles": [
+            0.4484709838264151,
+            0.18784912592316216,
+            0.6363527758181583
+          ],
+          "unconstrainedDirection": [
+            -0.4602366435332296,
+            -0.8870755534634462,
+            -0.03576582722078373
+          ],
+          "midpoint": [
+            0.3137860602978245,
+            -0.6898637645039783,
+            0.21281095183237117
+          ]
+        },
+        {
+          "edge": [
+            562,
+            482
+          ],
+          "samples": [
+            202,
+            203,
+            204
+          ],
+          "actualAngles": [
+            34.95314491468225,
+            34.26694760608011,
+            34.26694760608031
+          ],
+          "unconstrainedPrincipalAngles": [
+            0.5082595644489347,
+            0.2541197831487101,
+            0.2541197831458416
+          ],
+          "unconstrainedDirection": [
+            -0.2717715449658175,
+            -0.9623237161172286,
+            0.00856111822251314
+          ],
+          "midpoint": [
+            0.3791943645304582,
+            -0.5319950420945956,
+            0.21521177699611005
+          ]
+        }
+      ]
+    }
+  ],
+  "changedPaths": [
+    true,
+    false
+  ],
+  "geometryQualified": null,
+  "inputHashes": {
+    "tests\\toilet-sampled-paths\\captured-seed2-401\\layout.json": "9a7b6bdf837dfcc540bff706258a2776c16de82cda9560e4b143e88f0b902147",
+    "tests\\toilet-sampled-paths\\captured-seed2-401\\two-guides-long-1800-4.json": "57a56f03395ae5ef559b583ec836aafae37a6c36c647431828ca3ed1a8222024",
+    "tests\\toilet-stress\\two-guides-long-1800\\curves.json": "3e6f6cae0f8ffae86bc493e65bca6939f9344d9d1a297f745902a30cff650713"
+  },
+  "sourceHashes": {
+    "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/inspect_toilet_path_reselection.py": "2f2338295ceacf3ea1525ea3c58e18589cb263ce955c19a6cc71ce6f398d58cb"
+  },
+  "scope": "Path selection and tangent diagnostics on unchanged retained geometry. Reselection uses the production path algorithm at the fitted vertex positions. Principal directions fit each fixed owner group independently; they need not be realizable by shared mesh vertices and are not a mesh result. No new full surface/contact/shape audit or production generation is claimed."
+}

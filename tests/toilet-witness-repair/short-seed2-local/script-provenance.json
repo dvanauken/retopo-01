@@ -1,0 +1,7 @@
+{
+  "originalPath": "tests/probe_toilet_witness_repair.py",
+  "executedScript": "tests/toilet-witness-repair/short-seed2-local/executed-probe.py",
+  "executedSha256": "f0578affcee15dc95fb7fc01738ad254320e9758c8ad08e554525841ee144863",
+  "currentScriptSha256": "42db07b52cdf8c85dae15b6886bf2a833a310f5d7b6349758687d0554fd9266c",
+  "scope": "After this successful experiment and export, the reusable script gained input-folder, case and iteration selectors for a fresh-source reproduction. Its executed numerical body is retained exactly; the fresh run has its own source hashes."
+}

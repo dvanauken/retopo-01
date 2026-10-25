@@ -74,11 +74,14 @@ for family, labels in {
     'generated-ui':['request-ownership','ownership-io','ownership-io-diagnostics'],
     'file-locks':['io-fault-fixed','nested-worker-job'],
     'tangent-pins':['bowl-seed-2-weight-8','combined-seed-2-weight-8','captured-seed-2-weight-12'],
-    'fresh-geometry':['tangent-bowl-seed2','sampled-path-401'],
-    'all-diagonal-audit':['tangent-bowl-seed2','sampled-path-401'],
-    'sampled-paths':['captured-seed2-401'],
+    'fresh-geometry':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export'],
+    'all-diagonal-audit':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export'],
+    'sampled-paths':['captured-seed2-401','fresh-short-seed2-fit'],
     'both-diagonal-support':['captured-seed2-401'],
     'oriented-support':['captured-seed2-401'],
+    'feasible-blend':['captured-seed2','captured-seed2-arrays'],
+    'witness-repair':['short-seed2-local','fresh-short-seed2-repair'],
+    'fresh-witness':['fresh-short-seed2'],
 }.items():
     for label in labels:
         reports[family+'-'+label]='tests/toilet-'+family+'/'+label+'/result.json'
@@ -87,6 +90,8 @@ reports['authored-self-alignment']='tests/toilet-path-fit-diagnostics/self-align
 reports['support-normal-diagnostics']='tests/toilet-support-normal-diagnostics/result.json'
 reports['worker-lifetime-shared-scope']='tests/toilet-exhaustive-audit/worker-lifetime-shared-scope.json'
 reports['live-worker-lifetime-readonly']='tests/toilet-exhaustive-audit/live-worker-lifetime.json'
+for family in ('path-reselection','long-surface-diagnostics','guided-route-review'):
+    reports[family]='tests/toilet-'+family+'/result.json'
 for family in ('fresh-geometry','all-diagonal-audit'):
     relative='tests/toilet-'+family+'/tangent-captured-seed2-weight12/result.json'
     if (ROOT/relative).exists():reports[family+'-tangent-captured-seed2-weight12']=relative
@@ -106,13 +111,14 @@ for name,relative in reports.items():
     if 'checks' in data:
         item['checks']=len(data['checks']); item['passedChecks']=sum(bool(c['passed']) for c in data['checks'])
     if 'cases' in data:
-        item['cases']=[{k:c[k] for k in ('name','state','passed','qualified','message') if k in c} for c in data['cases']]
+        item['cases']=[{k:c[k] for k in ('name','selection','iteration','state','passed','qualified','guideGatePassed','message') if k in c} for c in data['cases']]
     item['implementationHashMismatches']=[]
     provenance=path.parent/'script-provenance.json'
     if provenance.exists():
         note=json.loads(provenance.read_text())
         snapshot=ROOT/note['executedScript']
         assert hashlib.sha256(snapshot.read_bytes()).hexdigest()==note['executedSha256']
+        assert data.get('sourceHashes',{}).get(note['originalPath'])==note['executedSha256']
         item['retainedHistoricalSource']=dict(provenance=str(provenance.relative_to(ROOT)),snapshot=note['executedScript'],sha256=note['executedSha256'])
     for file,digest in data.get('sourceHashes',{}).items():
         actual=ROOT/file
@@ -147,7 +153,7 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
                 qualified.append(dict(item,contactProof=proof))
             else: provisional.append(dict(item,reason='All mixed-diagonal contact pairings have not yet been verified.'))
 experimental=[]
-for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12','sampled-path-401','both-diagonal-support-401'):
+for label in ('tangent-bowl-seed2','tangent-captured-seed2-weight12','sampled-path-401','both-diagonal-support-401','witness-short-seed2','fresh-short-seed2-export'):
     independent=ROOT/'tests/toilet-fresh-geometry'/label/'result.json'
     contacts=ROOT/'tests/toilet-all-diagonal-audit'/label/'result.json'
     if not independent.exists() or not contacts.exists():continue
@@ -170,6 +176,8 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
         'The isolated tangent/sliding-pin bowl experiment passes existing production gates, but is not integrated. Independent experimental export reports are separate from actual service-generated mesh qualification.',
         'The distributed 401-sample objective retains the unchanged 257-sample acceptance metric. Bowl-only passes solver gates; the shorter combined case reaches guide limits but fails whole-surface bounds, and the longer case still fails tangent alignment. Separate both-diagonal source-support experiments preserve all acceptance limits.',
         'Both-diagonal vertex/centroid support and its opposing-normal-filter variant each fail all 15 captured-case attempts with contacts. These completed negative experiments do not change production fitting or excuse any failed acceptance gate.',
+        'Local witness repair qualifies the short combined input under every unchanged gate. Its exported OBJ passes independent audits, and a fresh original-source Blender/fitting/repair pipeline reproduces identical bytes with fresh independent audits. This remains experimental, with narrow guide-distance margin; no production-worker integration or input-variation robustness is claimed.',
+        'All 18 coarse blend trials remain unqualified. A preliminary blend harness type error is retained separately. Long-guide path reselection is unchanged; its full surface bounds also fail, so tangent improvement alone will not qualify that candidate.',
         'Extra genuine layout seeds 2/3 fail all six captured complex-guide cases. Sliding pins on seed 2 fail guide alignment in every pass. These isolated experiments are not in production and do not qualify geometry.',
         'Green lifecycle, editing or rejection checks do not qualify the generated geometry.',
         'Earlier API/browser reports retain their original implementation hashes. Current post-admission-fix suites separately verify 76 HTTP and 29 browser checks with a named Circle positive control; the original bowl-generation failure remains recorded.',
@@ -180,6 +188,7 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
         'The original source is unchanged. Its four known contacts are spatially separate from the newly detected bowl overlaps.',
     ],remaining=[
         'Captured two-guide networks and basic toilet solves must meet all geometric requirements.',
+        'The short combined case now has a fresh experimentally qualified result. Production integration and variation/runtime regressions remain; the longer captured case still needs joint tangent and surface repair.',
         'Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.',
         'Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.',
         'Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.',

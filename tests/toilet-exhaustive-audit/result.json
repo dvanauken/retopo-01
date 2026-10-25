@@ -148,6 +148,22 @@
       "productionResult": false,
       "independentReport": "tests\\toilet-fresh-geometry\\sampled-path-401\\result.json",
       "contactReport": "tests\\toilet-all-diagonal-audit\\sampled-path-401\\result.json"
+    },
+    {
+      "name": "two-guides-short-1800",
+      "outputSha256": "4c0c434ecbb80901851e5edc72d69f4a68660c253a92adf667bca3540712b9c9",
+      "producerKind": "isolated-witness-repair-probe",
+      "productionResult": false,
+      "independentReport": "tests\\toilet-fresh-geometry\\witness-short-seed2\\result.json",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\witness-short-seed2\\result.json"
+    },
+    {
+      "name": "two-guides-short-1800",
+      "outputSha256": "4c0c434ecbb80901851e5edc72d69f4a68660c253a92adf667bca3540712b9c9",
+      "producerKind": "isolated-witness-repair-probe",
+      "productionResult": false,
+      "independentReport": "tests\\toilet-fresh-geometry\\fresh-short-seed2-export\\result.json",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\fresh-short-seed2-export\\result.json"
     }
   ],
   "provisionalSpecificCases": [],
@@ -165,7 +181,7 @@
       }
     }
   ],
-  "updatedAt": "2026-10-25T06:46:54.167913+00:00",
+  "updatedAt": "2026-10-25T07:20:50.000427+00:00",
   "evidence": {
     "original-source": {
       "report": "tests/toilet-source/result.json",
@@ -1814,6 +1830,32 @@
       ],
       "implementationHashMismatches": []
     },
+    "fresh-geometry-witness-short-seed2": {
+      "report": "tests/toilet-fresh-geometry/witness-short-seed2/result.json",
+      "sha256": "57aaf5e7ea0e78441bffd63ac2d8cc42b1058b470b047d29621b982dfefdd02b",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-geometry-fresh-short-seed2-export": {
+      "report": "tests/toilet-fresh-geometry/fresh-short-seed2-export/result.json",
+      "sha256": "3071e3eac750b2ca53dfe7c8519a6faf622689a5ccf3639c3e6fa27052cf54b7",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
     "all-diagonal-audit-tangent-bowl-seed2": {
       "report": "tests/toilet-all-diagonal-audit/tangent-bowl-seed2/result.json",
       "sha256": "ffbbff8a33198336212382549b165a9e62220513782cc5e7abaab79cb27f9a2b",
@@ -1842,6 +1884,32 @@
       ],
       "implementationHashMismatches": []
     },
+    "all-diagonal-audit-witness-short-seed2": {
+      "report": "tests/toilet-all-diagonal-audit/witness-short-seed2/result.json",
+      "sha256": "13ac62a944560580f88381debf8adf5995caf2d52ac88edf6a879a8c16e18915",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "all-diagonal-audit-fresh-short-seed2-export": {
+      "report": "tests/toilet-all-diagonal-audit/fresh-short-seed2-export/result.json",
+      "sha256": "90e66a5edbaf52a5511bee94c93b305c40f8dbe69f4b6740406f7cab4015ca4b",
+      "passed": true,
+      "complete": true,
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "passed": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
     "sampled-paths-captured-seed2-401": {
       "report": "tests/toilet-sampled-paths/captured-seed2-401/result.json",
       "sha256": "81d71f3d7c4fc69a59e4c21a5323eda301c1af093ef4a2cea00c8200474e72e9",
@@ -1858,6 +1926,19 @@
         },
         {
           "name": "two-guides-long-1800",
+          "qualified": false
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "sampled-paths-fresh-short-seed2-fit": {
+      "report": "tests/toilet-sampled-paths/fresh-short-seed2-fit/result.json",
+      "sha256": "64d577c1bddd066cf2ee74a567f22d4c2e39f35326a9d0af49b0b3cc09649784",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
           "qualified": false
         }
       ],
@@ -1912,6 +1993,86 @@
         "sha256": "5b13234ab85df14b1fdec6aae06e659575ac04e681fe0205f0b5d22447c54283"
       }
     },
+    "feasible-blend-captured-seed2": {
+      "report": "tests/toilet-feasible-blend/captured-seed2/result.json",
+      "sha256": "24256e70d6f14842f4cc83e55022c037047c13d8d3f85fd3a5800b5c9ea40c02",
+      "complete": true,
+      "errors": [
+        "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\probe_toilet_feasible_blend.py\", line 51, in <module>\n    surface=cq.validate_surface(sv,sf,positions,faces,1800,whole_surface=eligible)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 187, in validate_surface\n    base, _, _ = topology(source, triangles.tolist())\n                                  ^^^^^^^^^^^^^^^^\nAttributeError: 'list' object has no attribute 'tolist'\n"
+      ],
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "qualified": false
+        }
+      ],
+      "implementationHashMismatches": [
+        "tests/probe_toilet_feasible_blend.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-feasible-blend\\captured-seed2\\script-provenance.json",
+        "snapshot": "tests/toilet-feasible-blend/captured-seed2/executed-probe.py",
+        "sha256": "209163c982dd96dc9b292bdc5c7c27d89de422a55a6c043832269438be2f8e49"
+      }
+    },
+    "feasible-blend-captured-seed2-arrays": {
+      "report": "tests/toilet-feasible-blend/captured-seed2-arrays/result.json",
+      "sha256": "70018b9b6cf0d2ad92ebff35e1552433fa390cbc15a194951afc94b1c5f925d4",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "qualified": false
+        },
+        {
+          "name": "two-guides-long-1800",
+          "qualified": false
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "witness-repair-short-seed2-local": {
+      "report": "tests/toilet-witness-repair/short-seed2-local/result.json",
+      "sha256": "b873c9781bbecee62b14d38654d0ddac676cee7d05083b8a302cc39cafe800f2",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "qualified": true
+        }
+      ],
+      "implementationHashMismatches": [
+        "tests/probe_toilet_witness_repair.py"
+      ],
+      "retainedHistoricalSource": {
+        "provenance": "tests\\toilet-witness-repair\\short-seed2-local\\script-provenance.json",
+        "snapshot": "tests/toilet-witness-repair/short-seed2-local/executed-probe.py",
+        "sha256": "f0578affcee15dc95fb7fc01738ad254320e9758c8ad08e554525841ee144863"
+      }
+    },
+    "witness-repair-fresh-short-seed2-repair": {
+      "report": "tests/toilet-witness-repair/fresh-short-seed2-repair/result.json",
+      "sha256": "445265d0432855bba0377134a47975c1feb53d810bd986422318d2c6ae78210a",
+      "complete": true,
+      "errors": [],
+      "cases": [
+        {
+          "name": "two-guides-short-1800",
+          "qualified": true
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "fresh-witness-fresh-short-seed2": {
+      "report": "tests/toilet-fresh-witness/fresh-short-seed2/result.json",
+      "sha256": "de6994b4313c4f10e62f97d4bff08b6945c31906dc2f2b49897166d774874703",
+      "complete": true,
+      "generationPassed": true,
+      "errors": [],
+      "implementationHashMismatches": []
+    },
     "path-fit-diagnostics": {
       "report": "tests/toilet-path-fit-diagnostics/result.json",
       "sha256": "7377c7d63406125aa56a2cb4364f18f305a3bae3613eabd16a1353a122b9489a",
@@ -1952,6 +2113,56 @@
       "sha256": "ba7509762a8ca743eaa2403717435bab949440ea2117953678911976d245a10b",
       "implementationHashMismatches": []
     },
+    "path-reselection": {
+      "report": "tests/toilet-path-reselection/result.json",
+      "sha256": "1a15b24b71df443083a20fd2ca356088223329a88fa4d618462a4f793985673d",
+      "complete": true,
+      "cases": [
+        {
+          "selection": "original",
+          "guideGatePassed": false
+        },
+        {
+          "selection": "reselected",
+          "guideGatePassed": false
+        }
+      ],
+      "implementationHashMismatches": []
+    },
+    "long-surface-diagnostics": {
+      "report": "tests/toilet-long-surface-diagnostics/result.json",
+      "sha256": "20b3f23ad26fbfcb75bd9c36ffe75951718bce1517717058e3821e86d4acae51",
+      "complete": true,
+      "implementationHashMismatches": []
+    },
+    "guided-route-review": {
+      "report": "tests/toilet-guided-route-review/result.json",
+      "sha256": "5bce44ec853c5e03c6c06f949b8395ea39e8e5571c246685b3dbb0d90f9fa06b",
+      "complete": true,
+      "cases": [
+        {
+          "iteration": 0,
+          "passed": false
+        },
+        {
+          "iteration": 1,
+          "passed": false
+        },
+        {
+          "iteration": 2,
+          "passed": false
+        },
+        {
+          "iteration": 3,
+          "passed": false
+        },
+        {
+          "iteration": 4,
+          "passed": false
+        }
+      ],
+      "implementationHashMismatches": []
+    },
     "fresh-geometry-tangent-captured-seed2-weight12": {
       "report": "tests/toilet-fresh-geometry/tangent-captured-seed2-weight12/result.json",
       "sha256": "02d700e78edb5d7c93c038b175450120058856bfa1523f36b890fa7a9426d034",
@@ -1990,6 +2201,8 @@
     "The isolated tangent/sliding-pin bowl experiment passes existing production gates, but is not integrated. Independent experimental export reports are separate from actual service-generated mesh qualification.",
     "The distributed 401-sample objective retains the unchanged 257-sample acceptance metric. Bowl-only passes solver gates; the shorter combined case reaches guide limits but fails whole-surface bounds, and the longer case still fails tangent alignment. Separate both-diagonal source-support experiments preserve all acceptance limits.",
     "Both-diagonal vertex/centroid support and its opposing-normal-filter variant each fail all 15 captured-case attempts with contacts. These completed negative experiments do not change production fitting or excuse any failed acceptance gate.",
+    "Local witness repair qualifies the short combined input under every unchanged gate. Its exported OBJ passes independent audits, and a fresh original-source Blender/fitting/repair pipeline reproduces identical bytes with fresh independent audits. This remains experimental, with narrow guide-distance margin; no production-worker integration or input-variation robustness is claimed.",
+    "All 18 coarse blend trials remain unqualified. A preliminary blend harness type error is retained separately. Long-guide path reselection is unchanged; its full surface bounds also fail, so tangent improvement alone will not qualify that candidate.",
     "Extra genuine layout seeds 2/3 fail all six captured complex-guide cases. Sliding pins on seed 2 fail guide alignment in every pass. These isolated experiments are not in production and do not qualify geometry.",
     "Green lifecycle, editing or rejection checks do not qualify the generated geometry.",
     "Earlier API/browser reports retain their original implementation hashes. Current post-admission-fix suites separately verify 76 HTTP and 29 browser checks with a named Circle positive control; the original bowl-generation failure remains recorded.",
@@ -2001,6 +2214,7 @@
   ],
   "remaining": [
     "Captured two-guide networks and basic toilet solves must meet all geometric requirements.",
+    "The short combined case now has a fresh experimentally qualified result. Production integration and variation/runtime regressions remain; the longer captured case still needs joint tangent and surface repair.",
     "Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.",
     "Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.",
     "Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.",

@@ -1,0 +1,162 @@
+{
+  "complete": true,
+  "geometryQualified": false,
+  "surface": {
+    "passed": false,
+    "checks": {
+      "validTriangulation": true,
+      "closed": true,
+      "components": true,
+      "sourceEuler": true,
+      "noIncidenceDefects": true,
+      "vertexManifold": true,
+      "consistentWinding": true,
+      "sampledSurface": true,
+      "wholeSurface": false
+    },
+    "sourceToOutput": {
+      "samples": 2000,
+      "stride": 18,
+      "sampledMax": 0.03858073676685319,
+      "p95": 0.018473120028801172
+    },
+    "outputToSource": {
+      "samples": 1845,
+      "stride": 3,
+      "sampledMax": 0.033365589875170604,
+      "p95": 0.012405037337011513
+    },
+    "sampledSurfaceTolerance": 0.04004054613430094,
+    "topology": {
+      "vertices": 1845,
+      "usedVertices": 1845,
+      "unusedVertices": 0,
+      "faces": 1845,
+      "edges": 3690,
+      "faceSizes": {
+        "4": 1845
+      },
+      "triangles": 0,
+      "quads": 1845,
+      "triangleFraction": 0.0,
+      "quadFraction": 1.0,
+      "otherPolygonFraction": 0.0,
+      "faceConnectedComponents": 1,
+      "componentFaceCounts": [
+        1845
+      ],
+      "boundaryEdges": 0,
+      "boundaryComponents": 0,
+      "closedBoundaryLoops": 0,
+      "nonmanifoldEdges": 0,
+      "repeatedIndexFaces": 0,
+      "zeroAreaFanTriangles": 0,
+      "nonconvexProjectedPolygons": 0,
+      "maxQuadFourthPointPlaneDistance": 0.0635033312421713,
+      "eulerCharacteristic": 0,
+      "bounds": [
+        [
+          -0.6001401623396345,
+          -0.9946316277154821,
+          -0.9066322445869446
+        ],
+        [
+          0.6013176135469314,
+          0.999137305035011,
+          0.9027907761245518
+        ]
+      ],
+      "edgeLengths": {
+        "min": 0.0153940487439499,
+        "median": 0.07900167645464475,
+        "max": 0.1700146376939185
+      },
+      "canonicalGeometrySignature": "36d737e0b1133bba3c9919d2d5c397ce758a840eeda31a90bbcfb5dec00da1af"
+    },
+    "vertexLinks": {
+      "nonmanifoldVertices": [],
+      "inconsistentWindingEdges": 0
+    },
+    "wholeSurfaceDiagonals": {
+      "02": {
+        "passed": false,
+        "tolerance": 0.04004054613430094,
+        "sourceToOutput": {
+          "passed": false,
+          "status": "exceeded",
+          "reason": "A surface point exceeds the distance tolerance",
+          "maximumUpperBound": null,
+          "sampledMax": 0.04030683301330149,
+          "testedTriangles": 24000,
+          "subdivisionDepth": 0,
+          "unresolvedTriangles": 24000,
+          "witness": [
+            -0.44997968015800005,
+            -0.461457039887,
+            0.18917375984633333
+          ]
+        },
+        "outputToSource": {
+          "passed": true,
+          "status": "bounded",
+          "maximumUpperBound": 0.040027375337468064,
+          "sampledMax": 0.03855368876230461,
+          "testedTriangles": 14202,
+          "subdivisionDepth": 5,
+          "unresolvedTriangles": 0,
+          "witness": [
+            -0.42029630600572804,
+            -0.42355681021791836,
+            0.16501595945660227
+          ]
+        },
+        "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+      },
+      "13": {
+        "passed": false,
+        "tolerance": 0.04004054613430094,
+        "sourceToOutput": {
+          "passed": false,
+          "status": "exceeded",
+          "reason": "A surface point exceeds the distance tolerance",
+          "maximumUpperBound": null,
+          "sampledMax": 0.04569849270997984,
+          "testedTriangles": 24000,
+          "subdivisionDepth": 0,
+          "unresolvedTriangles": 24000,
+          "witness": [
+            -0.21619864012533332,
+            -0.9076923200650001,
+            0.18591775986333334
+          ]
+        },
+        "outputToSource": {
+          "passed": false,
+          "status": "exceeded",
+          "reason": "A surface point exceeds the distance tolerance",
+          "maximumUpperBound": null,
+          "sampledMax": 0.04053465552240209,
+          "testedTriangles": 14478,
+          "subdivisionDepth": 3,
+          "unresolvedTriangles": 124,
+          "witness": [
+            -0.39941183599340385,
+            -0.5015427960586458,
+            0.16579621690443924
+          ]
+        },
+        "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+      }
+    },
+    "scope": "Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections."
+  },
+  "sourceHashes": {
+    "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/inspect_toilet_long_surface.py": "cf711ec2dd75f03e3bac877dd8cbad1166828735e832eaa0d21db6638e338f7b"
+  },
+  "candidate": "tests\\toilet-sampled-paths\\captured-seed2-401\\two-guides-long-1800-4.json",
+  "candidateSha256": "57a56f03395ae5ef559b583ec836aafae37a6c36c647431828ca3ed1a8222024",
+  "scope": "Diagnostic full surface evaluation of an unchanged retained candidate that still fails guide tangent alignment. Passing surface bounds alone does not qualify this mesh or change production acceptance."
+}

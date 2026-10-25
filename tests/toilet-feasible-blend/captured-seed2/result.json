@@ -1,0 +1,31 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "name": "two-guides-short-1800",
+      "curvesSha256": "130f3b62e4feb17006327038396b62fdbb589c8306a4b68a2d844c2992e29132",
+      "targetSource": "tests\\toilet-sampled-paths\\captured-seed2-401\\two-guides-short-1800-1.json",
+      "targetSha256": "0b9416007efccbf829d8428a02f1aa321af609fac0d377f330472f0e806c8145",
+      "attempts": [],
+      "qualified": false
+    }
+  ],
+  "errors": [
+    "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\tests\\probe_toilet_feasible_blend.py\", line 51, in <module>\n    surface=cq.validate_surface(sv,sf,positions,faces,1800,whole_surface=eligible)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\curved_quad.py\", line 187, in validate_surface\n    base, _, _ = topology(source, triangles.tolist())\n                                  ^^^^^^^^^^^^^^^^\nAttributeError: 'list' object has no attribute 'tolist'\n"
+  ],
+  "sourceHashes": {
+    "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/probe_toilet_feasible_blend.py": "209163c982dd96dc9b292bdc5c7c27d89de422a55a6c043832269438be2f8e49"
+  },
+  "implementationUnchanged": true,
+  "seed": 2,
+  "layoutSource": "tests\\toilet-sampled-paths\\captured-seed2-401\\layout.json",
+  "layoutSha256": "9a7b6bdf837dfcc540bff706258a2776c16de82cda9560e4b143e88f0b902147",
+  "anchorSource": "tests\\toilet-sampled-paths\\captured-seed2-401\\bowl-only-1800-1.json",
+  "anchorSha256": "25a89c670e47ae3cfcbfb5958c867cad20e982a8b58763501a4ff23613f86314",
+  "scope": "Nine fixed convex blends between a retained bowl-only qualified experimental candidate and each retained combined-guide candidate on the same genuine seed-2 topology. This probes feasibility; it is not a fresh solve, an integrated method or a production result. All acceptance limits remain unchanged. Full surface bounds run only for otherwise eligible candidates."
+}

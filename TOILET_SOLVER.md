@@ -9,6 +9,17 @@ tests. See `tests/toilet-fresh-geometry/unguided-warpage/result.json` and
 `tests/toilet-fresh-geometry/guided-warpage/result.json`. This qualifies these
 specific inputs, not the unresolved bowl and combined-guide cases.
 
+An isolated fresh-source pipeline now qualifies the captured **shorter two-guide
+case** at 1,800: a newly generated seed-2 layout, distributed guide fitting and
+local repair around measured surface failures produce 1,845 quads. The actual
+export passes independent reference, dense surface, topology, shape, guide,
+LP/BVH and all-mixed-diagonal audits. Its OBJ exactly matches the earlier
+retained-layout repair (`4c0c434ecbb80901851e5edc72d69f4a68660c253a92adf667bca3540712b9c9`).
+See `tests/toilet-fresh-witness/fresh-short-seed2/` and the
+`fresh-short-seed2-export` independent audits. This is an experimental pipeline,
+not the production worker. Integration, runtime and input-variation regressions
+remain required; the final lid-guide distance has only about 1.3% margin.
+
 Fresh Circle, reversed-lid and perturbed-Circle runs under the final mixed-
 diagonal gate also pass independent exported-geometry checks in
 `tests/toilet-fresh-geometry/all-diagonal-generations/` and
@@ -66,6 +77,17 @@ These experiments are rejected, including candidates whose sparse distance
 screen passes. More support points and this normal filter alone do not solve
 the combined-guide cases. See `tests/toilet-both-diagonal-support/` and
 `tests/toilet-oriented-support/`.
+
+The successful local repair moves only the two face rings around actual full-
+surface failure witnesses. Four full steps are rejected because they exceed the
+lid-guide distance limit; each half step preserves shape, contacts and both guide
+limits while reducing the observed surface error. The fourth half step also
+passes complete adaptive bounds. The earlier global-support experiments remain
+rejected. The longer guide still has tangent p95 32.47 degrees and full surface
+failures under both diagonals. Re-selecting paths at its fitted positions returns
+the same chains. Independent per-edge direction fits suggest remaining tangent
+freedom, but those directions need not be realizable by shared mesh vertices;
+they are diagnostics, not a qualified mesh.
 
 Dense testing of all five unique previously
 accepted exports found surface-distance errors using the validator's ear
