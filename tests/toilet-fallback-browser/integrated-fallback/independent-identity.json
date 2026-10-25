@@ -1,0 +1,33 @@
+{
+  "complete": true,
+  "passed": true,
+  "cases": [
+    {
+      "name": "two-guides-short-1800",
+      "passed": true,
+      "outputSha256": "c0b5fca59adfbfa06ddc70fc2479a8ccc06705d26a7f6bb07fc564e1b258c5c5",
+      "referenceExport": "tests\\toilet-sampled-worker\\integrated-fallback\\two-guides-short-1800\\output.obj",
+      "sameAuthoredCurves": true,
+      "sameConnectedPaths": true,
+      "samePositionsAndFaces": true,
+      "independentReport": "tests\\toilet-fresh-geometry\\integrated-fallback\\result.json",
+      "independentReportSha256": "0f8314d8ab971bb540ea1493e9154fbca82156240c7809f500b4b5238214429a",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\integrated-fallback\\result.json",
+      "contactReportSha256": "059a4896a2e7e5cb747746982ec08d4f389ef6861ad0c0a368994732b5ee3c08"
+    },
+    {
+      "name": "browser-lid-circle",
+      "passed": true,
+      "outputSha256": "f9aea3baccefcc875378374a990e60aad409af9f747c05cc38745a789eae4ee0",
+      "referenceExport": "tests\\toilet-variants\\all-diagonal\\circle-repeat\\output.obj",
+      "sameAuthoredCurves": true,
+      "sameConnectedPaths": true,
+      "samePositionsAndFaces": true,
+      "independentReport": "tests\\toilet-fresh-geometry\\all-diagonal-generations\\result.json",
+      "independentReportSha256": "ce80bcec83aa0ce80e24ef7ae7bc48f5ab957a577134ca4ff72f7ef0138ad479",
+      "contactReport": "tests\\toilet-all-diagonal-audit\\fresh-new-gate\\result.json",
+      "contactReportSha256": "1947da737efc6f370a48eb60bb67ec866a5acb50a9585b69aebbaf9627c22378"
+    }
+  ],
+  "scope": "Fresh browser-generated and downloaded OBJs are byte-identical to independently qualified exports, with identical authored curves and connected path indices. Fresh worker full-surface/contact/shape gates also pass. Existing independent numerical checks apply to these identical inputs/outputs; no redundant rerun is claimed."
+}

@@ -1,0 +1,11 @@
+{
+  "id": "8f187b91149a47c1aa9169a8030cb0de",
+  "meshId": "toilet",
+  "target": 1800,
+  "state": "cancelled",
+  "stage": "Cancelled",
+  "createdAt": 1792916039.6030629,
+  "requestId": "fa1c521818a64505afc37c839454ab2d",
+  "startedAt": 1792916039.6030629,
+  "finishedAt": 1792916220.14191
+}

@@ -1,0 +1,11 @@
+{
+  "complete": true,
+  "passed": true,
+  "tests": 6,
+  "exitCode": 0,
+  "sourceHashes": {
+    "surface_guide_repair.py": "ecec89c96675d33ca0c92eac25be3beb2e9fd01092065f0f10169427dd87bcc2",
+    "tests/test_surface_guide_repair.py": "228b2dcb7a30b039fb08867961cf193f9e4e413f4b01e897bbc35df4247fae3a"
+  },
+  "scope": "Six targeted acceptance controls: shape/guide/contact rejection, inclusive thresholds, failed full-surface validation, and unresolved bounds with no repair witness."
+}

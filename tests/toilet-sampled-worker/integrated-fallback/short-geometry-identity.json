@@ -1,0 +1,7 @@
+{
+  "productionMesh": "tests\\toilet-sampled-worker\\integrated-fallback\\two-guides-short-1800\\mesh.json",
+  "referenceMesh": "tests/surface-guide-refine/explicit-module/short-final.json",
+  "exactPositionsAndFaces": true,
+  "productionObjSha256": "c0b5fca59adfbfa06ddc70fc2479a8ccc06705d26a7f6bb07fc564e1b258c5c5",
+  "note": "The actual worker export uses a different OBJ header from the isolated experiment; all coordinates and faces match exactly."
+}

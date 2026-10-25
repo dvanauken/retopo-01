@@ -1,0 +1,148 @@
+{
+  "complete": true,
+  "passed": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "Captured two-guide request admitted"
+    },
+    {
+      "passed": true,
+      "name": "Real worker reached the new fallback before cancellation",
+      "state": {
+        "id": "8f187b91149a47c1aa9169a8030cb0de",
+        "meshId": "toilet",
+        "target": 1800,
+        "state": "running",
+        "stage": "Fitting sampled guide paths \u00b7 pass 1",
+        "createdAt": 1792916039.6030629,
+        "requestId": "fa1c521818a64505afc37c839454ab2d",
+        "startedAt": 1792916039.6030629
+      }
+    },
+    {
+      "passed": true,
+      "name": "An actual worker and its own descendants are identified before cancellation"
+    },
+    {
+      "passed": true,
+      "name": "Service confirms cancellation of the fitting job",
+      "responseSeconds": 0.030999999959021807
+    },
+    {
+      "passed": true,
+      "name": "No owned fitting process survives cancellation",
+      "survivors": []
+    },
+    {
+      "passed": true,
+      "name": "Cancelled fitting cannot serve mesh.json"
+    },
+    {
+      "passed": true,
+      "name": "Cancelled fitting cannot serve output.obj"
+    },
+    {
+      "passed": true,
+      "name": "Cancelled fitting cannot serve features.json"
+    },
+    {
+      "passed": true,
+      "name": "Service stays responsive after fallback cancellation"
+    },
+    {
+      "passed": true,
+      "name": "A fresh request can be admitted and cancelled afterward"
+    },
+    {
+      "passed": true,
+      "name": "Implementation fixed through real fallback cancellation"
+    }
+  ],
+  "errors": [],
+  "observedProcesses": [
+    {
+      "pid": 50252,
+      "parentPid": 12800,
+      "created": 1792916039.6058955,
+      "name": "python.exe",
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\dbva\\code\\retopo-1\\worker.py",
+        "--job",
+        "C:\\dbva\\code\\retopo-1\\runs\\8f187b91149a47c1aa9169a8030cb0de"
+      ],
+      "ownerWorker": 50252
+    },
+    {
+      "pid": 26012,
+      "parentPid": 50252,
+      "created": 1792916039.6132493,
+      "name": "conhost.exe",
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ],
+      "ownerWorker": 50252
+    }
+  ],
+  "serviceDescendantsBeforeCancellation": [
+    {
+      "pid": 49832,
+      "parentPid": 12800,
+      "created": 1792916039.032359,
+      "name": "conhost.exe",
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ]
+    },
+    {
+      "pid": 50252,
+      "parentPid": 12800,
+      "created": 1792916039.6058955,
+      "name": "python.exe",
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\dbva\\code\\retopo-1\\worker.py",
+        "--job",
+        "C:\\dbva\\code\\retopo-1\\runs\\8f187b91149a47c1aa9169a8030cb0de"
+      ]
+    },
+    {
+      "pid": 26012,
+      "parentPid": 50252,
+      "created": 1792916039.6132493,
+      "name": "conhost.exe",
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ]
+    }
+  ],
+  "job": {
+    "id": "8f187b91149a47c1aa9169a8030cb0de",
+    "meshId": "toilet",
+    "target": 1800,
+    "state": "running",
+    "stage": "Constructing mesh",
+    "createdAt": 1792916039.6030629,
+    "requestId": "fa1c521818a64505afc37c839454ab2d",
+    "startedAt": 1792916039.6030629
+  },
+  "sourceHashes": {
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "2496ba7b6ce3fc73786a50f19169fb15208444bc67fa47a71c39dcb788d81396",
+    "surface_guide_repair.py": "ecec89c96675d33ca0c92eac25be3beb2e9fd01092065f0f10169427dd87bcc2",
+    "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9",
+    "tests/verify_toilet_fallback_cancel.py": "5179911f77e335c8d53ecd1dc7b6426693b47060fdb2492b18f24226caa5127d"
+  },
+  "elapsedSeconds": 181.4220000000205,
+  "scope": "Real production two-guide solve observed in the sampled-fitting stage, then cancelled through HTTP. No injected successful geometry or suspended worker."
+}

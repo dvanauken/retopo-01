@@ -1,0 +1,20 @@
+Building the quad surface layout
+Fitting guides and refining quads · pass 1
+Fitting guides and refining quads · pass 2
+Fitting guides and refining quads · pass 3
+Fitting guides and refining quads · pass 4
+Fitting guides and refining quads · pass 5
+Building the quad surface layout
+Fitting guides and refining quads · pass 1
+Fitting guides and refining quads · pass 2
+Fitting guides and refining quads · pass 3
+Fitting guides and refining quads · pass 4
+Fitting guides and refining quads · pass 5
+Building an additional layout for guide fitting
+Fitting sampled guide paths · pass 1
+Fitting sampled guide paths · pass 2
+Refining local surface accuracy · pass 1
+Refining local surface accuracy · pass 2
+Refining local surface accuracy · pass 3
+Refining local surface accuracy · pass 4
+{"passed": true, "vertices": 1845, "faces": 1845, "elapsedSeconds": 500.4529999999795}

@@ -1,0 +1,127 @@
+{
+  "recordedAt": "2026-10-25T08:17:24.684835+00:00",
+  "exhaustiveGoalComplete": false,
+  "evidence": {
+    "worker": {
+      "report": "tests/toilet-sampled-worker/integrated-fallback/result.json",
+      "sha256": "b1d84f88b8391c4e5ec70624ffa720b9ecca39c44e9742a70add6bbd35c5db84",
+      "passed": true,
+      "checks": 13,
+      "cases": 2,
+      "tests": null
+    },
+    "browser": {
+      "report": "tests/toilet-fallback-browser/integrated-fallback/result.json",
+      "sha256": "41bde0dff78fe2c8df2819f2d75607d82a11d279855a3cc3bf53b06e9a46a922",
+      "passed": true,
+      "checks": 13,
+      "cases": 2,
+      "tests": null
+    },
+    "browserIdentity": {
+      "report": "tests/toilet-fallback-browser/integrated-fallback/independent-identity.json",
+      "sha256": "bd092c2ec6f2ef38a445d629ce260cffaa6dd7c1b06e5ed03a6f0e261db05bf2",
+      "passed": true,
+      "checks": 0,
+      "cases": 2,
+      "tests": null
+    },
+    "independentGeometry": {
+      "report": "tests/toilet-fresh-geometry/integrated-fallback/result.json",
+      "sha256": "0f8314d8ab971bb540ea1493e9154fbca82156240c7809f500b4b5238214429a",
+      "passed": true,
+      "checks": 0,
+      "cases": 2,
+      "tests": null
+    },
+    "allDiagonals": {
+      "report": "tests/toilet-all-diagonal-audit/integrated-fallback/result.json",
+      "sha256": "059a4896a2e7e5cb747746982ec08d4f389ef6861ad0c0a368994732b5ee3c08",
+      "passed": true,
+      "checks": 0,
+      "cases": 2,
+      "tests": null
+    },
+    "cancellation": {
+      "report": "tests/toilet-fallback-cancel/worker-owned/result.json",
+      "sha256": "89fff80f9a52baf417056cf300eab319b28ad9b6c16bcee635e73039c5ead719",
+      "passed": true,
+      "checks": 11,
+      "cases": 0,
+      "tests": null
+    },
+    "fitterParity": {
+      "report": "tests/surface-guide-refine/integrated-inputs/result.json",
+      "sha256": "2952c673343cf5dc18e1cf1bc1a616039e659e465da7928a80357b77456079da",
+      "passed": true,
+      "checks": 33,
+      "cases": 0,
+      "tests": null
+    },
+    "unitGates": {
+      "report": "tests/surface-guide-refine/unit-gates/result.json",
+      "sha256": "8ab96b7e82511c9bec6a2343ce3e12eaa7c503b00f2a3305728c5f520ca78bd3",
+      "passed": true,
+      "checks": 0,
+      "cases": 0,
+      "tests": 6
+    },
+    "componentScope": {
+      "report": "tests/toilet-exhaustive-audit/sampled-production-scope.json",
+      "sha256": "12c8303d9c4d2847d415addaaf6b9fee0642353a725163db1870c46b85283164",
+      "passed": true,
+      "checks": 4,
+      "cases": 0,
+      "tests": null
+    }
+  },
+  "sourceHashes": {
+    "app.js": "8165901130ada827d2744b49447906080281ac518db52c665c6a638be5884b24",
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "2496ba7b6ce3fc73786a50f19169fb15208444bc67fa47a71c39dcb788d81396",
+    "surface_guide_repair.py": "ecec89c96675d33ca0c92eac25be3beb2e9fd01092065f0f10169427dd87bcc2",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "productionFindings": [
+    "Real original-source HTTP/worker bowl-only and short combined solves produce1845quads in213.2/294.1service seconds, respectively.",
+    "Both actual exports pass separate independent geometry and allmixeddiagonal contact audits.",
+    "Fresh browser short and Circle solves pass13checks; downloads, authoredcurves and connectedpaths match independentlyqualified geometry exactly.",
+    "Short browser500.453seconds and Circle250.641seconds include contention from headlesssoftware rendering. One-second observation records about10logicalCPUs in the renderer. No interactiveperformance guarantee.",
+    "Cancellation after actual sampled fitting begins stops ownedworkers, rejects exports, preserves service responsiveness and allows a freshrequest.11checks pass.",
+    "The33check explicitfitter regression reproduces exact global and local candidates, unchangedinputs and outsidepatch vertices.6unit acceptancecontrols pass.",
+    "Original accepted routes remain first. Guided failures receive one freshlayoutseed2, atmost5global fitting passes and one boundedlocalrepair attempt. Thresholds/sourceasset remain unchanged."
+  ],
+  "longGuide": {
+    "qualified": false,
+    "report": "tests/toilet-joint-repair/long-seed2-protected/result.json",
+    "wholeSurfacePassed": true,
+    "lidTangentP95Degrees": 31.938015286243782,
+    "observation": "Protected jointrepair improves geometry but stalls above30degrees. Nextfullstep breaks13outputToSource. This experiment is not the accepted productionfallback."
+  },
+  "liveReadonly": [
+    {
+      "port": 8741,
+      "ready": true,
+      "servedAppMatches": true,
+      "sourceMatches": true
+    },
+    {
+      "port": 8742,
+      "ready": true,
+      "servedAppMatches": true,
+      "sourceMatches": true
+    }
+  ],
+  "remaining": [
+    "Long capturedguide still fails; prepared tangenttail experiment is not yet run.",
+    "Coarsetarget150/600 and representation/inputvariation failures remainopen.",
+    "Sustainedruntime and final requirement reconciliation remain. Do notmarkgoalcomplete from these specificcase successes.",
+    "Independent opt-in guided-layout changes are preserved separately and disabledfortoilet. Stage onlyownedfallbackhook and files."
+  ],
+  "scope": "Production integration checkpoint with exact current executedworktree hashes, static mapping to intendedcommittedscope, independent exportedgeometry and genuine browser/cancellation observations. Historicalnegativeexperiments retain their own source hashes."
+}

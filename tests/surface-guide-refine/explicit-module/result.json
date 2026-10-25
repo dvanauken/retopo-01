@@ -1,0 +1,168 @@
+{
+  "complete": true,
+  "passed": true,
+  "checks": [
+    {
+      "passed": true,
+      "name": "bowl-only-1800 preserves face connectivity in global pass 0"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 global pass 0 exactly reproduces measured candidate",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-sampled-paths\\captured-seed2-401\\bowl-only-1800-0.json",
+      "referenceSha256": "bbe6de0363e80bb22e7d3cdd0b0bd5b28ae36105521d3943640890c5bb3ae956"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 input state is the expected prior pass 0"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 preserves face connectivity in global pass 1"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 global pass 1 exactly reproduces measured candidate",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-sampled-paths\\captured-seed2-401\\bowl-only-1800-1.json",
+      "referenceSha256": "25a89c670e47ae3cfcbfb5958c867cad20e982a8b58763501a4ff23613f86314"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 input state is the expected prior pass 1"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 preserves face connectivity in global pass 0"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 global pass 0 exactly reproduces measured candidate",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-sampled-paths\\captured-seed2-401\\two-guides-short-1800-0.json",
+      "referenceSha256": "67f1f3410edd76760b34ab609a44a2e4f401027481683b173a634a6ee1ef01b3"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 input state is the expected prior pass 0"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 preserves face connectivity in global pass 1"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 global pass 1 exactly reproduces measured candidate",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-sampled-paths\\captured-seed2-401\\two-guides-short-1800-1.json",
+      "referenceSha256": "0b9416007efccbf829d8428a02f1aa321af609fac0d377f330472f0e806c8145"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 input state is the expected prior pass 1"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 0 leaves its input positions unchanged"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 0 exactly reproduces full proposal",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-witness-repair\\short-seed2-local\\two-guides-short-1800-1.json",
+      "referenceSha256": "fb97a0cf6ce6f06ae9cb474bff763ff715a2f65359e51d4edc93fa259851fa60"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 0 keeps every vertex outside its patch fixed"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 0 exactly reproduces accepted half step",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-witness-repair\\short-seed2-local\\two-guides-short-1800-2.json",
+      "referenceSha256": "10b4b29d7d34ca1eac41f84bab6bcc6427622c2a2845a7798f39baa015b4a9bf"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 1 leaves its input positions unchanged"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 1 exactly reproduces full proposal",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-witness-repair\\short-seed2-local\\two-guides-short-1800-3.json",
+      "referenceSha256": "0a7439d562953c4e6e1bab40a2bc521ca7a57f597c87cc78d981bb4c3e991344"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 1 keeps every vertex outside its patch fixed"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 1 exactly reproduces accepted half step",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-witness-repair\\short-seed2-local\\two-guides-short-1800-4.json",
+      "referenceSha256": "f9cd12927ce5d2825260b07da82da73eeee6e1389565fe0ad72340e7848e5ece"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 2 leaves its input positions unchanged"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 2 exactly reproduces full proposal",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-witness-repair\\short-seed2-local\\two-guides-short-1800-5.json",
+      "referenceSha256": "62420b5a11d0eeda3b0d174708afe66726a84168c2031698c912e54a1be5b190"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 2 keeps every vertex outside its patch fixed"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 2 exactly reproduces accepted half step",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-witness-repair\\short-seed2-local\\two-guides-short-1800-6.json",
+      "referenceSha256": "bb4fe99f9b6d02a3b9b65c47255799f5df9d0d9270111a05f15a6a5726d7dceb"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 3 leaves its input positions unchanged"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 3 exactly reproduces full proposal",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-witness-repair\\short-seed2-local\\two-guides-short-1800-7.json",
+      "referenceSha256": "f453e01f6fcfc7b23bc576cb1895c4ea24c94bffacef394457fcf35dd0de1663"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 3 keeps every vertex outside its patch fixed"
+    },
+    {
+      "passed": true,
+      "name": "Local pass 3 exactly reproduces accepted half step",
+      "maximumCoordinateDifference": 0.0,
+      "referenceFile": "tests\\toilet-witness-repair\\short-seed2-local\\two-guides-short-1800-8.json",
+      "referenceSha256": "3dec93b896577c071d8d38daf1123553d976ea4e182a8fef0284e2a511418945"
+    },
+    {
+      "passed": true,
+      "name": "Numerical source remains unchanged throughout the comparison"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "surface_guide_refine.py": "2496ba7b6ce3fc73786a50f19169fb15208444bc67fa47a71c39dcb788d81396",
+    "curved_quad.py": "56e6a2a945189d0a1e19e64b3cb6f2f14c7f05b38d8956cda2bab84af452b3cf",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "tests/verify_surface_guide_refine.py": "2506e6c0cc5afd67960e04e41b3871f3573f7ec799a88b4f88ef752ab4cba5a0"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 41.54700000002049,
+  "scope": "Actual fitting calls through an explicit geometry/curve/target module, compared coordinate-for-coordinate with retained numerical candidates whose final exports pass independent audits. Includes global and local fitting, fixed input arrays, and untouched vertices outside local patches. This is a refactoring regression; it does not by itself qualify other guide inputs or integrate the module into the production worker."
+}

@@ -1,0 +1,233 @@
+{
+  "observedAt": "2026-10-25T08:01:13.980052+00:00",
+  "logicalCPUs": 16,
+  "processes": [
+    {
+      "pid": 25732,
+      "name": "python.exe",
+      "parentPid": 29668,
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\python.exe",
+        "-X",
+        "utf8",
+        "tests\\verify_toilet_fallback_browser.py",
+        "--label",
+        "integrated-fallback"
+      ],
+      "cpuPercent": 3.1,
+      "rss": 63385600
+    },
+    {
+      "pid": 9000,
+      "name": "python.exe",
+      "parentPid": 25732,
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\python.exe",
+        "-X",
+        "utf8",
+        "server.py",
+        "--port",
+        "61032"
+      ],
+      "cpuPercent": 0.0,
+      "rss": 31367168
+    },
+    {
+      "pid": 46748,
+      "name": "node.exe",
+      "parentPid": 25732,
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\driver\\node.exe",
+        "C:\\Users\\Buddy\\miniforge3\\Lib\\site-packages\\playwright\\driver\\package\\cli.js",
+        "run-driver"
+      ],
+      "cpuPercent": 3.0,
+      "rss": 209047552
+    },
+    {
+      "pid": 37284,
+      "name": "chrome-headless-shell.exe",
+      "parentPid": 46748,
+      "command": [
+        "C:\\Users\\Buddy\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1208\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+        "--disable-field-trial-config",
+        "--disable-background-networking",
+        "--disable-background-timer-throttling",
+        "--disable-backgrounding-occluded-windows",
+        "--disable-back-forward-cache",
+        "--disable-breakpad",
+        "--disable-client-side-phishing-detection",
+        "--disable-component-extensions-with-background-pages",
+        "--disable-component-update",
+        "--no-default-browser-check",
+        "--disable-default-apps",
+        "--disable-dev-shm-usage",
+        "--disable-extensions",
+        "--disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints",
+        "--enable-features=CDPScreenshotNewSurface",
+        "--allow-pre-commit-input",
+        "--disable-hang-monitor",
+        "--disable-ipc-flooding-protection",
+        "--disable-popup-blocking",
+        "--disable-prompt-on-repost",
+        "--disable-renderer-backgrounding",
+        "--force-color-profile=srgb",
+        "--metrics-recording-only",
+        "--no-first-run",
+        "--password-store=basic",
+        "--use-mock-keychain",
+        "--no-service-autorun",
+        "--export-tagged-pdf",
+        "--disable-search-engine-choice-screen",
+        "--unsafely-disable-devtools-self-xss-warnings",
+        "--edge-skip-compat-layer-relaunch",
+        "--enable-automation",
+        "--disable-infobars",
+        "--disable-search-engine-choice-screen",
+        "--disable-sync",
+        "--enable-unsafe-swiftshader",
+        "--headless",
+        "--hide-scrollbars",
+        "--mute-audio",
+        "--blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4",
+        "--no-sandbox",
+        "--user-data-dir=C:\\Users\\Buddy\\AppData\\Local\\Temp\\playwright_chromiumdev_profile-P8ShRF",
+        "--remote-debugging-pipe",
+        "--no-startup-window"
+      ],
+      "cpuPercent": 1.5,
+      "rss": 49557504
+    },
+    {
+      "pid": 41516,
+      "name": "chrome-headless-shell.exe",
+      "parentPid": 37284,
+      "command": [
+        "C:\\Users\\Buddy\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1208\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+        "--type=gpu-process",
+        "--no-sandbox",
+        "--disable-breakpad",
+        "--headless",
+        "--use-angle=swiftshader-webgl",
+        "--enable-unsafe-swiftshader",
+        "--gpu-preferences=SAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAABAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA==",
+        "--use-gl=angle",
+        "--field-trial-handle=1484,i,4164114478471061967,9422424613542624927,262144",
+        "--enable-features=CDPScreenshotNewSurface",
+        "--disable-features=AutoDeElevate,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate",
+        "--variations-seed-version",
+        "--trace-process-track-uuid=3190708988185955192",
+        "--enable-logging=handle",
+        "--log-file=1476",
+        "--mojo-platform-channel-handle=1492",
+        "/prefetch:2"
+      ],
+      "cpuPercent": 1021.9,
+      "rss": 156205056
+    },
+    {
+      "pid": 33348,
+      "name": "chrome-headless-shell.exe",
+      "parentPid": 37284,
+      "command": [
+        "C:\\Users\\Buddy\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1208\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+        "--type=utility",
+        "--utility-sub-type=network.mojom.NetworkService",
+        "--lang=en-US",
+        "--service-sandbox-type=none",
+        "--no-sandbox",
+        "--use-angle=swiftshader-webgl",
+        "--use-gl=angle",
+        "--mute-audio",
+        "--headless=old",
+        "--field-trial-handle=1484,i,4164114478471061967,9422424613542624927,262144",
+        "--enable-features=CDPScreenshotNewSurface",
+        "--disable-features=AutoDeElevate,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate",
+        "--variations-seed-version",
+        "--trace-process-track-uuid=3190708989122997041",
+        "--enable-logging=handle",
+        "--log-file=1920",
+        "--mojo-platform-channel-handle=1896",
+        "/prefetch:3"
+      ],
+      "cpuPercent": 0.0,
+      "rss": 33124352
+    },
+    {
+      "pid": 51304,
+      "name": "chrome-headless-shell.exe",
+      "parentPid": 37284,
+      "command": [
+        "C:\\Users\\Buddy\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1208\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+        "--type=renderer",
+        "--headless=old",
+        "--no-sandbox",
+        "--disable-back-forward-cache",
+        "--disable-background-timer-throttling",
+        "--disable-breakpad",
+        "--enable-automation",
+        "--force-color-profile=srgb",
+        "--remote-debugging-pipe",
+        "--allow-pre-commit-input",
+        "--blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4",
+        "--video-capture-use-gpu-memory-buffer",
+        "--lang=en-US",
+        "--device-scale-factor=1",
+        "--num-raster-threads=4",
+        "--enable-main-frame-before-activation",
+        "--renderer-client-id=4",
+        "--time-ticks-at-unix-epoch=-1792637810296824",
+        "--launch-time-ticks=277191963780",
+        "--field-trial-handle=1484,i,4164114478471061967,9422424613542624927,262144",
+        "--enable-features=CDPScreenshotNewSurface",
+        "--disable-features=AutoDeElevate,AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,OptimizationHints,PaintHolding,RenderDocument,ThirdPartyStoragePartitioning,Translate",
+        "--variations-seed-version",
+        "--trace-process-track-uuid=3190708990060038890",
+        "--enable-logging=handle",
+        "--log-file=2532",
+        "--mojo-platform-channel-handle=2380",
+        "/prefetch:1"
+      ],
+      "cpuPercent": 21.1,
+      "rss": 189308928
+    },
+    {
+      "pid": 26000,
+      "name": "conhost.exe",
+      "parentPid": 9000,
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ],
+      "cpuPercent": 0.0,
+      "rss": 11890688
+    },
+    {
+      "pid": 32904,
+      "name": "python.exe",
+      "parentPid": 9000,
+      "command": [
+        "C:\\Users\\Buddy\\miniforge3\\python.exe",
+        "-X",
+        "utf8",
+        "C:\\dbva\\code\\retopo-1\\worker.py",
+        "--job",
+        "C:\\dbva\\code\\retopo-1\\runs\\0b5684e980814afa82cd4d88f05a1f84"
+      ],
+      "cpuPercent": 97.3,
+      "rss": 174260224
+    },
+    {
+      "pid": 47156,
+      "name": "conhost.exe",
+      "parentPid": 32904,
+      "command": [
+        "\\??\\C:\\Windows\\system32\\conhost.exe",
+        "0x4"
+      ],
+      "cpuPercent": 0.0,
+      "rss": 11952128
+    }
+  ],
+  "scope": "One-second process sample of this test and its verified descendants. Percentage is per logical CPU (can exceed100). Headless software rendering can contend with the numerical worker; this is not an interactive-browser performance benchmark."
+}

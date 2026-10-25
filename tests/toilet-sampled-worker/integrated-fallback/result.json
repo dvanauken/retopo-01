@@ -1,0 +1,130 @@
+{
+  "complete": true,
+  "passed": true,
+  "productionResult": true,
+  "cases": [
+    {
+      "name": "two-guides-short-1800",
+      "job": "b1eca7d637e44f6a86b3483990a69bc7",
+      "state": "complete",
+      "target": 1800,
+      "guideCount": 2,
+      "elapsedSeconds": 294.10061717033386,
+      "error": null,
+      "outputSha256": "c0b5fca59adfbfa06ddc70fc2479a8ccc06705d26a7f6bb07fc564e1b258c5c5",
+      "fittingMethod": "sampled-guide-paths-with-local-surface-repair",
+      "seed": 2
+    },
+    {
+      "name": "bowl-only-1800",
+      "job": "16c7d5dced7845059d0ea3fcb72df23b",
+      "state": "complete",
+      "target": 1800,
+      "guideCount": 1,
+      "elapsedSeconds": 213.20123147964478,
+      "error": null,
+      "outputSha256": "602348c3f63937b28e7335183187fccda11c5f065a2c04fc2a30e1fe50780c52",
+      "fittingMethod": "sampled-guide-paths-with-local-surface-repair",
+      "seed": 2
+    }
+  ],
+  "checks": [
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 admitted by the real service"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 produces an accepted mesh",
+      "state": {
+        "id": "b1eca7d637e44f6a86b3483990a69bc7",
+        "meshId": "toilet",
+        "target": 1800,
+        "state": "complete",
+        "stage": "Mesh ready",
+        "createdAt": 1792914353.803055,
+        "requestId": "cfa4ffc0b5a4414ca6bf90d4fb9ec557",
+        "startedAt": 1792914353.8040597,
+        "finishedAt": 1792914647.904677,
+        "actualExitCode": 0,
+        "resultUrl": "/api/jobs/b1eca7d637e44f6a86b3483990a69bc7/mesh.json"
+      }
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 serves the exact accepted OBJ"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 preserves every production acceptance gate"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 retains a measured output-edge path for every submitted guide"
+    },
+    {
+      "passed": true,
+      "name": "two-guides-short-1800 records exact executed numerical code"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 admitted by the real service"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 produces an accepted mesh",
+      "state": {
+        "id": "16c7d5dced7845059d0ea3fcb72df23b",
+        "meshId": "toilet",
+        "target": 1800,
+        "state": "complete",
+        "stage": "Mesh ready",
+        "createdAt": 1792914648.9176824,
+        "requestId": "61858d217b5343618e6f64a981421e9c",
+        "startedAt": 1792914648.9176824,
+        "finishedAt": 1792914862.118914,
+        "actualExitCode": 0,
+        "resultUrl": "/api/jobs/16c7d5dced7845059d0ea3fcb72df23b/mesh.json"
+      }
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 serves the exact accepted OBJ"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 preserves every production acceptance gate"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 retains a measured output-edge path for every submitted guide"
+    },
+    {
+      "passed": true,
+      "name": "bowl-only-1800 records exact executed numerical code"
+    },
+    {
+      "passed": true,
+      "name": "Implementation unchanged throughout production regression"
+    }
+  ],
+  "errors": [],
+  "sourceHashes": {
+    "server.py": "43bb9db30396aebef4fa76838e4aa0e83948011c02dc9c18ed5034bb66613d19",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "surface_guide_refine.py": "2496ba7b6ce3fc73786a50f19169fb15208444bc67fa47a71c39dcb788d81396",
+    "surface_guide_repair.py": "ecec89c96675d33ca0c92eac25be3beb2e9fd01092065f0f10169427dd87bcc2",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "process_ownership.py": "61b00802d0c3c662e36e0ae99cf157cca1bac6fc46250d08237b40bd84f394b9",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
+    "assets/models/toilet.json": "09e46f096677f7058bd0f6a2977dbdf2f6f7ea72a812a1ceb1b9fd8208b751f3",
+    "scripts/quadriflow_mesh.py": "2f217660afff193c89919b1674b01dff5f682b1df22886562bc7f756c5dd8f2d",
+    "tests/verify_toilet_sampled_worker.py": "aa508a4a5b9ecc4799fe88794356efb9c9b91f8d066ce50f122fae30c91707e4"
+  },
+  "implementationUnchanged": true,
+  "elapsedSeconds": 509.4219999999623,
+  "scope": "Real HTTP admission, fresh original-source layout, ordinary production worker, export and retrieval. No saved candidate is an input. Geometry qualification comes from the worker; separate exported-OBJ audits are required."
+}

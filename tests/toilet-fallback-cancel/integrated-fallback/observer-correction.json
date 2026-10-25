@@ -1,0 +1,29 @@
+{
+  "originalResultRemainsFailed": true,
+  "worker": {
+    "pid": 36060,
+    "created": 1792915788.3240612,
+    "command": [
+      "C:\\Users\\Buddy\\miniforge3\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\dbva\\code\\retopo-1\\worker.py",
+      "--job",
+      "C:\\dbva\\code\\retopo-1\\runs\\8d23b1dcfdb44a209d6ef4d99d928a74"
+    ]
+  },
+  "survivingServiceConsole": {
+    "pid": 48148,
+    "created": 1792915787.7386613,
+    "command": [
+      "\\??\\C:\\Windows\\system32\\conhost.exe",
+      "0x4"
+    ]
+  },
+  "findings": [
+    "The actual worker and its later console are absent from the surviving list.",
+    "The sole survivor is a service descendant created before the actual worker; the service intentionally remains alive.",
+    "The observer boundary, not production cancellation logic, is changed. Do not blanket-ignore console processes; worker-owned consoles must still exit."
+  ],
+  "correctedReport": "tests/toilet-fallback-cancel/worker-owned/result.json"
+}

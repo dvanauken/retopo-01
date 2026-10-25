@@ -1,0 +1,6 @@
+{
+  "originalPath": "tests/verify_toilet_fallback_cancel.py",
+  "executedScript": "tests/toilet-fallback-cancel/integrated-fallback/executed-probe.py",
+  "executedSha256": "050c907eb400cc556950b6f371bae86296e217f466bb6e7afd580af929ffb884",
+  "reason": "Initial observer incorrectly treated every service descendant as worker-owned. It included a console host created before the actual worker. Corrected observer resolves the exact job worker and records only that worker plus its actual descendants; its separate rerun remains required."
+}

@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-25T07:58:22.109476+00:00",
+  "sourceHashes": {
+    "curved_quad.py": "1f3a21bd0babbd6e7b74909ad84df7f54479df1fbcdb375d390a127d1a739217",
+    "worker.py": "e337a7b97d13bb90fcb2d2138a319b841606af60c38b51f35629d777d366e70a",
+    "surface_guide_refine.py": "2496ba7b6ce3fc73786a50f19169fb15208444bc67fa47a71c39dcb788d81396",
+    "surface_guide_repair.py": "ecec89c96675d33ca0c92eac25be3beb2e9fd01092065f0f10169427dd87bcc2",
+    "surface_distance.py": "4ba212afc7d0153ba9c8706a4b659ab1761d1ce426a68103f397fad9244dfcbc",
+    "surface_intersections.py": "adcb64e7d75a3a3b3f3ac5f2b168f53567b846497f2f4a37c8a8e58cd68e3794",
+    "quad_quality.py": "e3dd77c3e9bada1a5e08dc2773d5df51910c0a79a4945e11ec5f6d2d32ccc9ab",
+    "assets/models/toilet.obj": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053"
+  },
+  "checks": [
+    {
+      "passed": true,
+      "name": "Committed fitter plus documented fallback hook equals tested toilet route after removing the disabled shared opt-in branch."
+    },
+    {
+      "passed": true,
+      "name": "Committed worker equals tested worker after removing the false-by-default optional dispatch keyword."
+    },
+    {
+      "passed": true,
+      "name": "All other14shared files retain their previous exact bytes."
+    },
+    {
+      "passed": true,
+      "name": "Source asset and acceptance gates retain their prior exact bytes."
+    }
+  ],
+  "scope": "AST/component-scope comparison of tested worktree and intended committed implementation. Shared independent opt-in changes remain uncommitted and disabled for the toilet. This is not a claim of runtime coverage for that separate route."
+}

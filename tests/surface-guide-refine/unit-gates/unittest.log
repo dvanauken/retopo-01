@@ -1,0 +1,11 @@
+test_contact_rejection_cannot_enter_surface_repair (__main__.AcceptanceTests.test_contact_rejection_cannot_enter_surface_repair) ... ok
+test_full_surface_failure_still_rejects_a_repairable_candidate (__main__.AcceptanceTests.test_full_surface_failure_still_rejects_a_repairable_candidate) ... ok
+test_guide_boundaries_reject_before_expensive_checks (__main__.AcceptanceTests.test_guide_boundaries_reject_before_expensive_checks) ... ok
+test_limits_are_inclusive_and_all_gates_are_required (__main__.AcceptanceTests.test_limits_are_inclusive_and_all_gates_are_required) ... ok
+test_shape_rejection_does_not_claim_unchecked_geometry_passes (__main__.AcceptanceTests.test_shape_rejection_does_not_claim_unchecked_geometry_passes) ... ok
+test_unresolved_surface_without_witness_cannot_trigger_speculative_repair (__main__.AcceptanceTests.test_unresolved_surface_without_witness_cannot_trigger_speculative_repair) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.005s
+
+OK

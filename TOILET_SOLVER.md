@@ -1,13 +1,34 @@
 # Curved-surface quad solver
 
-The exhaustive audit is still open. The current warpage correction has produced
+The exhaustive audit is still open. A production fallback now solves the captured
+bowl-only and shorter two-guide inputs at target 1,800. Both real HTTP/worker
+requests produce 1,845 quads under every unchanged acceptance gate. Service times
+were 213 and 294 seconds respectively. The fallback generates a fresh additional
+layout, fits distributed guide samples, and repairs local surface failures when
+needed. It uses the original source, submitted guides and target; no saved test
+candidate participates. See `tests/toilet-sampled-worker/integrated-fallback/`.
+Longer guides, coarse targets and input variation remain unresolved coverage.
+
+Both actual worker exports pass the independent reference/dense/LP/BVH/path
+audit and all mixed-diagonal contact checks under the `integrated-fallback`
+labels in `tests/toilet-fresh-geometry/` and `tests/toilet-all-diagonal-audit/`.
+A fresh browser generation of the short case displays the mesh and downloads
+the exact same OBJ. Its 500-second solve ran with heavy headless software-renderer
+CPU load, recorded separately in `tests/toilet-fallback-browser/integrated-fallback/`.
+This is a successful workflow observation, not an interactive performance benchmark.
+The Circle browser control also reproduces its existing qualified export.
+Cancellation during actual sampled fitting passes all 11 scoped checks under
+`tests/toilet-fallback-cancel/worker-owned/`, including worker/descendant cleanup
+and unavailable result downloads.
+
+Earlier, the warpage correction produced
 three fresh, independently checked toilet results at target 1,800: unguided
 (1,923 quads), lid guide (1,782), and a Circle guide on the lid (1,782). Each
 export passes the unchanged shape/topology limits, adaptive surface bounds for
 both diagonals, dense independent proximity checks, and separate face-contact
 tests. See `tests/toilet-fresh-geometry/unguided-warpage/result.json` and
 `tests/toilet-fresh-geometry/guided-warpage/result.json`. This qualifies these
-specific inputs, not the unresolved bowl and combined-guide cases.
+specific inputs; the later bowl/short-case improvement is recorded above.
 
 An isolated fresh-source pipeline now qualifies the captured **shorter two-guide
 case** at 1,800: a newly generated seed-2 layout, distributed guide fitting and
@@ -17,8 +38,10 @@ LP/BVH and all-mixed-diagonal audits. Its OBJ exactly matches the earlier
 retained-layout repair (`4c0c434ecbb80901851e5edc72d69f4a68660c253a92adf667bca3540712b9c9`).
 See `tests/toilet-fresh-witness/fresh-short-seed2/` and the
 `fresh-short-seed2-export` independent audits. This is an experimental pipeline,
-not the production worker. Integration, runtime and input-variation regressions
-remain required; the final lid-guide distance has only about 1.3% margin.
+not the production worker. The new production fallback reproduces its exact
+coordinates and faces; its OBJ header differs because it uses the ordinary
+worker exporter. Input-variation regressions remain required; the final lid-guide
+distance has only about 1.3% margin.
 
 Fresh Circle, reversed-lid and perturbed-Circle runs under the final mixed-
 diagonal gate also pass independent exported-geometry checks in
@@ -42,7 +65,7 @@ bowl-only candidate on retained seed 2 that passes the unchanged gates after
 four passes. Its exported OBJ also passes the independent surface, guide,
 topology, quality, LP/BVH and all-mixed-diagonal checks. This is experimental
 output, explicitly labeled separately from a service-generated result. Production
-still uses its existing fitter and seeds 0/1. Both captured combined-guide inputs
+at that checkpoint used its existing fitter and seeds 0/1. Both captured combined-guide inputs
 were also tested: all ten refinement passes fail guide alignment. The last long
 case reaches tangent p95 values of 30.75 and 31.31 degrees, above the unchanged
 30-degree limit. Some shorter-case passes also fail surface checks. None is

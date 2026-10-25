@@ -4,7 +4,33 @@ The active request is to keep testing until the toilet workflow has been tested
 exhaustively. Prior check counts are evidence, not completion criteria. An
 unresolved case, unchecked requirement or weak test keeps this audit open.
 
-The latest continuation adds ownership before the initial submission: the browser
+The latest numerical integration passes two fresh production regressions: the
+captured bowl-only and shorter combined-guide requests each produce 1,845 quads.
+The ordinary service/worker path uses distributed guide fitting only after the
+original attempts fail. The shorter case additionally repairs measured local
+surface failures. Acceptance thresholds and the source asset remain unchanged.
+Real HTTP admission/export checks are retained in
+`tests/toilet-sampled-worker/integrated-fallback/`. The longer guide and coarse
+targets remain open; these two successes do not complete the audit.
+
+Both exports pass independent reference, dense surface, LP/BVH, connected-path
+and all-diagonal contact audits. Thirteen actual browser checks pass with fresh
+short-case and Circle generations, visible accepted results, preserved guides
+and native downloads. Both downloaded OBJs, authored curves and connected paths
+match independently qualified results exactly. The short browser solve took
+500 seconds under heavy headless software-rendering load; the HTTP-only run took
+294 seconds. This does not establish general interactive timing. An additional
+33 fitting checks reproduce exact qualified coordinates and verify unchanged
+inputs/local patch boundaries; six controls cover acceptance and rejection.
+
+Eleven checks pass when cancelling an actual job after sampled fitting begins:
+the worker and its descendants exit, exports remain unavailable, and the service
+admits another request. The initial observer incorrectly counted the live
+service's console as worker-owned. That failed observation and its exact script
+are retained; the corrected `worker-owned` run records actual parentage. No
+production cancellation logic changed for this observer correction.
+
+Earlier workflow testing added ownership before the initial submission: the browser
 creates a request identity, and the service deduplicates delivery and remembers
 early cancellation. Cancel/Reset can now stop work even if the first admission
 response is lost or delivery has not reached the service. Real forced-exit tests
@@ -24,8 +50,8 @@ on the final app/server code, with two fresh Circle solves. Its OBJ exactly
 matches the independently qualified Circle. The earlier unexplained client
 cancellation is retained separately; a later pass does not establish its cause.
 
-Production fitting, source assets, recovered engine and acceptance thresholds
-remain unchanged. An isolated tangent-plus-sliding-pin experiment on seed 2 now
+At that lifecycle checkpoint, production fitting, source assets, recovered engine
+and acceptance thresholds remained unchanged. An isolated tangent-plus-sliding-pin experiment on seed 2
 passes all production gates for the bowl-only case after four passes (guide p95
 distance 0.01033, tangent mismatch 29.70 degrees). Independent export validation
 and all mixed-diagonal checks also pass. It is not integrated. Both captured

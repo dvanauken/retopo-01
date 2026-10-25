@@ -74,14 +74,18 @@ for family, labels in {
     'generated-ui':['request-ownership','ownership-io','ownership-io-diagnostics'],
     'file-locks':['io-fault-fixed','nested-worker-job'],
     'tangent-pins':['bowl-seed-2-weight-8','combined-seed-2-weight-8','captured-seed-2-weight-12'],
-    'fresh-geometry':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export'],
-    'all-diagonal-audit':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export'],
+    'fresh-geometry':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export','integrated-fallback'],
+    'all-diagonal-audit':['tangent-bowl-seed2','sampled-path-401','witness-short-seed2','fresh-short-seed2-export','integrated-fallback'],
     'sampled-paths':['captured-seed2-401','fresh-short-seed2-fit'],
     'both-diagonal-support':['captured-seed2-401'],
     'oriented-support':['captured-seed2-401'],
     'feasible-blend':['captured-seed2','captured-seed2-arrays'],
     'witness-repair':['short-seed2-local','fresh-short-seed2-repair'],
     'fresh-witness':['fresh-short-seed2'],
+    'joint-repair':['long-seed2-protected'],
+    'sampled-worker':['integrated-fallback'],
+    'fallback-browser':['integrated-fallback'],
+    'fallback-cancel':['integrated-fallback','worker-owned'],
 }.items():
     for label in labels:
         reports[family+'-'+label]='tests/toilet-'+family+'/'+label+'/result.json'
@@ -90,6 +94,11 @@ reports['authored-self-alignment']='tests/toilet-path-fit-diagnostics/self-align
 reports['support-normal-diagnostics']='tests/toilet-support-normal-diagnostics/result.json'
 reports['worker-lifetime-shared-scope']='tests/toilet-exhaustive-audit/worker-lifetime-shared-scope.json'
 reports['live-worker-lifetime-readonly']='tests/toilet-exhaustive-audit/live-worker-lifetime.json'
+reports['explicit-fitter-parity']='tests/surface-guide-refine/explicit-module/result.json'
+reports['integrated-fitter-inputs']='tests/surface-guide-refine/integrated-inputs/result.json'
+reports['sampled-repair-unit-gates']='tests/surface-guide-refine/unit-gates/result.json'
+reports['sampled-production-scope']='tests/toilet-exhaustive-audit/sampled-production-scope.json'
+reports['browser-export-identity']='tests/toilet-fallback-browser/integrated-fallback/independent-identity.json'
 for family in ('path-reselection','long-surface-diagnostics','guided-route-review'):
     reports[family]='tests/toilet-'+family+'/result.json'
 for family in ('fresh-geometry','all-diagonal-audit'):
@@ -127,7 +136,8 @@ for name,relative in reports.items():
     evidence[name]=item
 contact_proofs={}
 for relative in ('tests/toilet-all-diagonal-audit/before-new-gate/result.json',
-                 'tests/toilet-all-diagonal-audit/fresh-new-gate/result.json'):
+                 'tests/toilet-all-diagonal-audit/fresh-new-gate/result.json',
+                 'tests/toilet-all-diagonal-audit/integrated-fallback/result.json'):
     path=ROOT/relative
     if path.exists():
         data=json.loads(path.read_text())
@@ -139,7 +149,8 @@ for relative in ('tests/toilet-fresh-geometry/unguided-warpage/result.json',
                  'tests/toilet-fresh-geometry/guided-warpage/result.json',
                  'tests/toilet-fresh-geometry/representation-variants/result.json',
                  'tests/toilet-fresh-geometry/remaining-variants/result.json',
-                 'tests/toilet-fresh-geometry/all-diagonal-generations/result.json'):
+                 'tests/toilet-fresh-geometry/all-diagonal-generations/result.json',
+                 'tests/toilet-fresh-geometry/integrated-fallback/result.json'):
     path=ROOT/relative
     if path.exists():
         data=json.loads(path.read_text())
@@ -168,15 +179,18 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
     provisionalSpecificCases=provisional,disqualifiedSpecificCases=disqualified,
     updatedAt=datetime.now(timezone.utc).isoformat(),evidence=evidence,
     interpretation=[
+        'The sampled-path fitter is now a bounded production fallback after the original guided attempts fail. Fresh HTTP/worker bowl-only and short combined requests both produce1845quads; their actual exported OBJs pass the independent and all-diagonal audits. The source asset and acceptance thresholds are unchanged. Exact executed code and retained historical reports are distinguished below.',
+        'Joint protected local repair makes the longer guide candidate pass whole-surface bounds, but stalls at lid tangent31.938degrees. It is unqualified. Later candidate movement that further reduces angle breaks a previously passing surface bound.',
+        'The initial sampled-stage cancellation observer incorrectly included the live service console among worker-owned processes. Its failed result is retained with exact executed source and timestamps. The worker-owned rerun identifies the exact job worker and its descendants; no production cancellation code changed for this observer correction.',
         'Browser-generated request identities extend ownership to lost initial admission responses and cancellation before delivery. Exact-hash reports retain negative reproductions, corrected observers, completed sequential reruns and interrupted observations separately.',
         'Windows forced-exit tests use an actual toilet worker and Blender child; a service process job now owns their lifetime. Deduplication and early-cancellation records are per service lifetime. Non-Windows forced-exit cleanup is not claimed.',
-        'Worker-only forced exit reproduced a live orphan Blender while the service survived. A nested worker lifetime job fixes it. The nested-worker-job suites pass 166 scoped checks on their recorded hashes, before a concurrent opt-in guided-layout dispatch edit. Experimental fitting remains isolated from production.',
+        'Worker-only forced exit reproduced a live orphan Blender while the service survived. A nested worker lifetime job fixes it. The nested-worker-job suites pass 166 scoped checks on their recorded hashes, before the separately preserved opt-in guided-layout dispatch edit and later sampled-fit integration.',
         'The request-ownership generated-UI run passed 12 checks before a genuine progress-file sharing violation cancelled its second Circle solve. The ownership-io attempt subsequently cancelled without a server traceback and is retained as incomplete. All 15 ownership-io-diagnostics workflow checks pass on final app/server code with two genuine fresh Circle solves; this does not establish the cause of the earlier unexplained interruption.',
         'The c8e5b83 request-ownership checkpoint retains 274 scoped checks including 15 genuine generated-result browser checks. Exact hashes and component scopes are retained; later worker-lifetime tests are a distinct checkpoint, not an additive claim about a single final revision.',
         'The isolated tangent/sliding-pin bowl experiment passes existing production gates, but is not integrated. Independent experimental export reports are separate from actual service-generated mesh qualification.',
         'The distributed 401-sample objective retains the unchanged 257-sample acceptance metric. Bowl-only passes solver gates; the shorter combined case reaches guide limits but fails whole-surface bounds, and the longer case still fails tangent alignment. Separate both-diagonal source-support experiments preserve all acceptance limits.',
         'Both-diagonal vertex/centroid support and its opposing-normal-filter variant each fail all 15 captured-case attempts with contacts. These completed negative experiments do not change production fitting or excuse any failed acceptance gate.',
-        'Local witness repair qualifies the short combined input under every unchanged gate. Its exported OBJ passes independent audits, and a fresh original-source Blender/fitting/repair pipeline reproduces identical bytes with fresh independent audits. This remains experimental, with narrow guide-distance margin; no production-worker integration or input-variation robustness is claimed.',
+        'The earlier local witness experiment and fresh-source pipeline qualify the short combined input under every unchanged gate. The subsequent integrated worker reproduces its exact positions and faces with a different OBJ header. Its narrow guide-distance margin still requires input-variation work.',
         'All 18 coarse blend trials remain unqualified. A preliminary blend harness type error is retained separately. Long-guide path reselection is unchanged; its full surface bounds also fail, so tangent improvement alone will not qualify that candidate.',
         'Extra genuine layout seeds 2/3 fail all six captured complex-guide cases. Sliding pins on seed 2 fail guide alignment in every pass. These isolated experiments are not in production and do not qualify geometry.',
         'Green lifecycle, editing or rejection checks do not qualify the generated geometry.',
@@ -188,7 +202,7 @@ report=dict(completionProven=False,generatedToiletQualified=False,qualifiedSpeci
         'The original source is unchanged. Its four known contacts are spatially separate from the newly detected bowl overlaps.',
     ],remaining=[
         'Captured two-guide networks and basic toilet solves must meet all geometric requirements.',
-        'The short combined case now has a fresh experimentally qualified result. Production integration and variation/runtime regressions remain; the longer captured case still needs joint tangent and surface repair.',
+        'The bowl-only and short combined cases now have independently qualified production results. Complete browser/cancellation and variation/runtime reconciliation; the longer captured case still needs tangent repair that preserves the surface.',
         'Finite reversal/cyclic-start/densification/order/perturbation/density cases have been exercised; several failures and remaining generation acceptance outcomes still require resolution.',
         'Fresh all-diagonal Circle/reversed-lid/perturbed-Circle generations and independent export audits pass; the broader failing guide/density cases remain unresolved.',
         'Lost initial acknowledgement, before-delivery Cancel/Reset, real service restart and locked progress/cancellation files have dedicated coverage. Reconcile each final suite against its exact implementation hash.',

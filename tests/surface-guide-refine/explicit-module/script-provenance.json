@@ -1,0 +1,6 @@
+{
+  "originalPath": "tests/verify_surface_guide_refine.py",
+  "executedScript": "tests/surface-guide-refine/explicit-module/executed-probe.py",
+  "executedSha256": "2506e6c0cc5afd67960e04e41b3871f3573f7ec799a88b4f88ef752ab4cba5a0",
+  "reason": "Later harness adds a direct global-input immutability assertion. Original29checks retained; improved33check run is separate."
+}
