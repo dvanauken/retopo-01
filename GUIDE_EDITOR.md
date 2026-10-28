@@ -29,6 +29,9 @@ exposes Polyline, Spline and Circle guides, with a freehand Polyline constructio
 | Escape from ready Direct Selection | Return to Object Selection, retaining the selected guide IDs. |
 | Ctrl/Command+Z / Shift+Z | Document undo / redo. Selection and camera changes do not enter history. |
 | Snap to guide points | Optional soft snapping: acquire at 8 CSS pixels, release at 12. Alt bypasses it, including on release. |
+| Snap to source vertices | Optional snapping to the front-visible source mesh vertices in either pane. Shares the 8/12 CSS-pixel acquire/release thresholds and Alt bypass. Available for freehand, Polyline, Spline and their point edits; Circle uses its separate analytic construction. |
+| Middle drag / Right drag / Wheel | Orbit / pan / zoom from a drawing tool without changing the selected tool or pointer-free construction. Navigation cannot interrupt an owned guide drag. |
+| F10 | Toggle source and result mesh vertices. This displays points; it does not edit mesh vertices. |
 | Hold Space | Product extension: temporary orbit retains pointer-free construction/selection. Key release returns; Escape, blur, hidden-document and context loss discard retained interaction. Activation during an owned guide drag is rejected. |
 
 Controls and Canvas are one focus scope. Native text fields own their keys, and
@@ -94,9 +97,14 @@ guide, 8192 derived samples per document and 8192 evaluator/subdivision work uni
 per Spline flattening call. Numeric operation failure is explicit. Selection drag
 threshold is greater than 4 CSS pixels; double activation is at most 400 ms and
 6 CSS pixels. Point/segment hit tolerance is 8 CSS pixels. Snap candidates are
-ordered by distance then stable guide/point ID, with hysteresis validated against
-document epoch/generation and camera revision. Self-edited guides are excluded.
+ordered by distance then stable candidate key, with hysteresis validated against
+document epoch/generation, camera revision and enabled snap types. Self-edited
+guides are excluded; source mesh vertices remain eligible. A module worker indexes
+source vertices in screen space; a front-triangle fallback is used while the index
+is unavailable. Ghosting does not enable snapping through the source surface.
 Only point snapping is offered; grid, tangent and intersection snapping are absent.
+See [VIEWER_CONTROLS.md](VIEWER_CONTROLS.md) for controls, visibility tolerance,
+worker behavior and current verification evidence.
 
 Scale, rotation, unrestricted topology insertion, Bezier/NURBS, filled Polygons,
 analytic Arc/Ellipse construction and standalone Point/Vertex creation are
@@ -142,7 +150,7 @@ Export/Save guides writes an explicit portable file, not a filesystem save guara
 Run:
 
 ```powershell
-node --test tests/guide-editor.test.mjs
+node --test tests/guide-editor.test.mjs tests/vertex-snapping.test.mjs
 python -X utf8 tests/verify_guide_editor.py
 python -X utf8 tests/verify_guide_additions.py
 python -X utf8 tests/verify_guide_influence.py

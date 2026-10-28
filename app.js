@@ -1,31 +1,42 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/OrbitControls.js';
+import { partMarquee } from './src/view/PartMarquee.js';
+import { ViewportNavigation } from './src/view/ViewportNavigation.js';
 import { GuideDocument } from './src/domain/GuideDocument.js';
 import { GuideController } from './src/view/GuideController.js';
 import { GuideSnap } from './src/snapping/GuideSnap.js';
+import { VertexSnapIndex } from './src/snapping/VertexSnapIndex.js';
 import { WorkspaceShell } from './src/view/WorkspaceShell.js';
+import { PartsWorkspace } from './src/view/PartsWorkspace.js';
 import { CircleConstruction } from './src/view/CircleConstruction.js';
 import { SurfaceGuides } from './src/view/SurfaceGuides.js';
 import { fromPositions } from './src/geometry/GuideCurve.js';
+import { creaseNormals } from './src/geometry/CreaseNormals.js';
 import { encodeGuides, decodeGuides } from './src/io/GuideSerializer.js';
 
 const $ = id => document.getElementById(id);
 const clone = value => JSON.parse(JSON.stringify(value));
-const state = { mesh: null, result: null, guides: [], tool: 'draw', view: 'split', selected: -1, target: 600, guideMode: 2, busy: false, job: null, resultJob: null, dirty: false, space: false, version: 0, resultKey: null, density: null, lastAttempt: null };
+const DEFAULT_CREASE_ANGLE = 30;   // ZRemesher's feature threshold F(pi/6); mirrors crease_angle.DEFAULT
+const state = { mesh: null, result: null, guides: [], tool: 'draw', view: 'split', selected: -1, target: 600, guideMode: 2, creaseAngle: DEFAULT_CREASE_ANGLE, busy: false, job: null, resultJob: null, dirty: false, space: false, version: 0, resultKey: null, density: null, lastAttempt: null };
 const canvas = $('viewport');
-let renderFrame = null;
+let renderFrame = null, partsWorkspace = null;
+let guidesDirty = false, guideBuildCount = 0, renderedFrames = 0;
+let batchGuideSync = false, guideSyncPending = false;
+let cameraGesture = false, pointerNavigation = null, spaceKeyHeld = false, requestedNavigation = null, lastCameraMotion = -Infinity, chromeResumeTimer;
+let paintPointer = null;
+function endPaint() { const id = paintPointer; paintPointer = null; if (id !== null && canvas.hasPointerCapture(id)) canvas.releasePointerCapture(id); }
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, preserveDrawingBuffer: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 const scenes = [new THREE.Scene(), new THREE.Scene()];
-const camera = new THREE.PerspectiveCamera(38, 1, .01, 100);
+let camera = new THREE.PerspectiveCamera(45, 1, .01, 100);
 camera.up.set(0, 0, 1);
-const controls = new OrbitControls(camera, canvas);
-controls.enableDamping = true; controls.dampingFactor = .12;
-controls.minDistance = .6; controls.maxDistance = 18; controls.enabled = false;
+const controls = new ViewportNavigation(camera, next => { camera = next; });
+camera.position.set(2.7, -4.2, 3.4); canvas.style.touchAction = 'none';
 const sourceGroup = new THREE.Group(), resultGroup = new THREE.Group();
 const guideGroups = [new THREE.Group(), new THREE.Group()];
-scenes[0].add(sourceGroup, guideGroups[0]); scenes[1].add(resultGroup, guideGroups[1]);
+// Source creases the solver treats as guides; drawn apart from the user's own guides.
+const autoGuideGroup = new THREE.Group();
+scenes[0].add(sourceGroup, guideGroups[0], autoGuideGroup); scenes[1].add(resultGroup, guideGroups[1]);
 for (const scene of scenes) {
   scene.add(new THREE.HemisphereLight(0xffffff, 0x627180, 2.0));
   const key = new THREE.DirectionalLight(0xffffff, 3.0); key.position.set(-3, -4, 7); scene.add(key);
@@ -37,14 +48,25 @@ const ownedOperations = new Map();
 const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const color = name => new THREE.Color(css(name));
 const samePoint = (a, b) => a && b && a.every((x, i) => Math.abs(x - b[i]) < 1e-8);
-const keyFor = () => JSON.stringify([state.mesh?.id, state.guides, state.target, state.guideMode]);
+const keyFor = () => JSON.stringify([state.mesh?.id, state.guides, state.target, state.guideMode, state.creaseAngle]);
 const countText = n => n.toLocaleString();
 const createGuideId = () => crypto.randomUUID();
 const guideDocument = new GuideDocument(createGuideId);
 const guideChrome = document.createElement('canvas'); guideChrome.id = 'guideChrome'; guideChrome.setAttribute('aria-hidden', 'true'); canvas.after(guideChrome);
 const chromeContext = guideChrome.getContext('2d');
 let cameraRevision = 0, persistedGeneration = '', importTicket = 0;
-controls.addEventListener('change', () => { cameraRevision++; requestRender(); });
+controls.addEventListener('change', () => {
+  cameraRevision++; lastCameraMotion = performance.now(); requestRender();
+  clearTimeout(chromeResumeTimer); chromeResumeTimer = setTimeout(requestRender, 110);
+});
+controls.addEventListener('start', () => { cameraGesture = true; guideSnap.clear(); requestRender(); });
+controls.addEventListener('end', () => {
+  cameraGesture = false;
+  if (pointerNavigation !== null) { const id = pointerNavigation; pointerNavigation = null; if (canvas.hasPointerCapture(id)) canvas.releasePointerCapture(id); }
+  requestedNavigation = null; if (!spaceKeyHeld) editor.navigate(false);
+  requestRender();
+});
+const vertexIndex = new VertexSnapIndex(requestRender);
 const surfaceGuides = new SurfaceGuides({
   project, surface: (x, y, pane) => hit(x, y, pane)?.point.toArray() || null,
   inside: (x, y, pane) => { const r = canvas.getBoundingClientRect(); return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom && paneAt(x) === pane && (pane === 0 || !!resultRender); },
@@ -54,9 +76,10 @@ const surfaceGuides = new SurfaceGuides({
 const guideSnap = new GuideSnap({
   surface: (x, y, pane) => hit(x, y, pane)?.point.toArray() || null, project,
   enabled: () => $('snapGuides').checked,
+  verticesEnabled: () => $('snapVertices').checked, vertices: sourceVertexCandidates,
   guides: () => guideDocument.guides,
   visible: (p, pane) => $('guidesToggle').checked && surfaceGuides.visible(p, pane),
-  stamp: () => `${guideDocument.epoch}:${guideDocument.generation}:${cameraRevision}:${$('snapGuides').checked}`,
+  stamp: () => `${guideDocument.epoch}:${guideDocument.generation}:${cameraRevision}:${$('snapGuides').checked}:${$('snapVertices').checked}`,
 });
 const circleConstruction = new CircleConstruction({
   hit, project, nearest: p => surfaceGuides.nearest(p),
@@ -78,40 +101,73 @@ function flushGuideErrors() {
 $('guideErrorDialog').addEventListener('close', () => queueMicrotask(flushGuideErrors));
 const expectedCaptureReleases = new Map(), captureOwners = new Map();
 const editor = new GuideController(guideDocument, {
-  id: createGuideId, changed: syncGuideState, clearSnap: () => guideSnap.clear(), resolve: (x, y, pane, options) => guideSnap.resolve(x, y, pane, options), report: reportGuideError, busy: () => state.busy || !state.mesh,
+  id: createGuideId, changed: () => { if (batchGuideSync) guideSyncPending = true; else syncGuideState(); }, clearSnap: () => guideSnap.clear(), resolve: (x, y, pane, options) => guideSnap.resolve(x, y, pane, options), report: reportGuideError, busy: () => state.busy || state.preparingGeneration || !state.mesh,
   circleFrame: (x, y, pane) => circleConstruction.frame(x, y, pane), circlePreview: (c, x, y) => circleConstruction.preview(c, x, y), circleEdit: (g, pointId, delta, pane) => circleConstruction.edit(g, pointId, delta, pane), closureVisible: (p, pane) => surfaceGuides.visible(p, pane),
   closed: () => $('closedGuide').checked, pane: paneAt, project,
   cameraRevision: () => cameraRevision,
   surface: (x, y, pane) => hit(x, y, pane)?.point.toArray() || null,
   showGuides: () => { $('guidesToggle').checked = true; },
   curve: g => surfaceGuides.curve(g),
-  hit: (x, y, pane, selection) => surfaceGuides.hit(x, y, pane, selection),
-  contained: (a, b, pane) => surfaceGuides.contained(a, b, pane),
+  entityExists: id => !!partsWorkspace?.entity(id),
+  hit: (x, y, pane, selection) => surfaceGuides.hit(x, y, pane, selection) || (editor.tool === 'select' ? partsWorkspace?.hitPart(x, y, pane) : null),
+  contained: (a, b, pane) => [...(partsWorkspace?.contained(a, b, pane) || []), ...surfaceGuides.contained(a, b, pane)],
   screenDistance: (a, b, pane) => { a = project(a, pane); b = project(b, pane); return Math.hypot(a.x - b.x, a.y - b.y); },
   capture: id => { try { canvas.setPointerCapture(id); captureOwners.set(id, { sequenceId: editor.activity.sequenceId, acknowledged: false }); return canvas.hasPointerCapture(id); } catch { captureOwners.delete(id); return false; } },
   release: id => { const owner = captureOwners.get(id); if (canvas.hasPointerCapture(id)) { if (owner?.acknowledged) expectedCaptureReleases.set(id, [...(expectedCaptureReleases.get(id) || []), owner.sequenceId]); canvas.releasePointerCapture(id); } captureOwners.delete(id); },
 });
 const workspaceShell = new WorkspaceShell($('appShell'), { beforeResize: () => { if (editor.activity) editor.escape(); } });
+partsWorkspace = new PartsWorkspace({
+  preparing: () => !!state.preparingGeneration,
+  scenes, api, notify, busy: () => state.busy || !!editor.activity || !!editor.construction, cancelGuide: () => editor.escape(), setTool: tool => editor.activate(tool),
+  load: (mesh, preserveCamera) => loadMesh(mesh.id, mesh, preserveCamera), showResult, disableGenerate: value => { $('generateButton').disabled = value; },
+  selection: () => editor.selection, choose: (id, shift) => editor.choose(id, shift), clearSelection: () => editor.run(() => editor.select([])),
+  restoreSelection: ids => editor.run(() => editor.select(ids)),
+  buildPart: (mesh, group) => buildMesh(mesh, group), display: () => displaySettings(),
+  assemblyFeedback: count => { state.assemblyResults = count; if (!state.result) $('resultMeta').textContent = count ? `${count} accepted part output${count === 1 ? '' : 's'}` : ''; syncResultFeedback(); },
+  queryObjects: (x, y, pane, objects) => {
+    const r = paneRect(pane); if (x < r.left || x > r.left + r.width || y < r.top || y > r.top + r.height) return null;
+    controls.resize(r.width / r.height); camera.updateMatrixWorld();
+    raycaster.setFromCamera(new THREE.Vector2((x - r.left) / r.width * 2 - 1, 1 - (y - r.top) / r.height * 2), camera);
+    const solids = objects.map(o => o.userData.render?.solid || o).filter(o => o.isMesh);
+    const others = visibleHit(raycaster.intersectObjects(solids, false));
+    const own = sourceGroup.visible ? visibleHit(raycaster.intersectObject(sourceRender.solid, false)) : null;
+    return own && (!others || own.distance < others.distance - 1e-7) ? null : others;
+  },
+  marquee: (objects, ownId, a, b, pane) => {
+    const rect = paneRect(pane); controls.resize(rect.width / rect.height); camera.updateMatrixWorld();
+    const own = pane === 0 ? sourceRender : resultRender;
+    if (ownId && own) objects.push({ mesh: own.solid, id: ownId });
+    return partMarquee(renderer, camera, rect, objects, a, b);
+  },
+  hit, project, paneAt, navigating: () => controls.enabled, render: requestRender,
+  projectPoints: points => { const r = canvas.getBoundingClientRect(), width = state.view === 'split' ? r.width / 2 : r.width; controls.resize(width / r.height); camera.updateMatrixWorld(); const matrix = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); const vector = new THREE.Vector3(); return points.map(point => { vector.fromArray(point).applyMatrix4(matrix); return { x: r.left + (vector.x + 1) * width / 2, y: r.top + (1 - vector.y) * r.height / 2, z: vector.z }; }); },
+  sourceVisible: value => { sourceGroup.visible = value; syncAutoGuideVisibility(); },
+  frameOriginal: mesh => controls.frame(mesh.vertices, paneRect(0).width / paneRect(0).height),
+  download: (name, text) => downloadBlob(name, text),
+});
 function syncGuideState() {
   state.tool = editor.tool; state.space = editor.temporary; controls.enabled = state.tool === 'orbit' || state.space;
   state.guides = guideDocument.guides.map(g => surfaceGuides.curve(g));
   state.selected = guideDocument.guides.findIndex(g => g.id === editor.selection.activeEntityId);
   draft = editor.drafts.at(-1) || [];
   canvas.className = editor.activity?.invalid || editor.construction?.invalid ? 'invalid' : state.tool;
-  document.querySelectorAll('[data-tool]').forEach(button => { const active = button.dataset.tool === state.tool; button.classList.toggle('active', active); button.setAttribute('aria-pressed', active); });
-  for (const model of ['object', 'direct']) { const b = $(model + 'Selection'); b.setAttribute('aria-pressed', editor.selection.model === model); b.disabled = model === 'direct' && !editor.selection.activeEntityId; }
+  document.querySelectorAll('[data-tool]').forEach(button => { const active = button.dataset.tool === (requestedNavigation || state.tool); button.classList.toggle('active', active); button.setAttribute('aria-pressed', active); });
+  for (const model of ['object', 'direct']) { const b = $(model + 'Selection'); b.setAttribute('aria-pressed', editor.selection.model === model); b.disabled = model === 'direct' && !guideDocument.get(editor.selection.activeEntityId); }
   $('deleteGuides').querySelector('[data-label]').textContent = editor.selection.model === 'direct' && editor.selection.pointId && guideDocument.get(editor.selection.activeEntityId)?.type !== 'circle' ? 'Delete point' : 'Delete guides';
-  $('deleteGuides').disabled = !editor.selection.entityIds.length; $('reverseGuides').disabled = !editor.selection.entityIds.some(id => guideDocument.get(id)?.type !== 'circle');
+  $('deleteGuides').disabled = !editor.selection.entityIds.some(id => guideDocument.get(id)); $('reverseGuides').disabled = !editor.selection.entityIds.some(id => guideDocument.get(id) && guideDocument.get(id).type !== 'circle');
   $('finishGuide').hidden = !editor.construction;
-  $('selectionStatus').textContent = editor.activity?.invalid || editor.construction?.invalid || (editor.selection.entityIds.length ? `${editor.selection.entityIds.length} selected · ${editor.selection.model === 'direct' ? 'Edit points' : 'Whole guides'}` : 'Select a guide body or drag a selection rectangle.');
-  $('canvasInstruction').textContent = { draw: 'Drag a guide. Return within 5 px of the green first point and release to close.', polyline: 'Click vertices. Click the green first point within 5 px to close; Enter finishes open.', spline: 'Click fit points. Return within 5 px of the green first point and click to close.', circle: 'Click the center, then set the radius. The center may lie over the hole.', select: 'Click a guide, double-click to edit points, or drag a selection rectangle. Shift adds guides.', erase: 'Click a visible guide segment to remove the guide.', orbit: 'Drag to orbit. Right-drag to pan. Scroll to zoom.' }[state.tool];
+  $('selectionStatus').textContent = editor.activity?.invalid || editor.construction?.invalid || (editor.selection.entityIds.length ? `${editor.selection.entityIds.length} selected · ${editor.selection.model === 'direct' ? 'Edit guide points' : 'Objects'}` : 'Click a part or guide. Shift-click toggles; drag empty space to select contained objects.');
+  $('canvasInstruction').textContent = { draw: 'Drag a guide. Return within 5 px of the green first point and release to close.', polyline: 'Click vertices. Click the green first point within 5 px to close; Enter finishes open.', spline: 'Click fit points. Return within 5 px of the green first point and click to close.', circle: 'Click the center, then set the radius. The center may lie over the hole.', select: 'Click a part or guide. Shift-click toggles. Middle: orbit · Shift-middle / right: pan · Scroll: zoom at cursor.', erase: 'Click a visible guide segment to remove the guide.', orbit: 'Drag to orbit. Right-drag to pan. Scroll to zoom.' }[state.tool];
   const selected = guideDocument.get(editor.selection.activeEntityId);
-  $('selectedGuideType').textContent = selected?.type || 'No guide';
+  const part = partsWorkspace?.entity(editor.selection.activeEntityId);
+  $('selectedGuideType').textContent = selected?.type || (part ? 'Mesh part' : 'No selection');
   $('selectedGuidePoints').textContent = selected ? selected.type === 'circle' ? 'Analytic circle' : `${selected.points.length} points${selected.closed ? ' · closed' : ''}` : '—';
+  if (part) $('selectedGuidePoints').textContent = part.name + (part.closed === false ? ' · Open surface' : '');
   $('circleProperties').hidden = selected?.type !== 'circle';
   if (selected?.type === 'circle' && (document.activeElement !== $('circleRadius') || $('circleRadius').dataset.guideId !== selected.id)) { $('circleRadius').value = selected.radius; $('circleRadius').dataset.guideId = selected.id; }
   workspaceShell.history(guideDocument.history);
   updateGuideUI();
+  partsWorkspace?.syncSelection();
   const stamp = guideDocument.epoch + ':' + guideDocument.generation;
   if (stamp !== persistedGeneration && state.mesh) { persistedGeneration = stamp; persist(); }
   flushGuideErrors();
@@ -151,13 +207,20 @@ function buildMesh(data, group) {
   geometry.setAttribute('position', new THREE.Float32BufferAttribute(data.vertices.flat(), 3));
   const triangles = [];
   for (const face of data.faces) for (let j = 1; j < face.length - 1; j++) triangles.push(face[0], face[j], face[j + 1]);
-  geometry.setIndex(triangles); geometry.computeVertexNormals();
+  if (data.displaySmooth) {
+    const { positions, normals } = creaseNormals(data.vertices, triangles);
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('normal', new THREE.BufferAttribute(normals, 3));
+  } else { geometry.setIndex(triangles); geometry.computeVertexNormals(); }
   const material = new THREE.MeshStandardMaterial({ color: data.displayColor ? new THREE.Color(data.displayColor) : color('--model'), roughness: data.displaySmooth ? .28 : .78, metalness: data.displaySmooth ? 0 : .08, flatShading: !data.displaySmooth, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
   const solid = new THREE.Mesh(geometry, material); group.add(solid);
   const wire = lineSegments(edgePositions(data.vertices, data.faces), color('--wire'), data.wireOpacity ?? .75); group.add(wire);
   const creases = lineSegments((data.creases || []).flatMap(([a, b]) => [...data.vertices[a], ...data.vertices[b]]), color('--crease'));
   creases.renderOrder = 2; group.add(creases);
-  return { solid, wire, creases, displayColor: data.displayColor, wireOpacity: data.wireOpacity };
+  const pointGeometry = new THREE.BufferGeometry(); pointGeometry.setAttribute('position', new THREE.Float32BufferAttribute(data.vertices.flat(), 3));
+  const points = new THREE.Points(pointGeometry, new THREE.PointsMaterial({ color: color('--wire'), size: 4, sizeAttenuation: false, depthWrite: false }));
+  points.renderOrder = 2; points.visible = $('pointsToggle').checked; group.add(points);
+  return { solid, wire, creases, points, displayColor: data.displayColor, wireOpacity: data.wireOpacity };
 }
 class Polyline extends THREE.Curve {
   constructor(points) { super(); this.points = points.map(p => new THREE.Vector3(...p)); }
@@ -167,6 +230,10 @@ class Polyline extends THREE.Curve {
   }
 }
 function renderGuides() {
+  guidesDirty = true; requestRender();
+}
+function rebuildGuides() {
+  guideBuildCount++;
   for (const group of guideGroups) dispose(group);
   const addCurve = (curve, selected = false, opacity = 1) => {
     if (!curve.length) return;
@@ -189,9 +256,10 @@ function renderGuides() {
 function syncGuideVisibility() {
   requestRender();
   guideGroups.forEach((group, pane) => group.visible = $('guidesToggle').checked && (pane === 0 || (state.view === 'split' && !!resultRender)));
+  syncAutoGuideVisibility();
 }
 function setAttempt(phase, message = '', context = null) {
-  state.lastAttempt = { phase, message, target: context?.target ?? state.target, guideCount: context?.guideCount ?? state.guides.length, sourceSha256: context?.sourceSha256 ?? state.mesh?.sourceSha256 };
+  state.lastAttempt = { phase, message, jobId: context?.jobId ?? state.job ?? null, target: context?.target ?? state.target, guideCount: context?.guideCount ?? state.guides.length, sourceSha256: context?.sourceSha256 ?? state.mesh?.sourceSha256 };
   if (state.mesh) try {
     const key = 'retopo-1:last-attempt:' + state.mesh.id;
     if (phase === 'failed' || phase === 'cancelled') localStorage.setItem(key, JSON.stringify(state.lastAttempt));
@@ -199,13 +267,46 @@ function setAttempt(phase, message = '', context = null) {
   } catch { /* Optional operation history. */ }
   syncResultFeedback();
 }
+const jobActivity = new Map();
+function logJobActivity(job) {
+  const activity = jobActivity.get(job.id) || { cursor: 0, stage: null, heartbeat: 0 };
+  const entries = [], prefix = `Job ${job.id.slice(0, 8)} · `;
+  for (const event of job.events || []) {
+    if (event.cursor <= activity.cursor) continue;
+    entries.push({ message: prefix + event.message, time: event.time, level: event.level, jobId: job.id });
+    for (const measurement of event.details?.measurements || []) {
+      if (!Number.isFinite(measurement.value) || !Number.isFinite(measurement.limit)) continue;
+      entries.push({ message: prefix + `${measurement.check}: ${measurement.value.toPrecision(5)}; limit ${measurement.limit.toPrecision(5)}${measurement.limit > 0 ? ` (${(measurement.value / measurement.limit).toFixed(2)}× limit)` : ''}`, time: event.time, level: event.level, jobId: job.id });
+    }
+    activity.cursor = event.cursor;
+  }
+  if (job.stage !== activity.stage && !entries.length) entries.push({ message: prefix + job.stage, jobId: job.id });
+  if (entries.length) activity.heartbeat = Date.now();
+  else if (job.state === 'running' && Date.now() - activity.heartbeat > 30000) {
+    entries.push({ message: prefix + `Still working · ${job.stage} · ${Math.round(job.elapsedSeconds || 0)}s elapsed`, jobId: job.id }); activity.heartbeat = Date.now();
+  }
+  activity.stage = job.stage; jobActivity.set(job.id, activity);
+  if (jobActivity.size > 100) jobActivity.delete(jobActivity.keys().next().value);
+  workspaceShell.addLogs(entries);
+}
+async function restoreAttemptActivity(mesh, version) {
+  if (!mesh.partSource || state.lastAttempt?.phase !== 'failed') return;
+  const jobId = state.lastAttempt.jobId;
+  try {
+    const job = await api(jobId ? `/api/jobs/${jobId}?after=${jobActivity.get(jobId)?.cursor || 0}` : `/api/parts/${mesh.partSource}/latest-job`);
+    if (version !== state.version || state.busy || state.preparingGeneration || job.sourceSha256 !== mesh.sourceSha256 || job.state !== 'failed') return;
+    logJobActivity(job); setAttempt('failed', job.error, { ...state.lastAttempt, jobId: job.id });
+  } catch { /* Stored attempts remain usable when detailed logs are unavailable. */ }
+}
 function syncResultFeedback() {
   const attempt = state.lastAttempt, failed = attempt?.phase === 'failed', cancelled = attempt?.phase === 'cancelled';
   const stopping = attempt?.phase === 'cancelling', unconfirmed = attempt?.phase === 'cancellation-failed';
-  const title = unconfirmed ? 'Cancellation not confirmed' : stopping ? 'Cancellation requested' : failed ? 'Last generation failed' : cancelled ? 'Generation cancelled' : 'No generated mesh';
+  const needsPart = partsWorkspace?.doc?.leaves().length > 1 && !partsWorkspace.active;
+  const selectedScope = needsPart ? partsWorkspace.generationScope() : null;
+  const title = unconfirmed ? 'Cancellation not confirmed' : stopping ? 'Cancellation requested' : failed ? 'Last generation failed' : cancelled ? 'Generation cancelled' : selectedScope?.enabled ? 'Ready to generate selected part' : needsPart ? 'Select one part to begin' : 'No generated mesh';
   const attemptContext = Number.isInteger(attempt?.target) && Number.isInteger(attempt?.guideCount) ? ` Attempted ${countText(attempt.target)} quads with ${attempt.guideCount} guide${attempt.guideCount === 1 ? '' : 's'}.` : '';
-  const detail = unconfirmed ? 'The calculation may still be running. Retry cancellation or Reset; your guides are saved.' : stopping ? 'Waiting for the local service to confirm the calculation has stopped.' : failed ? attempt.message + attemptContext : cancelled ? 'Your guides are saved. Click Generate to try again.' : 'Click Generate to build a mesh from the current source and guides.';
-  $('resultEmpty').hidden = !!state.result;
+  const detail = unconfirmed ? 'The calculation may still be running. Retry cancellation or Reset; your guides are saved.' : stopping ? 'Waiting for the local service to confirm the calculation has stopped.' : failed ? attempt.message + attemptContext : cancelled ? 'Your guides are saved. Click Generate to try again.' : selectedScope?.enabled ? `Generate selected opens ${selectedScope.node.name} and uses the displayed target with its saved guides. Work on selected opens it for editing first.` : needsPart ? 'Select one included part, then Generate selected. Use Work on selected to edit its guides and density first.' : 'Click Generate to build a mesh from the current source and guides.';
+  $('resultEmpty').hidden = !!state.result || state.assemblyResults > 0;
   $('resultEmpty').dataset.state = failed || unconfirmed ? 'failed' : cancelled ? 'cancelled' : 'ready';
   $('resultEmptyTitle').textContent = title; $('resultEmptyDetail').textContent = detail;
   $('generationFeedback').hidden = !(failed || cancelled || stopping || unconfirmed) || (!state.result && state.view === 'split');
@@ -217,6 +318,8 @@ function drawGuideChrome() {
   const r = canvas.getBoundingClientRect(), dpr = renderer.getPixelRatio();
   if (guideChrome.width !== Math.round(r.width * dpr) || guideChrome.height !== Math.round(r.height * dpr)) { guideChrome.width = Math.round(r.width * dpr); guideChrome.height = Math.round(r.height * dpr); }
   const ctx = chromeContext; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, r.width, r.height);
+  // Editable handles require source raycasts. Restore them when the camera settles.
+  if (cameraGesture || performance.now() - lastCameraMotion < 100) return;
   if (!$('guidesToggle').checked) return;
   const local = p => ({ x: p.x - r.left, y: p.y - r.top });
   for (let pane = 0; pane < (state.view === 'split' && resultRender ? 2 : 1); pane++) {
@@ -260,22 +363,33 @@ function drawGuideChrome() {
     const a = editor.activity;
     if (a?.kind === 'marquee' && a.pane === pane) { ctx.setLineDash([4, 3]); ctx.strokeRect(a.press[0] - r.left, a.press[1] - r.top, a.current[0] - a.press[0], a.current[1] - a.press[1]); }
     const snap = guideSnap.marker;
-    if (snap?.pane === pane) { const p = local(project(snap.position, pane)); ctx.strokeStyle = css('--accent'); ctx.beginPath(); ctx.arc(p.x, p.y, 10, 0, Math.PI * 2); ctx.stroke(); }
+    if (snap?.pane === pane) { const p = local(project(snap.position, pane)); ctx.strokeStyle = css('--accent'); ctx.beginPath(); if (snap.kind === 'vertex') ctx.rect(p.x - 6, p.y - 6, 12, 12); else ctx.arc(p.x, p.y, 10, 0, Math.PI * 2); ctx.stroke(); }
     ctx.restore();
   }
 }
 function displaySettings() {
-  for (const mesh of [sourceRender, resultRender]) if (mesh) {
+  const ghost = $('ghostToggle').checked, opacity = Number($('ghostOpacity').value) / 100;
+  $('ghostOpacityControl').hidden = !ghost; $('ghostOpacityValue').textContent = `${Math.round(opacity * 100)}%`;
+  document.querySelectorAll('[data-display-toggle]').forEach(button => button.setAttribute('aria-pressed', $(button.dataset.displayToggle).checked));
+  for (const mesh of [sourceRender, resultRender, ...(partsWorkspace?.groups.flatMap(g => g.children.map(o => o.userData.render).filter(Boolean)) || [])]) if (mesh) {
     mesh.wire.visible = $('wireToggle').checked; mesh.creases.visible = $('creasesToggle').checked;
+    mesh.points.visible = $('pointsToggle').checked;
+    const overlaySource = mesh === sourceRender && state.view === 'overlay' && !!state.result;
+    const transparent = ghost || overlaySource;
+    const material = mesh.solid.material;
+    if (material.transparent !== !!transparent) { material.transparent = !!transparent; material.needsUpdate = true; }
+    material.opacity = ghost ? opacity : overlaySource ? .25 : 1; material.depthWrite = !transparent;
+    mesh.wire.material.opacity = overlaySource ? .18 : mesh.wireOpacity ?? .75;
   }
   syncGuideVisibility();
 }
 function refreshColors() {
   renderer.setClearColor(color('--bg'));
   scenes.forEach(scene => { scene.background = color('--bg'); });
-  for (const mesh of [sourceRender, resultRender]) if (mesh) {
-    mesh.solid.material.color.copy(mesh.displayColor ? new THREE.Color(mesh.displayColor) : color('--model')); mesh.wire.material.color.copy(color('--wire')); mesh.creases.material.color.copy(color('--crease'));
+  for (const mesh of [sourceRender, resultRender, ...(partsWorkspace?.groups.flatMap(g => g.children.map(o => o.userData.render).filter(Boolean)) || [])]) if (mesh) {
+    mesh.solid.material.color.copy(mesh.displayColor ? new THREE.Color(mesh.displayColor) : color('--model')); mesh.wire.material.color.copy(color('--wire')); mesh.creases.material.color.copy(color('--crease')); mesh.points.material.color.copy(color('--wire'));
   }
+  for (const item of autoGuideGroup.children) item.material.color.copy(color('--auto-guide'));
   renderGuides(); buildGrids();
 }
 function buildGrids() {
@@ -287,16 +401,13 @@ function buildGrids() {
     grid.material.transparent = true; grid.material.opacity = .3; scene.add(grid); grids.push(grid);
   }
 }
-function fit(top = false, preserveDirection = false) {
+function fit(top = false, preserveDirection = true) {
   if (!sourceRender) return;
-  const direction = camera.position.clone().sub(controls.target).normalize();
-  const box = new THREE.Box3().setFromObject(sourceRender.solid), center = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
-  controls.target.copy(center);
-  const rect = canvas.getBoundingClientRect(), aspect = rect.width / rect.height / (state.view === 'split' ? 2 : 1);
-  const radius = box.getBoundingSphere(new THREE.Sphere()).radius;
-  const distance = radius / Math.sin(THREE.MathUtils.degToRad(19)) * Math.max(1, 1 / aspect) * 1.12;
-  camera.position.copy(center).addScaledVector(preserveDirection ? direction : top ? new THREE.Vector3(0, -.0001, 1).normalize() : new THREE.Vector3(2.7, -4.2, 3.4).normalize(), distance);
-  camera.lookAt(center); controls.update();
+  if (top) { camera.position.copy(controls.target).add(new THREE.Vector3(0, -.0001, 1).normalize().multiplyScalar(controls.snapshot().distance)); controls.update(); return; }
+  const chosen = partsWorkspace?.selectedParts().filter(n => !n.excluded) || [];
+  const points = chosen.flatMap(n => (n.partSource ? partsWorkspace.models.get(n.partSource) : partsWorkspace.doc.source)?.vertices || []);
+  const rect = paneRect(0);
+  controls.frame(points.length ? points : state.mesh.vertices, rect.width / rect.height);
 }
 function setView(view) {
   const changed = state.view !== view; state.view = view; const overlay = view === 'overlay';
@@ -305,24 +416,61 @@ function setView(view) {
   $('sourceCaption').querySelector('.label').textContent = overlay && state.result ? 'Source + retopology' : 'Source';
   (overlay ? scenes[0] : scenes[1]).add(resultGroup);
   syncGuideVisibility();
-  if (sourceRender) {
-    const material = sourceRender.solid.material; material.transparent = overlay && !!state.result; material.opacity = overlay && state.result ? .25 : 1; material.depthWrite = !overlay || !state.result;
-    sourceRender.wire.material.opacity = overlay ? .18 : sourceRender.wireOpacity ?? .75;
-  }
+  displaySettings();
   $('resultEmpty').style.display = overlay ? 'none' : '';
   syncResultFeedback();
   if (changed) fit(false, true);
 }
-function setTool(tool) { editor.activate(tool); }
+function setTool(tool) {
+  if (['draw', 'polyline', 'spline', 'circle'].includes(tool) && partsWorkspace?.doc?.leaves().length > 1 && (!partsWorkspace.active || partsWorkspace.selectedParts().some(n => n.id !== partsWorkspace.active))) { notify('Select a part and choose Work on selected before drawing its guides.'); return; }
+  if (partsWorkspace) { partsWorkspace.paint = false; $('partsPaint').setAttribute('aria-pressed', false); }
+  if (tool === 'orbit' || tool === 'pan') { requestedNavigation = tool; editor.navigate(true); if (!editor.temporary) requestedNavigation = null; return; }
+  controls.end(); requestedNavigation = null; editor.activate(tool);
+}
+function paneRect(pane) {
+  const r = canvas.getBoundingClientRect(), width = state.view === 'split' ? r.width / 2 : r.width;
+  return { left: r.left + pane * width, top: r.top, width, height: r.height };
+}
 function project(point, pane = 0) {
   const r = canvas.getBoundingClientRect(), width = state.view === 'split' ? r.width / 2 : r.width;
-  camera.aspect = width / r.height; camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+  controls.resize(width / r.height); camera.updateMatrixWorld();
   const p = new THREE.Vector3(...point).project(camera);
   return { x: r.left + (state.view === 'split' ? pane * width : 0) + (p.x + 1) * width / 2, y: r.top + (1 - p.y) * r.height / 2, z: p.z };
 }
 function paneAt(x) {
   const r = canvas.getBoundingClientRect();
   return state.view === 'split' && x >= r.left + r.width / 2 ? 1 : 0;
+}
+function updateVertexIndex() {
+  if (!$('snapVertices').checked || !state.mesh) return;
+  const r = canvas.getBoundingClientRect(), width = state.view === 'split' ? r.width / 2 : r.width;
+  controls.resize(width / r.height); camera.updateMatrixWorld();
+  const matrix = new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+  vertexIndex.update({ key: `${state.version}:${cameraRevision}:${width}:${r.height}`, matrix: matrix.elements, width, height: r.height });
+}
+function sourceVertexCandidates(x, y, pane, prior) {
+  if (!state.mesh) return [];
+  updateVertexIndex();
+  const r = canvas.getBoundingClientRect(), width = state.view === 'split' ? r.width / 2 : r.width;
+  let candidates = vertexIndex.nearby(x - r.left - pane * width, y - r.top);
+  if (!vertexIndex.ready) {
+    // While the new view is indexing, the front hit triangle is a bounded fallback.
+    const face = hit(x, y, pane)?.face;
+    candidates = face ? [...new Set([face.a, face.b, face.c])].map(vertexId => {
+      const p = project(state.mesh.vertices[vertexId], pane);
+      return { vertexId, distance: Math.hypot(x - p.x, y - p.y) };
+    }).filter(c => c.distance <= 12).sort((a, b) => a.distance - b.distance || a.vertexId - b.vertexId) : [];
+  }
+  const visible = candidate => {
+    const position = state.mesh.vertices[candidate.vertexId], p = project(position, pane), surface = hit(p.x, p.y, pane)?.point;
+    // Ghosting reveals back points visually; it never grants through-surface snapping.
+    return surface && surface.distanceTo(new THREE.Vector3(...position)) <= 1e-5 ? { ...candidate, position } : null;
+  };
+  const retained = prior?.kind === 'vertex' && prior.pane === pane ? candidates.find(c => c.vertexId === prior.vertexId) : null;
+  const first = retained && visible(retained);
+  if (first) return [first];
+  for (const candidate of candidates) { const found = visible(candidate); if (found) return [found]; }
+  return [];
 }
 function hit(x, y, requiredPane = null) {
   if (!sourceRender) return null;
@@ -331,19 +479,27 @@ function hit(x, y, requiredPane = null) {
   const pane = paneAt(x);
   if ((requiredPane !== null && pane !== requiredPane) || (pane === 1 && !resultRender)) return null;
   const left = r.left + pane * w;
-  camera.aspect = w / r.height; camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+  controls.resize(w / r.height); camera.updateMatrixWorld();
   raycaster.setFromCamera(new THREE.Vector2((x - left) / w * 2 - 1, 1 - (y - r.top) / r.height * 2), camera);
   // Both views share the source coordinate frame. Always attach guides to the
   // original source, so a new solve never depends on the previous output mesh.
-  return raycaster.intersectObject(sourceRender.solid, false)[0] || null;
+  const own = visibleHit(raycaster.intersectObject(sourceRender.solid, false));
+  if (own && partsWorkspace?.viewMode === 'working' && partsWorkspace.context) {
+    const solids = partsWorkspace.groups[0].children.map(o => o.userData.render?.solid || o).filter(o => o.isMesh);
+    const occluder = visibleHit(raycaster.intersectObjects(solids, false));
+    if (occluder && occluder.distance < own.distance - 1e-7) return null;
+  }
+  return own;
 }
+function visibleHit(hits) { return hits.find(h => { const depth = h.point.clone().project(camera).z; return depth >= -1 && depth <= 1; }) || null; }
 function persist() {
   if (!state.mesh) return;
-  try { localStorage.setItem('retopo-1:' + state.mesh.id, JSON.stringify({ ...JSON.parse(encodeGuides(guideDocument, state.mesh.sourceSha256, state.guides)), target: state.target, guideMode: state.guideMode })); } catch { /* Storage is optional. */ }
+  try { localStorage.setItem('retopo-1:' + state.mesh.id, JSON.stringify({ ...JSON.parse(encodeGuides(guideDocument, state.mesh.sourceSha256, state.guides)), target: state.target, guideMode: state.guideMode, creaseAngle: state.creaseAngle, creaseAngleSet: !!state.creaseAngleSet })); partsWorkspace?.renderList(); } catch { /* Storage is optional. */ }
 }
 function dirty() {
   state.dirty = state.resultKey !== keyFor();
-  if (state.result) { $('resultBadge').hidden = false; $('resultBadge').className = 'badge' + (state.dirty ? '' : state.result.quality?.passed ? ' good' : ' busy'); $('resultBadge').textContent = state.dirty ? 'Needs update' : !state.result.quality?.passed ? 'Quality warning' : state.resultJob ? 'Generated' : 'Example'; }
+  if (state.result) { $('resultBadge').hidden = false; $('resultBadge').className = 'badge' + (state.dirty ? '' : state.result.quality?.passed && state.result.featureValidation?.passed !== false ? ' good' : ' busy'); $('resultBadge').textContent = state.dirty ? 'Needs update' : !state.result.quality?.passed ? 'Quality warning' : state.result.featureValidation?.passed === false ? 'Feature drift' : state.resultJob ? 'Generated' : 'Example'; }
+  if (state.result) updateMetrics();
   syncResultFeedback();
 }
 function updateGuideUI() {
@@ -364,34 +520,106 @@ function updateGuideUI() {
 function commit(curves) { editor.replace(curves.map(c => fromPositions(c, 'polyline', false, createGuideId, { detectClosure: true }))); }
 function historyMove(delta) { editor.history(delta); }
 const pointerValue = e => Object.freeze({ pointerId: e.pointerId, pointerType: e.pointerType, button: e.button, buttons: e.buttons, x: e.clientX, y: e.clientY, shift: e.shiftKey, alt: e.altKey, time: e.timeStamp });
-canvas.addEventListener('pointerdown', e => { if (!controls.enabled && e.button === 0) { e.preventDefault(); canvas.focus(); editor.down(pointerValue(e)); } }, { capture: true });
+canvas.addEventListener('pointerdown', e => {
+  if (pointerNavigation !== null || paintPointer !== null || editor.activity) return;
+  const navigation = e.button === 2 || e.button === 1 && e.shiftKey ? 'pan' : e.button === 1 ? 'orbit' : e.button === 0 && (editor.temporary || editor.tool === 'orbit') ? (e.shiftKey ? 'pan' : requestedNavigation || 'orbit') : null;
+  if (navigation) {
+    e.preventDefault(); canvas.focus(); editor.navigate(true);
+    if (!editor.temporary) return;
+    pointerNavigation = e.pointerId; canvas.setPointerCapture(e.pointerId);
+    controls.begin(navigation, e.clientX, e.clientY, paneRect(paneAt(e.clientX))); return;
+  }
+  if (e.button === 0 && partsWorkspace?.pointer(e)) { e.preventDefault(); canvas.focus(); paintPointer = e.pointerId; canvas.setPointerCapture(e.pointerId); return; }
+  if (!controls.enabled && e.button === 0) { e.preventDefault(); canvas.focus(); editor.down(pointerValue(e)); }
+}, { capture: true });
 canvas.addEventListener('pointermove', e => {
+  if (pointerNavigation === e.pointerId) { controls.move(e.clientX, e.clientY); return; }
+  if (paintPointer === e.pointerId) { partsWorkspace?.pointer(e); return; }
   if (controls.enabled) return;
+  if (!editor.activity && !editor.construction) {
+    if (!state.busy && ['draw', 'polyline', 'spline'].includes(editor.tool)) guideSnap.resolve(e.clientX, e.clientY, paneAt(e.clientX), { bypass: e.altKey });
+    else guideSnap.clear();
+    requestRender(); return;
+  }
   const samples = e.getCoalescedEvents?.() || [];
-  for (const sample of samples) editor.move(pointerValue(sample));
-  editor.move(pointerValue(e));
+  batchGuideSync = true;
+  try { for (const sample of samples) editor.move(pointerValue(sample)); editor.move(pointerValue(e)); }
+  finally { batchGuideSync = false; if (guideSyncPending) { guideSyncPending = false; syncGuideState(); } }
 });
-canvas.addEventListener('pointerup', e => editor.up(pointerValue(e)));
-canvas.addEventListener('pointercancel', e => editor.cancelPointer(e.pointerId));
+canvas.addEventListener('pointerup', e => { if (paintPointer === e.pointerId) { partsWorkspace?.pointer(e); endPaint(); return; } if (pointerNavigation === e.pointerId) { controls.move(e.clientX, e.clientY); controls.end(); return; } editor.up(pointerValue(e)); });
+canvas.addEventListener('pointercancel', e => { if (paintPointer === e.pointerId) endPaint(); else if (pointerNavigation === e.pointerId) controls.end(); else editor.cancelPointer(e.pointerId); });
 canvas.addEventListener('gotpointercapture', e => { const owner = captureOwners.get(e.pointerId); if (owner) owner.acknowledged = true; });
 canvas.addEventListener('lostpointercapture', e => {
+  if (paintPointer === e.pointerId) { endPaint(); return; }
+  if (pointerNavigation === e.pointerId) { controls.end(); return; }
   const expected = expectedCaptureReleases.get(e.pointerId);
   if (expected?.length) { expected.shift(); if (!expected.length) expectedCaptureReleases.delete(e.pointerId); return; }
   editor.cancelPointer(e.pointerId);
 });
 canvas.addEventListener('wheel', event => {
-  if (controls.enabled) return;
-  event.preventDefault(); if (editor.activity) return; const offset = camera.position.clone().sub(controls.target); offset.multiplyScalar(Math.exp(event.deltaY * .001)); offset.clampLength(controls.minDistance, controls.maxDistance); camera.position.copy(controls.target).add(offset); controls.update();
+  event.preventDefault(); if (editor.activity || pointerNavigation !== null || paintPointer !== null) return;
+  controls.dolly(event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? canvas.clientHeight : 1), event.clientX, event.clientY, paneRect(paneAt(event.clientX)));
 }, { passive: false });
 canvas.addEventListener('contextmenu', event => event.preventDefault());
+canvas.addEventListener('pointerleave', () => { guideSnap.clear(); requestRender(); });
 
+const maximumTarget = () => state.mesh?.maxTargetQuads ?? 1800;
 function setTarget(value) {
   const requested = Math.round(Number(value));
-  if (!Number.isFinite(requested) || requested < 150 || requested > 1800) {
+  if (!Number.isFinite(requested) || requested < 150 || requested > maximumTarget()) {
     $('targetNumber').value = state.target; $('targetRange').value = state.target;
-    notify('Supported targets are 150–1,800 quads. The target was not changed.', true); return;
+    notify(`Supported targets are 150–${countText(maximumTarget())} quads. The target was not changed.`, true); return;
   }
-  state.target = requested; $('targetNumber').value = state.target; $('targetRange').value = state.target; updateDensity(); dirty(); persist();
+  state.target = requested; $('targetNumber').value = state.target; $('targetRange').value = state.target; updateDensity(); dirty(); persist(); refreshAutoGuides();
+}
+const usesSourceCreases = mesh => ['surface-quads', 'open-surface-quads'].includes(mesh?.solver);
+function setCreaseAngle(value) {
+  if (!Number.isFinite(value) || value < 10 || value > 120) {
+    $('creaseAngle').value = state.creaseAngle; notify('Crease angle must be from 10° to 120°. It was not changed.', true); return;
+  }
+  state.creaseAngle = value; state.creaseAngleSet = true; $('creaseAngle').value = value; dirty(); persist(); refreshAutoGuides();
+}
+// The server runs the solver's own crease detection, so what is drawn is what a solve will follow.
+let autoGuideTimer = null, autoGuideTicket = 0, autoGuideData = null;
+function refreshAutoGuides() {
+  clearTimeout(autoGuideTimer);
+  autoGuideTimer = setTimeout(loadAutoGuides, 150);
+}
+function clearAutoGuides(message = '') {
+  ++autoGuideTicket; autoGuideData = null; dispose(autoGuideGroup); $('creaseInfo').textContent = message; syncAutoGuideVisibility();
+}
+async function loadAutoGuides() {
+  const mesh = state.mesh;
+  if (!usesSourceCreases(mesh)) { clearAutoGuides(); return; }
+  const ticket = ++autoGuideTicket, base = mesh.partSource ? `/api/parts/${mesh.partSource}` : `/api/mesh/${mesh.baseMeshId || mesh.id}`;
+  try {
+    const data = await api(`${base}/creases?angle=${state.creaseAngle}&target=${state.target}`);
+    if (ticket !== autoGuideTicket || mesh !== state.mesh) return;
+    autoGuideData = data; buildAutoGuides(mesh.vertices, data.edges);
+    $('creaseInfo').textContent = data.resolvedEdges ? `${countText(data.resolvedEdges)} crease edges in ${countText(data.chains)} chains guide the solver.${data.fragmentEdges ? ` ${countText(data.fragmentEdges)} edges in fragments smaller than one quad are ignored.` : ''}` : `No creases at ${data.angleDegrees}° or sharper${data.fragmentEdges ? `; ${countText(data.fragmentEdges)} small fragment edges are ignored` : ''}.`;
+  } catch (error) {
+    if (ticket !== autoGuideTicket) return;
+    autoGuideData = null; dispose(autoGuideGroup); $('creaseInfo').textContent = 'Auto guides are unavailable: ' + error.message;
+  }
+  syncAutoGuideVisibility();
+}
+const AUTO_GUIDE_RADIUS = .006;
+function buildAutoGuides(vertices, edges) {
+  dispose(autoGuideGroup);
+  if (!edges.length) return;
+  // One instanced tube per crease edge: thick enough to see, a single draw call.
+  const mesh = new THREE.InstancedMesh(new THREE.CylinderGeometry(AUTO_GUIDE_RADIUS, AUTO_GUIDE_RADIUS, 1, 5, 1, true), new THREE.MeshBasicMaterial({ color: color('--auto-guide') }), edges.length);
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), up = new THREE.Vector3(0, 1, 0), middle = new THREE.Vector3(), direction = new THREE.Vector3(), turn = new THREE.Quaternion(), size = new THREE.Vector3(), matrix = new THREE.Matrix4();
+  edges.forEach(([i, j], n) => {
+    a.fromArray(vertices[i]); b.fromArray(vertices[j]); direction.subVectors(b, a); const length = direction.length();
+    turn.setFromUnitVectors(up, length > 1e-12 ? direction.divideScalar(length) : up);
+    mesh.setMatrixAt(n, matrix.compose(middle.addVectors(a, b).multiplyScalar(.5), turn, size.set(1, Math.max(length, 1e-9), 1)));
+  });
+  mesh.instanceMatrix.needsUpdate = true; mesh.frustumCulled = false; mesh.renderOrder = 3; mesh.userData.autoGuides = true;
+  autoGuideGroup.add(mesh);
+}
+function syncAutoGuideVisibility() {
+  autoGuideGroup.visible = $('autoGuidesToggle').checked && sourceGroup.visible && usesSourceCreases(state.mesh); requestRender();
 }
 // Source density in quad equivalents: two triangles cover about one quad.
 // Spacing is sqrt(area / count), the same edge-size rule the solvers apply to the target.
@@ -407,44 +635,54 @@ function updateDensity() {
   const spacing = n => Math.sqrt(d.area / n), finer = spacing(d.quads) / spacing(state.target);
   const relation = finer > 1.05 ? `${finer.toFixed(1)}× finer than source` : finer < .95 ? `${(1 / finer).toFixed(1)}× coarser than source` : 'matches source';
   $('densityInfo').textContent = `Source ≈ ${countText(d.quads)} quads, spacing ${spacing(d.quads).toPrecision(2)}. Target spacing ${spacing(state.target).toPrecision(2)}, ${relation}.`;
-  $('densityWarning').hidden = Number(finer.toFixed(1)) <= 1.5;
+  const recommended = state.mesh.recommendedTarget, coarse = Number.isFinite(recommended) && state.target < recommended;
+  $('densityWarning').hidden = !coarse && Number(finer.toFixed(1)) <= 1.5;
+  $('densityWarning').textContent = coarse ? `Start around ${countText(recommended)} quads to resolve this model's small creases and guide paths.` : 'Finer than the source mesh.';
   for (const [id, factor] of densityButtons) {
-    const wanted = Math.round(d.quads * factor), supported = wanted >= 150 && wanted <= 1800;
+    const wanted = Math.round(d.quads * factor), supported = wanted >= 150 && wanted <= maximumTarget();
     $(id).disabled = !supported;
-    $(id).title = supported ? `Set the target to ${countText(wanted)} quads` : `${countText(wanted)} quads is outside the supported 150–1,800 range`;
+    $(id).title = supported ? `Set the target to ${countText(wanted)} quads` : `${countText(wanted)} quads is outside the supported 150–${countText(maximumTarget())} range`;
   }
 }
 const densityButtons = [['halfButton', .5], ['sameButton', 1], ['doubleButton', 2]];
-async function loadMesh(id) {
+async function loadMesh(id, suppliedMesh = null, preserveCamera = false) {
   $('notice').hidden = true;
   editor.run(() => { editor.cancel(); editor.select([]); }); ++importTicket;
   const version = ++state.version; if (state.busy || state.job) await cancelGeneration();
-  $('generateButton').disabled = true; const mesh = await api('/api/mesh/' + id); if (version !== state.version) return;
-  state.mesh = mesh; state.density = sourceDensity(mesh); state.result = null; state.resultJob = null; state.resultKey = null; state.selected = -1; state.lastAttempt = null;
+  $('generateButton').disabled = true; const mesh = suppliedMesh || await api('/api/mesh/' + id); if (version !== state.version) return;
+  state.mesh = mesh; state.density = sourceDensity(mesh); state.result = null; state.assemblyResults = 0; state.resultJob = null; state.resultKey = null; state.selected = -1; state.lastAttempt = null;
   try { const attempt = JSON.parse(localStorage.getItem('retopo-1:last-attempt:' + id)); if (attempt?.sourceSha256 === mesh.sourceSha256 && ['failed', 'cancelled'].includes(attempt.phase) && typeof attempt.message === 'string') state.lastAttempt = attempt; } catch { /* Optional operation history. */ }
-  let loadedGuides = (id === 'hexagon' ? [] : mesh.presets[0]?.curves || []).map(c => fromPositions(c, 'polyline', false, createGuideId, { detectClosure: true })); state.target = mesh.target; state.guideMode = 2;
-  try { const saved = JSON.parse(localStorage.getItem('retopo-1:' + id)); if (saved?.sourceSha256 === mesh.sourceSha256) { loadedGuides = decodeGuides({ ...saved, coordinateFrame: 'source' }, mesh.sourceSha256, createGuideId); if (Number.isInteger(saved.target) && saved.target >= 150 && saved.target <= 1800) state.target = saved.target; state.guideMode = saved.guideMode === 1 && id === 'cylinder' ? 1 : 2; } } catch { /* Ignore incompatible saved data. */ }
-  draft = []; dispose(resultGroup); resultRender = null;
-  sourceRender = buildMesh(mesh, sourceGroup); surfaceGuides.setSource(mesh); guideDocument.load(loadedGuides); $('sourceMeta').textContent = `${countText(mesh.faces.length)} triangles`; $('meshDescription').textContent = mesh.description; $('workspaceModelName').textContent = mesh.title; $('solverNote').classList.toggle('experimental', !!mesh.experimentalRetopology);
+  let loadedGuides = (id === 'hexagon' ? [] : mesh.presets[0]?.curves || []).map(c => fromPositions(c, 'polyline', false, createGuideId, { detectClosure: true })); state.target = mesh.target; state.guideMode = 2; state.creaseAngle = DEFAULT_CREASE_ANGLE; state.creaseAngleSet = false;
+  try { const saved = JSON.parse(localStorage.getItem('retopo-1:' + id)); if (saved?.sourceSha256 === mesh.sourceSha256) { loadedGuides = decodeGuides({ ...saved, coordinateFrame: 'source' }, mesh.sourceSha256, createGuideId); if (Number.isInteger(saved.target) && saved.target >= 150 && saved.target <= maximumTarget()) state.target = saved.target; // A saved angle counts only when the user set it; earlier saves carried the default of the day.
+      if (saved.creaseAngleSet && Number.isFinite(saved.creaseAngle) && saved.creaseAngle >= 10 && saved.creaseAngle <= 120) { state.creaseAngle = saved.creaseAngle; state.creaseAngleSet = true; } state.guideMode = saved.guideMode === 1 && id === 'cylinder' ? 1 : 2; } } catch { /* Ignore incompatible saved data. */ }
+  draft = []; dispose(resultGroup); resultRender = null; clearAutoGuides(); $('creaseControl').hidden = !usesSourceCreases(mesh); $('creaseAngle').value = state.creaseAngle;
+  sourceRender = buildMesh(mesh, sourceGroup); vertexIndex.setSource(mesh.vertices, version); surfaceGuides.setSource(mesh); guideDocument.load(loadedGuides); $('sourceMeta').textContent = `${countText(mesh.faces.length)} triangles`; $('meshDescription').textContent = mesh.description; $('workspaceModelName').textContent = mesh.title; $('solverNote').classList.toggle('experimental', !!mesh.experimentalRetopology);
   const credit = $('sourceCredit'); credit.replaceChildren(); const author = document.createElement(mesh.source.url ? 'a' : 'span'); author.textContent = mesh.source.author;
   if (mesh.source.url) { author.href = mesh.source.url; author.target = '_blank'; author.rel = 'noreferrer'; } const license = document.createElement('span'); license.textContent = mesh.source.license; credit.append(author, license);
   $('presetSelect').replaceChildren(...mesh.presets.map((p, i) => new Option(p.name, i))); $('presetSelect').disabled = $('presetButton').disabled = !mesh.presets.length; $('modeControl').hidden = id !== 'cylinder'; $('guideMode').value = state.guideMode;
   $('solverNote').textContent = mesh.solverNotice || (id === 'hexagon' ? 'Hard edges and the hole stay fixed. Guides steer continuous edge loops.' : 'Curves influence the solved field. These examples can take one to three minutes.');
-  setTarget(state.target); updateGuideUI(); buildGrids(); fit(); updateMetrics(); setView(state.view);
+  $('targetNumber').max = $('targetRange').max = maximumTarget();
+  $('densityLimits').textContent = `Supported: 150–${countText(maximumTarget())} quads. Half / Same / Double are relative to the source; unavailable targets are disabled.`;
+  setTarget(state.target); updateGuideUI(); buildGrids(); if (!preserveCamera) controls.frame(mesh.vertices, paneRect(0).width / paneRect(0).height); updateMetrics(); setView(state.view);
   $('resultEmpty').hidden = false; $('resultLabel').textContent = 'Retopology'; $('resultMeta').textContent = ''; $('resultBadge').hidden = true; $('exportMesh').disabled = true; $('detailsButton').disabled = true;
   if (mesh.previewUrl) {
     try { const preview = await api(mesh.previewUrl); if (version === state.version) showResult(preview, null, preview.curves || [], preview.target, preview.guideMode || 2); } catch { /* A missing preview does not disable live generation. */ }
   }
   if (version !== state.version) return;
-  $('generateButton').disabled = false; workspaceShell.addLog('Loaded ' + mesh.title + '.');
+  await partsWorkspace?.sourceLoaded(mesh);
+  if (version !== state.version) return;
+  $('generateButton').disabled = mesh.repair?.closed === false; partsWorkspace?.renderList(); workspaceShell.addLog('Loaded ' + mesh.title + '.');
+  if (!mesh.partSource) { try { localStorage.setItem('retopo-1:last-model', mesh.id); } catch { /* Optional workspace preference. */ } }
   syncResultFeedback();
+  void restoreAttemptActivity(mesh, version);
 }
 function showResult(result, job, curves, target, mode) {
-  state.result = result; state.resultJob = job; state.resultKey = JSON.stringify([state.mesh.id, curves, target, mode]);
+  state.result = result; state.resultJob = job; state.resultKey = JSON.stringify([state.mesh.id, curves, target, mode, result.featureValidation?.detection?.angleDegrees ?? state.creaseAngle]);
   if (job) setAttempt('complete', '', { target, guideCount: curves.length, sourceSha256: result.sourceSha256 });
   resultRender = buildMesh({ ...result, displayColor: state.mesh.displayColor, displaySmooth: state.mesh.displaySmooth, wireOpacity: state.mesh.wireOpacity }, resultGroup); $('resultEmpty').hidden = true; $('resultMeta').textContent = `${countText(result.faces.length)} faces`;
   $('resultLabel').textContent = job ? 'Retopology' : 'Example result'; $('exportMesh').disabled = false; $('detailsButton').disabled = false;
   updateMetrics(); displaySettings(); dirty(); setView(state.view);
+  partsWorkspace?.captureResult(result, job, curves, target, mode);
 }
 function updateMetrics() {
   const r = state.result;
@@ -454,21 +692,36 @@ function updateMetrics() {
   const distances = r.guideAlignment?.map(a => a.p95Distance) || [], distance = Math.max(0, ...distances);
   $('guideMetric').textContent = distances.length ? distance < .0001 ? '<0.0001' : distance.toPrecision(3) : '—';
   $('guideDetail').textContent = distances.length ? r.guidePaths?.length ? 'Measured output edge-path fit · p95' : 'Nearest edges · path not verified' : 'No guides in this result';
-  $('topologyMetric').textContent = r.quality?.passed ? 'Good' : r.quality ? 'Needs work' : 'Unqualified';
-  $('topologyDetail').textContent = r.quality ? `Min angle ${r.quality.minimumAngleDegrees.toFixed(0)}° · worst edge ratio ${r.quality.edgeRatioMax.toFixed(2)}` : 'Quad shape has not been checked';
+  $('topologyMetric').textContent = r.quality?.passed ? r.featureValidation?.passed ? 'Checks passed' : r.featureValidation?.passed === false ? 'Feature drift' : 'Geometry checked' : r.quality ? 'Needs work' : 'Unqualified';
+  $('topologyDetail').textContent = r.quality ? `${r.featureValidation?.passed ? 'Resolved source creases checked' : r.featureValidation?.passed === false ? 'Source crease checks failed' : 'Source features not checked'} · min angle ${r.quality.minimumAngleDegrees.toFixed(0)}°` : 'Quad shape has not been checked';
   $('resultSummary').textContent = `${r.backend === 'engineering-guided-surface-quads' ? 'Quad surface solver' : r.backend === 'engineering-structured-prismatic-annulus' ? 'Continuous quad grid' : r.backend === 'engineering-planar-pslg-quads' ? 'Planar surface solver' : r.backend === 'heightfield-enclosure' ? 'Terrain enclosure solver' : 'Recovered field solver'} · ${r.elapsedSeconds.toFixed(1)}s · ${r.guideCount} guide${r.guideCount === 1 ? '' : 's'}`;
+  if (state.dirty) $('resultSummary').textContent += ` · Previous result; current document has ${state.guides.length} guides`;
 }
 async function generate() {
-  if (state.busy || !state.mesh) return;
+  if (state.busy || state.preparingGeneration || !state.mesh) return;
+  if (partsWorkspace?.previewData || partsWorkspace?.pending) return notify('Apply or cancel the part preview first.', true);
   if (editor.activity || editor.construction) return reportGuideError('Finish or cancel the current guide before generating.');
-  const request = { requestId: crypto.randomUUID().replaceAll('-', ''), meshId: state.mesh.id, curves: clone(state.guides), target: state.target, guideMode: state.guideMode };
+  const scope = partsWorkspace?.generationScope();
+  if (!scope?.enabled) return notify(scope?.reason || 'Choose a source to generate.', true);
+  if (scope.node.id !== (partsWorkspace.active || 'original')) {
+    const target = state.target, document = partsWorkspace.doc, node = scope.node;
+    state.preparingGeneration = true; partsWorkspace.renderList();
+    try {
+      await partsWorkspace.workSelected();
+      if (partsWorkspace.doc !== document || partsWorkspace.active !== node.id || state.mesh.partSource !== node.partSource) return;
+      setTarget(target);
+    } catch (error) { notify(error.message, true); return; }
+    finally { state.preparingGeneration = false; partsWorkspace.renderList(); }
+  }
+  const request = { requestId: crypto.randomUUID().replaceAll('-', ''), meshId: state.mesh.baseMeshId || state.mesh.id, ...(state.mesh.partSource ? { partSource: state.mesh.partSource } : {}), curves: clone(state.guides), target: state.target, guideMode: state.guideMode, creaseAngle: state.creaseAngle };
   const attempt = { target: request.target, guideCount: request.curves.length, sourceSha256: state.mesh.sourceSha256 };
-  if ((request.meshId === 'cylinder' || state.mesh.requiresGuides) && !request.curves.length) return notify('Draw a guide or load the example network for this curved mesh.', true);
-  workspaceShell.addLog('Generating retopology…');
+  if (!request.partSource && (request.meshId === 'cylinder' || state.mesh.requiresGuides) && !request.curves.length) return notify('Draw a guide or load the example network for this curved mesh.', true);
+  workspaceShell.showLog(); workspaceShell.addLog(`Generating ${state.mesh.title} · target ${request.target.toLocaleString()} quads · ${request.curves.length} guides · crease angle ${request.creaseAngle}°`);
   setAttempt('running', '', attempt);
   const token = ++generation; state.busy = true; $('processing').hidden = false; $('generateButton').disabled = true; $('notice').hidden = true;
   const started = performance.now(); const timer = setInterval(() => { if (token !== generation) { clearInterval(timer); return; } $('processTime').textContent = `${Math.round((performance.now() - started) / 1000)}s`; }, 300);
   $('processTitle').textContent = 'Generating retopology'; $('processTime').textContent = '0s'; $('processDetail').textContent = state.mesh.solver === 'surface-quads' ? 'Building a quad layout, fitting your guide paths and checking the source surface…' : request.meshId === 'hexagon' ? 'Laying out continuous guide loops and sizing quad strips…' : 'Solving the field and fitting the mesh. This can take one to three minutes…';
+  if (state.mesh.featureLayout) $('processDetail').textContent = 'Preserving source creases and your guide paths. Detailed meshes can take 15–25 minutes; you can cancel at any time.';
   const operation = { requestId: request.requestId };
   ownedOperations.set(operation.requestId, operation);
   $('cancelButton').textContent = 'Cancel calculation';
@@ -480,13 +733,17 @@ async function generate() {
     }
     if (first.state === 'cancelled') { ownedOperations.delete(operation.requestId); setAttempt('cancelled', '', attempt); return; }
     state.job = first.id;
+    attempt.jobId = first.id;
+    if (state.lastAttempt?.phase === 'running') state.lastAttempt.jobId = first.id;
     while (token === generation) {
-      const job = await api('/api/jobs/' + first.id); if (token !== generation) return;
+      const job = await api('/api/jobs/' + first.id + '?after=' + (jobActivity.get(first.id)?.cursor || 0)); if (token !== generation) return;
+      logJobActivity(job);
+      if (job.moreEvents) continue;
       if (['complete', 'failed', 'cancelled'].includes(job.state)) { ownedOperations.delete(operation.requestId); }
       $('processTitle').textContent = job.stage;
       if (job.state === 'complete') {
         const result = await api(job.resultUrl); if (token !== generation) return;
-        showResult(result, first.id, request.curves, request.target, request.guideMode); notify(`Generated ${countText(result.faces.length)} quads. Shape, spacing and density checks passed.`); return;
+        showResult(result, first.id, request.curves, request.target, request.guideMode); notify(`Generated ${countText(result.faces.length)} quads. ${result.featureValidation?.passed === false ? 'Geometry checks passed; source crease checks failed.' : 'Geometry checks passed.'}`, result.featureValidation?.passed === false); return;
       }
       if (job.state === 'failed') throw new Error(job.error);
       if (job.state === 'cancelled') { setAttempt('cancelled', '', attempt); return; }
@@ -497,7 +754,26 @@ async function generate() {
     // A polling/transport error does not prove that the worker stopped.
     if (ownedOperations.has(operation.requestId)) { try { await cancelOperation(operation); } catch { /* Ownership and retry feedback are retained. */ } }
   }
-  finally { clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('generateButton').disabled = false; } syncCancellationUI(); }
+  finally { clearInterval(timer); if (token === generation) { state.busy = false; state.job = null; $('generateButton').disabled = false; partsWorkspace?.renderList(); } syncCancellationUI(); }
+}
+// The progress card starts centred on the screen and can be dragged by its header (or moved with the
+// arrow keys; Home re-centres it); the position is kept for the session and clamped to the window.
+function makeMovable(card, handle) {
+  document.body.appendChild(card);   // fixed positioning relative to the window, whatever the workspace does
+  let drag = null;
+  const clamp = (value, low, high) => Math.min(Math.max(value, low), high);
+  const place = (x, y) => { card.dataset.moved = ''; card.style.left = clamp(x, 0, innerWidth - card.offsetWidth) + 'px'; card.style.top = clamp(y, 0, innerHeight - card.offsetHeight) + 'px'; };
+  const centre = () => { delete card.dataset.moved; card.style.left = card.style.top = ''; };
+  handle.onpointerdown = event => { if (event.button !== 0 || event.target.closest('button')) return; const box = card.getBoundingClientRect(); drag = { id: event.pointerId, dx: event.clientX - box.left, dy: event.clientY - box.top }; handle.setPointerCapture(event.pointerId); event.preventDefault(); };
+  handle.onpointermove = event => { if (drag?.id === event.pointerId) place(event.clientX - drag.dx, event.clientY - drag.dy); };
+  const end = event => { if (drag?.id !== event.pointerId) return; if (handle.hasPointerCapture(event.pointerId)) handle.releasePointerCapture(event.pointerId); drag = null; };
+  handle.onpointerup = end; handle.onpointercancel = end;
+  handle.onkeydown = event => {
+    const step = { ArrowLeft: [-10, 0], ArrowRight: [10, 0], ArrowUp: [0, -10], ArrowDown: [0, 10] }[event.key];
+    if (event.key === 'Home') { centre(); event.preventDefault(); }
+    else if (step) { const box = card.getBoundingClientRect(); place(box.left + step[0], box.top + step[1]); event.preventDefault(); }
+  };
+  addEventListener('resize', () => { if ('moved' in card.dataset) place(parseFloat(card.style.left), parseFloat(card.style.top)); });
 }
 function outstandingOperations() { return [...ownedOperations.values()]; }
 function syncCancellationUI() {
@@ -538,6 +814,7 @@ async function cancelOperation(operation) {
 async function cancelGeneration(options = {}) {
   const wasBusy = state.busy, attempt = state.lastAttempt;
   ++generation; state.busy = false; state.job = null; $('generateButton').disabled = false;
+  partsWorkspace?.renderList();
   for (const operation of outstandingOperations()) { operation.cancelling = true; operation.feedbackToken = generation; }
   if (wasBusy || ['cancelling', 'cancellation-failed'].includes(attempt?.phase)) setAttempt('cancelling', '', attempt);
   syncCancellationUI();
@@ -546,9 +823,9 @@ async function cancelGeneration(options = {}) {
   if (failure && options.propagateError) throw failure.reason;
 }
 function downloadBlob(name, data) {
-  const url = URL.createObjectURL(new Blob([data], { type: 'application/json' })), a = document.createElement('a'); a.href = url; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const url = URL.createObjectURL(new Blob([data], { type: name.endsWith('.obj') ? 'text/plain' : 'application/json' })), a = document.createElement('a'); a.href = url; a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
-$('generateButton').onclick = generate; $('cancelButton').onclick = cancelGeneration;
+$('generateButton').onclick = generate; $('cancelButton').onclick = cancelGeneration; makeMovable($('processing'), $('processingHandle'));
 $('meshSelect').onchange = event => loadMesh(event.target.value).catch(error => notify(error.message, true));
 document.querySelectorAll('[data-tool]').forEach(button => button.onclick = () => setTool(button.dataset.tool));
 document.querySelectorAll('[data-view]').forEach(button => button.onclick = () => setView(button.dataset.view));
@@ -560,8 +837,13 @@ for (const [id, factor] of densityButtons) $(id).onclick = () => {
 };
 $('targetRange').oninput = event => setTarget(event.target.value); $('targetNumber').onchange = event => setTarget(event.target.value);
 $('guideMode').onchange = event => { state.guideMode = Number(event.target.value); dirty(); persist(); };
-for (const id of ['wireToggle', 'guidesToggle', 'creasesToggle']) $(id).onchange = () => { displaySettings(); if (state.view === 'overlay') guideGroups[1].visible = false; };
-$('fitButton').onclick = () => { editor.run(() => editor.cancel()); fit(); }; $('topButton').onclick = () => { editor.run(() => editor.cancel()); fit(true); };
+for (const id of ['wireToggle', 'guidesToggle', 'autoGuidesToggle', 'creasesToggle', 'pointsToggle', 'ghostToggle']) $(id).onchange = () => { displaySettings(); persistViewer(); };
+$('creaseAngle').onchange = event => setCreaseAngle(event.target.valueAsNumber);
+document.querySelectorAll('[data-display-toggle]').forEach(button => button.onclick = () => { const input = $(button.dataset.displayToggle); input.checked = !input.checked; input.dispatchEvent(new Event('change')); });
+$('ghostOpacity').oninput = () => { displaySettings(); persistViewer(); };
+$('fitButton').onclick = () => { editor.run(() => editor.cancel()); fit(); };
+for (const name of ['front', 'top', 'right', 'isometric']) $(name + 'Button').onclick = () => { controls.end(); controls.standardView(name); $('projectionSelect').value = controls.snapshot().projection; };
+$('projectionSelect').onchange = () => { controls.end(); controls.setProjection($('projectionSelect').value); };
 $('resetButton').onclick = () => $('resetDialog').showModal();
 $('confirmReset').onclick = async () => {
   const button = $('confirmReset'), label = button.textContent;
@@ -594,40 +876,53 @@ $('guideFile').onchange = async event => {
     editor.replace(guides, 'Load guides');
   } catch (error) { if (epoch === guideDocument.epoch && ticket === importTicket) reportGuideError(error.message); }
 };
-$('exportMesh').onclick = () => { if (!state.result) return; const a = document.createElement('a'); a.href = state.resultJob ? `/api/jobs/${state.resultJob}/output.obj` : `/assets/previews/${state.mesh.id}.obj`; a.download = `${state.mesh.id}-retopology.obj`; a.click(); };
+$('exportMesh').onclick = () => { if (!state.result) return; const a = document.createElement('a'); a.href = state.resultJob ? state.result.partSource ? `/api/parts/${state.result.partSource}/results/${state.resultJob}/output.obj` : `/api/jobs/${state.resultJob}/output.obj` : `/assets/previews/${state.mesh.id}.obj`; a.download = `${state.mesh.id}-retopology.obj`; a.click(); };
 $('detailsButton').onclick = () => {
   const r = state.result, s = r.stats, content = $('detailsContent'); content.replaceChildren();
   const table = document.createElement('table');
-  const rows = [['Vertices', r.vertices.length], ['Faces', r.faces.length], ['Quads / triangles', `${s.quads} / ${s.triangles}`], ['Components', s.faceConnectedComponents], ['Boundary edges', s.boundaryEdges], ['Nonmanifold edges', s.nonmanifoldEdges], ['Nonmanifold vertices', r.vertexLinks.nonmanifoldVertices.length], ['Inconsistent winding edges', r.vertexLinks.inconsistentWindingEdges], ['Euler characteristic', s.eulerCharacteristic], ['Sharp edges', r.creases.length], ['Calculation time', r.elapsedSeconds.toFixed(3) + 's'], ['Minimum quad angle', r.quality?.minimumAngleDegrees.toFixed(2) + '°'], ['Worst edge ratio', r.quality?.edgeRatioMax.toFixed(3)], ['Minimum scaled Jacobian', r.quality?.scaledJacobianMin.toFixed(3)], ['Regular valence-four vertices', r.quality ? (100*r.quality.valence4Fraction).toFixed(1)+'%' : 'Unqualified'], ['Count error', r.quality ? (100*r.quality.targetRelativeError).toFixed(1)+'%' : 'Unqualified'], ['Quality warnings', r.quality?.failures.join('; ') || 'None'], ['Solver', r.backend]];
+  const rows = [['Vertices', r.vertices.length], ['Faces', r.faces.length], ['Quads / triangles', `${s.quads} / ${s.triangles}`], ['Components', s.faceConnectedComponents], ['Boundary edges', s.boundaryEdges], ['Nonmanifold edges', s.nonmanifoldEdges], ['Nonmanifold vertices', r.vertexLinks.nonmanifoldVertices.length], ['Inconsistent winding edges', r.vertexLinks.inconsistentWindingEdges], ['Euler characteristic', s.eulerCharacteristic], ['Detected output creases', r.creases.length], ['Calculation time', r.elapsedSeconds.toFixed(3) + 's'], ['Minimum quad angle', r.quality?.minimumAngleDegrees.toFixed(2) + '°'], ['Worst edge ratio', r.quality?.edgeRatioMax.toFixed(3)], ['Minimum scaled Jacobian', r.quality?.scaledJacobianMin.toFixed(3)], ['Regular valence-four vertices', r.quality ? (100*r.quality.valence4Fraction).toFixed(1)+'%' : 'Unqualified'], ['Count error', r.quality ? (100*r.quality.targetRelativeError).toFixed(1)+'%' : 'Unqualified'], ['Geometry check failures', r.quality?.failures.join('; ') || 'None'], ['Source feature preservation', r.featureValidation ? (r.featureValidation.passed ? 'Checked' : 'Failed') : 'Not checked'], ...(r.featureValidation?.detection ? [['Source crease angle', r.featureValidation.detection.angleDegrees + '°']] : []), ['Solver', r.backend]];
+  if (r.boundaryValidation) rows.push(['Original boundary loops', r.boundaryValidation.loops], ['Boundary preservation', r.boundaryValidation.passed ? 'Checked in both directions' : 'Failed'], ['Boundary tolerance', r.boundaryValidation.tolerance.toPrecision(4)], ['Added caps', 'None']);
   for (const [label, value] of rows) { const tr = document.createElement('tr'); for (const text of [label, value]) { const td = document.createElement('td'); td.textContent = text; tr.append(td); } table.append(tr); }
   const p = document.createElement('p'); p.textContent = r.guideSampleMethod + ' Topology and sampled surface checks do not certify absence of every 3D self intersection. Engineering alternatives do not establish exact native equivalence.';
   content.append(table, p); $('detailsDialog').showModal();
 };
 $('circleRadius').onchange = event => { editor.radius(event.target.valueAsNumber); const g = guideDocument.get(editor.selection.activeEntityId); if (g?.type === 'circle') event.target.value = g.radius; };
-$('snapGuides').onchange = () => { guideSnap.clear(); };
+for (const id of ['snapGuides', 'snapVertices']) $(id).onchange = () => { guideSnap.clear(); updateVertexIndex(); requestRender(); persistViewer(); };
+function persistViewer() {
+  const ids = ['wireToggle', 'guidesToggle', 'autoGuidesToggle', 'creasesToggle', 'pointsToggle', 'ghostToggle', 'snapGuides', 'snapVertices'];
+  try { localStorage.setItem('retopo-1:viewer', JSON.stringify({ ...Object.fromEntries(ids.map(id => [id, $(id).checked])), ghostOpacity: Number($('ghostOpacity').value) })); } catch { /* Optional view preferences. */ }
+}
 $('objectSelection').onclick = () => editor.model('object'); $('directSelection').onclick = () => editor.model('direct');
 $('deleteGuides').onclick = () => editor.remove(); $('reverseGuides').onclick = () => editor.reverse(); $('finishGuide').onclick = () => editor.finishConstruction();
 window.addEventListener('keydown', event => {
   if (event.target.matches('input,select,textarea,[contenteditable]') || document.querySelector('dialog[open]')) return;
   if (event.target.closest('button,a') && ['Enter', ' '].includes(event.key)) return;
-  if (event.key === 'Escape') { event.preventDefault(); if (!event.repeat) editor.escape(); return; }
-  if (event.code === 'Space') { event.preventDefault(); if (!event.repeat) editor.navigate(true); return; }
+  if (event.key === 'Escape') { event.preventDefault(); const wasNavigation = editor.temporary; endPaint(); controls.end(); requestedNavigation = null; if (!event.repeat) { if (wasNavigation) editor.contextLost(); else if (!partsWorkspace?.escape()) editor.escape(); } return; }
+  if (event.code === 'Space') { event.preventDefault(); spaceKeyHeld = true; if (!event.repeat) editor.navigate(true); return; }
+  if (event.key === 'F10') { event.preventDefault(); if (!event.repeat) { $('pointsToggle').checked = !$('pointsToggle').checked; displaySettings(); persistViewer(); } return; }
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') { event.preventDefault(); historyMove(event.shiftKey ? 1 : -1); return; }
-  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'a' && state.tool === 'select') { event.preventDefault(); editor.run(() => { editor.cancel(); editor.select(guideDocument.guides.map(g => g.id)); }); return; }
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'a' && state.tool === 'select') { event.preventDefault(); editor.run(() => { editor.cancel(); editor.select([...(partsWorkspace?.selectableParts().map(n => 'part:' + n.id) || []), ...guideDocument.guides.map(g => g.id)]); }); return; }
   if (event.ctrlKey || event.metaKey) return;
   if (event.key === 'Enter') { event.preventDefault(); if (editor.construction) editor.finishConstruction(event.altKey); else if (state.tool === 'select') editor.model('direct'); return; }
   if (event.key === 'Backspace' && editor.construction) { event.preventDefault(); editor.backspace(); return; }
   if (['Delete', 'Backspace'].includes(event.key) && state.tool === 'select') { event.preventDefault(); editor.remove(); return; }
   if (event.altKey) return;
-  const tools = { g: 'draw', p: 'polyline', s: 'spline', c: 'circle', o: 'orbit', e: 'erase' }, key = event.key.toLowerCase();
+  const tools = { g: 'draw', p: 'polyline', s: 'spline', c: 'circle', o: 'orbit', h: 'pan', e: 'erase' }, key = event.key.toLowerCase();
   if (tools[key]) setTool(tools[key]); if (key === 'v') editor.model('object'); if (key === 'a') editor.model('direct'); if (key === 'f') fit();
 });
-window.addEventListener('keyup', event => { if (event.code === 'Space') editor.navigate(false); });
-window.addEventListener('blur', () => editor.contextLost());
-document.addEventListener('visibilitychange', () => { if (document.hidden) editor.contextLost(); else requestRender(); });
+window.addEventListener('keyup', event => { if (event.code === 'Space') { spaceKeyHeld = false; if (pointerNavigation === null) editor.navigate(false); } });
+function leaveInteractions() {
+  spaceKeyHeld = false;
+  endPaint();
+  controls.end(); requestedNavigation = null;
+  if (pointerNavigation !== null) canvas.dispatchEvent(new PointerEvent('pointercancel', { pointerId: pointerNavigation }));
+  cameraGesture = false; pointerNavigation = null; editor.contextLost();
+}
+window.addEventListener('blur', leaveInteractions);
+document.addEventListener('visibilitychange', () => { if (document.hidden) leaveInteractions(); else requestRender(); });
 document.addEventListener('focusin', event => { if (!event.target.closest('[data-app-shell],dialog')) editor.contextLost(); });
 window.addEventListener('resize', () => { if (editor.activity) editor.escape(); fit(); });
-window.addEventListener('pagehide', () => editor.contextLost());
+window.addEventListener('pagehide', leaveInteractions);
 // Render changed views and damping frames; an idle mesh must not compete with
 // the solver for CPU when WebGL falls back to software rendering.
 function requestRender() {
@@ -637,23 +932,44 @@ new ResizeObserver(requestRender).observe(canvas);
 canvas.addEventListener('webglcontextrestored', requestRender);
 function render() {
   renderFrame = null;
+  if (guidesDirty) { guidesDirty = false; rebuildGuides(); }
   const r = canvas.getBoundingClientRect(), w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
   if (canvas.width !== Math.round(w * renderer.getPixelRatio()) || canvas.height !== Math.round(h * renderer.getPixelRatio())) renderer.setSize(w, h, false);
   controls.update(); renderer.setScissorTest(true);
+  updateVertexIndex(); renderedFrames++;
   const half = state.view === 'split' ? w / 2 : w;
-  camera.aspect = half / h; camera.updateProjectionMatrix(); renderer.setViewport(0, 0, half, h); renderer.setScissor(0, 0, half, h); renderer.clear(); renderer.render(scenes[0], camera);
+  controls.resize(half / h); renderer.setViewport(0, 0, half, h); renderer.setScissor(0, 0, half, h); renderer.clear(); renderer.render(scenes[0], camera);
   if (state.view === 'split') { renderer.setViewport(half, 0, half, h); renderer.setScissor(half, 0, half, h); renderer.clear(); renderer.render(scenes[1], camera); }
   drawGuideChrome();
 }
 async function start() {
   try {
     const theme = localStorage.getItem('retopo-1:theme'); if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+    try {
+      const saved = JSON.parse(localStorage.getItem('retopo-1:viewer'));
+      for (const id of ['wireToggle', 'guidesToggle', 'autoGuidesToggle', 'creasesToggle', 'pointsToggle', 'ghostToggle', 'snapGuides', 'snapVertices']) if (typeof saved?.[id] === 'boolean') $(id).checked = saved[id];
+      if (Number.isFinite(saved?.ghostOpacity)) $('ghostOpacity').value = Math.max(10, Math.min(70, saved.ghostOpacity));
+    } catch { /* Invalid viewer preferences do not affect guides. */ }
     const [health, catalog] = await Promise.all([api('/api/health'), api('/api/catalog')]);
     $('connection').className = 'badge good'; $('connection').innerHTML = '<i class="dot"></i>Local engine ready';
     $('meshSelect').replaceChildren(...catalog.map(m => new Option(m.title, m.id))); $('meshSelect').disabled = false;
-    await loadMesh('hexagon'); refreshColors();
+    let lastModel; try { lastModel = localStorage.getItem('retopo-1:last-model'); } catch { /* Storage is optional. */ }
+    const initialModel = catalog.some(m => m.id === lastModel) ? lastModel : 'hexagon'; $('meshSelect').value = initialModel;
+    await loadMesh(initialModel); refreshColors();
   } catch (error) { $('connection').className = 'badge error'; $('connection').textContent = 'Service unavailable'; notify(error.message + ' Start the app using start.cmd.', true, true); }
 }
 // Read-only inspection hooks support reproducible canvas interaction checks.
-window.retopoDemo = { getState: () => ({ meshId: state.mesh?.id, guides: clone(state.guides), target: state.target, mode: state.guideMode, resultFaces: state.result?.faces.length, resultJob: state.resultJob, lastAttempt: clone(state.lastAttempt), resultGuideOverlayVisible: guideGroups[1].visible, busy: state.busy, dirty: state.dirty, view: state.view, tool: state.tool, draft: clone(draft), sourceStats: state.mesh?.stats, sourceMaterial: sourceRender ? { color: sourceRender.solid.material.color.getHexString(), metalness: sourceRender.solid.material.metalness } : null, guideDocument: clone(guideDocument.guides), guideHistory: guideDocument.history, guideRevisions: Object.fromEntries(guideDocument.guides.map(g => [g.id, guideDocument.revision(g.id)])), interaction: editor.observe(), guideErrors: clone(guideErrors) }), projectPoint: (point, pane = 0) => project(point, pane), pickSource: (x, y, pane = 0) => hit(x, y, pane)?.point.toArray() || null };
+window.retopoDemo = { getState: () => ({ meshId: state.mesh?.id, guides: clone(state.guides), target: state.target, mode: state.guideMode, creaseAngle: state.creaseAngle, autoGuideEdges: autoGuideData?.edges.length ?? null, autoGuidesVisible: autoGuideGroup.visible, resultFaces: state.result?.faces.length, resultJob: state.resultJob, lastAttempt: clone(state.lastAttempt), resultGuideOverlayVisible: guideGroups[1].visible, busy: state.busy, dirty: state.dirty, view: state.view, tool: state.tool, draft: clone(draft), sourceStats: state.mesh?.stats, sourceMaterial: sourceRender ? { color: sourceRender.solid.material.color.getHexString(), metalness: sourceRender.solid.material.metalness } : null, guideDocument: clone(guideDocument.guides), guideHistory: guideDocument.history, guideRevisions: Object.fromEntries(guideDocument.guides.map(g => [g.id, guideDocument.revision(g.id)])), interaction: editor.observe(), guideErrors: clone(guideErrors) }), projectPoint: (point, pane = 0) => project(point, pane), pickSource: (x, y, pane = 0) => hit(x, y, pane)?.point.toArray() || null };
 renderer.setClearColor(color('--bg')); requestRender(); start();
+window.retopoDemo.getPartsState = () => partsWorkspace.observe();
+window.retopoDemo.getViewerState = () => ({
+  points: $('pointsToggle').checked, edges: $('wireToggle').checked, ghosted: $('ghostToggle').checked,
+  snapVertices: $('snapVertices').checked, snap: guideSnap.marker ? clone(guideSnap.marker) : null,
+  source: sourceRender ? { pointCount: sourceRender.points.geometry.attributes.position.count, pointsVisible: sourceRender.points.visible, edgesVisible: sourceRender.wire.visible, opacity: sourceRender.solid.material.opacity, depthWrite: sourceRender.solid.material.depthWrite } : null,
+  result: resultRender ? { pointCount: resultRender.points.geometry.attributes.position.count, pointsVisible: resultRender.points.visible, opacity: resultRender.solid.material.opacity } : null,
+  camera: { position: camera.position.toArray(), target: controls.target.toArray(), revision: cameraRevision, navigating: cameraGesture },
+  vertexIndex: { worker: !!vertexIndex.worker, ready: vertexIndex.ready, completed: vertexIndex.completed }, guideBuildCount, renderedFrames,
+});
+
+window.retopoDemo.getCameraState = () => controls.snapshot();
+window.retopoDemo.pickPart = (x, y, pane = 0) => partsWorkspace.hitPart(x, y, pane)?.guideId || null;

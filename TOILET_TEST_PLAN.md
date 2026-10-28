@@ -1,5 +1,34 @@
 # Toilet workflow audit — completed test matrix
 
+## Current source-feature route, 2026-10-25
+
+The enabled toilet backend now uses source creases and authored guides in
+its layout, with a recommended/default target of 7,200, a ceiling of 12,000,
+and a 1,500-second service limit. Fresh no-guide, bowl-guide and captured
+four-guide construction produced 7,879, 8,110 and 8,280 quads. Each export
+passed independent remeasurement using reference surface and contact code,
+plus source-feature, topology, quad-quality and connected guide-path gates.
+The original white source OBJ is unchanged.
+
+The actual browser Generate/export run also passed: 8,110 quads in 852.44
+seconds, a native download byte-identical to the independently audited bowl
+export, no browser errors, and correct stale-result labeling after a target
+change. Evidence: `runs/feature-browser-c6ffd961/result.json` and
+`generated.png`. [Current solver results and reproduction](TOILET_SOLVER.md)
+record the fresh worker/export jobs, limitations and test commands.
+
+Focused startup, job lifecycle, density controls, input rejection, feature
+fitting/repair, connectivity, crease rendering, surface bounds, source
+integrity and reference/accelerated contact parity checks passed. These
+checks do not requalify every density or historical guide network under the
+new backend. Detailed solves currently take about 15–25 minutes.
+
+## Earlier fallback audit scope
+
+The following matrix and file-identity assertions describe the previously
+recorded fallback runtime. They are retained as historical evidence, not as
+an assertion that those runtime hashes match the new source-feature route.
+
 The final requirement-by-requirement reconciliation passes all twelve areas
 below. `tests/toilet-final-audit/result.json` records 216 evidence-integrity and
 coverage assertions, 22 qualified export records representing 21 distinct OBJ

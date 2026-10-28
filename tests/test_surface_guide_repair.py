@@ -38,7 +38,7 @@ class AcceptanceTests(unittest.TestCase):
         self.assertFalse(result['intersections']['checked'])
 
     def test_guide_boundaries_reject_before_expensive_checks(self):
-        for metrics in (dict(distance=np.nextafter(.2, np.inf)), dict(angle=np.nextafter(30., np.inf))):
+        for metrics in (dict(distance=np.nextafter(.2, np.inf)), dict(angle=np.nextafter(35., np.inf))):
             with self.subTest(**metrics):
                 result, contacts, surface = self.assess(**metrics)
                 self.assertFalse(result['qualified'])
@@ -58,7 +58,12 @@ class AcceptanceTests(unittest.TestCase):
         self.assertEqual((contacts, surface), (1, 1))
 
     def test_limits_are_inclusive_and_all_gates_are_required(self):
-        result, contacts, surface = self.assess(distance=.2, angle=30.)
+        result, contacts, surface = self.assess(distance=.2, angle=35.)
+        self.assertTrue(result['qualified'])
+        self.assertEqual((contacts, surface), (1, 1))
+
+    def test_single_mild_tangent_outlier_remains_eligible(self):
+        result, contacts, surface = self.assess(angle=34.)
         self.assertTrue(result['qualified'])
         self.assertEqual((contacts, surface), (1, 1))
 

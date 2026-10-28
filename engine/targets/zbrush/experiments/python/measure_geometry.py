@@ -92,18 +92,42 @@ def surface_distances(vertices,triangles,samples):
     return dict(samples=len(values),rms=float(np.sqrt(np.mean(values**2))),mean=float(values.mean()),p95=float(np.percentile(values,95)),sampledMax=float(values.max()))
 
 
-def guide_alignment(vertices,edges,guide):
+def window_chords(points,window,closed=False):
+    """Chord spanning `window` of arc length around each polyline sample.
+
+    Near the ends of an open polyline the window shifts inward instead of
+    shrinking, so every chord spans the same length (or the whole curve).
+    """
+    points=np.asarray(points,dtype=float)
+    arc=np.r_[0.,np.cumsum(np.linalg.norm(np.diff(points,axis=0),axis=1))];total=arc[-1]
+    def at(s):return np.array([np.interp(s,arc,points[:,k]) for k in range(3)]).T
+    if closed:return at(np.mod(arc+window*.5,total))-at(np.mod(arc-window*.5,total))
+    low=np.clip(arc-window*.5,0,max(0.,total-window));high=np.minimum(low+window,total)
+    return at(high)-at(low)
+
+
+def guide_alignment(vertices,edges,guide,tangent_window=None):
+    """Nearest-edge distance and unsigned tangent angle per guide sample.
+
+    With tangent_window, the guide direction is the chord spanning that arc length
+    around each sample (wrapping on closed guides), so detail of the authored
+    curve finer than the window is not counted as a direction error.
+    """
     guide=np.asarray(guide,dtype=float)
     if len(guide)<2:raise ValueError('Guide needs two or more samples')
     start=vertices[np.array(edges)[:,0]];delta=vertices[np.array(edges)[:,1]]-start
     denominator=np.einsum('ij,ij->i',delta,delta);valid=denominator>0;valid_edges=np.array(edges)[valid];start=start[valid];delta=delta[valid];denominator=denominator[valid]
     if not len(start):raise ValueError('No nonzero edges')
+    closed=np.linalg.norm(guide[0]-guide[-1])<1e-10 and len(guide)>3
+    if tangent_window:
+        windowed=window_chords(guide,tangent_window,closed)
     distances=[];angles=[];selected=[]
     for i,point in enumerate(guide):
         t=np.clip(np.einsum('ij,ij->i',point-start,delta)/denominator,0,1)
         ds=np.linalg.norm(point-start-t[:,None]*delta,axis=1);nearest=int(np.argmin(ds))
         tangent=guide[min(i+1,len(guide)-1)]-guide[max(0,i-1)]
-        if i in [0,len(guide)-1] and np.linalg.norm(guide[0]-guide[-1])<1e-10 and len(guide)>3:tangent=guide[1]-guide[-2]
+        if i in [0,len(guide)-1] and closed:tangent=guide[1]-guide[-2]
+        if tangent_window and np.linalg.norm(windowed[i])>0:tangent=windowed[i]
         norm=np.linalg.norm(tangent)
         if norm==0:raise ValueError('Undefined guide tangent')
         cosine=abs(np.dot(tangent,delta[nearest]))/(norm*np.sqrt(denominator[nearest]))

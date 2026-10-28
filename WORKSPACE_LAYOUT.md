@@ -19,7 +19,10 @@ theme remains selectable. Introduction of this shell applies the user's new ligh
 preference once; guide storage is untouched.
 
 The ribbon collapses to its tab strip. View exposes Navigator, Properties and
-Bottom dock visibility controls. Separators support pointer resizing, keyboard
+Bottom dock visibility controls, plus Vertices (F10), Edges and Ghosted display
+toggles. Properties duplicates these display options and exposes ghost opacity
+(10–70%, default 28%). Drawing options include separate guide-point and source-vertex
+snaps. These preferences use `retopo-1:viewer`, independently of guide history. Separators support pointer resizing, keyboard
 arrows in 10 px steps, and double-click reset. Layout preferences are bounded and
 stored separately from source-bound guide documents. Compact widths use side
 drawers that open explicitly while the viewport takes the available width.
@@ -46,3 +49,8 @@ Evidence covers actual region placement, palette, SVG tools, unfinished
 construction, collapse/resizing, numeric Circle editing, history/log contents,
 layout and guide restoration, both themes, 900 px layout and compact drawers.
 Screenshots and assertions are in `tests/workspace-shell/`.
+
+The calculation progress panel leaves the Canvas available for camera navigation.
+Its Cancel button remains interactive. This changes presentation only; the server
+continues to own calculation and cancellation. See [VIEWER_CONTROLS.md](VIEWER_CONTROLS.md)
+for camera gestures, worker scope and the retained verification records.

@@ -1,7 +1,7 @@
 {
   "id": "toilet",
   "title": "White toilet",
-  "description": "The original plain SW_Toilet, decoded from its closed white mesh. A detailed curved test subject for surface guides; this mesh uses the general solver.",
+  "description": "The original white SW_Toilet. Source creases and drawn guides influence the quad layout; use about 7,200 quads for its small details.",
   "source": {
     "author": "User-provided SW_Toilet",
     "license": "Original source attribution not recorded",
@@ -10,14 +10,15 @@
   },
   "surface": "closed",
   "featurePolicy": "native-qualified",
-  "target": 1800,
+  "target": 7200,
+  "maxTargetQuads": 12000,
   "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
   "displayColor": "#f5f5f2",
   "displaySmooth": true,
   "wireOpacity": 0.22,
   "requiresGuides": false,
   "experimentalRetopology": false,
-  "solverNotice": "Guides steer fitted quad edge paths. Each result must pass surface, topology and quad-quality checks.",
+  "solverNotice": "Source creases and guides shape the layout. Start around 7,200 quads; detailed solves can take 15–25 minutes. Cancel remains available.",
   "vertices": [
     [
       0.299389520109,
@@ -182174,5 +182175,8 @@
     },
     "canonicalGeometrySignature": "59053f203c7ba322e219e07db655bff4b5b8cfde1af678087074bc5a2e47f419"
   },
-  "solver": "surface-quads"
+  "solver": "surface-quads",
+  "recommendedTarget": 7200,
+  "featureLayout": true,
+  "solverTimeoutSeconds": 1500
 }

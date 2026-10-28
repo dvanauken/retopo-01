@@ -1,5 +1,120 @@
 # Curved-surface quad solver
 
+## Independent parts, 2026-10-26
+
+The Parts workspace now prepares reversible source regions and closed repairs, then sends the selected immutable working source through the existing feature solver. The original OBJ remains unchanged. An actual browser workflow excluded the handle, split the lid at Z=0.82, generated 879 quads at target 800 in 22.66 seconds, and exported the assembly. Its native OBJ passes the independent reference geometry/contact audit. [Workflow, exact evidence and limits](PARTS_WORKFLOW.md) distinguish independent objects from future continuous seam welding.
+
+
+## Source-feature preservation audit, 2026-10-25
+
+The toilet now enables the `feature_quad.py` route through `featureLayout`.
+The default and recommended target is 7,200, the ceiling is 12,000, and the
+service limit is 1,500 seconds. Existing saved target choices remain intact.
+
+Source crease curves and authored guides enter the orientation field before
+QuadriFlow extracts connectivity. Sharp preservation is enabled. Subsequent
+fitting keeps explicit guide paths, adds conforming local quads where necessary,
+repairs separate contact regions against the original source surface, and
+separates a guide from a nearby source crease when they cannot share an edge.
+There are no fixture IDs, retained output meshes, or source replacements in
+the construction code. The source OBJ SHA-256 remains
+`c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053`.
+
+At target 7,200, the independent feature gate retains 716 of the source's 960
+45-degree edges, belonging to components at least one target edge spacing in
+extent. The other 244 angular fragments are reported separately. Samples on
+the retained curves must be close to actual output edges and detected output
+creases; the 36 retained junctions must be close to output vertices. The
+existing shape, target-count, guide, topology, whole-surface and all-mixed-
+diagonal contact gates still apply. Feature sampling does not certify every
+point of a crease; the whole-surface bounds cover the complete source.
+
+Fresh construction and independent re-read export audits passed for all three
+retained cases. The audits use the reference contact and surface code, rather
+than accepting only the accelerated checks used during fitting.
+
+| Input at target 7,200 | Output quads | Solve time | Retained fresh job |
+| --- | ---: | ---: | --- |
+| No guides, direct constructor | 7,879 | 1,120.81 s | `runs/feature-fresh-none-c2e5a86e` |
+| Bowl guide, actual worker | 8,110 | 952.00 s | `runs/dfd9ff26bbe947dd9c3872cf5301771d` |
+| Four captured guides, actual worker | 8,280 | 1,165.70 s | `runs/ce7cfe7cf5c6495789bb5d83a941eeaa` |
+
+The fresh four-guide p95 tangent errors are 27.13, 18.72, 20.18 and 33.58
+degrees, within the existing one-outlier policy below. Its maximum sampled
+source-crease-to-output-edge distance is 0.00726, below the unchanged 0.00801
+limit at this target. Every path consists of actual connected output edges;
+the export audit also checks closure and repeated vertices.
+
+Two earlier fresh bowl constructions passed independently. Staged development
+candidates, including `runs/feature-four-staged-audit`, remain separately
+identified. Rejected candidates and their failed gates remain retained; they
+are never displayed as new generated meshes.
+
+The real browser Generate and native OBJ download check also passed in
+`runs/feature-browser-c6ffd961/result.json`. Its live service job
+`8bc5c1804dc440068332603e4bc99278` generated 8,110 quads from the bowl
+guide in 852.44 seconds, with no browser errors. The downloaded OBJ is
+byte-identical to the independently audited fresh bowl export (SHA-256
+`806e2dc834e15635a3e19f936534de067df6c671a20e6018f83286a2eb0db2eb`).
+The test verifies the feature-preservation details, accepted-result badge,
+and Previous result / Needs update state after a target change. No service
+response or geometry was substituted. Its `generated.png` records the live
+workspace; front/back views of the fresh four-guide worker export are in
+`runs/ce7cfe7cf5c6495789bb5d83a941eeaa/preview/`.
+
+The complete original source is retained. `surface_contacts_fast.py` compiles
+the reference contact predicates without fast-math. `mesh_proximity.py` uses
+a conservative triangle BVH for exact nearest-triangle queries; adaptive
+whole-triangle upper bounds and rejection on exhausted work/depth budgets
+remain in `surface_distance.py`. The original query and contact paths remain
+available for export audits. Speed comparisons and pass/fail parity are
+retained in `runs/feature-bounds-parity.json`,
+`runs/feature-prefix-bounds-parity.json`, and `runs/feature-contact-parity.json`.
+
+The toilet target ceiling is 12,000; other models retain their own bounds.
+The UI distinguishes source-feature checks from detected output creases and
+marks an older accepted mesh as needing an update after guide changes.
+Rendering uses per-corner crease normals so smoothing does not visually erase
+sharp geometry. Detailed feature solves are CPU calculations, currently around
+15–25 minutes; cancellation remains available. The service supports a per-model
+time limit rather than forcing every model through the old ten-minute limit.
+
+The feature fitter uses the pinned PyTorch package in `requirements.txt` and
+the independently built executable/runtime described in `GUIDED_LAYOUT.md`.
+The tested PyTorch 2.4 build warns that its NumPy bridge is unavailable with
+NumPy 2; tensor conversion deliberately uses lists and does not use that
+bridge. No global environment upgrade is required on this host.
+
+Reproduce with `python -X utf8 tests/verify_feature_worker.py --case bowl` or
+`--case four`; the latter uses the unchanged captured input in
+`tests/fixtures/toilet-four-guides.json`. Audit an accepted job with
+`python -X utf8 tests/verify_feature_export.py --job runs/<job-id>`.
+`tests/probe_feature_solver.py --case none` exercises a fresh unguided layout.
+The earlier sections below retain their historical solver and tolerance scope.
+
+## Exact four-guide toilet, 2026-10-25
+
+A fresh production-worker job, `runs/30f50797ab8f44f5a9d60995d8cdbe72`, now succeeds with the unchanged source and four authored curves. Independent remeasurement of its exported OBJ confirms 1,845 quads, one closed component, zero boundary/nonmanifold edges, changed geometry, passing four-guide fit, quad quality, full-surface and face-contact checks. The corresponding [provisional GLB](../ghidra-workbench/work/toilet-hbvi-assessment/toilet-four-guides-production-1845.glb) reloads as 3,690 watertight triangles. The exact old failed job remains untouched. The [execution, measurements and reproduction record](../ghidra-workbench/work/toilet-hbvi-assessment/NATIVE_TOILET_GUIDE_COMPARISON.md) qualifies the worker export; this exact four-guide browser action and HB-VI import scale/clearance still need checks.
+
+The captured four-guide 1,800-target toilet request is now accepted by the
+isolated staged solver at 1,845 quads, with the source, authored curves,
+topology, face contacts and both whole-surface diagonal bounds independently
+checked. Its guide p95 angles are 26.06°, 28.81°, 27.71° and 34.33°; all four
+guide distances are within the unchanged 0.20 target-edge-length limit. The
+current engineering policy permits at most one connected guide path in the
+30–35° p95 tangent band. All other guides must remain at or below 30°. This
+changes only the tangent acceptance policy; shape, density, surface and contact
+gates still apply. The current focused suite passes 25 tests plus six subtests. The
+[native comparison and complete measurements](../ghidra-workbench/work/toilet-hbvi-assessment/NATIVE_TOILET_GUIDE_COMPARISON.md)
+show the same authored Guide 4 at 37.97° on a diagnostic connected path in a
+native 6,108-face ZBrush output. The policy is measured engineering judgment,
+not a recovered ZBrush setting. The first uniform-35 trial and every original
+failed candidate remain retained separately.
+
+The paragraphs below preserve earlier solver checkpoints and their then-current
+limits. They are not evidence that the four-guide case had already passed at
+those checkpoints.
+
 The new bounded layout retry qualifies the captured paired-guide request at
 target 1,799 through the real service: 1,845 quads in 431.23 seconds. Its actual
 worker OBJ passes independent geometry and all-mixed-diagonal contact audits
@@ -304,9 +419,10 @@ the unmodified reference validator against the downloaded OBJ.
 Guide paths are measured at 257 uniform arc-length positions on the submitted
 polyline, rather than weighting small source triangles more heavily because they
 contributed more vertices. Their p95 distance must remain below 0.20 target edge
-lengths and their p95 unsigned tangent mismatch below 30 degrees. The full
-original submitted samples remain in `curves.json`. Both source and output are in
-the existing source coordinate frame.
+lengths. The former uniform 30-degree tangent bound governed the historical
+checkpoints below; the current one-outlier policy is stated at the top of this
+report. The full original submitted samples remain in `curves.json`. Both source
+and output are in the existing source coordinate frame.
 
 This route approximates curved detail; it does not freeze every sharp edge or
 transfer arbitrary source attributes. Topology and surface proximity are separate

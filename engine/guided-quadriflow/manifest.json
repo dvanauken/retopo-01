@@ -1,0 +1,23 @@
+{
+  "upstream": "https://github.com/hjwdzh/QuadriFlow",
+  "revision": "810b7a0967c35b0dc85b4464e3835e26a756c967",
+  "build": "size-caps-16",
+  "executableSha256": "e94fd63321109573bf47d8e09704b648cbbf564ccb9321e70d6b71bde392c196",
+  "sourceArchiveSha256": "f5c5af43317df26319abb55239deb7cb2d3ed079c0011d2791bc865e4efb89c5",
+  "runtimeDirectory": "C:\\msys64\\mingw64\\bin",
+  "runtimeImports": {
+    "libgcc_s_seh-1.dll": {
+      "path": "C:\\msys64\\mingw64\\bin\\libgcc_s_seh-1.dll",
+      "sha256": "2de4355648441db0230a9aba1a149fc829b094f83c14c37ea3f775356d33d8b1"
+    },
+    "libwinpthread-1.dll": {
+      "path": "C:\\msys64\\mingw64\\bin\\libwinpthread-1.dll",
+      "sha256": "f0c48bcf1f1f0a65b4f99406f56db7349ded8866cd86548687ab6a98e859af35"
+    },
+    "libstdc++-6.dll": {
+      "path": "C:\\msys64\\mingw64\\bin\\libstdc++-6.dll",
+      "sha256": "428d22a8a4d25e39edad36851122701b3460c2bcf628884cdd2664530d2dd634"
+    }
+  },
+  "scope": "Independent modified implementation, not native ZBrush recovery. External MinGW runtime is required; DLLs are not redistributed."
+}

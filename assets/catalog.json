@@ -47,7 +47,7 @@
   {
     "id": "toilet",
     "title": "White toilet",
-    "description": "The original plain SW_Toilet, decoded from its closed white mesh. A detailed curved test subject for surface guides; this mesh uses the general solver.",
+    "description": "The original white SW_Toilet. Source creases and drawn guides influence the quad layout; use about 7,200 quads for its small details.",
     "source": {
       "author": "User-provided SW_Toilet",
       "license": "Original source attribution not recorded",
@@ -56,14 +56,62 @@
     },
     "surface": "closed",
     "featurePolicy": "native-qualified",
-    "target": 1800,
+    "target": 7200,
+    "maxTargetQuads": 12000,
     "sourceSha256": "c2daa898fe3361bf3f971e83d6a274eda2126be8ecca2f652c23f446c9867053",
     "displayColor": "#f5f5f2",
     "displaySmooth": true,
     "wireOpacity": 0.22,
     "requiresGuides": false,
     "experimentalRetopology": false,
-    "solverNotice": "Guides steer fitted quad edge paths. Each result must pass surface, topology and quad-quality checks.",
-    "solver": "surface-quads"
+    "solverNotice": "Source creases and guides shape the layout. Start around 7,200 quads; detailed solves can take 15\u00e2\u20ac\u201c25 minutes. Cancel remains available.",
+    "solver": "surface-quads",
+    "recommendedTarget": 7200,
+    "featureLayout": true,
+    "solverTimeoutSeconds": 1500
+  },
+  {
+    "id": "ellipsoid",
+    "title": "Curved guide study",
+    "description": "A smooth curved surface for drawing open strokes and closed loops. Try a wavy guide, then generate a new quad mesh.",
+    "source": {
+      "author": "Workbench research fixture",
+      "license": "Original synthetic geometry",
+      "url": "",
+      "asset": "ellipsoid.obj"
+    },
+    "surface": "closed",
+    "featurePolicy": "native-qualified",
+    "target": 600,
+    "sourceSha256": "75813381047fe0f94d50f4b3dc55b331b85543837833e7818647bd672acaba13",
+    "displaySmooth": true,
+    "requiresGuides": false,
+    "experimentalRetopology": false,
+    "solverNotice": "Draw on the surface. Guides influence the quad layout before extraction; results must pass shape, surface and connected-path checks.",
+    "solver": "surface-quads",
+    "guidedLayout": true
+  },
+  {
+    "id": "toilet-skp",
+    "title": "White toilet \u2014 original SKP parts",
+    "description": "Fresh SketchUp source with separate connected parts and its CAD reference. Open surfaces are preserved.",
+    "source": {
+      "asset": "SW_Toilet.skp",
+      "author": "User-provided SW_Toilet",
+      "license": "Original source attribution not recorded",
+      "url": ""
+    },
+    "sourceSha256": "b6ffc92d9da3c2ceb9d9bd95439e92a04a9ffa16ce744c480e381a829b881bc4",
+    "target": 7200,
+    "maxTargetQuads": 12000,
+    "displayColor": "#f5f5f2",
+    "displaySmooth": true,
+    "wireOpacity": 0.22,
+    "surface": "open",
+    "requiresGuides": false,
+    "solver": "surface-quads",
+    "featureLayout": true,
+    "solverNotice": "Select one part and Generate selected, or Work on selected to edit its guides first. Failed attempts retain the source and last accepted result.",
+    "canRemesh": false
   }
 ]

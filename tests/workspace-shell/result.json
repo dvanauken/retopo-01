@@ -101,9 +101,9 @@
     "panel": "rgb(255, 255, 255)"
   },
   "sourceHashes": {
-    "app.js": "91c6260d9df8c75970302cf48499aad237932ea38e2eaacee13ee581ef4c1ce4",
-    "index.html": "92b9eb21726585a91b58b9ccfcd27ff74fe2e8f109a226f9e19ad119ed148e9f",
-    "index.css": "8862da3e249a870c35039778d50ddc3819571977cea957d51fe53da5286c1fc1",
-    "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
+    "app.js": "bd03abd75987fd2cbe4da69ccb1435b2015083add6a176d714552b3b242afcaa",
+    "index.html": "f753ee6e1c2446c942f7213bbf99796b4f10fd57babd6b404ed419b0315cfafa",
+    "index.css": "795bdecdfc2d50dc39a43756b65ad51812d063074ca3c878358e81f6f8513d14",
+    "src/view/WorkspaceShell.js": "d3ce3605ba420905ccc20c16ee4b75a78aeec632f64bd32cd14e152790a0c624"
   }
 }

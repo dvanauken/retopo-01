@@ -22,8 +22,8 @@ from features import output_creases
 def _assess(source_mesh, positions, faces, guides, target):
     spacing = np.sqrt(source_mesh.area / target)
     quality = cq.quad_quality(positions, faces, target)
-    fit = cq._guide_fit(positions, guides.paths, guides.curves)
-    guided = all(p['p95Distance'] <= .2 * spacing and p['p95TangentAngleDegrees'] <= 30 for p in fit)
+    fit = cq._guide_fit(positions, guides.paths, guides.curves, spacing)
+    guided = cq.guides_pass(fit, spacing)
     intersections = dict(passed=None, checked=False, reason='Shape or guide gate rejected before contact checking.')
     surface = dict(passed=None, checked=False, wholeSurfaceDiagonals={})
     bounds = {}

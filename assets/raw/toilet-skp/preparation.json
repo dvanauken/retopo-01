@@ -1,0 +1,103 @@
+{
+  "source": "C:\\dbva\\code\\ach-symbols\\models\\SW_Toilet\\SW_Toilet.skp",
+  "sourceSha256": "b7c2b3b28a5e4041dd40a2be33bcd579c70b9b59b0ccbb420d7c589461c9eb08",
+  "center": [
+    -0.0009110346436500549,
+    0.3894949406385422,
+    0.3329710015196681
+  ],
+  "scale": 2.6984785044313337,
+  "rotation": "180 degrees around Z",
+  "triangles": 25809,
+  "parts": [
+    {
+      "id": "skp-1",
+      "name": "C-3639 island 1",
+      "partSource": "d400c6ca624e0056b6c3c00b062c41ef3c0b06aa1edd753173a87546a82cbe31",
+      "closed": false,
+      "excluded": false,
+      "triangles": 14266
+    },
+    {
+      "id": "skp-2",
+      "name": "C-3639 island 2",
+      "partSource": "8d0ee510d0543b6cb27cd046d127a5086f213d48f305d1960f6b747781d3de0d",
+      "closed": false,
+      "excluded": false,
+      "triangles": 760
+    },
+    {
+      "id": "skp-3",
+      "name": "C-3639 island 3",
+      "partSource": "b8b241a1c690446c4c9ce6281033d1982f8d337084f48d5c844e9eb71fcff86e",
+      "closed": false,
+      "excluded": false,
+      "triangles": 744
+    },
+    {
+      "id": "skp-4",
+      "name": "C-3639 island 4",
+      "partSource": "daf40060416778f3f19a9c1ee533771e4c8cf4f0af5a7d6c9baa7be0549f33ee",
+      "closed": false,
+      "excluded": false,
+      "triangles": 416
+    },
+    {
+      "id": "skp-5",
+      "name": "C-3639 island 5",
+      "partSource": "9f05d48b0820d085a19687add58decd079af1729c5a2570cb448cf627e7289b1",
+      "closed": true,
+      "excluded": false,
+      "triangles": 3128
+    },
+    {
+      "id": "skp-6",
+      "name": "C-3639 island 6",
+      "partSource": "617dd8f640bfa84d6af2fb6e4b080ec1bc73328db4941a49a1375d18b7817db1",
+      "closed": false,
+      "excluded": false,
+      "triangles": 2824
+    },
+    {
+      "id": "skp-7",
+      "name": "C-3639 island 7",
+      "partSource": "7ebba1b63a3446022b3eda7a5a8b64574d400f3835f2bc089fd59aa7697fc3c2",
+      "closed": true,
+      "excluded": false,
+      "triangles": 824
+    },
+    {
+      "id": "skp-8",
+      "name": "C-3639 island 8",
+      "partSource": "39a4886d8896a1b2b962387d67dfcc23bbfdc386b57c83f2daad3a2dbb27fd71",
+      "closed": false,
+      "excluded": false,
+      "triangles": 220
+    },
+    {
+      "id": "skp-9",
+      "name": "C-3639 island 9",
+      "partSource": "50563fa2c64d2ddbfe739da568a9ba99053f89020f629faf42462766aa5224f1",
+      "closed": false,
+      "excluded": false,
+      "triangles": 220
+    },
+    {
+      "id": "skp-10",
+      "name": "C-3639 island 10",
+      "partSource": "7ad412668c2a2efaa313987bba229a888dc203a47909c5bba5e1dfa2c62a420e",
+      "closed": false,
+      "excluded": false,
+      "triangles": 2232
+    },
+    {
+      "id": "skp-11",
+      "name": "C-FF_Model_ID15539_1_TOTO_DrakeII.dwg island 1",
+      "partSource": "2df62e4fa517d7226535612a1e459bbfd4d5526160b8102b467e34f3c351e2ef",
+      "closed": false,
+      "excluded": false,
+      "triangles": 175
+    }
+  ],
+  "edits": "Coordinate similarity only; source vertex connectivity retained; no caps, welding, or deleted triangles."
+}

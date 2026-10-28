@@ -18,6 +18,14 @@ export class WorkspaceShell {
     };
     document.getElementById('toggle-ribbon').onclick = () => { this.state.collapsed = !this.state.collapsed; this.apply(); };
     document.getElementById('clear-log').onclick = () => { this.logs = []; this.paintLog(); };
+    document.getElementById('copy-log').onclick = async ({ currentTarget: button }) => {
+      try { await navigator.clipboard.writeText(this.logText()); button.textContent = 'Copied'; } catch { button.textContent = 'Copy failed'; }
+      clearTimeout(this.copyReset); this.copyReset = setTimeout(() => { button.textContent = 'Copy log'; }, 1500);
+    };
+    document.getElementById('save-log').onclick = () => {
+      const url = URL.createObjectURL(new Blob([this.logText()], { type: 'text/plain' })), link = document.createElement('a');
+      link.href = url; link.download = 'retopo-activity.txt'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    };
     for (const splitter of root.querySelectorAll('[data-splitter]')) this.bindSplitter(splitter);
     addEventListener('resize', () => this.apply(false)); this.apply(false);
   }
@@ -72,13 +80,20 @@ export class WorkspaceShell {
     for (const panel of this.root.querySelectorAll('[data-dock-panel]')) panel.hidden = panel.dataset.dockPanel !== this.state.dockTab;
     if (persist) { try { localStorage.setItem('retopo-1:layout', JSON.stringify(this.state)); } catch { /* Optional view preferences. */ } }
   }
-  addLog(message, error = false) {
-    this.logs.push({ time: new Date().toLocaleTimeString('en-US', { hour12: false }), message, error }); if (this.logs.length > 200) this.logs.shift(); this.paintLog();
-    document.getElementById('operationStatus').textContent = message;
+  showLog() { this.state.dock = true; this.state.dockTab = 'log'; this.apply(); }
+  logText() { return this.logs.map(e => `${e.time} ${e.level || (e.error ? 'error' : 'info')} ${e.message}`).join('\n') + '\n'; }
+  addLog(message, error = false) { this.addLogs([{ message, error }]); }
+  addLogs(entries) {
+    for (const entry of entries) this.logs.push({ ...entry, time: entry.time === null ? '—' : new Date(entry.time === undefined ? Date.now() : entry.time * 1000).toLocaleTimeString('en-US', { hour12: false }) });
+    if (this.logs.length > 1000) this.logs.splice(0, this.logs.length - 1000);
+    this.paintLog();
+    if (entries.length) document.getElementById('operationStatus').textContent = entries.at(-1).message;
   }
   paintLog() {
-    const list = document.getElementById('logList'); list.replaceChildren();
-    for (const entry of this.logs) { const row = document.createElement('li'), time = document.createElement('time'), text = document.createElement('span'); row.classList.toggle('error', entry.error); time.textContent = entry.time; text.textContent = entry.message; row.append(time, text); list.append(row); }
+    const list = document.getElementById('logList'), panel = list.closest('.dock-panel');
+    const atBottom = panel.scrollHeight - panel.scrollTop - panel.clientHeight < 25; list.replaceChildren();
+    for (const entry of this.logs) { const row = document.createElement('li'), time = document.createElement('time'), text = document.createElement('span'); row.classList.toggle('error', entry.error || entry.level === 'error'); row.classList.toggle('warning', entry.level === 'warning'); if (entry.jobId) row.dataset.jobId = entry.jobId; time.textContent = entry.time; text.textContent = entry.message; row.append(time, text); list.append(row); }
+    if (atBottom) panel.scrollTop = panel.scrollHeight;
   }
   history(history) {
     const list = document.getElementById('historyList'); list.replaceChildren();

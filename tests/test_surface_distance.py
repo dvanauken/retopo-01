@@ -55,6 +55,20 @@ class SurfaceBounds(unittest.TestCase):
             with self.assertRaises(ValueError):
                 directed_bound(triangles, self.square, tolerance)
 
+    def test_accelerated_queries_preserve_analytic_limits_and_budget_rejection(self):
+        for height,expected in ((0.,True),(.009,True),(.011,False)):
+            other=self.square.copy();other.vertices+=[0,0,height]
+            self.assertEqual(measure(self.square,other,.01,use_acceleration=True)['passed'],expected)
+        other=trimesh.Trimesh(self.square.vertices,[[0,1,3],[1,2,3]],process=False)
+        self.assertTrue(measure(self.square,other,.01,use_acceleration=True)['passed'])
+        for limit in (dict(max_depth=0),dict(max_triangles=1)):
+            result=measure(self.square,other,.01,use_acceleration=True,**limit)
+            self.assertFalse(result['passed']);self.assertEqual(result['sourceToOutput']['status'],'unresolved')
+        a=np.array([[0,0,0],[1,0,0],[0,1,0]],float)
+        target=np.array([p+(a-p)*.1 for p in a]).reshape(-1,3)
+        mesh=trimesh.Trimesh(target,[[0,1,2],[3,4,5],[6,7,8]],process=False)
+        self.assertFalse(directed_bound(a[None],mesh,.05,use_acceleration=True)['passed'])
+
 
 if __name__ == '__main__':
     unittest.main()

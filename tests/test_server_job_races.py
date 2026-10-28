@@ -75,6 +75,16 @@ class WorkerStartup(unittest.TestCase):
         self.assertEqual(status,200)
         self.assertEqual(response['state'],'cancelled')
 
+    def test_model_budget_still_terminates_timed_out_worker(self):
+        job=self.job();job['meshId']='feature-test';process=Mock()
+        process.wait.side_effect=[server.subprocess.TimeoutExpired('owned worker',1500),-9]
+        with patch.dict(server.MESHES,{'feature-test':dict(solverTimeoutSeconds=1500)}),patch.object(server.subprocess,'Popen',return_value=process),patch.object(server,'terminate_worker') as terminate:
+            server.execute(job)
+        self.assertEqual(process.wait.call_args_list[0].kwargs,{'timeout':1500})
+        terminate.assert_called_once_with(process)
+        self.assertEqual(job['state'],'failed')
+        self.assertIn('25-minute limit',job['error'])
+
 
 if __name__ == '__main__':
     unittest.main()

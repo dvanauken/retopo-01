@@ -243,22 +243,30 @@
     }
   ],
   "workerJobs": [
-    "193628e6b4d949f38ac0e83d9d68a057",
-    "2b92438549404b95946f114bc89213d6"
+    "9459f5f53d7a4d10810ff057ce31d2ef",
+    "96d751fd3a1a4367b3bc74fea4ae5a6b"
   ],
   "browserErrors": [],
   "sourceHashes": {
-    "app.js": "aeed670585606263ecc5c38eed54c0db27aa827f9eba58a863e5e57b225b7f9c",
-    "index.html": "223ce8fd578599fa920b232252a5b5af72a5bc699087b7f50f0bf7c5a1b7b758",
-    "server.py": "ecf48a6b03ad5e76ef7c197edcb7680d81b23ff56cd3dc6a4e080242655e8fe2",
+    "app.js": "0b6e3400849ef5c3c5dbfcfff863da19ff792a84d7566cc6f8561b435fd8d316",
+    "index.html": "347eeee1ebcf14c099dbda55360f57a3418fdcfe156ef3a49b5b8abf46cd78ef",
+    "server.py": "fa57eaa0780d0c69a56c2dae75d00f8eedb7ca5cf8c067e47fd952b26868094e",
     "src/contracts/GuideData.js": "e9e80faeb3ebb17d4c7c38840bd778b706481da739ab1d3bcf483d30003ecb8c",
     "src/domain/GuideDocument.js": "a1452e4de2009bf65f8b750bf8fd49f35bce3f2574a50a12bcef6ff23ba81c98",
+    "src/domain/PartsDocument.js": "a31254907f1d72bdf4401582fab3132a239653b65bda83bd9a802c952b0def66",
+    "src/geometry/CreaseNormals.js": "2275553cf450d37755d0db3691505ef6f92b5c672583022d3e2581b5b14ce6c5",
     "src/geometry/GuideCurve.js": "1fbaddc9a416b15550972c181e0b97616c57cd60ff045f8ee42b985dfd0f89ed",
     "src/io/GuideSerializer.js": "405e343dc9697ea63ccd22ab813dd511e4adca340d504f59e097e01687df7ed1",
-    "src/snapping/GuideSnap.js": "3e66ad3d9e6b38bc0afb8d8e564e1e81a960ff3fde3cf897e31461b30a471188",
+    "src/snapping/GuideSnap.js": "5028478044004bd3d98f1cbc82d63d76363746a83fa62a38336cce3400f53e25",
+    "src/snapping/VertexIndexWorker.js": "962cfa3a4d3ea03bfe291c14c8cd20d6365ccfd3f5dc275f4fefec3e00de3f7c",
+    "src/snapping/VertexProjection.js": "a5b475f5c89b30c469030f0506adc4c5c51e780b58bd3eccf8f0168decb899d7",
+    "src/snapping/VertexSnapIndex.js": "6a38e78f2effb3f6c846c914b2dbf07b0da6834b190e1b832a170ad302a196da",
     "src/view/CircleConstruction.js": "866190bb43bded83034b2d94a24eec9603ab30c7e6594c77c209a6ea06e44170",
-    "src/view/GuideController.js": "556c4227867a7575909a689635d5f24ced3c1787e5a4005111833066e5ea228e",
+    "src/view/GuideController.js": "74e7389bc6cbcafc213ad306195f464552befe7880bb6968a45f89976b643de8",
+    "src/view/PartMarquee.js": "41e9073da9fb6ce63e5143c9b62b3eb395ac758392e189e4e665143f517d92fd",
+    "src/view/PartsWorkspace.js": "97579d58c6cc819d250edaceb1058beb15037413833ca9031f1ac69d31938ad3",
     "src/view/SurfaceGuides.js": "7e0456176fe1ee4687eb9534264fcbfc3975b66bd3dd971dccf3775d96059ed9",
+    "src/view/ViewportNavigation.js": "ce84a93a2d650d8215f439039c0e0e59938c19ca4ca43cd732bdb05dd62d7198",
     "src/view/WorkspaceShell.js": "ea16189a8fc761ad14ee6abff88e53b41e113568167e88556b48d837c6f6a634"
   },
   "scope": "Real Chromium pointer/keyboard/touch, native capture before pointer-up, surface editing, authored IO and real freehand and Spline worker solves."

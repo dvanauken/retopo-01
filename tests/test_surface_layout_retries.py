@@ -23,7 +23,9 @@ class LayoutRetryTests(unittest.TestCase):
         self.assertIn(660, repair.layout_targets(600))
 
     def run_construct(self, folder, implementation):
-        source, curves, history = object(), [], []
+        # This exercises the guided retry route. An empty guide set enters the
+        # separate boundary-layout fallback after all count retries fail.
+        source, curves, history = object(), [object()], []
         with patch.object(repair, '_construct_layout', side_effect=implementation) as call, \
              patch('surface_boundary_repair.construct', return_value=None) as boundary:
             result = repair.construct(source, curves, target=600, job=folder, blender=Path('blender'),

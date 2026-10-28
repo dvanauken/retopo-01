@@ -115,7 +115,7 @@ def _possible_contacts(v, triangles, face_edges, face_pairs, eps):
     return [rows[i] for i in np.flatnonzero(active)]
 
 
-def measure(vertices, faces, *, both_quad_diagonals=False):
+def measure_reference(vertices, faces, *, both_quad_diagonals=False):
     eps = 1e-9
     v = np.asarray(vertices, dtype=float)
     polygons = [v[f] for f in faces]
@@ -151,3 +151,10 @@ def measure(vertices, faces, *, both_quad_diagonals=False):
                 adjacentIntersectingFacePairs=sorted(adjacent),
                 quadDiagonalPolicy='all_pairings' if both_quad_diagonals else 'renderer_fan',
                 scope='Indexed polygon bounds and triangle contact vertices, '+('both quad diagonals with every mixed triangle pairing' if both_quad_diagonals else 'fan triangulation')+', 1e-9 length tolerance. Contacts are allowed only on common topological vertices/edges (4e-9 boundary tolerance). Floating-point screen; degeneracy and manifold checks are separate.')
+
+
+def measure(vertices, faces, *, both_quad_diagonals=False):
+    if len(faces) and all(len(face)==4 for face in faces):
+        from surface_contacts_fast import measure as compiled
+        return compiled(vertices,faces,both_quad_diagonals=both_quad_diagonals)
+    return measure_reference(vertices,faces,both_quad_diagonals=both_quad_diagonals)

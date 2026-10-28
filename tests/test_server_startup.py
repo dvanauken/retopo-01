@@ -12,6 +12,7 @@ import threading
 import time
 import unittest
 import urllib.request
+import psutil
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -21,10 +22,17 @@ class Startup(unittest.TestCase):
         # Spaces also exercise start.cmd's quoted working-directory change.
         self.folder = Path(tempfile.mkdtemp(prefix='startup test ', dir=ROOT/'runs'))
         self.processes = []
+        self.servers = []
         self.pointer = ROOT/'runs/server.json'
         self.original_pointer = self.pointer.read_bytes() if self.pointer.exists() else None
 
     def tearDown(self):
+        for process in self.servers:
+            try:
+                process.kill()
+                process.wait(timeout=10)
+            except psutil.NoSuchProcess:
+                pass
         for process in self.processes:
             if process.poll() is None:
                 process.terminate()
@@ -38,7 +46,7 @@ class Startup(unittest.TestCase):
     def checkout(self, name):
         folder = self.folder/name
         (folder/'assets').mkdir(parents=True)
-        for file in ('server.py', 'process_ownership.py', 'start.cmd'):
+        for file in ('server.py', 'process_ownership.py', 'job_progress.py', 'job_diagnostics.py', 'crease_angle.py', 'start.cmd'):
             shutil.copyfile(ROOT/file, folder/file)
         shutil.copyfile(ROOT/'assets/catalog.json', folder/'assets/catalog.json')
         return folder
@@ -74,7 +82,36 @@ class Startup(unittest.TestCase):
         return subprocess.run(self.command(folder, port), cwd=folder, capture_output=True,
                               text=True, timeout=10)
 
-    def test_fresh_custom_port_and_repeat_start_cmd_preserve_original_server(self):
+    def restart(self, folder, port, batch=False):
+        pointer = folder/'runs/server.json'
+        previous_pid = json.loads(pointer.read_text())['pid'] if pointer.exists() else None
+        env = dict(os.environ)
+        env['PATH'] = str(Path(sys.executable).parent) + os.pathsep + env.get('PATH', '')
+        command = ([os.environ.get('COMSPEC', 'cmd.exe'), '/d', '/c',
+                    '.\\start.cmd', '--port', str(port)] if batch else
+                   self.command(folder, port) + ['--restart', '--next-port'])
+        with (folder/'startup.log').open('ab') as log:
+            launcher = subprocess.Popen(command, cwd=folder, env=env, stdin=subprocess.DEVNULL,
+                                        stdout=log, stderr=log,
+                                        creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+        self.processes.append(launcher)
+        for _ in range(200):
+            if launcher.poll() is not None:
+                self.fail((folder/'startup.log').read_text())
+            try:
+                record = json.loads(pointer.read_text())
+                if record['pid'] != previous_pid:
+                    server = psutil.Process(record['pid'])
+                    if all(p.pid != server.pid for p in self.servers):
+                        self.servers.append(server)
+                    if self.health(record['port'])['ready']:
+                        return server, record
+            except (OSError, ValueError, psutil.NoSuchProcess):
+                pass
+            time.sleep(.05)
+        self.fail('Restart did not complete: ' + (folder/'startup.log').read_text())
+
+    def test_plain_python_repeat_preserves_original_server(self):
         folder = self.checkout('same checkout')
         port = self.free_port()
         (folder/'runs').mkdir()
@@ -83,14 +120,7 @@ class Startup(unittest.TestCase):
         pointer = (folder/'runs/server.json').read_bytes()
         self.assertEqual(json.loads(pointer)['pid'], process.pid)
         self.assertEqual(json.loads(pointer)['port'], port)
-        if os.name == 'nt':
-            env = dict(os.environ)
-            env['PATH'] = str(Path(sys.executable).parent) + os.pathsep + env.get('PATH', '')
-            result = subprocess.run([os.environ.get('COMSPEC', 'cmd.exe'), '/d', '/c',
-                                     '.\\start.cmd', '--port', str(port)], cwd=folder, env=env,
-                                    input='', capture_output=True, text=True, timeout=10)
-        else:
-            result = self.duplicate(folder, port)
+        result = self.duplicate(folder, port)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn('already running', result.stdout)
         self.assertIn(f'http://localhost:{port}', result.stdout)
@@ -99,6 +129,87 @@ class Startup(unittest.TestCase):
         self.assertIsNone(process.poll())
         self.assertTrue(self.health(port)['ready'])
         self.assertEqual((folder/'runs/server.json').read_bytes(), pointer)
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows batch launcher')
+    def test_start_cmd_restarts_server_and_owned_worker(self):
+        folder = self.checkout('batch restart')
+        script = folder/'server.py'
+        source = script.read_bytes()
+        script.write_bytes(source.replace(
+            b'protect_service_tree()\r\n',
+            b'protect_service_tree()\r\n'
+            b" child=subprocess.Popen([sys.executable,'-c','import time; time.sleep(120)'])\r\n"
+            b" (ROOT/'worker-pid.txt').write_text(str(child.pid))\r\n"))
+        # Support checkouts using LF as well as CRLF.
+        if script.read_bytes() == source:
+            script.write_bytes(source.replace(
+                b'protect_service_tree()\n',
+                b'protect_service_tree()\n'
+                b" child=subprocess.Popen([sys.executable,'-c','import time; time.sleep(120)'])\n"
+                b" (ROOT/'worker-pid.txt').write_text(str(child.pid))\n"))
+        port = self.free_port()
+        original = self.start(folder, port)
+        worker = psutil.Process(int((folder/'worker-pid.txt').read_text()))
+        self.servers.append(worker)
+        replacement, record = self.restart(folder, port, batch=True)
+        original.wait(timeout=10)
+        worker.wait(timeout=10)
+        self.assertNotEqual(original.pid, replacement.pid)
+        self.assertEqual(record['port'], port)
+        self.assertTrue(self.health(port)['ready'])
+        self.assertIn('Stopping Retopo1', (folder/'startup.log').read_text())
+
+    def test_busy_port_fallback_and_restarting_recorded_fallback(self):
+        folder = self.checkout('fallback restart')
+        with socket.socket() as foreign:
+            foreign.bind(('127.0.0.1', 0))
+            foreign.listen()
+            port = foreign.getsockname()[1]
+            first, record = self.restart(folder, port)
+            self.assertNotEqual(record['port'], port)
+            self.assertEqual(record['url'], f"http://127.0.0.1:{record['port']}")
+            second, second_record = self.restart(folder, port)
+            first.wait(timeout=10)
+            self.assertNotEqual(first.pid, second.pid)
+            self.assertEqual(second_record['port'], record['port'])
+            # The unrelated listener remains intact across both launches.
+            with socket.create_connection(('127.0.0.1', port), timeout=1):
+                pass
+
+    def test_restart_does_not_stop_another_checkout(self):
+        first, second = self.checkout('foreign checkout'), self.checkout('new checkout')
+        port = self.free_port()
+        original = self.start(first, port)
+        _, record = self.restart(second, port)
+        self.assertNotEqual(record['port'], port)
+        self.assertIsNone(original.poll())
+        self.assertTrue(self.health(port)['ready'])
+
+    def test_restart_unhealthy_owned_server(self):
+        folder = self.checkout('unhealthy restart')
+        script = folder/'server.py'
+        source = script.read_bytes()
+        script.write_bytes(source.replace(b'dict(ready=True,engine=', b'dict(ready=False,engine='))
+        port = self.free_port()
+        original = self.start(folder, port)
+        self.assertFalse(self.health(port)['ready'])
+        script.write_bytes(source)
+        _, record = self.restart(folder, port)
+        original.wait(timeout=10)
+        self.assertEqual(record['port'], port)
+
+    def test_stale_pointer_cannot_stop_an_unrelated_process(self):
+        folder = self.checkout('stale pointer')
+        with socket.socket() as foreign:
+            foreign.bind(('127.0.0.1', 0))
+            foreign.listen()
+            port = foreign.getsockname()[1]
+            (folder/'runs').mkdir()
+            (folder/'runs/server.json').write_text(json.dumps(dict(pid=os.getpid(), port=port)))
+            _, record = self.restart(folder, port)
+            self.assertNotEqual(record['port'], port)
+            with socket.create_connection(('127.0.0.1', port), timeout=1):
+                pass
 
     def test_other_checkout_is_not_reused(self):
         first, second = self.checkout('first'), self.checkout('second')

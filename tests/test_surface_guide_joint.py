@@ -32,7 +32,7 @@ class JointAcceptanceTests(unittest.TestCase):
             return result, contact_check, surface_check, fallback_check
 
     def test_failing_guide_can_be_repaired_but_cannot_be_accepted(self):
-        result, contacts, surface, _ = self.assess(angle=np.nextafter(30., np.inf))
+        result, contacts, surface, _ = self.assess(angle=np.nextafter(35., np.inf))
         self.assertTrue(result['eligibleForRepair'])
         self.assertFalse(result['qualified'])
         self.assertGreater(result['violationScore'], 1)
@@ -40,7 +40,7 @@ class JointAcceptanceTests(unittest.TestCase):
         surface.assert_called_once()
 
     def test_protected_guide_cannot_be_sacrificed(self):
-        for metrics, key in ((dict(angle=31.), 'guide0Angle'), (dict(distance=.21), 'guide0Distance')):
+        for metrics, key in ((dict(angle=36.), 'guide0Angle'), (dict(distance=.21), 'guide0Distance')):
             with self.subTest(key=key):
                 result, contacts, surface, _ = self.assess(**metrics, protected={key: True})
                 self.assertFalse(result['eligibleForRepair'])
@@ -77,9 +77,15 @@ class JointAcceptanceTests(unittest.TestCase):
         self.assertIn('13outputToSource', result['protectedGateFailures'])
 
     def test_boundary_acceptance_requires_surface_validator_as_well(self):
-        result, _, _, _ = self.assess(angle=30., distance=.2)
+        result, _, _, _ = self.assess(angle=35., distance=.2)
         self.assertTrue(result['qualified'])
-        result, _, _, _ = self.assess(angle=30., distance=.2, surface=False)
+        result, _, _, _ = self.assess(angle=35., distance=.2, surface=False)
+        self.assertFalse(result['qualified'])
+
+    def test_single_mild_outlier_passes_but_higher_error_does_not(self):
+        result, _, _, _ = self.assess(angle=34.)
+        self.assertTrue(result['qualified'])
+        result, _, _, _ = self.assess(angle=36.)
         self.assertFalse(result['qualified'])
 
 

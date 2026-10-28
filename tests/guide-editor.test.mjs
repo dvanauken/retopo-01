@@ -73,12 +73,24 @@ function host() {
   return { d, c: new GuideController(d, ports), captures, errors };
 }
 const pointer = (x, y = 0, pointerId = 1) => ({ x, y, button: 0, pointerId, shift: false, time: 0 });
+
+test('Select is home and shares one ordered selection across guides and mesh parts', () => {
+  const { c, d } = host(); const g = guide(); d.load([g]);
+  c.ports.entityExists = id => id === 'part:lid';
+  assert.equal(c.tool, 'select');
+  c.choose('part:lid'); c.choose(g.id, true);
+  assert.deepEqual(c.selection.entityIds, ['part:lid', g.id]);
+  c.remove(); assert.equal(d.guides.length, 0);
+  assert.deepEqual(c.selection.entityIds, ['part:lid']);
+  c.model('direct'); assert.equal(c.selection.model, 'object');
+  assert.equal(c.selection.activeEntityId, 'part:lid');
+});
 test('pointer cancellation discards all staged fragments and releases capture', () => {
-  const { d, c, captures } = host(); c.down(pointer(0)); c.move(pointer(5)); c.move(pointer(-5)); c.move(pointer(3));
+  const { d, c, captures } = host(); c.activate('draw'); c.down(pointer(0)); c.move(pointer(5)); c.move(pointer(-5)); c.move(pointer(3));
   assert.equal(d.guides.length, 0); c.cancelPointer(1); assert.equal(d.guides.length, 0); assert.equal(d.history.length, 0); assert.equal(captures.size, 0);
 });
 test('release movement is included and all freehand fragments form one undo unit', () => {
-  const { d, c } = host(); c.down(pointer(0)); c.move(pointer(5)); c.move(pointer(-5)); c.move(pointer(3)); c.up(pointer(6));
+  const { d, c } = host(); c.activate('draw'); c.down(pointer(0)); c.move(pointer(5)); c.move(pointer(-5)); c.move(pointer(3)); c.up(pointer(6));
   assert.equal(d.guides.length, 2); assert.equal(d.guides.at(-1).points.at(-1).position[0], 6); assert.equal(d.history.length, 1);
   c.history(-1); assert.equal(d.guides.length, 0);
 });
@@ -137,7 +149,7 @@ test('returning within exactly 5 CSS pixels closes the clicked loop without a du
   c.down(pointer(15, 10)); assert.equal(d.guides[0].closed, true); assert.equal(d.guides[0].points.length, 4); assert.equal(d.history.length, 1); assert.equal(c.construction, null);
 });
 test('freehand proximity closure works without the close-stroke checkbox', () => {
-  const { c, d } = host(); c.down(pointer(10, 10));
+  const { c, d } = host(); c.activate('draw'); c.down(pointer(10, 10));
   for (const [x, y] of [[60, 10], [60, 60], [10, 60], [14, 10]]) c.move(pointer(x, y));
   assert.ok(c.closureSnap); c.up(pointer(14, 10)); assert.equal(d.guides[0].closed, true);
   assert.notDeepEqual(d.guides[0].points[0].position, d.guides[0].points.at(-1).position);

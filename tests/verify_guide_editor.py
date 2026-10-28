@@ -39,6 +39,7 @@ try:
   page.locator('#topButton').click()
   a=[-.45,-.65,1];b=[0,-.7,1];c=[.45,-.65,1]
   # Escape must release real capture before pointer-up, and cancel the preview.
+  tool('draw')
   page.mouse.move(**screen(a));page.mouse.down();page.mouse.move(**screen(b))
   check(page.evaluate('document.querySelector("#viewport").hasPointerCapture(1)'),'Native capture is held during a freehand gesture')
   page.keyboard.press('Escape')
@@ -106,6 +107,10 @@ try:
   history=state()['guideHistory']['index'];tool('select');page.keyboard.press('Escape')
   for reverse in [False,True]:
    corners=[screen([-.7,-.98,1]),screen([.7,-.5,1])]
+   # Mesh surfaces are now Select targets too: both presses must be on empty canvas.
+   viewport=page.locator('#viewport').bounding_box()
+   corners[0]['x']=viewport['x']+3;corners[1]['x']=viewport['x']+viewport['width']/2-3
+   assert all(page.evaluate('(p)=>retopoDemo.pickPart(p.x,p.y)',p) is None for p in corners)
    if reverse:corners.reverse()
    page.mouse.move(**corners[0]);page.mouse.down();page.mouse.move(**corners[1],steps=10);page.mouse.up()
    check(len(state()['interaction']['selection']['entityIds'])==2,'Marquee fully contains both guides'+(' right-to-left' if reverse else ' left-to-right'))

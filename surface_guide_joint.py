@@ -14,12 +14,13 @@ import surface_guide_refine as fitter
 def assess(source_mesh, positions, faces, guides, target, protected=None):
     spacing = np.sqrt(source_mesh.area / target)
     quality = cq.quad_quality(positions, faces, target)
-    fit = cq._guide_fit(positions, guides.paths, guides.curves)
+    fit = cq._guide_fit(positions, guides.paths, guides.curves, spacing)
     passed = dict(quality=bool(quality['passed']))
     ratios = {}
+    angle_limits = cq.guide_tangent_limits(fit)
     for index, path in enumerate(fit):
         ratios[f'guide{index}Distance'] = path['p95Distance'] / (.2 * spacing)
-        ratios[f'guide{index}Angle'] = path['p95TangentAngleDegrees'] / 30
+        ratios[f'guide{index}Angle'] = path['p95TangentAngleDegrees'] / angle_limits[index]
     passed.update({key: bool(value <= 1) for key, value in ratios.items()})
     protected = protected or {}
     broken = [key for key in passed if protected.get(key) and not passed[key]]
@@ -57,6 +58,8 @@ def assess(source_mesh, positions, faces, guides, target, protected=None):
 
 def _guide_witnesses(positions, guides, passed, spacing):
     selected_points = []
+    fit = cq._guide_fit(positions, guides.paths, guides.curves, spacing)
+    angle_limits = cq.guide_tangent_limits(fit)
     for index, (path, curve) in enumerate(zip(guides.paths, guides.curves)):
         if passed[f'guide{index}Angle'] and passed[f'guide{index}Distance']:
             continue
@@ -77,7 +80,7 @@ def _guide_witnesses(positions, guides, passed, spacing):
         angle = np.degrees(np.arccos(np.clip(np.abs((tangent * unit[owners]).sum(axis=1)), 0, 1)))
         mask = np.zeros(len(points), dtype=bool)
         if not passed[f'guide{index}Angle']:
-            mask |= angle > 30
+            mask |= angle > angle_limits[index]
         if not passed[f'guide{index}Distance']:
             mask |= distances[np.arange(len(points)), owners] > .2 * spacing
         selected_points.extend(points[mask])

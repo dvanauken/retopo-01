@@ -5,7 +5,7 @@ import { fromPositions, makeGuide, distance, editPoints } from '../geometry/Guid
 // only through injected ports; no native event is retained by a Tool activity.
 export class GuideController {
   constructor(document, ports) {
-    this.document = document; this.ports = ports; this.tool = 'draw'; this.selection = freeze({ model: 'object', entityIds: [], activeEntityId: null, pointId: null, revision: 0 });
+    this.document = document; this.ports = ports; this.tool = 'select'; this.selection = freeze({ model: 'object', entityIds: [], activeEntityId: null, pointId: null, revision: 0 });
     this.activity = null; this.construction = null; this.hover = null; this.closureSnap = null; this.temporary = false; this.gate = false; this.activationId = this.ports.id(); this.sequence = 0; this.lastClick = null; this.reports = [];
     document.subscribe(() => { if (!this.gate) this.run(() => this.reconcile()); });
   }
@@ -22,7 +22,7 @@ export class GuideController {
   }
   report(message) { if (this.reports.length < 32) this.reports.push(message); }
   reconcile() {
-    const s = this.selection, ids = s.entityIds.filter(id => this.document.get(id));
+    const s = this.selection, ids = s.entityIds.filter(id => this.entityExists(id));
     const active = ids.includes(s.activeEntityId) ? s.activeEntityId : ids.at(-1) || null;
     const pointId = active === s.activeEntityId && this.document.get(active) && editPoints(this.document.get(active)).some(p => p.id === s.pointId) ? s.pointId : null;
     this.select(ids, active === s.activeEntityId && active ? s.model : 'object', pointId, active);
@@ -30,14 +30,15 @@ export class GuideController {
     if (this.activity?.expected?.some(t => !this.document.get(t.id) || this.document.revision(t.id) !== t.revision)) this.cancel();
   }
   select(ids, model = 'object', pointId = null, active = ids.at(-1) || null) {
-    ids = [...new Set(ids)].filter(id => this.document.get(id));
+    ids = [...new Set(ids)].filter(id => this.entityExists(id));
     if (!ids.includes(active)) active = ids.at(-1) || null;
-    if (!active) model = 'object';
+    if (!active || !this.document.get(active)) model = 'object';
     if (model === 'object') pointId = null;
     const next = { model, entityIds: ids, activeEntityId: active, pointId };
     const { revision, ...old } = this.selection;
     if (JSON.stringify(next) !== JSON.stringify(old)) this.selection = freeze({ ...next, revision: revision + 1 });
   }
+  entityExists(id) { return !!this.document.get(id) || !!this.ports.entityExists?.(id); }
   activate(tool) {
     return this.run(() => {
       if (!['draw', 'polyline', 'spline', 'circle', 'select', 'erase', 'orbit'].includes(tool)) throw new Error('Unknown guide tool.');
@@ -49,7 +50,7 @@ export class GuideController {
   model(model) {
     return this.run(() => {
       if (!['object', 'direct'].includes(model)) throw new Error('Unknown selection model.');
-      if (model === 'direct' && !this.selection.activeEntityId) return;
+      if (model === 'direct' && !this.document.get(this.selection.activeEntityId)) return;
       this.cancel(); this.temporary = false; if (this.tool !== 'select') this.activationId = this.ports.id(); this.tool = 'select'; this.lastClick = null; this.select(this.selection.entityIds, model, model === this.selection.model ? this.selection.pointId : null, this.selection.activeEntityId);
     });
   }
@@ -161,11 +162,12 @@ export class GuideController {
   }
   startEdit(a) {
     const target = a.target, s = this.selection;
+    if (!this.document.get(target.guideId)) return; // Mesh parts have no move-on-surface edit role.
     if (a.shift) return;
     if (target.pointId) this.select(s.model === 'direct' && s.activeEntityId === target.guideId ? s.entityIds : [target.guideId], 'direct', target.pointId, target.guideId);
     else if (!s.entityIds.includes(target.guideId)) this.select([target.guideId], this.document.get(target.guideId)?.type === 'circle' ? 'direct' : 'object');
     const direct = this.selection.model === 'direct' && this.selection.activeEntityId === target.guideId && target.pointId;
-    const ids = direct ? [target.guideId] : this.selection.entityIds;
+    const ids = direct ? [target.guideId] : this.selection.entityIds.filter(id => this.document.get(id));
     a.kind = 'edit'; a.pointId = direct ? target.pointId : null;
     a.baselines = ids.map(id => this.document.get(id)); a.expected = ids.map(id => ({ id, revision: this.document.revision(id) }));
     a.candidates = a.baselines; a.moved = true;
@@ -268,6 +270,8 @@ export class GuideController {
   }
   backspace() { return this.run(() => { if (this.construction) { this.construction.points.pop(); if (!this.construction.points.length) this.construction = null; } }); }
   removeIds(ids) {
+    ids = ids.filter(id => this.document.get(id));
+    if (!ids.length) return;
     this.accept('Delete guides', this.document.guides.filter(g => !ids.includes(g.id)), ids.map(id => ({ id, revision: this.document.revision(id) })));
   }
   remove() {
@@ -288,7 +292,7 @@ export class GuideController {
   }
   reverse() {
     return this.run(() => {
-      this.cancel(); const ids = this.selection.entityIds;
+      this.cancel(); const ids = this.selection.entityIds.filter(id => this.document.get(id));
       this.accept('Reverse guides', this.document.guides.map(g => ids.includes(g.id) && g.type !== 'circle' ? makeGuide({ ...g, points: [...g.points].reverse() }) : g), ids.filter(id => this.document.get(id)?.type !== 'circle').map(id => ({ id, revision: this.document.revision(id) })));
     });
   }

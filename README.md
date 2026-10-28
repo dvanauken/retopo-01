@@ -6,7 +6,18 @@ The guide editor now supports freehand and clicked Polylines, smooth Splines, an
 
 Current quality repair: the exact user-rejected620-face stroke is rebuilt as480coherent quads, with minimum angle52° and worst edge ratio3.01. See [QUALITY_REPAIR.md](QUALITY_REPAIR.md) for actual before/after data, screenshots, reproduction and remaining scope. Use `http://localhost:8741` if that is the origin of your existing browser session; refresh and Generate again to retain its saved curves.
 
-A local HTML canvas app for exploring retopology with user-drawn surface curves. The viewport uses WebGL through a vendored Three.js renderer. A local Python worker actually reconstructs and validates the mesh; drawing a guide does not just recolor an existing grid.
+A local HTML canvas app for exploring retopology with user-drawn surface curves.
+The interface and viewer use native ES6 modules and vendored Three.js. The solver
+is a separate Python OS process: NumPy/PyTorch perform fitting and validation,
+and a compiled QuadriFlow child process builds topology. This is a mixed-language
+application; its remeshing engine is not an ES6 Web Worker. The server queues one
+solver job at a time while continuing to answer progress and cancellation requests.
+
+The Log dock now receives timestamped stage changes, candidate outcomes, rejected
+measurements versus limits, and a 30-second client activity heartbeat during long
+stages. **Save log** exports visible activity. Worker events are retained in each
+run's `events.jsonl`; saved failed jobs remain readable after restart. Legacy
+candidate histories are recovered with their per-pass timestamps marked unknown.
 
 ## Start
 
@@ -14,20 +25,28 @@ Double-click `start.cmd`, or run:
 
 ```powershell
 cd C:\dbva\code\retopo-1
-python -X utf8 server.py
+.\start.cmd
 ```
 
-Open **http://127.0.0.1:8741**. Choose another local port with `start.cmd --port 8742` if needed. The app and its renderer work without an Internet connection after installation. Keep the terminal open when starting this way.
+Open the URL printed in the terminal (normally **http://127.0.0.1:8741**). Choose a preferred port with `start.cmd --port 8742`. The app and its renderer work without an Internet connection after installation. Keep the terminal open when starting this way.
 
-Running `start.cmd` again recognizes a healthy server from this checkout and
-prints its URL without restarting it or interrupting calculations. If another
-process owns the port, startup reports the conflict and an alternate-port command.
+Running `start.cmd` again stops this checkout's existing server and its calculations,
+then starts a fresh server. It also finds the previous server when that launch used
+a fallback port. If another program or checkout owns the preferred port, startup
+leaves it running and tries subsequent ports, then an OS-selected free port.
+The actual URL and PID are also recorded in `runs/server.json`.
+Direct `python -X utf8 server.py` keeps the existing server unless `--restart` is
+specified; add `--next-port` to enable automatic port selection.
 
 This machine already has the qualified64-bit Windows Python numerical environment. On a new environment, install `requirements.txt`; Python3.12 is the reference environment. The independent SuiteSparse CHOLMOD DLL and its source/build evidence accompany `engine/`. No ZBrush process or Maxon binary is used. Node/npm is optional; `npm start` simply starts the same Python service. There is no frontend build step.
 
-The toilet's curved-surface quad solver also uses the locally installed Blender. On a new machine, install Blender or set `RETOPO_BLENDER` to its executable before starting the server. See [TOILET_SOLVER.md](TOILET_SOLVER.md) for construction, acceptance limits and verification.
+The toilet uses the bundled independent QuadriFlow build and pinned PyTorch fitter. See [GUIDED_LAYOUT.md](GUIDED_LAYOUT.md) for the native runtime setup and [TOILET_SOLVER.md](TOILET_SOLVER.md) for construction and verification. Blender remains necessary for importing the original toilet asset and for the legacy surface route; install it or set `RETOPO_BLENDER` when using those paths.
 
-Exhaustive toilet testing remains open. After fixing quad warpage, fresh unguided, lid-guide and lid-Circle results at target 1,800 pass the strengthened surface and contact checks plus independent export audits. Bowl and combined-guide cases remain unresolved. The five historical exports failed the stronger audits and remain superseded. See [the audit plan and coverage gaps](TOILET_TEST_PLAN.md) and [current solver limitations](TOILET_SOLVER.md).
+The toilet now feeds source creases and guides into the layout and checks source-feature preservation before accepting a result. Its default target is 7,200 quads, with a 12,000 ceiling. Existing saved targets are retained; start at 7,200 for the detailed toilet. Fresh unguided, bowl-guide and captured four-guide results pass the geometry, guide, feature, whole-surface and contact gates, plus independent export audits. These detailed solves currently take about 15–25 minutes and remain cancellable. Arbitrary guide networks and other densities are not exhaustively qualified; see [the audit plan](TOILET_TEST_PLAN.md) and [current results and limitations](TOILET_SOLVER.md).
+
+## Work on individual parts
+
+Navigator now includes Parts: paint visible faces or use a plane cut, preview repair caps, exclude unwanted regions, and generate a selected piece with its own guides and density. Accepted sibling outputs stay intact. Assembly OBJ exports named objects in their original positions. This milestone keeps parts separate; continuous welded seams are not implemented. See [the toilet walkthrough, boundaries and verification](PARTS_WORKFLOW.md).
 
 ## Try it
 
@@ -50,7 +69,7 @@ Undo/redo: Ctrl+Z / Ctrl+Shift+Z. G draws freehand; P/S construct Polyline/Splin
 
 The online hexagon export repeats its face group and contains one zero-area triangle and a collinear T joint. Preparation welds only identical coordinates, removes exact duplicate/degenerate faces, conforms that T joint without moving the existing surface, rotates Y-up to Z-up, normalizes the bbox, and applies two conforming midpoint subdivisions. The prepared geometry is a closed connected genus-one surface. `assets/preparation.json`, raw download, acquisition hashes and creator license record these changes. It is derived from the actual online asset, not a procedural substitute with an attribution attached.
 
-The smooth examples are slower, typically one to three minutes on this host including import/compilation. The curved example requires a guide; its built-in guide network is loaded initially. The solid fits guides to coherent structured paths; it does not interpolate every freehand sample exactly. The terrain retains its declared path behavior. The curved source additionally exposes the two explicit recovered semantic modes; no invented0–100 strength conversion is shown.
+The terrain and cylinder examples typically take one to three minutes on this host including import/compilation. The cylinder requires a guide; its built-in guide network is loaded initially. The solid fits guides to coherent structured paths; it does not interpolate every freehand sample exactly. The terrain retains its declared path behavior. The cylinder also exposes the two explicit recovered semantic modes; no invented0–100 strength conversion is shown.
 
 ## Results and reproducibility
 
@@ -91,7 +110,7 @@ termination. Required input and accepted result files retain their normal checks
 
 ## What this demonstrates
 
-The default solid now uses a direct, geometry-detected structured annular grid: shared physical seams, continuous circumferential edge loops, radial cap strips and axial side strips. Guide profiles influence these coherent paths. The previous planar triangle-pairing/subdivision route produced poor modeling quality on the user-reported stroke and is superseded for this recognized surface class. See [the measured repair and limits](QUALITY_REPAIR.md). Sharp source geometry is retained. The “Sharp edges” checkbox controls visibility; it does not disable feature preservation. Exported crease intent contains binary geometric edges; OBJ alone does not carry subdivision crease semantics. Detailed crease data remains in the run's `features.json`.
+The default solid now uses a direct, geometry-detected structured annular grid: shared physical seams, continuous circumferential edge loops, radial cap strips and axial side strips. Guide profiles influence these coherent paths. The previous planar triangle-pairing/subdivision route produced poor modeling quality on the user-reported stroke and is superseded for this recognized surface class. See [the measured repair and limits](QUALITY_REPAIR.md). Sharp source geometry is retained. The “Detected creases” checkbox controls visibility; it does not disable feature preservation. Exported crease intent contains binary geometric edges; OBJ alone does not carry subdivision crease semantics. Detailed crease data remains in the run's `features.json`.
 
 The terrain uses the separately labeled closed-enclosure/visible-crop route. The curved cylinder uses the recovered field/parameterization/extraction path. The toilet explicitly uses an engineering QuadriFlow layout plus connected guide-path fitting and surface/shape refinement; the recovered conditioning path remains unchanged. The independently built reference engine closure is copied into `engine/` with its licenses and recorded hashes. Core files are preserved from the qualified research package; this app supplies interaction, job isolation and actual export measurements around it.
 

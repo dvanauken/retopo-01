@@ -17,20 +17,24 @@ def _nearest(mesh, points):
     return np.concatenate(distances), np.concatenate(owners)
 
 
-def directed_bound(triangles, target, tolerance, *, max_depth=10, max_triangles=1000000):
+def directed_bound(triangles, target, tolerance, *, max_depth=10, max_triangles=1000000, use_acceleration=False):
     pending = np.asarray(triangles, dtype=float)
     if not len(pending) or not len(target.faces) or not np.isfinite(pending).all() or tolerance <= 0:
         raise ValueError('Surface bounds require finite nonempty triangles and a positive tolerance.')
     maximum_upper, sampled_max, tested, deepest = 0., 0., 0, 0
     numerical_margin = 64 * np.finfo(float).eps * max(1., np.abs(pending).max(), np.abs(target.vertices).max())
     witness = None
+    if use_acceleration:
+        from mesh_proximity import TriangleProximity
+        nearest=TriangleProximity(target.vertices,target.faces).query
+    else:nearest=lambda points:_nearest(target,points)
     for depth in range(max_depth + 1):
         deepest = depth
         if tested + len(pending) > max_triangles:
             reason = 'Adaptive triangle budget exhausted'; break
         tested += len(pending)
         centers = pending.mean(axis=1)
-        center_distance, owner = _nearest(target, centers)
+        center_distance, owner = nearest(centers)
         worst = int(np.argmax(center_distance))
         if center_distance[worst] > sampled_max:
             sampled_max = float(center_distance[worst]); witness = centers[worst].tolist()
@@ -51,7 +55,7 @@ def directed_bound(triangles, target, tolerance, *, max_depth=10, max_triangles=
         # Original vertices and subdivision corners also supply failure
         # witnesses; a centroid-only failure search would miss sharp tips.
         points = unresolved.reshape(-1, 3)
-        corner_distance, _ = _nearest(target, points)
+        corner_distance, _ = nearest(points)
         worst = int(np.argmax(corner_distance))
         if corner_distance[worst] > sampled_max:
             sampled_max = float(corner_distance[worst]); witness = points[worst].tolist()
