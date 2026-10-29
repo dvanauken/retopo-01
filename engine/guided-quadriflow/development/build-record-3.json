@@ -1,0 +1,11 @@
+{
+  "command": [
+    "C:\\msys64\\mingw64\\bin\\cmake.exe",
+    "--build",
+    "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\development\\build",
+    "-j",
+    "4"
+  ],
+  "exitCode": 0,
+  "seconds": 19.713160514831543
+}

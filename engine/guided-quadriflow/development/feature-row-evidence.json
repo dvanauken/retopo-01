@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "scope": "Read-only rescore of existing candidate meshes; no engine rerun, geometry copies, or new whole-pipeline acceptance claim.",
+  "policy": "connected-feature-rows-v1",
+  "rankOrder": [
+    "unrealizedRows",
+    "mergedPathPairs",
+    "collapsedLoopPairs",
+    "junctionMismatches",
+    "tangentError",
+    "distanceP95OverSpacing",
+    "spacingVariation",
+    "interiorPoleExcess",
+    "targetRelativeError"
+  ],
+  "implementations": [
+    {
+      "path": "feature_rows.py",
+      "sha256": "a206a4352ce51986063d74e6f1946f1d3a4ac90dadd753562e2b8e7de6416fb9"
+    },
+    {
+      "path": "source_features.py",
+      "sha256": "e6201c0a0ccd81f9c21d58acb06f5bd873003e295ace2de5d69a33d297191fae"
+    },
+    {
+      "path": "registered_features.py",
+      "sha256": "ac790a83c8373f99a21659ae1b21cd9685bd17345c96541167c61faef3fb6f72"
+    }
+  ],
+  "cases": [
+    {
+      "name": "island6-188-original-acceptance",
+      "target": 200,
+      "faces": 188,
+      "source": {
+        "path": "runs\\registered-a51ab8580b7c-island6-200\\source.obj",
+        "sha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003"
+      },
+      "output": {
+        "path": "runs\\registered-a51ab8580b7c-island6-200\\output.obj",
+        "sha256": "0b3a12d6ed7e2d60091deb5fd03f401f5b864eb84afcc23639ca84f6a0fb1604"
+      },
+      "rowPassed": false,
+      "metrics": {
+        "pathCount": 76,
+        "realizedRows": 27,
+        "unrealizedRows": 49,
+        "mergedPathPairs": 14,
+        "collapsedLoopPairs": 0,
+        "junctionMismatches": 3,
+        "junctionAmbiguities": 0,
+        "missingLoops": 1,
+        "tangentError": 0.1732743210014307,
+        "distanceP95OverSpacing": 0.41589988904885206,
+        "spacingVariation": 0.058441196517902055,
+        "interiorPoleExcess": 8
+      },
+      "topology": {
+        "interiorValence": {
+          "3": 7,
+          "4": 162,
+          "5": 1
+        },
+        "interiorAllQuadValence": {
+          "3": 7,
+          "4": 162,
+          "5": 1
+        },
+        "boundaryValence": {
+          "3": 36,
+          "4": 2
+        },
+        "interiorPoleVertices": [
+          14,
+          30,
+          44,
+          46,
+          47,
+          114,
+          115,
+          139
+        ],
+        "interiorPoleCount": 8,
+        "interiorPoleExcess": 8,
+        "triangleAdjacentVertices": 0,
+        "boundaryVertices": 38
+      },
+      "rank": [
+        49,
+        14,
+        0,
+        3,
+        0.1732743210014307,
+        0.41589988904885206,
+        0.058441196517902055,
+        8,
+        0.06
+      ],
+      "maximumPathDistance": 0.1004478058008719,
+      "maximumSourceSheetDistance": 0.04084261084725358,
+      "maxDistance": 0.04114362188131245,
+      "sampleSpacing": 0.010285905470328113,
+      "sourceCreaseAngleDegrees": 30.0
+    },
+    {
+      "name": "plane-196-registered-positive-control",
+      "target": 200,
+      "faces": 196,
+      "source": {
+        "path": "runs\\registered-plane-pipeline-v2\\open-surface\\source.obj",
+        "sha256": "52c7c4429d6e7f3cc6f50d57087f0caea3502e7d8644581bed94bcbbca907731"
+      },
+      "output": {
+        "path": "runs\\registered-plane-pipeline-v2\\open-surface\\layout-0\\candidate-0.obj",
+        "sha256": "38a79639cfded02b7de0f3a3500a7c611c9b55f4d545846c8d4cda7486fc2c26"
+      },
+      "rowPassed": true,
+      "metrics": {
+        "pathCount": 1,
+        "realizedRows": 1,
+        "unrealizedRows": 0,
+        "mergedPathPairs": 0,
+        "collapsedLoopPairs": 0,
+        "junctionMismatches": 0,
+        "junctionAmbiguities": 0,
+        "missingLoops": 0,
+        "tangentError": 9.166506566585307e-05,
+        "distanceP95OverSpacing": 0.08301900103136045,
+        "spacingVariation": 2.707769329707062e-05,
+        "interiorPoleExcess": 0
+      },
+      "topology": {
+        "interiorValence": {
+          "4": 169
+        },
+        "interiorAllQuadValence": {
+          "4": 169
+        },
+        "boundaryValence": {
+          "2": 4,
+          "3": 52
+        },
+        "interiorPoleVertices": [],
+        "interiorPoleCount": 0,
+        "interiorPoleExcess": 0,
+        "triangleAdjacentVertices": 0,
+        "boundaryVertices": 56
+      },
+      "rank": [
+        0,
+        0,
+        0,
+        0,
+        9.166506566585307e-05,
+        0.08301900103136045,
+        2.707769329707062e-05,
+        0,
+        0.02
+      ],
+      "maximumPathDistance": 0.005933999999999995,
+      "maximumSourceSheetDistance": 0.020941455940666966,
+      "maxDistance": 0.035355339059327376,
+      "sampleSpacing": 0.008838834764831844,
+      "referencePaths": {
+        "path": "runs\\registered-plane-pipeline-v2\\open-surface\\registered\\paths.json",
+        "sha256": "2af9aeb00c8b50fe70f0905723a62bac6b59ffe9e89b845f25be864e3ae397d6"
+      },
+      "outputPathProvenance": {
+        "path": "runs\\registered-plane-pipeline-v2\\open-surface\\layout-0\\registered-paths.json",
+        "sha256": "053cddf1f6acb0e887217a625c56a76ed658f6a36fe5219ad508c26e55c2019f"
+      }
+    }
+  ]
+}

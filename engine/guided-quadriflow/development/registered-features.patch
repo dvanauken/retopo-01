@@ -1,0 +1,609 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -132,6 +132,7 @@
+     src/parametrizer-int.cpp
+     src/parametrizer-mesh.cpp
+     src/parametrizer-scale.cpp
++    src/registered-features.cpp
+     src/parametrizer-sing.cpp
+     src/parametrizer.hpp
+     src/serialize.hpp
+--- a/src/loader.cpp
++++ b/src/loader.cpp
+@@ -36,7 +36,7 @@
+ 	return result;
+ }
+ 
+-void load(const char* filename, MatrixXd& V, MatrixXi& F)
++void load(const char* filename, MatrixXd& V, MatrixXi& F, std::vector<int>* source_vertices)
+ {
+ 	/// Vertex indices used by the OBJ format
+ 	struct obj_vertex {
+@@ -151,6 +151,10 @@
+ 	F.resize(3, indices.size() / 3);
+ 	memcpy(F.data(), indices.data(), sizeof(uint32_t)*indices.size());
+ 
++    if (source_vertices) {
++        source_vertices->assign(positions.size(), -1);
++        for (uint32_t i=0;i<vertices.size();++i) source_vertices->at(vertices[i].p-1)=i;
++    }
+ 	V.resize(3, vertices.size());
+ 	for (uint32_t i = 0; i<vertices.size(); ++i)
+ 		V.col(i) = positions.at(vertices[i].p - 1);
+--- a/src/loader.hpp
++++ b/src/loader.hpp
+@@ -8,7 +8,7 @@
+ 
+ using namespace Eigen;
+ 
+-void load(const char* filename, MatrixXd& V, MatrixXi& F);
++void load(const char* filename, MatrixXd& V, MatrixXi& F, std::vector<int>* source_vertices = nullptr);
+ 
+ } // namespace qflow
+ 
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -22,6 +22,7 @@
+ #endif
+     int t1, t2;
+     std::string input_obj, output_obj, guide_file, field_file;
++    std::string registered_file, registered_output;
+     double guide_width=.5, orientation_weight=1., position_weight=0.;
+     bool embedded_guides=false;
+     int faces = -1;
+@@ -64,8 +65,14 @@
+             embedded_guides=true;
+         } else if (strcmp(argv[i], "-project-guide-positions") == 0) {
+             field.project_guide_positions=true;
++        } else if (strcmp(argv[i], "-registered-features") == 0) {
++            registered_file=argv[i+1];
++        } else if (strcmp(argv[i], "-registered-output") == 0) {
++            registered_output=argv[i+1];
+         }
+     }
++    std::string registered_stage="source-registration";
++    try {
+     printf("%d %s %s\n", faces, input_obj.c_str(), output_obj.c_str());
+     if (input_obj.size() >= 1) {
+         field.Load(input_obj.c_str());
+@@ -74,6 +81,7 @@
+         // field.Load((std::string(DATA_PATH) + "/fertility.obj").c_str());
+     }
+ 
++    if (!registered_file.empty()) field.LoadRegisteredFeatures(registered_file);
+     printf("Initialize...\n");
+     t1 = GetCurrentTime64();
+     field.Initialize(faces);
+@@ -105,6 +113,7 @@
+ 
+     std::vector<int> guide_owners;
+     if (!guide_file.empty()) guide_owners=attach_guides(field,guide_file,guide_width,orientation_weight,position_weight,embedded_guides);
++    field.ConstrainRegisteredOrientations();
+     printf("Solve Orientation Field...\n");
+     t1 = GetCurrentTime64();
+ 
+@@ -140,6 +149,7 @@
+     printf("Use %lf seconds\n", (t2 - t1) * 1e-3);
+     t1 = GetCurrentTime64();
+     printf("Solve index map...\n");
++    registered_stage="integer-registration";
+     field.ComputeIndexMap();
+     t2 = GetCurrentTime64();
+     printf("Indexmap Use %lf seconds\n", (t2 - t1) * 1e-3);
+@@ -151,7 +161,21 @@
+     } else {
+         field.OutputMesh(output_obj.c_str());
+     }
++    if (!registered_file.empty()) {
++        if (registered_output.empty()) registered_output=output_obj+".features.json";
++        if (!field.OutputRegisteredFeatures(registered_output)) return 3;
++    }
+     printf("finish...\n");
+     //	field.LoopFace(2);
+     return 0;
++    } catch(const std::exception& error) {
++        fprintf(stderr,"Registered layout failed at %s: %s\n",registered_stage.c_str(),error.what());
++        if(!registered_file.empty()) {
++            if(registered_output.empty())registered_output=output_obj+".features.json";
++            std::ofstream failure(registered_output);
++            failure<<"{\n  \"schema\": 1, \"passed\": false, \"constructionCompleted\": false,\n  \"error\": "<<std::quoted(error.what())
++                   <<",\n  \"stage\": "<<std::quoted(registered_stage)<<", \"registeredPathCount\": "<<field.registered_paths.size()<<",\n  \"paths\": []\n}\n";
++        }
++        return 3;
++    }
+ }
+--- a/src/parametrizer-mesh.cpp
++++ b/src/parametrizer-mesh.cpp
+@@ -40,7 +40,7 @@
+ }
+ 
+ void Parametrizer::Load(const char* filename) {
+-    load(filename, V, F);
++    load(filename, V, F, &loaded_source_vertices);
+     NormalizeMesh();
+ }
+ 
+@@ -68,7 +68,8 @@
+     if (target_len < max_edge_length) {
+         while (!compute_direct_graph(V, F, V2E, E2E, boundary, nonManifold))
+             ;
+-        subdivide(F, V, rho, V2E, E2E, boundary, nonManifold, target_len);
++        subdivide(F, V, rho, V2E, E2E, boundary, nonManifold, target_len,
++                  [this](int a,int b,int m){ SplitRegisteredEdge(a,b,m); });
+     }
+     
+     while (!compute_direct_graph(V, F, V2E, E2E, boundary, nonManifold))
+@@ -86,6 +87,7 @@
+         rho = r;
+     }
+     ComputeSharpEdges();
++    MarkRegisteredEdges();
+     ComputeSmoothNormal();
+     ComputeVertexArea();
+     
+@@ -333,6 +335,7 @@
+             int deid0 = V2E_compact[i];
+             if (marks[i] || deid0 == -1)
+                 continue;
++            if (IsRegisteredCompactVertex(i)) continue;
+             int deid = deid0;
+             std::vector<int> dedges;
+             do {
+@@ -461,7 +464,7 @@
+                 }
+                 if (guide_anchor) printf("Retained guide pole %d with valence %d\n",i,valences[i]);
+             }
+-            if (valences[i] > 5 && !guide_anchor)
++            if (valences[i] > 5 && !guide_anchor && !IsRegisteredCompactVertex(i))
+                 prior_queue.push(std::make_pair(valences[i], i));
+         }
+         while (!prior_queue.empty()) {
+--- a/src/parametrizer.cpp
++++ b/src/parametrizer.cpp
+@@ -70,19 +70,27 @@
+             }
+         }
+     }
++    LockRegisteredIntegerEdges(true);
+ #ifdef LOG_OUTPUT
+     printf("Build Integer Constraints...\n");
+ #endif
+     BuildIntegerConstraints();
+ 
+     ComputeMaxFlow();
++    // Each accepted bridge consumes an unconstrained source edge. Termination
++    // follows the finite edge set; no heuristic iteration budget is introduced.
++    while (SeparateRegisteredPaths() > 0) {
++        BuildIntegerConstraints();
++        ComputeMaxFlow();
++    }
+     // potential bug
+ #ifdef LOG_OUTPUT
+     printf("subdivide...\n");
+ #endif
+     subdivide_edgeDiff(F, V, N, Q, O, &hierarchy.mS[0], V2E, hierarchy.mE2E, boundary, nonManifold,
+                        edge_diff, edge_values, face_edgeOrients, face_edgeIds, sharp_edges,
+-                       singularities, 1);
++                       singularities, 1,
++                       [this](int a,int b,int m){ SplitRegisteredEdge(a,b,m); });
+ 
+     allow_changes.clear();
+     allow_changes.resize(edge_diff.size() * 2, 1);
+@@ -94,6 +102,7 @@
+         }
+     }
+ 
++    LockRegisteredIntegerEdges(false);
+ #ifdef LOG_OUTPUT
+     printf("Fix flip advance...\n");
+     int t1 = GetCurrentTime64();
+@@ -101,7 +110,9 @@
+     FixFlipHierarchy();
+     subdivide_edgeDiff(F, V, N, Q, O, &hierarchy.mS[0], V2E, hierarchy.mE2E, boundary, nonManifold,
+                        edge_diff, edge_values, face_edgeOrients, face_edgeIds, sharp_edges,
+-                       singularities, 1);
++                       singularities, 1,
++                       [this](int a,int b,int m){ SplitRegisteredEdge(a,b,m); });
++    LockRegisteredIntegerEdges(false);
+     FixFlipSat();
+ 
+ #ifdef LOG_OUTPUT
+--- a/src/parametrizer.hpp
++++ b/src/parametrizer.hpp
+@@ -99,6 +99,22 @@
+     std::vector<Vector3d> guide_a, guide_b;
+     std::vector<int> guide_ids;
+     bool project_guide_positions = false;
++    // Experimental graph-preserving registration, not native ZBrush recovery.
++    struct RegisteredPath { int id; bool closed; std::vector<int> vertices; };
++    std::vector<RegisteredPath> registered_paths;
++    std::vector<int> loaded_source_vertices;
++    std::map<std::pair<int, int>, int> registered_edges;
++    std::set<int> registered_vertices;
++    void LoadRegisteredFeatures(const std::string& filename);
++    void SplitRegisteredEdge(int a, int b, int middle);
++    void MarkRegisteredEdges();
++    void ConstrainRegisteredOrientations();
++    void LockRegisteredIntegerEdges(bool initialize);
++    int SeparateRegisteredPaths();
++    std::map<std::pair<int,int>, Vector2i> registered_separators;
++    std::map<std::pair<int,int>, int> registered_axes;
++    bool IsRegisteredCompactVertex(int vertex) const;
++    bool OutputRegisteredFeatures(const std::string& filename);
+ 
+     // data structures
+     VectorXd rho;
+--- /dev/null
++++ b/src/registered-features.cpp
+@@ -0,0 +1,308 @@
++// Experimental QuadriFlow translation of embedded mode-two path registration.
++// Exact source graph identities are retained. Native integer scheduling is not
++// reproduced; QF owns its integer-flow solve. Rejection on collapsed/broken output
++// paths, preserved feature poles, and orientation averaging are explicit policy.
++#include "parametrizer.hpp"
++#include <fstream>
++#include <stdexcept>
++#include <algorithm>
++#include <queue>
++#include <tuple>
++#include <limits>
++
++namespace qflow {
++namespace {
++std::pair<int,int> key(int a,int b) { return std::minmax(a,b); }
++}
++
++void Parametrizer::LoadRegisteredFeatures(const std::string& filename) {
++    std::ifstream in(filename);
++    int count;
++    if (!(in>>count) || count<1) throw std::runtime_error("Invalid registered path count");
++    std::set<std::pair<int,int>> mesh_edges;
++    for (int f=0;f<F.cols();++f) for(int j=0;j<3;++j)
++        mesh_edges.insert(key(F(j,f),F((j+1)%3,f)));
++    std::set<int> ids;
++    for(int p=0;p<count;++p) {
++        RegisteredPath path; int closed,n;
++        if (!(in>>path.id>>closed>>n) || (closed!=0 && closed!=1) || n<(closed?3:2) || !ids.insert(path.id).second)
++            throw std::runtime_error("Invalid registered path header or repeated ID");
++        path.closed=closed!=0; path.vertices.resize(n); std::set<int> distinct;
++        for(int& v:path.vertices) {
++            if (!(in>>v) || v<0 || v>=int(loaded_source_vertices.size()) || loaded_source_vertices[v]<0)
++                throw std::runtime_error("Registered vertex is absent from the loaded source");
++            v=loaded_source_vertices[v];
++            if (!distinct.insert(v).second)
++                throw std::runtime_error("Registered paths require distinct source IDs; omit repeated closing vertex");
++            registered_vertices.insert(v);
++        }
++        for(int j=0;j<n-(path.closed?0:1);++j) {
++            auto e=key(path.vertices[j],path.vertices[(j+1)%n]);
++            if (!mesh_edges.count(e)) throw std::runtime_error("Registered interval is not a source mesh edge");
++            if (!registered_edges.emplace(e,p).second) throw std::runtime_error("Overlapping registered path intervals require explicit ownership");
++        }
++        registered_paths.push_back(path);
++    }
++    std::string trailing;
++    if (in>>trailing) throw std::runtime_error("Unexpected trailing registered path data");
++    printf("Registered %d paths, %d exact source edges before preparation\n",count,int(registered_edges.size()));
++}
++
++void Parametrizer::SplitRegisteredEdge(int a,int b,int middle) {
++    auto found=registered_edges.find(key(a,b));
++    if (found==registered_edges.end()) return;
++    auto axis=registered_axes.find(key(a,b));
++    if(axis!=registered_axes.end()) {
++        int reference=std::min(a,b),across=axis->second;
++        Vector3d rq=hierarchy.mQ[0].col(reference),rn=hierarchy.mN[0].col(reference);
++        for(int endpoint:{a,b}) {
++            Vector3d eq=hierarchy.mQ[0].col(endpoint),en=hierarchy.mN[0].col(endpoint);
++            auto rotation=compat_orientation_extrinsic_index_4(rq,rn,eq,en);
++            registered_axes[key(endpoint,middle)]=across^((rotation.second-rotation.first+4)%2);
++        }
++        registered_axes.erase(axis);
++    }
++    int owner=found->second; auto& path=registered_paths[owner];
++    for(int j=0,n=int(path.vertices.size());j<n-(path.closed?0:1);++j) {
++        if(key(path.vertices[j],path.vertices[(j+1)%n])!=key(a,b)) continue;
++        path.vertices.insert(path.vertices.begin()+j+1,middle);
++        registered_edges.erase(found);
++        registered_edges.emplace(key(a,middle),owner);
++        registered_edges.emplace(key(middle,b),owner);
++        registered_vertices.insert(middle);
++        return;
++    }
++    throw std::runtime_error("Registered split lost path ownership");
++}
++
++void Parametrizer::MarkRegisteredEdges() {
++    if(registered_paths.empty()) return;
++    std::set<std::pair<int,int>> found;
++    for(int f=0;f<F.cols();++f) for(int j=0;j<3;++j) {
++        auto e=key(F(j,f),F((j+1)%3,f));
++        if(registered_edges.count(e)) { sharp_edges[f*3+j]=1;found.insert(e); }
++    }
++    if(found.size()!=registered_edges.size()) throw std::runtime_error("Source preparation lost registered edges");
++    printf("Preserved %d registered edges before sharp-sector normals\n",int(found.size()));
++}
++
++void Parametrizer::ConstrainRegisteredOrientations() {
++    if(registered_paths.empty()) return;
++    auto& h=hierarchy;
++    if(h.mCQw[0].size()==0) h.clearConstraints();
++    for(const auto& path:registered_paths) {
++        int n=int(path.vertices.size());
++        for(int j=0;j<n;++j) {
++            int v=path.vertices[j],lo=(j+n-1)%n,hi=(j+1)%n;
++            if(!path.closed) {lo=std::max(0,j-1);hi=std::min(n-1,j+1);}
++            Vector3d tangent=h.mV[0].col(path.vertices[hi])-h.mV[0].col(path.vertices[lo]);
++            Vector3d normal=h.mN[0].col(v);tangent-=normal*tangent.dot(normal);
++            if(!(tangent.squaredNorm()>0)) throw std::runtime_error("Registered tangent is singular in its source sector");
++            h.mCQ[0].col(v)=tangent.normalized(); h.mCQw[0][v]=1.;
++            // QF position constraints project perpendicular to CQ only: vertices
++            // remain free to slide along the registered source tangent line.
++            h.mCO[0].col(v)=h.mV[0].col(v); h.mCOw[0][v]=1.;
++        }
++    }
++    h.propagateConstraints();
++}
++
++void Parametrizer::LockRegisteredIntegerEdges(bool initialize) {
++    if(registered_paths.empty()) return;
++    allow_changes.resize(edge_diff.size()*2,1);
++    auto& h=hierarchy; int count=0;
++    for(int e=0;e<int(edge_values.size());++e) {
++        int a=edge_values[e].x,b=edge_values[e].y;
++        if(!registered_edges.count(key(a,b))) continue;
++        Vector3d d=h.mV[0].col(b)-h.mV[0].col(a);
++        Vector3d q=h.mQ[0].col(a),normal=h.mN[0].col(a),qy=normal.cross(q);
++        int along=std::abs(d.dot(q))>=std::abs(d.dot(qy))?0:1;
++        int across=1-along;
++        if(initialize) {registered_axes[key(a,b)]=across;edge_diff[e][across]=0;}
++        else {
++            auto axis=registered_axes.find(key(a,b));
++            if(axis==registered_axes.end())throw std::runtime_error("Registered subdivision lost its transported integer axis");
++            across=axis->second;along=1-across;
++        }
++        if(!initialize && edge_diff[e][across]!=0)
++            throw std::runtime_error("Integer solve changed a registered transverse coordinate");
++        allow_changes[e*2+across]=0;
++        // A zero along-path increment is free; freezing it would tie source
++        // sampling to output topology. QF may coalesce consecutive source IDs.
++        allow_changes[e*2+along]=1;
++        ++count;
++    }
++    if(count!=int(registered_edges.size())) throw std::runtime_error("Integer subdivision lost registered source edges");
++    for(int e=0;e<int(edge_values.size());++e) {
++        auto found=registered_separators.find(key(edge_values[e].x,edge_values[e].y));
++        if(found==registered_separators.end()) continue;
++        if(edge_diff[e]!=found->second) throw std::runtime_error("Integer solve changed a registered separation bridge");
++        allow_changes[e*2]=allow_changes[e*2+1]=0;
++    }
++    printf("Registered integer transverse locks: %d; tangential increments remain free\n",count);
++}
++
++
++// QF-compatible graph policy: a registered pair may not share an integer
++// vertex class away from an actual source junction. A shortest zero-increment
++// bridge is assigned one transverse grid step and solved with QF conservation.
++// This is not a transcription of native 0x28fe70's candidate/weight rules.
++int Parametrizer::SeparateRegisteredPaths() {
++    if(registered_paths.size()<2) return 0;
++    auto& v=hierarchy.mV[0];auto& q=hierarchy.mQ[0];auto& normals=hierarchy.mN[0];
++    const int n=v.cols();
++    DisajointTree classes(n);
++    std::vector<std::vector<int>> adjacency(n),owners(n);
++    for(int e=0;e<int(edge_values.size());++e) if(edge_diff[e]==Vector2i::Zero()) {
++        int a=edge_values[e].x,b=edge_values[e].y;classes.Merge(a,b);
++        adjacency[a].push_back(e);adjacency[b].push_back(e);
++    }
++    classes.BuildCompactParent();
++    for(int p=0;p<int(registered_paths.size());++p) for(int vertex:registered_paths[p].vertices)owners[vertex].push_back(p);
++    std::set<std::tuple<int,int,int>> legal;
++    for(int i=0;i<n;++i) for(int a:owners[i])for(int b:owners[i])if(a<b)legal.emplace(classes.Index(i),a,b);
++    std::vector<double> distance(n,std::numeric_limits<double>::infinity());
++    std::vector<int> owner(n,-1),root(n,-1),parent(n,-1);
++    using QueueEntry=std::pair<double,int>;
++    std::priority_queue<QueueEntry,std::vector<QueueEntry>,std::greater<QueueEntry>> queue;
++    for(int i=0;i<n;++i)if(owners[i].size()==1) {
++        distance[i]=0.;owner[i]=owners[i][0];root[i]=i;queue.emplace(0.,i);
++    }
++    while(!queue.empty()) {
++        auto entry=queue.top();queue.pop();int a=entry.second;
++        if(entry.first!=distance[a])continue;
++        for(int e:adjacency[a]) {
++            int b=edge_values[e].x==a?edge_values[e].y:edge_values[e].x;
++            double trial=distance[a]+(v.col(a)-v.col(b)).norm();
++            if(trial<distance[b]) {distance[b]=trial;owner[b]=owner[a];root[b]=root[a];parent[b]=e;queue.emplace(trial,b);}
++        }
++    }
++    std::map<std::tuple<int,int,int>,std::pair<double,int>> candidates;
++    for(int e=0;e<int(edge_values.size());++e) {
++        if(edge_diff[e]!=Vector2i::Zero())continue;
++        int a=edge_values[e].x,b=edge_values[e].y;
++        if(owner[a]<0 || owner[b]<0 || owner[a]==owner[b])continue;
++        auto pair=std::minmax(owner[a],owner[b]);auto group=std::make_tuple(classes.Index(a),pair.first,pair.second);
++        if(legal.count(group))continue;
++        double cost=distance[a]+distance[b]+(v.col(a)-v.col(b)).norm();
++        auto found=candidates.find(group);
++        if(found==candidates.end() || cost<found->second.first)candidates[group]=std::make_pair(cost,e);
++    }
++    int added=0;
++    for(const auto& candidate:candidates) {
++        int bridge=candidate.second.second,a=edge_values[bridge].x,b=edge_values[bridge].y;
++        std::vector<int> left,right;
++        for(int t=a;parent[t]>=0;) {int e=parent[t];left.push_back(e);t=edge_values[e].x==t?edge_values[e].y:edge_values[e].x;}
++        for(int t=b;parent[t]>=0;) {int e=parent[t];right.push_back(e);t=edge_values[e].x==t?edge_values[e].y:edge_values[e].x;}
++        std::reverse(left.begin(),left.end());left.push_back(bridge);left.insert(left.end(),right.begin(),right.end());
++        // Already fixed bridges can meet; choose a new unconstrained pivot.
++        // Registered curve edges themselves never serve as transverse bridges.
++        double total=0.;for(int e:left)total+=(v.col(edge_values[e].x)-v.col(edge_values[e].y)).norm();
++        double running=0.,best=std::numeric_limits<double>::infinity();int pivot=-1;
++        for(int e:left) {
++            double length=(v.col(edge_values[e].x)-v.col(edge_values[e].y)).norm();
++            auto ek=key(edge_values[e].x,edge_values[e].y);
++            double midpoint=std::abs(running+.5*length-.5*total);
++            if(!registered_edges.count(ek) && (!registered_separators.count(ek) || registered_separators.at(ek)==Vector2i::Zero()) && midpoint<best) {best=midpoint;pivot=e;}
++            running+=length;
++        }
++        if(pivot<0)continue;
++        int p=edge_values[pivot].x,t=edge_values[pivot].y;
++        Vector3d delta=v.col(t)-v.col(p),qx=q.col(p),normal=normals.col(p),qy=normal.cross(qx);
++        // Pick the transverse axis of the first path, transported into the
++        // pivot's QF frame. This avoids using a diagonal source edge as a
++        // reason to separate the rows in their along-path coordinate.
++        int start=root[a];const auto& path=registered_paths[owner[a]];auto it=std::find(path.vertices.begin(),path.vertices.end(),start);
++        int ordinal=int(it-path.vertices.begin()),size=int(path.vertices.size());
++        int prev=path.closed?(ordinal+size-1)%size:std::max(0,ordinal-1);
++        int next=path.closed?(ordinal+1)%size:std::min(size-1,ordinal+1);
++        Vector3d tangent=v.col(path.vertices[next])-v.col(path.vertices[prev]);
++        Vector3d sq=q.col(start),sn=normals.col(start),sy=sn.cross(sq);
++        int along=std::abs(tangent.dot(sq))>=std::abs(tangent.dot(sy))?0:1;
++        auto rotation=compat_orientation_extrinsic_index_4(sq,sn,qx,normal);
++        int axis=(1-along)^((rotation.second-rotation.first+4)%2);
++        double projected=axis?delta.dot(qy):delta.dot(qx);
++        if(projected==0.) continue;
++        Vector2i step=Vector2i::Zero();step[axis]=projected>0.?1:-1;
++        bool compatible=true;
++        for(int e:left) {
++            auto ek=key(edge_values[e].x,edge_values[e].y);
++            if(registered_edges.count(ek)){compatible=false;break;}
++            auto existing=registered_separators.find(ek);
++            if(existing!=registered_separators.end() && existing->second!=Vector2i::Zero()){compatible=false;break;}
++        }
++        if(!compatible)continue;
++        // Fix only the nonzero pivot. Keeping the remainder free is essential:
++        // freezing every zero bridge edge overconstrains QF's conserved flow.
++        // The next iteration rechecks all zero classes, so cancellation along
++        // another source route cannot silently validate a merged output row.
++        registered_separators[key(edge_values[pivot].x,edge_values[pivot].y)]=step;
++        edge_diff[pivot]=step;allow_changes[pivot*2]=allow_changes[pivot*2+1]=0;
++        ++added;
++    }
++    if(!candidates.empty() && !added)printf("Registered separation stalled: %d conflicting pairs; final graph gate will decide\n",int(candidates.size()));
++    if(added)printf("Registered separation policy: added %d one-cell bridges (%d locked source edges)\n",added,int(registered_separators.size()));
++    return added;
++}
++
++bool Parametrizer::IsRegisteredCompactVertex(int vertex) const {
++    if(registered_paths.empty() || vertex<0 || vertex>=int(Vset.size())) return false;
++    for(int v:Vset[vertex]) if(registered_vertices.count(v)) return true;
++    return false;
++}
++
++bool Parametrizer::OutputRegisteredFeatures(const std::string& filename) {
++    std::ofstream out(filename);
++    if(!out) throw std::runtime_error("Cannot write registered feature provenance");
++    std::map<int,std::vector<int>> source_to_output;
++    for(int v=0;v<int(Vset.size());++v) for(int source:Vset[v])
++        if(registered_vertices.count(source)) source_to_output[source].push_back(v);
++    std::set<std::pair<int,int>> output_edges;
++    for(const auto& f:F_compact) for(int j=0;j<4;++j) output_edges.insert(key(f[j],f[(j+1)%4]));
++    struct Result {std::vector<int> vertices;int missing=0,ambiguous=0,broken=0,repeated=0;bool passed=false;};
++    std::vector<Result> results;
++    bool passed=true;
++    for(const auto& path:registered_paths) {
++        Result r;
++        for(int source:path.vertices) {
++            auto found=source_to_output.find(source);
++            if(found==source_to_output.end()) {++r.missing;continue;}
++            const auto& mapped=found->second;
++            if(mapped.size()!=1) ++r.ambiguous;
++            int v=mapped.front();
++            if(r.vertices.empty() || r.vertices.back()!=v) r.vertices.push_back(v);
++        }
++        if(path.closed && r.vertices.size()>1 && r.vertices.front()==r.vertices.back())r.vertices.pop_back();
++        std::set<int> unique(r.vertices.begin(),r.vertices.end());
++        r.repeated=int(r.vertices.size()-unique.size());
++        int n=int(r.vertices.size());
++        for(int j=0;j<n-(path.closed?0:1);++j)
++            if(!output_edges.count(key(r.vertices[j],r.vertices[(j+1)%n]))) ++r.broken;
++        r.passed=n>=(path.closed?3:2) && !r.missing && !r.ambiguous && !r.broken && !r.repeated;
++        passed &=r.passed;results.push_back(r);
++    }
++    // Nonadjacent portions of a path are checked above. Different paths may
++    // share an output vertex only where they share a source junction identity.
++    int unintended_merges=0;
++    for(int a=0;a<int(registered_paths.size());++a) for(int b=a+1;b<int(registered_paths.size());++b) {
++        std::set<int> sa(registered_paths[a].vertices.begin(),registered_paths[a].vertices.end());
++        std::set<int> legal;
++        for(int s:registered_paths[b].vertices) if(sa.count(s))
++            for(int v:source_to_output[s]) legal.insert(v);
++        std::set<int> va(results[a].vertices.begin(),results[a].vertices.end());
++        for(int v:results[b].vertices) if(va.count(v) && !legal.count(v))++unintended_merges;
++    }
++    passed &= unintended_merges==0;
++    out<<"{\n  \"schema\": 1,\n  \"policy\": \"experimental-exact-source-path-registration\",\n  \"passed\": "<<(passed?"true":"false")<<",\n  \"unintendedPathMerges\": "<<unintended_merges<<",\n  \"paths\": [\n";
++    for(int i=0;i<int(results.size());++i) {
++        const auto& path=registered_paths[i];const auto& r=results[i];
++        out<<"    {\"id\": "<<path.id<<", \"closed\": "<<(path.closed?"true":"false")<<", \"passed\": "<<(r.passed?"true":"false")
++           <<", \"sourceVertexCount\": "<<path.vertices.size()<<", \"missing\": "<<r.missing<<", \"ambiguous\": "<<r.ambiguous<<", \"brokenEdges\": "<<r.broken<<", \"repeatedVertices\": "<<r.repeated<<", \"vertices\": [";
++        for(int j=0;j<int(r.vertices.size());++j) {if(j)out<<", ";out<<r.vertices[j];}
++        out<<"]}"<<(i+1<int(results.size())?",":"")<<"\n";
++    }
++    out<<"  ]\n}\n";
++    printf("Registered output path integrity: %s (%d unintended path merges)\n",passed?"PASS":"FAIL",unintended_merges);
++    return passed;
++}
++}
+--- a/src/subdivide.cpp
++++ b/src/subdivide.cpp
+@@ -11,7 +11,8 @@
+ namespace qflow {
+ 
+ void subdivide(MatrixXi &F, MatrixXd &V, VectorXd& rho, VectorXi &V2E, VectorXi &E2E, VectorXi &boundary,
+-               VectorXi &nonmanifold, double maxLength) {
++               VectorXi &nonmanifold, double maxLength,
++               const std::function<void(int,int,int)>& on_split) {
+     typedef std::pair<double, int> Edge;
+ 
+     std::priority_queue<Edge> queue;
+@@ -59,6 +60,7 @@
+         }
+         int v1p = is_boundary ? -1 : F((e1 + 2) % 3, f1);
+         int vn = nV++;
++        if (on_split) on_split(v0, v1, vn);
+         nSplit++;
+         /* Update V */
+         if (nV > V.cols()) {
+@@ -149,7 +151,8 @@
+                         VectorXi &V2E, VectorXi &E2E, VectorXi &boundary, VectorXi &nonmanifold,
+                         std::vector<Vector2i> &edge_diff, std::vector<DEdge> &edge_values,
+                         std::vector<Vector3i> &face_edgeOrients, std::vector<Vector3i> &face_edgeIds,
+-                        std::vector<int>& sharp_edges, std::map<int, int> &singularities, int max_len) {
++                        std::vector<int>& sharp_edges, std::map<int, int> &singularities, int max_len,
++                        const std::function<void(int,int,int)>& on_split) {
+     struct EdgeLink {
+         int id;
+         double length;
+@@ -297,6 +300,7 @@
+         }
+         int v1p = is_boundary ? -1 : F((e1 + 2) % 3, f1);
+         int vn = nV++;
++        if (on_split) on_split(v0, v1, vn);
+         nSplit++;
+         if (nV > V.cols()) {
+             V.conservativeResize(V.rows(), V.cols() * 2);
+--- a/src/subdivide.hpp
++++ b/src/subdivide.hpp
+@@ -1,5 +1,6 @@
+ #include <Eigen/Core>
+ #include <Eigen/Dense>
++#include <functional>
+ 
+ #include "parametrizer.hpp"
+ using namespace Eigen;
+@@ -7,11 +8,13 @@
+ namespace qflow {
+ 
+ void subdivide(MatrixXi &F, MatrixXd &V, VectorXd& rho, VectorXi &V2E, VectorXi &E2E, VectorXi &boundary,
+-               VectorXi &nonmanifold, double maxLength);
++               VectorXi &nonmanifold, double maxLength,
++               const std::function<void(int,int,int)>& on_split = {});
+ 
+ void subdivide_edgeDiff(MatrixXi &F, MatrixXd &V, MatrixXd &N, MatrixXd &Q, MatrixXd &O, MatrixXd* S,
+                     VectorXi &V2E, VectorXi &E2E, VectorXi &boundary, VectorXi &nonmanifold,
+                     std::vector<Vector2i> &edge_diff, std::vector<DEdge> &edge_values,
+                     std::vector<Vector3i> &face_edgeOrients, std::vector<Vector3i> &face_edgeIds,
+-                    std::vector<int>& sharp_edges, std::map<int, int> &singularities, int max_len);
++                    std::vector<int>& sharp_edges, std::map<int, int> &singularities, int max_len,
++                        const std::function<void(int,int,int)>& on_split = {});
+ } // namespace qflow

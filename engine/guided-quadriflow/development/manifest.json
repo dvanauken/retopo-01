@@ -1,0 +1,34 @@
+{
+  "upstream": "https://github.com/hjwdzh/QuadriFlow",
+  "revision": "810b7a0967c35b0dc85b4464e3835e26a756c967",
+  "build": "registered-features-experimental-3",
+  "executableSha256": "f173c58cd0df34ea5e8857cbce45a176117d36ce0564a0751bf57c32ff7ffeaa",
+  "sourceArchiveSha256": "58eaaf17a90b13c9cd76dd8a25be80a6674104c1efaf6fc95b7c8b7a401ccab1",
+  "runtimeDirectory": "C:\\msys64\\mingw64\\bin",
+  "runtimeImports": {
+    "libgcc_s_seh-1.dll": {
+      "path": "C:\\msys64\\mingw64\\bin\\libgcc_s_seh-1.dll",
+      "sha256": "2de4355648441db0230a9aba1a149fc829b094f83c14c37ea3f775356d33d8b1"
+    },
+    "libwinpthread-1.dll": {
+      "path": "C:\\msys64\\mingw64\\bin\\libwinpthread-1.dll",
+      "sha256": "f0c48bcf1f1f0a65b4f99406f56db7349ded8866cd86548687ab6a98e859af35"
+    },
+    "libstdc++-6.dll": {
+      "path": "C:\\msys64\\mingw64\\bin\\libstdc++-6.dll",
+      "sha256": "428d22a8a4d25e39edad36851122701b3460c2bcf628884cdd2664530d2dd634"
+    }
+  },
+  "scope": "Opt-in independent QF experiment: exact graph tags before normals, transported transverse locks, tangent-line phase constraints, signed unit-pivot separation policy, strict source/output path provenance. Six elementary path cases pass; island6 200 raw and branch-filtered graphs fail strict integer-registration guards. Not native ZBrush parity or a production replacement.",
+  "capabilities": [
+    "registered-features",
+    "registered-feature-separation",
+    "registered-failure-diagnostics"
+  ],
+  "baseSourceArchiveSha256": "f5c5af43317df26319abb55239deb7cb2d3ed079c0011d2791bc865e4efb89c5",
+  "patchSha256": "1b2fda326ddda27e25f497396c391a45c29f6d981dc649dc89f7a541df148a58",
+  "verification": {
+    "mechanism-tests-v3-final\\results.json": "f86b65fa9bf4270657211262d6914e4582faead72dc17d815d3f2fe379368928",
+    "bridge-tests-v3-final\\results.json": "7cb567501652be112e5fa649d8edb49ca0cb6f5fcceadea178ca964c159ebc1d"
+  }
+}

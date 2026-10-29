@@ -43,8 +43,8 @@ def obj(path, vertices, faces):
             stream.write('f ' + ' '.join(str(int(x) + 1) for x in face) + '\n')
 
 
-def runtime():
-    vendor = ROOT / 'engine/guided-quadriflow'
+def runtime(vendor=None):
+    vendor = Path(vendor) if vendor is not None else ROOT / 'engine/guided-quadriflow'
     manifest = json.loads((vendor / 'manifest.json').read_text())
     executable = vendor / 'quadriflow.exe'
     if sha(executable) != manifest['executableSha256']:

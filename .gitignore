@@ -3,3 +3,21 @@ __pycache__/
 runs/
 tests/screenshots/
 .venv/
+
+# Reproducible experiment outputs; retain on disk, outside source review.
+tests/registered-features/
+engine/guided-quadriflow/development/build/
+engine/guided-quadriflow/development/source/
+engine/guided-quadriflow/development/epochs/
+engine/guided-quadriflow/development/*-tests*/
+engine/guided-quadriflow/development/regression-controls*/
+engine/guided-quadriflow/development/build-*.log
+engine/guided-quadriflow/development/rebuild/
+engine/guided-quadriflow/development/patch-check/
+engine/guided-quadriflow/development/verify_registered.py
+engine/guided-quadriflow/development/verify_registered_v2.py
+engine/guided-quadriflow/development/verify_bridges_v3*.py
+engine/guided-quadriflow/development/verify_registered_v3_final.py
+engine/guided-quadriflow/development/validation-runs/
+engine/guided-quadriflow/development/build-record.json
+engine/guided-quadriflow/development/build-record-2.json

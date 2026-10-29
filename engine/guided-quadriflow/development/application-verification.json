@@ -1,0 +1,256 @@
+{
+  "date": "2026-10-28",
+  "status": "Experimental; no improved accepted toilet geometry; default remains legacy.",
+  "unitTests": {
+    "command": "python -m unittest discover -s tests -p 'test_*.py'",
+    "passed": true,
+    "tests": 179
+  },
+  "matrix": {
+    "artifact": {
+      "path": "tests/registered-features/2026-10-28/registered-v3-final-corrected/result.json",
+      "sha256": "0a852333997f0995c4fefca7d55faaf8bbc331c8902157cf2b039ee8ae2a5a48"
+    },
+    "codeStable": true,
+    "workerAcceptedCases": 2,
+    "cases": [
+      {
+        "case": "island6-150",
+        "workerAccepted": false,
+        "faces": null,
+        "registeredFeatures": false,
+        "registrationSkipped": null,
+        "message": "No accepted mesh after 0 candidates across 4 layouts. Integer solve changed a registered separation bridge",
+        "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+        "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e",
+        "outputSha256": null,
+        "observedSeconds": 6.030999999988126
+      },
+      {
+        "case": "island6-200",
+        "workerAccepted": false,
+        "faces": null,
+        "registeredFeatures": false,
+        "registrationSkipped": null,
+        "message": "No accepted mesh after 0 candidates across 4 layouts. Integer solve changed a registered separation bridge",
+        "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+        "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e",
+        "outputSha256": null,
+        "observedSeconds": 8.030999999988126
+      },
+      {
+        "case": "island6-300",
+        "workerAccepted": false,
+        "faces": null,
+        "registeredFeatures": false,
+        "registrationSkipped": null,
+        "message": "No accepted mesh after 0 candidates across 4 layouts. Integer solve changed a registered separation bridge",
+        "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+        "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e",
+        "outputSha256": null,
+        "observedSeconds": 10.046999999991385
+      },
+      {
+        "case": "island6-750-guide",
+        "workerAccepted": false,
+        "faces": null,
+        "registeredFeatures": false,
+        "registrationSkipped": null,
+        "message": "No accepted mesh after 0 candidates across 4 layouts. Integer solve changed a registered separation bridge",
+        "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+        "curvesSha256": "a0d6cf3967c194ee6770df57e54b373517be418a82dedfe284f2baacac841c3c",
+        "outputSha256": null,
+        "observedSeconds": 38.28200000000652
+      },
+      {
+        "case": "island2-300",
+        "workerAccepted": true,
+        "faces": 291,
+        "registeredFeatures": false,
+        "registrationSkipped": "No admitted crease paths or user guides; using the shipped solver.",
+        "message": null,
+        "sourceSha256": "771e92052880d60e0b5b0417aae7cca6c2598266720bd4b4101ea1ca5521ac83",
+        "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e",
+        "outputSha256": "2589e603b33d30875700faa5e5aa20bf8650d7b5c95aab2be1b8519a4b17be69",
+        "observedSeconds": 4.01500000001397
+      },
+      {
+        "case": "island7-300",
+        "workerAccepted": true,
+        "faces": 339,
+        "registeredFeatures": false,
+        "registrationSkipped": null,
+        "message": null,
+        "sourceSha256": "04907b10adb15974b51004ae4bfd9d62b93f50b81ec7728066edd24bfd0ca7c4",
+        "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e",
+        "outputSha256": "7af7cbe32a8d6cafe3e6391f91f22b2e282d70d622c28aa9c948b06260aa0ffa",
+        "observedSeconds": 14.01600000000326
+      },
+      {
+        "case": "island10-500",
+        "workerAccepted": false,
+        "faces": null,
+        "registeredFeatures": false,
+        "registrationSkipped": null,
+        "message": "No accepted mesh after 0 candidates across 4 layouts. Integer solve changed a registered separation bridge",
+        "sourceSha256": "9a514bd48ad3eb914248c72b29b08be18025301f746641968bec6d1798be51e8",
+        "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e",
+        "outputSha256": null,
+        "observedSeconds": 10.015999999974156
+      }
+    ]
+  },
+  "fullPipelinePlane": {
+    "artifact": {
+      "path": "runs/registered-plane-pipeline-v3-final/result.json",
+      "sha256": "868ee524c01370b414f924efda0a3282b2f6dae6bf490adce81f982fa70dad0e"
+    },
+    "passed": true,
+    "codeStable": true,
+    "faces": 196,
+    "target": 200
+  },
+  "ui": [
+    {
+      "case": "registered-rejection",
+      "artifact": {
+        "path": "tests/registered-features/2026-10-28/ui-registered-v3-200/result.json",
+        "sha256": "1442d0470e726fd332c0855514acb0c5ba25ef4b67558c0d6e18973ea6f02335"
+      },
+      "passed": true,
+      "codeStable": true,
+      "allWorkersAccepted": false,
+      "cases": [
+        {
+          "case": "island6-200",
+          "part": "skp-6",
+          "target": 200,
+          "guided": false,
+          "passed": true,
+          "job": "de8e0059eb2b4bb98b9e50462d679c1f",
+          "lastAttempt": {
+            "phase": "failed",
+            "message": "No accepted mesh after 0 candidates across 4 layouts. Integer solve changed a registered separation bridge",
+            "jobId": "de8e0059eb2b4bb98b9e50462d679c1f",
+            "target": 200,
+            "guideCount": 0,
+            "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003"
+          },
+          "expectedRejection": true,
+          "workerAccepted": false,
+          "errors": [],
+          "networkDiagnostics": [],
+          "consoleDiagnostics": [
+            {
+              "type": "warning",
+              "text": "[.WebGL-0x67bc00114e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+            },
+            {
+              "type": "warning",
+              "text": "[.WebGL-0x67bc00114e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+            },
+            {
+              "type": "warning",
+              "text": "[.WebGL-0x67bc00114e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+            },
+            {
+              "type": "warning",
+              "text": "[.WebGL-0x67bc00114e00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+            }
+          ],
+          "observedSeconds": 12.344000000011874
+        }
+      ]
+    },
+    {
+      "case": "legacy-export-and-reload",
+      "artifact": {
+        "path": "tests/registered-features/2026-10-28/ui-legacy-final-200/result.json",
+        "sha256": "be58897523134bf9b8274f845e0602f320c048a3279d3eadb100109429051537"
+      },
+      "passed": true,
+      "codeStable": true,
+      "allWorkersAccepted": true,
+      "cases": [
+        {
+          "case": "island6-200",
+          "part": "skp-6",
+          "target": 200,
+          "guided": false,
+          "passed": true,
+          "job": "7e331a93794b4a64a9c973bdf5da6fce",
+          "lastAttempt": {
+            "phase": "complete",
+            "message": "",
+            "jobId": "7e331a93794b4a64a9c973bdf5da6fce",
+            "target": 200,
+            "guideCount": 0,
+            "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003"
+          },
+          "workerAccepted": true,
+          "faces": 188,
+          "outputSha256": "0b3a12d6ed7e2d60091deb5fd03f401f5b864eb84afcc23639ca84f6a0fb1604",
+          "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+          "errors": [],
+          "networkDiagnostics": [],
+          "consoleDiagnostics": [
+            {
+              "type": "warning",
+              "text": "[.WebGL-0x38c400d65c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+            },
+            {
+              "type": "warning",
+              "text": "[.WebGL-0x38c400d65c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+            },
+            {
+              "type": "warning",
+              "text": "[.WebGL-0x38c400d65c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+            },
+            {
+              "type": "warning",
+              "text": "[.WebGL-0x38c400d65c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+            }
+          ],
+          "observedSeconds": 55.094000000011874
+        }
+      ]
+    }
+  ],
+  "baseline": {
+    "path": "tests/registered-features/2026-10-28/baseline30-summary.json",
+    "sha256": "723c05e173dabad7c2c5e35d24c1f97a573e8f89d521028ad0dad81882779115"
+  },
+  "baselineIdentityComparison": {
+    "path": "tests/registered-features/2026-10-28/ui-legacy-final-200/baseline-identity-comparison.json",
+    "sha256": "0d18c3d10c49efc5165e889c72f4d1ab4ace071a206e857538376b2cc66278fb"
+  },
+  "engineEvidence": {
+    "path": "engine/guided-quadriflow/development/evidence-digest.json",
+    "sha256": "f65a0070f45b499cfc6efe2ca076e745eec8fbc7dcce513a2fa056580c7ce61d"
+  },
+  "featureRowEvidence": {
+    "path": "engine/guided-quadriflow/development/feature-row-evidence.json",
+    "sha256": "7e3fd7b6a3d3d099872e18b46d61c590ffa3d693748b4902cadd82910976caea"
+  },
+  "rankedComparison": {
+    "path": "tests/registered-features/2026-10-28/ranked-v1-200/result.json",
+    "sha256": "f2022ce102a3ccdc44326d6cc007c7d87ffbbb3dc2ff2c24c1ff63f28aedf167"
+  },
+  "guide": {
+    "path": "tests/fixtures/island6-authored-guide.json",
+    "sha256": "a0d6cf3967c194ee6770df57e54b373517be418a82dedfe284f2baacac841c3c"
+  },
+  "productionSourceHashes": {
+    "open_surface.py": "f8bc2282769ab6df7e322bf05ea755d3521e045c60a8d37ba1d1ef8c47fb5ed6",
+    "guide_embedding.py": "3008855c670a04dccfb38eef466d5cc63e94d61fccab9146201aaa266dc65757",
+    "guided_layout.py": "92a676d3e498c26a02e51ebd5409fcd64c6225bcb77787070385ac7cfcf80852",
+    "worker.py": "b0ed15cfa1438f46d647ba37196603e37867253e8657d11c672c56b401275f52",
+    "registered_features.py": "ac790a83c8373f99a21659ae1b21cd9685bd17345c96541167c61faef3fb6f72",
+    "feature_rows.py": "a206a4352ce51986063d74e6f1946f1d3a4ac90dadd753562e2b8e7de6416fb9"
+  },
+  "limitations": [
+    "No actual feature-bearing open part passed hard registration. The two accepted matrix cases use ordinary routes.",
+    "Engine mechanism controls prove path graph contracts, not full mesh acceptance or native equivalence.",
+    "Generated full evidence stays on disk in Git-ignored directories; this digest retains hashes and outcomes."
+  ]
+}

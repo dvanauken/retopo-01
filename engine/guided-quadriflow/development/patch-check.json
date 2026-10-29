@@ -1,0 +1,13 @@
+{
+  "command": [
+    "git",
+    "-C",
+    "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\development\\patch-check",
+    "apply",
+    "--check",
+    "--ignore-space-change",
+    "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\development\\registered-features.patch"
+  ],
+  "exitCode": 0,
+  "passed": true
+}

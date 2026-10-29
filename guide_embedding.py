@@ -11,7 +11,7 @@ import numpy as np
 import trimesh
 import triangle
 
-def embed(vertices,faces,curves):
+def embed(vertices,faces,curves,*,source_paths=()):
     vertices=np.asarray(vertices,dtype=float)
     raw_faces=np.asarray(faces)
     if vertices.ndim!=2 or vertices.shape[1]!=3 or not len(vertices) or not np.isfinite(vertices).all():
@@ -101,6 +101,25 @@ def embed(vertices,faces,curves):
             for face,x,y in zip(path,spans[:-1],spans[1:]):
                 i,j=point_id(x,face),point_id(y,face)
                 if i!=j:constraints[face].append((i,j,ci))
+    # Existing admitted creases already have exact source-edge identity. Do not
+    # route their endpoint coordinates through a nearest-face query: at a fold
+    # that can choose the other incident sheet. Insert both incident copies of
+    # each constraint before triangulation, so newly cut edge points inherit it.
+    # User curve IDs remain first; source path IDs follow them.
+    incident=defaultdict(list)
+    for fi,face in enumerate(faces):
+        for a,b in zip(face,np.roll(face,-1)):
+            incident[tuple(sorted((int(a),int(b))))].append(fi)
+    for pi,path in enumerate(source_paths):
+        path=list(map(int,path));ci=len(curves)+pi
+        if len(path)<2:raise ValueError('An admitted source path needs at least one edge')
+        for a,b in zip(path[:-1],path[1:]):
+            owners=incident.get(tuple(sorted((a,b))))
+            if a==b or not owners:raise ValueError('An admitted feature is not a source mesh edge')
+            cuts=sorted(edge_points[tuple(sorted((a,b)))],reverse=a>b)
+            chain=[a]+[index for _,index in cuts]+[b]
+            for face in owners:
+                constraints[face].extend((u,v,ci) for u,v in zip(chain[:-1],chain[1:]))
     output=[];source_owners=[];guide_edges=defaultdict(set)
     for fi,face in enumerate(faces):
         boundary=[]

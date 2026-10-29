@@ -62,6 +62,8 @@ def main():
    mesh['guideSampleMethod']='257 uniformly spaced authored arc-length samples per guide, measured against its connected output-edge path.'
    mesh['surfaceValidation']=meta['closedValidation']
    if meta.get('openSurface'):mesh.update(openSurface=True,boundaryValidation=meta['boundaryValidation'])
+   for field in ('featureRows','registeredFeatures','registrationSkipped','layoutStyle','candidateSelection'):
+    if field in meta:mesh[field]=meta[field]
    mesh['intersectionValidation']=meta['intersectionValidation']
    mesh['featureValidation']=measure_source_features(v,f,positions,faces,settings['target'])
    mesh['featurePolicy']='enforced' if 'featureValidation' in meta else 'diagnostic'

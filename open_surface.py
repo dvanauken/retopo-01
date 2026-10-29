@@ -6,6 +6,7 @@ coverage on both quad diagonals, and face-contact checks together.
 """
 from pathlib import Path
 import json
+import os
 import subprocess
 import time
 import numpy as np
@@ -103,7 +104,7 @@ def relax(mesh, p, q, fixed, rounds=3, segments=None, spacing=None):
         if fixed[vertex] or not star:continue
         ring,closed=star;marks=[mark_lookup[tuple(sorted((vertex,n)))] for n in ring]
         if closed and len(ring)==4:
-            pairs=[(0,2),(1,3)];counts=[marks[i]+marks[j] for i,j in pairs]
+            pairs=[(0,2),(1,3)];counts=[int(marks[i])+int(marks[j]) for i,j in pairs]
             if tuple(counts) not in ((0,0),(2,0),(0,2)):continue
             regular.append([vertex,*ring])
             if any(counts):i,j=pairs[counts.index(2)];guided[vertex]=(ring[i],ring[j])
@@ -166,8 +167,16 @@ def construct(source, triangles, curves, *, target, job):
         raise ValueError('Open-part generation requires a nondegenerate, consistently wound manifold source with boundary loops.')
     if isinstance(target,bool) or not isinstance(target,(int,np.integer)) or not 150<=target<=12000:
         raise ValueError('Target must be an integer from 150 to 12,000.')
-    job=Path(job); out=job/'open-surface';out.mkdir(); executable,env,engine=runtime();env['OMP_NUM_THREADS']='4'
+    policy=os.environ.get('RETOPO_FEATURE_LAYOUT','legacy')
+    if policy not in ('legacy','registered','compare','ranked'):
+        raise ValueError('Unknown feature layout policy: '+policy)
+    requested_policy=policy;registration_skipped=None
+    job=Path(job); out=job/'open-surface';out.mkdir()
     h=float(np.sqrt(mesh.area/target)); feature_edges,detection=detect(source,triangles,h,target=target); segments=[]
+    if policy in ('registered','compare') and not len(feature_edges) and not curves:
+        policy='legacy';registration_skipped='No admitted crease paths or user guides; using the shipped solver.'
+    vendor=os.environ.get('RETOPO_REGISTERED_ENGINE') if policy in ('registered','compare') else None
+    executable,env,engine=runtime(vendor);env['OMP_NUM_THREADS']='4'
     emit(job,f"Auto guides: {detection['resolvedEdges']} crease edges in {detection['chains']} chains at {detection['angleDegrees']:g}° or sharper guide the layout; {detection['fragmentEdges']} edges in fragments smaller than one quad are ignored.",kind='stage',details=detection)
     for ci,curve in enumerate(curves):
         if curve.ndim!=2 or curve.shape[1]!=3 or len(curve)<2 or not np.isfinite(curve).all() or np.any(np.linalg.norm(np.diff(curve,axis=0),axis=1)==0):
@@ -183,8 +192,24 @@ def construct(source, triangles, curves, *, target, job):
             stream.write(str(len(rows))+'\n')
             for row in rows:stream.write(' '.join(format(float(x),'.17g') for x in row)+'\n')
     files=[Path(__file__),Path(cq.__file__),Path(refine.__code__.co_filename),Path(__file__).with_name('boundary_geometry.py'),Path(__file__).with_name('quad_connectivity.py')]
+    if policy!='legacy':files.extend(Path(__file__).with_name(name) for name in ('registered_features.py','feature_rows.py','guide_embedding.py','guide_embedding_check.py'))
     hashes={str(f):sha(f) for f in files};history=[];started=time.monotonic()
-    write(out/'settings.json',dict(target=int(target),sourceBoundaryLoops=len(rings),sourceHashes=hashes,features=detection,engine=engine))
+    best=None;passing=[];registered=None;row_context=None
+    if policy!='legacy':
+        from registered_features import prepare as prepare_registered, reference_paths, output_paths
+        from feature_rows import prepare as prepare_rows, measure as measure_rows, rank_key
+        reference=reference_paths(source,feature_edges,curves)
+        row_context=prepare_rows(source,triangles,feature_edges,curves,h,
+                                 max_distance=.5*h,sample_spacing=.125*h,paths=reference)
+        if policy in ('registered','compare'):
+            if 'registered-features' not in engine.get('capabilities',[]):
+                raise ValueError('This engine does not implement registered features; select the reviewed experimental build')
+            try:registered=prepare_registered(source,triangles,feature_edges,curves,out/'registered')
+            except ValueError as error:
+                history.append(dict(stage='embedding',error=str(error),passed=False));write(out/'history.json',history)
+                if policy=='registered':raise OpenSurfaceRejected(history)
+                emit(job,'Feature embedding rejected; comparing the remaining layouts',kind='candidate',level='warning')
+    write(out/'settings.json',dict(target=int(target),sourceBoundaryLoops=len(rings),sourceHashes=hashes,features=detection,engine=engine,layoutPolicy=policy,requestedLayoutPolicy=requested_policy,registrationSkipped=registration_skipped,searchSeconds=420 if policy!='legacy' else None))
     # Size-capped layouts first, then crease-constrained ones at uniform size, then
     # QuadriFlow's own adaptive scale without crease constraints, and last finer layouts
     # coarsened by strip collapse. Engineering plan, not a native stage.
@@ -194,55 +219,88 @@ def construct(source, triangles, curves, *, target, job):
     # request, so the request is corrected twice from the counts actually returned.
     plan=[(seed,int(target),'caps') for seed in (2,0)]+[(seed,int(target),'constrained') for seed in (2,0,1)]+[(seed,int(target),'adaptive') for seed in (2,0,1,3)]
     plan+=[(seed,fine,'constrained') for seed in (2,0,1)] if fine>=1.5*target else []
+    if policy in ('registered','compare'):
+        hard=[(seed,int(target),style) for style in ('registered-caps','registered') for seed in (2,0)] if registered else []
+        plan=hard+(plan if policy=='compare' else [])
     for attempt,(seed,layout_target,style) in enumerate(plan):
+        # The same 420-second admission budget as guided_layout leaves room for
+        # final worker validation inside the server's existing ten-minute limit.
+        if policy!='legacy' and time.monotonic()-started>=420:break
+        hard=style.startswith('registered')
         folder=out/f'layout-{attempt}';folder.mkdir()
-        command=[str(executable),'-i',str(out/'source.obj'),'-o',str(folder/'layout.obj'),'-f',str(layout_target),'-seed',str(seed),'-boundary']
+        command=[str(executable),'-i',str(registered['source'] if hard else out/'source.obj'),'-o',str(folder/'layout.obj'),'-f',str(layout_target),'-seed',str(seed),'-boundary']
         guides=out/('segments.txt' if style!='adaptive' else 'guide-segments.txt')
-        command+=['-sharp'] if style=='constrained' else ['-sharp','-size-caps-exact'] if style=='caps' else ['-adaptive']
-        if segments if style!='adaptive' else curves:command+=['-guides',str(guides),'-guide-width','.75','-orientation-weight','1','-position-weight','0']
+        if hard:
+            command+=['-registered-features',str(registered['features']),'-registered-output',str(folder/'registered-paths.json')]
+            if style=='registered-caps':command+=['-size-caps-exact']
+        else:
+            command+=['-sharp'] if style=='constrained' else ['-sharp','-size-caps-exact'] if style=='caps' else ['-adaptive']
+            if segments if style!='adaptive' else curves:command+=['-guides',str(guides),'-guide-width','.75','-orientation-weight','1','-position-weight','0']
         coarse=layout_target!=target
         write(folder/'command.json',command)
-        cq._progress(job,f'Building open-part layout {attempt+1}'+(f' at {layout_target:,} quads to coarsen to {target:,}' if coarse else ' with curvature size caps' if style=='caps' else ' with curvature-adaptive sizing' if style=='adaptive' else '')+f'; preserving {len(rings)} boundary loops')
-        requests=3 if style=='caps' else 2;requested=layout_target
+        cq._progress(job,f'Building open-part layout {attempt+1}'+(f' at {layout_target:,} quads to coarsen to {target:,}' if coarse else ' with registered feature rows' if hard else ' with curvature size caps' if style=='caps' else ' with curvature-adaptive sizing' if style=='adaptive' else '')+f'; preserving {len(rings)} boundary loops')
+        requests=3 if style in ('caps','registered-caps') else 2;requested=layout_target
+        timed_out=False
         for retry in range(requests):
-            with (folder/'native.log').open('a') as log:
-                process=subprocess.run(command,env=env,stdout=log,stderr=log,timeout=150,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+            timeout=150 if policy=='legacy' else min(150,max(.001,420-(time.monotonic()-started)))
+            try:
+                with (folder/'native.log').open('a') as log:
+                    process=subprocess.run(command,env=env,stdout=log,stderr=log,timeout=timeout,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+            except subprocess.TimeoutExpired:
+                timed_out=True;break
             if process.returncode or retry==requests-1:break
             # Guides and sizing both move the count; ask again for the request that would have hit the target.
             actual=sum(1 for line in (folder/'layout.obj').open() if line.startswith('f '))
             if actual and abs(actual-layout_target)>.12*layout_target:
                 requested=max(1,round(requested*layout_target/actual));command[command.index('-f')+1]=str(requested);write(folder/'command.json',command)
             else:break
-        if process.returncode:
-            row=dict(attempt=attempt,error=f'Native layout failed (exit {process.returncode})');history.append(row)
+        if timed_out or process.returncode:
+            row=dict(attempt=attempt,style=style,error='Layout process timed out' if timed_out else f'Layout process failed (exit {process.returncode})',passed=False)
+            if (folder/'registered-paths.json').exists():
+                packet=json.loads((folder/'registered-paths.json').read_text());row['registeredPaths']=packet
+                if packet.get('error'):row['error']=packet['error'];row['stage']=packet.get('stage','integer-registration')
+            history.append(row)
             write(out/'history.json',history);emit(job,candidate_message(row),level='warning',kind='candidate');continue
         try:
             p,q=read_obj(folder/'layout.obj');q=np.asarray(q,int)
             if q.ndim!=2 or q.shape[1]!=4:raise ValueError('The native layout did not return quads.')
-            p,q,connectivity=dissolve_double_edges(p,q)
-            # Engine extraction artefacts: a zero-area quad pinched between the copies of a split
-            # vertex, and three-sided holes where no quad was extracted (engineering repairs).
-            p,q,pinched=weld_pinched_quads(p,q);p,q,holes=fill_triangle_holes(p,q,len(rings));connectivity.update(pinched,**holes);q=np.asarray(q,int)
+            registered_paths=None
+            if hard:
+                packet=json.loads((folder/'registered-paths.json').read_text())
+                registered_paths=output_paths(packet,reference)
+                edge_set={tuple(e) for e in cq._edges(q)}
+                if any(tuple(sorted((a,b))) not in edge_set for path in registered_paths for a,b in zip(path['vertices'][:-1],path['vertices'][1:])):
+                    raise ValueError('Registered extraction refers to an absent output edge')
+                connectivity=dict(policy='Preserve exact extracted feature vertex IDs; no post-extraction topology repair')
+            else:
+                p,q,connectivity=dissolve_double_edges(p,q)
+                # Existing engineering repairs are retained for the comparison.
+                p,q,pinched=weld_pinched_quads(p,q);p,q,holes=fill_triangle_holes(p,q,len(rings));connectivity.update(pinched,**holes);q=np.asarray(q,int)
             # Put boundary vertices on the source's bends so coarse layouts do not cut them.
             conform_boundaries(source,triangles,p,q,float(np.sqrt(mesh.area/layout_target)))
             if coarse:
                 cq._progress(job,f'Coarsening open-part layout {attempt+1} from {len(q):,} quads by whole strips')
                 p,q,detail=coarsen(mesh,source,triangles,p,q,curves,target,layout_target,feature_edges)
                 write(folder/'coarsened.json',detail)
+            if row_context is not None:
+                raw_rows=measure_rows(row_context,p,q,paths=registered_paths)
+                write(folder/'layout-feature-rows.json',raw_rows)
             marked=marked_segments(source,feature_edges,curves)
             mapping=correspondence(source,triangles,p,q)
             boundary=np.unique(np.concatenate([r for r,_ in mapping]));active=np.setdiff1d(np.arange(len(p)),boundary)
             fixed=p[boundary].copy();contacts=set();witnesses=[]
             for iteration in range(5):
-                paths=[cq._guide_path(p,cq._edges(q),curve,h)[0] for curve in curves]
+                paths=registered_paths[:len(curves)] if hard else [cq._guide_path(p,cq._edges(q),curve,h)[0] for curve in curves]
+                fit_curves=[np.asarray(ref['points'],float) for ref in reference] if hard else curves
+                fit_paths=registered_paths if hard else paths
                 if iteration:
                     cq._progress(job,f'Fitting open part, pass {iteration}; boundaries fixed')
                     # Fit creases at the verifier's 1/8-spacing sampling, so no
                     # unfitted point between sparse samples decides the maximum.
-                    p,detail=refine(mesh,p,q,curves,target,paths,contacts=sorted(contacts),witnesses=witnesses,
+                    p,detail=refine(mesh,p,q,fit_curves,target,fit_paths,contacts=sorted(contacts),witnesses=witnesses,
                                     active_vertices=active,allow_boundary=True,dense_features=True)
                     if not np.array_equal(p[boundary],fixed):raise ValueError('A fit moved a fixed source boundary.')
-                    if iteration==1:
+                    if iteration==1 and not hard:
                         # Needle quads, which no fit can shape, are collapsed once vertices sit on
                         # their creases and guides (engineering step; native has no such cleanup).
                         on_marked=segment_distances(p,marked[0],marked[1])<.15*h if len(marked[0]) else np.zeros(len(p),bool)
@@ -253,9 +311,9 @@ def construct(source, triangles, curves, *, target, job):
                     if iteration==1 or RELAX_EVERY_PASS:
                         still=np.zeros(len(p),bool);still[boundary]=True
                         p=relax(mesh,p,q,still,rounds=3,segments=marked,spacing=h);fixed=p[boundary].copy()
-                        paths=[cq._guide_path(p,cq._edges(q),curve,h)[0] for curve in curves]
+                        paths=registered_paths[:len(curves)] if hard else [cq._guide_path(p,cq._edges(q),curve,h)[0] for curve in curves]
                 quality=cq.quad_quality(p,q,target);fit=cq._guide_fit(p,paths,curves,h)
-                row=dict(attempt=attempt,iteration=iteration,quality=quality,guideFit=fit,passed=False);history.append(row)
+                row=dict(attempt=attempt,style=style,iteration=iteration,quality=quality,guideFit=fit,passed=False);history.append(row)
                 obj(folder/f'candidate-{iteration}.obj',p,q)
                 if quality['passed']:
                     cq._progress(job,'Checking open-part boundaries, features, coverage and contacts')
@@ -264,6 +322,10 @@ def construct(source, triangles, curves, *, target, job):
                     surface=cq.validate_surface(source,triangles,p,q,target,accelerated=True,allow_boundary=True)
                     row.update(feature=feature,contacts=contact,surface=surface,guidesPassed=bool(cq.guides_pass(fit,h)))
                     row['passed']=bool(feature['passed'] and contact['passed'] and surface['passed'] and row['guidesPassed'])
+                    flow=measure_rows(row_context,p,q,paths=registered_paths) if row['passed'] and row_context is not None else None
+                    if flow is not None:
+                        row['featureRows']=flow
+                        if hard:row['passed']=bool(row['passed'] and flow['passed'])
                     if row['passed']:
                         emit(job,candidate_message(row),kind='candidate',details=outcome(row))
                         metadata=dict(backend=cq.BACKEND,target=int(target),guideMode=2,closedValidation=surface,guidePaths=fit,
@@ -271,17 +333,34 @@ def construct(source, triangles, curves, *, target, job):
                                       boundaryValidation=surface['boundaryValidation'],sourceHashes=hashes,layoutEngine=engine,
                                       openSurface=True,elapsedSeconds=time.monotonic()-started,
                                       limitations=['Original boundary topology is preserved; no caps are added.','Boundary and whole-surface deviations are bounded relative to requested spacing.'])
-                        write(out/'history.json',history);write(job/'surface-solver.json',metadata)
-                        return p,q.tolist(),metadata
+                        if registration_skipped:metadata.update(registeredFeatures=False,registrationSkipped=registration_skipped)
+                        if policy=='legacy':
+                            write(out/'history.json',history);write(job/'surface-solver.json',metadata)
+                            return p,q.tolist(),metadata
+                        key=tuple(rank_key(flow,target=target,face_count=len(q)))
+                        metadata.update(featureRows=flow,registeredFeatures=hard,layoutStyle=style)
+                        passing.append(dict(attempt=attempt,iteration=iteration,style=style,faces=len(q),rank=list(key)))
+                        if best is None or key<best[0]:best=(key,p.copy(),q.copy(),metadata)
+                        write(out/'history.json',history);write(out/'passing-candidates.json',passing)
+                        # One passing fit per layout; compare different layouts instead
+                        # of spending the search budget repeating an accepted fit.
+                        break
                     contacts.update(tuple(pair) for key in ('nonAdjacentIntersectingFacePairs','adjacentIntersectingFacePairs') for pair in contact[key])
-                    for bounds in surface['wholeSurfaceDiagonals'].values():
+                    for bounds in surface.get('wholeSurfaceDiagonals',{}).values():
                         for item in (bounds['sourceToOutput'],bounds['outputToSource']):
                             if not item['passed'] and item.get('witness') is not None:witnesses.append(item['witness'])
-                    if not surface['checks']['sampledSurface']:
-                        witnesses.extend(surface[key]['witness'] for key in ('sourceToOutput','outputToSource') if surface[key].get('witness') is not None)
+                    if not surface.get('checks',{}).get('sampledSurface',True):
+                        witnesses.extend(surface[key]['witness'] for key in ('sourceToOutput','outputToSource') if surface.get(key,{}).get('witness') is not None)
                 emit(job,candidate_message(row),level='warning',kind='candidate',details=outcome(row))
                 write(out/'history.json',history)
         except ValueError as error:
-            history.append(dict(attempt=attempt,error=str(error)));write(out/'history.json',history)
+            history.append(dict(attempt=attempt,style=style,error=str(error)));write(out/'history.json',history)
             emit(job,f'Layout {attempt+1} could not be used: {error}',level='warning',kind='candidate')
+    if best is not None:
+        _,p,q,metadata=best
+        metadata['elapsedSeconds']=time.monotonic()-started
+        metadata['candidateSelection']=dict(policy='Lexicographic feature-row rank; all passing layouts admitted within the search budget.',
+                                             considered=passing,selectedStyle=metadata['layoutStyle'],searchSeconds=420)
+        write(out/'history.json',history);write(job/'surface-solver.json',metadata)
+        return p,q.tolist(),metadata
     raise OpenSurfaceRejected(history)

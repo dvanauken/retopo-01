@@ -1,0 +1,149 @@
+{
+  "build": "registered-features-experimental-3",
+  "cases": [
+    {
+      "case": "plane",
+      "target": 100,
+      "directory": "mechanism-tests-v3-final\\plane\\target-100",
+      "exitCode": 0,
+      "passed": true,
+      "outputFaces": 100,
+      "independentPathGraphValid": true,
+      "outputPathVertices": [
+        11
+      ]
+    },
+    {
+      "case": "plane",
+      "target": 200,
+      "directory": "mechanism-tests-v3-final\\plane\\target-200",
+      "exitCode": 0,
+      "passed": true,
+      "outputFaces": 196,
+      "independentPathGraphValid": true,
+      "outputPathVertices": [
+        15
+      ]
+    },
+    {
+      "case": "cylinder",
+      "target": 100,
+      "directory": "mechanism-tests-v3-final\\cylinder\\target-100",
+      "exitCode": 0,
+      "passed": true,
+      "outputFaces": 104,
+      "independentPathGraphValid": true,
+      "outputPathVertices": [
+        26
+      ]
+    },
+    {
+      "case": "cylinder",
+      "target": 200,
+      "directory": "mechanism-tests-v3-final\\cylinder\\target-200",
+      "exitCode": 0,
+      "passed": true,
+      "outputFaces": 216,
+      "independentPathGraphValid": true,
+      "outputPathVertices": [
+        36
+      ]
+    },
+    {
+      "case": "close-100",
+      "target": 100,
+      "directory": "bridge-tests-v3-final\\close-100",
+      "exitCode": 0,
+      "passed": true,
+      "outputFaces": 100,
+      "independentPathGraphValid": true,
+      "outputPathVertices": [
+        25,
+        25
+      ]
+    },
+    {
+      "case": "close-200",
+      "target": 200,
+      "directory": "bridge-tests-v3-final\\close-200",
+      "exitCode": 0,
+      "passed": true,
+      "outputFaces": 216,
+      "independentPathGraphValid": true,
+      "outputPathVertices": [
+        36,
+        36
+      ]
+    },
+    {
+      "case": "island6-27",
+      "target": 200,
+      "directory": "bridge-tests-v3-final\\island6-27",
+      "exitCode": 3,
+      "passed": false,
+      "error": "Integer solve changed a registered separation bridge",
+      "stage": "integer-registration"
+    },
+    {
+      "case": "island6-76",
+      "target": 200,
+      "directory": "bridge-tests-v3-final\\island6-76",
+      "exitCode": 3,
+      "passed": false,
+      "error": "Integer solve changed a registered separation bridge",
+      "stage": "integer-registration"
+    },
+    {
+      "case": "plane-without-registration",
+      "target": 100,
+      "hashes": {
+        "shipped": "4c34163b635ebe587d422b10599d7291a796a44f6248f6b2e955d64ef53b6b1c",
+        "experimental": "4c34163b635ebe587d422b10599d7291a796a44f6248f6b2e955d64ef53b6b1c"
+      },
+      "shippedExitCode": 0,
+      "experimentalExitCode": 0,
+      "byteIdentical": true
+    },
+    {
+      "case": "cylinder-without-registration",
+      "target": 100,
+      "hashes": {
+        "shipped": "b0ff817e2d201ea674b8a99c32c8d304cc4ee8d959acddd8a371d25d3cc47481",
+        "experimental": "b0ff817e2d201ea674b8a99c32c8d304cc4ee8d959acddd8a371d25d3cc47481"
+      },
+      "shippedExitCode": 0,
+      "experimentalExitCode": 0,
+      "byteIdentical": true
+    }
+  ],
+  "scope": "Mechanism and negative real-part evidence, not successful low-count island6 retopology.",
+  "policies": [
+    "Source graph IDs are authoritative; guide orientation averaging and transverse line-phase constraints are QF engineering translation.",
+    "Shortest zero-class bridges gain fixed unit pivots; QF solves conservation; this is graph separation policy, not native integer-row construction.",
+    "Broken, collapsed, repeated, missing or ambiguous required output paths reject. Separate paths may meet only at shared source junction identities.",
+    "Feature compact poles are protected during degree-two and high-valence cleanup."
+  ],
+  "rebuild": {
+    "script": "build_experiment.py",
+    "command": "python engine/guided-quadriflow/development/build_experiment.py",
+    "note": "Rebuild uses installed MinGW dependencies and records tool hashes. Different absolute source paths can change assertion strings and executable hash.",
+    "passed": true,
+    "record": "rebuild-check.json"
+  },
+  "reproductionScripts": {
+    "build_experiment.py": "0a8ae813d5aed80ad2faebb14a6c2f3ece25374b0f8cdf23d999953f8cc14baf",
+    "validate_experiment.py": "7f0543cd6eeb72d553f2e438cd5c31976da9b589328b2c13dec9dfe3b4bba2d7"
+  },
+  "reusableValidation": [
+    {
+      "path": "validation-runs\\20261028T232126763615Z\\results.json",
+      "engineSha256": "f173c58cd0df34ea5e8857cbce45a176117d36ce0564a0751bf57c32ff7ffeaa",
+      "allSixSyntheticPassed": true
+    },
+    {
+      "path": "validation-runs\\20261028T232157575509Z\\results.json",
+      "engineSha256": "20e32efa004415ba2d01e9155753b0fe2683203b5076de1a8003edb08f15e3b4",
+      "allSixSyntheticPassed": true
+    }
+  ]
+}

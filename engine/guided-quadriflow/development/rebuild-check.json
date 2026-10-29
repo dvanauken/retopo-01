@@ -1,0 +1,51 @@
+{
+  "sourceArchiveSha256": "58eaaf17a90b13c9cd76dd8a25be80a6674104c1efaf6fc95b7c8b7a401ccab1",
+  "commands": [
+    {
+      "command": [
+        "C:\\msys64\\mingw64\\bin\\cmake.exe",
+        "-S",
+        "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\development\\rebuild\\source-58eaaf17a90b",
+        "-B",
+        "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\development\\rebuild\\build-58eaaf17a90b",
+        "-G",
+        "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_CXX_COMPILER=C:/msys64/mingw64/bin/g++.exe",
+        "-DCMAKE_MAKE_PROGRAM=C:/msys64/mingw64/bin/ninja.exe",
+        "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+        "-DBOOST_ROOT=C:/msys64/mingw64",
+        "-DBoost_NO_BOOST_CMAKE=ON",
+        "-DEIGEN_INCLUDE_DIR=C:/msys64/mingw64/include/eigen3"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "C:\\msys64\\mingw64\\bin\\cmake.exe",
+        "--build",
+        "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\development\\rebuild\\build-58eaaf17a90b",
+        "-j",
+        "2"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "tools": {
+    "cmake.exe": {
+      "sha256": "f316ff1985d74435fd2f2cfac80c4fde7e904051afa7953e5cdbede0831eb421",
+      "version": "cmake version 4.1.1"
+    },
+    "g++.exe": {
+      "sha256": "51911fb398529fa19769da935279c1a8a56f1c3508b2df295624aaa3dae34aa5",
+      "version": "g++.exe (Rev8, Built by MSYS2 project) 15.2.0"
+    },
+    "ninja.exe": {
+      "sha256": "44cc3ec245c0dfb74dcc6f1c79034f746977c374fa5adb9ae0553408c651dfda",
+      "version": "1.13.1"
+    }
+  },
+  "executable": "C:\\dbva\\code\\retopo-1\\engine\\guided-quadriflow\\development\\rebuild\\build-58eaaf17a90b\\quadriflow.exe",
+  "executableSha256": "20e32efa004415ba2d01e9155753b0fe2683203b5076de1a8003edb08f15e3b4",
+  "passed": true
+}
