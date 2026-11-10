@@ -1,0 +1,220 @@
+{
+  "date": "2026-10-28",
+  "scope": "Exact screenshot guardrail diagnosis and recovered native callback corrections; no improved app output or production engine promotion.",
+  "screenshot": {
+    "job": "3029972da0174acd9845b6ec0df6e3ea",
+    "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+    "outputSha256": "685670dd365d067ee21b3c0d753a3b30b8f53a8d3a4a3d1861b54e3f48ff4cfe",
+    "target": 200,
+    "outputQuads": 188,
+    "spacing": 0.0822872437626249
+  },
+  "guardrail": {
+    "pinkEdges": 283,
+    "trueBoundaryEdges": 56,
+    "sharedEdges": 0,
+    "sharedVertices": 0,
+    "boundarySampledMaxOverH": 0.06169268949269209,
+    "rawCreaseP95OverH": 0.3276673029916169,
+    "bandAdjustedCreaseP95OverH": 0.1991692542611803,
+    "witness": {
+      "sourceEdge": [
+        1308,
+        1309
+      ],
+      "sourcePoint": [
+        -0.4193387256636727,
+        -0.5726395985644704,
+        0.18908541434501042
+      ],
+      "outputEdge": [
+        107,
+        121
+      ],
+      "outputPoint": [
+        -0.39034882087247186,
+        -0.5572661616006473,
+        0.1778274471607556
+      ],
+      "distance": 0.034691482657927576,
+      "distanceOverH": 0.4215900432636017,
+      "band": 0.019807709171537735,
+      "measuredAfterBand": 0.014883773486389841,
+      "sourceIncidentFaces": [
+        2284,
+        2290
+      ],
+      "sourceDihedralDegrees": 53.311062981872524,
+      "sourceEdgeEndpoints": [
+        [
+          -0.42927293169541103,
+          -0.5449069849555367,
+          0.18901291487991012
+        ],
+        [
+          -0.4027817156107754,
+          -0.6188606212460266,
+          0.18920624678684428
+        ]
+      ],
+      "outputIncidentFaces": [
+        135,
+        146
+      ],
+      "outputEdgeEndpoints": [
+        [
+          -0.44690877718357197,
+          -0.45253417316146066,
+          0.1752002298662383
+        ],
+        [
+          -0.38794566010191245,
+          -0.5617160908872854,
+          0.17793907428972988
+        ]
+      ],
+      "sourceIsTopologicalBoundary": false,
+      "outputIsTopologicalBoundary": false
+    },
+    "nativeSameWitness": {
+      "sourceEdge": [
+        1308,
+        1309
+      ],
+      "sourcePoint": [
+        -0.4193387256636727,
+        -0.5726395985644704,
+        0.18908541434501042
+      ],
+      "nativeOutputEdge": [
+        297,
+        298
+      ],
+      "nativeOutputPoint": [
+        -0.418507105082845,
+        -0.5723167494413809,
+        0.18905262854069663
+      ],
+      "distanceOverH": 0.010848487548681389
+    },
+    "diagnosis": "Pink marks are interior folded-rim creases. The boundary gate protects a different inner loop; nearest-edge distance and band allowance do not require a connected rim row."
+  },
+  "native": {
+    "engineSha256": "0d45ea6f9331cecb55c12a10dcdb6d4bedb86cf302cd873748704dbaa82b00bc",
+    "hostSha256": "0fa10544438f5b7fe520a2a44b92183370001aacbd218daa96a65b179f45dff7",
+    "outputSha256": "8ad49f146bcd1dbee7e40886d74e515af5c4f4d11c2429eede58cfa79bfd71bd",
+    "target": 200,
+    "faces": 374,
+    "quads": 364,
+    "triangles": 10,
+    "instrumentedOutputByteIdenticalToOrdinaryRun": true,
+    "comparisonScope": "Same input and controls, different output face budgets; local rim improvement is not global acceptance or low-count feasibility proof."
+  },
+  "nativeCorrections": {
+    "geometricPolicyRva": "0x28fe70",
+    "mixedBranchRva": "0x291bc3..0x291c02",
+    "unitEliminationRva": "0x288f50",
+    "constantRowSkipRva": "0x28935b..0x2893b1",
+    "actualPartReplay": {
+      "residuals": 129,
+      "candidateConstraints": 160,
+      "newDependencies": 125,
+      "nestedIntegerVariables": 21,
+      "outerFixes": 71
+    },
+    "candidateRowsNotSatisfiedByNativeFinalSolution": 19,
+    "upstreamBoundary": "Captured field/chart/candidate and initial dependency inputs. Original source to fields and full extraction are not reproduced.",
+    "independentReview": {
+      "passed": true,
+      "captureFileHashesChecked": 563,
+      "formerRulesFailActualPartRegression": true,
+      "scope": "Read-only review of corrected policy and bounded unit elimination; both captured-boundary replay fixtures."
+    }
+  },
+  "verification": {
+    "command": "python -m unittest discover -s tests -p 'test_*.py'",
+    "tests": 183,
+    "failures": 0,
+    "errors": 0,
+    "passed": true,
+    "seconds": 17.082
+  },
+  "sourceHashes": {
+    "engine/targets/zbrush/experiments/python/recovered_integer_geometric_rows.py": "00f1b4e0c75d63b62c6af935f9db7997ffa3f8c296e6b1451ec78819355bd5bc",
+    "engine/targets/zbrush/experiments/python/recovered_torus_integer_geometric_rows.py": "092e5297ab5e01526a0ea77b38c223894b9f73d23fa696391adbb78e80873821",
+    "engine/targets/zbrush/experiments/python/recovered_unit_constraint_elimination.py": "9a41addcff1efe5f4c31da247faad84b6351c9127d3dce14e00eb80e9b4ebe31",
+    "tests/test_native_integer_callback.py": "4c6cd4a05865b309bba018df2db813db27101d2120d9fd52e4af5083dc19fbf3",
+    "tests/fixtures/native_integer/island6-200.json": "b6c8495709d028b56285c5d329b3bb76f49d4cb79e3882ddd13d34e7f717427f",
+    "tests/fixtures/native_integer/ellipsoid-v59.json": "0f2e0f75d7d7319dff6634becf5fe316518aad304438f72ea97ad425a5a2057d"
+  },
+  "evidence": {
+    "geometry": "runs/native-rim-investigation/guardrail/diagnosis.json",
+    "nativeComparison": "runs/native-rim-investigation/guardrail/native-comparison.json",
+    "captures": "runs/native-rim-investigation/native-captures/summary.json",
+    "callback": "runs/native-rim-investigation/guide-registration/island6-200-complete-callback-a2/result.json",
+    "portableFixture": "tests/fixtures/native_integer/README.md",
+    "adapter": "runs/native-rim-investigation/guide-registration/QF_ADAPTER.md"
+  },
+  "evidenceHashes": {
+    "runs/native-rim-investigation/guide-registration/QF_ADAPTER.md": "77b25a807429f2ed48a01e5dc2f6862d22f2709e1e4f660a2a5ddc7a663c7a15",
+    "runs/native-rim-investigation/guide-registration/FINDINGS.md": "5b8ab2e23f5b2b483c9d6c24b101784603c5946fb288418e44b68db4f43f4e28",
+    "runs/native-rim-investigation/guardrail/guardrail-rim-detail.png": "2550d861c393db460b5eef4140ec665aced314c81574c5e1aa403873250e4a9b",
+    "runs/native-rim-investigation/guardrail/native-comparison-detail.png": "be91e1c3f7ce81a3f89bafaa592942cac0669524a6cfcf294b879d0787a81eee"
+  },
+  "packagedEngineHashesUnchanged": {
+    "engine/guided-quadriflow/quadriflow.exe": "e94fd63321109573bf47d8e09704b648cbbf564ccb9321e70d6b71bde392c196",
+    "engine/guided-quadriflow/development/quadriflow.exe": "f173c58cd0df34ea5e8857cbce45a176117d36ce0564a0751bf57c32ff7ffeaa"
+  },
+  "isolatedQuadriFlow": {
+    "promoted": false,
+    "engineSha256": "9343e8a5196e9151af421b95cada226aa3f3a221b8255ca0a163d9784fbc71b8",
+    "changes": [
+      "Preserve faces incident to locked nonzero integer edges during hierarchy contraction.",
+      "Require mutual unique opposite halfedges before assigning quad adjacency.",
+      "Record stage traces; original QuadEnergy restored byte-for-byte."
+    ],
+    "provenStall": "FixValence fan walk; three faces share edge[104,105], nonreciprocal adjacency produces468->652->657->468 cycle.",
+    "regressionControls": "Three standalone adjacency cases pass; all six engine-control OBJ and registration outputs are byte-identical to the prior preservation-only experiment, including its existing close-cylinder100 rejection.",
+    "raw76": {
+      "target": 200,
+      "seconds": 1.313,
+      "faces": 327,
+      "passed": false,
+      "unintendedPathMerges": 231
+    },
+    "twoRimCases": [
+      {
+        "target": 200,
+        "seconds": 1.1880000000237487,
+        "faces": 165,
+        "registrationPassed": false,
+        "merges": 7,
+        "qualityPassed": false,
+        "surfacePassed": false,
+        "contactsPassed": false
+      },
+      {
+        "target": 300,
+        "seconds": 2.0939999999827705,
+        "faces": 208,
+        "registrationPassed": false,
+        "merges": 0,
+        "qualityPassed": false,
+        "surfacePassed": false,
+        "contactsPassed": false
+      }
+    ],
+    "limitations": [
+      "Traces establish individual lock preservation, not the stage at which final path ownership merges arise.",
+      "No accepted mesh; diagnostic geometry remains invalid.",
+      "This is not the coupled native scalar solver or a proof of low-count infeasibility."
+    ],
+    "artifactHashes": {
+      "runs/native-rim-investigation/qf-locks/fan-fix/build-clean.json": "66941a2b50fa57315ce8fbf4b0259f18eff527d4b34516bb523bbc801183f5f9",
+      "runs/native-rim-investigation/qf-locks/fan-fix/isolated-experiment.patch": "bfe7c0e70efa90e8ceb3954cb9e49aec560211dab10610fe3297de4daf21ad2a",
+      "runs/native-rim-investigation/qf-locks/fan-fix/source-final.zip": "159d23af2a7faba482e1efec9000a212822b33cf45dbe219ea3ea5d1d932020a",
+      "runs/native-rim-investigation/qf-locks/fan-fix/quadriflow-final.exe": "9343e8a5196e9151af421b95cada226aa3f3a221b8255ca0a163d9784fbc71b8"
+    },
+    "results": "runs/native-rim-investigation/qf-locks/fan-fix-clean/repro-and-controls.json"
+  }
+}

@@ -1,4 +1,10 @@
-"""Exploratory mode-two unit-pivot elimination; not yet a qualified general solver."""
+"""Bounded native mode2 unit pivots and no-eligible-scalar row skips.
+
+RVA0x288f50, engine SHA256
+0d45ea6f9331cecb55c12a10dcdb6d4bedb86cf302cd873748704dbaa82b00bc.
+Actual target200 and v59 dependency arrays match exactly. General nonunit
+scalar pivots remain unsupported; this is not a general consistency solver.
+"""
 def eliminate_unit(rows,constant):
  original=[]
  for group in [lambda i:i<constant,lambda i:i>constant,lambda i:i==constant]:
@@ -13,7 +19,11 @@ def eliminate_unit(rows,constant):
   if not (row and row[0][0]==col and abs(row[0][1])==1):
    candidate=next((c for c,v in row if c<limit and abs(v)==1),None)
    if candidate is None:
-    if row:raise ValueError('Nonunit/nonzero branch unimplemented')
+    if any(c<limit for c,v in row):raise ValueError('Nonunit scalar pivot branch unimplemented')
+    # Mode2 RVA0x28935b..0x2893b1 skips a row without any eligible
+    # nonzero scalar, including a reserved-constant-only row.
+    # This is native candidate-consistency handling, not a promise
+    # that every original signed candidate equation is retained.
     pivotRow+=1;continue
    for r in rows:
     for term in r:

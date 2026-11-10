@@ -250,3 +250,100 @@ A compact hash-bound summary is retained in
 runs are retained, including the transient initial UI source-load failure and
 the corrected empty-feature adapter rejection; they are not counted as final
 solver evidence.
+
+
+## Exact screenshot rim investigation (2026-10-28)
+
+The pink rim is not currently a hard geometric guard rail. In screenshot job
+`3029972da0174acd9845b6ec0df6e3ea`, none of the 283 pink crease edges or their
+vertices belongs to the true open boundary. That boundary is an inner loop
+underneath the folded lip. Its measured maximum error is 0.062 h and its
+certified bounds pass 0.1 h. The visible outer fold is governed by weaker
+feature and whole-surface checks.
+
+At source edge [1308, 1309], the nearest output edge is 0.422 h away. The
+crease-band allowance reduces that sample's measured error to 0.181 h.
+Across all source feature samples, the raw 95th-percentile distance is
+0.328 h; band subtraction reduces it to 0.199 h, below the 0.25 h limit.
+A sequence of nearby unrelated edges can pass this check without forming a
+connected row along the rim. This explains the accepted jagged outline;
+it is not evidence that the visual result is satisfactory.
+
+Fresh controlled ZBrush captures use the exact source and keep-creases at
+30 degrees. A 200 request returns 374 faces (364 quads and 10 triangles).
+At the same rim witness its edge distance is 0.011 h, and the long left-rim
+branch has an ordered row. This is a local improvement at a substantially
+larger output budget, not a claim of global quality or 200-quad feasibility.
+The fully instrumented 200 output is byte-identical to the ordinary run.
+The 300 capture returns 646 faces; its vertices and winding-preserving face
+multiset match its ordinary control, with different face ordering.
+
+Review of native `0x28fe70` against the actual 200-part capture found a missed
+mixed guide/seed branch: after `cross < 2 * gap`, gaps below 4.5 can create a
+soft separation candidate; the previous helper incorrectly also required
+`cross < gap` for larger gaps. Soft gaps at or above 1.35 retain their original
+target instead of being clamped to one. The shared policy-only helper now
+expresses that rule. Native mode2 elimination (`0x288f50`) also skips a row
+containing only the reserved constant, without consuming a pivot. General
+nonunit scalar pivots remain explicitly unsupported.
+
+The portable regression for this actual part reproduces all 129 geometric
+residuals, 160 candidate constraints, 125 new dependencies, 21 nested integer
+values and 71 outer fixes. An earlier ellipsoid callback remains exact.
+These are tests at an explicit captured upstream field/chart boundary;
+they do not reconstruct the complete source-to-output remesher. Nineteen
+original candidate relations are not satisfied by the native final solution:
+mode2 candidate elimination can discard inconsistent constant-only rows.
+Those optional separation candidates must not be confused with mandatory
+upstream guide equalities. Locking every candidate independently is not the
+native global method.
+
+The three recovered helper changes do not alter the default QuadriFlow route.
+All 183 unit tests pass. The portable inputs, native hashes and reproduction
+instructions are in `tests/fixtures/native_integer/README.md`; compact exact-job
+measurements and provenance are in
+`engine/guided-quadriflow/development/native-rim-verification.json`.
+Full captures and comparison plots are retained under
+`runs/native-rim-investigation/`. No improved application mesh is claimed.
+
+
+The required adapter boundary is also narrower than the whole native remesher:
+export the app's continuous field immediately before `ComputeIndexMap`, then
+construct a cut/fan parameter chart, guide scalar groups, singular seeds and
+seam periods. QuadriFlow's `mO` stores local 3D lattice origins, not globally
+consistent UV coordinates; projecting `(V - O)` is insufficient. The current
+recovered closed-surface wrappers explicitly reject open edge-angle/seed cases,
+some closed or branching guide groups, and the actual candidate sentinel case.
+Those producers need qualified open-part implementations before the tested
+native callback can drive this mesh without captured upstream inputs. The next
+milestone is an app-owned chart and coupled solve whose rim identities survive
+extraction; successful replay alone does not reach that milestone.
+
+
+The isolated QuadriFlow diagnosis also found two mechanical defects. Flip
+hierarchy contraction removed nonzero locked separation edges; protecting their
+incident faces keeps the individual locks intact. Extraction then stalled in
+`FixValence`: three faces shared edge [104, 105], and nonreciprocal adjacency
+made the fan walk cycle. Requiring mutual unique opposite halfedges removes
+that hang while retaining valid-manifold pairings. Three standalone adjacency
+regressions pass. The unrelated polygon memoization hypothesis was discarded;
+the final experiment uses the original `QuadEnergy` file unchanged.
+
+The frozen isolated engine is
+`9343e8a5196e9151af421b95cada226aa3f3a221b8255ca0a163d9784fbc71b8`.
+Two selected, disjoint rim paths finish in 1.19 seconds at target 200 and
+2.09 seconds at 300, but still reject: the first merges path ownership; the
+second has ambiguous origins and broken row edges. Both diagnostic meshes
+also fail geometry checks. The raw 76-path case finishes in 1.31 seconds with
+327 diagnostic faces and 231 unintended path-merge incidences, and rejects.
+These failures are retained, not presented as accepted results.
+
+All six control OBJ files and registration reports are byte-identical to the
+prior preservation-only experiment, including its close-cylinder100 rejection.
+The frozen v3 engine passed that control, so the combined experiment is not
+promoted. Current traces do not locate the precise stage that introduces every
+final ownership conflict. Source archive, patch, compiler/build record and
+executable are in `runs/native-rim-investigation/qf-locks/fan-fix/`; final runs
+are in `fan-fix-clean/repro-and-controls.json`. Both packaged engines remain
+unchanged. The corrected traversal makes the failure inspectable; it does not
+supply the missing global chart and consistent rim-row layout.

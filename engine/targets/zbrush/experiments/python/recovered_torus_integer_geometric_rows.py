@@ -6,26 +6,7 @@ from recovered_cyclic_cut_path_enumeration import enumerate_paths
 from recovered_paired_cut_sides import paired_sides
 F=np.float32
 
-def policy(first_guide,second_guide,delta,cross):
-    d=F(abs(delta));c=F(abs(cross));target=float(delta);weight=F(1);hard=soft=False
-    if first_guide and second_guide:
-        if d<F(1.35):hard=bool(F(d+d)>c)
-        elif d<F(5):soft=bool(c<d)
-    elif not first_guide and not second_guide:
-        weight=F(.01)
-        if float(c)*.2<=float(d):
-            if d<c:weight=F(F(F(F(c/d)-F(.2))*np.array([0x3de66667],dtype=np.uint32).view(np.float32)[0])+F(.01))
-            else:
-                weight=F(100)
-                if d>=F(1):
-                    if d<F(2.5):weight=F(F(100)-F(F(d-F(1))*F(60)))
-                    else:
-                        weight=F(1)
-                        if d<F(5):weight=F(F(10)-F(F(d-F(2.5))*F(3.6)))
-    elif c<F(d+d):
-        soft=bool(d<F(1.35) or (d<F(4.5) and c<d))
-    if hard or (soft and d<F(1.35)):target=1. if delta>=0 else -1.
-    return target,float(weight),hard,soft
+from recovered_integer_geometric_rows import policy
 
 def parent_path(vertex,parent,edges):
     path=[int(vertex)];seen=set(path)
