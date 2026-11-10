@@ -24,7 +24,7 @@ def pack(vertices,faces,source,curves,target,metadata,elapsed):
  faces=[list(map(int,f)) for f in faces];vertices=np.asarray(vertices);stats,_,edges=topology(vertices,faces);vl=links(faces)
  samples=[np.asarray(c)[np.linspace(0,len(c)-1,min(len(c),129),dtype=int)] for c in curves]
  alignment=[p['alignment'] for p in metadata['guidePaths']] if metadata['backend']==SURFACE_QUAD_BACKEND else [guide_alignment(vertices,edges,c) for c in samples];crease=metadata.get('outputCreases') or output_creases(vertices,faces)
- return dict(quality=measure_quad_quality(vertices,faces,target),guidePaths=metadata.get('guidePaths',[]),vertices=vertices.tolist(),faces=faces,creases=crease['edges'],stats=stats,vertexLinks=vl,guideAlignment=alignment,guideSampleMethod='Up to129 evenly indexed surface samples per curve; Euclidean distance to actual output edges and unsigned tangent angles.',target=target,elapsedSeconds=elapsed,backend=metadata['backend'],validationPassed=True,quadPercent=100*stats['quadFraction'],sourceSha256=source,guideCount=len(curves),coordinateFrame='source',limits='Measured surface/topology checks are bounded; they do not certify absence of every3D self intersection or exact native equivalence.')
+ return dict(quality=measure_quad_quality(vertices,faces,target,extra_faces=bool(metadata.get('extraFaces'))),guidePaths=metadata.get('guidePaths',[]),vertices=vertices.tolist(),faces=faces,creases=crease['edges'],stats=stats,vertexLinks=vl,guideAlignment=alignment,guideSampleMethod='Up to129 evenly indexed surface samples per curve; Euclidean distance to actual output edges and unsigned tangent angles.',target=target,elapsedSeconds=elapsed,backend=metadata['backend'],validationPassed=True,quadPercent=100*stats['quadFraction'],sourceSha256=source,guideCount=len(curves),coordinateFrame='source',limits='Measured surface/topology checks are bounded; they do not certify absence of every3D self intersection or exact native equivalence.')
 
 def main():
  protect_service_tree()
@@ -41,10 +41,12 @@ def main():
  try:
   crease_angle=settings.get('creaseAngle',DEFAULT_CREASE_ANGLE);use_crease_angle(crease_angle)
   emit(job,f"Starting generation · target {settings['target']:,} quads · {len(curves)} guides · {len(f):,} source triangles · crease angle {crease_angle:g}°",kind='start',details=dict(partSource=settings.get('partSource'),target=settings['target'],guides=len(curves),creaseAngle=crease_angle))
+  if settings.get('allowExtraFaces') and spec.get('solver')!='open-surface-quads':
+   emit(job,'Add faces where the shape needs them is available for open parts only; this part keeps its count within tolerance of the target.',kind='stage')
   options=dict(target=settings['target'],normalize=False)
   if spec.get('solver')=='open-surface-quads':
    from open_surface import construct as construct_open_surface
-   positions,faces,meta=construct_open_surface(v,f,curves,target=settings['target'],job=job)
+   positions,faces,meta=construct_open_surface(v,f,curves,target=settings['target'],job=job,extra_faces=bool(settings.get('allowExtraFaces',False)))
   elif spec.get('solver')=='surface-quads':
    if args.feature_layout or spec.get('featureLayout',False):
     from feature_quad import construct as construct_feature_quads
@@ -82,6 +84,12 @@ def main():
   for path,angle_limit in zip(mesh['guidePaths'],angle_limits):
    if path['p95Distance']>.20*h:guide_failures.append('guide path distance exceeds 0.20 target edge lengths')
    if path['p95TangentAngleDegrees']>angle_limit:guide_failures.append(f'guide tangent error exceeds {angle_limit:g} degrees')
+  if meta.get('openSurface') and curves:
+   # Independent of the solver's own bookkeeping: each guide needs one continuous edge loop (guide_rows).
+   from guide_rows import measure as measure_guide_rows
+   mesh['guideRows']=measure_guide_rows(positions,faces,[np.asarray(c,float) for c in curves],h)
+   for item in mesh['guideRows']['guides']:
+    if not item['passed']:guide_failures.append(f"guide {item['curve']+1} is not followed by one continuous edge loop ("+', '.join(item['failures'])+')')
   if guide_failures:mesh['quality']['passed']=False;mesh['quality']['failures'].extend(guide_failures)
   write(job/'quality.json',mesh['quality'])
   if not mesh['quality']['passed']:

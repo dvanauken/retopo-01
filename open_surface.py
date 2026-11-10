@@ -23,6 +23,7 @@ from features import output_creases
 from job_progress import emit
 from job_diagnostics import candidate_message, outcome, summarize
 from crease_rows import find_row, measure as measure_crease_rows
+import guide_rows
 
 
 class OpenSurfaceRejected(ValueError):
@@ -140,24 +141,26 @@ def relax(mesh, p, q, fixed, rounds=3, segments=None, spacing=None):
 
 
 ENGINE_SHARP_DEGREES=60.   # QuadriFlow's own sharp-edge dihedral (ComputeSharpEdges), kept for creases outside row bands
-# Search budget for layouts with embedded crease rows; engineering policy, not an acceptance rule.
-# One engine layout takes about a second and most seeds do not put a row on every crease that
-# needs one, so layouts are screened before fitting and the seeds are tried in order, twice:
-# 'rows' fits the layouts whose crease rows already meet the quarter-face row limit unfitted
-# (on island 6 at 200 these were 5 of the first 26 seeds and held the accepted one), then
-# 'rows-wide' fits the remaining ones whose rows are within the half-face row maximum.
-ROW_LAYOUT_SEEDS=32
+# Search budget for layouts with constrained guide and crease edges; engineering policy, not an
+# acceptance rule. One engine layout takes about a second and most seeds do not put a row on every
+# crease and guide that needs one, so layouts are screened before fitting and the seeds are tried
+# in order, twice: 'rows' fits the layouts whose rows already meet the quarter-face row limit
+# unfitted, then 'rows-wide' fits the remaining ones whose rows are within the half-face row
+# maximum. 64 seeds: with the guide of job 483afe83, island 6 at 200 is first accepted at seed 52,
+# and the first pass, which mostly screens, reaches it in about a minute.
+ROW_LAYOUT_SEEDS=64
 ROW_SEARCH_SECONDS=360
 ROW_SETTLE_PASSES=2   # a rows layout whose quad shape or crease rows still fail after this many fits is dropped for the next seed
 ROW_STYLES=('rows','rows-wide')
 ROW_BATCH=8   # rows layouts laid out together; each engine process keeps its four threads
 
 
-def run_engine(command, env, folder, requests, layout_target, timeout):
+def run_engine(command, env, folder, requests, layout_target, timeout, extra_faces=False):
     """Run the layout engine: (timed out, exit code). `command` is updated in place when the count is asked again.
 
     Guides and sizing both move the count, so up to `requests` runs ask for the
     request that would have hit the target. `timeout` is seconds or a callable.
+    With `extra_faces` the size field may go over the request, so only a shortfall is corrected.
     """
     requested=layout_target;returncode=None
     for retry in range(requests):
@@ -169,32 +172,37 @@ def run_engine(command, env, folder, requests, layout_target, timeout):
             return True,None
         if returncode or retry==requests-1:break
         actual=sum(1 for line in (folder/'layout.obj').open() if line.startswith('f '))
-        if actual and abs(actual-layout_target)>.12*layout_target:
+        if actual and (layout_target-actual if extra_faces else abs(actual-layout_target))>.12*layout_target:
             requested=max(1,round(requested*layout_target/actual));command[command.index('-f')+1]=str(requested);write(folder/'command.json',command)
         else:break
     return False,returncode
 
 
-def row_plan(source, triangles, feature_edges, h):
-    """Crease rows for the layout engine and the fit, or None when no crease needs a row.
+def row_plan(source, triangles, feature_edges, h, guided=False):
+    """Constrained crease edges for the layout engine and the fit, or None when nothing needs a row.
 
     crease_rows names one representative crease per band of parallel creases.
     The layout engine's `-sharp` rule only hardens creases of 60 degrees or
     more, so a gentler representative (island 6's 33-54 degree upper rim) got no
     edge row while its sharper band partner did. Here the representatives that
-    must carry rows are handed to the engine as embedded (hard) guide edges,
-    their band partners are left out, and the remaining creases keep the old
-    treatment: hard at 60 degrees or more, soft orientation guides below.
+    must carry rows are preserved constrained edges (`hard`), their band
+    partners are left out, and the remaining creases keep their old strength:
+    preserved at 60 degrees or more, direction only (`soft`) below. Which
+    creases are admitted, and the one-row-per-band rule, are this
+    application's policies (source_features, crease_rows), not native ones.
+
+    A plan is also returned when the part has authored guides (`guided`) and no
+    crease row: the guides alone then go through the same constrained-edge list.
     """
     from crease_rows import representatives, band_edges
     feature_edges=np.asarray(feature_edges,int).reshape(-1,2)
-    if not len(feature_edges):return None
-    rows,_,_=representatives(source,triangles,feature_edges,h)
-    if not rows:return None
+    if not len(feature_edges) and not guided:return None
+    rows,_,_=representatives(source,triangles,feature_edges,h) if len(feature_edges) else ([],None,None)
+    if not rows and not guided:return None
     own,partner=band_edges(source,feature_edges,rows,h)
     mesh=trimesh.Trimesh(source,triangles,process=False)
     dihedral={tuple(e):a for e,a in zip(map(tuple,np.sort(mesh.face_adjacency_edges,1)),np.degrees(mesh.face_adjacency_angles))}
-    sharp=np.array([dihedral.get(tuple(sorted(map(int,e))),0.)>=ENGINE_SHARP_DEGREES for e in feature_edges])
+    sharp=np.array([dihedral.get(tuple(sorted(map(int,e))),0.)>=ENGINE_SHARP_DEGREES for e in feature_edges],bool)
     hard=own|(sharp&~partner);soft=~hard&~partner
     return dict(chains=rows,curves=[source[np.asarray(row['vertices'],int)] for row in rows],closed=[row['closed'] for row in rows],
                 hard=feature_edges[hard],soft=feature_edges[soft],
@@ -217,28 +225,23 @@ def row_paths(plan, p, q, h):
     return paths
 
 
-def write_row_guides(path, source, mesh, plan, guide_rows):
-    """Engine guide file for a rows layout: authored guides, hard crease edges, then soft crease edges.
+def guide_paths(p, q, curves, h, strict):
+    """One output edge path per authored guide, as fitter paths.
 
-    With `-embedded-guides` the engine hardens every source edge, or piece of
-    one after its own subdivision, whose two ends lie on a guide segment to
-    within 1e-8 of the model's half extent (guide-constraints.hpp). Soft
-    creases are therefore written a millionth of the model extent off the
-    surface along their normal: they orient the field over the same support
-    and are never embedded. The offset is a transport encoding for the
-    unmodified engine, two hundred times its coincidence test and far below
-    any geometric tolerance; it is not a fitted value.
+    A guide is followed by one continuous edge loop: the path never turns from
+    one loop onto another (guide_rows). `strict` layouts, whose guides were cut
+    into the source and registered, raise when a guide has no such loop; the
+    older layouts fall back to the nearest connected path, which the guide
+    check then judges.
     """
-    rows=[list(row) for row in guide_rows];first=1+max([int(row[0]) for row in rows],default=-1)
-    lift=1e-6*float(np.ptp(source,axis=0).max())
-    for index,(a,b) in enumerate(np.r_[plan['hard'],plan['soft']].reshape(-1,2)):
-        normal=mesh.vertex_normals[[a,b]].mean(0);length=np.linalg.norm(normal)
-        if length<=1e-12:continue
-        offset=normal/length*lift if index>=len(plan['hard']) else 0.
-        rows.append([first+index,*(source[a]+offset),*(source[b]+offset),*(normal/length)])
-    with Path(path).open('w') as stream:
-        stream.write(str(len(rows))+'\n')
-        for row in rows:stream.write(' '.join(format(float(x),'.17g') for x in row)+'\n')
+    paths=[]
+    for curve in curves:
+        closed=bool(np.linalg.norm(curve[0]-curve[-1])<1e-8)
+        ids=find_row(p,cq._edges(q),curve,True,h) if closed else guide_rows.find_loop(p,q,curve,h)
+        if ids:paths.append(dict(vertices=[int(v) for v in ids],closed=closed))
+        elif strict:raise ValueError('The layout has no continuous edge loop along a guide.')
+        else:paths.append(cq._guide_path(p,cq._edges(q),curve,h)[0])
+    return paths
 
 
 def coarsen(mesh, source, triangles, p, q, curves, target, fine_target, feature_edges):
@@ -264,23 +267,31 @@ def coarsen(mesh, source, triangles, p, q, curves, target, fine_target, feature_
     return relax(mesh,p,q,fixed,rounds=3,segments=marked_segments(source,feature_edges,curves),spacing=h),q,detail
 
 
-def construct(source, triangles, curves, *, target, job):
+def construct(source, triangles, curves, *, target, job, extra_faces=False):
     source=np.asarray(source,float); triangles=np.asarray(triangles,int); curves=[np.asarray(c,float) for c in curves]
     mesh=trimesh.Trimesh(source,triangles,process=False); rings=loops(triangles)
     if not rings or not mesh.is_winding_consistent or np.any(mesh.area_faces<=0):
         raise ValueError('Open-part generation requires a nondegenerate, consistently wound manifold source with boundary loops.')
     if isinstance(target,bool) or not isinstance(target,(int,np.integer)) or not 150<=target<=12000:
         raise ValueError('Target must be an integer from 150 to 12,000.')
-    policy=os.environ.get('RETOPO_FEATURE_LAYOUT','legacy')
-    if policy not in ('legacy','registered','compare','ranked'):
+    # 'default': guides and creases enter the layout as one constrained-edge list (registered_features.constrained).
+    # 'registered', 'compare' and 'ranked' are the older opt-in path-provenance experiment.
+    policy=os.environ.get('RETOPO_FEATURE_LAYOUT','default')
+    if policy=='legacy':policy='default'   # former name of the default route
+    if policy not in ('default','registered','compare','ranked'):
         raise ValueError('Unknown feature layout policy: '+policy)
     requested_policy=policy;registration_skipped=None
     job=Path(job); out=job/'open-surface';out.mkdir()
     h=float(np.sqrt(mesh.area/target)); feature_edges,detection=detect(source,triangles,h,target=target); segments=[]
     if policy in ('registered','compare') and not len(feature_edges) and not curves:
-        policy='legacy';registration_skipped='No admitted crease paths or user guides; using the shipped solver.'
+        policy='default';registration_skipped='No admitted crease paths or user guides; using the shipped solver.'
     vendor=os.environ.get('RETOPO_REGISTERED_ENGINE') if policy in ('registered','compare') else None
     executable,env,engine=runtime(vendor);env['OMP_NUM_THREADS']='4'
+    if extra_faces:
+        # The user's 'Add faces where the shape needs them' option: ZRemesher's own size field (recovered
+        # 0x1efb00 caps, the engine's -size-caps) decides the face size beside the requested base size,
+        # and nothing scales the count back down to the request. Only a shortfall is corrected.
+        emit(job,'Extra faces allowed: the ZRemesher size field may add faces where the shape needs them; the target is the base size, not a ceiling.',kind='stage',details=dict(extraFaces=True))
     emit(job,f"Auto guides: {detection['resolvedEdges']} crease edges in {detection['chains']} chains at {detection['angleDegrees']:g}° or sharper guide the layout; {detection['fragmentEdges']} edges in fragments smaller than one quad are ignored.",kind='stage',details=detection)
     for ci,curve in enumerate(curves):
         if curve.ndim!=2 or curve.shape[1]!=3 or len(curve)<2 or not np.isfinite(curve).all() or np.any(np.linalg.norm(np.diff(curve,axis=0),axis=1)==0):
@@ -297,10 +308,11 @@ def construct(source, triangles, curves, *, target, job):
             for row in rows:stream.write(' '.join(format(float(x),'.17g') for x in row)+'\n')
     files=[Path(__file__),Path(cq.__file__),Path(refine.__code__.co_filename),Path(__file__).with_name('boundary_geometry.py'),Path(__file__).with_name('quad_connectivity.py'),
            Path(__file__).with_name('crease_rows.py'),Path(__file__).with_name('source_features.py')]
-    if policy!='legacy':files.extend(Path(__file__).with_name(name) for name in ('registered_features.py','feature_rows.py','guide_embedding.py','guide_embedding_check.py'))
+    files.extend(Path(__file__).with_name(name) for name in ('registered_features.py','native_guide_cut.py','guide_rows.py'))
+    if policy!='default':files.append(Path(__file__).with_name('feature_rows.py'))
     hashes={str(f):sha(f) for f in files};history=[];started=time.monotonic()
     best=None;passing=[];registered=None;row_context=None
-    if policy!='legacy':
+    if policy!='default':
         from registered_features import prepare as prepare_registered, reference_paths, output_paths
         from feature_rows import prepare as prepare_rows, measure as measure_rows, rank_key
         reference=reference_paths(source,feature_edges,curves)
@@ -314,7 +326,7 @@ def construct(source, triangles, curves, *, target, job):
                 history.append(dict(stage='embedding',error=str(error),passed=False));write(out/'history.json',history)
                 if policy=='registered':raise OpenSurfaceRejected(history)
                 emit(job,'Feature embedding rejected; comparing the remaining layouts',kind='candidate',level='warning')
-    write(out/'settings.json',dict(target=int(target),sourceBoundaryLoops=len(rings),sourceHashes=hashes,features=detection,engine=engine,layoutPolicy=policy,requestedLayoutPolicy=requested_policy,registrationSkipped=registration_skipped,searchSeconds=420 if policy!='legacy' else None))
+    write(out/'settings.json',dict(target=int(target),extraFaces=bool(extra_faces),sourceBoundaryLoops=len(rings),sourceHashes=hashes,features=detection,engine=engine,layoutPolicy=policy,requestedLayoutPolicy=requested_policy,registrationSkipped=registration_skipped,searchSeconds=420 if policy!='default' else None))
     # Size-capped layouts first, then crease-constrained ones at uniform size, then
     # QuadriFlow's own adaptive scale without crease constraints, and last finer layouts
     # coarsened by strip collapse. Engineering plan, not a native stage.
@@ -326,11 +338,35 @@ def construct(source, triangles, curves, *, target, job):
     plan+=[(seed,fine,'constrained') for seed in (2,0,1)] if fine>=1.5*target else []
     # Creases that must carry an edge row (crease_rows) are embedded in the layout first; the
     # older layouts follow and are held to the same row check.
-    rows=row_plan(source,triangles,feature_edges,h) if policy=='legacy' else None
+    rows=row_plan(source,triangles,feature_edges,h,guided=bool(curves)) if policy=='default' else None
+    prepared=None
     if rows:
-        write_row_guides(out/'row-segments.txt',source,mesh,rows,[row for row in segments if row[0]<len(curves)])
+        # Guides are cut into the source by the recovered ZRemesher rules; the cut edges and the admitted
+        # crease edges go to the engine as ONE constrained-edge list (guides first, mode per edge).
+        # Guide edges are registered (native mode 2). Crease edges are preserved edges with the direction
+        # write but without the lattice line (engine mode 3), or direction only (mode 1): see constrained().
+        if 'constrained-edges' not in engine.get('capabilities',[]):
+            raise RuntimeError('The layout engine does not take a constrained-edge list. Restore engine/guided-quadriflow (build constrained-edges-17 or later).')
+        from registered_features import constrained
+        try:prepared=constrained(source,triangles,curves,rows['hard'],rows['soft'],out/'constrained')
+        except ValueError as error:
+            history.append(dict(stage='guide-cut',error=str(error),passed=False));write(out/'history.json',history)
+            raise OpenSurfaceRejected(history)
+        # Engineering, kept from the crease-row work: the listed crease edges also orient the field over a band
+        # 0.75 h wide (exact source coordinates; nothing is hardened by coincidence any more). Native locks
+        # nothing by distance. Without the band no layout of 64 put rows on island 6's creases at 750 beside a guide.
+        band=[(a,b,mesh.vertex_normals[[a,b]].mean(0)) for a,b in np.r_[rows['hard'],rows['soft']].reshape(-1,2)]
+        band=[(a,b,n/np.linalg.norm(n)) for a,b,n in band if np.linalg.norm(n)>1e-12]
+        if band:
+            with (out/'crease-band.txt').open('w') as stream:
+                stream.write(str(len(band))+chr(10))
+                for index,(a,b,n) in enumerate(band):stream.write(' '.join(format(float(x),'.17g') for x in [index,*source[a],*source[b],*n])+chr(10))
         write(out/'crease-rows.json',dict(rows['detail'],chains=[dict(sourceVertices=row['vertices'],closed=row['closed']) for row in rows['chains']]))
-        emit(job,f"Crease rows: {len(rows['chains'])} crease chains of two faces or more must each carry one connected edge row; {rows['detail']['bandPartnerEdges']} parallel crease edges within half a face share those rows.",kind='stage',details=rows['detail'])
+        if curves:
+            cut=prepared['summary']
+            emit(job,f"Guides: {len(curves)} cut into the source as {cut['guideEdges']} edges ({cut['cutVertices']-cut['sourceVertices']} new vertices, {len(cut['relocatedSourceVertices'])} source vertices moved onto a guide); each must carry one continuous edge loop.",kind='stage',details={k:cut[k] for k in ('guideEdges','listedEdges','cutVertices','cutTriangles','guideSampleMaxDistance')})
+        if rows['chains']:
+            emit(job,f"Crease rows: {len(rows['chains'])} crease chains of two faces or more must each carry one connected edge row; {rows['detail']['bandPartnerEdges']} parallel crease edges within half a face share those rows.",kind='stage',details=rows['detail'])
         plan=[(seed,int(target),style) for style in ROW_STYLES for seed in range(ROW_LAYOUT_SEEDS)]+plan
     row_seeds_fitted=set();row_layouts={}
     if policy in ('registered','compare'):
@@ -340,7 +376,7 @@ def construct(source, triangles, curves, *, target, job):
         # The same 420-second admission budget as guided_layout leaves room for
         # final worker validation inside the server's existing ten-minute limit.
         # It now also bounds the default policy when crease rows lengthen the plan.
-        if (policy!='legacy' or rows) and time.monotonic()-started>=420:break
+        if (policy!='default' or rows) and time.monotonic()-started>=420:break
         if style in ROW_STYLES and (time.monotonic()-started>=ROW_SEARCH_SECONDS or (style=='rows-wide' and seed in row_seeds_fitted)):continue
         hard=style.startswith('registered')
         folder=out/f'layout-{attempt}';folder.mkdir()
@@ -350,13 +386,15 @@ def construct(source, triangles, curves, *, target, job):
             command+=['-registered-features',str(registered['features']),'-registered-output',str(folder/'registered-paths.json')]
             if style=='registered-caps':command+=['-size-caps-exact']
         elif style in ROW_STYLES:
-            command+=['-guides',str(out/'row-segments.txt'),'-guide-width','.75','-orientation-weight','1','-position-weight','0','-embedded-guides']
+            command[command.index('-i')+1]=str(prepared['source']);command+=['-constrained-edges',str(prepared['edges'])]
+            if extra_faces:command+=['-size-caps']
+            if (out/'crease-band.txt').exists():command+=['-guides',str(out/'crease-band.txt'),'-guide-width','.75','-orientation-weight','1','-position-weight','0']
         else:
-            command+=['-sharp'] if style=='constrained' else ['-sharp','-size-caps-exact'] if style=='caps' else ['-adaptive']
+            command+=['-sharp'] if style=='constrained' else ['-sharp','-size-caps' if extra_faces else '-size-caps-exact'] if style=='caps' else ['-adaptive']
             if segments if style!='adaptive' else curves:command+=['-guides',str(guides),'-guide-width','.75','-orientation-weight','1','-position-weight','0']
         coarse=layout_target!=target
         write(folder/'command.json',command)
-        cq._progress(job,f'Building open-part layout {attempt+1}'+(f' at {layout_target:,} quads to coarsen to {target:,}' if coarse else ' with registered feature rows' if hard else ' with embedded crease rows' if style in ROW_STYLES else ' with curvature size caps' if style=='caps' else ' with curvature-adaptive sizing' if style=='adaptive' else '')+f'; preserving {len(rings)} boundary loops')
+        cq._progress(job,f'Building open-part layout {attempt+1}'+(f' at {layout_target:,} quads to coarsen to {target:,}' if coarse else ' with registered feature rows' if hard else ' with registered guide and crease edges' if style in ROW_STYLES else ' with curvature size caps' if style=='caps' else ' with curvature-adaptive sizing' if style=='adaptive' else '')+f'; preserving {len(rings)} boundary loops')
         requests=3 if style in ('caps','registered-caps')+ROW_STYLES else 2
         if style in ROW_STYLES:
             # Rows layouts differ only in their seed, so a batch of seeds is laid out together
@@ -367,14 +405,14 @@ def construct(source, triangles, curves, *, target, job):
                     place=out/'row-layouts'/f'seed-{s}';place.mkdir(parents=True)
                     order=[str(place/'layout.obj') if x==str(folder/'layout.obj') else str(s) if i and command[i-1]=='-seed' else x for i,x in enumerate(command)]
                     write(place/'command.json',order)
-                    return s,(place,)+run_engine(order,env,place,requests,layout_target,150)
+                    return s,(place,)+run_engine(order,env,place,requests,layout_target,150,extra_faces)
                 with ThreadPoolExecutor(len(batch)) as pool:row_layouts.update(pool.map(lay_out,batch))
             layout_folder,timed_out,returncode=row_layouts[seed]
             write(folder/'command.json',json.loads((layout_folder/'command.json').read_text()))
         else:
             layout_folder=folder
             timed_out,returncode=run_engine(command,env,folder,requests,layout_target,
-                                            (lambda:150) if policy=='legacy' else (lambda:min(150,max(.001,420-(time.monotonic()-started)))))
+                                            (lambda:150) if policy=='default' else (lambda:min(150,max(.001,420-(time.monotonic()-started)))),extra_faces)
         if timed_out or returncode:
             row=dict(attempt=attempt,style=style,error='Layout process timed out' if timed_out else f'Layout process failed (exit {returncode})',passed=False)
             if (folder/'registered-paths.json').exists():
@@ -417,7 +455,7 @@ def construct(source, triangles, curves, *, target, job):
             fixed=p[boundary].copy();contacts=set();witnesses=[]
             fit_rows=rows is not None and not hard
             for iteration in range(5):
-                paths=registered_paths[:len(curves)] if hard else [cq._guide_path(p,cq._edges(q),curve,h)[0] for curve in curves]
+                paths=registered_paths[:len(curves)] if hard else guide_paths(p,q,curves,h,style in ROW_STYLES)
                 fit_curves=[np.asarray(ref['points'],float) for ref in reference] if hard else curves
                 fit_paths=registered_paths if hard else paths
                 if iteration:
@@ -442,8 +480,8 @@ def construct(source, triangles, curves, *, target, job):
                     if iteration==1 or RELAX_EVERY_PASS:
                         still=np.zeros(len(p),bool);still[boundary]=True
                         p=relax(mesh,p,q,still,rounds=3,segments=marked,spacing=h);fixed=p[boundary].copy()
-                        paths=registered_paths[:len(curves)] if hard else [cq._guide_path(p,cq._edges(q),curve,h)[0] for curve in curves]
-                quality=cq.quad_quality(p,q,target);fit=cq._guide_fit(p,paths,curves,h)
+                        paths=registered_paths[:len(curves)] if hard else guide_paths(p,q,curves,h,style in ROW_STYLES)
+                quality=cq.quad_quality(p,q,target,extra_faces=extra_faces);fit=cq._guide_fit(p,paths,curves,h)
                 row=dict(attempt=attempt,style=style,iteration=iteration,quality=quality,guideFit=fit,passed=False);history.append(row)
                 obj(folder/f'candidate-{iteration}.obj',p,q)
                 if fit_rows and iteration==0:
@@ -454,11 +492,15 @@ def construct(source, triangles, curves, *, target, job):
                     screen=measure_crease_rows(source,triangles,feature_edges,p,q,h)
                     reach=screen['limits']['rowP95' if style=='rows' else 'rowMax'];near='a quarter' if style=='rows' else 'half a'
                     off=sum(not chain['vertices'] or chain['values']['rowP95']>reach for chain in screen['chains'])
+                    # The same screen for authored guides: a continuous loop already within reach of each one.
+                    stray=sum(not guide['vertices'] or guide['values']['turns']>0 or guide['values']['rowP95']>reach
+                              for guide in guide_rows.measure(p,q,curves,h)['guides']) if curves else 0
                     miscount=style in ROW_STYLES and any('face count' in reason for reason in quality['failures'])
-                    if off or miscount:
+                    if off or stray or miscount:
                         row['error']=(f"Layout not fitted: {off} of {screen['required']} crease rows have no connected edge path within {near} face." if off
+                                      else f"Layout not fitted: {stray} of {len(curves)} guides have no continuous edge loop within {near} face." if stray
                                       else f"Layout not fitted: {len(q):,} faces is outside the count tolerance.")
-                        row['rowScreen']=dict(required=screen['required'],off=int(off),faces=int(len(q)))
+                        row['rowScreen']=dict(required=screen['required'],off=int(off),guidesOff=int(stray),faces=int(len(q)))
                         emit(job,candidate_message(row),level='warning',kind='candidate',details=outcome(row));write(out/'history.json',history)
                         break
                     if style in ROW_STYLES:row_seeds_fitted.add(seed)
@@ -467,7 +509,11 @@ def construct(source, triangles, curves, *, target, job):
                     feature=measure_features(source,triangles,p,q,target)
                     contact=cq.surface_intersections(p,q,both_quad_diagonals=True)
                     surface=cq.validate_surface(source,triangles,p,q,target,accelerated=True,allow_boundary=True)
-                    row.update(feature=feature,contacts=contact,surface=surface,guidesPassed=bool(cq.guides_pass(fit,h)))
+                    # A guide passes when it is followed by one continuous edge loop within the row limits
+                    # (guide_rows) and its path meets the older connected-path limits as well.
+                    loops_report=guide_rows.measure(p,q,curves,h) if curves else None
+                    row.update(feature=feature,contacts=contact,surface=surface,guidesPassed=bool(cq.guides_pass(fit,h) and (loops_report is None or loops_report['passed'])))
+                    if loops_report is not None:row['guideRows']=loops_report
                     row['passed']=bool(feature['passed'] and contact['passed'] and surface['passed'] and row['guidesPassed'])
                     flow=measure_rows(row_context,p,q,paths=registered_paths) if row['passed'] and row_context is not None else None
                     if flow is not None:
@@ -475,14 +521,16 @@ def construct(source, triangles, curves, *, target, job):
                         if hard:row['passed']=bool(row['passed'] and flow['passed'])
                     if row['passed']:
                         emit(job,candidate_message(row),kind='candidate',details=outcome(row))
-                        metadata=dict(backend=cq.BACKEND,target=int(target),guideMode=2,closedValidation=surface,guidePaths=fit,
+                        metadata=dict(backend=cq.BACKEND,target=int(target),extraFaces=bool(extra_faces),guideMode=2,closedValidation=surface,guidePaths=fit,
                                       intersectionValidation=contact,featureValidation=feature,outputCreases=output_creases(p,q.tolist()),
                                       boundaryValidation=surface['boundaryValidation'],sourceHashes=hashes,layoutEngine=engine,
                                       openSurface=True,elapsedSeconds=time.monotonic()-started,
                                       limitations=['Original boundary topology is preserved; no caps are added.','Boundary and whole-surface deviations are bounded relative to requested spacing.'])
                         if registration_skipped:metadata.update(registeredFeatures=False,registrationSkipped=registration_skipped)
                         if rows:metadata.update(layoutStyle=style,creaseRows=dict(rows['detail'],layoutSeed=int(seed),layoutAttempt=int(attempt)))
-                        if policy=='legacy':
+                        if loops_report is not None:metadata.update(guideRows=loops_report)
+                        if prepared is not None:metadata.update(constrainedEdges=prepared['summary'])
+                        if policy=='default':
                             write(out/'history.json',history);write(job/'surface-solver.json',metadata)
                             return p,q.tolist(),metadata
                         key=tuple(rank_key(flow,target=target,face_count=len(q)))

@@ -48,7 +48,8 @@ def main():
                     page.on('requestfailed',lambda r:network.append(dict(url=r.url,failure=r.failure)))
                     page.on('response',lambda r:network.append(dict(url=r.url,status=r.status)) if r.status>=400 else None)
                     page.on('console',lambda m:console.append(dict(type=m.type,text=m.text)) if m.type in ('error','warning') else None)
-                    row=dict(case=name,part=part_id,target=target,guided=guided,passed=False);job=None;finished=False;started=time.monotonic()
+                    row=dict(case=name,part=part_id,target=target,guided=bool(guided),passed=False);job=None;finished=False;started=time.monotonic()
+                    if isinstance(guided,Path):packet=read(guided);row['guideSha256']=sha(guided)   # a case with its own guide file
                     try:
                         page.goto(url,wait_until='networkidle');page.locator('#meshSelect').select_option('toilet-skp')
                         page.wait_for_function('retopoDemo.getPartsState()?.visibleParts.length===11')

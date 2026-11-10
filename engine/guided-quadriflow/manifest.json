@@ -1,9 +1,9 @@
 {
   "upstream": "https://github.com/hjwdzh/QuadriFlow",
   "revision": "810b7a0967c35b0dc85b4464e3835e26a756c967",
-  "build": "size-caps-16",
-  "executableSha256": "e94fd63321109573bf47d8e09704b648cbbf564ccb9321e70d6b71bde392c196",
-  "sourceArchiveSha256": "f5c5af43317df26319abb55239deb7cb2d3ed079c0011d2791bc865e4efb89c5",
+  "build": "constrained-edges-18",
+  "executableSha256": "c8aa18231c3565fea8ed5fd341c0b9bd7dea7b4e90eb3df0e1b5a290fefc05de",
+  "sourceArchiveSha256": "ef8a5e0bc5083a36541f3f9bf08d1818800b7ea59fd9cab03a475b38a9f1e60e",
   "runtimeDirectory": "C:\\msys64\\mingw64\\bin",
   "runtimeImports": {
     "libgcc_s_seh-1.dll": {
@@ -19,5 +19,11 @@
       "sha256": "428d22a8a4d25e39edad36851122701b3460c2bcf628884cdd2664530d2dd634"
     }
   },
-  "scope": "Independent modified implementation, not native ZBrush recovery. External MinGW runtime is required; DLLs are not redistributed."
+  "scope": "Independent modified implementation, not native ZBrush recovery. External MinGW runtime is required; DLLs are not redistributed.",
+  "capabilities": [
+    "constrained-edges"
+  ],
+  "baseBuild": "size-caps-16",
+  "baseExecutableSha256": "e94fd63321109573bf47d8e09704b648cbbf564ccb9321e70d6b71bde392c196",
+  "baseSourceArchiveSha256": "f5c5af43317df26319abb55239deb7cb2d3ed079c0011d2791bc865e4efb89c5"
 }

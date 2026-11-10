@@ -1,15 +1,23 @@
-"""Prepare exact feature-edge identities for the registered QuadriFlow experiment.
+"""Constrained source edges for the layout engine: guide cuts and admitted creases in one list.
 
-Native evidence: embedded edges, shared scalar equalities, mode-2 integer
-registration and extraction ownership are separate stages. This module translates
-that contract into the independent fork; embedding arithmetic and policy are not
-claimed byte-exact. Geometry and all acceptance tolerances stay unchanged.
+ZRemesher at Curves Strength 100 (curve mode 2) cuts each guide into the source
+(native_guide_cut), collects the cut edges and the kept feature edges into one
+constrained-edge vector with a mode per edge (0x2889c0/0x28e230), writes each
+edge's direction to the field and registers mode-2 edges in the integer solve
+(0x2fc0c0, 0x28b920). `constrained` prepares exactly that input for the
+application's layout engine: the cut source and one ordered list, guides
+first, then creases. The engine side is the `-constrained-edges` flag of the
+guided QuadriFlow fork; it is an independent implementation of the native
+contract, not native arithmetic.
+
+`prepare`, `reference_paths` and `output_paths` serve the older opt-in
+experiment (RETOPO_FEATURE_LAYOUT=registered, the path-provenance engine). It
+now cuts guides with the same recovered rules.
 """
 from pathlib import Path
 import json
 import numpy as np
-from guide_embedding import embed
-from guide_embedding_check import verify
+from native_guide_cut import cut
 from feature_rows import graph_paths
 from guided_layout import obj, write
 
@@ -48,11 +56,9 @@ def prepare(source, triangles, feature_edges, curves, folder):
     crease_paths=graph_paths(feature_edges)
     requested=curves+[source[np.asarray(path,int)] for path in crease_paths]
     if curves:
-        points,faces,embedding=embed(source,triangles,curves,source_paths=crease_paths)
-        checked=verify(source,triangles,points,faces,embedding,requested)
-        write(folder/'embedding.json',embedding);write(folder/'embedding-check.json',checked)
-        if not checked['passed']:
-            raise ValueError('Registered feature embedding failed coverage or ordered graph checks')
+        points,faces,embedding=cut(source,triangles,curves,source_paths=crease_paths)
+        write(folder/'embedding.json',embedding)
+        write(folder/'embedding-check.json',dict(passed=True,method=embedding['method']+' Topology, winding and one simple chain per guide are checked by the cut itself.'))
         edge_sets=embedding['guideEdges']
     else:
         points,faces=source.copy(),triangles.copy()
@@ -83,3 +89,61 @@ def prepare(source, triangles, feature_edges, curves, folder):
           sourceVertices=len(source),embeddedVertices=len(points),sourceTriangles=len(triangles),embeddedTriangles=len(faces),
           policy='Exact admitted source-edge graph; user curves embedded; no one-output-vertex-per-input-sample requirement.'))
     return dict(source=folder/'source.obj',features=folder/'features.txt',paths=paths,referencePaths=descriptors)
+
+
+# Modes of the engine's -constrained-edges list (guide-constraints.hpp).
+GUIDE_MODE=2              # native mode 2: direction, lattice line (integer registration), preserved edge
+CREASE_ROW_MODE=3         # engine mode: direction and preserved edge, no lattice line
+CREASE_DIRECTION_MODE=1   # native mode 1: direction only
+
+
+def constrained(source, triangles, curves, hard, soft, folder):
+    """Cut source and ONE constrained-edge list for the layout engine.
+
+    Guides are always native mode 2 here: Curves Strength 100 is the only
+    strength this application implements. `hard` and `soft` are admitted
+    crease edges as source vertex pairs. Hard ones are preserved edges with
+    the direction write (engine mode 3); soft ones only direct the field
+    (native mode 1). List order is the native write order: guide edges first,
+    then the feature edges, so a crease has the last word where the two meet
+    (0x276080). Returns the file paths, the cut mesh, the guide chains as
+    cut-mesh vertex ids and the cut report.
+
+    Engineering: native registers its kept features as mode 2 as well. Here
+    crease rows are not given the lattice line, because this application
+    admits creases closer together than native's integer solve would merge:
+    with mode 2 on creases, island 6's front crease, half a face from the rim
+    row at a request of 750, got no row in any of 64 layouts.
+    """
+    source=np.asarray(source,float);triangles=np.asarray(triangles,int)
+    curves=[np.asarray(c,float) for c in curves];folder=Path(folder)
+    folder.mkdir(parents=True,exist_ok=True)
+    creases=[(int(a),int(b),CREASE_ROW_MODE) for a,b in np.asarray(hard,int).reshape(-1,2)]+[(int(a),int(b),CREASE_DIRECTION_MODE) for a,b in np.asarray(soft,int).reshape(-1,2)]
+    rows=[];chains=[]
+    if curves:
+        # Every crease edge is its own identity, so each keeps its mode where a guide cuts it in two.
+        points,faces,report=cut(source,triangles,curves,source_paths=[[a,b] for a,b,_ in creases])
+        for index in range(len(curves)):
+            chain=[int(v) for v in report['chains'][str(index)]];chains.append(chain)
+            rows.extend((a,b,GUIDE_MODE,index) for a,b in zip(chain[:-1],chain[1:]))
+        for index,(_,_,mode) in enumerate(creases,len(curves)):
+            rows.extend((int(a),int(b),mode,index) for a,b in report['guideEdges'][str(index)])
+    else:
+        points,faces,report=source.copy(),triangles.copy(),None
+        rows=[(a,b,mode,index) for index,(a,b,mode) in enumerate(creases)]
+    if not rows:raise ValueError('No constrained edges: the part has neither guides nor admitted creases.')
+    obj(folder/'source.obj',points,faces)
+    with (folder/'constrained-edges.txt').open('w',encoding='utf-8') as stream:
+        stream.write(str(len(rows))+'\n')
+        for a,b,mode,_ in rows:stream.write(f'{a} {b} {mode}\n')
+    summary=dict(guides=len(curves),guideEdges=sum(len(c)-1 for c in chains),registeredCreaseEdges=sum(1 for *_,mode,i in rows if mode!=1 and i>=len(curves)),
+                 directedCreaseEdges=sum(1 for *_,mode,i in rows if mode==1),listedEdges=len(rows),
+                 sourceVertices=len(source),cutVertices=len(points),sourceTriangles=len(triangles),cutTriangles=len(faces),
+                 order='Guide cut edges first, then admitted crease edges; a later edge overwrites an earlier direction at a shared vertex.',
+                 modes='2 = direction, lattice line and preserved edge: native mode 2 (guides at strength 100); 3 = direction and preserved edge, no lattice line: engine mode (row and sharp creases); 1 = direction only: native mode 1 (gentle short creases).')
+    if report is not None:
+        summary.update(relocatedSourceVertices=report['relocatedVertices'],spans=report['spans'],attachments=report['attachments'],
+                       guideSampleMaxDistance=report['guideSampleMaxDistance'],method=report['method'],constants=report['constants'])
+        write(folder/'guide-cut.json',report)
+    write(folder/'constrained-edges.json',summary)
+    return dict(source=folder/'source.obj',edges=folder/'constrained-edges.txt',points=points,faces=faces,chains=chains,summary=summary)

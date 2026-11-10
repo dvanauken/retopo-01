@@ -27,7 +27,9 @@ def outcome(row):
         elif key == 'contacts':
             count = sum(len(value.get(name, [])) for name in ('nonAdjacentIntersectingFacePairs', 'adjacentIntersectingFacePairs'))
             reasons = [f'{count} intersecting face pairs']
-        else: reasons = ['connected guide path exceeds its distance or angle limit']
+        else:
+            loops = [g for g in row.get('guideRows', {}).get('guides', []) if not g['passed']]
+            reasons = [f"guide {g['curve'] + 1} has no continuous edge loop ({', '.join(g['failures'])})" for g in loops] or ['connected guide path exceeds its distance or angle limit']
         failures.append(LABELS[key] + (': ' + ', '.join(reasons) if reasons else ' failed'))
     return dict(checked=checked, failures=failures, measurements=measurements)
 

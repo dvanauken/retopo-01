@@ -1,0 +1,537 @@
+{
+  "date": "2026-11-10",
+  "scope": "Open parts: authored guides are cut into the source by the recovered ZRemesher rules, listed with the admitted crease edges in one constrained-edge list, registered by the layout engine, and checked for one continuous edge loop. Test case: island 6 (skp-6), request 200, keep creases 30 degrees, the guide of job 483afe83c71d40d2858066813a3f553a at Curves Strength 100. The cut is a double-precision port of the recovered rules; the engine is an independent implementation; acceptance limits are the application's own.",
+  "spacing": 0.0822872437626249,
+  "guide": {
+    "file": "tests/fixtures/island6-guide-483afe83.json",
+    "sha256": "96a7338c519b31c8d041193afb98dfd019ca741ed9e2a8dc6176b6a51ce05aa4"
+  },
+  "native": {
+    "run": "runs/native-rim-investigation/native-captures/guide/island6-guide-keep-creases-0.2k-guide100-b1",
+    "outputSha256": "0c15860a5bcb98fed82ac9d8c55c3278400ff0aa308d8277976cd2f819f9a7b1",
+    "remeshSeconds": 1.1300039291381836,
+    "curveTransferCode": 0,
+    "effectiveControls": {
+      "Tool:Geometry:ZRemesher:CurvesStrength": 100.0,
+      "Tool:Geometry:ZRemesher:Curves Strength": 100.0,
+      "Tool:Geometry:ZRemesher:AdaptiveSize": 50.0,
+      "Tool:Geometry:ZRemesher:Adaptive Size": 50.0,
+      "Tool:Geometry:ZRemesher:Adapt": 1.0,
+      "Tool:Geometry:ZRemesher:Retry": 0.0,
+      "Tool:Geometry:ZRemesher:KeepCreases": 1.0,
+      "Tool:Geometry:ZRemesher:Keep Creases": 1.0,
+      "Tool:Geometry:ZRemesher:DetectEdges": 0.0,
+      "Tool:Geometry:ZRemesher:KeepGroups": 0.0,
+      "Tool:Geometry:ZRemesher:FreezeGroups": 0.0,
+      "Tool:Geometry:ZRemesher:FreezeBorder": 0.0,
+      "Tool:Geometry:ZRemesher:Target Polygons Count": 0.20000000298023224
+    },
+    "counts": [
+      [
+        514.0
+      ],
+      [
+        532.0
+      ]
+    ],
+    "numbers": {
+      "faces": 532,
+      "quads": 455,
+      "triangles": 77,
+      "guides": [
+        {
+          "passed": true,
+          "failures": [],
+          "pathVertices": 14,
+          "turns": 0,
+          "p95OverH": 0.14091772670017624,
+          "maxOverH": 0.19197286473603575,
+          "endMaxOverH": 0.5369545436267855,
+          "tangentP95Degrees": 14.529123974649757
+        }
+      ],
+      "rimRows": {
+        "required": 3,
+        "realized": 3,
+        "passed": true,
+        "chains": [
+          {
+            "lengthFaces": 34.3127728906406,
+            "passed": true,
+            "failures": [],
+            "p95OverH": 0.14146415412498947,
+            "maxOverH": 0.21429773124508883,
+            "endMaxOverH": 0.6017727765331427,
+            "tangentP95Degrees": 9.935286124153436
+          },
+          {
+            "lengthFaces": 6.76777028823345,
+            "passed": true,
+            "failures": [],
+            "p95OverH": 5.8971233095688295e-05,
+            "maxOverH": 0.00040440390330119985,
+            "endMaxOverH": 0.040017493938019635,
+            "tangentP95Degrees": 0.05067403147398565
+          },
+          {
+            "lengthFaces": 5.81726491344849,
+            "passed": true,
+            "failures": [],
+            "p95OverH": 0.00228117943102635,
+            "maxOverH": 0.0027281042076958326,
+            "endMaxOverH": 0.07618766211996744,
+            "tangentP95Degrees": 0.43627023751126026
+          }
+        ]
+      },
+      "rimWitness": {
+        "pointToNearestEdgeOverH": 0.001402841625740176,
+        "edgeMaxToNearestEdgeOverH": 0.015913293156420108
+      },
+      "oldConnectedPathCheck": [
+        {
+          "p95OverH": 0.16625255931822963,
+          "tangentP95Degrees": 12.766725072736673,
+          "passed": true,
+          "turns": 1
+        }
+      ]
+    }
+  },
+  "before": {
+    "job": "483afe83c71d40d2858066813a3f553a",
+    "outputSha256": "e18428ba9a5ded5794957731e44601eaee72f60db0ccb55b58d37996b1e89141",
+    "seconds": 140.8,
+    "numbers": {
+      "faces": 209,
+      "quads": 209,
+      "triangles": 0,
+      "guides": [
+        {
+          "passed": false,
+          "failures": [
+            "turns"
+          ],
+          "pathVertices": 15,
+          "turns": 8,
+          "p95OverH": 0.08085302276804035,
+          "maxOverH": 0.12405607482089809,
+          "endMaxOverH": 0.0831695737339686,
+          "tangentP95Degrees": 26.73127535090782
+        }
+      ],
+      "rimRows": {
+        "required": 3,
+        "realized": 3,
+        "passed": true,
+        "chains": [
+          {
+            "lengthFaces": 34.3127728906406,
+            "passed": true,
+            "failures": [],
+            "p95OverH": 0.04677806568183338,
+            "maxOverH": 0.07625323567343331,
+            "endMaxOverH": 0.5777378521319402,
+            "tangentP95Degrees": 10.43773594681369
+          },
+          {
+            "lengthFaces": 6.76777028823345,
+            "passed": true,
+            "failures": [],
+            "p95OverH": 0.030452839487227955,
+            "maxOverH": 0.04927447409268574,
+            "endMaxOverH": 0.07863929789112253,
+            "tangentP95Degrees": 4.9245555671123995
+          },
+          {
+            "lengthFaces": 5.81726491344849,
+            "passed": true,
+            "failures": [],
+            "p95OverH": 0.02089385434842084,
+            "maxOverH": 0.022535817899593254,
+            "endMaxOverH": 0.2081584847160818,
+            "tangentP95Degrees": 6.5982775920973715
+          }
+        ]
+      },
+      "rimWitness": {
+        "pointToNearestEdgeOverH": 0.005766659615813639,
+        "edgeMaxToNearestEdgeOverH": 0.015117287240726246
+      },
+      "oldConnectedPathCheck": [
+        {
+          "p95OverH": 0.07641837427600374,
+          "tangentP95Degrees": 26.299194185569448,
+          "passed": true,
+          "turns": 8
+        }
+      ]
+    }
+  },
+  "after": {
+    "job": "be18ae6f5795434e9ea92b2f38614854",
+    "outputSha256": "48c6cea38a1b98ad50b262a4799fd4cd9c0e26c5b21943f3d87ddb8d638b3d4c",
+    "uiSeconds": 45.1,
+    "numbers": {
+      "faces": 204,
+      "quads": 204,
+      "triangles": 0,
+      "guides": [
+        {
+          "passed": true,
+          "failures": [],
+          "pathVertices": 11,
+          "turns": 0,
+          "p95OverH": 0.04349448497062873,
+          "maxOverH": 0.06355992859940866,
+          "endMaxOverH": 0.13360944466115307,
+          "tangentP95Degrees": 12.713514335304549
+        }
+      ],
+      "rimRows": {
+        "required": 3,
+        "realized": 3,
+        "passed": true,
+        "chains": [
+          {
+            "lengthFaces": 34.3127728906406,
+            "passed": true,
+            "failures": [],
+            "p95OverH": 0.024428754112428536,
+            "maxOverH": 0.06594110855963911,
+            "endMaxOverH": 0.578554865085436,
+            "tangentP95Degrees": 7.688283266867452
+          },
+          {
+            "lengthFaces": 6.76777028823345,
+            "passed": true,
+            "failures": [],
+            "p95OverH": 0.049250317808761324,
+            "maxOverH": 0.06140960478953819,
+            "endMaxOverH": 0.12484381320083085,
+            "tangentP95Degrees": 2.8459231341822875
+          },
+          {
+            "lengthFaces": 5.81726491344849,
+            "passed": true,
+            "failures": [],
+            "p95OverH": 0.015114950912481136,
+            "maxOverH": 0.0184828095798435,
+            "endMaxOverH": 0.19044770666992458,
+            "tangentP95Degrees": 4.140967671363818
+          }
+        ]
+      },
+      "rimWitness": {
+        "pointToNearestEdgeOverH": 0.00763401212523894,
+        "edgeMaxToNearestEdgeOverH": 0.010162203219005425
+      },
+      "oldConnectedPathCheck": [
+        {
+          "p95OverH": 0.0417714151031511,
+          "tangentP95Degrees": 11.630805589095864,
+          "passed": true,
+          "turns": 0
+        }
+      ]
+    },
+    "quality": {
+      "quadOnly": true,
+      "faces": 204,
+      "minimumAngleDegrees": 35.58017845847289,
+      "angleP05Degrees": 57.94223766806573,
+      "maximumAngleDegrees": 146.64559068128705,
+      "edgeRatioP95": 3.062021029108527,
+      "edgeRatioMax": 4.598304296562506,
+      "scaledJacobianMin": 0.5477263571926178,
+      "scaledJacobianP05": 0.697512203101514,
+      "edgeLengthCV": 0.23710866790218307,
+      "adjacentAreaRatioP95": 2.473651589585302,
+      "valence4Fraction": 0.7668161434977578,
+      "irregularVertices": 52,
+      "targetRelativeError": 0.02,
+      "passed": true,
+      "failures": [],
+      "limits": {
+        "minimumAngleDegrees": 30.0,
+        "edgeRatioP95": 3.5,
+        "edgeRatioMax": 6.0,
+        "scaledJacobianMin": 0.45,
+        "adjacentAreaRatioP95": 4.0,
+        "targetRelativeError": 0.15
+      },
+      "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+    },
+    "constrainedEdges": {
+      "guides": 1,
+      "guideEdges": 22,
+      "registeredCreaseEdges": 110,
+      "directedCreaseEdges": 80,
+      "listedEdges": 212,
+      "sourceVertices": 1441,
+      "cutVertices": 1462,
+      "sourceTriangles": 2824,
+      "cutTriangles": 2866,
+      "order": "Guide cut edges first, then admitted crease edges; a later edge overwrites an earlier direction at a shared vertex.",
+      "modes": "2 = direction, lattice line and preserved edge: native mode 2 (guides at strength 100); 3 = direction and preserved edge, no lattice line: engine mode (row and sharp creases); 1 = direction only: native mode 1 (gentle short creases).",
+      "relocatedSourceVertices": [
+        {
+          "vertex": 92,
+          "distance": 0.0002376998916456752
+        },
+        {
+          "vertex": 787,
+          "distance": 0.00596587418681432
+        }
+      ],
+      "spans": [
+        {
+          "spans": 322,
+          "direct": 321,
+          "walked": 1,
+          "fallback": 0,
+          "flushed": 0,
+          "curve": 0,
+          "pieces": 1
+        }
+      ],
+      "attachments": [
+        {
+          "curve": 0,
+          "samples": 323,
+          "attached": 323,
+          "closed": false,
+          "onVertices": 0,
+          "onEdges": 0,
+          "inFaces": 323
+        }
+      ],
+      "guideSampleMaxDistance": 0.01118648344427673,
+      "method": "Recovered ZRemesher guide cut: projection 0x2e9730, classification 0x10bdd0, direct paths 0x10c0a0, walk 0x10d2e0, vertex-path fallback 0x0fd6f0, 5% endpoint relocation and propagation 0x255b10, per-face constrained triangulation. Double precision; not byte-identical to native float32 arithmetic.",
+      "constants": {
+        "inwardNudge": 0.001,
+        "queryReach": 0.025,
+        "snapSquared": 1.1111111319905831e-07,
+        "classify": 1e-06,
+        "classifyFloor": 1e-08,
+        "walkFraction": 1e-05,
+        "walkReversal": 0.98,
+        "endpointFraction": 0.05,
+        "propagationSweeps": 5,
+        "bboxDiagonal": 1.5521506024814802,
+        "classifierTolerance": 1.55215060248148e-06
+      }
+    },
+    "exportAuditPassed": true
+  },
+  "ui": {
+    "passed": true,
+    "job": "be18ae6f5795434e9ea92b2f38614854",
+    "faces": 204,
+    "errors": [],
+    "codeStable": true,
+    "evidence": "tests/registered-features/guide-native-1/ui-200-guide",
+    "otherAttempts": "ui-200-guide-before-line-ending-fix (job 69053ee130f24fc6aeaec987cb4c0a0e, passed, same bytes); ui-200-guide-network-changed (net::ERR_NETWORK_CHANGED while loading the page; never reached Generate), kept as a failure"
+  },
+  "matrix": {
+    "run": "8a240b30812b",
+    "codeStable": true,
+    "passed": 8,
+    "cases": [
+      {
+        "case": "island6-150",
+        "passed": true,
+        "faces": 143,
+        "seconds": 172.4,
+        "job": "registered-8a240b30812b-island6-150",
+        "outputSha256": "ec5d84948c56bd81351ec75eb38e14a0a60180a3cf3544a3df55858f408004b5",
+        "layoutStyle": "rows-wide",
+        "layoutSeed": 2
+      },
+      {
+        "case": "island6-200",
+        "passed": true,
+        "faces": 220,
+        "seconds": 94.2,
+        "job": "registered-8a240b30812b-island6-200",
+        "outputSha256": "95d9475abbda2913a69e6f455181f3ffb96e72a51621420d7f2b29c965f06b4c",
+        "layoutStyle": "rows",
+        "layoutSeed": 28
+      },
+      {
+        "case": "island6-200-guide",
+        "passed": true,
+        "faces": 204,
+        "seconds": 38.1,
+        "job": "registered-8a240b30812b-island6-200-guide",
+        "outputSha256": "48c6cea38a1b98ad50b262a4799fd4cd9c0e26c5b21943f3d87ddb8d638b3d4c",
+        "layoutStyle": "rows",
+        "layoutSeed": 52,
+        "guides": [
+          {
+            "passed": true,
+            "pathVertices": 11,
+            "turns": 0,
+            "cornerTurns": 0,
+            "guideCorners": 0,
+            "p95OverH": 0.0435,
+            "maxOverH": 0.0636,
+            "endMaxOverH": 0.1336,
+            "tangentP95Degrees": 12.71
+          }
+        ]
+      },
+      {
+        "case": "island6-300",
+        "passed": true,
+        "faces": 308,
+        "seconds": 84.2,
+        "job": "registered-8a240b30812b-island6-300",
+        "outputSha256": "6629436d32f6abd99c1c966897a1df1b1b2c7c927caff7fc8db64127b8477d71",
+        "layoutStyle": "rows",
+        "layoutSeed": 21
+      },
+      {
+        "case": "island6-750-guide",
+        "passed": true,
+        "faces": 798,
+        "seconds": 84.2,
+        "job": "registered-8a240b30812b-island6-750-guide",
+        "outputSha256": "642bbc636d8f17792eb29a3013b94ead9beab293485d1b04bc63a68023bab144",
+        "layoutStyle": "rows-wide",
+        "layoutSeed": 6,
+        "guides": [
+          {
+            "passed": true,
+            "pathVertices": 24,
+            "turns": 0,
+            "cornerTurns": 2,
+            "guideCorners": 2,
+            "p95OverH": 0.1017,
+            "maxOverH": 0.1761,
+            "endMaxOverH": 0.052,
+            "tangentP95Degrees": 14.17
+          }
+        ]
+      },
+      {
+        "case": "island2-300",
+        "passed": true,
+        "faces": 291,
+        "seconds": 4.0,
+        "job": "registered-8a240b30812b-island2-300",
+        "outputSha256": "2589e603b33d30875700faa5e5aa20bf8650d7b5c95aab2be1b8519a4b17be69",
+        "layoutStyle": null,
+        "layoutSeed": null
+      },
+      {
+        "case": "island7-300",
+        "passed": true,
+        "faces": 339,
+        "seconds": 12.0,
+        "job": "registered-8a240b30812b-island7-300",
+        "outputSha256": "7af7cbe32a8d6cafe3e6391f91f22b2e282d70d622c28aa9c948b06260aa0ffa",
+        "layoutStyle": null,
+        "layoutSeed": null
+      },
+      {
+        "case": "island10-500",
+        "passed": true,
+        "faces": 559,
+        "seconds": 68.1,
+        "job": "registered-8a240b30812b-island10-500",
+        "outputSha256": "d97611bed9e84bd2158b513efa3c6a94bc3d6506d4553a98361018e6b0480534",
+        "layoutStyle": "rows",
+        "layoutSeed": 13
+      }
+    ],
+    "sameBytesAsEarlierRun": {
+      "run": "98e1e95a0afe",
+      "identical": true,
+      "seconds": [
+        206.6,
+        126.5,
+        42.2,
+        122.7,
+        114.6,
+        6.0,
+        24.4,
+        137.0
+      ],
+      "note": "Same code before five tracked files were restored from CRLF to their LF line ends; run under other machine load."
+    },
+    "otherRuns": "matrix-2 (run 6cdbd2f8b7b4): seed order in two blocks of 32, same bytes for all eight cases. matrix-1 (run 22da534b1e62), kept as a failure: creases as mode 2, no corner rule: 6 of 8; island 6 at 150 and at 750 + guide rejected."
+  },
+  "unitTests": {
+    "total": 228,
+    "passed": 228,
+    "new": [
+      "tests/test_native_guide_cut.py (14)",
+      "tests/test_guide_rows.py (17)"
+    ]
+  },
+  "engine": {
+    "build": "constrained-edges-18",
+    "executableSha256": "c8aa18231c3565fea8ed5fd341c0b9bd7dea7b4e90eb3df0e1b5a290fefc05de",
+    "sourceArchiveSha256": "ef8a5e0bc5083a36541f3f9bf08d1818800b7ea59fd9cab03a475b38a9f1e60e",
+    "baseBuild": "size-caps-16",
+    "baseExecutableSha256": "e94fd63321109573bf47d8e09704b648cbbf564ccb9321e70d6b71bde392c196",
+    "capabilities": [
+      "constrained-edges"
+    ],
+    "buildRecords": "ghidra-workbench/work/retopo-guided-layout/build-records/constrained-edges-17 and constrained-edges-18"
+  },
+  "engineParity": {
+    "note": "Without -constrained-edges the build returns the same bytes as size-caps-16.",
+    "old": "e94fd63321109573bf47d8e09704b648cbbf564ccb9321e70d6b71bde392c196",
+    "new": "c8aa18231c3565fea8ed5fd341c0b9bd7dea7b4e90eb3df0e1b5a290fefc05de",
+    "cases": [
+      {
+        "case": "caps",
+        "old": "c9f0b76bf196834abe4acadbdca030ae12d5cc0de90c2811db2342c3b138b8f7",
+        "new": "c9f0b76bf196834abe4acadbdca030ae12d5cc0de90c2811db2342c3b138b8f7",
+        "identical": true
+      },
+      {
+        "case": "sharp",
+        "old": "505813cdd92dd6c2776757f2b3cef8424d6ba5b9c415dbb74d17d348e86dac74",
+        "new": "505813cdd92dd6c2776757f2b3cef8424d6ba5b9c415dbb74d17d348e86dac74",
+        "identical": true
+      },
+      {
+        "case": "adaptive",
+        "old": "181885fb4e9e8e787ddeb0ea7d2c52cb7743ba0354e684c8e0ec08a5ef35419d",
+        "new": "181885fb4e9e8e787ddeb0ea7d2c52cb7743ba0354e684c8e0ec08a5ef35419d",
+        "identical": true
+      },
+      {
+        "case": "rows-embedded",
+        "old": "68d33a33fc5da12dcf5256504d6a60b1c3e35693bc93271019ba373472838b62",
+        "new": "68d33a33fc5da12dcf5256504d6a60b1c3e35693bc93271019ba373472838b62",
+        "identical": true
+      },
+      {
+        "case": "plain",
+        "old": "830c448fe5c4aeb1efa22442a8dfbb779ad9437e3ec250fd8878005bad6bcf93",
+        "new": "830c448fe5c4aeb1efa22442a8dfbb779ad9437e3ec250fd8878005bad6bcf93",
+        "identical": true
+      }
+    ]
+  },
+  "sourceHashes": {
+    "native_guide_cut.py": "ef87f964ab6283cf4564a6d420890a5f887439b9a9ec91bfcaf152f7b497645c",
+    "guide_rows.py": "5500859106cb271be22dca2eae8ca83c2439d29527d0b9d5b72efeb33f9e3c68",
+    "registered_features.py": "817129d084096cc1ee27ea54689448dfefad84d797816c260d1e2c954cdfceb9",
+    "open_surface.py": "5254509d10976fb594e9dbc9a2135039abc0dba8b4cda5aaaf6554d5fbdf1d3c",
+    "worker.py": "4cc51f5e9b09400698ec022c8808d6e575f4152bebec46e7ae77d07d4cb901fe",
+    "crease_rows.py": "d3957ba99c34875f30d0720b33bbd119cf5e49644036e165d3a347488c2a7307"
+  },
+  "limitations": [
+    "Open parts only; closed parts keep their route and guide check.",
+    "Curves Strength 100 only.",
+    "A loop on the guide is found by screening seeds; the engine does not guarantee it, and lets go of a registered guide up to two faces before a free end on flat controls.",
+    "Creases are engine mode 3 (direction and preserved edge, no lattice line) with a 0.75 h orientation band: not the native treatment; chosen from one 64-seed search per alternative at 750 + guide.",
+    "The cut uses the unconditioned source and double precision; it is not byte-identical to native.",
+    "The 45-degree corner rule of the guide check is an engineering choice."
+  ]
+}

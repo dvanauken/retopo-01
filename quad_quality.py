@@ -7,7 +7,10 @@ not mislabeled as a particular package's aspect-ratio implementation.
 import numpy as np
 from collections import defaultdict
 
-def measure(vertices,faces,target=None):
+def measure(vertices,faces,target=None,extra_faces=False):
+ # extra_faces: the user's 'Add faces where the shape needs them' option. ZRemesher treats the
+ # requested count as a base size and goes over it where its size field asks for smaller faces
+ # (no ceiling); only the shortfall below the request is then held to the tolerance.
  v=np.asarray(vertices,float);f=np.asarray(faces,int)
  if f.ndim!=2 or f.shape[1]!=4:return {'passed':False,'reason':'Quality checks require quadrilateral faces','quadOnly':False}
  p=v[f];e=np.roll(p,-1,axis=1)-p;length=np.linalg.norm(e,axis=2);normal=np.cross(p[:,1]-p[:,0],p[:,2]-p[:,0])+np.cross(p[:,2]-p[:,0],p[:,3]-p[:,0]);norm=np.linalg.norm(normal,axis=1)
@@ -24,8 +27,8 @@ def measure(vertices,faces,target=None):
  adjacent=[]
  for ids in incidence.values():
   if len(ids)==2:adjacent.append(max(area[ids[0]],area[ids[1]])/max(1e-30,min(area[ids[0]],area[ids[1]])))
- valence=np.array([len(neighbors[i]) for i in range(len(v))]);relative=abs(len(f)-target)/target if target else None
- summary={'quadOnly':True,'faces':len(f),'minimumAngleDegrees':float(angles.min()),'angleP05Degrees':float(np.percentile(angles,5)),'maximumAngleDegrees':float(angles.max()),'edgeRatioP95':float(np.percentile(ratio,95)),'edgeRatioMax':float(ratio.max()),'scaledJacobianMin':float(corner.min()),'scaledJacobianP05':float(np.percentile(corner,5)),'edgeLengthCV':float(np.std(list(edges.values()))/np.mean(list(edges.values()))),'adjacentAreaRatioP95':float(np.percentile(adjacent,95)) if adjacent else 1.,'valence4Fraction':float(np.mean(valence==4)),'irregularVertices':int(np.sum(valence!=4)),'targetRelativeError':relative}
+ valence=np.array([len(neighbors[i]) for i in range(len(v))]);relative=(max(0,target-len(f)) if extra_faces else abs(len(f)-target))/target if target else None
+ summary={'quadOnly':True,'faces':len(f),'minimumAngleDegrees':float(angles.min()),'angleP05Degrees':float(np.percentile(angles,5)),'maximumAngleDegrees':float(angles.max()),'edgeRatioP95':float(np.percentile(ratio,95)),'edgeRatioMax':float(ratio.max()),'scaledJacobianMin':float(corner.min()),'scaledJacobianP05':float(np.percentile(corner,5)),'edgeLengthCV':float(np.std(list(edges.values()))/np.mean(list(edges.values()))),'adjacentAreaRatioP95':float(np.percentile(adjacent,95)) if adjacent else 1.,'valence4Fraction':float(np.mean(valence==4)),'irregularVertices':int(np.sum(valence!=4)),'targetRelativeError':relative,'countPolicy':'no ceiling; shortfall only' if extra_faces else 'within tolerance of the request'}
  limits={'minimumAngleDegrees':30.,'edgeRatioP95':3.5,'edgeRatioMax':6.,'scaledJacobianMin':.45,'adjacentAreaRatioP95':4.,'targetRelativeError':.15}
  reasons=[]
  for key in ['minimumAngleDegrees','scaledJacobianMin']:

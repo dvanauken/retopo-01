@@ -9,6 +9,7 @@ from source_features import measure as features, use_crease_angle
 from surface_intersections import measure, measure_reference
 from boundary_geometry import validate as boundary
 import curved_quad as cq
+import guide_rows
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--job',type=Path,required=True);a=ap.parse_args()
@@ -32,11 +33,13 @@ def main():
     for path in paths:
         ids=path['vertices'];assert all(tuple(sorted((u,w))) in edges for u,w in zip(ids,ids[1:])), 'Guide path leaves output edges'
     guide=cq._guide_fit(p,paths,curves,h)
-    passed=all(x['passed'] for x in (reference,surface,quality,feature,rim)) and cq.guides_pass(guide,h)
+    # Each authored guide must be followed by one continuous edge loop, measured from the exported mesh alone.
+    loops=guide_rows.measure(p,q,[np.asarray(c,float) for c in curves],h)
+    passed=all(x['passed'] for x in (reference,surface,quality,feature,rim,loops)) and cq.guides_pass(guide,h)
     out=dict(passed=bool(passed),sourceSha256=hashlib.sha256((job/'source.obj').read_bytes()).hexdigest(),
              outputSha256=hashlib.sha256((job/'output.obj').read_bytes()).hexdigest(),quality=quality,features=feature,
-             surface=surface,boundary=rim,referenceContacts=reference,guideFit=guide,seconds=time.monotonic()-started,
-             validatorHashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in ['tests/audit_registered_features.py','surface_intersections.py','surface_contacts_fast.py','curved_quad.py','source_features.py','crease_rows.py','boundary_geometry.py']},
+             surface=surface,boundary=rim,referenceContacts=reference,guideFit=guide,guideRows=loops,seconds=time.monotonic()-started,
+             validatorHashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in ['tests/audit_registered_features.py','surface_intersections.py','surface_contacts_fast.py','curved_quad.py','source_features.py','crease_rows.py','guide_rows.py','boundary_geometry.py']},
              scope='Accepted OBJ re-read; independent original Python contact predicates vs fast path; reference surface search; actual connected guide edges. No fitting.')
     (job/'reference-export-audit.json').write_text(json.dumps(out,indent=2,allow_nan=False)+'\n',encoding='utf-8')
     print('EXPORT AUDIT',passed,'seconds',out['seconds'],flush=True)

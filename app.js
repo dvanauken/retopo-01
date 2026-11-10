@@ -16,7 +16,7 @@ import { encodeGuides, decodeGuides } from './src/io/GuideSerializer.js';
 const $ = id => document.getElementById(id);
 const clone = value => JSON.parse(JSON.stringify(value));
 const DEFAULT_CREASE_ANGLE = 30;   // ZRemesher's feature threshold F(pi/6); mirrors crease_angle.DEFAULT
-const state = { mesh: null, result: null, guides: [], tool: 'draw', view: 'split', selected: -1, target: 600, guideMode: 2, creaseAngle: DEFAULT_CREASE_ANGLE, busy: false, job: null, resultJob: null, dirty: false, space: false, version: 0, resultKey: null, density: null, lastAttempt: null };
+const state = { mesh: null, result: null, guides: [], tool: 'draw', view: 'split', selected: -1, target: 600, guideMode: 2, creaseAngle: DEFAULT_CREASE_ANGLE, allowExtraFaces: true, busy: false, job: null, resultJob: null, dirty: false, space: false, version: 0, resultKey: null, density: null, lastAttempt: null };
 const canvas = $('viewport');
 let renderFrame = null, partsWorkspace = null;
 let guidesDirty = false, guideBuildCount = 0, renderedFrames = 0;
@@ -48,7 +48,9 @@ const ownedOperations = new Map();
 const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const color = name => new THREE.Color(css(name));
 const samePoint = (a, b) => a && b && a.every((x, i) => Math.abs(x - b[i]) < 1e-8);
-const keyFor = () => JSON.stringify([state.mesh?.id, state.guides, state.target, state.guideMode, state.creaseAngle]);
+const keyFor = () => JSON.stringify([state.mesh?.id, state.guides, state.target, state.guideMode, state.creaseAngle, extraFacesApply() && state.allowExtraFaces]);
+// 'Add faces where the shape needs them' (ZRemesher's size field with no count ceiling) is implemented for open parts.
+const extraFacesApply = (mesh = state.mesh) => mesh?.solver === 'open-surface-quads';
 const countText = n => n.toLocaleString();
 const createGuideId = () => crypto.randomUUID();
 const guideDocument = new GuideDocument(createGuideId);
@@ -494,7 +496,7 @@ function hit(x, y, requiredPane = null) {
 function visibleHit(hits) { return hits.find(h => { const depth = h.point.clone().project(camera).z; return depth >= -1 && depth <= 1; }) || null; }
 function persist() {
   if (!state.mesh) return;
-  try { localStorage.setItem('retopo-1:' + state.mesh.id, JSON.stringify({ ...JSON.parse(encodeGuides(guideDocument, state.mesh.sourceSha256, state.guides)), target: state.target, guideMode: state.guideMode, creaseAngle: state.creaseAngle, creaseAngleSet: !!state.creaseAngleSet })); partsWorkspace?.renderList(); } catch { /* Storage is optional. */ }
+  try { localStorage.setItem('retopo-1:' + state.mesh.id, JSON.stringify({ ...JSON.parse(encodeGuides(guideDocument, state.mesh.sourceSha256, state.guides)), target: state.target, guideMode: state.guideMode, creaseAngle: state.creaseAngle, creaseAngleSet: !!state.creaseAngleSet, allowExtraFaces: state.allowExtraFaces })); partsWorkspace?.renderList(); } catch { /* Storage is optional. */ }
 }
 function dirty() {
   state.dirty = state.resultKey !== keyFor();
@@ -652,10 +654,10 @@ async function loadMesh(id, suppliedMesh = null, preserveCamera = false) {
   $('generateButton').disabled = true; const mesh = suppliedMesh || await api('/api/mesh/' + id); if (version !== state.version) return;
   state.mesh = mesh; state.density = sourceDensity(mesh); state.result = null; state.assemblyResults = 0; state.resultJob = null; state.resultKey = null; state.selected = -1; state.lastAttempt = null;
   try { const attempt = JSON.parse(localStorage.getItem('retopo-1:last-attempt:' + id)); if (attempt?.sourceSha256 === mesh.sourceSha256 && ['failed', 'cancelled'].includes(attempt.phase) && typeof attempt.message === 'string') state.lastAttempt = attempt; } catch { /* Optional operation history. */ }
-  let loadedGuides = (id === 'hexagon' ? [] : mesh.presets[0]?.curves || []).map(c => fromPositions(c, 'polyline', false, createGuideId, { detectClosure: true })); state.target = mesh.target; state.guideMode = 2; state.creaseAngle = DEFAULT_CREASE_ANGLE; state.creaseAngleSet = false;
+  let loadedGuides = (id === 'hexagon' ? [] : mesh.presets[0]?.curves || []).map(c => fromPositions(c, 'polyline', false, createGuideId, { detectClosure: true })); state.target = mesh.target; state.guideMode = 2; state.creaseAngle = DEFAULT_CREASE_ANGLE; state.creaseAngleSet = false; state.allowExtraFaces = true;
   try { const saved = JSON.parse(localStorage.getItem('retopo-1:' + id)); if (saved?.sourceSha256 === mesh.sourceSha256) { loadedGuides = decodeGuides({ ...saved, coordinateFrame: 'source' }, mesh.sourceSha256, createGuideId); if (Number.isInteger(saved.target) && saved.target >= 150 && saved.target <= maximumTarget()) state.target = saved.target; // A saved angle counts only when the user set it; earlier saves carried the default of the day.
-      if (saved.creaseAngleSet && Number.isFinite(saved.creaseAngle) && saved.creaseAngle >= 10 && saved.creaseAngle <= 120) { state.creaseAngle = saved.creaseAngle; state.creaseAngleSet = true; } state.guideMode = saved.guideMode === 1 && id === 'cylinder' ? 1 : 2; } } catch { /* Ignore incompatible saved data. */ }
-  draft = []; dispose(resultGroup); resultRender = null; clearAutoGuides(); $('creaseControl').hidden = !usesSourceCreases(mesh); $('creaseAngle').value = state.creaseAngle;
+      if (saved.creaseAngleSet && Number.isFinite(saved.creaseAngle) && saved.creaseAngle >= 10 && saved.creaseAngle <= 120) { state.creaseAngle = saved.creaseAngle; state.creaseAngleSet = true; } state.guideMode = saved.guideMode === 1 && id === 'cylinder' ? 1 : 2; if (typeof saved.allowExtraFaces === 'boolean') state.allowExtraFaces = saved.allowExtraFaces; } } catch { /* Ignore incompatible saved data. */ }
+  draft = []; dispose(resultGroup); resultRender = null; clearAutoGuides(); $('creaseControl').hidden = !usesSourceCreases(mesh); $('creaseAngle').value = state.creaseAngle; $('extraFacesControl').hidden = !extraFacesApply(mesh); $('extraFaces').checked = state.allowExtraFaces;
   sourceRender = buildMesh(mesh, sourceGroup); vertexIndex.setSource(mesh.vertices, version); surfaceGuides.setSource(mesh); guideDocument.load(loadedGuides); $('sourceMeta').textContent = `${countText(mesh.faces.length)} triangles`; $('meshDescription').textContent = mesh.description; $('workspaceModelName').textContent = mesh.title; $('solverNote').classList.toggle('experimental', !!mesh.experimentalRetopology);
   const credit = $('sourceCredit'); credit.replaceChildren(); const author = document.createElement(mesh.source.url ? 'a' : 'span'); author.textContent = mesh.source.author;
   if (mesh.source.url) { author.href = mesh.source.url; author.target = '_blank'; author.rel = 'noreferrer'; } const license = document.createElement('span'); license.textContent = mesh.source.license; credit.append(author, license);
@@ -713,7 +715,7 @@ async function generate() {
     } catch (error) { notify(error.message, true); return; }
     finally { state.preparingGeneration = false; partsWorkspace.renderList(); }
   }
-  const request = { requestId: crypto.randomUUID().replaceAll('-', ''), meshId: state.mesh.baseMeshId || state.mesh.id, ...(state.mesh.partSource ? { partSource: state.mesh.partSource } : {}), curves: clone(state.guides), target: state.target, guideMode: state.guideMode, creaseAngle: state.creaseAngle };
+  const request = { requestId: crypto.randomUUID().replaceAll('-', ''), meshId: state.mesh.baseMeshId || state.mesh.id, ...(state.mesh.partSource ? { partSource: state.mesh.partSource } : {}), curves: clone(state.guides), target: state.target, guideMode: state.guideMode, creaseAngle: state.creaseAngle, allowExtraFaces: extraFacesApply() && state.allowExtraFaces };
   const attempt = { target: request.target, guideCount: request.curves.length, sourceSha256: state.mesh.sourceSha256 };
   if (!request.partSource && (request.meshId === 'cylinder' || state.mesh.requiresGuides) && !request.curves.length) return notify('Draw a guide or load the example network for this curved mesh.', true);
   workspaceShell.showLog(); workspaceShell.addLog(`Generating ${state.mesh.title} · target ${request.target.toLocaleString()} quads · ${request.curves.length} guides · crease angle ${request.creaseAngle}°`);
@@ -837,6 +839,7 @@ for (const [id, factor] of densityButtons) $(id).onclick = () => {
 };
 $('targetRange').oninput = event => setTarget(event.target.value); $('targetNumber').onchange = event => setTarget(event.target.value);
 $('guideMode').onchange = event => { state.guideMode = Number(event.target.value); dirty(); persist(); };
+$('extraFaces').onchange = event => { state.allowExtraFaces = event.target.checked; dirty(); persist(); };
 for (const id of ['wireToggle', 'guidesToggle', 'autoGuidesToggle', 'creasesToggle', 'pointsToggle', 'ghostToggle']) $(id).onchange = () => { displaySettings(); persistViewer(); };
 $('creaseAngle').onchange = event => setCreaseAngle(event.target.valueAsNumber);
 document.querySelectorAll('[data-display-toggle]').forEach(button => button.onclick = () => { const input = $(button.dataset.displayToggle); input.checked = !input.checked; input.dispatchEvent(new Event('change')); });
@@ -880,7 +883,7 @@ $('exportMesh').onclick = () => { if (!state.result) return; const a = document.
 $('detailsButton').onclick = () => {
   const r = state.result, s = r.stats, content = $('detailsContent'); content.replaceChildren();
   const table = document.createElement('table');
-  const rows = [['Vertices', r.vertices.length], ['Faces', r.faces.length], ['Quads / triangles', `${s.quads} / ${s.triangles}`], ['Components', s.faceConnectedComponents], ['Boundary edges', s.boundaryEdges], ['Nonmanifold edges', s.nonmanifoldEdges], ['Nonmanifold vertices', r.vertexLinks.nonmanifoldVertices.length], ['Inconsistent winding edges', r.vertexLinks.inconsistentWindingEdges], ['Euler characteristic', s.eulerCharacteristic], ['Detected output creases', r.creases.length], ['Calculation time', r.elapsedSeconds.toFixed(3) + 's'], ['Minimum quad angle', r.quality?.minimumAngleDegrees.toFixed(2) + '°'], ['Worst edge ratio', r.quality?.edgeRatioMax.toFixed(3)], ['Minimum scaled Jacobian', r.quality?.scaledJacobianMin.toFixed(3)], ['Regular valence-four vertices', r.quality ? (100*r.quality.valence4Fraction).toFixed(1)+'%' : 'Unqualified'], ['Count error', r.quality ? (100*r.quality.targetRelativeError).toFixed(1)+'%' : 'Unqualified'], ['Geometry check failures', r.quality?.failures.join('; ') || 'None'], ['Source feature preservation', r.featureValidation ? (r.featureValidation.passed ? 'Checked' : 'Failed') : 'Not checked'], ...(r.featureValidation?.detection ? [['Source crease angle', r.featureValidation.detection.angleDegrees + '°']] : []), ['Solver', r.backend]];
+  const rows = [['Vertices', r.vertices.length], ['Faces', r.faces.length], ['Quads / triangles', `${s.quads} / ${s.triangles}`], ['Components', s.faceConnectedComponents], ['Boundary edges', s.boundaryEdges], ['Nonmanifold edges', s.nonmanifoldEdges], ['Nonmanifold vertices', r.vertexLinks.nonmanifoldVertices.length], ['Inconsistent winding edges', r.vertexLinks.inconsistentWindingEdges], ['Euler characteristic', s.eulerCharacteristic], ['Detected output creases', r.creases.length], ['Calculation time', r.elapsedSeconds.toFixed(3) + 's'], ['Minimum quad angle', r.quality?.minimumAngleDegrees.toFixed(2) + '°'], ['Worst edge ratio', r.quality?.edgeRatioMax.toFixed(3)], ['Minimum scaled Jacobian', r.quality?.scaledJacobianMin.toFixed(3)], ['Regular valence-four vertices', r.quality ? (100*r.quality.valence4Fraction).toFixed(1)+'%' : 'Unqualified'], r.quality?.countPolicy === 'no ceiling; shortfall only' ? ['Faces vs target', `${countText(r.faces.length)} for ${countText(r.target)} (${r.faces.length >= r.target ? '+' : ''}${(100*(r.faces.length - r.target)/r.target).toFixed(0)}%; extra faces allowed)`] : ['Count error', r.quality ? (100*r.quality.targetRelativeError).toFixed(1)+'%' : 'Unqualified'], ['Geometry check failures', r.quality?.failures.join('; ') || 'None'], ['Source feature preservation', r.featureValidation ? (r.featureValidation.passed ? 'Checked' : 'Failed') : 'Not checked'], ...(r.featureValidation?.detection ? [['Source crease angle', r.featureValidation.detection.angleDegrees + '°']] : []), ['Solver', r.backend]];
   if (r.boundaryValidation) rows.push(['Original boundary loops', r.boundaryValidation.loops], ['Boundary preservation', r.boundaryValidation.passed ? 'Checked in both directions' : 'Failed'], ['Boundary tolerance', r.boundaryValidation.tolerance.toPrecision(4)], ['Added caps', 'None']);
   for (const [label, value] of rows) { const tr = document.createElement('tr'); for (const text of [label, value]) { const td = document.createElement('td'); td.textContent = text; tr.append(td); } table.append(tr); }
   const p = document.createElement('p'); p.textContent = r.guideSampleMethod + ' Topology and sampled surface checks do not certify absence of every 3D self intersection. Engineering alternatives do not establish exact native equivalence.';

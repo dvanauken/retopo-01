@@ -42,9 +42,11 @@ job's `guided-layout/` directory.
 ## Runtime and reproduction
 
 Install the pinned Python requirements. The Windows executable is
-`engine/guided-quadriflow/quadriflow.exe`, build `size-caps-16`, SHA-256
-`e94fd63321109573bf47d8e09704b648cbbf564ccb9321e70d6b71bde392c196`.
-It differs from `travel-cap-09` in two files. `src/parametrizer-scale.cpp` adds
+`engine/guided-quadriflow/quadriflow.exe`, build `constrained-edges-18`, SHA-256
+`c8aa18231c3565fea8ed5fd341c0b9bd7dea7b4e90eb3df0e1b5a290fefc05de`.
+It adds the `-constrained-edges` flag to `size-caps-16` (SHA-256 `e94fd633…c196`)
+and is byte-identical to it when the flag is not used; see "Guides cut into
+the source" below. `size-caps-16` differs from `travel-cap-09` in two files. `src/parametrizer-scale.cpp` adds
 `ComputeSizeCaps` behind the new flags `-size-caps` and `-size-caps-exact`: the
 recovered ZRemesher size rule (edge-tensor curvature with the admitted feature
 edges marked out, caps 2·sin(π/16)/κ with floor 0.9·S/4, the mean/min diffusion
@@ -66,8 +68,9 @@ The DLLs are external prerequisites and are not bundled here.
 third-party source notices. `LICENSE.txt` retains the upstream license. Upstream
 revision: `810b7a0967c35b0dc85b4464e3835e26a756c967`,
 <https://github.com/hjwdzh/QuadriFlow>. The research workbench's
-`work/retopo-guided-layout/build.py` and `build-records/size-caps-16/` retain
-the exact compiler command, source hashes, executable and logs. This is an
+`work/retopo-guided-layout/build.py` and `build-records/constrained-edges-18/`
+(and `size-caps-16/`) retain the exact compiler command, source hashes,
+executable and logs. This is an
 independent implementation; native ZBrush algorithm equivalence is unqualified.
 
 Research output controls are under the workbench's
@@ -429,6 +432,11 @@ chains under 0.01 h. Native passes. It is reference evidence, not a standard.
 
 ### The generator (`open_surface.py`, `feature_refine.py`)
 
+*Superseded on 2026-11-10 in two respects: the row chains now reach the engine
+through its constrained-edge list instead of `-embedded-guides`, and the
+soft-guide encoding below is removed. See "Guides cut into the source". The
+rest of this section stands.*
+
 - **Rows layouts.** Chains that need a row are handed to the unmodified engine
   as embedded guide edges (`-embedded-guides`), which enter its integer and
   extraction constraints exactly as sharp edges do. Their band partners are left
@@ -549,3 +557,277 @@ Evidence folders (git-ignored): `tests/registered-features/rimfix-rows-3/`,
 `tests/registered-features/rimfix-ui-200b/` (UI screenshot `island6-200/result.png`,
 comparison plot `rim-before-native-after.png`), baseline matrix
 `tests/registered-features/rimfix-baseline/`.
+
+
+## Guides cut into the source (2026-11-10)
+
+Open parts now treat an authored guide the way ZRemesher does at Curves
+Strength 100: the guide is cut into the source triangles, its cut edges join
+the admitted crease edges in one constrained-edge list, the layout engine
+registers the guide edges, and the guide check asks for one continuous edge
+loop. Island 6 at a request of 200 with the guide of job
+`483afe83c71d40d2858066813a3f553a` returns 204 quads with one loop of
+11 vertices on the guide and no turns. That job's earlier output, a
+zig-zag chain that turned onto another loop at 8 of its 13 inner vertices, now
+fails the check on those turns and on nothing else. Results, pictures and job
+ids are at the end of this section.
+
+### What was wrong
+
+- The guide never entered the source. `open_surface.py` wrote the drawn
+  polyline as soft orientation segments (`-guides`, a band 0.75 h wide,
+  position weight 0). The engine had no edges to keep, so no edge loop was
+  promised.
+- After the layout, `curved_quad._guide_path` chose the cheapest connected
+  edge path near the curve and the fit dragged its vertices onto the curve.
+  The path could step sideways from loop to loop.
+- `guides_pass` measured only that path's distance (0.20 h at the 95th
+  percentile) and direction (30°). The dragged chain measured 0.08 h and 26°,
+  and passed.
+
+### The native rule, and what is ported
+
+Sources: `ghidra-workbench/work/retopo-lowcount/AUDIT.md` §2 (items 2, 5, 6, 8, 9)
+and the recovery documents it cites. Addresses are RVAs of `xremeshlib2.dll`.
+
+| Native stage | Port | Where |
+|---|---|---|
+| Projection `0x2e9730`: nearest triangle within 0.025 of the bbox diagonal; snap to a vertex of that triangle within a squared distance of 1.1111111e-7 × diagonal² | Ported. The nearest-triangle search is trimesh's; native's tie order among equal triangles is not reproduced. | `native_guide_cut._Cutter.project` |
+| Classification `0x10bdd0`: face point to vertex, else to edge (infinite supporting line), within diagonal × 1e-6 (floor 1e-8); the last qualifying one wins | Ported | `classify` |
+| Direct paths `0x10c0a0`: two points of one face keep no sample; faces sharing an edge get one crossing; vertex and edge neighbours append | Ported. A crossing outside the shared edge goes to the walk instead of being appended unclamped. Two samples on one edge have no recovered branch and are appended directly. | `direct` |
+| Walk `0x10d2e0`: per candidate face the direction to the next sample is projected into that face; the farthest forward crossing wins; reversal above t = 0.98; tolerance 1e-5, expanded retry ×10; 1,000-step guard | Ported in double precision (native uses float32 determinants). Native's endpoint repair is replaced by the fallback below. | `walk`, `_line_edge` |
+| Fallback `0x0fd6f0`: source-vertex path with the 20× span-length limit | Ported | `fallback` |
+| Prepass `0x255b10`: a cut point within 5 % of an edge end becomes that source vertex and **the vertex moves to the cut point**; runs on one edge fold; endpoint propagation, up to 5 sweeps | Ported for open paths. Closed paths take the same policy; the native wrap handling is not ported. | `prepare` |
+| Triangulation `0x2567b0`: chords split their faces; `0x252e50` uses Triangle `pzQ`; free end points are repaired inward by `0x253d80` (0.001 toward the opposite corner, 3 passes) | Every cut face goes through Triangle (`pQ`). Native splits edge-to-edge chords at `0x254210` and converts later; the guide edges are the same, the diagonals inside a cut face may differ. Inward repair ported. | `cut`, `_inward` |
+| Collector `0x2889c0/0x28e230`: feature edges and mode-1/2 curve edges in one vector with a mode byte | One list, guides first, then creases, a mode per edge | `registered_features.constrained`, engine `-constrained-edges` |
+| Directions `0x2fc0c0`: each embedded edge writes its normalized direction to its incident faces; later writes win; nothing is locked by distance | The engine's field lives on vertices, so the direction goes to the edge's two end vertices, in list order, later writes winning. Guides have no orientation band any more. | `guide-constraints.hpp: attach_constrained_edges` |
+| Mode-2 integer registration `0x28b920` (flag and denominator 1): the guide lies on an integer iso-line | In this engine's terms: the lattice origin of each vertex on a mode-2 edge is constrained to the edge line, and the edge enters the integer solve and extraction as a preserved edge. Applied to guides. | same |
+| Mode-2 marks `0x2706a0`: ends of embedded edges that turn 20° or more take no curvature | Applied to listed mode-1 and mode-2 edges in the size-caps estimate (used by the `caps` layouts only) | `parametrizer-scale.cpp` |
+
+Not native, and labelled so in the code:
+
+- **Arithmetic and source.** Double precision, not byte-identical. Native cuts
+  its conditioned (densified) source; here the part's own triangles are cut,
+  so inside a large flat triangle the cut path is the straight chord between
+  the entry and exit crossings. On the test case the drawn samples lie up to
+  0.14 h from that chord. The fit and the check use the drawn curve.
+- **Creases are not registered like guides.** Native lists its kept features
+  as mode 2. Here crease rows and other creases of 60° or more are *preserved
+  edges with the direction write and no lattice line* (engine mode 3, not a
+  native mode); gentle short creases are direction only (mode 1); band
+  partners are left out. The listed creases also keep the 0.75 h orientation
+  band from the crease-row work, now written at exact source coordinates.
+  Measured reason, island 6 at 750 with the authored guide, one search of 64
+  seeds per treatment: creases as mode 2, nine layouts reached the fit and
+  none passed (the front crease runs half a face from the rim row and seldom
+  got its own row); mode 3 without the band, six reached the fit, none
+  passed; preserved edges without the direction write, with the band, four,
+  none passed; mode 3 with the band, accepted at the second fitted layout
+  (seed 6). Admission and the one-row-per-band rule are the application's
+  (`source_features`, `crease_rows`); native has neither.
+- **Engine.** The guided QuadriFlow fork is an independent implementation of
+  the contract above. Registration there is strong but not a guarantee: the
+  integer and extraction stages can still break a loop, mostly within two
+  faces of a guide's free end, so layouts are screened and seeds searched.
+- **Search budget.** 64 seeds in two blocks of 32 (`ROW_LAYOUT_SEEDS`,
+  `ROW_SEED_BLOCK`), inside the existing 360 s. Policy, not acceptance.
+- **Limits of the guide check**, including the 45° corner rule. See below.
+
+Curves Strength below 100, closed parts, Adaptive Size, PolyGroups, density
+paint and symmetry were not touched. Metadata still records `guideMode: 2`;
+for open parts that is now what is implemented.
+
+### The engine build
+
+`engine/guided-quadriflow/quadriflow.exe` is now build `constrained-edges-18`,
+SHA-256 `c8aa18231c3565fea8ed5fd341c0b9bd7dea7b4e90eb3df0e1b5a290fefc05de`
+(source archive `ef8a5e0b…e60e`). It adds one flag to `size-caps-16`:
+
+    -constrained-edges <file>     first line: count; then `a b mode` per edge,
+                                  0-based vertices of the input OBJ
+
+| Mode | Direction write | Lattice line | Preserved edge | |
+|---|---|---|---|---|
+| 1 | yes | no | no | native mode 1 |
+| 2 | yes | yes | yes | native mode 2 |
+| 3 | yes | no | yes | engine only |
+| 4 | no | no | yes | engine only; not used by the application |
+
+The list is read after loading and before the engine subdivides its source, and
+each half of a split edge keeps its identity (`subdivide.cpp`), so no geometric
+coincidence test is involved. Without the flag the build is byte-identical to
+`size-caps-16` on five controls (caps, sharp, adaptive, the old
+`-embedded-guides` rows layout, plain): `guide-cut-verification.json` →
+`engineParity`. Build records: workbench
+`work/retopo-guided-layout/build-records/constrained-edges-17/` (two modes,
+superseded the same day) and `constrained-edges-18/`.
+
+The 1e-6 "lift soft creases off the surface" encoding is removed
+(`open_surface.write_row_guides` is gone). Hardness comes from the list alone;
+the crease band file holds exact source coordinates.
+
+### The guide check (`guide_rows.py`)
+
+A path **turns** at a vertex when the edge it arrives by and the edge it leaves
+by border the same face. Through a regular vertex that is leaving the loop; an
+interior vertex of valence three cannot be passed without a turn.
+
+Each guide needs one connected, forward-ordered output edge path with no
+turns. Distances are from the drawn guide to that path, in requested faces,
+with the crease-row limits and their meaning: 0.25 h at the 95th percentile,
+0.5 h maximum, 1 h in the last face of arc at each open end, 30° direction
+over one face. The search for the path runs over directed edges so a step may
+only follow another when the two do not border one face
+(`guide_rows.find_loop`). When no such path meets the limits, the cheapest
+connected path is reported with its turns, so a zig-zag shows as turns.
+
+**Corners.** A loop cannot bend at a sharp corner of the guide, and native does
+not ask it to: a guide's parameter edges fall into groups with one field axis
+each (`0x28b920`), and at a corner the guide passes from one axis to the
+other. In the mesh that is one turn at the corner vertex. One turn is
+therefore excused at each corner of the guide itself, where the guide's
+direction changes by 45° or more from the face before a point to the face
+after it. The 45° is an engineering choice (half the quarter turn of a cross
+field; native has no angle, its groups come out of the solved field). The
+test guide is a smooth arc and has no corner at any request. The authored
+guide of the 750 case has two; its old accepted mesh had seven turns and fails
+on the six that are not at a corner.
+
+The older connected-path limits (0.20 h, 30°/35°) still apply as well. The
+check is enforced in `open_surface.construct`, again in `worker.py` from the
+finished mesh, and in `tests/audit_registered_features.py` from the exported
+OBJ. Closed parts are not changed.
+
+The limits are this application's numbers, not native ones; native applies no
+acceptance test. Native's own output passes them (table below).
+
+### The generator
+
+- `registered_features.constrained` cuts the guides, writes the cut source and
+  `constrained-edges.txt`, and records the cut (`open-surface/constrained/`).
+- Rows layouts run on the cut source with `-constrained-edges`. They are
+  screened before fitting for crease rows, as before, and now also for a
+  no-turn loop within reach of every guide.
+- The fit holds the loop on the drawn guide with the existing guide terms. The
+  path it holds is the no-turn loop (`open_surface.guide_paths`); a rows layout
+  without one is dropped.
+- The older layouts (`caps`, `constrained`, `adaptive`, coarsened) remain as
+  the fallback and answer to the same guide check.
+- `RETOPO_FEATURE_LAYOUT` defaults to `default` (the former name `legacy` is
+  accepted). The opt-in `registered`, `compare` and `ranked` policies still
+  select the 2026-10-28 path-provenance engine; their cut is now the native
+  one as well. They were not re-qualified.
+
+### What is and is not claimed
+
+- Open parts only. Closed parts keep their route and their guide check.
+- The cut follows the recovered native rules; the layout engine does not. A
+  loop on the guide is found by screening seeds, not guaranteed by
+  construction. On the test case 53 layouts were tried: 51 were screened out
+  (50 for a crease row, 1 for the guide), one was fitted and rejected, and
+  seed 52 was accepted.
+- On flat controls the engine holds the loop on a registered guide along its
+  length and lets go of it up to two faces before a free end (a slanted line
+  at a request of 300: the last 1.9 h at each end). The one-face end limit
+  rejects such layouts. Native covers its guide to 0.54 h of the ends here.
+- The app's result is not native's mesh. Native returns 532 faces for a
+  request of 200 with 77 triangles; the app returns 204 quads inside its
+  ±15 % count band. What is matched is the behaviour asked for: one edge loop
+  on the guide, rim rows kept.
+- The crease treatment (mode 3 plus band) rests on one 64-seed search per
+  alternative on one case. It is a measured choice, not an established ranking.
+- A cornered guide on a short run can fail the 30° direction limit near its
+  corner, because the one-face chord there points along neither leg. Not seen
+  on the cases run; noted because the corner rule is new.
+
+### Results (2026-11-10, final code)
+
+Test case: island 6 (`skp-6`), request 200, keep creases at 30°, the guide of
+job `483afe83…` (`tests/fixtures/island6-guide-483afe83.json`), h = 0.0823.
+Guide and rim numbers are measured by `tests/render_guide_case.py` from each
+mesh alone; the rim row is the 34.3 h upper rim chain; the witness is source
+edge [1308, 1309] from the rim investigation.
+
+| | ZBrush ZRemesher, Curves Strength 100 | App before: job `483afe83…` | App now: job `be18ae6f5795434e9ea92b2f38614854` (real UI) |
+|---|---|---|---|
+| Faces | 532 (455 quads, 77 triangles) | 209 quads | 204 quads |
+| Guide path | 14 vertices, 0 turns | 15 vertices, **8 turns** | 11 vertices, 0 turns |
+| Guide check | passes | **fails (turns)** | passes |
+| Guide distance, 95th percentile / maximum / open ends | 0.141 / 0.192 / 0.537 h | 0.081 / 0.124 / 0.083 h | 0.043 / 0.064 / 0.134 h |
+| Guide direction, 95th percentile | 14.5° | 26.7° | 12.7° |
+| Old connected-path check (0.20 h, 30°) | passes | passes | passes |
+| Rim row, 95th percentile / maximum / direction | 0.141 / 0.214 h / 9.9° | 0.047 / 0.076 h / 10.4° | 0.024 / 0.066 h / 7.7° |
+| Crease rows realized | 3 of 3 | 3 of 3 | 3 of 3 |
+| Rim witness point / largest along the edge | 0.001 / 0.016 h | 0.006 / 0.015 h | 0.008 / 0.010 h |
+| Time | 1.1 s remesh | 141 s | 34 s |
+
+Picture: `tests/registered-features/guide-native-1/zbrush-before-after.png`
+(numbers beside it in `zbrush-before-after.json`). Native run:
+`runs/native-rim-investigation/native-captures/guide/island6-guide-keep-creases-0.2k-guide100-b1/`
+(owned batch process; `remeshsettings.txt` records `NumQuad=200`,
+`CurvesStrength=100`, `KeepHardEdges=TRUE`; curve transfer code 0; scripts
+`scripts/run_native_island6_guide.py` and `island6_guide_payload.py`).
+
+The app's mesh passes every existing check: minimum angle 35.6°, edge ratio
+3.06 at the 95th percentile and 4.60 at most, scaled Jacobian 0.55, count +2 %,
+crease check 0.18 h and 0.20 h at the 95th percentile against 0.25 h. The cut
+added 21 vertices and 42 triangles to the source, listed 22 guide edges, and
+moved two source vertices onto the guide (0.003 h and 0.07 h).
+
+Real UI (`tests/verify_registered_features_ui.py --case island6-200-guide`,
+owned server and Chromium, no stubs): job `be18ae6f5795434e9ea92b2f38614854`,
+204 quads, 45 s from Generate to done, export downloaded and identical to the
+accepted file, reload restored the result, no page or network errors.
+Screenshot `tests/registered-features/guide-native-1/ui-200-guide/island6-200-guide/result.png`.
+`tests/audit_registered_features.py` re-read the exported OBJ and passed it,
+guide loop included. The worker matrix produced the same bytes for the same
+case (SHA-256 `48c6cea3…3d4c`). Two other UI attempts are retained: one failed
+while loading the page with `net::ERR_NETWORK_CHANGED` and never reached
+Generate (`ui-200-guide-network-changed/`); one passed with the same bytes
+before five tracked files were restored to their LF line ends
+(`ui-200-guide-before-line-ending-fix/`, job `69053ee1…`).
+
+Worker matrix (`tests/verify_registered_features.py`, run `8a240b30812b`, code
+stable, 8 of 8), against the crease-row matrix of 2026-11-09 (run
+`182fbe2cc53e`):
+
+| Case | Before | Now | Guide loop | Rows | Job |
+|---|---|---|---|---|---|
+| Island 6 / 150 | Rejected, 377 s | **143 quads**, 172 s | | 3 / 3 | `registered-8a240b30812b-island6-150` |
+| Island 6 / 200 | 207 quads, 44 s | 220 quads, 94 s | | 3 / 3 | `registered-8a240b30812b-island6-200` |
+| Island 6 / 200 + guide `483afe83` | 209 quads, 8 turns (job `483afe83…`, 141 s) | 204 quads, 38 s | 11 vertices, 0 turns | 3 / 3 | `registered-8a240b30812b-island6-200-guide` |
+| Island 6 / 300 | 331 quads, 86 s | 308 quads, 84 s | | 4 / 4 | `registered-8a240b30812b-island6-300` |
+| Island 6 / 750 + authored guide | 751 quads, 7 turns, 150 s | 798 quads, 84 s | 24 vertices, 0 turns, 2 at the guide's corners | 5 / 5 | `registered-8a240b30812b-island6-750-guide` |
+| Island 2 / 300 | 291 quads | 291 quads, same bytes | | none admitted | `registered-8a240b30812b-island2-300` |
+| Island 7 / 300 (closed) | 339 quads | 339 quads, same bytes | | 5 / 4, not enforced | `registered-8a240b30812b-island7-300` |
+| Island 10 / 500 | 545 quads, 118 s | 559 quads, 68 s | | 6 / 6 | `registered-8a240b30812b-island10-500` |
+
+Notes on the table:
+
+- Island 6 at 150 is accepted for the first time (rows-wide pass, seed 2). No
+  limit changed; the layouts did.
+- The 750 case was accepted before with a guide path of seven turns. Its guide
+  has two corners; the new mesh turns at those two and nowhere else.
+- The same eight outputs, byte for byte, came from three runs: `8a240b30812b`
+  (`matrix-4/`, the final tree), `98e1e95a0afe` (`matrix-3/`, before five
+  tracked files were restored from CRLF to LF line ends; under other machine
+  load, so slower) and `6cdbd2f8b7b4` (`matrix-2/`, seeds tried in two blocks
+  of 32). Trying all 64 seeds in the first pass brought the test case from
+  203 s to 38 s and island 6 at 150 from 88 s to 172 s.
+- Unguided layouts are slower to find than on 2026-11-09 (island 6 at 200:
+  seed 28 instead of seed 13). The search is deterministic and remains
+  sensitive to small input changes.
+- Run `22da534b1e62` (`matrix-1/`) is an intermediate state, kept as a failure:
+  creases registered as mode 2, no corner rule, 6 of 8 (150 and 750 + guide
+  rejected).
+
+All 228 unit tests pass (197 before; 14 in `tests/test_native_guide_cut.py`,
+17 in `tests/test_guide_rows.py`). `test_guide_rows.py` holds the regression:
+the zig-zag mesh must fail on its turns, the native mesh must pass, and the
+packaged engine must put a loop on a registered guide on a flat control.
+
+Compact record with hashes: `engine/guided-quadriflow/development/guide-cut-verification.json`.
+Evidence folder (git-ignored): `tests/registered-features/guide-native-1/`
+(`matrix-4/` to `matrix-1/`, `ui-200-guide/`,
+`crease-mode-trials/`, the engine patch and packaging scripts, the engine
+parity record and a copy of the `size-caps-16` package).

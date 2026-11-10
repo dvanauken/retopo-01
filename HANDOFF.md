@@ -7,6 +7,12 @@ the night of 2026-10-28. Read it fully before changing solver code.
 parts. Sections 3, 4.1, 4.2, 4.3, 5, 6 and 7 are updated for that work; the
 rest is as first written.
 
+**Update, 2026-11-10:** authored guides on open parts are now cut into the
+source and followed by one continuous edge loop, as ZRemesher does at Curves
+Strength 100 (new section 4.0). The layout engine was rebuilt
+(`constrained-edges-18`). Island 6 at 150 is accepted for the first time.
+Sections 3, 4, 5, 6 and 7 are updated for that work.
+
 ## 1. What this project is
 
 retopo-1 is a local retopology app: an HTML canvas UI (ES modules, vendored
@@ -56,48 +62,106 @@ These preferences are firm. Each one came from a correction.
 
 ## 3. Current state of the repository
 
-- Branch `main`. Last commit `a7e28fe WIP` (2026-11-09 19:28). It holds the rim
-  investigation of 2026-10-28: the `GUIDED_LAYOUT.md` section "Exact screenshot
-  rim investigation", the three `recovered_*` scripts,
-  `tests/test_native_integer_callback.py`, `tests/fixtures/native_integer/`,
-  `native-rim-verification.json` and the first version of this file. Git works
-  now; a previous session reported a "dubious ownership" refusal. If it
-  returns, use `git -c safe.directory=* …`.
-- **Uncommitted:** the crease-row fix of 2026-11-09 (section 4.1). The user
-  asked that it not be committed by the agent.
-  - `crease_rows.py` (new): representatives, chains, row finder, row measure.
-  - `source_features.py`: the crease check reports rows and fails on
-    `rowsMissing`.
-  - `open_surface.py`: rows layouts, screening, row fitting.
-  - `feature_refine.py`: `row_bands` argument.
-  - `feature_quad.py`, `worker.py`: rows enforced for open parts, recorded
-    for closed parts.
-  - `tests/test_crease_rows.py`, `tests/fixtures/crease_rows/`.
-  - `tests/test_server_startup.py`: cleanup retry (see Tests below).
-  - `tests/audit_registered_features.py`: records the `crease_rows.py` hash.
-  - `GUIDED_LAYOUT.md`: section "Crease rows". `HANDOFF.md`: this update.
-  - `engine/guided-quadriflow/development/crease-rows-verification.json`.
+- Branch `main`. Last commit `8a9533d Require ordered crease rows on open
+  parts` (the crease-row fix of 2026-11-09, section 4.1). Git works now; a
+  previous session reported a "dubious ownership" refusal. If it returns, use
+  `git -c safe.directory=* …`.
+- **Uncommitted:** the guide work of 2026-11-10 (section 4.0). The user asked
+  that the agent not commit.
+  - `native_guide_cut.py` (new): the recovered ZRemesher guide cut.
+  - `guide_rows.py` (new): the guide check (one loop, no turns, corner rule).
+  - `registered_features.py`: `constrained()` builds the cut source and the
+    one constrained-edge list; the old `prepare()` cuts natively too.
+  - `open_surface.py`: constrained-edge rows layouts, guide screening and
+    fitting, 64 seeds; the 1e-6 lift (`write_row_guides`) is gone.
+  - `worker.py`, `job_diagnostics.py`: the guide check enforced and reported.
+  - `engine/guided-quadriflow/` (`quadriflow.exe`, `source.zip`,
+    `manifest.json`): build `constrained-edges-18`.
+  - `tests/test_native_guide_cut.py`, `tests/test_guide_rows.py`,
+    `tests/render_guide_case.py`, `tests/fixtures/guide_rows/`,
+    `tests/fixtures/island6-guide-483afe83.json`.
+  - `tests/verify_registered_features.py` (case `island6-200-guide`),
+    `tests/verify_registered_features_ui.py`, `tests/audit_registered_features.py`.
+  - `GUIDED_LAYOUT.md`: section "Guides cut into the source". `HANDOFF.md`.
+  - `engine/guided-quadriflow/development/guide-cut-verification.json`.
+  - In the workbench (its own repository, also uncommitted):
+    `work/retopo-guided-layout/QuadriFlow/src` now holds the
+    `constrained-edges-18` sources, `build-records/constrained-edges-17` and
+    `-18` are new, and `work/retopo-lowcount/AUDIT.md` has a section 9.
 - Tests: run `python -X utf8 -m unittest discover -s tests -p "test_*.py"`. It
-  runs 197 tests (183 before, plus 14 in `test_crease_rows.py`) and all pass.
+  runs 228 tests (197 before, plus 14 in `test_native_guide_cut.py` and 17 in
+  `test_guide_rows.py`) and all pass.
   The old error, a Windows file-lock race in `test_server_startup` tearDown
   (`startup.log` still open), is fixed in the test's cleanup: it now retries
   the folder removal for up to ten seconds. `runs/startup test njeowui_` and
   `runs/startup test my8m2y14` are left over from before that fix.
-- Packaged engine: build `size-caps-16`, SHA-256 `e94fd633…c196` (details in
-  `GUIDED_LAYOUT.md` → "Runtime and reproduction"). It needs MinGW DLLs from
-  `C:/msys64/mingw64/bin` or `RETOPO_MINGW_RUNTIME`. Hashes are checked at run
-  time. No experimental engine has been promoted, and the crease-row fix did
-  not change either engine binary.
+- Packaged engine: build `constrained-edges-18`, SHA-256 `c8aa1823…05de`
+  (details in `GUIDED_LAYOUT.md` → "Guides cut into the source" → "The engine
+  build"). It is `size-caps-16` plus the `-constrained-edges` flag and returns
+  the same bytes as `size-caps-16` when the flag is not used (five controls).
+  It needs MinGW DLLs from `C:/msys64/mingw64/bin` or `RETOPO_MINGW_RUNTIME`.
+  Hashes are checked at run time. The previous package is kept in
+  `tests/registered-features/guide-native-1/engine-size-caps-16/` and in Git.
+  The 2026-10-28 path-provenance engine in `development/` is still opt-in only.
 
 ## 4. Open issues, in priority order
+
+### 4.0 Guides were not cut into the source (fixed for open parts, 2026-11-10)
+
+User-visible symptom: job `483afe83c71d40d2858066813a3f553a` (island 6, target
+200, one guide). The guide only steered the field; the fitter dragged a
+zig-zag edge chain onto it (8 of 13 inner vertices turn onto another loop) and
+the guide check accepted it.
+
+**Status.** The same case now returns 204 quads with one 11-vertex loop on the
+guide, no turns, 0.04 h from the guide at the 95th percentile, in 34 s from
+the real UI (job `be18ae6f5795434e9ea92b2f38614854`). The old output fails the
+new check on its turns alone. Native ZBrush with the same guide at strength
+100 gives 532 faces (77 triangles) with a 14-vertex loop at 0.14 h. Full
+account, the native-rule table, limits and evidence: `GUIDED_LAYOUT.md` →
+"Guides cut into the source". In short:
+
+- **Cut.** `native_guide_cut.py` ports the recovered chain: projection,
+  classification, direct paths, walk, fallback, 5 % relocation (it moves
+  source vertices), inward repair, constrained triangulation. Double
+  precision, on the unconditioned source.
+- **One list.** `registered_features.constrained` writes guide edges, then
+  crease edges, with a mode each, for the engine flag `-constrained-edges`.
+  Guides are native mode 2 (direction, lattice line, preserved edge).
+- **Check.** `guide_rows.py`: one connected path per guide that never turns
+  onto another loop, with the crease-row limits. One turn is excused at each
+  corner of the guide itself (45° or more from one face to the next).
+- **Default.** This is the route for every open part with creases or guides.
+  The worker matrix is 8 of 8, with island 2 and island 7 byte-identical.
+
+What is still open here:
+
+- **Creases are not registered like guides.** They are engine mode 3
+  (direction and preserved edge, no lattice line) plus the old 0.75 h
+  orientation band. Native has one treatment for both. The choice rests on one
+  64-seed search per alternative at 750 + guide; see the section.
+- **The engine does not guarantee the loop.** Layouts are screened and seeds
+  searched (64). On flat controls a registered loop leaves its guide up to two
+  faces before a free end. A guide whose ends matter may be rejected.
+- **Source conditioning.** Native cuts its densified source. Here a guide
+  crossing a large flat triangle is cut as a straight chord (0.14 h from the
+  drawn samples on the test case). The fit uses the drawn curve.
+- **Closed parts** keep the old guide path and check (`curved_quad`,
+  `feature_quad`). The four-guide toilet has not been measured with
+  `guide_rows`.
+- **Strength below 100** (native modes 0 and 1) is not implemented.
+- **Not run:** guides that cross creases or each other, closed guides on open
+  parts, more than one guide. The cut handles crossings (tests), the engine
+  and the search were not exercised on them.
 
 ### 4.1 The island 6 rim was jagged but accepted (fixed for open parts, 2026-11-09)
 
 User-visible symptom: screenshot job `3029972da0174acd9845b6ec0df6e3ea`
 (island 6, target 200, 188 quads). The pink crease rim zig-zags.
 
-**Status.** Island 6 at 200 now returns 207 quads with a continuous rim row,
-and the crease check rejects the screenshot mesh. Full account, limits and
+**Status.** Island 6 at 200 now returns a continuous rim row (207 quads on
+2026-11-09, 220 since the 2026-11-10 engine), and the crease check rejects the
+screenshot mesh. Full account, limits and
 evidence: `GUIDED_LAYOUT.md` → "Crease rows". In short:
 
 - **Cause found in the layout, not only the check.** QuadriFlow's `-sharp`
@@ -110,10 +174,11 @@ evidence: `GUIDED_LAYOUT.md` → "Crease rows". In short:
   two faces or more. Distance is measured from the path to the band, without
   the scalar band allowance. Limits reuse existing numbers: 0.25 h at the 95th
   percentile, 0.5 h maximum, 1 h in the last face of an open end, 30° direction.
-- **Generator.** The representative chains go to the unmodified engine as
-  embedded guide edges; the fit holds each row on its crease and fits its band
-  through that row only. Layouts are screened before fitting and seeds are
-  tried in order.
+- **Generator.** The representative chains go to the engine as preserved
+  constrained edges (since 2026-11-10 through `-constrained-edges`, mode 3;
+  before that as embedded guide edges); the fit holds each row on its crease
+  and fits its band through that row only. Layouts are screened before fitting
+  and seeds are tried in order.
 - **Witness edge [1308, 1309]:** 0.422 h before, 0.004 h after, 0.011 h native.
 
 What is still open here:
@@ -122,16 +187,14 @@ What is still open here:
   its crease check records rows without failing on them. Island 7's current
   339-quad output would fail one of five chains (source vertices 159 to 380).
   Port the row fitting there, then drop `enforce_rows=False`.
-- **Seed search.** Island 6 at 200 is accepted at seed 13 after 44 seconds;
-  750 + guide at seed 22 in the second pass after 150. Which seed wins changes
-  with small input changes (an earlier soft-guide encoding gave seed 25 and 218
-  quads at 200). The hinge lugs, about one face tall, use most of the 5 %
-  budgets of the older checks, so few seeds pass. A layout that handles the
-  lugs would make this robust.
-- **Soft-guide encoding.** Soft crease guides are written a millionth of the
-  model extent off the surface so `-embedded-guides` does not harden them. A
-  dedicated engine flag for an explicit hard-edge list would be cleaner; it
-  needs a new engine build.
+- **Seed search.** With the 2026-11-10 engine island 6 is accepted at seed 2
+  (second pass) at 150, seed 28 at 200, seed 21 at 300, seed 52 at 200 + guide
+  and seed 6 (second pass) at 750 + guide; 64 seeds are tried. Which seed wins
+  changes with small input changes. The hinge lugs, about one face tall, use
+  most of the 5 % budgets of the older checks, so few seeds pass. A layout
+  that handles the lugs would make this robust.
+- **Soft-guide encoding: resolved.** The 1e-6 lift is gone. Hardness comes
+  from the engine's constrained-edge list; soft creases are mode-1 entries.
 - **Self-approaching chains.** The row finder assumes a chain does not pass
   within a face of itself. Island 4's outline at 300 is one 94 h chain with a
   hairpin and never gets a path. Splitting chains at corners of 30° or more
@@ -202,16 +265,14 @@ The ordered, connected row this section used to ask for is now in the check
 
 ### 4.2 Island 6 at 150 quads with the native 30° crease angle
 
-With crease rows, 200 → 207, 300 → 331 and 750 + guide → 751 all pass at 30°.
-150 is still rejected, now after 377 seconds of search: its best candidate
-clears the shape, crease (rows included), contact and guide checks and fails
-the **0.5 h surface-deviation** limit, as before. The 45° result has not been
-re-run against the row check. This may still be a policy decision (4.5)
-rather than a solver change.
+Accepted since 2026-11-10: 143 quads (seed 2, second pass), every existing
+limit unchanged. Before that it was rejected at every attempt. It passes on
+one seed of 64, so treat it as fragile, not solved.
 
 ### 4.3 Island 6 at 150 with a guide; island 5
 
-Both are unsolved. Island 5 is closed and failed before any of the low-count
+Island 6 at 150 with a guide has not been run on the new route. Island 5 is
+unsolved. Island 5 is closed and failed before any of the low-count
 work. Islands 2, 7 and 10 pass (291, 339 and 545 quads). Island 2 has no
 admitted creases and island 7 takes the closed-part route, so both outputs are
 byte-identical to before; island 10 now carries six crease rows.
@@ -222,7 +283,9 @@ Listed largest expected effect first:
 1. Five-radius valid-window selection by direction consistency.
 2. The coupled least-squares sizing objective.
 3. Source conditioning to the ≥ 3000-triangle budget before the field.
-4. Guide embedding with integer registration.
+4. Guide embedding with integer registration: done for open parts on
+   2026-11-10 (section 4.0), with an independent engine. The native integer
+   system itself (parameter chart, combined solve) is still not built.
 5. The attachment surface walk.
 
 ### 4.5 Policy decisions waiting on the user
@@ -238,6 +301,7 @@ Ask about these; do not decide them silently:
 
 - Unit tests (section 3).
 - `tests/verify_registered_features.py` runs island 6 at 150/200/300,
+  200 + the guide of job `483afe83` (`tests/fixtures/island6-guide-483afe83.json`),
   750 + the authored guide (`tests/fixtures/island6-authored-guide.json`),
   island 2 at 300, island 7 at 300 and island 10 at 500, from the part sources
   in `runs/parts/`.
@@ -247,10 +311,17 @@ Ask about these; do not decide them silently:
   create so they can be cleaned up safely.
 - `tests/test_crease_rows.py` holds the rim regression: the screenshot mesh
   must fail on its rim row and the native mesh must pass. Keep both.
+- `tests/test_guide_rows.py` holds the guide regression: the zig-zag mesh of
+  job `483afe83` must fail on its turns, the native strength-100 mesh must
+  pass, and the packaged engine must put a loop on a registered guide. Keep
+  all three.
+- `tests/render_guide_case.py` draws meshes side by side with a guide and
+  writes the guide, rim and witness numbers beside the picture.
 - The matrix compares code hashes before and after its run. Do not edit a root
   `.py` file while it runs, or it reports `codeStable False` and exits 1.
-- Expected matrix result: 6 of 7. Island 6 at 150 is the known rejection, so the
-  script exits 1 even when nothing regressed. Read the `RESULT` lines.
+- Expected matrix result: 8 of 8 (run `8a240b30812b`). A run takes about 10
+  minutes. Read the `RESULT` lines; times vary with machine load, bytes do
+  not.
 
 ## 6. Where the evidence lives
 
@@ -265,6 +336,11 @@ Ask about these; do not decide them silently:
 | Rim measurements and provenance | `engine/guided-quadriflow/development/native-rim-verification.json` |
 | Crease-row check and generator | `crease_rows.py`, `open_surface.py` (`row_plan`), `GUIDED_LAYOUT.md` → "Crease rows" |
 | Crease-row results, job ids, hashes | `engine/guided-quadriflow/development/crease-rows-verification.json` |
+| Guide cut, constrained-edge list, guide check | `native_guide_cut.py`, `registered_features.py` (`constrained`), `guide_rows.py`, `GUIDED_LAYOUT.md` → "Guides cut into the source" |
+| Guide results, job ids, hashes, engine parity | `engine/guided-quadriflow/development/guide-cut-verification.json` |
+| Guide matrix, UI evidence, pictures, engine patch scripts (git-ignored) | `tests/registered-features/guide-native-1/` |
+| Native ZBrush run with a guide (strength 100) | `runs/native-rim-investigation/native-captures/guide/`, scripts `run_native_island6_guide.py`, `island6_guide_payload.py` |
+| Guide regression fixtures | `tests/fixtures/guide_rows/README.md` |
 | Crease-row matrix and UI evidence (git-ignored) | `tests/registered-features/rimfix-rows-3/`, `tests/registered-features/rimfix-ui-200b/` |
 | Rim regression fixtures | `tests/fixtures/crease_rows/README.md` |
 | Native captures, tracers, ZBrush runner | `runs/native-rim-investigation/native-captures/` (input `inputs/island6-original.obj`) |
@@ -282,7 +358,26 @@ Ask about these; do not decide them silently:
 - Native ZBrush runs must use fresh, owned batch processes. Do not touch a
   `ZBrush.exe` that the user is running.
 - When a heredoc patch through `python - <<'EOF'` writes C `printf("...\n")`,
-  the backslash is lost. Use raw strings or `chr(92)+'n'`.
+  the backslash is lost. Use raw strings or `chr(92)+'n'`. In this shell a
+  doubled backslash inside any quoted heredoc collapses to one, so Python
+  text with `'\\n'` in it arrives broken. Write such scripts to a file with
+  the editor tool and run the file.
+- The engine sources in the workbench are Latin-1 with CRLF line ends
+  (`loader.cpp`). Patch them as bytes.
+- Rows layouts no longer use `-embedded-guides`. The engine reads
+  `open-surface/constrained/constrained-edges.txt` (`a b mode`, input-file
+  vertex ids) and, for creases, the band file `open-surface/crease-band.txt`.
+  Modes: 1 direction, 2 direction + lattice line + preserved (guides),
+  3 direction + preserved (creases), 4 preserved only (unused).
+- The guide check excuses one turn at each corner of the guide. A drawn
+  stroke is stair-stepped at sub-face scale; corners are measured with
+  one-face chords so those steps do not count.
+- `tests/verify_registered_features_ui.py` can fail before Generate with
+  `net::ERR_NETWORK_CHANGED` when the host's network changes. Run it again.
+- Line ends are part of the tracked bytes here (`-text`): some files are LF,
+  some CRLF. Python's `read_text`/`write_text` rewrites LF as CRLF on this
+  machine. Edit as bytes, and check `git ls-files --eol -m` before a long
+  verification, or the recorded code hashes will not match the tree.
 - Do not modify sealed workbench records or Ghidra databases.
 - `open_surface.construct` tries 2 caps layouts (`-size-caps-exact`, with the
   request corrected up to twice from actual counts), then 3 constrained,

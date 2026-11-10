@@ -256,6 +256,8 @@ class Handler(BaseHTTPRequestHandler):
    if isinstance(target,bool) or not isinstance(target,int) or not 150<=target<=maximum:raise ValueError(f'Target must be an integer from 150 to {maximum:,}.')
    if mode not in [1,2] or isinstance(mode,bool):raise ValueError('Unknown guide behavior.')
    crease_angle=check_crease_angle(data.get('creaseAngle',DEFAULT_CREASE_ANGLE))
+   extra_faces=data.get('allowExtraFaces',False)
+   if not isinstance(extra_faces,bool):raise ValueError('allowExtraFaces must be true or false.')
    if mesh_id!='cylinder' and mode!=2:raise ValueError('This mesh uses preserved guide paths.')
    if not isinstance(curves,list) or len(curves)>48:raise ValueError('Use at most48 guide curves.')
    total=0
@@ -267,7 +269,7 @@ class Handler(BaseHTTPRequestHandler):
      if not isinstance(point,list) or len(point)!=3 or not all(type(x) in (float,int) and abs(x)<1e6 and math.isfinite(x) for x in point):raise ValueError('Guides must contain finite XYZ surface positions.')
    if total>8192:raise ValueError('Use fewer guide samples.')
    if not part and (mesh_id=='cylinder' or MESHES[mesh_id].get('requiresGuides')) and not curves:raise ValueError('Draw a guide or load the example network for the curved mesh.')
-   fingerprint=hashlib.sha256(json.dumps(dict(meshId=mesh_id,target=target,curves=curves,guideMode=mode,creaseAngle=crease_angle,sourceSha256=MESHES[mesh_id]['sourceSha256'],partSource=data.get('partSource')),sort_keys=True,allow_nan=False).encode()).hexdigest()
+   fingerprint=hashlib.sha256(json.dumps(dict(meshId=mesh_id,target=target,curves=curves,guideMode=mode,creaseAngle=crease_angle,allowExtraFaces=extra_faces,sourceSha256=MESHES[mesh_id]['sourceSha256'],partSource=data.get('partSource')),sort_keys=True,allow_nan=False).encode()).hexdigest()
    replay=None;conflict=False
    with LOCK:
     record=REQUESTS.get(request_id) if request_id else None
@@ -279,7 +281,7 @@ class Handler(BaseHTTPRequestHandler):
     else:
      if sum(j['state'] in ('queued','running') for j in JOBS.values())>=3:raise ValueError('Wait for the current calculation or cancel it first.')
      job_id=uuid.uuid4().hex;folder=ROOT/'runs'/job_id;folder.mkdir(parents=True)
-     write(folder/'settings.json',dict(meshId=mesh_id,target=target,guideMode=mode,creaseAngle=crease_angle,sourceSha256=MESHES[mesh_id]['sourceSha256'],createdAt=datetime.datetime.now(datetime.timezone.utc).isoformat()))
+     write(folder/'settings.json',dict(meshId=mesh_id,target=target,guideMode=mode,creaseAngle=crease_angle,allowExtraFaces=extra_faces,sourceSha256=MESHES[mesh_id]['sourceSha256'],createdAt=datetime.datetime.now(datetime.timezone.utc).isoformat()))
      if part:
       settings=read(folder/'settings.json');settings.update(partSource=data['partSource'],sourceSha256=part['sourceSha256'],originalSourceSha256=MESHES[mesh_id]['sourceSha256']);write(folder/'settings.json',settings)
      write(folder/'curves.json',dict(coordinateFrame='source',curves=curves))

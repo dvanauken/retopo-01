@@ -8,7 +8,10 @@ import argparse, hashlib, json, os, subprocess, sys, time, uuid
 
 ROOT=Path(__file__).resolve().parents[1]
 GUIDE=ROOT/'tests/fixtures/island6-authored-guide.json'
+# The guide of job 483afe83 (island 6, request 200): the case whose guide path zig-zagged between edge loops.
+GUIDE_200=ROOT/'tests/fixtures/island6-guide-483afe83.json'
 CASES=[('island6-150','skp-6',150,False),('island6-200','skp-6',200,False),
+       ('island6-200-guide','skp-6',200,GUIDE_200),
        ('island6-300','skp-6',300,False),('island6-750-guide','skp-6',750,True),
        ('island2-300','skp-2',300,False),('island7-300','skp-7',300,False),
        ('island10-500','skp-10',500,False)]
@@ -32,12 +35,13 @@ def engine_identity(root,env):
     paths.extend(runtime/name for name in manifest['runtimeImports'])
     return {str(path.resolve()):sha(path) for path in paths}
 
-def prepare(root,case,angle,packet,run_id):
+def prepare(root,case,angle,packet,run_id,extra_faces=False):
     name,part_id,target,guided=case;model=read(root/'assets/models/toilet-skp.json')
     part=next(p for p in model['initialParts'] if p['id']==part_id)
     source=root/'runs/parts'/part['partSource']/'source.obj'
     settings=dict(meshId='toilet-skp',partSource=part['partSource'],target=target,guideMode=2,
                   creaseAngle=angle,sourceSha256=sha(source),originalSourceSha256=model['sourceSha256'])
+    if extra_faces:settings['allowExtraFaces']=True
     job=root/'runs'/('registered-'+run_id+'-'+name);job.mkdir(parents=True,exist_ok=False)
     write(job/'settings.json',settings)
     write(job/'curves.json',packet if guided else dict(coordinateFrame='source',curves=[]))
@@ -47,8 +51,9 @@ def last_event(job):
     try:return json.loads((job/'events.jsonl').read_text(encoding='utf-8').splitlines()[-1])['message']
     except (OSError,ValueError,KeyError,IndexError):return ''
 
-def run(root,case,angle,packet,run_id,out,timeout,env):
-    job,settings=prepare(root,case,angle,packet,run_id)
+def run(root,case,angle,packet,run_id,out,timeout,env,extra_faces=False):
+    if isinstance(case[3],Path):packet=read(case[3])   # a case with its own guide file
+    job,settings=prepare(root,case,angle,packet,run_id,extra_faces)
     command=[sys.executable,'-X','utf8',str(root/'worker.py'),'--feature-layout','--job',str(job)]
     row=dict(case=case[0],part=case[1],job=str(job),settings=settings,command=command,
              curvesSha256=sha(job/'curves.json'),guideCount=len(packet['curves']) if case[3] else 0)
@@ -72,7 +77,7 @@ def run(root,case,angle,packet,run_id,out,timeout,env):
     mesh=read(job/'mesh.json') if (job/'mesh.json').exists() else {}
     row['report']=report;row['passed']=bool(child.returncode==0 and report.get('passed') and mesh)
     if mesh:
-        keys=('stats','quality','featureValidation','surfaceValidation','boundaryValidation','intersectionValidation','guidePaths','elapsedSeconds','registeredFeatures','registrationSkipped','layoutStyle','candidateSelection','featureRows')
+        keys=('stats','quality','featureValidation','surfaceValidation','boundaryValidation','intersectionValidation','guidePaths','guideRows','elapsedSeconds','registeredFeatures','registrationSkipped','layoutStyle','candidateSelection','featureRows')
         row['result']={k:mesh.get(k) for k in keys};row['faces']=len(mesh['faces']);row['outputSha256']=sha(job/'output.obj')
         row['allAcceptanceGatesPassed']=all(mesh.get(k,{}).get('passed') for k in ('quality','featureValidation','surfaceValidation','intersectionValidation')+(('boundaryValidation',) if mesh.get('openSurface') else ()))
         row['passed']=row['passed'] and row['allAcceptanceGatesPassed']
@@ -86,7 +91,7 @@ def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--project-root',type=Path,default=ROOT)
     ap.add_argument('--out',type=Path,required=True);ap.add_argument('--case',action='append',choices=[c[0] for c in CASES])
     ap.add_argument('--crease-angle',type=float,default=30.);ap.add_argument('--guide',type=Path,default=GUIDE)
-    ap.add_argument('--timeout',type=float,default=720.);ap.add_argument('--env',action='append',default=[],metavar='NAME=VALUE')
+    ap.add_argument('--timeout',type=float,default=720.);ap.add_argument('--extra-faces',action='store_true',help="Generate with 'Add faces where the shape needs them'");ap.add_argument('--env',action='append',default=[],metavar='NAME=VALUE')
     a=ap.parse_args();root=a.project_root.resolve();out=a.out.resolve()
     if not out.is_relative_to(ROOT):ap.error('Evidence must remain inside this workspace')
     out.mkdir(parents=True,exist_ok=False);(out/'executed-runner.py').write_bytes(Path(__file__).read_bytes());packet=read(a.guide)
@@ -99,12 +104,12 @@ def main():
     env.update(overrides);run_id=uuid.uuid4().hex[:12];before=code_identity(root)
     result=dict(projectRoot=str(root),runnerSha256=sha(Path(__file__)),runId=run_id,command=sys.argv,
                 environmentOverrides=overrides,guideSource=str(a.guide.resolve()),guideSha256=sha(a.guide),
-                codeBefore=before,engineBefore=engine_identity(root,env),creaseAngle=a.crease_angle,cases=[],
+                codeBefore=before,engineBefore=engine_identity(root,env),creaseAngle=a.crease_angle,extraFaces=a.extra_faces,cases=[],
                 scope='Actual worker inputs and unchanged acceptance gates. No native ZBrush, mocks or substituted solver outputs.')
     write(out/'manifest.json',result)
     for case in CASES:
         if a.case and case[0] not in a.case:continue
-        result['cases'].append(run(root,case,a.crease_angle,packet,run_id,out,a.timeout,env))
+        result['cases'].append(run(root,case,a.crease_angle,packet,run_id,out,a.timeout,env,a.extra_faces))
         write(out/'result.json',result)
     result['codeAfter']=code_identity(root);result['engineAfter']=engine_identity(root,env)
     result['codeStable']=before==result['codeAfter'] and result['engineBefore']==result['engineAfter']
