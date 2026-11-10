@@ -86,7 +86,8 @@ def construct(source, triangles, curves, *, target, job):
         row=dict(iteration=iteration,refinement=detail,quality=quality,guideFit=fit,passed=False);history.append(row)
         if iteration>=1 and quality['passed']:
             cq._progress(job,'Checking source features, surface distance and face contacts')
-            tic=time.monotonic();feature=measure_features(source,triangles,p,q,target)
+            # Crease rows are reported, not enforced, on this closed-part route: it has no row fitting yet.
+            tic=time.monotonic();feature=measure_features(source,triangles,p,q,target,enforce_rows=False)
             contact=cq.surface_intersections(p,q,both_quad_diagonals=True)
             surface=cq.validate_surface(source,triangles,p,q,target,accelerated=True)
             row.update(features=feature,contacts=contact,surface=surface,verificationSeconds=time.monotonic()-tic)
@@ -121,7 +122,7 @@ def construct(source, triangles, curves, *, target, job):
             nonlocal latest
             obj(out/f'{label}.obj',p,q)
             quality=cq.quad_quality(p,q,target);fit=cq._guide_fit(p,paths,curves,h)
-            feature=measure_features(source,triangles,p,q,target)
+            feature=measure_features(source,triangles,p,q,target,enforce_rows=False)
             contact=cq.surface_intersections(p,q,both_quad_diagonals=True)
             latest=dict(stage=label,refinement=detail,quality=quality,guideFit=fit,features=feature,contacts=contact,passed=False)
             if full and quality['passed'] and contact['passed']:

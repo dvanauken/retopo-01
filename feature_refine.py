@@ -37,7 +37,16 @@ def nearest_segments(points, a, b, tangents=None, spacing=1., point_normals=None
     return ids[np.arange(len(points)),distance.argmin(1)]
 
 
-def refine(source_mesh, positions, faces, curves, target, paths, *, contacts=(), witnesses=(), active_vertices=None, feature_strength=1., guide_tangent_strength=8., guide_position_strength=40., guide_vertex_strength=0., separate_guide_features=False, witness_policy='both-diagonals', compact_active_terms=False, dense_features=False, allow_boundary=False):
+def refine(source_mesh, positions, faces, curves, target, paths, *, contacts=(), witnesses=(), active_vertices=None, feature_strength=1., guide_tangent_strength=8., guide_position_strength=40., guide_vertex_strength=0., separate_guide_features=False, witness_policy='both-diagonals', compact_active_terms=False, dense_features=False, allow_boundary=False, row_bands=None):
+    """Fit positions to the source, its creases, guides and rejected contacts.
+
+    `row_bands` (crease_rows): a set of source crease edges, as sorted vertex
+    pairs, that belong to a band realised by one edge row, together with the
+    last `rows` entries of `paths`/`curves` being those rows. Such a band is
+    fit through its row alone: its samples attach only to row edges, its
+    vertices-to-crease and junction pulls are dropped, so no second edge line
+    is drawn onto the band (which would pinch a strip of thin quads).
+    """
     import torch
     torch.set_num_threads(1)
     start=time.perf_counter()
@@ -53,7 +62,12 @@ def refine(source_mesh, positions, faces, curves, target, paths, *, contacts=(),
     guide_edges={tuple(sorted((int(a),int(b)))) for path in paths for a,b in zip(path['vertices'][:-1],path['vertices'][1:])}
     settled=bool(cq.quad_quality(p,q,target)['passed'])
     fe,detection=detect(v,f,h,target=target)
+    banded=np.array([tuple(sorted((int(a),int(b)))) in row_bands['edges'] for a,b in fe],bool) if row_bands else np.zeros(len(fe),bool)
+    row_edges={tuple(sorted((int(a),int(b)))) for path in paths[len(paths)-row_bands['rows']:] for a,b in zip(path['vertices'][:-1],path['vertices'][1:])} if row_bands and row_bands['rows'] else set()
     degree=np.bincount(fe.ravel(),minlength=len(v));corners=np.flatnonzero(degree>=3)
+    if banded.any():
+        # A junction whose crease edges all lie in row bands is detail inside a band, not a corner to pin.
+        free=np.bincount(fe[~banded].ravel(),minlength=len(v));corners=corners[free[corners]>0]
     corner_cost=np.linalg.norm(v[corners,None,:]-p[None,:,:],axis=2)
     if separate_guide_features and curves and len(corners):
         separate=np.min([cq._nearest_curve(v[corners],np.asarray(c))[0] for c in curves],axis=0)>h*.1
@@ -88,6 +102,9 @@ def refine(source_mesh, positions, faces, curves, target, paths, *, contacts=(),
     separate=np.min([cq._nearest_curve(samples,np.asarray(c))[0] for c in curves],axis=0)>h*.1 if separate_guide_features and curves and len(samples) else np.zeros(len(samples),bool)
     forbidden=np.array([tuple(e) in guide_edges for e in edges])
     selected=nearest_segments(samples,p[edges[:,0]],p[edges[:,1]],feature_tangents,h,feature_normals,quad_normals[np.asarray(edge_faces)].mean(1),forbidden,separate) if len(samples) else np.array([],int)
+    if banded.any() and row_edges:
+        on_band=np.repeat(banded,sample_counts);row_ids=np.array(sorted(edge_lookup[e] for e in row_edges),int)
+        selected[on_band]=row_ids[nearest_segments(samples[on_band],p[edges[row_ids,0]],p[edges[row_ids,1]],feature_tangents[on_band],h)]
     FE=I(edges[selected]);CF=I(np.asarray(edge_faces)[np.unique(selected)])
     weights=T(1/np.sqrt(np.maximum(1,np.bincount(selected,minlength=len(edges))[selected]/5)))
     # Balance each movable vertex between its opposite star neighbors (regular) or at its
@@ -105,6 +122,7 @@ def refine(source_mesh, positions, faces, curves, target, paths, *, contacts=(),
         selected=nearest_segments(p,v[fe[:,0]],v[fe[:,1]]);a=v[fe[selected,0]];d=v[fe[selected,1]]-a
         t=np.clip(((p-a)*d).sum(1)/np.maximum(1e-20,(d*d).sum(1)),0,1);goal=a+t[:,None]*d
         mask=np.linalg.norm(p-goal,axis=1)<h*.45
+        if banded.any():mask&=~banded[selected]
         if separate_guide_features:mask&=~np.isin(np.arange(len(p)),list(guide_nodes))
         ids=np.flatnonzero(mask);FI=I(ids);FA=T(goal[ids])
     else:FI=I([]);FA=T(np.empty((0,3)))

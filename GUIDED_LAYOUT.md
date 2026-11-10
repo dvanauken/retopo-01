@@ -347,3 +347,205 @@ executable are in `runs/native-rim-investigation/qf-locks/fan-fix/`; final runs
 are in `fan-fix-clean/repro-and-controls.json`. Both packaged engines remain
 unchanged. The corrected traversal makes the failure inspectable; it does not
 supply the missing global chart and consistent rim-row layout.
+
+
+## Crease rows (2026-11-09)
+
+Island 6 at a request of 200 now generates with a continuous, ordered edge row
+on its rim, and the crease check rejects a mesh without one. The screenshot
+mesh of job `3029972da0174acd9845b6ec0df6e3ea` fails the new check on its rim
+and on nothing else. Results and job ids are at the end of this section.
+
+### Why the rim had no row
+
+Three causes, in the order they act:
+
+1. **The layout engine never treated the visible rim as a feature.** QuadriFlow's
+   `-sharp` hardens edges whose dihedral exceeds a fixed 60°
+   (`ComputeSharpEdges`, `cos(60°)` in `parametrizer-mesh.cpp`). The application
+   admits creases at the native 30°. Island 6's upper rim crease measures 33° to
+   54° along its length, so it only received soft orientation guidance. Its
+   partner a quarter face below (35° to 95°, median 85°) was hardened and got
+   partial rows. That is the edge line the screenshot shows wandering under the
+   rim.
+2. **The fit drew other edges onto the band.** The fit pinned every crease
+   junction to its own output vertex and pulled any vertex within 0.45 h of a
+   crease onto it. A band holding several short creases therefore attracted a
+   second edge line, which pinched a strip of thin quads or dragged the row off.
+3. **The check did not ask for a row.** It measured each crease sample to the
+   nearest output edge of any kind and subtracted the local band width. Edges
+   0.42 h from the rim passed.
+
+### What native does, and where this differs
+
+Native ZRemesher embeds admitted creases as guide edges and keeps them as rows
+through extraction (recovered embedded-guide and extraction-graph modules). Its
+integer policy (`0x28fe70`) proposes a separation of one cell for parallel
+guides closer than 1.35 cells; these are candidates the solve may drop. On this
+part it keeps both rim creases as rows, with a strip of thin quads between
+them: the 374-face native capture has a row on each.
+
+This application cannot copy that at 200 quads under its own quad-shape limits.
+The rim wall is 0.24 h high; a row of about 40 quads with an edge ratio near 4.4
+breaks the 3.5 limit on the 95th-percentile edge ratio. One row per band of
+parallel creases is therefore **this application's existing band policy**
+(`source_features.band_widths`: creases within half a face and 30° of parallel
+form one band). It is not a native rule and is not claimed as one.
+
+### The check (`crease_rows.py`, enforced through `source_features.measure`)
+
+- **Representatives.** Within a band, the crease bordering the wider sheet
+  represents the band. Sheet width is walked across the source triangles in the
+  plane perpendicular to the crease edge, to the next crease or boundary. On
+  island 6 this picks the upper rim crease (top sheet) over the lower one
+  (underside, about one face wide). *Engineering choice.*
+- **Chains.** Representative edges are joined into chains; a chain continues
+  through a junction when it turns by less than 30° (the existing band angle).
+  A chain needs a row when its extent is at least two requested faces: a row is
+  at least two consecutive edges. *Engineering choices.*
+- **The row.** One connected output edge path that runs forward along the
+  chain, found with the cost already used for authored guide paths
+  (`curved_quad._guide_path`). *Engineering choice.*
+- **Distance.** From the path to the band span at each chain sample: the strip
+  between the representative and the parallel creases it absorbs. A row anywhere
+  across its band measures zero; a row beside the band is charged its whole gap.
+  This replaces the scalar band allowance, which forgave a gap on either side.
+- **Limits**, all numbers the application already used, in requested faces:
+
+  | Measure | Limit | Existing meaning it reuses |
+  |---|---|---|
+  | `rowP95` | 0.25 h | "95 % of each crease within a quarter face of an edge loop" |
+  | `rowMax` | 0.5 h | "no crease point runs through the middle of a face" |
+  | `rowEndMax` | 1 h | "a vertex within one face of every junction"; last face of arc at each open end |
+  | `rowTangentP95Degrees` | 30° | connected-path limit for authored guides |
+
+  The first, second and fourth leave out the end zones the third covers.
+  `rowsMissing` counts representative chains without an accepted row; the limit
+  is zero. The older nearest-edge measures are unchanged and still apply.
+
+Native measurement on the same check (island 6, request 200, 364 quads): rim
+0.103 h at the 95th percentile, 0.387 h maximum, 12.5° direction; both hinge
+chains under 0.01 h. Native passes. It is reference evidence, not a standard.
+
+### The generator (`open_surface.py`, `feature_refine.py`)
+
+- **Rows layouts.** Chains that need a row are handed to the unmodified engine
+  as embedded guide edges (`-embedded-guides`), which enter its integer and
+  extraction constraints exactly as sharp edges do. Their band partners are left
+  out. Other creases keep the old treatment: hard at QuadriFlow's 60° or more,
+  soft orientation guides below. No engine binary changed; both packaged hashes
+  are as before.
+- **Soft-guide encoding.** With `-embedded-guides` the engine hardens every
+  source edge, or piece of one after its own subdivision, whose ends lie on a
+  guide segment to within 1e-8 of the model's half extent
+  (`guide-constraints.hpp`). Soft creases are therefore written a millionth of
+  the model extent off the surface along their normal. They orient the field
+  over the same support and are never embedded: the engine logs 366 embedded
+  oriented edges for island 6 at 200, exactly the hard list after subdivision.
+  This is a transport encoding for the existing engine, not a geometric
+  tolerance. A dedicated engine flag for a hard-edge list would be cleaner.
+- **Fit.** Each row is fit like an authored guide: its connected path is held on
+  the representative crease. A row band is fit through that row only: its
+  samples attach to row edges, and its junction and vertex pulls are dropped.
+- **Search.** Most seeds do not put a row on every chain, so layouts are
+  screened before fitting. The first pass fits seeds whose rows already meet the
+  quarter-face limit unfitted; the second fits the rest within half a face. A
+  layout whose quad shape or rows still fail after two fits is dropped. Engine
+  layouts run eight seeds at a time. Budget: 32 seeds, 360 s for rows layouts,
+  the existing 420 s admission budget overall. The older layouts follow and are
+  held to the same check. *All of this is search policy, not acceptance.*
+
+### What is and is not claimed
+
+- Enforced for open parts, which is the route island 6 uses. The closed-part
+  solver (`feature_quad.py`) has no row fitting yet, so there the row report is
+  recorded and not enforced. Island 7's current 339-quad output would fail one
+  of its five chains (source vertices 159 to 380: 0.30 h, 63°).
+- The check accepts a row anywhere across its band. The generator aims at the
+  representative; a mesh whose row sits on the band partner also passes.
+- Acceptance at 200 still depends on a seed search. The hinge lugs, which are
+  about one face tall, use most of the 5 % budgets of the older checks, so few
+  seeds pass everything. This is unchanged behaviour: the previous 188-quad
+  result was the only passing candidate of twelve layouts.
+- Island 6 at 150 is still rejected. It was rejected before this work.
+- Nothing here is recovered native arithmetic. The parameter chart and combined
+  integer solve named as the next milestone were not needed for the rim and
+  were not built.
+
+### Results (2026-11-09, final code)
+
+Witness source edge [1308, 1309], island 6, request 200, h = 0.0823. Distances
+are to the nearest output edge of any kind, as in the investigation.
+
+| Mesh | Faces | Witness point | Largest along the edge | Rim row (95th percentile / maximum / direction) |
+|---|---|---|---|---|
+| Before: job `3029972da0174acd9845b6ec0df6e3ea` | 188 | 0.422 h | 0.422 h | 0.323 h / 0.384 h / 17°, rejected (also 1.16 h at one end) |
+| Native ZRemesher, keep creases 30° | 374 | 0.011 h | 0.027 h | 0.103 h / 0.387 h / 13°, passes |
+| After: job `70df0003c0e141499bb504b661ef8f9b` | 207 | 0.004 h | 0.018 h | 0.044 h / 0.311 h / 12°, passes |
+
+The after mesh passes every existing check: minimum angle 35.1°, edge ratio
+2.86 at the 95th percentile and 5.56 at most, scaled Jacobian 0.57, count +3.5 %.
+Its rim row runs from lug to lug in 30 vertices. Near the left lug, where the
+crease leaves the rim, the row is 0.31 h off for about one face; that is inside
+the limits and is the largest deviation.
+
+Real UI (`tests/verify_registered_features_ui.py --case island6-200`, owned
+server and Chromium, no stubs): job `70df0003c0e141499bb504b661ef8f9b`, 207
+quads, accepted in 46.8 s, export downloaded and identical to the accepted
+file, reload restored the result, no page or network errors. The worker matrix
+produced the same bytes for the same case (SHA-256 `b7e18406…1a66`).
+`tests/audit_registered_features.py` re-read the exported OBJ and passed it.
+
+Worker matrix (`tests/verify_registered_features.py`, run `182fbe2cc53e`, code
+stable), against the same matrix run on the unchanged code earlier the same day
+(run `e9a14a0f873d`):
+
+| Case | Before | After | Rows required / realized | Job |
+|---|---|---|---|---|
+| Island 6 / 150 | Rejected, 285 s | Rejected, 377 s | 3 | `registered-182fbe2cc53e-island6-150` |
+| Island 6 / 200 | 188 quads, 60 s | 207 quads, 44 s | 3 / 3 | `registered-182fbe2cc53e-island6-200` |
+| Island 6 / 300 | 268 quads, 114 s | 331 quads, 86 s | 4 / 4 | `registered-182fbe2cc53e-island6-300` |
+| Island 6 / 750 + guide | 839 quads, 48 s | 751 quads, 150 s | 5 / 5 | `registered-182fbe2cc53e-island6-750-guide` |
+| Island 2 / 300 | 291 quads | 291 quads, same bytes | none admitted | `registered-182fbe2cc53e-island2-300` |
+| Island 7 / 300 (closed) | 339 quads | 339 quads, same bytes | 5 / 4, not enforced | `registered-182fbe2cc53e-island7-300` |
+| Island 10 / 500 | 456 quads, 28 s | 545 quads, 118 s | 6 / 6 | `registered-182fbe2cc53e-island10-500` |
+
+Six of seven pass, the same six as before. Island 6 at 150 fails the surface
+check on its best candidate, as it did before. The three "before" outputs for
+island 6 at 300, 750 + guide and island 10 fail the new row check, which is why
+their results changed. All 197 unit tests pass.
+
+The search is deterministic but sensitive: which seed is accepted changes with
+small input changes. Island 6 at 200 is accepted at seed 13 in the first pass,
+750 + guide at seed 22 in the second. While the soft-guide encoding was being
+settled, the same case was accepted at seed 25 with 218 quads.
+
+Other open parts were not worked on. They were run once each to look for
+collateral damage, old pipeline against new in the same process (old = no row
+plan, rows not enforced):
+
+| Part / request | Old pipeline | New pipeline |
+|---|---|---|
+| Island 1 / 1,500 | Rejected (crease, surface, contacts), 737 s | Rejected: 69 chains need rows, no layout has all of them, 261 s |
+| Island 3 / 300 | 321 quads | 321 quads; no chain needs a row |
+| Island 4 / 300 | Does not finish: the size-caps layout post-processing loops | Same loop, reached after the rows layouts |
+| Island 8 / 300 | 274 quads, one of three rows missing | 315 quads, three of three rows |
+| Island 9 / 300 | 315 quads, one of three rows missing | 295 quads, three of three rows |
+| Island 11 / 300 | Rejected (surface) | Rejected (surface) |
+
+No part that generated before fails now at these requests. Two limits showed:
+
+- The row finder assumes a chain does not pass within a face of itself. Island
+  4's outline is one 94 h chain with a hairpin; no layout got a path for it.
+  Splitting chains at sharp corners would address it. Island 6's chains have no
+  corner of 30° or more at 150, 200, 300 or 750, so that change would not touch
+  it; it was left out to keep this work on one problem.
+- Island 4 at 300 never returns, before or after: an endless loop in the
+  unchanged post-processing of its first size-caps layout. It is a separate
+  defect.
+
+Compact record with hashes: `engine/guided-quadriflow/development/crease-rows-verification.json`.
+Evidence folders (git-ignored): `tests/registered-features/rimfix-rows-3/`,
+`tests/registered-features/rimfix-ui-200b/` (UI screenshot `island6-200/result.png`,
+comparison plot `rim-before-native-after.png`), baseline matrix
+`tests/registered-features/rimfix-baseline/`.

@@ -41,7 +41,16 @@ class Startup(unittest.TestCase):
         self.assertEqual(current, self.original_pointer, 'User service pointer must remain untouched')
         # All deletion is confined to this test's resolved workspace directory.
         self.assertTrue(self.folder.resolve().is_relative_to((ROOT/'runs').resolve()))
-        shutil.rmtree(self.folder)
+        # Windows releases a killed launcher's inherited startup.log handle a moment
+        # after the process exits; removing the folder at once raced with that.
+        for attempt in range(100):
+            try:
+                shutil.rmtree(self.folder)
+                break
+            except PermissionError:
+                if attempt == 99:
+                    raise
+                time.sleep(.1)
 
     def checkout(self, name):
         folder = self.folder/name

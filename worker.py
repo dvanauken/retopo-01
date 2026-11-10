@@ -62,10 +62,11 @@ def main():
    mesh['guideSampleMethod']='257 uniformly spaced authored arc-length samples per guide, measured against its connected output-edge path.'
    mesh['surfaceValidation']=meta['closedValidation']
    if meta.get('openSurface'):mesh.update(openSurface=True,boundaryValidation=meta['boundaryValidation'])
-   for field in ('featureRows','registeredFeatures','registrationSkipped','layoutStyle','candidateSelection'):
+   for field in ('featureRows','registeredFeatures','registrationSkipped','layoutStyle','candidateSelection','creaseRows'):
     if field in meta:mesh[field]=meta[field]
    mesh['intersectionValidation']=meta['intersectionValidation']
-   mesh['featureValidation']=measure_source_features(v,f,positions,faces,settings['target'])
+   # Crease rows are enforced where the solver fits them (open parts); the closed-part solver records them.
+   mesh['featureValidation']=measure_source_features(v,f,positions,faces,settings['target'],enforce_rows=bool(meta.get('openSurface')))
    mesh['featurePolicy']='enforced' if 'featureValidation' in meta else 'diagnostic'
    write(job/'source-features.json',mesh['featureValidation'])
    if mesh['featurePolicy']=='enforced' and not mesh['featureValidation']['passed']:

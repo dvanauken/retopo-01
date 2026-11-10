@@ -36,7 +36,7 @@ def main():
     out=dict(passed=bool(passed),sourceSha256=hashlib.sha256((job/'source.obj').read_bytes()).hexdigest(),
              outputSha256=hashlib.sha256((job/'output.obj').read_bytes()).hexdigest(),quality=quality,features=feature,
              surface=surface,boundary=rim,referenceContacts=reference,guideFit=guide,seconds=time.monotonic()-started,
-             validatorHashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in ['tests/audit_registered_features.py','surface_intersections.py','surface_contacts_fast.py','curved_quad.py','source_features.py','boundary_geometry.py']},
+             validatorHashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in ['tests/audit_registered_features.py','surface_intersections.py','surface_contacts_fast.py','curved_quad.py','source_features.py','crease_rows.py','boundary_geometry.py']},
              scope='Accepted OBJ re-read; independent original Python contact predicates vs fast path; reference surface search; actual connected guide edges. No fitting.')
     (job/'reference-export-audit.json').write_text(json.dumps(out,indent=2,allow_nan=False)+'\n',encoding='utf-8')
     print('EXPORT AUDIT',passed,'seconds',out['seconds'],flush=True)

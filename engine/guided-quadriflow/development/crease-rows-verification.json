@@ -1,0 +1,295 @@
+{
+  "date": "2026-11-09",
+  "scope": "Island 6 (skp-6) rim at a request of 200: crease check now requires a connected, ordered edge row per crease band; open-part generator embeds and fits those rows. No engine binary changed. Not native arithmetic.",
+  "spacing": 0.0822872437626249,
+  "witness": {
+    "sourceEdge": [
+      1308,
+      1309
+    ],
+    "sourcePoint": [
+      -0.4193387256636727,
+      -0.5726395985644704,
+      0.18908541434501042
+    ],
+    "note": "Point is the 2026-10-28 investigation sample; edge maximum is over 33 samples of the source edge."
+  },
+  "before": {
+    "job": "3029972da0174acd9845b6ec0df6e3ea",
+    "sha256": "685670dd365d067ee21b3c0d753a3b30b8f53a8d3a4a3d1861b54e3f48ff4cfe",
+    "faces": 188,
+    "quads": 188,
+    "witnessPointToNearestOutputEdgeOverH": 0.4216,
+    "witnessEdgeMaxToNearestOutputEdgeOverH": 0.4216,
+    "creaseRowsPassed": false,
+    "rows": [
+      {
+        "sourceVertices": [
+          613,
+          1321
+        ],
+        "lengthFaces": 34.31,
+        "passed": false,
+        "failures": [
+          "rowP95",
+          "rowEndMax"
+        ],
+        "pathVertices": 31,
+        "rowP95OverH": 0.323,
+        "rowMaxOverH": 0.3842,
+        "rowEndMaxOverH": 1.1582,
+        "rowTangentP95Degrees": 16.6425
+      },
+      {
+        "sourceVertices": [
+          489,
+          1202
+        ],
+        "lengthFaces": 6.77,
+        "passed": true,
+        "failures": [],
+        "pathVertices": 6,
+        "rowP95OverH": 0.1347,
+        "rowMaxOverH": 0.1548,
+        "rowEndMaxOverH": 0.2953,
+        "rowTangentP95Degrees": 15.9614
+      },
+      {
+        "sourceVertices": [
+          724,
+          1426
+        ],
+        "lengthFaces": 5.82,
+        "passed": true,
+        "failures": [],
+        "pathVertices": 5,
+        "rowP95OverH": 0.0648,
+        "rowMaxOverH": 0.0761,
+        "rowEndMaxOverH": 0.3265,
+        "rowTangentP95Degrees": 7.0416
+      }
+    ]
+  },
+  "native": {
+    "note": "ZBrush ZRemesher, keep creases 30 degrees, request 200; reference only. Rows measured on its 364 quads.",
+    "sha256": "8ad49f146bcd1dbee7e40886d74e515af5c4f4d11c2429eede58cfa79bfd71bd",
+    "faces": 374,
+    "quads": 364,
+    "witnessPointToNearestOutputEdgeOverH": 0.0108,
+    "witnessEdgeMaxToNearestOutputEdgeOverH": 0.0266,
+    "creaseRowsPassed": true,
+    "rows": [
+      {
+        "sourceVertices": [
+          613,
+          1321
+        ],
+        "lengthFaces": 34.31,
+        "passed": true,
+        "failures": [],
+        "pathVertices": 32,
+        "rowP95OverH": 0.1026,
+        "rowMaxOverH": 0.3873,
+        "rowEndMaxOverH": 0.3266,
+        "rowTangentP95Degrees": 12.5265
+      },
+      {
+        "sourceVertices": [
+          489,
+          1202
+        ],
+        "lengthFaces": 6.77,
+        "passed": true,
+        "failures": [],
+        "pathVertices": 11,
+        "rowP95OverH": 0.0001,
+        "rowMaxOverH": 0.0004,
+        "rowEndMaxOverH": 0.0429,
+        "rowTangentP95Degrees": 0.0476
+      },
+      {
+        "sourceVertices": [
+          724,
+          1426
+        ],
+        "lengthFaces": 5.82,
+        "passed": true,
+        "failures": [],
+        "pathVertices": 9,
+        "rowP95OverH": 0.0031,
+        "rowMaxOverH": 0.0032,
+        "rowEndMaxOverH": 0.0268,
+        "rowTangentP95Degrees": 0.3321
+      }
+    ]
+  },
+  "after": {
+    "job": "registered-182fbe2cc53e-island6-200",
+    "seconds": 44.1,
+    "layout": "rows",
+    "quality": {
+      "faces": 207,
+      "minimumAngleDegrees": 35.08268386519347,
+      "edgeRatioP95": 2.8585508497326972,
+      "edgeRatioMax": 5.563442218316414,
+      "scaledJacobianMin": 0.5737475500519323,
+      "targetRelativeError": 0.035,
+      "passed": true
+    },
+    "sha256": "b7e18406caf22a608ffbf889073d42fb5bb10bf5c838e0185f182e5c715e1a66",
+    "faces": 207,
+    "quads": 207,
+    "witnessPointToNearestOutputEdgeOverH": 0.0042,
+    "witnessEdgeMaxToNearestOutputEdgeOverH": 0.0182,
+    "creaseRowsPassed": true,
+    "rows": [
+      {
+        "sourceVertices": [
+          613,
+          1321
+        ],
+        "lengthFaces": 34.31,
+        "passed": true,
+        "failures": [],
+        "pathVertices": 30,
+        "rowP95OverH": 0.044,
+        "rowMaxOverH": 0.3109,
+        "rowEndMaxOverH": 0.5908,
+        "rowTangentP95Degrees": 12.4696
+      },
+      {
+        "sourceVertices": [
+          489,
+          1202
+        ],
+        "lengthFaces": 6.77,
+        "passed": true,
+        "failures": [],
+        "pathVertices": 8,
+        "rowP95OverH": 0.0402,
+        "rowMaxOverH": 0.0568,
+        "rowEndMaxOverH": 0.1761,
+        "rowTangentP95Degrees": 5.1452
+      },
+      {
+        "sourceVertices": [
+          724,
+          1426
+        ],
+        "lengthFaces": 5.82,
+        "passed": true,
+        "failures": [],
+        "pathVertices": 6,
+        "rowP95OverH": 0.0191,
+        "rowMaxOverH": 0.026,
+        "rowEndMaxOverH": 0.0907,
+        "rowTangentP95Degrees": 4.3157
+      }
+    ]
+  },
+  "matrix": {
+    "command": "python -X utf8 tests/verify_registered_features.py --out tests/registered-features/rimfix-rows-3",
+    "runId": "182fbe2cc53e",
+    "codeStable": true,
+    "passedCases": 6,
+    "cases": [
+      {
+        "case": "island6-150",
+        "job": "registered-182fbe2cc53e-island6-150",
+        "passed": false,
+        "faces": null,
+        "seconds": 376.9,
+        "outputSha256": null,
+        "message": "No accepted mesh after 148 candidates across 68 layouts. Best candidate failed surface/boundary preservation. Passed: quad shape/count, source crease preservation, face intersections, guide fit."
+      },
+      {
+        "case": "island6-200",
+        "job": "registered-182fbe2cc53e-island6-200",
+        "passed": true,
+        "faces": 207,
+        "seconds": 44.1,
+        "outputSha256": "b7e18406caf22a608ffbf889073d42fb5bb10bf5c838e0185f182e5c715e1a66",
+        "message": ""
+      },
+      {
+        "case": "island6-300",
+        "job": "registered-182fbe2cc53e-island6-300",
+        "passed": true,
+        "faces": 331,
+        "seconds": 86.2,
+        "outputSha256": "0a155a4b4339e3f7a48998b5ee75472ead91779c9fcfd4f2782a767de7eff2f2",
+        "message": ""
+      },
+      {
+        "case": "island6-750-guide",
+        "job": "registered-182fbe2cc53e-island6-750-guide",
+        "passed": true,
+        "faces": 751,
+        "seconds": 150.3,
+        "outputSha256": "cb91a40fb35eab5caffdbab71de26953270c04929bb373831b7dc3eba5c38cf3",
+        "message": ""
+      },
+      {
+        "case": "island2-300",
+        "job": "registered-182fbe2cc53e-island2-300",
+        "passed": true,
+        "faces": 291,
+        "seconds": 4.0,
+        "outputSha256": "2589e603b33d30875700faa5e5aa20bf8650d7b5c95aab2be1b8519a4b17be69",
+        "message": ""
+      },
+      {
+        "case": "island7-300",
+        "job": "registered-182fbe2cc53e-island7-300",
+        "passed": true,
+        "faces": 339,
+        "seconds": 14.0,
+        "outputSha256": "7af7cbe32a8d6cafe3e6391f91f22b2e282d70d622c28aa9c948b06260aa0ffa",
+        "message": ""
+      },
+      {
+        "case": "island10-500",
+        "job": "registered-182fbe2cc53e-island10-500",
+        "passed": true,
+        "faces": 545,
+        "seconds": 118.3,
+        "outputSha256": "ffb8c4b162d0541065b1780b43994add48aff4de822707cbaf4092ba6105dd85",
+        "message": ""
+      }
+    ]
+  },
+  "ui": {
+    "command": "tests/verify_registered_features_ui.py --out tests/registered-features/rimfix-ui-200b --case island6-200",
+    "codeStable": true,
+    "allPassed": true,
+    "cases": [
+      {
+        "case": "island6-200",
+        "job": "70df0003c0e141499bb504b661ef8f9b",
+        "passed": true,
+        "faces": 207,
+        "outputSha256": "b7e18406caf22a608ffbf889073d42fb5bb10bf5c838e0185f182e5c715e1a66",
+        "seconds": 58.8,
+        "pageErrors": []
+      }
+    ]
+  },
+  "packagedEngineHashes": {
+    "engine/guided-quadriflow/quadriflow.exe": "e94fd63321109573bf47d8e09704b648cbbf564ccb9321e70d6b71bde392c196",
+    "engine/guided-quadriflow/development/quadriflow.exe": "f173c58cd0df34ea5e8857cbce45a176117d36ce0564a0751bf57c32ff7ffeaa"
+  },
+  "sourceHashes": {
+    "crease_rows.py": "d3957ba99c34875f30d0720b33bbd119cf5e49644036e165d3a347488c2a7307",
+    "source_features.py": "4b0ab2a3737a532cbe867f8ed894fe3171cbef4989cbf81ffe5821c8df8f8a61",
+    "open_surface.py": "42c0651d4bef91508d0bf864f6802b820b43c17a6a0f73ccdd9618603e4bab50",
+    "feature_refine.py": "233c7c10ed080ba4f53badd7c666f09e423f570f9f410d051bb7b086df0d964b",
+    "feature_quad.py": "8dee85cbdeaf99abb16de7017a7b621fa9a3c080d307c86cf9a6a627f2f5ec95",
+    "worker.py": "4e5e8b45ba627fcbf113dcf990103368d25b9d7566a515f7f94cf6b388ba9d70",
+    "tests/test_crease_rows.py": "9611f1fba37ffdf5c90a31f5958cfc76741b7e534a104377c6fda7e3a3234088"
+  },
+  "limitations": [
+    "Row requirement is enforced for open parts; the closed-part solver records it without enforcing it.",
+    "Acceptance depends on a deterministic seed search; island 6 at 150 is still rejected.",
+    "One row per band is the application band policy; native keeps both rim creases as rows at 374 faces."
+  ]
+}
