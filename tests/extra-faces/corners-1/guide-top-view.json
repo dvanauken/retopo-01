@@ -1,0 +1,384 @@
+{
+ "spacing": 0.0822872437626249,
+ "target": 200,
+ "meshes": {
+  "Strict count": {
+   "file": "runs/registered-b199885f94eb-island6-200-guide/output.obj",
+   "numbers": {
+    "faces": 204,
+    "quads": 204,
+    "triangles": 0,
+    "guides": [
+     {
+      "passed": true,
+      "failures": [],
+      "pathVertices": 11,
+      "turns": 0,
+      "p95OverH": 0.04349448497062873,
+      "maxOverH": 0.06355992859940866,
+      "endMaxOverH": 0.13360944466115307,
+      "tangentP95Degrees": 12.713514335304549
+     }
+    ],
+    "rimRows": {
+     "required": 3,
+     "realized": 3,
+     "passed": true,
+     "chains": [
+      {
+       "lengthFaces": 34.3127728906406,
+       "passed": true,
+       "failures": [],
+       "p95OverH": 0.024428754112428536,
+       "maxOverH": 0.06594110855963911,
+       "endMaxOverH": 0.578554865085436,
+       "tangentP95Degrees": 7.688283266867452
+      },
+      {
+       "lengthFaces": 6.76777028823345,
+       "passed": true,
+       "failures": [],
+       "p95OverH": 0.049250317808761324,
+       "maxOverH": 0.06140960478953819,
+       "endMaxOverH": 0.12484381320083085,
+       "tangentP95Degrees": 2.8459231341822875
+      },
+      {
+       "lengthFaces": 5.81726491344849,
+       "passed": true,
+       "failures": [],
+       "p95OverH": 0.015114950912481136,
+       "maxOverH": 0.0184828095798435,
+       "endMaxOverH": 0.19044770666992458,
+       "tangentP95Degrees": 4.140967671363818
+      }
+     ]
+    },
+    "rimWitness": {
+     "pointToNearestEdgeOverH": 0.00763401212523894,
+     "edgeMaxToNearestEdgeOverH": 0.010162203219005425
+    },
+    "oldConnectedPathCheck": [
+     {
+      "p95OverH": 0.0417714151031511,
+      "tangentP95Degrees": 11.630805589095864,
+      "passed": true,
+      "turns": 0
+     }
+    ]
+   },
+   "guideRows": {
+    "policy": "guide-rows-v2",
+    "limits": {
+     "rowP95": 0.020571810940656226,
+     "rowMax": 0.04114362188131245,
+     "rowEndMax": 0.0822872437626249,
+     "rowTangentP95Degrees": 30.0,
+     "turns": 0
+    },
+    "spacing": 0.0822872437626249,
+    "guides": [
+     {
+      "curve": 0,
+      "closed": false,
+      "lengthFaces": 13.653947074862405,
+      "vertices": [
+       35,
+       174,
+       212,
+       32,
+       27,
+       31,
+       151,
+       99,
+       97,
+       85,
+       83
+      ],
+      "passed": true,
+      "failures": [],
+      "values": {
+       "rowP95": 0.0035790412871079514,
+       "rowMax": 0.005230171338194574,
+       "rowEndMax": 0.010994352941821245,
+       "rowTangentP95Degrees": 12.713514335304549,
+       "turns": 0
+      },
+      "valuesInFaces": {
+       "rowP95": 0.04349448497062873,
+       "rowMax": 0.06355992859940866,
+       "rowEndMax": 0.13360944466115307
+      },
+      "turnPositions": [],
+      "cornerTurns": 0,
+      "cornerTurnPositions": [],
+      "guideCorners": 0,
+      "pathVertices": 11,
+      "continuousLoop": true,
+      "worstSample": [
+       -0.32553058186645145,
+       -0.3827158186489352,
+       0.2208696247742432
+      ]
+     }
+    ],
+    "passed": true,
+    "scope": "Each authored guide is measured to one connected, forward-ordered output edge path that never turns from one edge loop onto another (a turn: the arriving and leaving edges border one face), except once at each corner of the guide itself (a bend of 45 degrees or more between the requested face before a point and the one after). Distance from the guide to that path at an eighth-face sampling; direction over one requested face; the last face of arc at each open end answers to the one-face end limit only."
+   }
+  },
+  "Extra faces": {
+   "file": "tests/fixtures/corner_zones/island6-200-guide-extra-faces.obj",
+   "numbers": {
+    "faces": 436,
+    "quads": 436,
+    "triangles": 0,
+    "guides": [
+     {
+      "passed": true,
+      "failures": [],
+      "pathVertices": 14,
+      "turns": 0,
+      "p95OverH": 0.032755481791666166,
+      "maxOverH": 0.06063189856919734,
+      "endMaxOverH": 0.21654451373228434,
+      "tangentP95Degrees": 9.922897979484983
+     }
+    ],
+    "rimRows": {
+     "required": 3,
+     "realized": 3,
+     "passed": true,
+     "chains": [
+      {
+       "lengthFaces": 34.3127728906406,
+       "passed": true,
+       "failures": [],
+       "p95OverH": 0.02241938260961585,
+       "maxOverH": 0.03513776732185989,
+       "endMaxOverH": 0.05889953874863444,
+       "tangentP95Degrees": 5.099804664490459
+      },
+      {
+       "lengthFaces": 6.76777028823345,
+       "passed": true,
+       "failures": [],
+       "p95OverH": 0.02047636447931163,
+       "maxOverH": 0.03314815024385466,
+       "endMaxOverH": 0.07064935325716187,
+       "tangentP95Degrees": 3.2489046874400054
+      },
+      {
+       "lengthFaces": 5.81726491344849,
+       "passed": true,
+       "failures": [],
+       "p95OverH": 0.057978166749911055,
+       "maxOverH": 0.06617791956636095,
+       "endMaxOverH": 0.06209413123802864,
+       "tangentP95Degrees": 16.603248858356313
+      }
+     ]
+    },
+    "rimWitness": {
+     "pointToNearestEdgeOverH": 0.0025188711398120628,
+     "edgeMaxToNearestEdgeOverH": 0.007010385900409607
+    },
+    "oldConnectedPathCheck": [
+     {
+      "p95OverH": 0.03257863442394799,
+      "tangentP95Degrees": 9.390625769146856,
+      "passed": true,
+      "turns": 2
+     }
+    ]
+   },
+   "guideRows": {
+    "policy": "guide-rows-v2",
+    "limits": {
+     "rowP95": 0.020571810940656226,
+     "rowMax": 0.04114362188131245,
+     "rowEndMax": 0.0822872437626249,
+     "rowTangentP95Degrees": 30.0,
+     "turns": 0
+    },
+    "spacing": 0.0822872437626249,
+    "guides": [
+     {
+      "curve": 0,
+      "closed": false,
+      "lengthFaces": 13.653947074862405,
+      "vertices": [
+       441,
+       16,
+       20,
+       39,
+       35,
+       24,
+       399,
+       406,
+       224,
+       225,
+       402,
+       219,
+       214,
+       216
+      ],
+      "passed": true,
+      "failures": [],
+      "values": {
+       "rowP95": 0.0026953583147530553,
+       "rowMax": 0.0049892318173542895,
+       "rowEndMax": 0.017818851186947558,
+       "rowTangentP95Degrees": 9.922897979484983,
+       "turns": 0
+      },
+      "valuesInFaces": {
+       "rowP95": 0.032755481791666166,
+       "rowMax": 0.06063189856919734,
+       "rowEndMax": 0.21654451373228434
+      },
+      "turnPositions": [],
+      "cornerTurns": 0,
+      "cornerTurnPositions": [],
+      "guideCorners": 0,
+      "pathVertices": 14,
+      "continuousLoop": true,
+      "worstSample": [
+       0.26646026099040343,
+       -0.5693941565032372,
+       0.2132558114005807
+      ]
+     }
+    ],
+    "passed": true,
+    "scope": "Each authored guide is measured to one connected, forward-ordered output edge path that never turns from one edge loop onto another (a turn: the arriving and leaving edges border one face), except once at each corner of the guide itself (a bend of 45 degrees or more between the requested face before a point and the one after). Distance from the guide to that path at an eighth-face sampling; direction over one requested face; the last face of arc at each open end answers to the one-face end limit only."
+   }
+  },
+  "ZBrush": {
+   "file": "tests/fixtures/guide_rows/island6-200-native-guide-532.obj",
+   "numbers": {
+    "faces": 532,
+    "quads": 455,
+    "triangles": 77,
+    "guides": [
+     {
+      "passed": true,
+      "failures": [],
+      "pathVertices": 14,
+      "turns": 0,
+      "p95OverH": 0.14091772670017624,
+      "maxOverH": 0.19197286473603575,
+      "endMaxOverH": 0.5369545436267855,
+      "tangentP95Degrees": 14.529123974649757
+     }
+    ],
+    "rimRows": {
+     "required": 3,
+     "realized": 3,
+     "passed": true,
+     "chains": [
+      {
+       "lengthFaces": 34.3127728906406,
+       "passed": true,
+       "failures": [],
+       "p95OverH": 0.14146415412498947,
+       "maxOverH": 0.21429773124508883,
+       "endMaxOverH": 0.6017727765331427,
+       "tangentP95Degrees": 9.935286124153436
+      },
+      {
+       "lengthFaces": 6.76777028823345,
+       "passed": true,
+       "failures": [],
+       "p95OverH": 5.8971233095688295e-05,
+       "maxOverH": 0.00040440390330119985,
+       "endMaxOverH": 0.040017493938019635,
+       "tangentP95Degrees": 0.05067403147398565
+      },
+      {
+       "lengthFaces": 5.81726491344849,
+       "passed": true,
+       "failures": [],
+       "p95OverH": 0.00228117943102635,
+       "maxOverH": 0.0027281042076958326,
+       "endMaxOverH": 0.07618766211996744,
+       "tangentP95Degrees": 0.43627023751126026
+      }
+     ]
+    },
+    "rimWitness": {
+     "pointToNearestEdgeOverH": 0.001402841625740176,
+     "edgeMaxToNearestEdgeOverH": 0.015913293156420108
+    },
+    "oldConnectedPathCheck": [
+     {
+      "p95OverH": 0.16625255931822963,
+      "tangentP95Degrees": 12.766725072736673,
+      "passed": true,
+      "turns": 1
+     }
+    ]
+   },
+   "guideRows": {
+    "policy": "guide-rows-v2",
+    "limits": {
+     "rowP95": 0.020571810940656226,
+     "rowMax": 0.04114362188131245,
+     "rowEndMax": 0.0822872437626249,
+     "rowTangentP95Degrees": 30.0,
+     "turns": 0
+    },
+    "spacing": 0.0822872437626249,
+    "guides": [
+     {
+      "curve": 0,
+      "closed": false,
+      "lengthFaces": 13.653947074862405,
+      "vertices": [
+       87,
+       509,
+       14,
+       504,
+       74,
+       300,
+       90,
+       18,
+       94,
+       503,
+       83,
+       502,
+       291,
+       286
+      ],
+      "passed": true,
+      "failures": [],
+      "values": {
+       "rowP95": 0.011595731327452358,
+       "rowMax": 0.015796917916343592,
+       "rowEndMax": 0.044184509420866304,
+       "rowTangentP95Degrees": 14.529123974649757,
+       "turns": 0
+      },
+      "valuesInFaces": {
+       "rowP95": 0.14091772670017624,
+       "rowMax": 0.19197286473603575,
+       "rowEndMax": 0.5369545436267855
+      },
+      "turnPositions": [],
+      "cornerTurns": 0,
+      "cornerTurnPositions": [],
+      "guideCorners": 0,
+      "pathVertices": 14,
+      "continuousLoop": true,
+      "worstSample": [
+       0.26646026099040343,
+       -0.5693941565032372,
+       0.2132558114005807
+      ]
+     }
+    ],
+    "passed": true,
+    "scope": "Each authored guide is measured to one connected, forward-ordered output edge path that never turns from one edge loop onto another (a turn: the arriving and leaving edges border one face), except once at each corner of the guide itself (a bend of 45 degrees or more between the requested face before a point and the one after). Distance from the guide to that path at an eighth-face sampling; direction over one requested face; the last face of arc at each open end answers to the one-face end limit only."
+   }
+  }
+ }
+}

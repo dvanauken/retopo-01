@@ -97,7 +97,7 @@ CREASE_ROW_MODE=3         # engine mode: direction and preserved edge, no lattic
 CREASE_DIRECTION_MODE=1   # native mode 1: direction only
 
 
-def constrained(source, triangles, curves, hard, soft, folder):
+def constrained(source, triangles, curves, hard, soft, folder, sizes=None):
     """Cut source and ONE constrained-edge list for the layout engine.
 
     Guides are always native mode 2 here: Curves Strength 100 is the only
@@ -114,12 +114,22 @@ def constrained(source, triangles, curves, hard, soft, folder):
     admits creases closer together than native's integer solve would merge:
     with mode 2 on creases, island 6's front crease, half a face from the rim
     row at a request of 750, got no row in any of 64 layouts.
+
+    `sizes` (the user's 'Add faces where the shape needs them' option only):
+    for each crease edge, hard ones first and then soft ones, the largest face
+    size at that edge as a fraction of the requested size, or 1 for none. It
+    is written as a fourth column the engine reads with `-size-caps` (build
+    constrained-sizes-19 or later). The rule that sets the sizes is
+    crease_rows.local_sizes; it is this application's, not a native field.
     """
     source=np.asarray(source,float);triangles=np.asarray(triangles,int)
     curves=[np.asarray(c,float) for c in curves];folder=Path(folder)
     folder.mkdir(parents=True,exist_ok=True)
     creases=[(int(a),int(b),CREASE_ROW_MODE) for a,b in np.asarray(hard,int).reshape(-1,2)]+[(int(a),int(b),CREASE_DIRECTION_MODE) for a,b in np.asarray(soft,int).reshape(-1,2)]
     rows=[];chains=[]
+    sizes=None if sizes is None else np.asarray(sizes,float).reshape(-1)
+    if sizes is not None and (len(sizes)!=len(creases) or not np.all((sizes>0)&(sizes<=1))):
+        raise ValueError('Crease face sizes must be one fraction in (0, 1] per crease edge.')
     if curves:
         # Every crease edge is its own identity, so each keeps its mode where a guide cuts it in two.
         points,faces,report=cut(source,triangles,curves,source_paths=[[a,b] for a,b,_ in creases])
@@ -135,12 +145,18 @@ def constrained(source, triangles, curves, hard, soft, folder):
     obj(folder/'source.obj',points,faces)
     with (folder/'constrained-edges.txt').open('w',encoding='utf-8') as stream:
         stream.write(str(len(rows))+'\n')
-        for a,b,mode,_ in rows:stream.write(f'{a} {b} {mode}\n')
+        for a,b,mode,index in rows:
+            # A crease edge keeps its size where a guide cuts it in two; guide edges carry none.
+            size=sizes[index-len(curves)] if sizes is not None and index>=len(curves) else 1.
+            stream.write(f'{a} {b} {mode}\n' if size>=1 else f'{a} {b} {mode} {float(size):.9g}\n')
     summary=dict(guides=len(curves),guideEdges=sum(len(c)-1 for c in chains),registeredCreaseEdges=sum(1 for *_,mode,i in rows if mode!=1 and i>=len(curves)),
                  directedCreaseEdges=sum(1 for *_,mode,i in rows if mode==1),listedEdges=len(rows),
                  sourceVertices=len(source),cutVertices=len(points),sourceTriangles=len(triangles),cutTriangles=len(faces),
                  order='Guide cut edges first, then admitted crease edges; a later edge overwrites an earlier direction at a shared vertex.',
                  modes='2 = direction, lattice line and preserved edge: native mode 2 (guides at strength 100); 3 = direction and preserved edge, no lattice line: engine mode (row and sharp creases); 1 = direction only: native mode 1 (gentle short creases).')
+    if sizes is not None:
+        summary.update(sizedCreaseEdges=int((sizes<1).sum()),smallestCreaseFaceSize=float(sizes.min()) if len(sizes) else 1.,
+                       sizes='Fourth column: largest face size at a crease edge as a fraction of the requested size (crease_rows.local_sizes; application policy).')
     if report is not None:
         summary.update(relocatedSourceVertices=report['relocatedVertices'],spans=report['spans'],attachments=report['attachments'],
                        guideSampleMaxDistance=report['guideSampleMaxDistance'],method=report['method'],constants=report['constants'])

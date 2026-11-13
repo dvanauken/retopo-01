@@ -1,0 +1,61 @@
+{
+  "case": "island6-200-guide",
+  "part": "skp-6",
+  "target": 200,
+  "guided": true,
+  "passed": true,
+  "guideSha256": "96a7338c519b31c8d041193afb98dfd019ca741ed9e2a8dc6176b6a51ce05aa4",
+  "extraFacesBox": true,
+  "job": "1232ab832cb84b82b2f4cdf189e13741",
+  "allowExtraFaces": true,
+  "lastAttempt": {
+    "phase": "complete",
+    "message": "",
+    "jobId": "1232ab832cb84b82b2f4cdf189e13741",
+    "target": 200,
+    "guideCount": 1,
+    "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003"
+  },
+  "cornerZones": {
+    "enforced": true,
+    "passed": true,
+    "worstP95InFaces": 0.1633052179205478,
+    "worstMaxInFaces": 0.25708261881627403
+  },
+  "guideLoops": [
+    {
+      "pathVertices": 14,
+      "turns": 0,
+      "passed": true
+    }
+  ],
+  "rows": {
+    "required": 18,
+    "realized": 18
+  },
+  "workerAccepted": true,
+  "faces": 436,
+  "outputSha256": "af8c5381061fbb078786246691ab450e9594351b76724bd173fc849c66378015",
+  "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+  "errors": [],
+  "networkDiagnostics": [],
+  "consoleDiagnostics": [
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x5a8c00125500]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x5a8c00125500]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x5a8c00125500]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x5a8c00125500]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    }
+  ],
+  "observedSeconds": 41.625
+}

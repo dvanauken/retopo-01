@@ -6,7 +6,7 @@ from pathlib import Path
 
 LABELS = {'quality': 'quad shape/count', 'feature': 'source crease preservation',
           'surface': 'surface/boundary preservation', 'contacts': 'face intersections',
-          'guides': 'guide fit'}
+          'guides': 'guide fit', 'corners': 'corner zones'}
 
 
 def outcome(row):
@@ -24,6 +24,9 @@ def outcome(row):
             reasons = value.get('failures', [])
             measurements.extend(dict(check=name, value=value.get('values', {}).get(name), limit=value.get('limits', {}).get(name)) for name in reasons)
         elif key == 'surface': reasons = [name for name, passed in value.get('checks', {}).items() if not passed]
+        elif key == 'corners':
+            reasons = [f"zone {zone['zone'] + 1} {name} {zone[name]:.2f} h (limit {value['limits'][name]:g} h)" for zone in value.get('zones', []) for name in zone['failures']]
+            measurements.extend(dict(check=f"corner zone {zone['zone'] + 1} {name}", value=zone[name], limit=value['limits'][name]) for zone in value.get('zones', []) for name in zone['failures'])
         elif key == 'contacts':
             count = sum(len(value.get(name, [])) for name in ('nonAdjacentIntersectingFacePairs', 'adjacentIntersectingFacePairs'))
             reasons = [f'{count} intersecting face pairs']

@@ -1,0 +1,307 @@
+{
+ "spacing": 0.0822872437626249,
+ "target": 200,
+ "zone": "source coordinate 1 > 0.05",
+ "meshes": {
+  "Strict count (204 quads)": {
+   "file": "tests/fixtures/corner_zones/island6-200-guide-strict-204.obj",
+   "faces": 204,
+   "quads": 204,
+   "triangles": 0,
+   "fixedZone": {
+    "sourceVertices": 633,
+    "p95InFaces": 0.2731559564114391,
+    "maxInFaces": 0.4136437837735186,
+    "worstSourceVertex": 1338,
+    "facesInZone": 43
+   },
+   "automaticZones": {
+    "policy": "corner-zones-v1",
+    "limits": {
+     "p95InFaces": 0.25,
+     "maxInFaces": 0.5
+    },
+    "zones": [
+     {
+      "sourceVertices": 280,
+      "p95InFaces": 0.23224472796252585,
+      "maxInFaces": 0.27365493353378656,
+      "worstSourceVertex": 487,
+      "zone": 0,
+      "junctions": 13,
+      "centre": [
+       0.2794829835768993,
+       0.1993532165557352,
+       0.17022107455907418
+      ],
+      "passed": true,
+      "failures": []
+     },
+     {
+      "sourceVertices": 278,
+      "p95InFaces": 0.33134441293545563,
+      "maxInFaces": 0.4136437837735186,
+      "worstSourceVertex": 1338,
+      "zone": 1,
+      "junctions": 13,
+      "centre": [
+       -0.28271502791857306,
+       0.19921354396534868,
+       0.17025238923054803
+      ],
+      "passed": false,
+      "failures": [
+       "p95InFaces"
+      ]
+     },
+     {
+      "sourceVertices": 135,
+      "p95InFaces": 0.20881700826437055,
+      "maxInFaces": 0.2137389137193459,
+      "worstSourceVertex": 1417,
+      "zone": 2,
+      "junctions": 13,
+      "centre": [
+       -0.0586673873650246,
+       -0.97682052384849,
+       0.18493911243496117
+      ],
+      "passed": true,
+      "failures": []
+     }
+    ],
+    "passed": false,
+    "failures": [
+     "zone 2: p95InFaces"
+    ],
+    "scope": "Corner zones: source vertices within one requested face of a cluster of crease junctions (three or more admitted crease branches at one vertex; junctions closer than two faces form one corner; zones of fewer than 20 source vertices are left to the whole-surface check). Each zone vertex is measured to the output surface, quads cut along corners 0-2, in requested faces. Source vertices only: the measure follows the source tessellation.",
+    "worstP95InFaces": 0.33134441293545563,
+    "worstMaxInFaces": 0.4136437837735186
+   }
+  },
+  "Extra faces before this work (380 quads)": {
+   "file": "tests/fixtures/corner_zones/island6-200-guide-extra-380-before.obj",
+   "faces": 380,
+   "quads": 380,
+   "triangles": 0,
+   "fixedZone": {
+    "sourceVertices": 633,
+    "p95InFaces": 0.27893933638429896,
+    "maxInFaces": 0.4070967744220521,
+    "worstSourceVertex": 176,
+    "facesInZone": 94
+   },
+   "automaticZones": {
+    "policy": "corner-zones-v1",
+    "limits": {
+     "p95InFaces": 0.25,
+     "maxInFaces": 0.5
+    },
+    "zones": [
+     {
+      "sourceVertices": 280,
+      "p95InFaces": 0.3597016948061518,
+      "maxInFaces": 0.4070967744220521,
+      "worstSourceVertex": 176,
+      "zone": 0,
+      "junctions": 13,
+      "centre": [
+       0.2794829835768993,
+       0.1993532165557352,
+       0.17022107455907418
+      ],
+      "passed": false,
+      "failures": [
+       "p95InFaces"
+      ]
+     },
+     {
+      "sourceVertices": 278,
+      "p95InFaces": 0.20518431461676254,
+      "maxInFaces": 0.2399176807447765,
+      "worstSourceVertex": 1337,
+      "zone": 1,
+      "junctions": 13,
+      "centre": [
+       -0.28271502791857306,
+       0.19921354396534868,
+       0.17025238923054803
+      ],
+      "passed": true,
+      "failures": []
+     },
+     {
+      "sourceVertices": 135,
+      "p95InFaces": 0.12565710423451518,
+      "maxInFaces": 0.13686066933476104,
+      "worstSourceVertex": 1418,
+      "zone": 2,
+      "junctions": 13,
+      "centre": [
+       -0.0586673873650246,
+       -0.97682052384849,
+       0.18493911243496117
+      ],
+      "passed": true,
+      "failures": []
+     }
+    ],
+    "passed": false,
+    "failures": [
+     "zone 1: p95InFaces"
+    ],
+    "scope": "Corner zones: source vertices within one requested face of a cluster of crease junctions (three or more admitted crease branches at one vertex; junctions closer than two faces form one corner; zones of fewer than 20 source vertices are left to the whole-surface check). Each zone vertex is measured to the output surface, quads cut along corners 0-2, in requested faces. Source vertices only: the measure follows the source tessellation.",
+    "worstP95InFaces": 0.3597016948061518,
+    "worstMaxInFaces": 0.4070967744220521
+   }
+  },
+  "Extra faces now (436 quads)": {
+   "file": "tests/fixtures/corner_zones/island6-200-guide-extra-faces.obj",
+   "faces": 436,
+   "quads": 436,
+   "triangles": 0,
+   "fixedZone": {
+    "sourceVertices": 633,
+    "p95InFaces": 0.1161173635985917,
+    "maxInFaces": 0.25708261881627403,
+    "worstSourceVertex": 1335,
+    "facesInZone": 152
+   },
+   "automaticZones": {
+    "policy": "corner-zones-v1",
+    "limits": {
+     "p95InFaces": 0.25,
+     "maxInFaces": 0.5
+    },
+    "zones": [
+     {
+      "sourceVertices": 280,
+      "p95InFaces": 0.1359513352645549,
+      "maxInFaces": 0.1854870072272496,
+      "worstSourceVertex": 472,
+      "zone": 0,
+      "junctions": 13,
+      "centre": [
+       0.2794829835768993,
+       0.1993532165557352,
+       0.17022107455907418
+      ],
+      "passed": true,
+      "failures": []
+     },
+     {
+      "sourceVertices": 278,
+      "p95InFaces": 0.09471632399592736,
+      "maxInFaces": 0.25708261881627403,
+      "worstSourceVertex": 1335,
+      "zone": 1,
+      "junctions": 13,
+      "centre": [
+       -0.28271502791857306,
+       0.19921354396534868,
+       0.17025238923054803
+      ],
+      "passed": true,
+      "failures": []
+     },
+     {
+      "sourceVertices": 135,
+      "p95InFaces": 0.1633052179205478,
+      "maxInFaces": 0.1801935010188059,
+      "worstSourceVertex": 1420,
+      "zone": 2,
+      "junctions": 13,
+      "centre": [
+       -0.0586673873650246,
+       -0.97682052384849,
+       0.18493911243496117
+      ],
+      "passed": true,
+      "failures": []
+     }
+    ],
+    "passed": true,
+    "failures": [],
+    "scope": "Corner zones: source vertices within one requested face of a cluster of crease junctions (three or more admitted crease branches at one vertex; junctions closer than two faces form one corner; zones of fewer than 20 source vertices are left to the whole-surface check). Each zone vertex is measured to the output surface, quads cut along corners 0-2, in requested faces. Source vertices only: the measure follows the source tessellation.",
+    "worstP95InFaces": 0.1633052179205478,
+    "worstMaxInFaces": 0.25708261881627403
+   }
+  },
+  "ZBrush ZRemesher (532 faces)": {
+   "file": "tests/fixtures/guide_rows/island6-200-native-guide-532.obj",
+   "faces": 532,
+   "quads": 455,
+   "triangles": 77,
+   "fixedZone": {
+    "sourceVertices": 633,
+    "p95InFaces": 0.2464251357464109,
+    "maxInFaces": 0.3036247566193252,
+    "worstSourceVertex": 693,
+    "facesInZone": 102
+   },
+   "automaticZones": {
+    "policy": "corner-zones-v1",
+    "limits": {
+     "p95InFaces": 0.25,
+     "maxInFaces": 0.5
+    },
+    "zones": [
+     {
+      "sourceVertices": 280,
+      "p95InFaces": 0.2366268641402288,
+      "maxInFaces": 0.27634918347368986,
+      "worstSourceVertex": 72,
+      "zone": 0,
+      "junctions": 13,
+      "centre": [
+       0.2794829835768993,
+       0.1993532165557352,
+       0.17022107455907418
+      ],
+      "passed": true,
+      "failures": []
+     },
+     {
+      "sourceVertices": 278,
+      "p95InFaces": 0.26130874022547323,
+      "maxInFaces": 0.3013030728251107,
+      "worstSourceVertex": 1411,
+      "zone": 1,
+      "junctions": 13,
+      "centre": [
+       -0.28271502791857306,
+       0.19921354396534868,
+       0.17025238923054803
+      ],
+      "passed": false,
+      "failures": [
+       "p95InFaces"
+      ]
+     },
+     {
+      "sourceVertices": 135,
+      "p95InFaces": 0.0950003174684385,
+      "maxInFaces": 0.14829005136413895,
+      "worstSourceVertex": 672,
+      "zone": 2,
+      "junctions": 13,
+      "centre": [
+       -0.0586673873650246,
+       -0.97682052384849,
+       0.18493911243496117
+      ],
+      "passed": true,
+      "failures": []
+     }
+    ],
+    "passed": false,
+    "failures": [
+     "zone 2: p95InFaces"
+    ],
+    "scope": "Corner zones: source vertices within one requested face of a cluster of crease junctions (three or more admitted crease branches at one vertex; junctions closer than two faces form one corner; zones of fewer than 20 source vertices are left to the whole-surface check). Each zone vertex is measured to the output surface, quads cut along corners 0-2, in requested faces. Source vertices only: the measure follows the source tessellation.",
+    "worstP95InFaces": 0.26130874022547323,
+    "worstMaxInFaces": 0.3013030728251107
+   }
+  }
+ }
+}

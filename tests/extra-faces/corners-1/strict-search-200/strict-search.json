@@ -1,0 +1,400 @@
+{
+ "target": 200,
+ "source": "C:\\dbva\\code\\retopo-1\\tests\\fixtures\\crease_rows\\island6-source.obj",
+ "curves": "C:\\dbva\\code\\retopo-1\\tests\\fixtures\\island6-guide-483afe83.json",
+ "limits": {
+  "p95InFaces": 0.25,
+  "maxInFaces": 0.5
+ },
+ "scope": "Shipped strict-count solver; acceptance additionally requires the corner zones, in this process only.",
+ "accepted": false,
+ "message": "No accepted mesh after 192 candidates across 122 layouts. Best candidate failed source crease preservation. Passed: quad shape/count, surface/boundary preservation, face intersections, guide fit.",
+ "seconds": 417.89100000000326,
+ "layoutsTried": 122,
+ "candidatesChecked": 21,
+ "candidates": [
+  {
+   "faces": 204,
+   "creaseCheckPassed": true,
+   "creaseFailures": [],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.33134441293545563,
+   "worstMaxInFaces": 0.4136437837735186,
+   "fixedZoneP95InFaces": 0.2731559564114391,
+   "fixedZoneMaxInFaces": 0.4136437837735186
+  },
+  {
+   "faces": 204,
+   "creaseCheckPassed": true,
+   "creaseFailures": [],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.3214100460185517,
+   "worstMaxInFaces": 0.3971382453050323,
+   "fixedZoneP95InFaces": 0.29325534256660674,
+   "fixedZoneMaxInFaces": 0.3971382453050323
+  },
+  {
+   "faces": 204,
+   "creaseCheckPassed": true,
+   "creaseFailures": [],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.3314192136166214,
+   "worstMaxInFaces": 0.37535658155576096,
+   "fixedZoneP95InFaces": 0.30512523490329196,
+   "fixedZoneMaxInFaces": 0.37535658155576096
+  },
+  {
+   "faces": 176,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.5230488037245764,
+   "worstMaxInFaces": 0.558726077440066,
+   "fixedZoneP95InFaces": 0.48413483277170644,
+   "fixedZoneMaxInFaces": 0.558726077440066
+  },
+  {
+   "faces": 183,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces",
+    "zone 2: maxInFaces"
+   ],
+   "worstP95InFaces": 0.6702747541183713,
+   "worstMaxInFaces": 0.7297703349645771,
+   "fixedZoneP95InFaces": 0.5556164402731609,
+   "fixedZoneMaxInFaces": 0.7297703349645771
+  },
+  {
+   "faces": 188,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.7834100357839877,
+   "worstMaxInFaces": 0.8627848008797829,
+   "fixedZoneP95InFaces": 0.5828544743154466,
+   "fixedZoneMaxInFaces": 0.8627848008797829
+  },
+  {
+   "faces": 188,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "creaseP95"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.4108521716834187,
+   "worstMaxInFaces": 0.4742671248412711,
+   "fixedZoneP95InFaces": 0.3557791980842427,
+   "fixedZoneMaxInFaces": 0.4742671248412711
+  },
+  {
+   "faces": 188,
+   "creaseCheckPassed": true,
+   "creaseFailures": [],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.4195211811951868,
+   "worstMaxInFaces": 0.4842410266305448,
+   "fixedZoneP95InFaces": 0.34685151443587336,
+   "fixedZoneMaxInFaces": 0.4842410266305448
+  },
+  {
+   "faces": 188,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces",
+    "zone 2: maxInFaces"
+   ],
+   "worstP95InFaces": 0.8984945021095491,
+   "worstMaxInFaces": 0.9581499649855295,
+   "fixedZoneP95InFaces": 0.8035015425705917,
+   "fixedZoneMaxInFaces": 0.9581499649855295
+  },
+  {
+   "faces": 183,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.7720783659369895,
+   "worstMaxInFaces": 0.8231184830256852,
+   "fixedZoneP95InFaces": 0.6253601144989633,
+   "fixedZoneMaxInFaces": 0.8231184830256852
+  },
+  {
+   "faces": 183,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.3591450255408782,
+   "worstMaxInFaces": 0.4424121547363995,
+   "fixedZoneP95InFaces": 0.31438406602610397,
+   "fixedZoneMaxInFaces": 0.4424121547363995
+  },
+  {
+   "faces": 187,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 2: p95InFaces",
+    "zone 2: maxInFaces"
+   ],
+   "worstP95InFaces": 0.6179189315184078,
+   "worstMaxInFaces": 0.681546296926468,
+   "fixedZoneP95InFaces": 0.4517264270462437,
+   "fixedZoneMaxInFaces": 0.681546296926468
+  },
+  {
+   "faces": 190,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces"
+   ],
+   "worstP95InFaces": 0.8692967330778538,
+   "worstMaxInFaces": 0.9360858946587257,
+   "fixedZoneP95InFaces": 0.6712226212911998,
+   "fixedZoneMaxInFaces": 0.9360858946587257
+  },
+  {
+   "faces": 198,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.44977131178165675,
+   "worstMaxInFaces": 0.4871609866568362,
+   "fixedZoneP95InFaces": 0.39206486693463805,
+   "fixedZoneMaxInFaces": 0.4871609866568362
+  },
+  {
+   "faces": 206,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.495152987097145,
+   "worstMaxInFaces": 0.576478007592201,
+   "fixedZoneP95InFaces": 0.43134291954037646,
+   "fixedZoneMaxInFaces": 0.576478007592201
+  },
+  {
+   "faces": 207,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 2: p95InFaces",
+    "zone 2: maxInFaces"
+   ],
+   "worstP95InFaces": 0.5118294758124138,
+   "worstMaxInFaces": 0.5775752536943225,
+   "fixedZoneP95InFaces": 0.39036445700930317,
+   "fixedZoneMaxInFaces": 0.5775752536943225
+  },
+  {
+   "faces": 190,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.8382014350048193,
+   "worstMaxInFaces": 0.9003845608971709,
+   "fixedZoneP95InFaces": 0.673029433169266,
+   "fixedZoneMaxInFaces": 0.9003845608971709
+  },
+  {
+   "faces": 202,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.7357828691506987,
+   "worstMaxInFaces": 0.7997947641764944,
+   "fixedZoneP95InFaces": 0.6234290547270306,
+   "fixedZoneMaxInFaces": 0.7997947641764944
+  },
+  {
+   "faces": 184,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 2: p95InFaces",
+    "zone 2: maxInFaces"
+   ],
+   "worstP95InFaces": 0.6671033457361117,
+   "worstMaxInFaces": 0.7270853613299376,
+   "fixedZoneP95InFaces": 0.4975576603790686,
+   "fixedZoneMaxInFaces": 0.7270853613299376
+  },
+  {
+   "faces": 179,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeP95",
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces",
+    "zone 2: maxInFaces"
+   ],
+   "worstP95InFaces": 0.8062997549588774,
+   "worstMaxInFaces": 0.8974625756065301,
+   "fixedZoneP95InFaces": 0.6906065417523172,
+   "fixedZoneMaxInFaces": 0.8974625756065301
+  },
+  {
+   "faces": 175,
+   "creaseCheckPassed": false,
+   "creaseFailures": [
+    "edgeMax",
+    "creaseP95",
+    "rowsMissing"
+   ],
+   "cornersPassed": false,
+   "cornerFailures": [
+    "zone 1: p95InFaces",
+    "zone 1: maxInFaces",
+    "zone 2: p95InFaces"
+   ],
+   "worstP95InFaces": 0.4252254061085862,
+   "worstMaxInFaces": 0.5409535520680471,
+   "fixedZoneP95InFaces": 0.3984928293905633,
+   "fixedZoneMaxInFaces": 0.5409535520680471
+  }
+ ],
+ "candidatesPassingShippedChecks": 1
+}

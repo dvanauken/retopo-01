@@ -37,7 +37,7 @@ def nearest_segments(points, a, b, tangents=None, spacing=1., point_normals=None
     return ids[np.arange(len(points)),distance.argmin(1)]
 
 
-def refine(source_mesh, positions, faces, curves, target, paths, *, contacts=(), witnesses=(), active_vertices=None, feature_strength=1., guide_tangent_strength=8., guide_position_strength=40., guide_vertex_strength=0., separate_guide_features=False, witness_policy='both-diagonals', compact_active_terms=False, dense_features=False, allow_boundary=False, row_bands=None):
+def refine(source_mesh, positions, faces, curves, target, paths, *, contacts=(), witnesses=(), active_vertices=None, feature_strength=1., guide_tangent_strength=8., guide_position_strength=40., guide_vertex_strength=0., separate_guide_features=False, witness_policy='both-diagonals', compact_active_terms=False, dense_features=False, allow_boundary=False, row_bands=None, feature_sizes=None):
     """Fit positions to the source, its creases, guides and rejected contacts.
 
     `row_bands` (crease_rows): a set of source crease edges, as sorted vertex
@@ -46,6 +46,10 @@ def refine(source_mesh, positions, faces, curves, target, paths, *, contacts=(),
     fit through its row alone: its samples attach only to row edges, its
     vertices-to-crease and junction pulls are dropped, so no second edge line
     is drawn onto the band (which would pinch a strip of thin quads).
+
+    `feature_sizes` (crease_rows.local_sizes, when the user allows extra
+    faces): the local face at each detected crease edge; the band allowance of
+    the crease samples then reaches half a local face, as the check does.
     """
     import torch
     torch.set_num_threads(1)
@@ -79,7 +83,7 @@ def refine(source_mesh, positions, faces, curves, target, paths, *, contacts=(),
     FS=T(samples)
     # The verifier lets one edge loop anywhere across a sub-spacing band of parallel creases
     # represent all of them; pulling every line onto its own loop would pin thin quad rows.
-    BW=T(band_widths(v,fe,samples,np.repeat(np.arange(len(fe)),sample_counts),h)) if len(fe) else T(np.empty(0))
+    BW=T(band_widths(v,fe,samples,np.repeat(np.arange(len(fe)),sample_counts),h,feature_sizes)) if len(fe) else T(np.empty(0))
     feature_tangents=v[fe[:,1]]-v[fe[:,0]]
     feature_tangents/=np.maximum(1e-12,np.linalg.norm(feature_tangents,axis=1))[:,None]
     feature_tangents=np.repeat(feature_tangents,sample_counts,axis=0);FT=T(feature_tangents)

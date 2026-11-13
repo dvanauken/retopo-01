@@ -1,6 +1,9 @@
 """Original mesh + actual surface curves -> reference construction -> measured export."""
 from pathlib import Path
-import argparse,hashlib,json,shutil,sys,traceback,time
+import argparse,hashlib,json,os,shutil,sys,traceback,time
+# One math thread per process, set before NumPy loads: the low bits of a result depend on the number of BLAS threads,
+# and rows layouts are processed several processes at a time. The verification scripts have always run this way.
+for _name in ('OMP_NUM_THREADS','OPENBLAS_NUM_THREADS','MKL_NUM_THREADS'):os.environ.setdefault(_name,'1')
 from process_ownership import protect_service_tree
 from job_progress import emit
 import numpy as np
@@ -46,7 +49,10 @@ def main():
   options=dict(target=settings['target'],normalize=False)
   if spec.get('solver')=='open-surface-quads':
    from open_surface import construct as construct_open_surface
-   positions,faces,meta=construct_open_surface(v,f,curves,target=settings['target'],job=job,extra_faces=bool(settings.get('allowExtraFaces',False)))
+   # Rows layouts are processed several at a time; the accepted mesh does not depend on how many (open_surface.ROW_WORKERS).
+   import open_surface
+   row_workers=max(1,int(os.environ.get('RETOPO_ROW_WORKERS',min(open_surface.ROW_WORKERS,max(1,(os.cpu_count() or 2)//2)))))
+   positions,faces,meta=construct_open_surface(v,f,curves,target=settings['target'],job=job,extra_faces=bool(settings.get('allowExtraFaces',False)),workers=row_workers)
   elif spec.get('solver')=='surface-quads':
    if args.feature_layout or spec.get('featureLayout',False):
     from feature_quad import construct as construct_feature_quads
@@ -68,11 +74,24 @@ def main():
     if field in meta:mesh[field]=meta[field]
    mesh['intersectionValidation']=meta['intersectionValidation']
    # Crease rows are enforced where the solver fits them (open parts); the closed-part solver records them.
-   mesh['featureValidation']=measure_source_features(v,f,positions,faces,settings['target'],enforce_rows=bool(meta.get('openSurface')))
+   # With extra faces allowed on an open part, a face is the local face at each crease edge (crease_rows.local_sizes).
+   mesh['featureValidation']=measure_source_features(v,f,positions,faces,settings['target'],enforce_rows=bool(meta.get('openSurface')),extra_faces=bool(meta.get('openSurface') and meta.get('extraFaces') and meta.get('localFaces',True)))
    mesh['featurePolicy']='enforced' if 'featureValidation' in meta else 'diagnostic'
    write(job/'source-features.json',mesh['featureValidation'])
    if mesh['featurePolicy']=='enforced' and not mesh['featureValidation']['passed']:
     raise ValueError('Source feature preservation failed: '+', '.join(mesh['featureValidation']['failures']))
+   if meta.get('openSurface'):
+    # Independent of the solver's own bookkeeping: the source against the output where crease branches meet
+    # (corner_zones). Reported for every open part; a failing corner rejects the mesh when extra faces are allowed.
+    import corner_zones
+    from source_features import detect as detect_creases, spacing as requested_spacing
+    corner_spacing=requested_spacing(v,f,settings['target']);crease_edges,_=detect_creases(v,f,corner_spacing,target=settings['target'])
+    # Enforced while the solver's local-face rules were in force; reported when it fell back to the strict-count rows.
+    solver_corners=meta.get('cornerZones',{})
+    mesh['cornerZones']=dict(corner_zones.measure(v,f,crease_edges,positions,faces,corner_spacing),enforced=bool(solver_corners.get('enforced',meta.get('extraFaces'))),extraFacesFallback=bool(solver_corners.get('extraFacesFallback')))
+    write(job/'corner-zones.json',mesh['cornerZones'])
+    if mesh['cornerZones']['enforced'] and not mesh['cornerZones']['passed']:
+     raise ValueError('Corner zones are not followed: '+', '.join(mesh['cornerZones']['failures']))
   valid=mesh['stats']['nonmanifoldEdges']==0 and mesh['stats']['zeroAreaFanTriangles']==0 and not mesh['vertexLinks']['nonmanifoldVertices'] and mesh['vertexLinks']['inconsistentWindingEdges']==0
   if not valid:raise ValueError('Output failed the demo topology checks')
   h=float(np.sqrt(np.sum(np.linalg.norm(np.cross(v[f[:,1]]-v[f[:,0]],v[f[:,2]]-v[f[:,0]]),axis=1))*.5/settings['target']))
@@ -102,6 +121,9 @@ def main():
  except Exception as error:
   message=str(error)
   diagnostics=getattr(error,'diagnostics',None)
+  if diagnostics is not None and settings.get('allowExtraFaces') and spec.get('solver')=='open-surface-quads':
+   # With extra faces allowed the acceptance asks for more: say so, and how to generate without it.
+   message+=' "Add faces where the shape needs them" is checked; neither its own rules nor the rows of the strict count gave an acceptable mesh without a count ceiling. Unchecking it may still generate within the count tolerance.'
   if isinstance(error,NotImplementedError) and message=='Degenerate source normal policy':message='The solver created a degenerate triangle during mesh conditioning. No result was accepted; your source mesh and guides are unchanged.'
   if constructed:write_obj(job/'failed-output.obj',positions,faces)
   if isinstance(error,OutputValidationError):write_obj(job/'failed-output.obj',error.positions,error.faces);write(job/'failed-validation.json',error.validation)

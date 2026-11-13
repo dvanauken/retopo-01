@@ -96,7 +96,7 @@ BAND_REACH=.5
 BAND_DEGREES=30.
 
 
-def band_widths(source, edges, samples, owners, spacing):
+def band_widths(source, edges, samples, owners, spacing, sizes=None):
     """How far each crease sample's band of nearly parallel creases extends.
 
     The layout rounds edge lines to a lattice of the requested spacing, so
@@ -104,6 +104,9 @@ def band_widths(source, edges, samples, owners, spacing):
     the 30-degree minimum quad corner cannot both own an edge either. Such a
     band is one feature at this resolution: the width is the farthest other
     branch within reach, and 0 for a crease with no parallel neighbor.
+
+    `sizes` (crease_rows.local_sizes, when the user allows extra faces): the
+    reach at a sample is half of the local face at its own crease edge.
     """
     source=np.asarray(source,float);edges=np.asarray(edges,int).reshape(-1,2);samples=np.asarray(samples,float);owners=np.asarray(owners,int)
     width=np.zeros(len(samples))
@@ -120,17 +123,22 @@ def band_widths(source, edges, samples, owners, spacing):
     # Nearest point of each other branch, then the farthest such branch in reach.
     key=i*(label.max()+1)+label[j];order=np.lexsort((distance,key))
     first=order[np.r_[True,key[order][1:]!=key[order][:-1]]] if len(order) else order
-    first=first[distance[first]<reach]
+    first=first[distance[first]<(reach if sizes is None else reach*np.asarray(sizes,float)[owners[i[first]]])]
     np.maximum.at(width,i[first],distance[first])
     return width
 
 
-def measure(source, triangles, vertices, faces, target, angle=None, enforce_rows=True):
+def measure(source, triangles, vertices, faces, target, angle=None, enforce_rows=True, extra_faces=False):
     """Crease check. `enforce_rows=False` reports the crease-row measure without failing on it.
 
     Only the closed-part solver (feature_quad) passes False: it has no row
     fitting yet, so there the rows are a recorded diagnostic. Everywhere else a
     representative crease chain without an accepted edge row fails the check.
+
+    `extra_faces` (the user's 'Add faces where the shape needs them' option):
+    a face is the local face at each crease edge (crease_rows.local_sizes) in
+    the band rule and in the row check. The nearest-edge limits stay in
+    requested faces.
     """
     source=np.asarray(source,float);vertices=np.asarray(vertices,float)
     triangles=np.asarray(triangles,int);faces=np.asarray(faces,int)
@@ -146,11 +154,12 @@ def measure(source, triangles, vertices, faces, target, angle=None, enforce_rows
     # representative chains without one; none may be missing).
     limits=dict(edgeP95=.25*h,edgeMax=.5*h,creaseP95=.25*h,creaseMax=1.*h,junctionMax=1.*h,rowsMissing=0.)
     if not len(edges):return dict(passed=True,detection=detection,sourceFeatureEdges=0,limits=limits,failures=[],scope=f"No {detection['angleDegrees']:g}-degree source crease components at or above one requested edge spacing; smaller angular fragments are reported separately.")
-    from crease_rows import measure as measure_rows
-    rows=measure_rows(source,triangles,edges,vertices,faces,h)
+    from crease_rows import measure as measure_rows, local_sizes
+    sizes=local_sizes(source,edges,h,detection['minimumLength']) if extra_faces else None
+    rows=measure_rows(source,triangles,edges,vertices,faces,h,sizes)
     counts=[max(5,int(np.ceil(np.linalg.norm(source[b]-source[a])/(h*.125)))+1) for a,b in edges]
     samples=np.concatenate([np.linspace(source[a],source[b],count) for (a,b),count in zip(edges,counts)])
-    band=band_widths(source,edges,samples,np.repeat(np.arange(len(edges)),counts),h)
+    band=band_widths(source,edges,samples,np.repeat(np.arange(len(edges)),counts),h,sizes)
     output_edges=np.unique(np.sort(np.stack([faces,np.roll(faces,-1,1)],axis=2).reshape(-1,2),axis=1),axis=0)
     creases=np.asarray(output_creases(vertices,faces.tolist(),angle_degrees=30)['edges'],int).reshape(-1,2)
     # An edge anywhere across a sub-spacing band of parallel creases represents it.
@@ -164,7 +173,8 @@ def measure(source, triangles, vertices, faces, target, angle=None, enforce_rows
     failures=[key for key,value in values.items() if value>limits[key] and (enforce_rows or key!='rowsMissing')]
     # JSON must stay finite even if the output has no detectable crease edges.
     values={key:value if np.isfinite(value) else None for key,value in values.items()}
+    local=dict(localFaces=True,localFaceScope='Extra faces allowed: creases form one band within half of the local face at each crease edge (crease_rows.local_sizes), not half of the requested face; the row check uses the same local faces.') if extra_faces else {}
     return dict(passed=not failures,detection=detection,sourceFeatureEdges=len(edges),outputCreaseEdges=len(creases),samples=len(samples),
                 bandSamples=int((band>0).sum()),bandWidthMax=float(band.max()),
-                sourceJunctions=len(junctions),values=values,limits=limits,failures=failures,rows=rows,rowsEnforced=bool(enforce_rows),
+                sourceJunctions=len(junctions),values=values,limits=limits,failures=failures,rows=rows,rowsEnforced=bool(enforce_rows),**local,
                 scope=f"Sampled {detection['angleDegrees']:g}-degree source crease components whose extent is at least one requested edge spacing, to output edges and 30-degree output creases; retained source junctions to output vertices. Smaller angular fragments are counted separately. Creases within {BAND_REACH:g} spacing of another crease branch running within {BAND_DEGREES:g} degrees of parallel form one band; their nearest-edge distances are measured beyond the band's local width, and the band's representative crease must carry one connected, ordered edge row measured without that allowance (rows). Exact point-to-segment distances; sampling does not certify every point of each feature. Whole-surface, topology, guide and contact checks are separate.")

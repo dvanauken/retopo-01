@@ -1,0 +1,1138 @@
+{
+ "date": "2026-11-10",
+ "scope": "Open parts with 'Add faces where the shape needs them': the faces at admitted crease chains are sized so each chain carries an edge row (crease_rows.local_sizes, sent to the engine as face-size caps on its constrained edges), the band rule and the row check use those local faces, and corner zones (corner_zones) are enforced. At the strict count the corner zones are reported. Engineering stand-in for native ZRemesher's one-cell separation of constrained lines (0x28fe70); not native arithmetic.",
+ "spacing": 0.0822872437626249,
+ "case": "Toilet island 6 (skp-6), request 200, keep creases at 30 degrees, guide tests/fixtures/island6-guide-483afe83.json",
+ "cornerZone": {
+  "definition": "source coordinate 1 > 0.05",
+  "measure": "distance from each source vertex of the zone to the output surface, in requested faces",
+  "meshes": {
+   "Strict count (204 quads)": {
+    "file": "tests/fixtures/corner_zones/island6-200-guide-strict-204.obj",
+    "sha256": "ea28aa6aa069794bcb0936aad7dd30efa1c7c37c33cb68aeeaf3578aa2fa8c01",
+    "faces": 204,
+    "quads": 204,
+    "triangles": 0,
+    "fixedZone": {
+     "sourceVertices": 633,
+     "p95InFaces": 0.2731559564114391,
+     "maxInFaces": 0.4136437837735186,
+     "worstSourceVertex": 1338,
+     "facesInZone": 43
+    },
+    "automaticZones": [
+     {
+      "sourceVertices": 280,
+      "p95InFaces": 0.23224472796252585,
+      "maxInFaces": 0.27365493353378656,
+      "passed": true
+     },
+     {
+      "sourceVertices": 278,
+      "p95InFaces": 0.33134441293545563,
+      "maxInFaces": 0.4136437837735186,
+      "passed": false
+     },
+     {
+      "sourceVertices": 135,
+      "p95InFaces": 0.20881700826437055,
+      "maxInFaces": 0.2137389137193459,
+      "passed": true
+     }
+    ],
+    "cornerCheckPassed": false
+   },
+   "Extra faces before this work (380 quads)": {
+    "file": "tests/fixtures/corner_zones/island6-200-guide-extra-380-before.obj",
+    "sha256": "2d0df069eb88f8653d6a70494738b9258d96a54544c494eca5ccfdda9cc26d78",
+    "faces": 380,
+    "quads": 380,
+    "triangles": 0,
+    "fixedZone": {
+     "sourceVertices": 633,
+     "p95InFaces": 0.27893933638429896,
+     "maxInFaces": 0.4070967744220521,
+     "worstSourceVertex": 176,
+     "facesInZone": 94
+    },
+    "automaticZones": [
+     {
+      "sourceVertices": 280,
+      "p95InFaces": 0.3597016948061518,
+      "maxInFaces": 0.4070967744220521,
+      "passed": false
+     },
+     {
+      "sourceVertices": 278,
+      "p95InFaces": 0.20518431461676254,
+      "maxInFaces": 0.2399176807447765,
+      "passed": true
+     },
+     {
+      "sourceVertices": 135,
+      "p95InFaces": 0.12565710423451518,
+      "maxInFaces": 0.13686066933476104,
+      "passed": true
+     }
+    ],
+    "cornerCheckPassed": false
+   },
+   "Extra faces now (436 quads)": {
+    "file": "tests/fixtures/corner_zones/island6-200-guide-extra-faces.obj",
+    "sha256": "af8c5381061fbb078786246691ab450e9594351b76724bd173fc849c66378015",
+    "faces": 436,
+    "quads": 436,
+    "triangles": 0,
+    "fixedZone": {
+     "sourceVertices": 633,
+     "p95InFaces": 0.1161173635985917,
+     "maxInFaces": 0.25708261881627403,
+     "worstSourceVertex": 1335,
+     "facesInZone": 152
+    },
+    "automaticZones": [
+     {
+      "sourceVertices": 280,
+      "p95InFaces": 0.1359513352645549,
+      "maxInFaces": 0.1854870072272496,
+      "passed": true
+     },
+     {
+      "sourceVertices": 278,
+      "p95InFaces": 0.09471632399592736,
+      "maxInFaces": 0.25708261881627403,
+      "passed": true
+     },
+     {
+      "sourceVertices": 135,
+      "p95InFaces": 0.1633052179205478,
+      "maxInFaces": 0.1801935010188059,
+      "passed": true
+     }
+    ],
+    "cornerCheckPassed": true
+   },
+   "ZBrush ZRemesher (532 faces)": {
+    "file": "tests/fixtures/guide_rows/island6-200-native-guide-532.obj",
+    "sha256": "0c15860a5bcb98fed82ac9d8c55c3278400ff0aa308d8277976cd2f819f9a7b1",
+    "faces": 532,
+    "quads": 455,
+    "triangles": 77,
+    "fixedZone": {
+     "sourceVertices": 633,
+     "p95InFaces": 0.2464251357464109,
+     "maxInFaces": 0.3036247566193252,
+     "worstSourceVertex": 693,
+     "facesInZone": 102
+    },
+    "automaticZones": [
+     {
+      "sourceVertices": 280,
+      "p95InFaces": 0.2366268641402288,
+      "maxInFaces": 0.27634918347368986,
+      "passed": true
+     },
+     {
+      "sourceVertices": 278,
+      "p95InFaces": 0.26130874022547323,
+      "maxInFaces": 0.3013030728251107,
+      "passed": false
+     },
+     {
+      "sourceVertices": 135,
+      "p95InFaces": 0.0950003174684385,
+      "maxInFaces": 0.14829005136413895,
+      "passed": true
+     }
+    ],
+    "cornerCheckPassed": false
+   }
+  },
+  "picture": "tests/extra-faces/corners-1/corners-strict-extra-zbrush.png"
+ },
+ "extraFaces": {
+  "run": "ca8496fc2cbc",
+  "codeStable": true,
+  "cases": [
+   {
+    "case": "island6-150",
+    "passed": true,
+    "faces": 421,
+    "seconds": 58.1,
+    "job": "registered-ca8496fc2cbc-island6-150",
+    "outputSha256": "3aed9fd8fedebe6ddc9e768368b3d5917a44e2b8748a070e7f2c3cc75a109eb7",
+    "cornerZones": {
+     "enforced": true,
+     "passed": true,
+     "worstP95InFaces": 0.12703136546883242,
+     "worstMaxInFaces": 0.16464207954427001,
+     "limits": {
+      "p95InFaces": 0.25,
+      "maxInFaces": 0.5
+     }
+    },
+    "creaseRows": {
+     "required": 18,
+     "realized": 18,
+     "localFaces": true
+    }
+   },
+   {
+    "case": "island6-200",
+    "passed": true,
+    "faces": 466,
+    "seconds": 50.1,
+    "job": "registered-ca8496fc2cbc-island6-200",
+    "outputSha256": "77692824bbe701db09ad43fa323b528f72452f492dc0486f8a731d9329328fad",
+    "cornerZones": {
+     "enforced": true,
+     "passed": true,
+     "worstP95InFaces": 0.13935684125295497,
+     "worstMaxInFaces": 0.22508340806385724,
+     "limits": {
+      "p95InFaces": 0.25,
+      "maxInFaces": 0.5
+     }
+    },
+    "creaseRows": {
+     "required": 18,
+     "realized": 18,
+     "localFaces": true
+    }
+   },
+   {
+    "case": "island6-200-guide",
+    "passed": true,
+    "faces": 436,
+    "seconds": 38.1,
+    "job": "registered-ca8496fc2cbc-island6-200-guide",
+    "outputSha256": "af8c5381061fbb078786246691ab450e9594351b76724bd173fc849c66378015",
+    "cornerZones": {
+     "enforced": true,
+     "passed": true,
+     "worstP95InFaces": 0.1633052179205478,
+     "worstMaxInFaces": 0.25708261881627403,
+     "limits": {
+      "p95InFaces": 0.25,
+      "maxInFaces": 0.5
+     }
+    },
+    "creaseRows": {
+     "required": 18,
+     "realized": 18,
+     "localFaces": true
+    },
+    "guideLoops": [
+     {
+      "pathVertices": 14,
+      "turns": 0,
+      "passed": true
+     }
+    ]
+   },
+   {
+    "case": "island6-300",
+    "passed": true,
+    "faces": 655,
+    "seconds": 120.2,
+    "job": "registered-ca8496fc2cbc-island6-300",
+    "outputSha256": "4dd113e904cd9ba7d973c5a1f54fcea0f8c991e32181e5e5055f825a5b48f818",
+    "cornerZones": {
+     "enforced": true,
+     "passed": true,
+     "worstP95InFaces": 0.10259951900252814,
+     "worstMaxInFaces": 0.1621607789680206,
+     "limits": {
+      "p95InFaces": 0.25,
+      "maxInFaces": 0.5
+     }
+    },
+    "creaseRows": {
+     "required": 21,
+     "realized": 21,
+     "localFaces": true
+    }
+   },
+   {
+    "case": "island6-750-guide",
+    "passed": true,
+    "faces": 1848,
+    "seconds": 192.5,
+    "job": "registered-ca8496fc2cbc-island6-750-guide",
+    "outputSha256": "db71e01cd54863b3fef45b3611b7a09ae29ad5bba22eea7cc61b89e7bc0412af",
+    "cornerZones": {
+     "enforced": true,
+     "passed": true,
+     "worstP95InFaces": 0.09610995647235354,
+     "worstMaxInFaces": 0.1816337542452001,
+     "limits": {
+      "p95InFaces": 0.25,
+      "maxInFaces": 0.5
+     }
+    },
+    "creaseRows": {
+     "required": 23,
+     "realized": 23,
+     "localFaces": true
+    },
+    "guideLoops": [
+     {
+      "pathVertices": 25,
+      "turns": 0,
+      "passed": true
+     }
+    ]
+   }
+  ],
+  "evidence": "tests/extra-faces/corners-1/extra-island6-7"
+ },
+ "ui": {
+  "boxChecked": {
+   "job": "81990a75bf5a4139bf7f95f7fac9f564",
+   "passed": true,
+   "faces": 436,
+   "extraFacesBox": true,
+   "allowExtraFaces": true,
+   "cornerZones": {
+    "enforced": true,
+    "passed": true,
+    "worstP95InFaces": 0.1633052179205478,
+    "worstMaxInFaces": 0.25708261881627403
+   },
+   "guideLoops": [
+    {
+     "pathVertices": 14,
+     "turns": 0,
+     "passed": true
+    }
+   ],
+   "rows": {
+    "required": 18,
+    "realized": 18
+   },
+   "errors": [],
+   "outputSha256": "af8c5381061fbb078786246691ab450e9594351b76724bd173fc849c66378015"
+  },
+  "boxUnchecked": {
+   "job": "ab1ab242e224463f896612ba5158033e",
+   "passed": true,
+   "faces": 204,
+   "extraFacesBox": false,
+   "allowExtraFaces": false,
+   "cornerZones": {
+    "enforced": false,
+    "passed": false,
+    "worstP95InFaces": 0.3317066159496088,
+    "worstMaxInFaces": 0.41369393495790674
+   },
+   "guideLoops": [
+    {
+     "pathVertices": 11,
+     "turns": 0,
+     "passed": true
+    }
+   ],
+   "rows": {
+    "required": 3,
+    "realized": 3
+   },
+   "errors": [],
+   "outputSha256": "48c6cea38a1b98ad50b262a4799fd4cd9c0e26c5b21943f3d87ddb8d638b3d4c"
+  },
+  "boxChecked750": {
+   "job": "c2259cdc2a68482687108060d4e192cf",
+   "passed": true,
+   "faces": 1848,
+   "extraFacesBox": true,
+   "allowExtraFaces": true,
+   "cornerZones": {
+    "enforced": true,
+    "passed": true,
+    "worstP95InFaces": 0.09610995647235354,
+    "worstMaxInFaces": 0.1816337542452001
+   },
+   "guideLoops": [
+    {
+     "pathVertices": 25,
+     "turns": 0,
+     "passed": true
+    }
+   ],
+   "rows": {
+    "required": 23,
+    "realized": 23
+   },
+   "errors": [],
+   "outputSha256": "db71e01cd54863b3fef45b3611b7a09ae29ad5bba22eea7cc61b89e7bc0412af"
+  },
+  "codeStable": true,
+  "assemblyMeshEdges": {
+   "url": "http://127.0.0.1:50946",
+   "passed": true,
+   "job": "da4a9557d0674336bcb2df68072eb118",
+   "resultMeta": "1 accepted part output",
+   "pixelsChangedByMeshEdges": 13713,
+   "pixelsDifferentAfterTurningBackOn": 0,
+   "pageErrors": []
+  },
+  "evidence": [
+   "tests/extra-faces/corners-1/ui-extra-200-guide-7",
+   "tests/extra-faces/corners-1/ui-extra-750-guide-2",
+   "tests/extra-faces/corners-1/ui-strict-200-guide-3",
+   "tests/extra-faces/corners-1/ui-assembly-edges-2"
+  ]
+ },
+ "strictCount": {
+  "matrix": {
+   "run": "2bdcf1f3e24d",
+   "codeStable": true,
+   "passed": 8,
+   "comparedWithRun": "8a240b30812b",
+   "sameBytesAsBefore": true,
+   "cases": [
+    {
+     "case": "island6-150",
+     "passed": true,
+     "faces": 143,
+     "seconds": 168.7,
+     "job": "registered-2bdcf1f3e24d-island6-150",
+     "outputSha256": "ec5d84948c56bd81351ec75eb38e14a0a60180a3cf3544a3df55858f408004b5",
+     "cornerZones": {
+      "enforced": false,
+      "passed": false,
+      "worstP95InFaces": 0.3240260730156818,
+      "worstMaxInFaces": 0.4080686126472155,
+      "limits": {
+       "p95InFaces": 0.25,
+       "maxInFaces": 0.5
+      }
+     },
+     "creaseRows": {
+      "required": 3,
+      "realized": 3,
+      "localFaces": false
+     }
+    },
+    {
+     "case": "island6-200",
+     "passed": true,
+     "faces": 220,
+     "seconds": 146.6,
+     "job": "registered-2bdcf1f3e24d-island6-200",
+     "outputSha256": "95d9475abbda2913a69e6f455181f3ffb96e72a51621420d7f2b29c965f06b4c",
+     "cornerZones": {
+      "enforced": false,
+      "passed": false,
+      "worstP95InFaces": 0.3357551096287993,
+      "worstMaxInFaces": 0.36770677983230243,
+      "limits": {
+       "p95InFaces": 0.25,
+       "maxInFaces": 0.5
+      }
+     },
+     "creaseRows": {
+      "required": 3,
+      "realized": 3,
+      "localFaces": false
+     }
+    },
+    {
+     "case": "island6-200-guide",
+     "passed": true,
+     "faces": 204,
+     "seconds": 48.2,
+     "job": "registered-2bdcf1f3e24d-island6-200-guide",
+     "outputSha256": "48c6cea38a1b98ad50b262a4799fd4cd9c0e26c5b21943f3d87ddb8d638b3d4c",
+     "cornerZones": {
+      "enforced": false,
+      "passed": false,
+      "worstP95InFaces": 0.3317066159496088,
+      "worstMaxInFaces": 0.41369393495790674,
+      "limits": {
+       "p95InFaces": 0.25,
+       "maxInFaces": 0.5
+      }
+     },
+     "creaseRows": {
+      "required": 3,
+      "realized": 3,
+      "localFaces": false
+     },
+     "guideLoops": [
+      {
+       "pathVertices": 11,
+       "turns": 0,
+       "passed": true
+      }
+     ]
+    },
+    {
+     "case": "island6-300",
+     "passed": true,
+     "faces": 308,
+     "seconds": 84.1,
+     "job": "registered-2bdcf1f3e24d-island6-300",
+     "outputSha256": "6629436d32f6abd99c1c966897a1df1b1b2c7c927caff7fc8db64127b8477d71",
+     "cornerZones": {
+      "enforced": false,
+      "passed": false,
+      "worstP95InFaces": 0.350079637404764,
+      "worstMaxInFaces": 0.4138761725594244,
+      "limits": {
+       "p95InFaces": 0.25,
+       "maxInFaces": 0.5
+      }
+     },
+     "creaseRows": {
+      "required": 4,
+      "realized": 4,
+      "localFaces": false
+     }
+    },
+    {
+     "case": "island6-750-guide",
+     "passed": true,
+     "faces": 798,
+     "seconds": 80.5,
+     "job": "registered-2bdcf1f3e24d-island6-750-guide",
+     "outputSha256": "642bbc636d8f17792eb29a3013b94ead9beab293485d1b04bc63a68023bab144",
+     "cornerZones": {
+      "enforced": false,
+      "passed": false,
+      "worstP95InFaces": 0.3419463959800606,
+      "worstMaxInFaces": 0.46398384803823395,
+      "limits": {
+       "p95InFaces": 0.25,
+       "maxInFaces": 0.5
+      }
+     },
+     "creaseRows": {
+      "required": 5,
+      "realized": 5,
+      "localFaces": false
+     },
+     "guideLoops": [
+      {
+       "pathVertices": 24,
+       "turns": 0,
+       "passed": true
+      }
+     ]
+    },
+    {
+     "case": "island2-300",
+     "passed": true,
+     "faces": 291,
+     "seconds": 6.0,
+     "job": "registered-2bdcf1f3e24d-island2-300",
+     "outputSha256": "2589e603b33d30875700faa5e5aa20bf8650d7b5c95aab2be1b8519a4b17be69",
+     "creaseRows": {
+      "required": null,
+      "realized": null,
+      "localFaces": false
+     }
+    },
+    {
+     "case": "island7-300",
+     "passed": true,
+     "faces": 339,
+     "seconds": 20.1,
+     "job": "registered-2bdcf1f3e24d-island7-300",
+     "outputSha256": "7af7cbe32a8d6cafe3e6391f91f22b2e282d70d622c28aa9c948b06260aa0ffa",
+     "creaseRows": {
+      "required": 5,
+      "realized": 4,
+      "localFaces": false
+     }
+    },
+    {
+     "case": "island10-500",
+     "passed": true,
+     "faces": 559,
+     "seconds": 48.1,
+     "job": "registered-2bdcf1f3e24d-island10-500",
+     "outputSha256": "d97611bed9e84bd2158b513efa3c6a94bc3d6506d4553a98361018e6b0480534",
+     "cornerZones": {
+      "enforced": false,
+      "passed": true,
+      "worstP95InFaces": 0.15733951032259605,
+      "worstMaxInFaces": 0.1738333416183295,
+      "limits": {
+       "p95InFaces": 0.25,
+       "maxInFaces": 0.5
+      }
+     },
+     "creaseRows": {
+      "required": 6,
+      "realized": 6,
+      "localFaces": false
+     }
+    }
+   ],
+   "evidence": "tests/extra-faces/corners-1/matrix-6"
+  },
+  "searchWithCornersEnforced": {
+   "target": 200,
+   "limits": {
+    "p95InFaces": 0.25,
+    "maxInFaces": 0.5
+   },
+   "scope": "Shipped strict-count solver; acceptance additionally requires the corner zones, in this process only.",
+   "accepted": false,
+   "seconds": 417.89100000000326,
+   "layoutsTried": 122,
+   "candidatesChecked": 21,
+   "bestWorstZoneP95InFaces": 0.3214100460185517,
+   "candidates": [
+    {
+     "faces": 204,
+     "creaseCheckPassed": true,
+     "creaseFailures": [],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.33134441293545563,
+     "worstMaxInFaces": 0.4136437837735186,
+     "fixedZoneP95InFaces": 0.2731559564114391,
+     "fixedZoneMaxInFaces": 0.4136437837735186
+    },
+    {
+     "faces": 204,
+     "creaseCheckPassed": true,
+     "creaseFailures": [],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.3214100460185517,
+     "worstMaxInFaces": 0.3971382453050323,
+     "fixedZoneP95InFaces": 0.29325534256660674,
+     "fixedZoneMaxInFaces": 0.3971382453050323
+    },
+    {
+     "faces": 204,
+     "creaseCheckPassed": true,
+     "creaseFailures": [],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.3314192136166214,
+     "worstMaxInFaces": 0.37535658155576096,
+     "fixedZoneP95InFaces": 0.30512523490329196,
+     "fixedZoneMaxInFaces": 0.37535658155576096
+    },
+    {
+     "faces": 176,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.5230488037245764,
+     "worstMaxInFaces": 0.558726077440066,
+     "fixedZoneP95InFaces": 0.48413483277170644,
+     "fixedZoneMaxInFaces": 0.558726077440066
+    },
+    {
+     "faces": 183,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces",
+      "zone 2: maxInFaces"
+     ],
+     "worstP95InFaces": 0.6702747541183713,
+     "worstMaxInFaces": 0.7297703349645771,
+     "fixedZoneP95InFaces": 0.5556164402731609,
+     "fixedZoneMaxInFaces": 0.7297703349645771
+    },
+    {
+     "faces": 188,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.7834100357839877,
+     "worstMaxInFaces": 0.8627848008797829,
+     "fixedZoneP95InFaces": 0.5828544743154466,
+     "fixedZoneMaxInFaces": 0.8627848008797829
+    },
+    {
+     "faces": 188,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "creaseP95"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.4108521716834187,
+     "worstMaxInFaces": 0.4742671248412711,
+     "fixedZoneP95InFaces": 0.3557791980842427,
+     "fixedZoneMaxInFaces": 0.4742671248412711
+    },
+    {
+     "faces": 188,
+     "creaseCheckPassed": true,
+     "creaseFailures": [],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.4195211811951868,
+     "worstMaxInFaces": 0.4842410266305448,
+     "fixedZoneP95InFaces": 0.34685151443587336,
+     "fixedZoneMaxInFaces": 0.4842410266305448
+    },
+    {
+     "faces": 188,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces",
+      "zone 2: maxInFaces"
+     ],
+     "worstP95InFaces": 0.8984945021095491,
+     "worstMaxInFaces": 0.9581499649855295,
+     "fixedZoneP95InFaces": 0.8035015425705917,
+     "fixedZoneMaxInFaces": 0.9581499649855295
+    },
+    {
+     "faces": 183,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.7720783659369895,
+     "worstMaxInFaces": 0.8231184830256852,
+     "fixedZoneP95InFaces": 0.6253601144989633,
+     "fixedZoneMaxInFaces": 0.8231184830256852
+    },
+    {
+     "faces": 183,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.3591450255408782,
+     "worstMaxInFaces": 0.4424121547363995,
+     "fixedZoneP95InFaces": 0.31438406602610397,
+     "fixedZoneMaxInFaces": 0.4424121547363995
+    },
+    {
+     "faces": 187,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 2: p95InFaces",
+      "zone 2: maxInFaces"
+     ],
+     "worstP95InFaces": 0.6179189315184078,
+     "worstMaxInFaces": 0.681546296926468,
+     "fixedZoneP95InFaces": 0.4517264270462437,
+     "fixedZoneMaxInFaces": 0.681546296926468
+    },
+    {
+     "faces": 190,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces"
+     ],
+     "worstP95InFaces": 0.8692967330778538,
+     "worstMaxInFaces": 0.9360858946587257,
+     "fixedZoneP95InFaces": 0.6712226212911998,
+     "fixedZoneMaxInFaces": 0.9360858946587257
+    },
+    {
+     "faces": 198,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.44977131178165675,
+     "worstMaxInFaces": 0.4871609866568362,
+     "fixedZoneP95InFaces": 0.39206486693463805,
+     "fixedZoneMaxInFaces": 0.4871609866568362
+    },
+    {
+     "faces": 206,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.495152987097145,
+     "worstMaxInFaces": 0.576478007592201,
+     "fixedZoneP95InFaces": 0.43134291954037646,
+     "fixedZoneMaxInFaces": 0.576478007592201
+    },
+    {
+     "faces": 207,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 2: p95InFaces",
+      "zone 2: maxInFaces"
+     ],
+     "worstP95InFaces": 0.5118294758124138,
+     "worstMaxInFaces": 0.5775752536943225,
+     "fixedZoneP95InFaces": 0.39036445700930317,
+     "fixedZoneMaxInFaces": 0.5775752536943225
+    },
+    {
+     "faces": 190,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.8382014350048193,
+     "worstMaxInFaces": 0.9003845608971709,
+     "fixedZoneP95InFaces": 0.673029433169266,
+     "fixedZoneMaxInFaces": 0.9003845608971709
+    },
+    {
+     "faces": 202,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.7357828691506987,
+     "worstMaxInFaces": 0.7997947641764944,
+     "fixedZoneP95InFaces": 0.6234290547270306,
+     "fixedZoneMaxInFaces": 0.7997947641764944
+    },
+    {
+     "faces": 184,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 2: p95InFaces",
+      "zone 2: maxInFaces"
+     ],
+     "worstP95InFaces": 0.6671033457361117,
+     "worstMaxInFaces": 0.7270853613299376,
+     "fixedZoneP95InFaces": 0.4975576603790686,
+     "fixedZoneMaxInFaces": 0.7270853613299376
+    },
+    {
+     "faces": 179,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeP95",
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces",
+      "zone 2: maxInFaces"
+     ],
+     "worstP95InFaces": 0.8062997549588774,
+     "worstMaxInFaces": 0.8974625756065301,
+     "fixedZoneP95InFaces": 0.6906065417523172,
+     "fixedZoneMaxInFaces": 0.8974625756065301
+    },
+    {
+     "faces": 175,
+     "creaseCheckPassed": false,
+     "creaseFailures": [
+      "edgeMax",
+      "creaseP95",
+      "rowsMissing"
+     ],
+     "cornersPassed": false,
+     "cornerFailures": [
+      "zone 1: p95InFaces",
+      "zone 1: maxInFaces",
+      "zone 2: p95InFaces"
+     ],
+     "worstP95InFaces": 0.4252254061085862,
+     "worstMaxInFaces": 0.5409535520680471,
+     "fixedZoneP95InFaces": 0.3984928293905633,
+     "fixedZoneMaxInFaces": 0.5409535520680471
+    }
+   ],
+   "evidence": "tests/extra-faces/corners-1/strict-search-200/strict-search.json"
+  }
+ },
+ "speed": {
+  "rule": "Rows layouts are processed three at a time in other processes and taken in plan order; every output is the same bytes as one at a time.",
+  "workers": 3,
+  "sameBytes": true,
+  "secondsOneAtATime": {
+   "extra faces: island6-150": 50.1,
+   "extra faces: island6-200": 76.1,
+   "extra faces: island6-200-guide": 34.1,
+   "extra faces: island6-300": 168.2,
+   "extra faces: island6-750-guide": 230.4,
+   "strict: island6-150": 162.4,
+   "strict: island6-200": 84.2,
+   "strict: island6-200-guide": 34.1,
+   "strict: island6-300": 68.2,
+   "strict: island6-750-guide": 72.2,
+   "strict: island2-300": 4.0,
+   "strict: island7-300": 12.0,
+   "strict: island10-500": 52.1
+  },
+  "secondsThreeAtATime": {
+   "extra faces: island6-150": 58.1,
+   "extra faces: island6-200": 50.1,
+   "extra faces: island6-200-guide": 38.1,
+   "extra faces: island6-300": 120.2,
+   "extra faces: island6-750-guide": 192.5,
+   "strict: island6-150": 168.7,
+   "strict: island6-200": 146.6,
+   "strict: island6-200-guide": 48.2,
+   "strict: island6-300": 84.1,
+   "strict: island6-750-guide": 80.5,
+   "strict: island2-300": 6.0,
+   "strict: island7-300": 20.1,
+   "strict: island10-500": 48.1
+  },
+  "note": "One run per number on a machine with about 15 % background load; timings moved by ten seconds and more between runs."
+ },
+ "unitTests": {
+  "total": 253,
+  "passed": 253,
+  "new": [
+   "tests/test_corner_zones.py (11)",
+   "tests/test_crease_rows.py (13 added)",
+   "tests/test_quad_connectivity.py (1 added)"
+  ]
+ },
+ "engine": {
+  "build": "constrained-sizes-19",
+  "executableSha256": "a8c12832846ef6a10b3be64ec538e03c44b53e636e8f6a7f56a3881d4bb3cff6",
+  "sourceArchiveSha256": "f69953755f9f5080976a56fd781397f88a1024e1a29be7c4ee621bdfa3e593a6",
+  "capabilities": [
+   "constrained-edges",
+   "constrained-edge-sizes"
+  ],
+  "previousBuild": "constrained-edges-18",
+  "previousExecutableSha256": "c8aa18231c3565fea8ed5fd341c0b9bd7dea7b4e90eb3df0e1b5a290fefc05de",
+  "buildRecord": "ghidra-workbench/work/retopo-guided-layout/build-records/constrained-sizes-19",
+  "patch": "tests/extra-faces/corners-1/engine-patch-19.py"
+ },
+ "engineParity": {
+  "note": "With no face size listed the build returns the same bytes as constrained-edges-18.",
+  "old": "c8aa18231c3565fea8ed5fd341c0b9bd7dea7b4e90eb3df0e1b5a290fefc05de",
+  "new": "a8c12832846ef6a10b3be64ec538e03c44b53e636e8f6a7f56a3881d4bb3cff6",
+  "cases": [
+   {
+    "case": "caps",
+    "old": "c9f0b76bf196834abe4acadbdca030ae12d5cc0de90c2811db2342c3b138b8f7",
+    "new": "c9f0b76bf196834abe4acadbdca030ae12d5cc0de90c2811db2342c3b138b8f7",
+    "identical": true
+   },
+   {
+    "case": "sharp",
+    "old": "505813cdd92dd6c2776757f2b3cef8424d6ba5b9c415dbb74d17d348e86dac74",
+    "new": "505813cdd92dd6c2776757f2b3cef8424d6ba5b9c415dbb74d17d348e86dac74",
+    "identical": true
+   },
+   {
+    "case": "adaptive",
+    "old": "181885fb4e9e8e787ddeb0ea7d2c52cb7743ba0354e684c8e0ec08a5ef35419d",
+    "new": "181885fb4e9e8e787ddeb0ea7d2c52cb7743ba0354e684c8e0ec08a5ef35419d",
+    "identical": true
+   },
+   {
+    "case": "plain",
+    "old": "830c448fe5c4aeb1efa22442a8dfbb779ad9437e3ec250fd8878005bad6bcf93",
+    "new": "830c448fe5c4aeb1efa22442a8dfbb779ad9437e3ec250fd8878005bad6bcf93",
+    "identical": true
+   },
+   {
+    "case": "rows-strict-seed0",
+    "old": "8c016e0a0e50d55c593ef187db0c3d4b654167c9da9c16e53f8bee1aac385839",
+    "new": "8c016e0a0e50d55c593ef187db0c3d4b654167c9da9c16e53f8bee1aac385839",
+    "identical": true
+   },
+   {
+    "case": "rows-strict-seed52",
+    "old": "57f67dfc904f76d431d01e1e1746c64da21cd857e107931706dae151e38f38d3",
+    "new": "57f67dfc904f76d431d01e1e1746c64da21cd857e107931706dae151e38f38d3",
+    "identical": true
+   },
+   {
+    "case": "rows-size-caps-seed2",
+    "old": "5aade92e3b6b02a9e7d4600eba1e75d0996276dfb1bfe0b58699dcc99523cb10",
+    "new": "5aade92e3b6b02a9e7d4600eba1e75d0996276dfb1bfe0b58699dcc99523cb10",
+    "identical": true
+   },
+   {
+    "case": "rows-size-caps-seed3",
+    "old": "32d83f2ea514995d849eab2f930ffbc1f2d2989832bcc389a49f4ee0af7d12cd",
+    "new": "32d83f2ea514995d849eab2f930ffbc1f2d2989832bcc389a49f4ee0af7d12cd",
+    "identical": true
+   }
+  ]
+ },
+ "sourceHashes": {
+  "corner_zones.py": "d58086e25ccd49864e8b1f9d7a8084dd6e2cb5b5fd8f90bd4f586b08328e2c88",
+  "crease_rows.py": "1ad07039e52c80dc8020480b629af1faf78e4464c4bdab27aedcaec4250f21d8",
+  "source_features.py": "0db8c933a4e95a4d7ad261fc99315e23cb46bab5b95ebae59b8fc30c274ca697",
+  "open_surface.py": "12f0355cab3aa706a40abd7030a6ad4412a78037f8461788b90d7fa6cd5f4b8a",
+  "registered_features.py": "b8f8dceefa09b75eb409bc73ef2936b2042794db5b9ae5e9fd929ecc05b3984b",
+  "feature_refine.py": "99d8033cbe274c84d5aa3a7a8486c074aff86bc21713b58c6960dbc5b18ebd7d",
+  "quad_connectivity.py": "801fadfde516d504ffc09e76400acdc672e75860d44eb68eafcc0cd4d77340ea",
+  "worker.py": "16d1811700c6dee0aeb1a1e91cba8f81dea91de5b9aff16f256bc6e02fbcb854",
+  "job_diagnostics.py": "1f492f9dd5174b8368301e373ff8a1f3c97aa80f1bd02787edefe0e465a9c8ef",
+  "app.js": "4d8e6a21823d12ff18e56d0ded5396e01b9f3bb6779722b1cdd49b3a054a2b41"
+ },
+ "untilItWorks": {
+  "rule": "Extra faces allowed: when no layout at the target face size has every row, the guide loop and the corners, the base faces are made smaller in steps (face count times 1.5, then 2.25) with the checks of the target; when the steps run out of time the rows of the strict count are used and the corners reported.",
+  "steps": [
+   1.0,
+   1.5,
+   2.25
+  ],
+  "deadlinesSeconds": [
+   200,
+   250,
+   300
+  ],
+  "lastResortUntilSeconds": 400,
+  "island6At750WithGuide": {
+   "baseFaces": 1125,
+   "faces": 1848,
+   "seconds": 152.3,
+   "secondsOneLayoutAtATime": 230.4,
+   "job": "registered-5b311cff1e2b-island6-750-guide"
+  }
+ },
+ "highTargets": {
+  "note": "Island 6 without a guide, scratch runs with three layout processes, 2026-11-11/12. Targets above about 750 are rejected in both modes; see GUIDED_LAYOUT.md, High targets.",
+  "userJob": "5a80a3ff627b4ceb95bf9534075a065c (7,200, extra faces): killed at the ten-minute limit while laying out all 64 seeds; fixed, now rejected at about 430 s",
+  "results": {
+   "1500 unchecked": "rejected, 493 s; best candidate has all 20 rows and a boundary 0.119 h off against 0.1 h",
+   "1500 extra faces": "rejected, 446 s; 4 to 12 of 28 rows missing before fitting",
+   "7200 unchecked": "rejected, 426 s; 7 to 13 of 29 rows missing before fitting in all 46 layouts",
+   "7200 extra faces": "rejected, 431 s"
+  }
+ },
+ "limitations": [
+  "Targets above about 750 are rejected on island 6 in both modes (parallel creases a fraction of a face apart each need a row; the engine has no separation step).",
+  "The steps live inside the 420 s solver budget; a part that needs a third step, or slower layouts, ends in the last resort with its corners reported as coarse. No case ends there with the final code.",
+  "Rows and the guide loop still come from screening seeds; the engine guarantees neither.",
+  "Long parallel creases (rim wall, back step) are still one band; native keeps both with thin quads that fail this application's shape limits.",
+  "A chain two local faces long is all end zone: only the one-local-face end limit applies to it.",
+  "Corner zones are measured from source vertices and follow the source tessellation. Their limits are this application's; ZBrush is 0.011 h over the 95th-percentile limit on one foot.",
+  "Only island 6 was run with extra faces. Closed parts ignore the option."
+ ]
+}

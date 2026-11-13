@@ -1,0 +1,6 @@
+# Reproducible outputs kept on disk, outside source review (as tests/registered-features/ is).
+strict-search-200/job/
+engine-constrained-edges-18/
+engine-parity-19/*.obj
+engine-parity-19/inputs/
+__pycache__/

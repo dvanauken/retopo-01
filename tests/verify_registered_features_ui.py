@@ -13,6 +13,7 @@ def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--out',type=Path,required=True)
     ap.add_argument('--case',action='append',choices=[c[0] for c in CASES]);ap.add_argument('--guide',type=Path,default=GUIDE)
     ap.add_argument('--crease-angle',type=float,default=30.);ap.add_argument('--timeout',type=float,default=720.)
+    ap.add_argument('--extra-faces',choices=('on','off'),help="Set the 'Add faces where the shape needs them' box; left as the page shows it when omitted")
     ap.add_argument('--expect-rejection',action='store_true');ap.add_argument('--url');ap.add_argument('--env',action='append',default=[],metavar='NAME=VALUE');a=ap.parse_args()
     out=a.out.resolve()
     if not out.is_relative_to(ROOT):ap.error('Evidence must remain in workspace')
@@ -63,12 +64,19 @@ def main():
                             page.wait_for_function('(n)=>retopoDemo.getState().guides.length===n',arg=len(packet['curves']))
                         page.locator('#targetNumber').fill(str(target));page.locator('#targetNumber').press('Tab')
                         page.locator('#creaseAngle').fill(str(a.crease_angle));page.locator('#creaseAngle').press('Tab')
+                        if a.extra_faces and source.get('solver')=='open-surface-quads':
+                            # The real checkbox, as a user sets it.
+                            box=page.locator('#extraFaces');assert box.is_visible(),'The extra-faces box is not shown for this open part'
+                            box.set_checked(a.extra_faces=='on');assert box.is_checked()==(a.extra_faces=='on')
+                        row['extraFacesBox']=page.locator('#extraFaces').is_checked() if source.get('solver')=='open-surface-quads' else None
                         with page.expect_response(lambda r:r.url.endswith('/api/remesh') and r.request.method=='POST') as admission:
                             page.locator('#generateButton').click()
                         response=admission.value;assert response.status==202,response.text();job=response.json()['id'];row['job']=job
                         submitted=json.loads(response.request.post_data);write(folder/'submitted.json',submitted)
                         assert submitted['target']==target and submitted['partSource']==part['partSource'],submitted
                         assert submitted['creaseAngle']==a.crease_angle,submitted
+                        if a.extra_faces and source.get('solver')=='open-surface-quads':assert submitted.get('allowExtraFaces')==(a.extra_faces=='on'),submitted.get('allowExtraFaces')
+                        row['allowExtraFaces']=submitted.get('allowExtraFaces')
                         assert len(submitted['curves'])==(len(packet['curves']) if guided else 0),submitted
                         print('UI START',name,job,flush=True);previous=None
                         while time.monotonic()-started<a.timeout:
@@ -93,6 +101,13 @@ def main():
                         for key in ('quality','surfaceValidation','intersectionValidation','featureValidation')+(('boundaryValidation',) if mesh.get('openSurface') else ()):
                             assert mesh[key]['passed'],(key,mesh[key])
                         assert mesh['guideCount']==len(submitted['curves'])
+                        corners=mesh.get('cornerZones') or {}
+                        if corners.get('enforced'):assert corners['passed'],corners['failures']
+                        if corners.get('zones'):row['cornerZones']=dict(enforced=bool(corners.get('enforced')),passed=bool(corners.get('passed')),worstP95InFaces=corners.get('worstP95InFaces'),worstMaxInFaces=corners.get('worstMaxInFaces'))
+                        if mesh.get('guideRows'):
+                            assert mesh['guideRows']['passed'],mesh['guideRows']
+                            row['guideLoops']=[dict(pathVertices=g.get('pathVertices'),turns=g.get('values',{}).get('turns'),passed=g['passed']) for g in mesh['guideRows']['guides']]
+                        row['rows']=dict(required=mesh['featureValidation'].get('rows',{}).get('required'),realized=mesh['featureValidation'].get('rows',{}).get('realized'))
                         assert bool(mesh.get('openSurface'))==(source.get('solver')=='open-surface-quads')
                         with page.expect_download() as download:page.locator('#exportMesh').click()
                         download.value.save_as(str(folder/'download.obj'))

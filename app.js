@@ -52,6 +52,9 @@ const keyFor = () => JSON.stringify([state.mesh?.id, state.guides, state.target,
 // 'Add faces where the shape needs them' (ZRemesher's size field with no count ceiling) is implemented for open parts.
 const extraFacesApply = (mesh = state.mesh) => mesh?.solver === 'open-surface-quads';
 const countText = n => n.toLocaleString();
+// Corner zones (corner_zones.py): the source against the result where crease branches meet, in requested faces (h).
+const cornerText = zones => zones?.zones?.length ? `worst 95th percentile ${zones.worstP95InFaces.toFixed(2)} h, worst maximum ${zones.worstMaxInFaces.toFixed(2)} h (limits ${zones.limits.p95InFaces} h and ${zones.limits.maxInFaces} h)` : '';
+const coarseCorners = r => r?.cornerZones?.zones?.length > 0 && r.cornerZones.passed === false;
 const createGuideId = () => crypto.randomUUID();
 const guideDocument = new GuideDocument(createGuideId);
 const guideChrome = document.createElement('canvas'); guideChrome.id = 'guideChrome'; guideChrome.setAttribute('aria-hidden', 'true'); canvas.after(guideChrome);
@@ -679,7 +682,7 @@ async function loadMesh(id, suppliedMesh = null, preserveCamera = false) {
   void restoreAttemptActivity(mesh, version);
 }
 function showResult(result, job, curves, target, mode) {
-  state.result = result; state.resultJob = job; state.resultKey = JSON.stringify([state.mesh.id, curves, target, mode, result.featureValidation?.detection?.angleDegrees ?? state.creaseAngle]);
+  state.result = result; state.resultJob = job; state.resultKey = JSON.stringify([state.mesh.id, curves, target, mode, result.featureValidation?.detection?.angleDegrees ?? state.creaseAngle, extraFacesApply() && result.quality?.countPolicy === 'no ceiling; shortfall only']);   // the same six entries as keyFor()
   if (job) setAttempt('complete', '', { target, guideCount: curves.length, sourceSha256: result.sourceSha256 });
   resultRender = buildMesh({ ...result, displayColor: state.mesh.displayColor, displaySmooth: state.mesh.displaySmooth, wireOpacity: state.mesh.wireOpacity }, resultGroup); $('resultEmpty').hidden = true; $('resultMeta').textContent = `${countText(result.faces.length)} faces`;
   $('resultLabel').textContent = job ? 'Retopology' : 'Example result'; $('exportMesh').disabled = false; $('detailsButton').disabled = false;
@@ -694,8 +697,8 @@ function updateMetrics() {
   const distances = r.guideAlignment?.map(a => a.p95Distance) || [], distance = Math.max(0, ...distances);
   $('guideMetric').textContent = distances.length ? distance < .0001 ? '<0.0001' : distance.toPrecision(3) : '—';
   $('guideDetail').textContent = distances.length ? r.guidePaths?.length ? 'Measured output edge-path fit · p95' : 'Nearest edges · path not verified' : 'No guides in this result';
-  $('topologyMetric').textContent = r.quality?.passed ? r.featureValidation?.passed ? 'Checks passed' : r.featureValidation?.passed === false ? 'Feature drift' : 'Geometry checked' : r.quality ? 'Needs work' : 'Unqualified';
-  $('topologyDetail').textContent = r.quality ? `${r.featureValidation?.passed ? 'Resolved source creases checked' : r.featureValidation?.passed === false ? 'Source crease checks failed' : 'Source features not checked'} · min angle ${r.quality.minimumAngleDegrees.toFixed(0)}°` : 'Quad shape has not been checked';
+  $('topologyMetric').textContent = r.quality?.passed ? r.featureValidation?.passed ? coarseCorners(r) ? 'Coarse corners' : 'Checks passed' : r.featureValidation?.passed === false ? 'Feature drift' : 'Geometry checked' : r.quality ? 'Needs work' : 'Unqualified';
+  $('topologyDetail').textContent = r.quality ? `${r.featureValidation?.passed ? 'Resolved source creases checked' : r.featureValidation?.passed === false ? 'Source crease checks failed' : 'Source features not checked'} · min angle ${r.quality.minimumAngleDegrees.toFixed(0)}°${r.cornerZones?.zones?.length ? ` · corners ${coarseCorners(r) ? 'coarse' : 'followed'}: ${r.cornerZones.worstP95InFaces.toFixed(2)} h / ${r.cornerZones.worstMaxInFaces.toFixed(2)} h` : ''}` : 'Quad shape has not been checked';
   $('resultSummary').textContent = `${r.backend === 'engineering-guided-surface-quads' ? 'Quad surface solver' : r.backend === 'engineering-structured-prismatic-annulus' ? 'Continuous quad grid' : r.backend === 'engineering-planar-pslg-quads' ? 'Planar surface solver' : r.backend === 'heightfield-enclosure' ? 'Terrain enclosure solver' : 'Recovered field solver'} · ${r.elapsedSeconds.toFixed(1)}s · ${r.guideCount} guide${r.guideCount === 1 ? '' : 's'}`;
   if (state.dirty) $('resultSummary').textContent += ` · Previous result; current document has ${state.guides.length} guides`;
 }
@@ -745,7 +748,7 @@ async function generate() {
       $('processTitle').textContent = job.stage;
       if (job.state === 'complete') {
         const result = await api(job.resultUrl); if (token !== generation) return;
-        showResult(result, first.id, request.curves, request.target, request.guideMode); notify(`Generated ${countText(result.faces.length)} quads. ${result.featureValidation?.passed === false ? 'Geometry checks passed; source crease checks failed.' : 'Geometry checks passed.'}`, result.featureValidation?.passed === false); return;
+        showResult(result, first.id, request.curves, request.target, request.guideMode); notify(`Generated ${countText(result.faces.length)} quads. ${result.featureValidation?.passed === false ? 'Geometry checks passed; source crease checks failed.' : 'Geometry checks passed.'}${coarseCorners(result) ? ` Corners are coarse: ${cornerText(result.cornerZones)}. ${result.cornerZones.extraFacesFallback ? 'Extra faces were allowed, but no layout gave every short crease its own edge row at this target; try another target.' : 'Check "Add faces where the shape needs them" to give them the faces they need.'}` : ''}`, result.featureValidation?.passed === false || coarseCorners(result)); return;
       }
       if (job.state === 'failed') throw new Error(job.error);
       if (job.state === 'cancelled') { setAttempt('cancelled', '', attempt); return; }
@@ -884,6 +887,8 @@ $('detailsButton').onclick = () => {
   const r = state.result, s = r.stats, content = $('detailsContent'); content.replaceChildren();
   const table = document.createElement('table');
   const rows = [['Vertices', r.vertices.length], ['Faces', r.faces.length], ['Quads / triangles', `${s.quads} / ${s.triangles}`], ['Components', s.faceConnectedComponents], ['Boundary edges', s.boundaryEdges], ['Nonmanifold edges', s.nonmanifoldEdges], ['Nonmanifold vertices', r.vertexLinks.nonmanifoldVertices.length], ['Inconsistent winding edges', r.vertexLinks.inconsistentWindingEdges], ['Euler characteristic', s.eulerCharacteristic], ['Detected output creases', r.creases.length], ['Calculation time', r.elapsedSeconds.toFixed(3) + 's'], ['Minimum quad angle', r.quality?.minimumAngleDegrees.toFixed(2) + '°'], ['Worst edge ratio', r.quality?.edgeRatioMax.toFixed(3)], ['Minimum scaled Jacobian', r.quality?.scaledJacobianMin.toFixed(3)], ['Regular valence-four vertices', r.quality ? (100*r.quality.valence4Fraction).toFixed(1)+'%' : 'Unqualified'], r.quality?.countPolicy === 'no ceiling; shortfall only' ? ['Faces vs target', `${countText(r.faces.length)} for ${countText(r.target)} (${r.faces.length >= r.target ? '+' : ''}${(100*(r.faces.length - r.target)/r.target).toFixed(0)}%; extra faces allowed)`] : ['Count error', r.quality ? (100*r.quality.targetRelativeError).toFixed(1)+'%' : 'Unqualified'], ['Geometry check failures', r.quality?.failures.join('; ') || 'None'], ['Source feature preservation', r.featureValidation ? (r.featureValidation.passed ? 'Checked' : 'Failed') : 'Not checked'], ...(r.featureValidation?.detection ? [['Source crease angle', r.featureValidation.detection.angleDegrees + '°']] : []), ['Solver', r.backend]];
+  if (r.featureValidation?.rows?.required) rows.push(['Crease rows', `${r.featureValidation.rows.realized} of ${r.featureValidation.rows.required} crease chains carry an edge row${r.featureValidation.rows.localFaces ? '; faces sized locally at the creases' : ''}`]);
+  if (r.cornerZones?.zones?.length) rows.push(['Corner zones', `${r.cornerZones.zones.length} (crease junction clusters); ${cornerText(r.cornerZones)}; ${r.cornerZones.passed ? 'followed' : 'COARSE'}${r.cornerZones.enforced ? ', enforced' : ', reported only: ' + (r.cornerZones.extraFacesFallback ? 'no layout met the extra-faces corner rules, so the rows of the strict count were used' : 'the count was kept within tolerance of the target')}`]);
   if (r.boundaryValidation) rows.push(['Original boundary loops', r.boundaryValidation.loops], ['Boundary preservation', r.boundaryValidation.passed ? 'Checked in both directions' : 'Failed'], ['Boundary tolerance', r.boundaryValidation.tolerance.toPrecision(4)], ['Added caps', 'None']);
   for (const [label, value] of rows) { const tr = document.createElement('tr'); for (const text of [label, value]) { const td = document.createElement('td'); td.textContent = text; tr.append(td); } table.append(tr); }
   const p = document.createElement('p'); p.textContent = r.guideSampleMethod + ' Topology and sampled surface checks do not certify absence of every 3D self intersection. Engineering alternatives do not establish exact native equivalence.';

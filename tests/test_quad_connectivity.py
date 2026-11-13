@@ -119,5 +119,21 @@ class Connectivity(unittest.TestCase):
         _,counts=np.unique(edges,axis=0,return_counts=True);self.assertLessEqual(counts.max(),2)
         self.assertGreater(corner_scores(p,f).min(),.1)   # a topological repair; the fit and relaxation shape the new quads
 
+    def test_a_chord_that_ends_on_its_own_hole_is_refused(self):
+        # An engine layout whose three-sided hole has such a chord (tests/fixtures/quad_connectivity/README.md).
+        # Following it only moved the hole, and the repair never ended.
+        vertices,faces=[],[]
+        for line in (Path(__file__).resolve().parent/'fixtures/quad_connectivity/island6-750-extra-seed22-layout.obj').read_text().splitlines():
+            if line.startswith('v '):vertices.append([float(x) for x in line.split()[1:4]])
+            elif line.startswith('f '):faces.append([int(x.split('/')[0])-1 for x in line.split()[1:]])
+        v=np.asarray(vertices);q=np.asarray(faces,int)
+        self.assertEqual(len(q),1425);self.assertEqual(sorted(len(r) for r in loops(q)),[3,75])
+        p,f,info=fill_triangle_holes(v,q,keep_loops=1)
+        self.assertEqual(info['filledTriangleHoles'],1)
+        self.assertEqual([len(r) for r in loops(f)],[len(loops(f)[0])]);self.assertGreaterEqual(len(loops(f)[0]),75)
+        self.assertTrue(all(len(set(face))==4 for face in f.tolist()))
+        edges=np.sort(np.stack([f,np.roll(f,-1,1)],axis=2).reshape(-1,2),axis=1)
+        _,counts=np.unique(edges,axis=0,return_counts=True);self.assertLessEqual(counts.max(),2)
+
 
 if __name__=='__main__':unittest.main()

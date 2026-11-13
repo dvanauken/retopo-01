@@ -1,0 +1,15 @@
+UI START island6-200-guide d1b18df239324673919e79024dca9efb
+UI PROGRESS island6-200-guide Constructing mesh
+UI PROGRESS island6-200-guide Building open-part layout 1 with registered guide and crease edges; preserving 1 boundary loops
+UI PROGRESS island6-200-guide Building open-part layout 2 with registered guide and crease edges; preserving 1 boundary loops
+UI PROGRESS island6-200-guide Building open-part layout 5 with registered guide and crease edges; preserving 1 boundary loops
+UI PROGRESS island6-200-guide Building open-part layout 7 with registered guide and crease edges; preserving 1 boundary loops
+UI PROGRESS island6-200-guide Building open-part layout 10 with registered guide and crease edges; preserving 1 boundary loops
+UI PROGRESS island6-200-guide Building open-part layout 12 with registered guide and crease edges; preserving 1 boundary loops
+UI PROGRESS island6-200-guide Building open-part layout 14 with registered guide and crease edges; preserving 1 boundary loops
+UI PROGRESS island6-200-guide Fitting open part, pass 1; boundaries fixed
+UI PROGRESS island6-200-guide Fitting open part, pass 2; boundaries fixed
+UI PROGRESS island6-200-guide Checking open-part boundaries, features, coverage and contacts
+UI PROGRESS island6-200-guide Mesh ready
+UI RESULT island6-200-guide True 436 
+EXIT 0

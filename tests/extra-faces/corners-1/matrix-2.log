@@ -1,0 +1,183 @@
+START island6-150 C:\dbva\code\retopo-1\runs\registered-ba31295395ea-island6-150
+PROGRESS island6-150 0.0 
+PROGRESS island6-150 2.0 Starting generation · target 150 quads · 0 guides · 2,824 source triangles · crease angle 30°
+PROGRESS island6-150 4.0 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 8.0 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 10.0 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-150 12.0 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-150 16.0 Fitting open part, pass 4; boundaries fixed
+PROGRESS island6-150 18.0 Building open-part layout 3 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 20.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 26.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 28.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 32.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 34.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 38.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 40.1 Building open-part layout 17 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 42.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 44.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 48.1 Building open-part layout 25 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 50.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 52.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 56.1 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-150 60.1 Fitting open part, pass 4; boundaries fixed
+PROGRESS island6-150 62.2 Building open-part layout 31 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 64.2 Building open-part layout 41 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 66.2 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 68.2 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-150 70.2 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 74.2 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 78.2 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 80.2 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 84.2 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 86.2 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-150 90.2 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 94.2 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 98.2 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-150 100.2 Fitting open part, pass 4; boundaries fixed
+PROGRESS island6-150 102.3 Building open-part layout 56 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 104.3 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 108.3 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 110.3 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-150 114.3 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 116.3 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-150 118.3 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 120.3 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-150 122.3 Fitting open part, pass 4; boundaries fixed
+PROGRESS island6-150 128.3 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 130.3 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 134.3 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-150 136.3 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-150 138.4 Fitting open part, pass 4; boundaries fixed
+PROGRESS island6-150 144.4 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-150 148.4 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-150 150.4 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-150 152.4 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-150 158.4 Fitting open part, pass 4; boundaries fixed
+PROGRESS island6-150 164.4 Accepted 143 faces in 162.0s. Output is ready to view and export.
+RESULT island6-150 True faces 143 seconds 166.4 corners reported: worst P95 0.324 h, worst max 0.408 h, OVER limits 
+START island6-200 C:\dbva\code\retopo-1\runs\registered-ba31295395ea-island6-200
+PROGRESS island6-200 0.0 
+PROGRESS island6-200 4.0 Building open-part layout 1 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200 6.0 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-200 12.0 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-200 14.0 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-200 20.0 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-200 26.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-200 30.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-200 36.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-200 42.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-200 46.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-200 50.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-200 54.1 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-200 56.2 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-200 60.2 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-200 62.2 Fitting open part, pass 4; boundaries fixed
+PROGRESS island6-200 72.2 Building open-part layout 17 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200 74.2 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-200 78.2 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-200 80.2 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-200 82.2 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-200 86.2 Building open-part layout 25 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200 88.2 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-200 92.2 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-200 94.2 Checking open-part boundaries, features, coverage and contacts
+RESULT island6-200 True faces 220 seconds 96.2 corners reported: worst P95 0.336 h, worst max 0.368 h, OVER limits 
+START island6-200-guide C:\dbva\code\retopo-1\runs\registered-ba31295395ea-island6-200-guide
+PROGRESS island6-200-guide 0.0 
+PROGRESS island6-200-guide 2.0 Auto guides: 283 crease edges in 2 chains at 30° or sharper guide the layout; 1 edges in fragments smaller than one quad are ignored.
+PROGRESS island6-200-guide 4.0 Building open-part layout 4 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 6.0 Building open-part layout 10 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 8.0 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-200-guide 10.0 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-200-guide 16.0 Building open-part layout 15 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 18.1 Building open-part layout 22 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 20.1 Building open-part layout 25 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 22.1 Building open-part layout 32 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 24.1 Building open-part layout 35 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 26.1 Building open-part layout 41 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 28.1 Building open-part layout 48 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 30.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-200-guide 34.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-200-guide 38.1 Accepted 204 faces in 36.2s. Output is ready to view and export.
+RESULT island6-200-guide True faces 204 seconds 40.1 corners reported: worst P95 0.332 h, worst max 0.414 h, OVER limits 
+START island6-300 C:\dbva\code\retopo-1\runs\registered-ba31295395ea-island6-300
+PROGRESS island6-300 0.0 
+PROGRESS island6-300 2.0 Auto guides: 283 crease edges in 2 chains at 30° or sharper guide the layout; 1 edges in fragments smaller than one quad are ignored.
+PROGRESS island6-300 4.0 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-300 12.0 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-300 14.0 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-300 16.0 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-300 20.0 Building open-part layout 8 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-300 22.0 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-300 28.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-300 32.1 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-300 34.1 Building open-part layout 12 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-300 36.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-300 38.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-300 42.1 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-300 44.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-300 48.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-300 52.1 Building open-part layout 17 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-300 54.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-300 58.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-300 62.1 Fitting open part, pass 3; boundaries fixed
+PROGRESS island6-300 66.1 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-300 68.2 Fitting open part, pass 4; boundaries fixed
+PROGRESS island6-300 72.2 Accepted 308 faces in 70.2s. Output is ready to view and export.
+RESULT island6-300 True faces 308 seconds 74.2 corners reported: worst P95 0.350 h, worst max 0.414 h, OVER limits 
+START island6-750-guide C:\dbva\code\retopo-1\runs\registered-ba31295395ea-island6-750-guide
+PROGRESS island6-750-guide 0.0 
+PROGRESS island6-750-guide 2.0 Auto guides: 283 crease edges in 2 chains at 30° or sharper guide the layout; 1 edges in fragments smaller than one quad are ignored.
+PROGRESS island6-750-guide 4.0 Building open-part layout 1 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 6.0 Building open-part layout 8 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 8.0 Building open-part layout 9 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 10.0 Building open-part layout 13 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 12.0 Building open-part layout 17 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 14.0 Building open-part layout 18 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 16.0 Building open-part layout 25 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 18.1 Building open-part layout 26 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 20.1 Building open-part layout 33 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 24.1 Building open-part layout 39 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 26.1 Building open-part layout 41 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 28.1 Building open-part layout 47 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 30.1 Building open-part layout 49 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 32.1 Building open-part layout 53 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 34.1 Building open-part layout 57 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 36.1 Building open-part layout 58 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 38.1 Building open-part layout 65 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 40.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-750-guide 50.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-750-guide 58.2 Fitting open part, pass 1; boundaries fixed
+PROGRESS island6-750-guide 64.2 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-750-guide 70.2 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island6-750-guide 72.2 Accepted 798 faces in 70.2s. Output is ready to view and export.
+RESULT island6-750-guide True faces 798 seconds 74.2 corners reported: worst P95 0.342 h, worst max 0.464 h, OVER limits 
+START island2-300 C:\dbva\code\retopo-1\runs\registered-ba31295395ea-island2-300
+PROGRESS island2-300 0.0 
+PROGRESS island2-300 2.0 Building open-part layout 1 with curvature size caps; preserving 1 boundary loops
+RESULT island2-300 True faces 291 seconds 4.0  
+START island7-300 C:\dbva\code\retopo-1\runs\registered-ba31295395ea-island7-300
+PROGRESS island7-300 0.0 
+PROGRESS island7-300 2.0 Building source-feature and guide orientation fields
+PROGRESS island7-300 4.0 Fitting source features and guide paths · pass 1
+PROGRESS island7-300 8.0 Fitting source features and guide paths · pass 2
+PROGRESS island7-300 10.0 Checking source features, surface distance and face contacts
+RESULT island7-300 True faces 339 seconds 12.0  
+START island10-500 C:\dbva\code\retopo-1\runs\registered-ba31295395ea-island10-500
+PROGRESS island10-500 0.0 
+PROGRESS island10-500 2.0 Auto guides: 161 crease edges in 9 chains at 30° or sharper guide the layout; 0 edges in fragments smaller than one quad are ignored.
+PROGRESS island10-500 4.0 Fitting open part, pass 1; boundaries fixed
+PROGRESS island10-500 8.0 Fitting open part, pass 2; boundaries fixed
+PROGRESS island10-500 14.0 Fitting open part, pass 1; boundaries fixed
+PROGRESS island10-500 20.0 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island10-500 22.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island10-500 28.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island10-500 32.1 Building open-part layout 9 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island10-500 34.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island10-500 36.1 Checking open-part boundaries, features, coverage and contacts
+PROGRESS island10-500 38.1 Fitting open part, pass 1; boundaries fixed
+PROGRESS island10-500 44.1 Fitting open part, pass 2; boundaries fixed
+PROGRESS island10-500 50.1 Checking open-part boundaries, features, coverage and contacts
+RESULT island10-500 True faces 559 seconds 52.1 corners reported: worst P95 0.157 h, worst max 0.174 h, within limits 
+MATRIX 8 / 8 codeStable True

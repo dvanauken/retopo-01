@@ -1,0 +1,54 @@
+{
+  "case": "island6-750-guide",
+  "part": "skp-6",
+  "job": "C:\\dbva\\code\\retopo-1\\runs\\registered-16bb975b912f-island6-750-guide",
+  "settings": {
+    "meshId": "toilet-skp",
+    "partSource": "617dd8f640bfa84d6af2fb6e4b080ec1bc73328db4941a49a1375d18b7817db1",
+    "target": 750,
+    "guideMode": 2,
+    "creaseAngle": 30.0,
+    "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+    "originalSourceSha256": "b6ffc92d9da3c2ceb9d9bd95439e92a04a9ffa16ce744c480e381a829b881bc4",
+    "allowExtraFaces": true
+  },
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--feature-layout",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\registered-16bb975b912f-island6-750-guide"
+  ],
+  "curvesSha256": "a0d6cf3967c194ee6770df57e54b373517be418a82dedfe284f2baacac841c3c",
+  "guideCount": 1,
+  "exitCode": 1,
+  "observedSeconds": 476.31299999999464,
+  "report": {
+    "passed": false,
+    "constructionCompleted": false,
+    "message": "No accepted mesh after 0 candidates across 1 layouts. Remeshing changed the number of boundary loops.",
+    "diagnostics": {
+      "candidateCount": 0,
+      "message": "No accepted mesh after 0 candidates across 1 layouts. Remeshing changed the number of boundary loops.",
+      "bestCandidate": {
+        "attempt": 0,
+        "iteration": null,
+        "checked": {},
+        "failures": [
+          "Remeshing changed the number of boundary loops."
+        ],
+        "measurements": []
+      },
+      "failedCheckCounts": {}
+    },
+    "technicalMessage": "No accepted mesh after 0 candidates across 1 layouts. Remeshing changed the number of boundary loops.",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 49, in main\n    positions,faces,meta=construct_open_surface(v,f,curves,target=settings['target'],job=job,extra_faces=bool(settings.get('allowExtraFaces',False)))\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\open_surface.py\", line 617, in construct\n    raise OpenSurfaceRejected(history)\nopen_surface.OpenSurfaceRejected: No accepted mesh after 0 candidates across 1 layouts. Remeshing changed the number of boundary loops.\n",
+    "elapsedSeconds": 473.4690000000119,
+    "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+    "workerSha256": "7ab1d4bf442687b3899cd517bcab3ee26df8e4b10a73211693a1ce5c0b5135f8"
+  },
+  "passed": false,
+  "retainedMetadata": {}
+}

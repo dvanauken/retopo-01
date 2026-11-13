@@ -831,3 +831,447 @@ Evidence folder (git-ignored): `tests/registered-features/guide-native-1/`
 (`matrix-4/` to `matrix-1/`, `ui-200-guide/`,
 `crease-mode-trials/`, the engine patch and packaging scripts, the engine
 parity record and a copy of the `size-caps-16` package).
+
+
+## Corner rows and corner zones with extra faces (2026-11-10)
+
+With "Add faces where the shape needs them" checked, island 6 at a request of
+200 with the guide of job `483afe83…` now returns 436 quads whose two back
+corners follow the feet: the source lies within 0.116 h of the result at the
+95th percentile and 0.257 h at most in the corner zone (source y > 0.05), against
+0.246 h and 0.304 h for ZBrush's 532 faces. Eighteen crease chains carry an edge
+row, fourteen of them in the feet, and the guide keeps one continuous loop of
+14 vertices. The strict count cannot do this at 200: its whole search has no
+candidate under 0.32 h. Checking the box is permission to raise the count
+until this works: when no layout does at the target's face size, the base faces
+are made smaller in steps and the search repeats (750 with the authored guide:
+1,848 quads from the second step). Results, pictures and job ids are at the end
+of this section.
+
+### What was wrong
+
+- **The option added faces where they did not help.** It ran the layouts with
+  ZRemesher's curvature size field and no count ceiling (380 quads). Native
+  marks kept creases out of that field (`0x26faf0`), so the field stayed at
+  0.84 to 0.92 of the requested size on the feet's own creases. The corner zone
+  was no better than at the strict count: 0.279 / 0.407 h against 0.273 / 0.414 h.
+- **Only three creases needed a row.** `crease_rows` asked for a row on chains
+  of two *requested* faces or more and merged creases within half a *requested*
+  face. The feet are about one face across at 200: their crease chains are 0.6
+  to 1.1 h long, so none of them needed a row at any face size the layout
+  actually had.
+- **Nothing measured the corners.** The whole-surface and crease checks take
+  their percentiles over the whole part; the two feet are a few percent of it.
+
+### The native rule, and what is ported
+
+Sources: `ghidra-workbench/work/retopo-lowcount/AUDIT.md` §1 (items 1, 3, 11,
+13), §2 (item 6), §3 (items B, C), `FINDINGS.md` (static reading of `0x260290`,
+fourth round) and `targets/zbrush/understanding/guided/INTEGER_SOLVER.md`.
+
+| Native rule | Evidence | Here |
+|---|---|---|
+| Admission: candidates at 30°, minimum feature length S = sqrt(A / clamp(target, 1000, 10000)) (`0x260290`, `0x1c9fb0/0x25a990`) | Controlled native observation for the threshold and for S on closed loops | Unchanged (`source_features.detect`). S is now also the shortest chain that is asked for a row and twice the smallest face a crease may ask for. |
+| Per-path admission of open and junction paths into modes by turn, dihedral jump and dihedral range (`0x260290` first and second pass) | Static reading only, never run against native branches | **Not ported.** It cannot be promoted. On this part it would make several of the feet's creases direction-only, and ZBrush does leave three of them without an edge row. |
+| Collector: every admitted feature edge enters the constrained-edge vector (`0x2889c0/0x28e230`) | Qualified (160 edges) | Every admitted crease edge outside a band is listed: row chains and creases of 60° or more as preserved edges, the rest as direction-only edges. The 60° split and leaving band partners out are the engine's and this application's. |
+| Separation: two constrained lines closer than 1.35 cells are held exactly one cell apart, whatever their distance (`0x28fe70`) | Qualified arithmetic (integer callback reproduced) | **Not ported.** This engine rounds positions to a lattice of the local face size and has no separation constraint. Stand-in: the faces at a crease chain are made small enough for the chain to carry a row (below). |
+| Size field: kept creases do not drive it (`0x26faf0` marks); floor 0.9·S/4 (`0x1efb00`) | Byte-exact constants | Unchanged for curvature. Crease chains now ask for their own face size through the same field; their floor is 1/4. |
+| No acceptance test | Controlled native observation | The row check with local faces and the corner zones are this application's. ZBrush's mesh has a row on all 18 chains. |
+
+Engineering choices, labelled in the code:
+
+- **Local face size** (`crease_rows.local_sizes`). The face at a crease chain is
+  `extent / 2`, the extent being the largest distance between two points of the
+  chain, clamped between a floor and the requested face. The 2 is the existing
+  `ROW_MIN_FACES` (a row is two consecutive edges). The floor is the larger of
+  1/4 (native's ratio of 4 without its factor of 0.9, so no row is sized at the
+  engine's clamp) and S/2 (no face smaller than a row of two on the shortest
+  feature native admits). A chain too short for a row at the floor asks for the
+  floor size and gets no row.
+- **A face is the local face** wherever `crease_rows` said "a face" before: the
+  band reach (half a face), the two-face minimum, the row limits (quarter face
+  at the 95th percentile, half a face at most, one face at open ends, direction
+  over one face) and the end zones. With requested faces every result is what
+  it was.
+- **Row chains** with local faces are the admitted crease graph joined as a
+  whole and cut to its runs of representative edges, so a chain does not run
+  round a corner where an absorbed crease used to make a junction.
+- **Path cost** with local faces samples the middle of each edge as well as its
+  ends, so a chord across a bend is not taken for the row.
+- **Corner zones** (`corner_zones.py`): definition and limits, below.
+- **Search order** with extra faces: all 64 seeds are laid out first and tried
+  fewest faces first, so the result adds no more faces than it needs.
+- **Smaller base faces in steps** when no layout works at the target's face
+  size: 1.5 and 2.25 times the faces (`EXTRA_FACES_STEPS`), each with its own
+  time limit (`EXTRA_FACES_DEADLINES`). The checks stay those of the target.
+- **Last resort**, when those run out of time: the rows of the strict count,
+  still without a count ceiling, with the corners reported and not enforced.
+  Checking the box never returns less than leaving it unchecked.
+
+### The engine build
+
+`engine/guided-quadriflow/quadriflow.exe` is now build `constrained-sizes-19`,
+SHA-256 `a8c12832846ef6a10b3be64ec538e03c44b53e636e8f6a7f56a3881d4bb3cff6`
+(source archive `f6995375…93a6`). It adds one thing to `constrained-edges-18`:
+a row of the constrained-edge list may end with a fourth number in (0, 1], the
+largest face size at that edge as a fraction of the requested size. With
+`-size-caps` the cap holds at the edge's two end vertices on both axes, is
+applied after the curvature sizes and again after every diffusion step, so the
+minimum sweeps spread it (about 0.9 h at 200) and the means grade it. Lists
+without a fourth column and runs without `-size-caps` take the old code paths:
+eight controls are byte-identical to `constrained-edges-18` (caps, sharp,
+adaptive, plain, two strict rows layouts, two extra-faces rows layouts;
+`tests/extra-faces/corners-1/engine-parity-19/parity.json`). Build record:
+workbench `work/retopo-guided-layout/build-records/constrained-sizes-19/`. The
+previous package is kept in `tests/extra-faces/corners-1/engine-constrained-edges-18/`.
+The manifest gains the capability `constrained-edge-sizes`.
+
+### The checks
+
+**Crease rows with local faces** (`crease_rows.measure(..., sizes)`, through
+`source_features.measure(..., extra_faces=True)`). On island 6 at 200 the local
+sizes are below 1 on 144 of the 283 admitted crease edges, 0.25 at the
+smallest. Eighteen chains need a row: the two halves of the rim, the two long
+creases across the back, and fourteen chains in the feet of 0.63 to 1.12 h with
+local faces of 0.31 to 0.52 h. The rim wall (0.24 h) and the step across the
+back (0.3 h) are still one band each: their creases are longer than two faces,
+so their faces stay at the requested size.
+
+**Corner zones** (`corner_zones.py`). A corner is a cluster of crease junctions
+(three or more admitted crease branches at one source vertex; junctions closer
+than two faces form one corner). Its zone is every source vertex within one
+requested face of one of those junctions; zones of fewer than 20 source vertices
+are left to the whole-surface check. Each zone vertex is measured to the output
+surface (quads cut along corners 0-2). Limits, in requested faces, reusing the
+crease check's numbers: 0.25 h at the 95th percentile and 0.5 h at most. Island 6
+has three zones: the two feet (280 and 278 source vertices) and the front lip
+(135).
+
+- With extra faces allowed, a failing corner rejects the candidate. The worker
+  checks again from the finished mesh, and `tests/audit_registered_features.py`
+  from the exported OBJ. Only the last resort (see "The generator") returns a
+  mesh with a corner over its limit; it is marked `extraFacesFallback` and
+  reported exactly as at the strict count.
+- At the strict count the corner zones are reported and not enforced: the job
+  log, the result toast ("Corners are coarse: …"), the Checks tile ("Coarse
+  corners") and the Details dialog name them. Enforcing them there would reject
+  every island 6 result at 150 to 750 (table below).
+
+The limits are this application's. ZBrush's mesh is at 0.24 / 0.28 h and
+0.26 / 0.30 h on the two feet: one foot is just over the 0.25 h limit. It is
+reference evidence, not a standard.
+
+### The generator
+
+- `open_surface.construct` computes the local sizes once from the source,
+  hands them to `row_plan` (band rule and row chains), to
+  `registered_features.constrained` (fourth column of the list), to the screen,
+  to `find_row` and to the fit (`feature_refine.refine(feature_sizes=…)`, band
+  allowance only).
+- Rows layouts run with `-size-caps` and the sized list. Layouts are screened
+  before fitting as before, now for 18 rows.
+- **Until it works.** With extra faces allowed, when the 64 layouts at the
+  target's face size are used up (or 200 s have passed) the engine's base
+  size is reduced: the list is rewritten with the local sizes as fractions of
+  the smaller base, and layouts are laid out a batch of eight at a time. The
+  row plan, the local faces, the limits and the corner zones remain those of
+  the target. Island 6 at 750 with the authored guide needs this: nothing
+  passes at 750 base faces, and seed 19 at 1,125 gives 1,848 quads with all 23
+  rows, the guide loop and the corners.
+- **Last resort.** After the steps (300 s) the search continues with the rows
+  of the strict count and `-size-caps`, corners reported. This is what the
+  option did before this work; it is kept so that checking the box cannot
+  return less than leaving it unchecked.
+- The second pass no longer measures a layout the first pass measured: the
+  first pass keeps its half-face verdict for each seed. Same decisions, about
+  half the screening time. Applies to both modes.
+- **Several layouts at a time.** Everything done to one layout, from the
+  engine's file to an accepted mesh or its recorded failures, is now one
+  function (`open_surface.process_layout`) that touches nothing outside the
+  layout's folder. Rows layouts are processed in three other processes
+  (`ROW_WORKERS`; `worker.py` passes it, `RETOPO_ROW_WORKERS=1` is one after
+  another) and taken in plan order, so the accepted mesh is the one the
+  layouts give one after another: every result below has the same bytes with
+  one process and with three. A second-pass layout is started as soon as the
+  first pass has settled what it needs to know about that seed. The worker
+  pins one math thread per process (`OMP_NUM_THREADS` and the like, set
+  before NumPy loads): the low bits of a result depend on the number of BLAS
+  threads, and the verification scripts have always run with one. Speed only;
+  applies to both modes.
+- A layout whose boundary check fails is dropped at once: the boundary is
+  fixed from the first fit on. This is search policy and applies to both modes.
+- `quad_connectivity.fill_triangle_holes` no longer repeats without end when a
+  hole's chord ends on the hole itself; that chord is refused. Found on an
+  island 6 layout at 750 with extra faces; fixture and test added.
+- `app.js`: a fresh result was always marked "Needs update" because the result
+  key had five entries and the document key six. Fixed.
+- `src/view/PartsWorkspace.js`: in the assembly view an accepted part output
+  was drawn as a plain solid, so the Display option "Mesh edges" (and vertices,
+  detected creases) did nothing for it. It is now built like every other
+  mesh. `tests/verify_assembly_output_edges.py` checks it in the real UI.
+
+### What is and is not claimed
+
+- Open parts with the option checked. The strict count and closed parts keep
+  their rules; the strict matrix returns the same bytes as before.
+- The corner numbers are measured from source vertices, so they follow the
+  source tessellation, which is dense at the feet.
+- A loop on the guide and a row on every chain still come from screening seeds,
+  not from construction. On this case 14 layouts were tried, 13 screened out,
+  one fitted and accepted.
+- "Until it works" is bounded by the existing 420 s solver budget and by two
+  steps. At 750 the second step is reached after 107 s and succeeds at 226 s.
+  A part that needs a third step, or slower layouts, ends in the last resort
+  with its corners reported as coarse. That path was exercised (an earlier
+  build of this work returned 1,267 quads with coarse corners at 750 through
+  it) but no case ends there with the final code.
+- Long parallel creases are still one band (the rim wall, the step across the
+  back). ZBrush keeps both creases of each as rows with a strip of thin quads
+  between them. Its mesh fails every shape limit of this application (39 % of
+  its quads have an edge ratio above 3.5), so that strip is a shape-policy
+  question, not something this work decided.
+- A chain two local faces long is all end zone, so only the one-local-face
+  end limit applies to it. Twelve of the fourteen feet chains are 2.0 to 2.1
+  local faces long. ZBrush passes the chain up the back of each foot that way
+  with its nearest edge 0.24 h off; the result here has an edge on it.
+- The local sizes are computed from the source alone. The engine's field is not
+  read back; the row check, not the field, is what holds the generator to it.
+- The measured choices each rest on one search of 64 layouts on one case:
+  the 1/4 floor (chains sized at 0.237 had a row within reach in 10 and 22 of
+  64 layouts and ZBrush has no row on either) and sizing chains too short for
+  a row (without it 2 of 7 fitted layouts passed and the source was up to
+  0.32 h from the result behind each foot; with it 2 of the first 3 passed at
+  0.26 h or less).
+
+### Results (2026-11-10, final code)
+
+Test case: island 6 (`skp-6`), request 200, keep creases at 30°, the guide of
+job `483afe83…`, h = 0.0823. Corner zone: source vertices with y > 0.05 (633 of
+1,441: both feet and the back of the lip); distance from each to the output
+surface. Numbers are measured by `tests/render_corner_case.py` and
+`tests/render_guide_case.py` from each mesh alone.
+
+| | Strict count | Extra faces, before | Extra faces, now | ZBrush ZRemesher |
+|---|---|---|---|---|
+| Faces | 204 quads | 380 quads | 436 quads | 532 (455 quads, 77 triangles) |
+| Faces in the corner zone | 43 | 94 | 152 | 102 |
+| Corner zone, 95th percentile / maximum | 0.273 / 0.414 h | 0.279 / 0.407 h | **0.116 / 0.257 h** | 0.246 / 0.304 h |
+| Right foot (280 source vertices) | 0.232 / 0.274 h | **0.360** / 0.407 h | 0.136 / 0.185 h | 0.237 / 0.276 h |
+| Left foot (278) | **0.331** / 0.414 h | 0.205 / 0.240 h | 0.095 / 0.257 h | **0.261** / 0.301 h |
+| Front lip (135) | 0.209 / 0.214 h | 0.126 / 0.137 h | 0.163 / 0.180 h | 0.095 / 0.148 h |
+| Corner check (0.25 / 0.5 h) | over, reported | over, was not measured | passes, enforced | one foot over by 0.011 h |
+| Crease rows with local faces (18 needed) | 11 | 13 | 18 | 18 |
+| Guide loop | 11 vertices, 0 turns | 13 vertices, 0 turns | 14 vertices, 0 turns | 14 vertices, 0 turns |
+| Guide distance, 95th percentile / maximum / open ends | 0.043 / 0.064 / 0.134 h | 0.038 / 0.055 / 0.125 h | 0.033 / 0.061 / 0.217 h | 0.141 / 0.192 / 0.537 h |
+| Job | `registered-318e43ae6356-island6-200-guide` (the user's `cfaf2c05…` is the same layout) | `registered-a1acaa465892-island6-200-guide` | `registered-5b311cff1e2b-island6-200-guide`; real UI `f7e5032ec7854a8a827d2183e2fdc4cc` | native capture `island6-guide-keep-creases-0.2k-guide100-b1` |
+
+Bold: over the 0.25 h corner limit, or the result of this work.
+
+Pictures: `tests/extra-faces/corners-1/corners-strict-extra-zbrush.png` (side
+views of both corners and views from behind and below, the four meshes and the
+source, admitted creases in magenta; numbers beside it in the `.json`),
+`guide-top-view.png` (the guide loop).
+
+The extra-faces mesh passes every check: minimum angle 31.8°, edge ratio 3.35
+at the 95th percentile and 4.21 at most, scaled Jacobian 0.53, no count
+ceiling. It is layout seed 55, the 14th of 64 tried fewest faces first (373 to
+562 faces); 13 were screened out and this one was fitted and accepted at its
+second fit, in 30 s of solving. 128 listed crease edges carry a face size, 0.25
+at the smallest; 147 crease edges are preserved, 48 direction only, 88 are band
+partners.
+
+**Strict count on the same case.** The shipped result is the 204-quad mesh in
+the first column, unchanged byte for byte by this work. Run with the corner
+check enforced (`tests/extra-faces/corners-1/strict-search.py`, shipped solver,
+acceptance changed in that process only), the whole strict search finds
+nothing: 122 layouts, 21 candidates reaching the checks, 418 s. The best
+candidate is that same layout at 0.32 to 0.33 h on its worse foot; every other
+candidate is at 0.36 h or more. At 200 the strict count cannot follow the feet
+with this solver. The feet are about one requested face across; they need the
+extra faces.
+
+Real UI (`tests/verify_registered_features_ui.py --case island6-200-guide
+--extra-faces on`, owned server and Chromium, no stubs, the real checkbox): job
+`f7e5032ec7854a8a827d2183e2fdc4cc`, 436 quads, 39 s from Generate to done, the
+same bytes as the worker run (SHA-256 `af8c5381…8015`), export downloaded and
+identical, reload restored the result, no page errors; corner zones enforced
+and passed, guide loop 14 vertices and no turns, 18 of 18 rows.
+`tests/audit_registered_features.py` re-read the exported OBJ and passed it.
+With the box unchecked (`--extra-faces off`): job
+`95af47c8e4374969adf267859f689640`, the strict 204 quads, with the toast
+"Corners are coarse: worst 95th percentile 0.33 h, worst maximum 0.41 h …".
+The same with `--case island6-750-guide`: job
+`c2259cdc2a68482687108060d4e192cf`, 1,848 quads in 162 s, the same bytes as the
+worker run, corners enforced and passed, 23 of 23 rows, guide loop intact.
+With the box unchecked on the final code: job
+`ab1ab242e224463f896612ba5158033e`, the strict 204 quads. Assembly view
+(`tests/verify_assembly_output_edges.py`): job
+`da4a9557d0674336bcb2df68072eb118`; turning "Mesh edges" off and on changes
+13,713 pixels of the accepted output and restores them. Screenshots:
+`tests/extra-faces/corners-1/ui-extra-200-guide-7/`, `ui-extra-750-guide-2/`,
+`ui-strict-200-guide-3/` and `ui-assembly-edges-2/`.
+
+Strict worker matrix (`tests/verify_registered_features.py`, run
+`2bdcf1f3e24d` on the final code, 8 of 8; run `318e43ae6356` before the
+high-target fix): every output has the same bytes as run `8a240b30812b`. The corner zones are now reported with each result:
+
+| Case | Quads | Corner zones, worst 95th percentile / maximum |
+|---|---|---|
+| Island 6 / 150 | 143 | 0.324 / 0.408 h, over |
+| Island 6 / 200 | 220 | 0.336 / 0.368 h, over |
+| Island 6 / 200 + guide | 204 | 0.332 / 0.414 h, over |
+| Island 6 / 300 | 308 | 0.350 / 0.414 h, over |
+| Island 6 / 750 + authored guide | 798 | 0.342 / 0.464 h, over |
+| Island 2 / 300 | 291 | no corner zone |
+| Island 7 / 300 (closed) | 339 | not measured (closed part) |
+| Island 10 / 500 | 559 | 0.157 / 0.174 h, within |
+
+The other island 6 requests with extra faces (same script with `--extra-faces`,
+run `5b311cff1e2b`, code stable, 5 of 5, and again run `ca8496fc2cbc` on the
+final code with the same bytes; the times in this table are from run
+`b20cd86d42e8`, one layout at a time, and the outputs are the same bytes):
+
+| Case | Result | Base faces | Rows | Guide loop | Corner zones | Time | Job |
+|---|---|---|---|---|---|---|---|
+| 150 | 421 quads | 150 | 18 / 18 | | 0.127 / 0.165 h | 50 s | `registered-5b311cff1e2b-island6-150` |
+| 200 | 466 quads | 200 | 18 / 18 | | 0.139 / 0.225 h | 76 s | `registered-5b311cff1e2b-island6-200` |
+| 200 + guide | 436 quads | 200 | 18 / 18 | 14 vertices, 0 turns | 0.163 / 0.257 h | 34 s | `registered-5b311cff1e2b-island6-200-guide` |
+| 300 | 655 quads | 300 | 21 / 21 | | 0.103 / 0.162 h | 168 s | `registered-5b311cff1e2b-island6-300` |
+| 750 + authored guide | 1,848 quads | **1,125** | 23 / 23 | 25 vertices, 0 turns | 0.096 / 0.182 h | 230 s | `registered-5b311cff1e2b-island6-750-guide`; real UI `c2259cdc2a68482687108060d4e192cf` |
+
+Time, one layout at a time (runs `39949fbf3d5a`, `b20cd86d42e8`) against three
+at a time (runs `318e43ae6356`, `5b311cff1e2b`), worker seconds on the 8-core
+development machine with about 15 % of it busy with other programs. Every
+output is the same bytes in both columns.
+
+| Case | One at a time | Three at a time |
+|---|---|---|
+| Extra faces: 150 | 50 s | 52 s |
+| Extra faces: 200 | 76 s | 50 s |
+| Extra faces: 200 + guide | 34 s | 34 s |
+| Extra faces: 300 | 168 s | 94 s |
+| Extra faces: 750 + authored guide | 230 s | 152 s |
+| Strict: 150 | 162 s | 134 s |
+| Strict: 200 | 84 s | 82 s |
+| Strict: 200 + guide | 34 s | 32 s |
+| Strict: 300 | 68 s | 54 s |
+| Strict: 750 + authored guide | 72 s | 46 s |
+| Strict: island 10 / 500 | 52 s | 40 s |
+
+A case whose first fitted layout passes gains nothing: its fits follow one
+another. Cases that go through several layouts gain up to a factor of 1.8.
+Six processes were tried and are not used: one fit takes 4.3 s alone, 5.5 s
+each with three at once and 9.3 s each with six on this machine, which made
+the easy cases slower (150 with extra faces: 60 to 78 s) for little gain on the
+hard ones (750: 146 to 166 s). Raising the process the search is waiting for
+above the others did not help either and was removed. Timings moved by ten
+seconds and more from run to run; the table is one run per cell.
+
+- **750 + guide needs smaller base faces.** At 750 base faces the 64 layouts
+  are used up after 107 s: of their screenings 40 fail on the loop for the
+  two-corner guide and 75 on one to five of the 23 rows, and the two layouts
+  that are fitted each keep a degenerate quad. At 1,125 base faces layout seed 19 passes in the second
+  pass: 1,848 quads, every row, the guide loop with its two corner turns
+  excused, corners at 0.096 / 0.182 h. The strict count returns 798 quads with
+  corners at 0.342 / 0.464 h. Before the steps existed this case was rejected
+  (run `1b8381f28b3c`), and with only the last resort it returned 1,267 quads
+  with coarse corners (`extra-fallback-1/`); both are kept as superseded.
+- 300 passes on a second-pass layout after 168 s. Before the size floor was
+  tied to the native minimum feature length it was rejected (run
+  `16bb975b912f`, kept as a failure): two 0.51-face chains at the end of the
+  step behind each foot, 0.034 long and under S = 0.037, were asked for rows at
+  the 1/4 floor and were off in 27 and 49 of 64 layouts.
+- The first 750 run never returned (run `16bb975b912f`, killed by the matrix
+  timeout at 720 s): `fill_triangle_holes` repeated without end on one layout.
+  Fixed; see "The generator".
+
+Runs kept as failures or superseded, all in `tests/extra-faces/corners-1/`:
+`extra-200-guide/` and `matrix-1/` (runs `f7b0f9f02bb3`, `b199885f94eb`: the
+same outputs, before the size floor was tied to S and before the hole fix),
+`extra-other-requests/` (run `16bb975b912f`: 300 rejected, 750 hung),
+`extra-island6-2/` (750 hung again), `extra-island6-3/` and `matrix-2/` (runs
+`1b8381f28b3c`, `ba31295395ea`: 750 with extra faces rejected, before the
+steps), `extra-fallback-1/` (750 through the last resort only),
+`ui-extra-200-guide/` (job `d1b18df2…`, passed with the "Needs update" badge),
+`ui-extra-200-guide-2/` to `-6/`, `ui-extra-750-guide/`, `ui-strict-200-guide/`
+and `-2/`, `matrix-3/` and `extra-island6-4/` (runs `39949fbf3d5a`,
+`b20cd86d42e8`: the same outputs one layout at a time), `matrix-4/`,
+`extra-island6-5/` and the `timing-*` folders (six processes, and the priority
+experiment: same outputs, different times). Scratch experiments that shaped the rule and were not
+retained: sizes only on chains that can carry a row gave 449 quads at seed 18
+after 252 s (0.178 / 0.305 h) and 433 at seed 37 after 230 s (0.202 / 0.322 h),
+both just over ZBrush's maximum; listing every admitted crease as a preserved
+edge, band partners included, the engine did not return on seed 0 without
+sizes (stopped at 200 s in its index map), and with sizes eight raw layouts
+had a median of 283 faces against 402 and a corner zone of 0.24 h at the 95th
+percentile against 0.13 h.
+
+All 253 unit tests pass (228 before; 11 in `tests/test_corner_zones.py`, 13 in
+`tests/test_crease_rows.py`, 1 in `tests/test_quad_connectivity.py`).
+
+Compact record with hashes: `engine/guided-quadriflow/development/corner-rows-verification.json`.
+Evidence folder: `tests/extra-faces/corners-1/` (matrices, UI runs, pictures,
+`strict-search-200/`, the engine patch, parity and packaging scripts, the
+`constrained-edges-18` package).
+
+
+### High targets: what fails, and what was fixed (2026-11-11/12)
+
+The user's job `5a80a3ff627b4ceb95bf9534075a065c` (island 6, target 7,200, box
+checked, no guide) was killed by the server's ten-minute limit.
+
+**The stall, fixed.** With extra faces all 64 seeds were laid out before any
+was tried, so they could be ordered by face count. A layout takes about a
+second at a request of 200 and 55 s at 7,200 with the size field (44 s of it
+in `ComputeSizeCaps`; 10 s without the size field). The job spent its ten
+minutes laying out about 40 layouts and tried none. Now the up-front layout
+stops after 60 s (`UPFRONT_LAYOUT_SECONDS`): the seeds done are ordered and
+tried, the rest are laid out a batch at a time, and no batch is started that
+the last batch's time says cannot finish inside the 420 s budget. The same case
+now ends at 431 s with a rejection and its message. At 150 to 750 all 64 seeds
+finish inside the 60 s and nothing changes.
+
+**The working range ends between 750 and 1,500, in both modes.** This is not
+new with the corner work: it comes from requiring a row on every chain of two
+faces or more (2026-11-09), which was only ever run at 150 to 750. Measured on
+island 6 without a guide, scratch runs with three layout processes:
+
+| Target | Unchecked | Box checked |
+|---|---|---|
+| 1,500 | Rejected, 493 s. Best candidate: 1,557 quads from the older fallback (a 3,000 layout thinned by strip collapse) with all 20 rows, contacts, corners and shape passing; its boundary is 0.119 h from the source's against the 0.1 h limit | Rejected, 446 s: every layout misses 4 to 12 of 28 rows before fitting |
+| 7,200 | Rejected, 426 s: every layout of 46 misses 7 to 13 of 29 rows before fitting, none passes even the half-face screen | Rejected, 431 s (was: killed at ten minutes) |
+
+Why the rows fail as the faces get smaller:
+
+- **Parallel creases between half a face and a few faces apart.** At 200 the
+  rim's two creases are 0.24 of a face apart and share a row, as do the two
+  creases across the back and the step. At 1,500 they are 0.66, 0.71 and 0.82
+  of a face apart and at 7,200 1.45, 1.56 and 1.8: each needs its own row and
+  the gap is not a whole number of faces. The engine rounds positions to one
+  lattice and gives one row to the pair; after fitting it sits between the two
+  creases, about a third of a face from each (1,500: 0.27 to 0.52 on the rim
+  and back rows). ZRemesher holds such lines exactly one cell apart in its
+  integer solve (`0x28fe70`, hard below 1.35 cells); this engine has no such
+  step. This is the "parameter chart and combined solve" gap of "Crease rows".
+- **Three near-parallel creases at the front** (upper rim, lower rim, front
+  crease): no single face size makes all their gaps whole.
+- **Gentle creases** (30 to 55 degrees) are where this bites: the sharp ones
+  (78 to 99 degrees) get their rows at every target tried.
+- **The row direction limit on short curved chains.** After fitting at 7,200
+  rows lie 0.02 to 0.15 of a face from their creases and still fail the
+  30 degree direction limit on four short chains (33 to 40 degrees).
+- **Cost.** Layouts and fits are slow at these sizes, so the search reaches few
+  candidates: 41 layouts in 420 s at 7,200 unchecked.
+
+Tried and removed (scratch, not retained): with extra faces, sizing the face
+at a pair so its gap is one local face. At 1,500 the back pair then got both
+rows in 51 and 57 of 62 layouts, the rim did not (45 and 49 of 62 off), the
+layouts grew from about 2,000 to about 3,000 faces and the case was still
+rejected. It changed the verified results at 200 to 750 for no accepted case,
+so it is not in the code.
+
+What it would take: the separation of parallel constrained lines inside the
+layout engine (the native integer step), or a decision that pairs under some
+gap share a row at every target. The second is a product decision about how
+the rim should look at high counts; the first is the engine work this document
+has listed since the rim investigation.

@@ -365,8 +365,11 @@ def fill_triangle_holes(vertices, faces, keep_loops):
     once that quad's far edge is split; the split continues through the polychord until it
     reaches a boundary or returns to itself (a quad the chord crosses twice is split four
     ways), so the result stays a conforming quad mesh. `keep_loops` boundary loops (the
-    source's) are left alone. Raises ValueError when a chord would re-enter the hole's quad."""
-    v=np.asarray(vertices,float).tolist();q=[list(map(int,f)) for f in faces];filled=0;added=0
+    source's) are left alone. Raises ValueError when a chord would re-enter the hole's quad
+    or end on the hole itself: splitting one of the hole's own edges only moves the hole, and
+    repeating that never ended (found 2026-11-10 on an island 6 layout at 750 with extra
+    faces). A fill never makes a new three-sided hole, so the rounds are bounded as well."""
+    v=np.asarray(vertices,float).tolist();q=[list(map(int,f)) for f in faces];filled=0;added=0;rounds=None
     while True:
         owners=defaultdict(list)
         for i,f in enumerate(q):
@@ -385,6 +388,8 @@ def fill_triangle_holes(vertices, faces, keep_loops):
             loops.append(component)
         holes=[c for c in loops if len(c)==3]
         if len(loops)<=keep_loops or not holes:break
+        if rounds is None:rounds=4*len(holes)+16   # generous: each fill removes at least one of the holes counted here
+        if filled>=rounds:raise ValueError('A three-sided layout hole could not be repaired.')
         hole=holes[0];choice=None
         for a,b in ((hole[0],hole[1]),(hole[1],hole[2]),(hole[2],hole[0])):
             (fi,k),=owners[tuple(sorted((a,b)))];face=q[fi];x0,x1,x2,x3=face[k:]+face[:k]
@@ -395,7 +400,9 @@ def fill_triangle_holes(vertices, faces, keep_loops):
             chord=[tuple(sorted((x2,x3)))];previous=fi;valid=True
             while True:
                 users=[(g,j) for g,j in owners[chord[-1]] if g!=previous]
-                if not users:break   # a boundary edge: its midpoint becomes a boundary vertex
+                if not users:   # a boundary edge: its midpoint becomes a boundary vertex
+                    if set(chord[-1])<=set(hole):valid=False   # ... unless it is an edge of this hole: the hole would only move
+                    break
                 gi,j=users[0]
                 if gi==fi:valid=False;break   # the chord would re-enter the hole's own quad
                 face=q[gi];opposite=tuple(sorted((face[(j+2)%4],face[(j+3)%4])))

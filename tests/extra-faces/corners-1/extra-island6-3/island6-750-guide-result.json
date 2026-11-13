@@ -1,0 +1,69 @@
+{
+  "case": "island6-750-guide",
+  "part": "skp-6",
+  "job": "C:\\dbva\\code\\retopo-1\\runs\\registered-1b8381f28b3c-island6-750-guide",
+  "settings": {
+    "meshId": "toilet-skp",
+    "partSource": "617dd8f640bfa84d6af2fb6e4b080ec1bc73328db4941a49a1375d18b7817db1",
+    "target": 750,
+    "guideMode": 2,
+    "creaseAngle": 30.0,
+    "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+    "originalSourceSha256": "b6ffc92d9da3c2ceb9d9bd95439e92a04a9ffa16ce744c480e381a829b881bc4",
+    "allowExtraFaces": true
+  },
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--feature-layout",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\registered-1b8381f28b3c-island6-750-guide"
+  ],
+  "curvesSha256": "a0d6cf3967c194ee6770df57e54b373517be418a82dedfe284f2baacac841c3c",
+  "guideCount": 1,
+  "exitCode": 1,
+  "observedSeconds": 206.40600000001723,
+  "report": {
+    "passed": false,
+    "constructionCompleted": false,
+    "message": "No accepted mesh after 134 candidates across 140 layouts. Best candidate failed quad shape/count. \"Add faces where the shape needs them\" is checked, so every short crease chain needs an edge row of its own and every corner must be followed; no layout did both. Uncheck it to generate within the count tolerance without those rows, or try another target.",
+    "diagnostics": {
+      "candidateCount": 134,
+      "message": "No accepted mesh after 134 candidates across 140 layouts. Best candidate failed quad shape/count.",
+      "bestCandidate": {
+        "attempt": 93,
+        "iteration": 2,
+        "checked": {
+          "quality": false
+        },
+        "failures": [
+          "quad shape/count: scaledJacobianMin below limit, edgeRatioMax above limit"
+        ],
+        "measurements": [
+          {
+            "check": "edgeRatioMax",
+            "value": 6.035700616742184,
+            "limit": 6.0
+          },
+          {
+            "check": "scaledJacobianMin",
+            "value": 0.008016372636422815,
+            "limit": 0.45
+          }
+        ]
+      },
+      "failedCheckCounts": {
+        "quality": 6
+      }
+    },
+    "technicalMessage": "No accepted mesh after 134 candidates across 140 layouts. Best candidate failed quad shape/count.",
+    "traceback": "Traceback (most recent call last):\n  File \"C:\\dbva\\code\\retopo-1\\worker.py\", line 49, in main\n    positions,faces,meta=construct_open_surface(v,f,curves,target=settings['target'],job=job,extra_faces=bool(settings.get('allowExtraFaces',False)))\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\dbva\\code\\retopo-1\\open_surface.py\", line 617, in construct\n    raise OpenSurfaceRejected(history)\nopen_surface.OpenSurfaceRejected: No accepted mesh after 134 candidates across 140 layouts. Best candidate failed quad shape/count.\n",
+    "elapsedSeconds": 203.125,
+    "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+    "workerSha256": "d2124c11ece1bae5736fd3f638494f415d0fbc3cc92f02c91ee6632aeaf5bf24"
+  },
+  "passed": false,
+  "retainedMetadata": {}
+}

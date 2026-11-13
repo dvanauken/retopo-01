@@ -6,7 +6,7 @@ import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT/'engine/targets/zbrush/clone'),str(ROOT/'engine/targets/zbrush/experiments/python')]
 import crease_rows
-from source_features import detect,measure,spacing
+from source_features import detect,measure,spacing,admission_length
 FIXTURES=ROOT/'tests/fixtures/crease_rows'
 
 
@@ -184,6 +184,157 @@ class IslandSixRim(unittest.TestCase):
         report=crease_rows.measure(self.v,self.t,self.edges,vertices,quads,self.h)
         self.assertTrue(report['passed'],[c['failures'] for c in report['chains']])
         self.assertLess(report['chains'][0]['values']['rowP95'],.25*self.h)
+
+
+class LocalFaces(unittest.TestCase):
+    """'Add faces where the shape needs them': a face is the local face at each crease edge."""
+    def polylines(self,lengths,step=.05):
+        """Separate straight crease chains of the given lengths, 3 apart: (points, edges)."""
+        points,edges=[],[]
+        for row,length in enumerate(lengths):
+            count=max(2,int(round(length/step))+1);first=len(points)
+            points+=[[x,3.*row,0.] for x in np.linspace(0,length,count)]
+            edges+=[[first+i,first+i+1] for i in range(count-1)]
+        return np.asarray(points),np.asarray(edges)
+
+    def test_a_chain_gets_the_faces_a_row_needs(self):
+        lengths=[8.,1.2,.6,.5,.4]
+        points,edges=self.polylines(lengths);sizes=crease_rows.local_sizes(points,edges,1.)
+        per_chain=[sizes[(points[edges[:,0],1]==3.*row)] for row in range(len(lengths))]
+        for values in per_chain:self.assertEqual(len(set(np.round(values,12))),1)
+        # extent / 2 faces, never more than the requested face, never less than a quarter of it
+        np.testing.assert_allclose([values[0] for values in per_chain],[1.,.6,.3,.25,.25])
+        self.assertEqual(crease_rows.SIZE_FLOOR,.25);self.assertEqual(crease_rows.ROW_MIN_FACES,2.)
+
+    def test_a_chain_too_short_for_a_row_asks_for_the_smallest_face_and_no_row(self):
+        # A sheet 6 by 0.4 with a wall along one short side: a crease 0.4 long (0.4 requested faces at a target of 18).
+        vertices=np.array([[x,y,0.] for y in (0.,.4) for x in (0.,2.,4.,6.)]+[[6.,y,-1.] for y in (0.,.4)])
+        tris=np.array([[0,1,5],[0,5,4],[1,2,6],[1,6,5],[2,3,7],[2,7,6],[3,8,9],[3,9,7]])
+        h=spacing(vertices,tris,3);self.assertAlmostEqual(h,.966,places=3)
+        edges=np.array([[3,7]]);sizes=crease_rows.local_sizes(vertices,edges,h)
+        np.testing.assert_allclose(sizes,[.25])
+        chains,chosen,absorbed=crease_rows.representatives(vertices,tris,edges,h,sizes)
+        self.assertEqual(chains,[]);self.assertTrue(chosen.all())      # 0.41 faces long: under two faces of a quarter size
+
+    def test_no_face_is_asked_smaller_than_half_the_native_minimum_feature_length(self):
+        points,edges=self.polylines([8.,1.2,.6,.5,.4])
+        chain=lambda sizes,row:sizes[points[edges[:,0],1]==3.*row][0]
+        # S = 0.8 of a requested face (a request of 640): the floor is 0.4, and a chain under S gets no smaller face
+        sizes=crease_rows.local_sizes(points,edges,1.,.8)
+        np.testing.assert_allclose([chain(sizes,row) for row in range(5)],[1.,.6,.4,.4,.4])
+        # S = the requested face (a request of 1,000 or more): the floor is a half
+        np.testing.assert_allclose([chain(crease_rows.local_sizes(points,edges,1.,1.),row) for row in range(5)],[1.,.6,.5,.5,.5])
+        # S under half a requested face (a request under 250): the quarter-face floor stands
+        np.testing.assert_allclose(crease_rows.local_sizes(points,edges,1.,.45),crease_rows.local_sizes(points,edges,1.))
+
+    def test_sizes_follow_the_requested_spacing(self):
+        points,edges=self.polylines([1.2])
+        np.testing.assert_allclose(crease_rows.local_sizes(points,edges,.5),1.)      # 2.4 requested faces long
+        np.testing.assert_allclose(crease_rows.local_sizes(points,edges,2.),.3)      # 0.6 requested faces long
+        self.assertEqual(len(crease_rows.local_sizes(points,np.zeros((0,2),int),1.)),0)
+
+    def lid(self):
+        v,quads=strip(LID);t=triangles(quads);h=spacing(v,t,TARGET);edges,_=detect(v,t,h,target=TARGET)
+        return v,t,h,edges
+
+    def test_the_band_reaches_half_a_local_face(self):
+        v,t,h,edges=self.lid()
+        chains,chosen,absorbed=crease_rows.representatives(v,t,edges,h,np.ones(len(edges)))
+        self.assertEqual((len(chains),int(absorbed.sum())),(1,8))      # requested faces: the creases 0.3 apart are one band
+        self.assertEqual(chains[0]['sizes'],[1.]*9)
+        chains,chosen,absorbed=crease_rows.representatives(v,t,edges,h,np.full(len(edges),.5))
+        self.assertEqual((len(chains),int(absorbed.sum()),int(chosen.sum())),(2,0,16))   # faces half the size: 0.3 is over half a local face
+        own,partner=crease_rows.band_edges(v,edges,chains[:1],h,np.full(len(edges),.5))
+        self.assertEqual((int(own.sum()),int(partner.sum())),(8,0))
+        own,partner=crease_rows.band_edges(v,edges,chains[:1],h,np.ones(len(edges)))
+        self.assertEqual((int(own.sum()),int(partner.sum())),(8,8))
+
+    def test_limits_are_in_local_faces(self):
+        v,t,h,edges=self.lid()
+        # One row 0.2 beside the band (on the top sheet at x = 5.8): 0.2 of a requested face, 0.4 of a half-size face.
+        vertices,quads=strip([[0,0],[3,0],[5.8,0],[4.5,-.3]])
+        plain=crease_rows.measure(v,t,edges,vertices,quads,h)
+        self.assertTrue(plain['passed']);self.assertNotIn('localFaces',plain)
+        self.assertAlmostEqual(plain['chains'][0]['values']['rowP95']/h,.2,places=2)
+        local=crease_rows.measure(v,t,edges,vertices,quads,h,np.full(len(edges),.5))
+        self.assertTrue(local['localFaces']);self.assertEqual(local['required'],2)
+        upper=next(c for c in local['chains'] if abs(v[c['sourceVertices'][0]][2])<1e-9)
+        self.assertEqual(upper['faceSize'],.5);self.assertFalse(upper['passed'])
+        self.assertAlmostEqual(upper['values']['rowP95']/h,.4,places=2)      # the same gap, divided by the local face fraction
+        self.assertIn('rowP95',upper['failures'])
+
+    def test_a_chord_across_a_bend_is_not_the_row(self):
+        # A quarter circle of radius 0.5 (0.79 long, 0.71 across) and an output with edges round it and a chord across it.
+        angles=np.linspace(0,np.pi/2,17);curve=np.c_[.5*np.cos(angles),.5*np.sin(angles),np.zeros(17)]
+        vertices=np.array([curve[0],curve[8],curve[-1]]);edges=np.array([[0,1],[1,2],[0,2]])
+        self.assertEqual(crease_rows.find_row(vertices,edges,curve,False,1.),[0,2])                         # requested faces: ends only
+        self.assertEqual(crease_rows.find_row(vertices,edges,curve,False,1.,np.full(17,.35)),[0,1,2])     # local faces: the middle of each edge counts
+
+
+class IslandSixLocalFaces(unittest.TestCase):
+    """The reported part at a request of 200 with extra faces allowed (fixtures: tests/fixtures/corner_zones/README.md)."""
+    @classmethod
+    def setUpClass(cls):
+        cls.v,t=read(FIXTURES/'island6-source.obj');cls.t=np.asarray(t,int)
+        cls.h=spacing(cls.v,cls.t,200);cls.edges,_=detect(cls.v,cls.t,cls.h,angle=30.,target=200)
+        cls.sizes=crease_rows.local_sizes(cls.v,cls.edges,cls.h,admission_length(cls.v,cls.t,200))
+
+    def quads(self,name):
+        vertices,faces=read(ROOT/'tests/fixtures'/name)
+        return vertices,np.asarray([f for f in faces if len(f)==4],int)
+
+    def test_the_feet_get_smaller_faces_and_rows_of_their_own(self):
+        self.assertEqual((len(self.edges),int((self.sizes<1).sum())),(283,144))
+        self.assertEqual(float(self.sizes.min()),.25)
+        chains,chosen,absorbed=crease_rows.representatives(self.v,self.t,self.edges,self.h,self.sizes)
+        self.assertEqual(len(chains),18)
+        short=[c for c in chains if c['length']<2*self.h]
+        self.assertEqual(len(short),14)
+        # every short chain lies in one of the two feet (behind y = 0.05) and is two local faces or more in extent
+        for chain in short:
+            self.assertGreater(self.v[chain['vertices']][:,1].min(),.05)
+            self.assertGreaterEqual(chain['length'],crease_rows.ROW_MIN_FACES*self.h*min(chain['sizes'])*(1-1e-9))
+        # with requested faces nothing changed: the three chains of two faces or more
+        self.assertEqual(len(crease_rows.representatives(self.v,self.t,self.edges,self.h)[0]),3)
+
+    def test_at_300_the_step_end_shorter_than_the_native_minimum_gets_no_row(self):
+        h=spacing(self.v,self.t,300);edges,_=detect(self.v,self.t,h,angle=30.,target=300);minimum=admission_length(self.v,self.t,300)
+        self.assertAlmostEqual(minimum/h,.548,places=3)
+        lookup={tuple(sorted(map(int,e))):i for i,e in enumerate(edges)}
+        def rows(sizes):
+            return {(c['vertices'][0],c['vertices'][-1]) for c in crease_rows.representatives(self.v,self.t,edges,h,sizes)[0]}
+        with_minimum=rows(crease_rows.local_sizes(self.v,edges,h,minimum));quarter=rows(crease_rows.local_sizes(self.v,edges,h))
+        # The 0.51-face chains at the end of the step behind each foot are 0.034 long, under S = 0.037.
+        self.assertEqual(len(quarter)-len(with_minimum),2)
+        self.assertEqual({tuple(sorted(pair)) for pair in quarter-with_minimum},{(1426,1428),(724,726)})
+        self.assertAlmostEqual(float(crease_rows.local_sizes(self.v,edges,h,minimum).min()),.274,places=3)
+
+    def test_the_rim_wall_is_still_one_band(self):
+        lookup={tuple(sorted(map(int,e))):i for i,e in enumerate(self.edges)}
+        chains,chosen,absorbed=crease_rows.representatives(self.v,self.t,self.edges,self.h,self.sizes)
+        self.assertTrue(chosen[lookup[(1308,1309)]]);self.assertTrue(absorbed[lookup[(1322,1323)]])
+        self.assertEqual(self.sizes[lookup[(1308,1309)]],1.)
+
+    def test_zbrush_has_a_row_on_every_chain_that_needs_one(self):
+        vertices,quads=self.quads('guide_rows/island6-200-native-guide-532.obj');self.assertEqual(len(quads),455)
+        report=crease_rows.measure(self.v,self.t,self.edges,vertices,quads,self.h,self.sizes)
+        self.assertEqual((report['required'],report['realized']),(18,18),[(c['sourceVertices'],c['failures']) for c in report['chains'] if not c['passed']])
+
+    def test_the_earlier_results_have_no_rows_on_the_feet(self):
+        for name,realized in (('corner_zones/island6-200-guide-strict-204.obj',11),('corner_zones/island6-200-guide-extra-380-before.obj',13)):
+            vertices,quads=self.quads(name)
+            report=crease_rows.measure(self.v,self.t,self.edges,vertices,quads,self.h,self.sizes)
+            self.assertEqual((report['required'],report['realized']),(18,realized),name)
+            # ... while the requested-face check, which asks for three rows, still passes them
+            self.assertTrue(crease_rows.measure(self.v,self.t,self.edges,vertices,quads,self.h)['passed'],name)
+            whole=measure(self.v,self.t,vertices,quads,200,angle=30.,extra_faces=True)
+            self.assertIn('rowsMissing',whole['failures']);self.assertTrue(whole['localFaces'])
+
+    def test_the_extra_faces_result_has_them(self):
+        vertices,quads=self.quads('corner_zones/island6-200-guide-extra-faces.obj')
+        whole=measure(self.v,self.t,vertices,quads,200,angle=30.,extra_faces=True)
+        self.assertTrue(whole['passed'],whole['failures'])
+        self.assertEqual((whole['rows']['required'],whole['rows']['realized']),(18,18))
 
 
 if __name__=='__main__':unittest.main()

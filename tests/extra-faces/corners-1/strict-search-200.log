@@ -1,0 +1,281 @@
+Building open-part layout 1 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 2 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 3 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 4 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 5 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 6 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 7 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 8 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 9 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 10 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+
+A module that was compiled using NumPy 1.x cannot be run in
+NumPy 2.2.6 as it may crash. To support both 1.x and 2.x
+versions of NumPy, modules must be compiled with NumPy 2.0.
+Some module may need to rebuild instead e.g. with 'pybind11>=2.12'.
+
+If you are a user of the module, the easiest solution will be to
+downgrade to 'numpy<2' or try to upgrade the affected module.
+We expect that some modules will need time to support NumPy 2.
+
+Traceback (most recent call last):  File "C:\dbva\code\retopo-1\tests\extra-faces\corners-1\strict-search.py", line 63, in <module>
+    p, q, meta = open_surface.construct(source, triangles, curves, target=arguments.target, job=job, extra_faces=False)
+  File "C:\dbva\code\retopo-1\open_surface.py", line 510, in construct
+    p,detail=refine(mesh,p,q,fit_curves+(rows['curves'] if fit_rows else []),target,fit_paths+crease_paths,contacts=sorted(contacts),witnesses=witnesses,
+  File "C:\dbva\code\retopo-1\feature_refine.py", line 54, in refine
+    import torch
+  File "C:\Users\Buddy\miniforge3\Lib\site-packages\torch\__init__.py", line 2120, in <module>
+    from torch._higher_order_ops import cond
+  File "C:\Users\Buddy\miniforge3\Lib\site-packages\torch\_higher_order_ops\__init__.py", line 1, in <module>
+    from .cond import cond
+  File "C:\Users\Buddy\miniforge3\Lib\site-packages\torch\_higher_order_ops\cond.py", line 5, in <module>
+    import torch._subclasses.functional_tensor
+  File "C:\Users\Buddy\miniforge3\Lib\site-packages\torch\_subclasses\functional_tensor.py", line 42, in <module>
+    class FunctionalTensor(torch.Tensor):
+  File "C:\Users\Buddy\miniforge3\Lib\site-packages\torch\_subclasses\functional_tensor.py", line 258, in FunctionalTensor
+    cpu = _conversion_method_template(device=torch.device("cpu"))
+C:\Users\Buddy\miniforge3\Lib\site-packages\torch\_subclasses\functional_tensor.py:258: UserWarning: Failed to initialize NumPy: _ARRAY_API not found (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\torch\csrc\utils\tensor_numpy.cpp:84.)
+  cpu = _conversion_method_template(device=torch.device("cpu"))
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 11 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 12 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 13 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 14 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 15 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 16 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 17 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 18 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 19 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 20 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 21 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 22 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 23 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 24 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 25 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 26 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 27 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 28 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 29 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 30 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 31 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 32 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 33 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 34 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 35 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 36 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 37 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 38 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 39 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 40 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 41 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 42 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 43 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 44 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 45 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 46 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 47 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 48 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 49 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 50 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 51 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 52 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 53 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Fitting open part, pass 3; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Fitting open part, pass 4; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 54 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 55 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 56 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 57 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 58 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 59 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 60 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 61 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 62 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 63 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 64 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 65 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 66 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 67 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 68 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 69 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 70 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 71 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 72 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 73 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 75 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 76 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 77 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 78 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 79 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Fitting open part, pass 3; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Fitting open part, pass 4; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 80 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 81 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 82 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 83 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 84 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 85 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 86 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Fitting open part, pass 3; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 87 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 88 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 89 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 90 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 91 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 92 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 93 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 94 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 95 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 96 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 97 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Fitting open part, pass 3; boundaries fixed
+Building open-part layout 98 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 99 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 100 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 101 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 102 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 103 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 104 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 105 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 106 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 107 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 108 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Checking open-part boundaries, features, coverage and contacts
+Building open-part layout 109 with registered guide and crease edges; preserving 1 boundary loops
+Building open-part layout 110 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 111 with registered guide and crease edges; preserving 1 boundary loops
+Fitting open part, pass 1; boundaries fixed
+Fitting open part, pass 2; boundaries fixed
+Building open-part layout 129 with curvature size caps; preserving 1 boundary loops
+Building open-part layout 130 with curvature size caps; preserving 1 boundary loops
+Building open-part layout 131; preserving 1 boundary loops
+Building open-part layout 132; preserving 1 boundary loops
+Building open-part layout 133; preserving 1 boundary loops
+Building open-part layout 134 with curvature-adaptive sizing; preserving 1 boundary loops
+Building open-part layout 135 with curvature-adaptive sizing; preserving 1 boundary loops
+Building open-part layout 136 with curvature-adaptive sizing; preserving 1 boundary loops
+Building open-part layout 137 with curvature-adaptive sizing; preserving 1 boundary loops
+Building open-part layout 138 at 700 quads to coarsen to 200; preserving 1 boundary loops
+Coarsening open-part layout 138 from 729 quads by whole strips
+Building open-part layout 139 at 700 quads to coarsen to 200; preserving 1 boundary loops
+Coarsening open-part layout 139 from 775 quads by whole strips
+Building open-part layout 140 at 700 quads to coarsen to 200; preserving 1 boundary loops
+Coarsening open-part layout 140 from 781 quads by whole strips
+{
+ "target": 200,
+ "source": "C:\\dbva\\code\\retopo-1\\tests\\fixtures\\crease_rows\\island6-source.obj",
+ "curves": "C:\\dbva\\code\\retopo-1\\tests\\fixtures\\island6-guide-483afe83.json",
+ "limits": {
+  "p95InFaces": 0.25,
+  "maxInFaces": 0.5
+ },
+ "scope": "Shipped strict-count solver; acceptance additionally requires the corner zones, in this process only.",
+ "accepted": false,
+ "message": "No accepted mesh after 192 candidates across 122 layouts. Best candidate failed source crease preservation. Passed: quad shape/count, surface/boundary preservation, face intersections, guide fit.",
+ "seconds": 417.89100000000326,
+ "layoutsTried": 122,
+ "candidatesChecked": 21,
+ "candidatesPassingShippedChecks": 1
+}
+candidate 204 faces; crease check True ; corners worst P95 0.331 h, worst max 0.414 h ; fixed zone 0.273 / 0.414 h
+candidate 204 faces; crease check True ; corners worst P95 0.321 h, worst max 0.397 h ; fixed zone 0.293 / 0.397 h
+candidate 204 faces; crease check True ; corners worst P95 0.331 h, worst max 0.375 h ; fixed zone 0.305 / 0.375 h
+candidate 176 faces; crease check False ; corners worst P95 0.523 h, worst max 0.559 h ; fixed zone 0.484 / 0.559 h
+candidate 183 faces; crease check False ; corners worst P95 0.670 h, worst max 0.730 h ; fixed zone 0.556 / 0.730 h
+candidate 188 faces; crease check False ; corners worst P95 0.783 h, worst max 0.863 h ; fixed zone 0.583 / 0.863 h
+candidate 188 faces; crease check False ; corners worst P95 0.411 h, worst max 0.474 h ; fixed zone 0.356 / 0.474 h
+candidate 188 faces; crease check True ; corners worst P95 0.420 h, worst max 0.484 h ; fixed zone 0.347 / 0.484 h
+candidate 188 faces; crease check False ; corners worst P95 0.898 h, worst max 0.958 h ; fixed zone 0.804 / 0.958 h
+candidate 183 faces; crease check False ; corners worst P95 0.772 h, worst max 0.823 h ; fixed zone 0.625 / 0.823 h
+candidate 183 faces; crease check False ; corners worst P95 0.359 h, worst max 0.442 h ; fixed zone 0.314 / 0.442 h
+candidate 187 faces; crease check False ; corners worst P95 0.618 h, worst max 0.682 h ; fixed zone 0.452 / 0.682 h
+candidate 190 faces; crease check False ; corners worst P95 0.869 h, worst max 0.936 h ; fixed zone 0.671 / 0.936 h
+candidate 198 faces; crease check False ; corners worst P95 0.450 h, worst max 0.487 h ; fixed zone 0.392 / 0.487 h
+candidate 206 faces; crease check False ; corners worst P95 0.495 h, worst max 0.576 h ; fixed zone 0.431 / 0.576 h
+candidate 207 faces; crease check False ; corners worst P95 0.512 h, worst max 0.578 h ; fixed zone 0.390 / 0.578 h
+candidate 190 faces; crease check False ; corners worst P95 0.838 h, worst max 0.900 h ; fixed zone 0.673 / 0.900 h
+candidate 202 faces; crease check False ; corners worst P95 0.736 h, worst max 0.800 h ; fixed zone 0.623 / 0.800 h
+candidate 184 faces; crease check False ; corners worst P95 0.667 h, worst max 0.727 h ; fixed zone 0.498 / 0.727 h
+candidate 179 faces; crease check False ; corners worst P95 0.806 h, worst max 0.897 h ; fixed zone 0.691 / 0.897 h
+candidate 175 faces; crease check False ; corners worst P95 0.425 h, worst max 0.541 h ; fixed zone 0.398 / 0.541 h

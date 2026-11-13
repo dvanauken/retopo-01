@@ -77,14 +77,21 @@ def run(root,case,angle,packet,run_id,out,timeout,env,extra_faces=False):
     mesh=read(job/'mesh.json') if (job/'mesh.json').exists() else {}
     row['report']=report;row['passed']=bool(child.returncode==0 and report.get('passed') and mesh)
     if mesh:
-        keys=('stats','quality','featureValidation','surfaceValidation','boundaryValidation','intersectionValidation','guidePaths','guideRows','elapsedSeconds','registeredFeatures','registrationSkipped','layoutStyle','candidateSelection','featureRows')
+        keys=('stats','quality','featureValidation','surfaceValidation','boundaryValidation','intersectionValidation','cornerZones','guidePaths','guideRows','elapsedSeconds','registeredFeatures','registrationSkipped','layoutStyle','candidateSelection','featureRows')
         row['result']={k:mesh.get(k) for k in keys};row['faces']=len(mesh['faces']);row['outputSha256']=sha(job/'output.obj')
         row['allAcceptanceGatesPassed']=all(mesh.get(k,{}).get('passed') for k in ('quality','featureValidation','surfaceValidation','intersectionValidation')+(('boundaryValidation',) if mesh.get('openSurface') else ()))
+        # Corner zones are an acceptance gate only when extra faces are allowed; otherwise they are a reported measure.
+        corners=mesh.get('cornerZones') or {}
+        if corners.get('enforced'):row['allAcceptanceGatesPassed']=bool(row['allAcceptanceGatesPassed'] and corners.get('passed'))
+        if corners.get('zones'):row['cornerZones']=dict(enforced=bool(corners.get('enforced')),passed=bool(corners.get('passed')),worstP95InFaces=corners.get('worstP95InFaces'),worstMaxInFaces=corners.get('worstMaxInFaces'),limits=corners.get('limits'))
         row['passed']=row['passed'] and row['allAcceptanceGatesPassed']
         assert sha(job/'source.obj')==settings['sourceSha256'],'Source integrity'
     row['retainedMetadata']={n:str(job/n) for n in ('engine-provenance.json','open-surface.json','surface-solver.json') if (job/n).exists()}
     write(out/(case[0]+'-result.json'),row)
-    print('RESULT',case[0],row['passed'],'faces',row.get('faces'),'seconds',round(row['observedSeconds'],1),report.get('message',''),flush=True)
+    corner_note=''
+    if row.get('cornerZones'):
+        c=row['cornerZones'];corner_note=f"corners {'enforced' if c['enforced'] else 'reported'}: worst P95 {c['worstP95InFaces']:.3f} h, worst max {c['worstMaxInFaces']:.3f} h, {'within' if c['passed'] else 'OVER'} limits"
+    print('RESULT',case[0],row['passed'],'faces',row.get('faces'),'seconds',round(row['observedSeconds'],1),corner_note,report.get('message',''),flush=True)
     return row
 
 def main():

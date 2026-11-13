@@ -339,7 +339,12 @@ export class PartsWorkspace {
         group.userData.render = this.h.buildPart(item.source, group); left = group.userData.render.solid;
       } else left = this.addMesh(item.source, this.groups[0], 0x8a9aad, .35);
       left.userData.partId = item.node.id;
-      if (item.result) { const right = this.addMesh(item.result, this.groups[1], 0x6795ce, 1); right.userData.partId = item.node.id; }
+      if (item.result) {
+        // An accepted output is built like every other mesh, so the Display options (mesh edges, vertices, detected creases) apply to it.
+        const group = new THREE.Group(); this.groups[1].add(group);
+        group.userData.render = this.h.buildPart({ ...item.result, displayColor: '#6795ce' }, group);
+        group.userData.render.solid.userData.partId = item.node.id;
+      }
     }
     this.h.assemblyFeedback(items.filter(item => item.result).length);
     this.h.display(); this.syncSelection(); this.h.render();

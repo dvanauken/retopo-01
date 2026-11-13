@@ -10,6 +10,8 @@ from surface_intersections import measure, measure_reference
 from boundary_geometry import validate as boundary
 import curved_quad as cq
 import guide_rows
+import corner_zones
+from source_features import detect
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--job',type=Path,required=True);a=ap.parse_args()
@@ -27,7 +29,11 @@ def main():
     for key in ('passed','nonAdjacentIntersectingFacePairs','adjacentIntersectingFacePairs'):
         assert fast[key]==reference[key],(key,fast[key],reference[key])
     surface=cq.validate_surface(v,f,p,q,target,accelerated=False,allow_boundary=True)
-    quality=cq.quad_quality(p,q,target);feature=features(v,f,p,q,target);rim=boundary(v,f,p,q,.1*h)
+    # 'Add faces where the shape needs them': no count ceiling, local faces at the creases, corner zones enforced.
+    # When no layout met the local-face rules the solver fell back to the rows of the strict count and reported the corners.
+    extra=bool(mesh.get('openSurface') and settings.get('allowExtraFaces'));local=bool(extra and not mesh.get('cornerZones',{}).get('extraFacesFallback'))
+    quality=cq.quad_quality(p,q,target,extra_faces=extra);feature=features(v,f,p,q,target,extra_faces=local);rim=boundary(v,f,p,q,.1*h)
+    corners=dict(corner_zones.measure(v,f,detect(v,f,h,target=target)[0],p,q,h),enforced=local)
     curves=[np.asarray(c) for c in json.loads((job/'curves.json').read_text(encoding='utf-8'))['curves']]
     paths=mesh['guidePaths'];edges={tuple(e) for e in cq._edges(q)}
     for path in paths:
@@ -35,11 +41,11 @@ def main():
     guide=cq._guide_fit(p,paths,curves,h)
     # Each authored guide must be followed by one continuous edge loop, measured from the exported mesh alone.
     loops=guide_rows.measure(p,q,[np.asarray(c,float) for c in curves],h)
-    passed=all(x['passed'] for x in (reference,surface,quality,feature,rim,loops)) and cq.guides_pass(guide,h)
+    passed=all(x['passed'] for x in (reference,surface,quality,feature,rim,loops)) and cq.guides_pass(guide,h) and (corners['passed'] or not local)
     out=dict(passed=bool(passed),sourceSha256=hashlib.sha256((job/'source.obj').read_bytes()).hexdigest(),
              outputSha256=hashlib.sha256((job/'output.obj').read_bytes()).hexdigest(),quality=quality,features=feature,
-             surface=surface,boundary=rim,referenceContacts=reference,guideFit=guide,guideRows=loops,seconds=time.monotonic()-started,
-             validatorHashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in ['tests/audit_registered_features.py','surface_intersections.py','surface_contacts_fast.py','curved_quad.py','source_features.py','crease_rows.py','guide_rows.py','boundary_geometry.py']},
+             surface=surface,boundary=rim,referenceContacts=reference,guideFit=guide,guideRows=loops,cornerZones=corners,seconds=time.monotonic()-started,
+             validatorHashes={name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in ['tests/audit_registered_features.py','surface_intersections.py','surface_contacts_fast.py','curved_quad.py','source_features.py','crease_rows.py','guide_rows.py','corner_zones.py','boundary_geometry.py']},
              scope='Accepted OBJ re-read; independent original Python contact predicates vs fast path; reference surface search; actual connected guide edges. No fitting.')
     (job/'reference-export-audit.json').write_text(json.dumps(out,indent=2,allow_nan=False)+'\n',encoding='utf-8')
     print('EXPORT AUDIT',passed,'seconds',out['seconds'],flush=True)

@@ -19,6 +19,12 @@ not a native rule. The limits reuse numbers the application already applies;
 the choice of representative, the two-face minimum and the path cost are
 engineering choices, labelled where they are defined. Nothing here is recovered
 native arithmetic.
+
+Local face sizes (2026-11-10, the user's 'Add faces where the shape needs
+them' option only). Every function that takes `sizes` then measures "a face"
+at a crease edge as that edge's local face (local_sizes), not the requested
+one: the band reach, the two-face minimum, the row limits and the end zones.
+With `sizes=None` every result is what it was before.
 """
 import numpy as np
 from scipy.sparse import csr_matrix
@@ -46,6 +52,13 @@ ROW_TANGENT_DEGREES = 30.
 SAMPLE_FACES = .125   # the crease check's sample spacing
 WIDTH_SAMPLES = 9     # crease edges per branch whose sheet widths are walked (cost bound, not a geometric limit)
 _MEMO = {}            # the last representatives() answer; see there
+# The smallest local face a crease chain may ask for, as a fraction of the requested face.
+# ZRemesher's size field never goes below 0.9 * S / 4 (0x1efb00, qualified constants: a ratio of 4
+# with a factor of 0.9), and the layout engine clamps its field there. Engineering choice: a crease
+# asks for the ratio of 4 without the 0.9, so no row is sized at the clamp itself. Measured on
+# island 6 at 200 (64 layouts, 2026-11-10): the two 0.52-face chains sized at 0.237 had a row
+# within reach in 10 and 22 layouts, and ZBrush's own mesh has no row on either.
+SIZE_FLOOR = 1 / 4
 
 
 def _arc(points):
@@ -118,6 +131,64 @@ def chains(source, edges, spacing):
     return result
 
 
+def local_sizes(source, edges, spacing, minimum_length=None):
+    """Face size at each admitted crease edge, as a fraction of the requested size (1 = requested).
+
+    Only used when the user allows extra faces. Native ZRemesher keeps every
+    admitted crease edge as a constrained edge through extraction (collector
+    0x2889c0/0x28e230) and separates constrained lines in its integer solve
+    (0x28fe70) whatever their distance, at the requested base size; kept
+    creases do not shrink its size field (0x26faf0 marks). This application's
+    layout engine has no such separation: it rounds positions to a lattice of
+    the local face size, so a crease chain shorter than two local faces cannot
+    carry a row (ROW_MIN_FACES). Engineering choice, standing in for the
+    native separation: the faces at a chain are made small enough for the row,
+
+        size = extent / ROW_MIN_FACES,   clamped to [floor, 1] of the requested size,
+
+    where the extent is the largest distance between two points of the chain
+    and chains are the admitted crease graph joined as chains() joins it. The
+    floor is SIZE_FLOOR, and never less than half of `minimum_length`, the
+    native minimum feature length S = sqrt(A / clamp(target, 1000, 10000))
+    (source_features.admission_length; 0x1c9fb0/0x25a990): ZRemesher admits no
+    feature shorter than S, so no row is asked of a chain shorter than S and no
+    face is asked smaller than a row of two on a feature of length S. (S is
+    under half a requested face below a request of 250; from 1,000 up it is the
+    requested face itself and the floor is a half.) A chain whose extent is
+    under ROW_MIN_FACES faces of the floor size cannot carry a row at any
+    allowed size; it asks for the floor size, gets no row and stays under the
+    nearest-edge measure. (Measured on island 6 at 200,
+    one search of 64 layouts each, 2026-11-10: leaving those short chains at
+    the requested size, 2 of 7 fitted layouts passed every check and the
+    source lay up to 0.32 of a face from the result at the end of the step
+    behind each foot; sizing them, 2 of the first 3 passed, at 0.26 or less.)
+    The sizes go to the engine as face-size caps on its constrained edges and
+    are the "local face" of the band rule and the row check, so generator and
+    check agree by construction.
+    """
+    source = np.asarray(source, float)
+    edges = np.asarray(edges, int).reshape(-1, 2)
+    sizes = np.ones(len(edges))
+    if not len(edges):
+        return sizes
+    lookup = {tuple(sorted(map(int, e))): i for i, e in enumerate(edges)}
+    floor = SIZE_FLOOR if minimum_length is None else min(1., max(SIZE_FLOOR, float(minimum_length) / (ROW_MIN_FACES * spacing)))
+    for vertices, _ in chains(source, edges, spacing):
+        points = source[vertices]
+        probe = points[np.unique(np.linspace(0, len(points) - 1, min(len(points), 64)).round().astype(int))]
+        extent = float(np.linalg.norm(probe[:, None] - probe[None], axis=2).max()) / spacing
+        size = min(1., max(floor, extent / ROW_MIN_FACES))
+        for pair in zip(vertices[:-1], vertices[1:]):
+            sizes[lookup[tuple(sorted(pair))]] = size
+    return sizes
+
+
+def _point_sizes(vertices, lookup, sizes):
+    """Local face fraction at each vertex of a chain: the smaller of its two chain edges' sizes."""
+    per_edge = np.array([sizes[lookup[tuple(sorted(pair))]] for pair in zip(vertices[:-1], vertices[1:])])
+    return np.minimum(np.r_[per_edge[0], per_edge], np.r_[per_edge, per_edge[-1]])
+
+
 def sheet_widths(source, triangles, edges, selected):
     """Width of the wider sheet beside each selected crease edge.
 
@@ -184,7 +255,7 @@ def _parallel(points_a, points_b, starts, ends):
     return cosine
 
 
-def representatives(source, triangles, edges, spacing):
+def representatives(source, triangles, edges, spacing, sizes=None):
     """The crease edges that must carry rows, the edges they absorb, and the row chains.
 
     Engineering choice: within a band of parallel creases (the existing band
@@ -198,6 +269,11 @@ def representatives(source, triangles, edges, spacing):
     length is. Returns (chains, representative mask, absorbed mask); the masks
     index `edges`; the chains are the representative edges joined into chains
     of ROW_MIN_FACES or more, longest first, as dicts(vertices, closed, length).
+
+    With `sizes` (local_sizes, one fraction per edge) a face is the local face:
+    an edge is within reach at BAND_REACH of its own local face, a chain needs
+    a row at ROW_MIN_FACES of its smallest local face, and each row also holds
+    `sizes`, the local face fraction at each of its vertices.
     """
     from source_features import BAND_REACH, BAND_DEGREES, segment_distances
     source = np.asarray(source, float)
@@ -205,7 +281,8 @@ def representatives(source, triangles, edges, spacing):
     edges = np.asarray(edges, int).reshape(-1, 2)
     # One job measures many candidates against the same source: the answer depends on the
     # source, its admitted creases and the spacing only, so the last one is kept.
-    key = (source.shape, source.tobytes(), triangles.tobytes(), edges.tobytes(), float(spacing))
+    sizes = None if sizes is None else np.asarray(sizes, float).reshape(-1)
+    key = (source.shape, source.tobytes(), triangles.tobytes(), edges.tobytes(), float(spacing), None if sizes is None else sizes.tobytes())
     if _MEMO.get('key') == key:
         rows, chosen, absorbed = _MEMO['value']
         return [dict(row, vertices=list(row['vertices'])) for row in rows], chosen.copy(), absorbed.copy()
@@ -230,9 +307,10 @@ def representatives(source, triangles, edges, spacing):
     for _, _, _, _, ids in sorted(branches, key=lambda item: item[:4]):
         if chosen.any():
             starts, ends = source[edges[chosen, 0]], source[edges[chosen, 1]]
-            near = segment_distances(source[np.unique(edges[ids])], starts, ends) < BAND_REACH * spacing
+            near = segment_distances(source[np.unique(edges[ids])], starts, ends)
             near = dict(zip(np.unique(edges[ids]).tolist(), near.tolist()))
-            inside = np.array([near[int(a)] and near[int(b)] for a, b in edges[ids]])
+            reach = BAND_REACH * spacing * (np.ones(len(ids)) if sizes is None else sizes[ids])
+            inside = np.array([near[int(a)] < r and near[int(b)] < r for (a, b), r in zip(edges[ids], reach)])
             if inside.any():
                 parallel = _parallel(source[edges[ids[inside], 0]], source[edges[ids[inside], 1]], starts, ends) >= cosine_limit
                 absorbed[ids[inside][parallel]] = True
@@ -242,27 +320,56 @@ def representatives(source, triangles, edges, spacing):
         absorbed[ids] = False
         chosen[ids] = True
     rows = []
-    for vertices, closed in chains(source, edges[chosen], spacing):
+    if sizes is None:
+        candidates = chains(source, edges[chosen], spacing)
+    else:
+        # With local faces the chains are those local_sizes sized: the admitted crease graph joined as
+        # a whole, then cut to their runs of representative edges. Joining the representatives alone
+        # would run a chain round a corner wherever an absorbed crease used to make a junction.
+        candidates = []
+        for vertices, closed in chains(source, edges, spacing):
+            kept = [bool(chosen[lookup[tuple(sorted(pair))]]) for pair in zip(vertices[:-1], vertices[1:])]
+            if all(kept):
+                candidates.append((vertices, closed))
+                continue
+            first = None
+            for index, flag in enumerate(kept + [False]):
+                if flag and first is None:
+                    first = index
+                elif not flag and first is not None:
+                    candidates.append((vertices[first:index + 1], False))
+                    first = None
+    for vertices, closed in candidates:
         points = source[vertices]
         length = float(_arc(points)[-1])
-        if length < ROW_MIN_FACES * spacing:
+        local = None if sizes is None else _point_sizes(vertices, lookup, sizes)
+        # A chain sized by its own extent measures exactly ROW_MIN_FACES local faces; the factor keeps rounding from dropping it.
+        minimum = ROW_MIN_FACES * spacing * (1. if local is None else float(local.min()) * (1 - 1e-9))
+        if length < minimum:
             continue
         probe = points[np.unique(np.linspace(0, len(points) - 1, min(len(points), 64)).round().astype(int))]
         extent = float(np.linalg.norm(probe[:, None] - probe[None], axis=2).max())
-        if extent >= ROW_MIN_FACES * spacing:
-            rows.append(dict(vertices=vertices, closed=closed, length=length))
+        if extent >= minimum:
+            rows.append(dict(vertices=vertices, closed=closed, length=length) if local is None
+                        else dict(vertices=vertices, closed=closed, length=length, sizes=local.tolist()))
     rows.sort(key=lambda row: (-row['length'], row['vertices'][0], row['vertices'][-1]))
     _MEMO.clear()
     _MEMO.update(key=key, value=([dict(row, vertices=list(row['vertices'])) for row in rows], chosen.copy(), absorbed.copy()))
     return rows, chosen, absorbed
 
 
-def band_edges(source, edges, rows, spacing):
+def _row_sizes(row):
+    """Local face fraction at each vertex of a row chain, or None when faces are the requested ones."""
+    return None if row.get('sizes') is None else np.asarray(row['sizes'], float)
+
+
+def band_edges(source, edges, rows, spacing, sizes=None):
     """Masks over `edges`: the row chains' own edges, and the other crease edges inside their bands.
 
     A crease edge is inside a row's band by the existing band rule: both ends
     within BAND_REACH of the requested spacing of the row chains and running
-    within BAND_DEGREES of the nearest one.
+    within BAND_DEGREES of the nearest one. With `sizes` the reach is
+    BAND_REACH of the edge's own local face.
     """
     from source_features import BAND_REACH, BAND_DEGREES, segment_distances
     source = np.asarray(source, float)
@@ -276,8 +383,9 @@ def band_edges(source, edges, rows, spacing):
         for pair in zip(row['vertices'][:-1], row['vertices'][1:]):
             own[lookup[tuple(sorted(pair))]] = True
     starts, ends = source[edges[own, 0]], source[edges[own, 1]]
-    near = segment_distances(source, starts, ends) < BAND_REACH * spacing
-    candidates = np.flatnonzero(near[edges[:, 0]] & near[edges[:, 1]] & ~own)
+    near = segment_distances(source, starts, ends)
+    reach = BAND_REACH * spacing * (np.ones(len(edges)) if sizes is None else np.asarray(sizes, float).reshape(-1))
+    candidates = np.flatnonzero((near[edges[:, 0]] < reach) & (near[edges[:, 1]] < reach) & ~own)
     if len(candidates):
         cosine = _parallel(source[edges[candidates, 0]], source[edges[candidates, 1]], starts, ends)
         partner[candidates[cosine >= np.cos(np.radians(BAND_DEGREES))]] = True
@@ -302,7 +410,7 @@ def _nearest(points, curve):
     return distance, parameter
 
 
-def find_row(vertices, output_edges, curve, closed, spacing):
+def find_row(vertices, output_edges, curve, closed, spacing, sizes=None):
     """Cheapest connected output edge path that runs forward along a chain, or [] when there is none.
 
     Engineering choice, reusing the cost of authored guide paths
@@ -311,13 +419,17 @@ def find_row(vertices, output_edges, curve, closed, spacing):
     the chain ends at the integral of the same cost over the chain arc it
     leaves uncovered. No edge may step backward along the chain. Vertices
     farther than the one-face end maximum cannot be on an accepted row and
-    are left out.
+    are left out. With `sizes` (the local face fraction at each chain point)
+    a face is the local face at the nearest point of the chain.
     """
     vertices = np.asarray(vertices, float)
     curve = np.asarray(curve, float)
     count = len(vertices)
     distance, parameter = _nearest(vertices, curve)
     total = float(_arc(curve)[-1])
+    if sizes is not None:
+        # One face is the local face at the nearest chain point; `spacing` becomes a value per output vertex.
+        spacing = spacing * np.interp(parameter, _arc(curve), np.asarray(sizes, float))
     allowed = distance <= ROW_END_FACES * spacing
     pairs = np.asarray(output_edges, int).reshape(-1, 2)
     pairs = pairs[allowed[pairs[:, 0]] & allowed[pairs[:, 1]]]
@@ -326,7 +438,14 @@ def find_row(vertices, output_edges, curve, closed, spacing):
     pairs = np.r_[pairs, pairs[:, ::-1]]
     a, b = pairs[:, 0], pairs[:, 1]
     length = np.linalg.norm(vertices[b] - vertices[a], axis=1)
-    weight = length * (1 + 40 * ((distance[a] + distance[b]) * .5 / spacing) ** 2)
+    if sizes is None:
+        weight = length * (1 + 40 * ((distance[a] + distance[b]) * .5 / spacing) ** 2)
+    else:
+        # A local face can be as long as a short chain's bend is deep, so a chord across the bend would
+        # cost no more than the edges round it if only its ends were measured. The middle of the edge
+        # is measured too (weights 1, 2, 1: the mean distance along the edge).
+        middle = _nearest((vertices[a] + vertices[b]) * .5, curve)[0]
+        weight = length * (1 + 40 * ((distance[a] + 2 * middle + distance[b]) * .25 / ((spacing[a] + spacing[b]) * .5)) ** 2)
     if closed:
         start = int(np.flatnonzero(allowed)[np.argmin(distance[allowed])])
         parameter = (parameter - parameter[start]) % total
@@ -345,7 +464,7 @@ def find_row(vertices, output_edges, curve, closed, spacing):
         ids = np.flatnonzero(allowed)
 
         def uncovered(reach):
-            return reach + 40 * reach ** 3 / (3 * spacing ** 2)
+            return reach + 40 * reach ** 3 / (3 * (spacing if sizes is None else spacing[ids]) ** 2)
         origin, sink = count, count + 1
         rows = np.r_[a, np.full(len(ids), origin), ids]
         cols = np.r_[b, ids, np.full(len(ids), sink)]
@@ -387,7 +506,7 @@ def _window_chords(points, window, closed):
 SPAN_STEPS = 9   # points across a band span: finer than the crease check's sample spacing at the half-face reach
 
 
-def _band_spans(samples, partners, spacing):
+def _band_spans(samples, partners, spacing, local=None):
     """For each chain sample, the far end of its band: the farthest partner crease point within reach.
 
     The band a row represents is the strip between its representative crease
@@ -407,7 +526,7 @@ def _band_spans(samples, partners, spacing):
         t = np.clip(((batch[:, None] - starts) * delta).sum(2) / squared, 0, 1)
         points = starts + t[:, :, None] * delta
         distance = np.linalg.norm(points - batch[:, None], axis=2)
-        distance[distance >= BAND_REACH * spacing] = -1.
+        distance[distance >= (BAND_REACH * spacing if local is None else (BAND_REACH * spacing * local[first:first + 256])[:, None])] = -1.
         pick = distance.argmax(1)
         rows = np.arange(len(batch))
         found = distance[rows, pick] >= 0
@@ -415,17 +534,28 @@ def _band_spans(samples, partners, spacing):
     return far
 
 
-def measure_path(vertices, path, curve, closed, spacing, partners=None):
+def measure_path(vertices, path, curve, closed, spacing, partners=None, sizes=None):
     """Distances and directions from a chain's band to one connected path: (values, worst sample).
 
     The distance at a chain sample is the least distance from the path to the
     band span at that sample (the representative crease point when the band
     has no partner there), so a row anywhere across the band it represents
     measures zero and a row beside the band measures its gap to the band.
+
+    With `sizes` (the local face fraction at each chain point) every distance
+    is divided by the fraction at its sample before the percentile and the
+    maximum are taken, so the values compare with the same limits and read
+    "in local faces" once divided by the requested spacing; samples, direction
+    windows and end zones are sized by the local face as well.
     """
     vertices = np.asarray(vertices, float)
-    samples = _samples(np.asarray(curve, float), spacing)
-    far = _band_spans(samples, partners, spacing)
+    curve = np.asarray(curve, float)
+    finest = spacing if sizes is None else spacing * float(np.min(sizes))
+    samples = _samples(curve, finest)
+    local = None
+    if sizes is not None:
+        local = np.interp(_nearest(samples, curve)[1], _arc(curve), np.asarray(sizes, float))
+    far = _band_spans(samples, partners, spacing, local)
     a, b = vertices[path[:-1]], vertices[path[1:]]
     delta = b - a
     squared = np.maximum(1e-30, (delta * delta).sum(1))
@@ -439,7 +569,7 @@ def measure_path(vertices, path, curve, closed, spacing, partners=None):
         values = gaps[np.arange(len(samples)), ids]
         closer = values < distance
         distance[closer], nearest[closer] = values[closer], ids[closer]
-    chords = _window_chords(samples, spacing, closed)
+    chords = _window_chords(samples, finest, closed)
     norms = np.linalg.norm(chords, axis=1) * np.sqrt(squared[nearest])
     cosine = np.divide(np.abs((chords * delta[nearest]).sum(1)), norms, out=np.ones(len(samples)), where=norms > 0)
     angles = np.degrees(np.arccos(np.clip(cosine, 0, 1)))
@@ -447,16 +577,22 @@ def measure_path(vertices, path, curve, closed, spacing, partners=None):
     # The last face of arc at each end of an open chain is where it meets a junction or
     # fades out; a coarse row ends up to half an edge from it. That zone answers to the
     # one-face junction limit, the rest of the chain to the quarter- and half-face limits.
-    ends = np.zeros(len(samples), bool) if closed else np.minimum(arc, arc[-1] - arc) < ROW_END_FACES * spacing
+    worst = samples[int(distance.argmax())]
+    if local is None:
+        ends = np.zeros(len(samples), bool) if closed else np.minimum(arc, arc[-1] - arc) < ROW_END_FACES * spacing
+    else:
+        ends = np.zeros(len(samples), bool) if closed else (arc < ROW_END_FACES * spacing * local[0]) | (arc[-1] - arc < ROW_END_FACES * spacing * local[-1])
+        distance = distance / local
+        worst = samples[int(distance.argmax())]
     inner = ~ends
     values = dict(rowP95=float(np.percentile(distance[inner], 95)) if inner.any() else 0.,
                   rowMax=float(distance[inner].max()) if inner.any() else 0.,
                   rowEndMax=float(distance[ends].max()) if ends.any() else 0.,
                   rowTangentP95Degrees=float(np.percentile(angles[inner], 95)) if inner.any() else 0.)
-    return values, samples[int(distance.argmax())]
+    return values, worst
 
 
-def measure(source, triangles, edges, vertices, faces, spacing):
+def measure(source, triangles, edges, vertices, faces, spacing, sizes=None):
     """Row report: every representative crease chain needs one connected, ordered output edge path.
 
     Each chain is measured to its own path only. The path has to lie on the
@@ -465,13 +601,17 @@ def measure(source, triangles, edges, vertices, faces, spacing):
     from the representative minus a scalar allowance, so a row beside the band
     is charged its full gap whichever side it is on. The absorbed creases get
     no row of their own; they stay under the nearest-edge measure.
+
+    `sizes`: local_sizes when the user allows extra faces. A face is then the
+    local face at each crease edge, in the band rule, the two-face minimum and
+    every limit; each chain reports its smallest local face (`faceSize`).
     """
     source, vertices = np.asarray(source, float), np.asarray(vertices, float)
     edges = np.asarray(edges, int).reshape(-1, 2)
     faces = np.asarray(faces, int)
     limits = dict(rowP95=ROW_P95_FACES * spacing, rowMax=ROW_MAX_FACES * spacing, rowEndMax=ROW_END_FACES * spacing,
                   rowTangentP95Degrees=ROW_TANGENT_DEGREES)
-    rows, chosen, absorbed = representatives(source, triangles, edges, spacing)
+    rows, chosen, absorbed = representatives(source, triangles, edges, spacing, sizes)
     report = dict(policy=POLICY, minimumFaces=ROW_MIN_FACES, limits=limits, chains=[], required=len(rows), realized=0, passed=True,
                   representativeEdges=int(chosen.sum()), absorbedEdges=int(absorbed.sum()),
                   scope='One representative crease per band of parallel creases (the one bordering the wider sheet), joined into chains; '
@@ -479,13 +619,23 @@ def measure(source, triangles, edges, vertices, faces, spacing):
                         'Distance is from that path to the band span at each chain sample (the strip between the representative and the parallel '
                         'creases it absorbs); direction over one requested face; the last face of arc at each open end answers to the one-face '
                         'end limit only. Absorbed and shorter creases remain under the nearest-edge measure.')
+    if sizes is not None:
+        report.update(localFaces=True, smallestLocalFace=float(np.min(sizes)) if len(sizes) else 1., sizedEdges=int((np.asarray(sizes) < 1).sum()),
+                      localFaceScope='Extra faces allowed: a face is the local face at each crease edge (chain extent / '
+                                     f'{ROW_MIN_FACES:g}, at most the requested face, at least {SIZE_FLOOR:g} of it and at least half of the native '
+                                     'minimum feature length). The band reach, the two-face minimum, the '
+                                     'limits and the end zones use it; values are distances divided by the local face fraction, so they compare '
+                                     'with the same limits.')
     if not rows:
         return report
     output_edges = np.unique(np.sort(np.stack([faces, np.roll(faces, -1, 1)], axis=2).reshape(-1, 2), axis=1), axis=0)
     for row in rows:
         chain, closed = row['vertices'], row['closed']
         item = dict(sourceVertices=[int(chain[0]), int(chain[-1])], sourceVertexCount=len(chain), closed=closed, lengthFaces=row['length'] / spacing)
-        path = find_row(vertices, output_edges, source[chain], closed, spacing)
+        local = _row_sizes(row)
+        if local is not None:
+            item['faceSize'] = float(local.min())
+        path = find_row(vertices, output_edges, source[chain], closed, spacing, local)
         if not path:
             item.update(vertices=[], passed=False, failures=['rowMissing'])
         else:
@@ -493,10 +643,10 @@ def measure(source, triangles, edges, vertices, faces, spacing):
             partners = _MEMO.setdefault('partners', {})
             name = (chain[0], chain[-1], len(chain))
             if name not in partners:
-                partners[name] = band_edges(source, edges, [row], spacing)[1]
+                partners[name] = band_edges(source, edges, [row], spacing, sizes)[1]
             partner = partners[name]
             values, worst = measure_path(vertices, path, source[chain], closed, spacing,
-                                         (source[edges[partner, 0]], source[edges[partner, 1]]))
+                                         (source[edges[partner, 0]], source[edges[partner, 1]]), local)
             item['bandPartnerEdges'] = int(partner.sum())
             failures = [key for key, value in values.items() if value > limits[key]]
             item.update(vertices=[int(v) for v in path], values=values, worstSample=worst.tolist(), passed=not failures, failures=failures)
