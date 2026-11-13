@@ -151,15 +151,15 @@
   "picture": "tests/extra-faces/corners-1/corners-strict-extra-zbrush.png"
  },
  "extraFaces": {
-  "run": "ca8496fc2cbc",
+  "run": "84818ea170cf",
   "codeStable": true,
   "cases": [
    {
     "case": "island6-150",
     "passed": true,
     "faces": 421,
-    "seconds": 58.1,
-    "job": "registered-ca8496fc2cbc-island6-150",
+    "seconds": 90.3,
+    "job": "registered-84818ea170cf-island6-150",
     "outputSha256": "3aed9fd8fedebe6ddc9e768368b3d5917a44e2b8748a070e7f2c3cc75a109eb7",
     "cornerZones": {
      "enforced": true,
@@ -180,15 +180,15 @@
    {
     "case": "island6-200",
     "passed": true,
-    "faces": 466,
-    "seconds": 50.1,
-    "job": "registered-ca8496fc2cbc-island6-200",
-    "outputSha256": "77692824bbe701db09ad43fa323b528f72452f492dc0486f8a731d9329328fad",
+    "faces": 445,
+    "seconds": 68.2,
+    "job": "registered-84818ea170cf-island6-200",
+    "outputSha256": "b88482c3c0185f2e5e4a620f6ea5a1a1ebd37c2a92ba49ab7c2e47b17991afb5",
     "cornerZones": {
      "enforced": true,
      "passed": true,
-     "worstP95InFaces": 0.13935684125295497,
-     "worstMaxInFaces": 0.22508340806385724,
+     "worstP95InFaces": 0.16075999429105378,
+     "worstMaxInFaces": 0.2229725219750781,
      "limits": {
       "p95InFaces": 0.25,
       "maxInFaces": 0.5
@@ -204,8 +204,8 @@
     "case": "island6-200-guide",
     "passed": true,
     "faces": 436,
-    "seconds": 38.1,
-    "job": "registered-ca8496fc2cbc-island6-200-guide",
+    "seconds": 54.2,
+    "job": "registered-84818ea170cf-island6-200-guide",
     "outputSha256": "af8c5381061fbb078786246691ab450e9594351b76724bd173fc849c66378015",
     "cornerZones": {
      "enforced": true,
@@ -234,8 +234,8 @@
     "case": "island6-300",
     "passed": true,
     "faces": 655,
-    "seconds": 120.2,
-    "job": "registered-ca8496fc2cbc-island6-300",
+    "seconds": 146.2,
+    "job": "registered-84818ea170cf-island6-300",
     "outputSha256": "4dd113e904cd9ba7d973c5a1f54fcea0f8c991e32181e5e5055f825a5b48f818",
     "cornerZones": {
      "enforced": true,
@@ -257,8 +257,8 @@
     "case": "island6-750-guide",
     "passed": true,
     "faces": 1848,
-    "seconds": 192.5,
-    "job": "registered-ca8496fc2cbc-island6-750-guide",
+    "seconds": 227.0,
+    "job": "registered-84818ea170cf-island6-750-guide",
     "outputSha256": "db71e01cd54863b3fef45b3611b7a09ae29ad5bba22eea7cc61b89e7bc0412af",
     "cornerZones": {
      "enforced": true,
@@ -282,9 +282,32 @@
       "passed": true
      }
     ]
+   },
+   {
+    "case": "island6-1500",
+    "passed": true,
+    "faces": 2998,
+    "seconds": 344.9,
+    "job": "registered-84818ea170cf-island6-1500",
+    "outputSha256": "fbd4b0b19e72ce04f934eb477e326f1c4b2fa0d620880f2d154c096c2d9cc20b",
+    "cornerZones": {
+     "enforced": true,
+     "passed": true,
+     "worstP95InFaces": 0.1269583729967251,
+     "worstMaxInFaces": 0.1607233009172489,
+     "limits": {
+      "p95InFaces": 0.25,
+      "maxInFaces": 0.5
+     }
+    },
+    "creaseRows": {
+     "required": 28,
+     "realized": 28,
+     "localFaces": true
+    }
    }
   ],
-  "evidence": "tests/extra-faces/corners-1/extra-island6-7"
+  "evidence": "tests/extra-faces/corners-1/extra-island6-10"
  },
  "ui": {
   "boxChecked": {
@@ -384,18 +407,28 @@
  },
  "strictCount": {
   "matrix": {
-   "run": "2bdcf1f3e24d",
+   "run": "4eb22b811542",
    "codeStable": true,
-   "passed": 8,
+   "passed": 9,
    "comparedWithRun": "8a240b30812b",
-   "sameBytesAsBefore": true,
+   "sameBytesAsBefore": {
+    "island6-150": true,
+    "island6-200": true,
+    "island6-200-guide": true,
+    "island6-300": true,
+    "island6-750-guide": true,
+    "island6-1500": "new case",
+    "island2-300": true,
+    "island7-300": true,
+    "island10-500": false
+   },
    "cases": [
     {
      "case": "island6-150",
      "passed": true,
      "faces": 143,
-     "seconds": 168.7,
-     "job": "registered-2bdcf1f3e24d-island6-150",
+     "seconds": 194.5,
+     "job": "registered-4eb22b811542-island6-150",
      "outputSha256": "ec5d84948c56bd81351ec75eb38e14a0a60180a3cf3544a3df55858f408004b5",
      "cornerZones": {
       "enforced": false,
@@ -417,8 +450,8 @@
      "case": "island6-200",
      "passed": true,
      "faces": 220,
-     "seconds": 146.6,
-     "job": "registered-2bdcf1f3e24d-island6-200",
+     "seconds": 98.2,
+     "job": "registered-4eb22b811542-island6-200",
      "outputSha256": "95d9475abbda2913a69e6f455181f3ffb96e72a51621420d7f2b29c965f06b4c",
      "cornerZones": {
       "enforced": false,
@@ -440,8 +473,8 @@
      "case": "island6-200-guide",
      "passed": true,
      "faces": 204,
-     "seconds": 48.2,
-     "job": "registered-2bdcf1f3e24d-island6-200-guide",
+     "seconds": 52.2,
+     "job": "registered-4eb22b811542-island6-200-guide",
      "outputSha256": "48c6cea38a1b98ad50b262a4799fd4cd9c0e26c5b21943f3d87ddb8d638b3d4c",
      "cornerZones": {
       "enforced": false,
@@ -470,8 +503,8 @@
      "case": "island6-300",
      "passed": true,
      "faces": 308,
-     "seconds": 84.1,
-     "job": "registered-2bdcf1f3e24d-island6-300",
+     "seconds": 102.2,
+     "job": "registered-4eb22b811542-island6-300",
      "outputSha256": "6629436d32f6abd99c1c966897a1df1b1b2c7c927caff7fc8db64127b8477d71",
      "cornerZones": {
       "enforced": false,
@@ -493,8 +526,8 @@
      "case": "island6-750-guide",
      "passed": true,
      "faces": 798,
-     "seconds": 80.5,
-     "job": "registered-2bdcf1f3e24d-island6-750-guide",
+     "seconds": 68.5,
+     "job": "registered-4eb22b811542-island6-750-guide",
      "outputSha256": "642bbc636d8f17792eb29a3013b94ead9beab293485d1b04bc63a68023bab144",
      "cornerZones": {
       "enforced": false,
@@ -520,11 +553,34 @@
      ]
     },
     {
+     "case": "island6-1500",
+     "passed": true,
+     "faces": 1557,
+     "seconds": 308.7,
+     "job": "registered-4eb22b811542-island6-1500",
+     "outputSha256": "484b1df7eca81cbe019bf4b83c6194cee3d6e70190d005e3c9147095a812fa51",
+     "cornerZones": {
+      "enforced": false,
+      "passed": false,
+      "worstP95InFaces": 0.26327023202445504,
+      "worstMaxInFaces": 0.32316124288208686,
+      "limits": {
+       "p95InFaces": 0.25,
+       "maxInFaces": 0.5
+      }
+     },
+     "creaseRows": {
+      "required": 20,
+      "realized": 20,
+      "localFaces": false
+     }
+    },
+    {
      "case": "island2-300",
      "passed": true,
      "faces": 291,
      "seconds": 6.0,
-     "job": "registered-2bdcf1f3e24d-island2-300",
+     "job": "registered-4eb22b811542-island2-300",
      "outputSha256": "2589e603b33d30875700faa5e5aa20bf8650d7b5c95aab2be1b8519a4b17be69",
      "creaseRows": {
       "required": null,
@@ -536,8 +592,8 @@
      "case": "island7-300",
      "passed": true,
      "faces": 339,
-     "seconds": 20.1,
-     "job": "registered-2bdcf1f3e24d-island7-300",
+     "seconds": 18.0,
+     "job": "registered-4eb22b811542-island7-300",
      "outputSha256": "7af7cbe32a8d6cafe3e6391f91f22b2e282d70d622c28aa9c948b06260aa0ffa",
      "creaseRows": {
       "required": 5,
@@ -548,15 +604,15 @@
     {
      "case": "island10-500",
      "passed": true,
-     "faces": 559,
-     "seconds": 48.1,
-     "job": "registered-2bdcf1f3e24d-island10-500",
-     "outputSha256": "d97611bed9e84bd2158b513efa3c6a94bc3d6506d4553a98361018e6b0480534",
+     "faces": 442,
+     "seconds": 40.1,
+     "job": "registered-4eb22b811542-island10-500",
+     "outputSha256": "2d8a4511ede7393afaee4c9299764f518bc564897a11655d8916998823ac3887",
      "cornerZones": {
       "enforced": false,
       "passed": true,
-      "worstP95InFaces": 0.15733951032259605,
-      "worstMaxInFaces": 0.1738333416183295,
+      "worstP95InFaces": 0.15940253928968065,
+      "worstMaxInFaces": 0.18960941821361174,
       "limits": {
        "p95InFaces": 0.25,
        "maxInFaces": 0.5
@@ -569,7 +625,7 @@
      }
     }
    ],
-   "evidence": "tests/extra-faces/corners-1/matrix-6"
+   "evidence": "tests/extra-faces/corners-1/matrix-9"
   },
   "searchWithCornersEnforced": {
    "target": 200,
@@ -973,7 +1029,7 @@
  "speed": {
   "rule": "Rows layouts are processed three at a time in other processes and taken in plan order; every output is the same bytes as one at a time.",
   "workers": 3,
-  "sameBytes": true,
+  "sameBytes": "Every output had the same bytes one layout at a time and three at a time (runs 39949fbf3d5a / 318e43ae6356 and b20cd86d42e8 / 5b311cff1e2b).",
   "secondsOneAtATime": {
    "extra faces: island6-150": 50.1,
    "extra faces: island6-200": 76.1,
@@ -990,30 +1046,37 @@
    "strict: island10-500": 52.1
   },
   "secondsThreeAtATime": {
-   "extra faces: island6-150": 58.1,
+   "extra faces: island6-150": 52.1,
    "extra faces: island6-200": 50.1,
-   "extra faces: island6-200-guide": 38.1,
-   "extra faces: island6-300": 120.2,
-   "extra faces: island6-750-guide": 192.5,
-   "strict: island6-150": 168.7,
-   "strict: island6-200": 146.6,
-   "strict: island6-200-guide": 48.2,
-   "strict: island6-300": 84.1,
-   "strict: island6-750-guide": 80.5,
-   "strict: island2-300": 6.0,
-   "strict: island7-300": 20.1,
-   "strict: island10-500": 48.1
+   "extra faces: island6-200-guide": 34.1,
+   "extra faces: island6-300": 94.1,
+   "extra faces: island6-750-guide": 152.3,
+   "strict: island6-150": 134.3,
+   "strict: island6-200": 82.2,
+   "strict: island6-200-guide": 32.1,
+   "strict: island6-300": 54.1,
+   "strict: island6-750-guide": 46.2,
+   "strict: island2-300": 4.0,
+   "strict: island7-300": 12.0,
+   "strict: island10-500": 40.0
   },
   "note": "One run per number on a machine with about 15 % background load; timings moved by ten seconds and more between runs."
  },
  "unitTests": {
-  "total": 253,
-  "passed": 253,
+  "total": 256,
+  "passed": 256,
   "new": [
    "tests/test_corner_zones.py (11)",
-   "tests/test_crease_rows.py (13 added)",
+   "tests/test_crease_rows.py (16 added)",
    "tests/test_quad_connectivity.py (1 added)"
   ]
+ },
+ "directionMeasure": {
+  "date": "2026-11-13",
+  "change": "crease_rows.measure_path compares a row edge with the stretch of chain between the nearest chain points of its two ends; the one-face chain chord against a single row edge charged a corner of the chain to a row lying on it",
+  "limitUnchanged": "30 degrees",
+  "effect": "island 6 at 200 with extra faces: 445 quads (was 466); every other verification output keeps its bytes",
+  "nativeReference": "runs/native-rim-investigation/native-captures/baseline/island6-keep-creases-{1.5k,3k,7.2k}-high30a1"
  },
  "engine": {
   "build": "constrained-sizes-19",
@@ -1085,9 +1148,9 @@
  },
  "sourceHashes": {
   "corner_zones.py": "d58086e25ccd49864e8b1f9d7a8084dd6e2cb5b5fd8f90bd4f586b08328e2c88",
-  "crease_rows.py": "1ad07039e52c80dc8020480b629af1faf78e4464c4bdab27aedcaec4250f21d8",
+  "crease_rows.py": "8701559fcd6db5a18394a52782a1273f79bc1d3eeccbfd9852b9fd1daa68d6c0",
   "source_features.py": "0db8c933a4e95a4d7ad261fc99315e23cb46bab5b95ebae59b8fc30c274ca697",
-  "open_surface.py": "12f0355cab3aa706a40abd7030a6ad4412a78037f8461788b90d7fa6cd5f4b8a",
+  "open_surface.py": "f016c7d2e9e29808fd148adb464befedad4a4cd96988217c5653da5f2b6a3b75",
   "registered_features.py": "b8f8dceefa09b75eb409bc73ef2936b2042794db5b9ae5e9fd929ecc05b3984b",
   "feature_refine.py": "99d8033cbe274c84d5aa3a7a8486c074aff86bc21713b58c6960dbc5b18ebd7d",
   "quad_connectivity.py": "801fadfde516d504ffc09e76400acdc672e75860d44eb68eafcc0cd4d77340ea",
@@ -1120,14 +1183,15 @@
   "note": "Island 6 without a guide, scratch runs with three layout processes, 2026-11-11/12. Targets above about 750 are rejected in both modes; see GUIDED_LAYOUT.md, High targets.",
   "userJob": "5a80a3ff627b4ceb95bf9534075a065c (7,200, extra faces): killed at the ten-minute limit while laying out all 64 seeds; fixed, now rejected at about 430 s",
   "results": {
-   "1500 unchecked": "rejected, 493 s; best candidate has all 20 rows and a boundary 0.119 h off against 0.1 h",
-   "1500 extra faces": "rejected, 446 s; 4 to 12 of 28 rows missing before fitting",
+   "1500 unchecked": "accepted since 2026-11-13: 1,557 quads (was rejected, 493 s; best candidate had all 20 rows and a boundary 0.119 h off against 0.1 h)",
+   "1500 extra faces": "accepted since 2026-11-13: 2,998 quads, 28 of 28 rows, corners enforced (was rejected, 446 s)",
+   "3000 extra faces": "rejected, 427 s",
    "7200 unchecked": "rejected, 426 s; 7 to 13 of 29 rows missing before fitting in all 46 layouts",
    "7200 extra faces": "rejected, 431 s"
   }
  },
  "limitations": [
-  "Targets above about 750 are rejected on island 6 in both modes (parallel creases a fraction of a face apart each need a row; the engine has no separation step).",
+  "Targets of 3,000 and 7,200 are rejected on island 6 (parallel creases a fraction of a face apart each need a row; the engine has no separation step).",
   "The steps live inside the 420 s solver budget; a part that needs a third step, or slower layouts, ends in the last resort with its corners reported as coarse. No case ends there with the final code.",
   "Rows and the guide loop still come from screening seeds; the engine guarantees neither.",
   "Long parallel creases (rim wall, back step) are still one band; native keeps both with thin quads that fail this application's shape limits.",

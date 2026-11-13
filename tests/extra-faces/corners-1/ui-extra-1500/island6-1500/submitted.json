@@ -1,0 +1,10 @@
+{
+  "requestId": "a1f33d40cef64610bb917342dc8f9766",
+  "meshId": "toilet-skp",
+  "partSource": "617dd8f640bfa84d6af2fb6e4b080ec1bc73328db4941a49a1375d18b7817db1",
+  "curves": [],
+  "target": 1500,
+  "guideMode": 2,
+  "creaseAngle": 30,
+  "allowExtraFaces": true
+}

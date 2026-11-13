@@ -1,0 +1,65 @@
+{
+  "meshId": "toilet-skp--part-skp-6",
+  "guides": [],
+  "target": 1500,
+  "mode": 2,
+  "creaseAngle": 30,
+  "autoGuideEdges": 283,
+  "autoGuidesVisible": true,
+  "resultFaces": 2998,
+  "resultJob": "a90bf7fff9164e0b82c6cb0d47002df5",
+  "lastAttempt": {
+    "phase": "complete",
+    "message": "",
+    "jobId": "a90bf7fff9164e0b82c6cb0d47002df5",
+    "target": 1500,
+    "guideCount": 0,
+    "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003"
+  },
+  "resultGuideOverlayVisible": true,
+  "busy": false,
+  "dirty": false,
+  "view": "split",
+  "tool": "select",
+  "draft": [],
+  "sourceStats": {
+    "triangles": 2824,
+    "quads": 0
+  },
+  "sourceMaterial": {
+    "color": "f5f5f2",
+    "metalness": 0
+  },
+  "guideDocument": [],
+  "guideHistory": {
+    "index": 0,
+    "length": 0,
+    "undo": [],
+    "redo": []
+  },
+  "guideRevisions": {},
+  "interaction": {
+    "tool": "select",
+    "selection": {
+      "model": "object",
+      "entityIds": [
+        "part:skp-6"
+      ],
+      "activeEntityId": "part:skp-6",
+      "pointId": null,
+      "revision": 3
+    },
+    "activationId": "d3705d57-e33c-4830-9bc1-d680c770e068",
+    "activityId": null,
+    "pointerId": null,
+    "sequenceId": null,
+    "temporary": false,
+    "invalid": false,
+    "constructionType": null,
+    "constructionPreview": null,
+    "closureSnap": null,
+    "draft": [],
+    "candidates": []
+  },
+  "guideErrors": []
+}

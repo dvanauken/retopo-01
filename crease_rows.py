@@ -570,6 +570,16 @@ def measure_path(vertices, path, curve, closed, spacing, partners=None, sizes=No
         closer = values < distance
         distance[closer], nearest[closer] = values[closer], ids[closer]
     chords = _window_chords(samples, finest, closed)
+    # Direction compares the same stretch on both sides: the nearest row edge against the chain
+    # between the nearest chain points of that edge's two ends. The chain's one-face chord against
+    # a single row edge charged a corner of the chain itself to a row lying on it (island 6 feet,
+    # a 95 degree corner at a plain chain vertex: ZBrush's row 0.01 h from the crease read 33
+    # degrees at 7,200). An edge whose ends meet the chain at one point covers no stretch and
+    # answers to the chain's one-face chord at the sample.
+    on_chain = _at(curve, _arc(curve), _nearest(vertices[path], curve)[1])
+    stretch = np.diff(on_chain, axis=0)[nearest]
+    covered = np.linalg.norm(stretch, axis=1) > 1e-9 * finest
+    chords[covered] = stretch[covered]
     norms = np.linalg.norm(chords, axis=1) * np.sqrt(squared[nearest])
     cosine = np.divide(np.abs((chords * delta[nearest]).sum(1)), norms, out=np.ones(len(samples)), where=norms > 0)
     angles = np.degrees(np.arccos(np.clip(cosine, 0, 1)))

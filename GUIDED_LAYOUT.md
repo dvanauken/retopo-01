@@ -1231,10 +1231,12 @@ the last batch's time says cannot finish inside the 420 s budget. The same case
 now ends at 431 s with a rejection and its message. At 150 to 750 all 64 seeds
 finish inside the 60 s and nothing changes.
 
-**The working range ends between 750 and 1,500, in both modes.** This is not
+**The working range ended between 750 and 1,500, in both modes** (it now
+reaches 1,500; see "1,500 now passes" below). This is not
 new with the corner work: it comes from requiring a row on every chain of two
 faces or more (2026-11-09), which was only ever run at 150 to 750. Measured on
-island 6 without a guide, scratch runs with three layout processes:
+island 6 without a guide, scratch runs with three layout processes, before the
+fixes below:
 
 | Target | Unchecked | Box checked |
 |---|---|---|
@@ -1275,3 +1277,101 @@ layout engine (the native integer step), or a decision that pairs under some
 gap share a row at every target. The second is a product decision about how
 the rim should look at high counts; the first is the engine work this document
 has listed since the rim investigation.
+
+### 1,500 now passes in both modes; 3,000 and 7,200 do not (2026-11-12/13)
+
+Committed first as `e0cc367`, then this step on top.
+
+**Boundary fit repeated while the check would fail** (`open_surface.conform_boundaries`).
+The nearest miss above was a 3,000 layout thinned to 1,557 quads with every row
+in place and a boundary 0.119 h off. One 20 degree bend of the source boundary
+lay beside a 1.4 h output edge: `conform_ring` anchors vertices as it goes and
+can stop with a bend still cut. It is now run again, up to three more times,
+only while the boundary check itself would fail, so a boundary that passes is
+never touched. A rejection can become a pass; nothing else changes.
+
+**The last resort with extra faces starts with the thinned layouts.** They are
+what the unchecked mode ends with, they carry rows on close parallel creases
+(at twice the faces the pairs are about one face apart, and strip collapse
+keeps both rows), and three of them cost little. Before, they sat at the very
+end of the plan and were never reached with the box checked.
+
+**A step does not start a batch of layouts it cannot finish before its own
+time is up.** One 3,375-face batch started at 256 s and ended at 409 s.
+
+Results, real worker (`tests/verify_registered_features.py`, now nine cases with
+`island6-1500`; runs `75437044fa95` unchecked and `4f2e7249ca26` with
+`--extra-faces`, code stable, 9 of 9 and 6 of 6):
+
+| Island 6 at 1,500 | Result | Rows | Corner zones | Time | Job |
+|---|---|---|---|---|---|
+| Unchecked | 1,557 quads, a 3,000 layout thinned | 20 / 20 | 0.263 / 0.323 h, over, reported | 265 s | `registered-75437044fa95-island6-1500` |
+| Box checked | 2,998 quads, base faces 2,250 (first step) | 28 / 28 with local faces | 0.127 / 0.161 h, enforced | 278 s | `registered-4f2e7249ca26-island6-1500` |
+
+With the box checked the outcome depends on time: when the first step gets
+its turn it returns the 2,998 quads above; in one scratch run under load it ran
+out of time and the last resort returned the unchecked mode's 1,557 quads with
+the corner reported as coarse (498 s, before the batch guard).
+
+Every other case keeps its bytes, with one exception. **Island 10 at 500 now
+returns 442 quads instead of 559**: layout seed 9, which used to be rejected on
+its boundary alone, passes after the repeated boundary fit and comes before
+seed 13 in the search. Both meshes pass every check; the new one has 6 of 6
+rows, an edge ratio of 1.93 at the 95th percentile against 3.24, and is found
+in 30 s instead of 40 to 50.
+
+Still rejected, island 6 without a guide (scratch runs):
+
+- **3,000 with the box checked**, 427 s. Layouts at the target miss about 6 of
+  37 rows; the steps run out of time; of the three thinned 6,000 layouts one
+  has 19 of 20 rows within the pre-fit screen and is not fitted, one has no
+  row path on one crease, one has a degenerate boundary.
+- **7,200**, both modes, about 430 s (see the table above).
+- Keeping the finer layout without thinning (2,947 quads for 1,500) was tried:
+  corners 0.19 / 0.22 h, but 17 to 19 of 20 rows, the rim rows just over their
+  limits. Thinning is what leaves the rows clean. Not in the code.
+
+What is left for higher targets is unchanged: the engine cannot hold two rows
+a fraction of a face apart, layouts and fits are slow at those sizes, and the
+row direction limit fails short curved chains at 7,200 (that last one was the
+measure; see the next section).
+
+### ZBrush at high counts, and a fix to the row direction measure (2026-11-13)
+
+**ZBrush on the same part.** Island 6, Keep Creases at 30°, fresh owned batch
+runs (`runs/native-rim-investigation/native-captures/baseline/island6-keep-creases-{1.5k,3k,7.2k}-high30a1`):
+1,986 / 3,116 / 7,818 faces in 1 to 2 s. Put through this application's
+checks, ZBrush's own meshes fail at every one of these counts:
+
+| ZBrush, target | Rows (before the fix below) | Rows (after) | Corner zones | Edge ratio P95 (limit 3.5) |
+|---|---|---|---|---|
+| 1,500 | 19 / 20 | 19 / 20 | over | 8.3 |
+| 3,000 | 16 / 20 | 17 / 20 | over | 4.0 |
+| 7,200 | 24 / 29 | 27 / 29 | over | 4.7 |
+
+Shape and corner numbers leave out ZBrush's 32 to 91 triangles; rows use every
+polygon edge.
+
+**The direction measure was wrong** (`crease_rows.measure_path`). It compared
+the chain's chord over one face with the single nearest row edge. On a chain
+with a sharp corner at a plain vertex (the feet: 95° in the middle of a
+seven-vertex chain) the chord cuts the corner, so a row lying exactly on the
+crease read 26° to 33° off; ZBrush's rows 0.01 h from their creases failed the
+30° limit at 7,200. Now the row edge is compared with the stretch of chain
+between the nearest chain points of its two ends (the same stretch on both
+sides); an edge whose two ends meet the chain at one point (an edge straight
+across it) still answers to the chain's own chord. The 30° limit is unchanged.
+Tests: `tests/test_crease_rows.py` → `CorneredChain` (a row on a cornered chain
+measures 0°; a zigzag along it and a staircase across a straight chain still
+fail). The authored-guide check uses the same function and is unchanged on its
+tests.
+
+What ZBrush still fails after the fix is not the measure: rows 0.4 to 0.73 h
+from their crease (1,500, 3,000), rows that stop more than a face short of a
+chain end, and three short foot chains with no row. Those limits stay.
+
+Verification with the fix (runs `4eb22b811542` unchecked, 9 of 9, and
+`84818ea170cf` with `--extra-faces`, 6 of 6, code stable): every output is the
+same bytes as before except **island 6 at 200 with the box checked: 445 quads
+instead of 466**. A smaller layout that failed only the direction reading now
+passes and comes first; its rows and corners pass their limits.

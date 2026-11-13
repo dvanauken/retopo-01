@@ -129,8 +129,8 @@ These preferences are firm. Each one came from a correction.
     `constrained-edges-18` sources, `build-records/constrained-edges-17` and
     `-18` are new, and `work/retopo-lowcount/AUDIT.md` has a section 9.
 - Tests: run `python -X utf8 -m unittest discover -s tests -p "test_*.py"`. It
-  runs 253 tests (228 before the corner work, plus 11 in
-  `test_corner_zones.py`, 13 in `test_crease_rows.py` and 1 in
+  runs 256 tests (228 before the corner work, plus 11 in
+  `test_corner_zones.py`, 16 in `test_crease_rows.py` and 1 in
   `test_quad_connectivity.py`) and all pass.
   The old error, a Windows file-lock race in `test_server_startup` tearDown
   (`startup.log` still open), is fixed in the test's cleanup: it now retries
@@ -214,7 +214,7 @@ What is still open here:
   about 160 s. The engine still guarantees nothing.
 - **Other parts were not run with extra faces.** Closed parts ignore the option.
 
-### 4.01 Targets above about 750 fail on island 6, in both modes (open)
+### 4.01 Targets above 1,500 fail on island 6, in both modes (1,500 fixed 2026-11-13)
 
 User-visible symptom: job `5a80a3ff627b4ceb95bf9534075a065c` (island 6, target
 7,200, box checked): "The mesh calculation exceeded the ten-minute limit."
@@ -224,7 +224,18 @@ was tried; at 7,200 a layout takes 55 s, so nothing was ever tried. The
 up-front layout now stops after 60 s and no batch is started that cannot
 finish inside the budget. The case ends at about 430 s with a rejection.
 
-**Not fixed:** the rejection itself. Measured: 1,500 and 7,200 are rejected
+**Fixed since (2026-11-13):** 1,500 passes in both modes and is a regular
+verification case (`island6-1500`): 1,557 quads unchecked (a 3,000 layout
+thinned by strip collapse), 2,998 quads with the box checked (first
+smaller-base step, 28 of 28 rows, corners enforced). Three changes: the
+boundary fit is repeated while the boundary check would fail
+(`conform_boundaries`), the last resort with extra faces starts with the
+thinned layouts, and a step starts no batch it cannot finish before its own
+deadline. Island 10 at 500 now returns 442 quads instead of 559 (a layout that
+failed only its boundary now passes and comes first).
+
+**Not fixed:** 3,000 (box checked, 427 s) and 7,200 (both modes) are rejected.
+Measured before these fixes: 1,500 and 7,200 rejected
 with the box checked and unchecked; 150 to 750 pass. Full account:
 `GUIDED_LAYOUT.md` → "High targets: what fails, and what was fixed". In short:
 
@@ -234,16 +245,37 @@ with the box checked and unchecked; 150 to 750 pass. Full account:
   gives the pair one row. Native separates such lines in its integer solve
   (`0x28fe70`); this engine has no such step. Same gap as section 4.1's
   "parameter chart and combined solve".
-- The row direction limit fails short curved chains at 7,200 even with the row
-  within 0.15 of a face of its crease.
+- The row direction limit failed short curved chains at 7,200 even with the row
+  within 0.15 of a face of its crease. **Fixed 2026-11-13: that was the
+  measure** (a chain corner charged to the row; `crease_rows.measure_path`).
+  ZBrush's own meshes at 1,500 / 3,000 / 7,200 fail this application's row,
+  corner and shape checks too (`GUIDED_LAYOUT.md` → "ZBrush at high counts").
+  Island 6 at 200 with the box checked now returns 445 quads instead of 466.
 - Unchecked at 1,500 is the nearest miss: a thinned 3,000 layout has all 20
   rows and fails only the boundary check, 0.119 h against 0.1 h.
 - Sizing faces to the pair gap (extra faces) was tried and removed: it fixed
   the back pair, not the rim, and no case passed.
-- Decision that may be the user's: whether close parallel creases should
-  share a row at every target (a rule in faces of the requested size stops
-  merging them as the target grows), or the engine must be made to separate
-  them.
+- **Decided by the user (2026-11-13): no stand-in.** Do not imitate the
+  native separation inside QuadriFlow (pinned rows plus sizes). The plan is
+  ZBrush's actual pipeline for open parts: the recovered parameter chart and
+  integer solve (workbench `targets/zbrush/understanding/guided/`), extended
+  to boundaries by recovering native's boundary branches (Ghidra project
+  `ghidra-projects/zbrush/ZBrushengine.gpr`, tracer
+  `runs/native-rim-investigation/native-captures/scripts/trace_native_rim_parameter_v3.py`).
+  Expect weeks; the outcome is not promised.
+- **Progress (2026-11-13):** stages 1 to 9 of 17 run on open sources and
+  match ZBrush byte for byte on island 6 from the original packet alone:
+  densification, hard edges from the packet's crease flags, locked
+  conditioning, the 78 hard-edge guide paths and the adjacency cleanup, ending
+  in the 11,332-vertex source ZBrush computes its field on; and stages 6 to 8,
+  the field production and the angular solve, whose solved angles and quarter
+  transitions are byte-identical to ZBrush's. New modules only (`recovered_open_*.py` in the workbench, entries
+  `recovered_open_guided_source.prepare`, `recovered_open_guide_field.prepare`).
+  Stage 9 (30 singular seeds) and the cut connector of stage 10 (166 cut
+  edges) are exact too. Next: what ZBrush does to that cut before flattening
+  (`0x304d40`; its final cut has 238 edges), then stages 11 to 17. Status,
+  captures and recovered rules in workbench
+  `targets/zbrush/understanding/guided/OPEN_SOURCE_PORT.md`.
 
 ### 4.0 Guides were not cut into the source (fixed for open parts, 2026-11-10)
 
@@ -467,7 +499,8 @@ Ask about these; do not decide them silently:
   writes the guide, rim and witness numbers beside the picture.
 - The matrix compares code hashes before and after its run. Do not edit a root
   `.py` file while it runs, or it reports `codeStable False` and exits 1.
-- Expected matrix result: 8 of 8 (run `2bdcf1f3e24d`, the same bytes as run
+- Expected matrix result: 9 of 9 (run `75437044fa95`; `island6-1500` is new and
+  island 10 returns 442 quads since 2026-11-13). Before that: 8 of 8 (run `2bdcf1f3e24d`, the same bytes as run
   `8a240b30812b`). Each strict island 6 result reports its corner zones as over
   the limits; that is expected and is not a failure. A run takes about 10
   minutes. Read the `RESULT` lines; times vary with machine load, bytes do

@@ -1,0 +1,25 @@
+{
+  "case": "island7-300",
+  "part": "skp-7",
+  "job": "C:\\dbva\\code\\retopo-1\\runs\\registered-75437044fa95-island7-300",
+  "settings": {
+    "meshId": "toilet-skp",
+    "partSource": "7ebba1b63a3446022b3eda7a5a8b64574d400f3835f2bc089fd59aa7697fc3c2",
+    "target": 300,
+    "guideMode": 2,
+    "creaseAngle": 30.0,
+    "sourceSha256": "04907b10adb15974b51004ae4bfd9d62b93f50b81ec7728066edd24bfd0ca7c4",
+    "originalSourceSha256": "b6ffc92d9da3c2ceb9d9bd95439e92a04a9ffa16ce744c480e381a829b881bc4"
+  },
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--feature-layout",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\registered-75437044fa95-island7-300"
+  ],
+  "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e",
+  "guideCount": 0
+}

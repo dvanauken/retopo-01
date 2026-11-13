@@ -1,0 +1,759 @@
+{
+  "case": "island10-500",
+  "part": "skp-10",
+  "job": "C:\\dbva\\code\\retopo-1\\runs\\registered-4eb22b811542-island10-500",
+  "settings": {
+    "meshId": "toilet-skp",
+    "partSource": "7ad412668c2a2efaa313987bba229a888dc203a47909c5bba5e1dfa2c62a420e",
+    "target": 500,
+    "guideMode": 2,
+    "creaseAngle": 30.0,
+    "sourceSha256": "9a514bd48ad3eb914248c72b29b08be18025301f746641968bec6d1798be51e8",
+    "originalSourceSha256": "b6ffc92d9da3c2ceb9d9bd95439e92a04a9ffa16ce744c480e381a829b881bc4"
+  },
+  "command": [
+    "C:\\Users\\Buddy\\miniforge3\\python.exe",
+    "-X",
+    "utf8",
+    "C:\\dbva\\code\\retopo-1\\worker.py",
+    "--feature-layout",
+    "--job",
+    "C:\\dbva\\code\\retopo-1\\runs\\registered-4eb22b811542-island10-500"
+  ],
+  "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e",
+  "guideCount": 0,
+  "exitCode": 0,
+  "observedSeconds": 40.125,
+  "report": {
+    "passed": true,
+    "constructionCompleted": true,
+    "vertices": 478,
+    "faces": 442,
+    "elapsedSeconds": 34.79700000002049,
+    "sourceSha256": "9a514bd48ad3eb914248c72b29b08be18025301f746641968bec6d1798be51e8",
+    "curvesSha256": "f70a69bedd13dbe538008c78a839e011ef9fe82bce1e3b1fc564eef23dbe367e",
+    "outputSha256": "2d8a4511ede7393afaee4c9299764f518bc564897a11655d8916998823ac3887",
+    "workerSha256": "16d1811700c6dee0aeb1a1e91cba8f81dea91de5b9aff16f256bc6e02fbcb854",
+    "backend": "engineering-guided-surface-quads",
+    "qualityPassed": true,
+    "quality": {
+      "quadOnly": true,
+      "faces": 442,
+      "minimumAngleDegrees": 35.40137960629048,
+      "angleP05Degrees": 80.58033900438522,
+      "maximumAngleDegrees": 146.25961566777266,
+      "edgeRatioP95": 1.934319630059257,
+      "edgeRatioMax": 4.816394387238577,
+      "scaledJacobianMin": 0.5465274396270227,
+      "scaledJacobianP05": 0.9570887097713424,
+      "edgeLengthCV": 0.14642125928932384,
+      "adjacentAreaRatioP95": 1.5686498610228963,
+      "valence4Fraction": 0.8451882845188284,
+      "irregularVertices": 74,
+      "targetRelativeError": 0.116,
+      "countPolicy": "within tolerance of the request",
+      "passed": true,
+      "failures": [],
+      "limits": {
+        "minimumAngleDegrees": 30.0,
+        "edgeRatioP95": 3.5,
+        "edgeRatioMax": 6.0,
+        "scaledJacobianMin": 0.45,
+        "adjacentAreaRatioP95": 4.0,
+        "targetRelativeError": 0.15
+      },
+      "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+    },
+    "scope": "Actual original-input construction from user surface guides. No native process or native output oracle. Geometry validation and methods retained."
+  },
+  "passed": true,
+  "result": {
+    "stats": {
+      "vertices": 478,
+      "usedVertices": 478,
+      "unusedVertices": 0,
+      "faces": 442,
+      "edges": 919,
+      "faceSizes": {
+        "4": 442
+      },
+      "triangles": 0,
+      "quads": 442,
+      "triangleFraction": 0.0,
+      "quadFraction": 1.0,
+      "otherPolygonFraction": 0.0,
+      "faceConnectedComponents": 1,
+      "componentFaceCounts": [
+        442
+      ],
+      "boundaryEdges": 70,
+      "boundaryComponents": 1,
+      "closedBoundaryLoops": 1,
+      "nonmanifoldEdges": 0,
+      "repeatedIndexFaces": 0,
+      "zeroAreaFanTriangles": 0,
+      "nonconvexProjectedPolygons": 0,
+      "maxQuadFourthPointPlaneDistance": 0.012511947659656908,
+      "eulerCharacteristic": 1,
+      "bounds": [
+        [
+          -0.6101991926490337,
+          0.4383463452213008,
+          0.8433240104756743
+        ],
+        [
+          0.6035443868927575,
+          0.9961498120341047,
+          0.8980803929744754
+        ]
+      ],
+      "edgeLengths": {
+        "min": 0.0115363787689422,
+        "median": 0.04518138116234742,
+        "max": 0.09153937137802029
+      },
+      "canonicalGeometrySignature": "6503e5121ee5b28c0cc601e88c066155cf9b670cb3488db5d6f6c29794ce8b8e"
+    },
+    "quality": {
+      "quadOnly": true,
+      "faces": 442,
+      "minimumAngleDegrees": 35.40137960629048,
+      "angleP05Degrees": 80.58033900438522,
+      "maximumAngleDegrees": 146.25961566777266,
+      "edgeRatioP95": 1.934319630059257,
+      "edgeRatioMax": 4.816394387238577,
+      "scaledJacobianMin": 0.5465274396270227,
+      "scaledJacobianP05": 0.9570887097713424,
+      "edgeLengthCV": 0.14642125928932384,
+      "adjacentAreaRatioP95": 1.5686498610228963,
+      "valence4Fraction": 0.8451882845188284,
+      "irregularVertices": 74,
+      "targetRelativeError": 0.116,
+      "countPolicy": "within tolerance of the request",
+      "passed": true,
+      "failures": [],
+      "limits": {
+        "minimumAngleDegrees": 30.0,
+        "edgeRatioP95": 3.5,
+        "edgeRatioMax": 6.0,
+        "scaledJacobianMin": 0.45,
+        "adjacentAreaRatioP95": 4.0,
+        "targetRelativeError": 0.15
+      },
+      "method": "Signed corner scaled Jacobian relative to polygon area normal; 3D included corner angles; max/min edge ratio; adjacent polygon area ratio; unique-edge length CV; graph valence; actual count error. Separate from manifold/surface validation."
+    },
+    "featureValidation": {
+      "passed": true,
+      "detection": {
+        "rawEdges": 161,
+        "resolvedEdges": 161,
+        "fragmentEdges": 0,
+        "chains": 9,
+        "angleDegrees": 30.0,
+        "minimumExtent": 0.03014160884898824,
+        "minimumLength": 0.03014160884898824
+      },
+      "sourceFeatureEdges": 161,
+      "outputCreaseEdges": 152,
+      "samples": 1870,
+      "bandSamples": 826,
+      "bandWidthMax": 0.02030362506668481,
+      "sourceJunctions": 2,
+      "values": {
+        "edgeP95": 0.0013301442008333499,
+        "edgeMax": 0.005948128316877072,
+        "creaseP95": 0.0013564796085254074,
+        "creaseMax": 0.005948128316877072,
+        "junctionMax": 0.008978499788565025,
+        "rowsMissing": 0.0
+      },
+      "limits": {
+        "edgeP95": 0.010656668006496017,
+        "edgeMax": 0.021313336012992033,
+        "creaseP95": 0.010656668006496017,
+        "creaseMax": 0.042626672025984066,
+        "junctionMax": 0.042626672025984066,
+        "rowsMissing": 0.0
+      },
+      "failures": [],
+      "rows": {
+        "policy": "crease-rows-v1",
+        "minimumFaces": 2.0,
+        "limits": {
+          "rowP95": 0.010656668006496017,
+          "rowMax": 0.021313336012992033,
+          "rowEndMax": 0.042626672025984066,
+          "rowTangentP95Degrees": 30.0
+        },
+        "chains": [
+          {
+            "sourceVertices": [
+              1103,
+              1135
+            ],
+            "sourceVertexCount": 37,
+            "closed": false,
+            "lengthFaces": 48.988615567935994,
+            "bandPartnerEdges": 0,
+            "vertices": [
+              32,
+              379,
+              234,
+              233,
+              197,
+              239,
+              241,
+              207,
+              134,
+              132,
+              135,
+              2,
+              1,
+              299,
+              126,
+              5,
+              263,
+              246,
+              245,
+              9,
+              385,
+              387,
+              129,
+              377,
+              148,
+              149,
+              393,
+              383,
+              427,
+              155,
+              156,
+              244,
+              265,
+              270,
+              253,
+              153,
+              154,
+              69,
+              236,
+              254,
+              237,
+              238,
+              204,
+              425,
+              198,
+              161,
+              159
+            ],
+            "values": {
+              "rowP95": 0.0009964209398776159,
+              "rowMax": 0.002484370466209918,
+              "rowEndMax": 0.008978499788565025,
+              "rowTangentP95Degrees": 2.427640600729416
+            },
+            "worstSample": [
+              -0.6066105639561692,
+              0.984133272915772,
+              0.8463256359545235
+            ],
+            "passed": true,
+            "failures": []
+          },
+          {
+            "sourceVertices": [
+              1103,
+              1135
+            ],
+            "sourceVertexCount": 29,
+            "closed": false,
+            "lengthFaces": 28.57003361760499,
+            "bandPartnerEdges": 8,
+            "vertices": [
+              32,
+              30,
+              404,
+              144,
+              269,
+              34,
+              35,
+              28,
+              309,
+              24,
+              25,
+              137,
+              337,
+              21,
+              22,
+              124,
+              334,
+              333,
+              341,
+              84,
+              85,
+              164,
+              358,
+              92,
+              345,
+              167,
+              87,
+              88
+            ],
+            "values": {
+              "rowP95": 0.0007988025438767414,
+              "rowMax": 0.0013994131671510406,
+              "rowEndMax": 0.01044968468124169,
+              "rowTangentP95Degrees": 1.7750398419174527
+            },
+            "worstSample": [
+              -0.6066105639561692,
+              0.984133272915772,
+              0.8463256359545235
+            ],
+            "passed": true,
+            "failures": []
+          },
+          {
+            "sourceVertices": [
+              135,
+              525
+            ],
+            "sourceVertexCount": 23,
+            "closed": false,
+            "lengthFaces": 27.07231371915598,
+            "bandPartnerEdges": 8,
+            "vertices": [
+              31,
+              33,
+              323,
+              38,
+              36,
+              40,
+              27,
+              29,
+              26,
+              43,
+              335,
+              336,
+              23,
+              83,
+              195,
+              191,
+              319,
+              340,
+              339,
+              86,
+              367,
+              91,
+              90,
+              93,
+              190,
+              89
+            ],
+            "values": {
+              "rowP95": 0.00018420123159093723,
+              "rowMax": 0.00037572726600397646,
+              "rowEndMax": 0.017040911055475113,
+              "rowTangentP95Degrees": 0.2954065604008933
+            },
+            "worstSample": [
+              0.5639073506584146,
+              0.9870619701870204,
+              0.8961964191808209
+            ],
+            "passed": true,
+            "failures": []
+          },
+          {
+            "sourceVertices": [
+              105,
+              495
+            ],
+            "sourceVertexCount": 11,
+            "closed": false,
+            "lengthFaces": 12.569018773422826,
+            "bandPartnerEdges": 7,
+            "vertices": [
+              8,
+              386,
+              176,
+              178,
+              171,
+              467,
+              381,
+              116,
+              384,
+              229,
+              231,
+              74
+            ],
+            "values": {
+              "rowP95": 0.00020075418835238562,
+              "rowMax": 0.0003152079960942526,
+              "rowEndMax": 0.005552350258156039,
+              "rowTangentP95Degrees": 0.30250226033852623
+            },
+            "worstSample": [
+              0.2645358512267549,
+              0.4627862819109733,
+              0.8962475693507969
+            ],
+            "passed": true,
+            "failures": []
+          },
+          {
+            "sourceVertices": [
+              123,
+              126
+            ],
+            "sourceVertexCount": 5,
+            "closed": false,
+            "lengthFaces": 9.410598418711269,
+            "bandPartnerEdges": 6,
+            "vertices": [
+              10,
+              179,
+              262,
+              209,
+              232,
+              240,
+              169,
+              196,
+              423,
+              181,
+              182
+            ],
+            "values": {
+              "rowP95": 0.0001396184214451718,
+              "rowMax": 0.00015781566223127753,
+              "rowEndMax": 0.0006003519794200636,
+              "rowTangentP95Degrees": 0.53428318638098
+            },
+            "worstSample": [
+              0.5961646015668614,
+              0.5811355043587221,
+              0.8962194003090221
+            ],
+            "passed": true,
+            "failures": []
+          },
+          {
+            "sourceVertices": [
+              513,
+              518
+            ],
+            "sourceVertexCount": 5,
+            "closed": false,
+            "lengthFaces": 9.410597236048785,
+            "bandPartnerEdges": 6,
+            "vertices": [
+              68,
+              186,
+              184,
+              183,
+              215,
+              235,
+              200,
+              293,
+              338,
+              189
+            ],
+            "values": {
+              "rowP95": 0.00016651958477464807,
+              "rowMax": 0.00018316763206925268,
+              "rowEndMax": 0.004819243592061655,
+              "rowTangentP95Degrees": 0.5699586968062381
+            },
+            "worstSample": [
+              -0.6000630138168379,
+              0.9769766146803013,
+              0.8962044637342758
+            ],
+            "passed": true,
+            "failures": []
+          }
+        ],
+        "required": 6,
+        "realized": 6,
+        "passed": true,
+        "representativeEdges": 108,
+        "absorbedEdges": 53,
+        "scope": "One representative crease per band of parallel creases (the one bordering the wider sheet), joined into chains; chains at least two requested faces in extent are each measured to one connected, forward-ordered output edge path. Distance is from that path to the band span at each chain sample (the strip between the representative and the parallel creases it absorbs); direction over one requested face; the last face of arc at each open end answers to the one-face end limit only. Absorbed and shorter creases remain under the nearest-edge measure."
+      },
+      "rowsEnforced": true,
+      "scope": "Sampled 30-degree source crease components whose extent is at least one requested edge spacing, to output edges and 30-degree output creases; retained source junctions to output vertices. Smaller angular fragments are counted separately. Creases within 0.5 spacing of another crease branch running within 30 degrees of parallel form one band; their nearest-edge distances are measured beyond the band's local width, and the band's representative crease must carry one connected, ordered edge row measured without that allowance (rows). Exact point-to-segment distances; sampling does not certify every point of each feature. Whole-surface, topology, guide and contact checks are separate."
+    },
+    "surfaceValidation": {
+      "passed": true,
+      "checks": {
+        "validTriangulation": true,
+        "components": true,
+        "sourceEuler": true,
+        "noIncidenceDefects": true,
+        "vertexManifold": true,
+        "consistentWinding": true,
+        "sampledSurface": true,
+        "boundaryPreserved": true,
+        "wholeSurface": true
+      },
+      "sourceToOutput": {
+        "samples": 1691,
+        "stride": 2,
+        "sampledMax": 0.007487481770310644,
+        "p95": 0.005104943661500098,
+        "witness": [
+          -0.32530234548838,
+          0.4852102498561571,
+          0.8980728026951305
+        ]
+      },
+      "outputToSource": {
+        "samples": 1362,
+        "stride": 1,
+        "sampledMax": 0.006675097386807315,
+        "p95": 0.0047713072258598836,
+        "witness": [
+          -0.35083142838019993,
+          0.4884417193070935,
+          0.8909113907001193
+        ]
+      },
+      "sampledSurfaceTolerance": 0.021313336012992033,
+      "topology": {
+        "vertices": 478,
+        "usedVertices": 478,
+        "unusedVertices": 0,
+        "faces": 442,
+        "edges": 919,
+        "faceSizes": {
+          "4": 442
+        },
+        "triangles": 0,
+        "quads": 442,
+        "triangleFraction": 0.0,
+        "quadFraction": 1.0,
+        "otherPolygonFraction": 0.0,
+        "faceConnectedComponents": 1,
+        "componentFaceCounts": [
+          442
+        ],
+        "boundaryEdges": 70,
+        "boundaryComponents": 1,
+        "closedBoundaryLoops": 1,
+        "nonmanifoldEdges": 0,
+        "repeatedIndexFaces": 0,
+        "zeroAreaFanTriangles": 0,
+        "nonconvexProjectedPolygons": 0,
+        "maxQuadFourthPointPlaneDistance": 0.012511947659656908,
+        "eulerCharacteristic": 1,
+        "bounds": [
+          [
+            -0.6101991926490337,
+            0.4383463452213008,
+            0.8433240104756743
+          ],
+          [
+            0.6035443868927575,
+            0.9961498120341047,
+            0.8980803929744754
+          ]
+        ],
+        "edgeLengths": {
+          "min": 0.0115363787689422,
+          "median": 0.04518138116234742,
+          "max": 0.09153937137802029
+        },
+        "canonicalGeometrySignature": "6503e5121ee5b28c0cc601e88c066155cf9b670cb3488db5d6f6c29794ce8b8e"
+      },
+      "vertexLinks": {
+        "nonmanifoldVertices": [],
+        "inconsistentWindingEdges": 0
+      },
+      "wholeSurfaceDiagonals": {
+        "02": {
+          "passed": true,
+          "tolerance": 0.021313336012992033,
+          "sourceToOutput": {
+            "passed": true,
+            "status": "bounded",
+            "maximumUpperBound": 0.02130701367357442,
+            "sampledMax": 0.007707329494975512,
+            "testedTriangles": 8368,
+            "subdivisionDepth": 3,
+            "unresolvedTriangles": 0,
+            "witness": [
+              0.5740384669642965,
+              0.9950011424462762,
+              0.8750184821257642
+            ]
+          },
+          "outputToSource": {
+            "passed": true,
+            "status": "bounded",
+            "maximumUpperBound": 0.02129933762833619,
+            "sampledMax": 0.007707666220920391,
+            "testedTriangles": 3372,
+            "subdivisionDepth": 2,
+            "unresolvedTriangles": 0,
+            "witness": [
+              0.5812163456623608,
+              0.9867728595495956,
+              0.8799209983305284
+            ]
+          },
+          "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+        },
+        "13": {
+          "passed": true,
+          "tolerance": 0.021313336012992033,
+          "sourceToOutput": {
+            "passed": true,
+            "status": "bounded",
+            "maximumUpperBound": 0.02130135208857455,
+            "sampledMax": 0.0074874817703106415,
+            "testedTriangles": 8492,
+            "subdivisionDepth": 3,
+            "unresolvedTriangles": 0,
+            "witness": [
+              -0.32530234548838,
+              0.4852102498561571,
+              0.8980728026951305
+            ]
+          },
+          "outputToSource": {
+            "passed": true,
+            "status": "bounded",
+            "maximumUpperBound": 0.02130144433600484,
+            "sampledMax": 0.0071616011884184545,
+            "testedTriangles": 3472,
+            "subdivisionDepth": 2,
+            "unresolvedTriangles": 0,
+            "witness": [
+              -0.31174937292227206,
+              0.4803463521920872,
+              0.8904131221138982
+            ]
+          },
+          "scope": "Adaptive triangle subdivision with convex point-to-triangle upper bounds in both directions. Double precision with a roundoff margin; unresolved depth/work budgets reject. Does not check topology or intersections."
+        }
+      },
+      "boundaryValidation": {
+        "passed": true,
+        "loops": 1,
+        "tolerance": 0.004262667202598407,
+        "bounds": [
+          {
+            "sourceToOutput": {
+              "passed": true,
+              "maximumUpperBound": 0.004255550848976315,
+              "testedSegments": 274
+            },
+            "outputToSource": {
+              "passed": true,
+              "maximumUpperBound": 0.004255550848976315,
+              "testedSegments": 222
+            }
+          }
+        ],
+        "method": "Matched boundary cycles; adaptive whole-segment convex distance bounds in both directions."
+      },
+      "scope": "Both quad diagonals require adaptive whole-triangle distance bounds in both directions; budgets reject unresolved bounds. Double-precision checks, separate from intersections."
+    },
+    "boundaryValidation": {
+      "passed": true,
+      "loops": 1,
+      "tolerance": 0.004262667202598407,
+      "bounds": [
+        {
+          "sourceToOutput": {
+            "passed": true,
+            "maximumUpperBound": 0.004255550848976315,
+            "testedSegments": 274
+          },
+          "outputToSource": {
+            "passed": true,
+            "maximumUpperBound": 0.004255550848976315,
+            "testedSegments": 222
+          }
+        }
+      ],
+      "method": "Matched boundary cycles; adaptive whole-segment convex distance bounds in both directions."
+    },
+    "intersectionValidation": {
+      "passed": true,
+      "nonAdjacentIntersectingFacePairs": [],
+      "adjacentIntersectingFacePairs": [],
+      "quadDiagonalPolicy": "all_pairings",
+      "scope": "Compiled reference contact predicates, no fast-math; 1e-9 length tolerance, 4e-9 shared-boundary tolerance. Both quad diagonals with every mixed pairing when requested; separate topology and degeneracy checks."
+    },
+    "cornerZones": {
+      "policy": "corner-zones-v1",
+      "limits": {
+        "p95InFaces": 0.25,
+        "maxInFaces": 0.5
+      },
+      "zones": [
+        {
+          "sourceVertices": 29,
+          "p95InFaces": 0.15940253928968065,
+          "maxInFaces": 0.18960941821361174,
+          "worstSourceVertex": 64,
+          "zone": 0,
+          "junctions": 1,
+          "centre": [
+            0.60170255524224,
+            0.984133272915772,
+            0.8463254751126708
+          ],
+          "passed": true,
+          "failures": []
+        },
+        {
+          "sourceVertices": 29,
+          "p95InFaces": 0.1476354734080259,
+          "maxInFaces": 0.17261283071121958,
+          "worstSourceVertex": 447,
+          "zone": 1,
+          "junctions": 1,
+          "centre": [
+            -0.6066105639561692,
+            0.984133272915772,
+            0.8463256359545235
+          ],
+          "passed": true,
+          "failures": []
+        }
+      ],
+      "passed": true,
+      "failures": [],
+      "scope": "Corner zones: source vertices within one requested face of a cluster of crease junctions (three or more admitted crease branches at one vertex; junctions closer than two faces form one corner; zones of fewer than 20 source vertices are left to the whole-surface check). Each zone vertex is measured to the output surface, quads cut along corners 0-2, in requested faces. Source vertices only: the measure follows the source tessellation.",
+      "worstP95InFaces": 0.15940253928968065,
+      "worstMaxInFaces": 0.18960941821361174,
+      "enforced": false,
+      "extraFacesFallback": false
+    },
+    "guidePaths": [],
+    "guideRows": null,
+    "elapsedSeconds": 34.79700000002049,
+    "registeredFeatures": null,
+    "registrationSkipped": null,
+    "layoutStyle": "rows",
+    "candidateSelection": null,
+    "featureRows": null
+  },
+  "faces": 442,
+  "outputSha256": "2d8a4511ede7393afaee4c9299764f518bc564897a11655d8916998823ac3887",
+  "allAcceptanceGatesPassed": true,
+  "cornerZones": {
+    "enforced": false,
+    "passed": true,
+    "worstP95InFaces": 0.15940253928968065,
+    "worstMaxInFaces": 0.18960941821361174,
+    "limits": {
+      "p95InFaces": 0.25,
+      "maxInFaces": 0.5
+    }
+  },
+  "retainedMetadata": {
+    "engine-provenance.json": "C:\\dbva\\code\\retopo-1\\runs\\registered-4eb22b811542-island10-500\\engine-provenance.json",
+    "surface-solver.json": "C:\\dbva\\code\\retopo-1\\runs\\registered-4eb22b811542-island10-500\\surface-solver.json"
+  }
+}

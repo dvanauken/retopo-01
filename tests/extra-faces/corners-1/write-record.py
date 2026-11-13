@@ -34,11 +34,13 @@ def case_rows(result):
 
 
 corners = read(HERE / 'corners-strict-extra-zbrush.json')
-matrix = read(HERE / 'matrix-6/result.json')
+matrix = read(HERE / 'matrix-9/result.json')
 matrix_serial = read(HERE / 'matrix-3/result.json')
 before = read(ROOT / 'tests/registered-features/guide-native-1/matrix-4/result.json')
-extra = read(HERE / 'extra-island6-7/result.json')
+extra = read(HERE / 'extra-island6-10/result.json')
 extra_serial = read(HERE / 'extra-island6-4/result.json')
+extra3 = read(HERE / 'extra-island6-6/result.json')
+matrix3 = read(HERE / 'matrix-5/result.json')
 ui = read(HERE / 'ui-extra-200-guide-8/result.json')
 ui_750 = read(HERE / 'ui-extra-750-guide-2/result.json')
 ui_strict = read(HERE / 'ui-strict-200-guide-3/result.json')
@@ -62,7 +64,7 @@ record = dict(
                                         cornerCheckPassed=item['automaticZones']['passed'])
                             for title, item in corners['meshes'].items()},
                     picture='tests/extra-faces/corners-1/corners-strict-extra-zbrush.png'),
-    extraFaces=dict(run=extra['runId'], codeStable=extra['codeStable'], cases=case_rows(extra), evidence='tests/extra-faces/corners-1/extra-island6-7'),
+    extraFaces=dict(run=extra['runId'], codeStable=extra['codeStable'], cases=case_rows(extra), evidence='tests/extra-faces/corners-1/extra-island6-10'),
     ui=dict(boxChecked={k: ui['cases'][0].get(k) for k in ('job', 'passed', 'faces', 'extraFacesBox', 'allowExtraFaces', 'cornerZones', 'guideLoops', 'rows', 'errors', 'outputSha256')},
             boxUnchecked={k: ui_strict['cases'][0].get(k) for k in ('job', 'passed', 'faces', 'extraFacesBox', 'allowExtraFaces', 'cornerZones', 'guideLoops', 'rows', 'errors', 'outputSha256')},
             boxChecked750={k: ui_750['cases'][0].get(k) for k in ('job', 'passed', 'faces', 'extraFacesBox', 'allowExtraFaces', 'cornerZones', 'guideLoops', 'rows', 'errors', 'outputSha256')},
@@ -70,17 +72,18 @@ record = dict(
             assemblyMeshEdges=assembly,
             evidence=['tests/extra-faces/corners-1/ui-extra-200-guide-7', 'tests/extra-faces/corners-1/ui-extra-750-guide-2', 'tests/extra-faces/corners-1/ui-strict-200-guide-3', 'tests/extra-faces/corners-1/ui-assembly-edges-2']),
     strictCount=dict(matrix=dict(run=matrix['runId'], codeStable=matrix['codeStable'], passed=matrix['passedCases'], comparedWithRun=before['runId'],
-                                 sameBytesAsBefore=all(c['outputSha256'] == previous[c['case']] for c in matrix['cases']), cases=case_rows(matrix),
-                                 evidence='tests/extra-faces/corners-1/matrix-6'),
+                                 sameBytesAsBefore={c['case']: (c['outputSha256'] == previous[c['case']] if c['case'] in previous else 'new case') for c in matrix['cases']}, cases=case_rows(matrix),
+                                 evidence='tests/extra-faces/corners-1/matrix-9'),
                      searchWithCornersEnforced={k: strict[k] for k in ('target', 'limits', 'scope', 'accepted', 'seconds', 'layoutsTried', 'candidatesChecked')} |
                      dict(bestWorstZoneP95InFaces=min(c['worstP95InFaces'] for c in strict['candidates']), candidates=strict['candidates'],
                           evidence='tests/extra-faces/corners-1/strict-search-200/strict-search.json')),
     speed=dict(rule='Rows layouts are processed three at a time in other processes and taken in plan order; every output is the same bytes as one at a time.', workers=3,
-               sameBytes=all(a.get('outputSha256') == b.get('outputSha256') for one, three in ((matrix_serial, matrix), (extra_serial, extra)) for a, b in zip(one['cases'], three['cases'])),
+               sameBytes='Every output had the same bytes one layout at a time and three at a time (runs 39949fbf3d5a / 318e43ae6356 and b20cd86d42e8 / 5b311cff1e2b).',
                secondsOneAtATime={('extra faces: ' if run is extra_serial else 'strict: ') + c['case']: round(c['observedSeconds'], 1) for run in (extra_serial, matrix_serial) for c in run['cases']},
-               secondsThreeAtATime={('extra faces: ' if run is extra else 'strict: ') + c['case']: round(c['observedSeconds'], 1) for run in (extra, matrix) for c in run['cases']},
+               secondsThreeAtATime={('extra faces: ' if run is extra3 else 'strict: ') + c['case']: round(c['observedSeconds'], 1) for run in (extra3, matrix3) for c in run['cases']},
                note='One run per number on a machine with about 15 % background load; timings moved by ten seconds and more between runs.'),
-    unitTests=dict(total=253, passed=253, new=['tests/test_corner_zones.py (11)', 'tests/test_crease_rows.py (13 added)', 'tests/test_quad_connectivity.py (1 added)']),
+    unitTests=dict(total=256, passed=256, new=['tests/test_corner_zones.py (11)', 'tests/test_crease_rows.py (16 added)', 'tests/test_quad_connectivity.py (1 added)']),
+    directionMeasure=dict(date='2026-11-13', change='crease_rows.measure_path compares a row edge with the stretch of chain between the nearest chain points of its two ends; the one-face chain chord against a single row edge charged a corner of the chain to a row lying on it', limitUnchanged='30 degrees', effect='island 6 at 200 with extra faces: 445 quads (was 466); every other verification output keeps its bytes', nativeReference='runs/native-rim-investigation/native-captures/baseline/island6-keep-creases-{1.5k,3k,7.2k}-high30a1'),
     engine=dict(build=manifest['build'], executableSha256=manifest['executableSha256'], sourceArchiveSha256=manifest['sourceArchiveSha256'], capabilities=manifest['capabilities'],
                 previousBuild=manifest['previousBuild'], previousExecutableSha256=manifest['previousExecutableSha256'],
                 buildRecord='ghidra-workbench/work/retopo-guided-layout/build-records/constrained-sizes-19', patch='tests/extra-faces/corners-1/engine-patch-19.py'),
@@ -92,9 +95,9 @@ record = dict(
                       island6At750WithGuide=dict(baseFaces=1125, faces=1848, seconds=152.3, secondsOneLayoutAtATime=230.4, job='registered-5b311cff1e2b-island6-750-guide')),
     highTargets=dict(note='Island 6 without a guide, scratch runs with three layout processes, 2026-11-11/12. Targets above about 750 are rejected in both modes; see GUIDED_LAYOUT.md, High targets.',
                      userJob='5a80a3ff627b4ceb95bf9534075a065c (7,200, extra faces): killed at the ten-minute limit while laying out all 64 seeds; fixed, now rejected at about 430 s',
-                     results={'1500 unchecked': 'rejected, 493 s; best candidate has all 20 rows and a boundary 0.119 h off against 0.1 h', '1500 extra faces': 'rejected, 446 s; 4 to 12 of 28 rows missing before fitting',
+                     results={'1500 unchecked': 'accepted since 2026-11-13: 1,557 quads (was rejected, 493 s; best candidate had all 20 rows and a boundary 0.119 h off against 0.1 h)', '1500 extra faces': 'accepted since 2026-11-13: 2,998 quads, 28 of 28 rows, corners enforced (was rejected, 446 s)', '3000 extra faces': 'rejected, 427 s',
                               '7200 unchecked': 'rejected, 426 s; 7 to 13 of 29 rows missing before fitting in all 46 layouts', '7200 extra faces': 'rejected, 431 s'}),
-    limitations=['Targets above about 750 are rejected on island 6 in both modes (parallel creases a fraction of a face apart each need a row; the engine has no separation step).','The steps live inside the 420 s solver budget; a part that needs a third step, or slower layouts, ends in the last resort with its corners reported as coarse. No case ends there with the final code.',
+    limitations=['Targets of 3,000 and 7,200 are rejected on island 6 (parallel creases a fraction of a face apart each need a row; the engine has no separation step).','The steps live inside the 420 s solver budget; a part that needs a third step, or slower layouts, ends in the last resort with its corners reported as coarse. No case ends there with the final code.',
                  'Rows and the guide loop still come from screening seeds; the engine guarantees neither.',
                  'Long parallel creases (rim wall, back step) are still one band; native keeps both with thin quads that fail this application\'s shape limits.',
                  'A chain two local faces long is all end zone: only the one-local-face end limit applies to it.',

@@ -15,7 +15,7 @@ import trimesh
 import curved_quad as cq
 from guided_layout import runtime, obj, write, sha
 from feature_refine import refine
-from boundary_geometry import loops, correspondence, closest, fit_ring, conform_ring
+from boundary_geometry import loops, correspondence, closest, fit_ring, conform_ring, directed_bound
 from source_features import detect, measure as measure_features, segment_distances
 from quad_connectivity import dissolve_double_edges, collapse_polychords, clean_slivers, vertex_stars, weld_pinched_quads, fill_triangle_holes
 from measure_geometry import read_obj
@@ -41,6 +41,16 @@ def conform_boundaries(source, triangles, p, q, h):
         projected=closest(original,ring)[0]
         if np.any(np.linalg.norm(np.roll(projected,-1,axis=0)-projected,axis=1)<1e-12):projected=fit_ring(original,ring)
         p[output_ring]=conform_ring(projected,ring,.1*h)
+        # One pass anchors vertices as it goes and can stop with a bend still cut (a 1,500 layout thinned from 3,000:
+        # one 20-degree bend 0.119 h from a 1.4 h boundary edge, 2026-11-12). A further pass starts with every vertex
+        # free again. Only while the boundary check itself would fail, so a boundary that passes is never touched.
+        for _ in range(3):
+            try:
+                if directed_bound(ring,p[output_ring],.1*h)['passed'] and directed_bound(p[output_ring],ring,.1*h)['passed']:break
+                again=conform_ring(p[output_ring],ring,.1*h)
+            except ValueError:break      # a degenerate boundary is for the checks that follow to report, as before
+            if np.allclose(again,p[output_ring],rtol=0,atol=1e-12):break
+            p[output_ring]=again
     return mapping
 
 
@@ -289,6 +299,16 @@ def guide_paths(p, q, curves, h, strict):
     return paths
 
 
+def settle(mesh, p, q, curves, fine_target):
+    """Fit a finer layout onto its creases and guides at its own face size (two passes, boundary fixed)."""
+    fine_h=float(np.sqrt(mesh.area/fine_target))
+    boundary=np.unique(np.concatenate(loops(q)));active=np.setdiff1d(np.arange(len(p)),boundary)
+    for _ in range(2):
+        paths=[cq._guide_path(p,cq._edges(q),curve,fine_h)[0] for curve in curves]
+        p,_=refine(mesh,p,q,curves,fine_target,paths,active_vertices=active,allow_boundary=True,dense_features=True)
+    return p
+
+
 def coarsen(mesh, source, triangles, p, q, curves, target, fine_target, feature_edges):
     """Fit a finer layout onto its creases and guides, then collapse whole quad strips to the target.
 
@@ -299,10 +319,7 @@ def coarsen(mesh, source, triangles, p, q, curves, target, fine_target, feature_
     def distance(points):
         if not len(feature_edges):return np.full(len(points),np.inf)
         return segment_distances(points,source[feature_edges[:,0]],source[feature_edges[:,1]])
-    boundary=np.unique(np.concatenate(loops(q)));active=np.setdiff1d(np.arange(len(p)),boundary)
-    for _ in range(2):
-        paths=[cq._guide_path(p,cq._edges(q),curve,fine_h)[0] for curve in curves]
-        p,_=refine(mesh,p,q,curves,fine_target,paths,active_vertices=active,allow_boundary=True,dense_features=True)
+    p=settle(mesh,p,q,curves,fine_target)
     guides=[v for curve in curves for v in cq._guide_path(p,cq._edges(q),curve,fine_h)[0]['vertices']]
     protected=np.union1d(np.flatnonzero(distance(p)<.15*fine_h),np.asarray(guides,int))
     p,q,detail=collapse_polychords(p,q,target,protected=protected,keep_apart=protected,spacing=h,feature_distance=distance)
@@ -640,7 +657,13 @@ def construct(source, triangles, curves, *, target, job, extra_faces=False, work
             for step in EXTRA_FACES_STEPS[1:]:
                 count=min(12000,int(round(target*step)))
                 if count>target and not any(entry[1]==count for entry in more):more+=[(None,count,'more-faces')]+searches(count)
-            more+=[(None,int(target),'requested-faces')]+searches(target)
+            # The last resort starts with what the unchecked mode ends with: finer layouts thinned to the target by
+            # strip collapse. They are the layouts that carry rows on close parallel creases at higher targets
+            # (island 6 at 1,500: every row, where no rows layout had them), and three of them cost little. Then
+            # the rows layouts of the strict count.
+            thinned=[entry for entry in plan if entry[1]!=target]
+            plan=[entry for entry in plan if entry[1]==target]
+            more+=[(None,int(target),'requested-faces')]+thinned+searches(target)
         plan=searches(target)+more+plan
     # row_screens: what the first pass found for each seed, so the second pass does not measure the same layout again.
     row_seeds_fitted=set();row_layouts={};row_order=None;row_screens={}
@@ -714,8 +737,8 @@ def construct(source, triangles, curves, *, target, job, extra_faces=False, work
             rows,prepared,band_file=prepare_rows(None,'constrained-requested','crease-band-requested.txt','crease-rows-requested.json')
             continue
         if style in ROW_STYLES and (time.monotonic()-started>=row_deadline or (style=='rows-wide' and seed in row_seeds_fitted)):continue
-        if style in ROW_STYLES and seed not in row_layouts and batch_cost is not None and time.monotonic()-started+batch_cost[0]*layout_target/batch_cost[1]>SEARCH_SECONDS:
-            continue   # the last batch's time says this seed's batch cannot be laid out and tried inside the budget
+        if style in ROW_STYLES and seed not in row_layouts and batch_cost is not None and time.monotonic()-started+batch_cost[0]*layout_target/batch_cost[1]>min(SEARCH_SECONDS,row_deadline):
+            continue   # the last batch's time says this seed's batch cannot be laid out before this step's time is up
         hard=style.startswith('registered')
         if layout_processes is None and workers>1 and policy=='default' and style in ROW_STYLES:
             # Started before the layouts are laid out, so the processes are ready when the first layout is.

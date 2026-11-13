@@ -1,0 +1,11 @@
+{
+  "stage": "guide",
+  "input": "C:\\dbva\\code\\retopo-1\\runs\\native-rim-investigation\\native-captures\\inputs\\island6-original.obj",
+  "target": 0.2,
+  "strength": 0,
+  "keepCreases": true,
+  "creaseDegrees": 30,
+  "curves": [],
+  "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+  "scope": "Island 6 exact source, Keep Creases at CTolerance 30, symmetry off, no guides, target 200. Preparation-stage capture (quality, subdivision, feature admission 260290, conditioning weights, fairing) for porting the recovered pipeline to open parts."
+}

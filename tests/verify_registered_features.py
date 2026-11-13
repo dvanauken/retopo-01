@@ -13,6 +13,9 @@ GUIDE_200=ROOT/'tests/fixtures/island6-guide-483afe83.json'
 CASES=[('island6-150','skp-6',150,False),('island6-200','skp-6',200,False),
        ('island6-200-guide','skp-6',200,GUIDE_200),
        ('island6-300','skp-6',300,False),('island6-750-guide','skp-6',750,True),
+       # 1,500: above the range the crease-row work was built in. Unchecked passes through a 3,000 layout thinned
+       # by strip collapse; with extra faces through a smaller-base step or, when time runs short, the same thinned layout.
+       ('island6-1500','skp-6',1500,False),
        ('island2-300','skp-2',300,False),('island7-300','skp-7',300,False),
        ('island10-500','skp-10',500,False)]
 

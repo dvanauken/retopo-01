@@ -1,0 +1,69 @@
+START island6-150 C:\dbva\code\retopo-1\runs\registered-8b22f184e5b1-island6-150
+PROGRESS island6-150 0.0 
+PROGRESS island6-150 4.0 Building open-part layout 1 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 14.0 Laid out 64 layouts of 355 to 490 faces; trying them fewest faces first.
+PROGRESS island6-150 16.0 Building open-part layout 4 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 18.0 Building open-part layout 20 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 20.0 Building open-part layout 26 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-150 68.1 Corners: 3 corner zones follow the source; worst 95th percentile 0.13 h, worst maximum 0.16 h (limits 0.25 h and 0.5 h).
+RESULT island6-150 True faces 421 seconds 70.1 corners enforced: worst P95 0.127 h, worst max 0.165 h, within limits 
+START island6-200 C:\dbva\code\retopo-1\runs\registered-8b22f184e5b1-island6-200
+PROGRESS island6-200 0.0 
+PROGRESS island6-200 4.0 Building open-part layout 1 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200 18.0 Laid out 64 layouts of 309 to 569 faces; trying them fewest faces first.
+PROGRESS island6-200 20.0 Layout 19, candidate 1 · 424 quads rejected: Layout not fitted: 2 of 18 crease rows have no connected edge path within a quarter face.
+PROGRESS island6-200 22.1 Building open-part layout 21 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200 40.1 Building open-part layout 24 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200 42.1 Building open-part layout 25 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200 54.1 Building open-part layout 32 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200 62.1 Corners: 3 corner zones follow the source; worst 95th percentile 0.14 h, worst maximum 0.23 h (limits 0.25 h and 0.5 h).
+RESULT island6-200 True faces 466 seconds 64.1 corners enforced: worst P95 0.139 h, worst max 0.225 h, within limits 
+START island6-200-guide C:\dbva\code\retopo-1\runs\registered-8b22f184e5b1-island6-200-guide
+PROGRESS island6-200-guide 0.0 
+PROGRESS island6-200-guide 4.0 Building open-part layout 1 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 18.0 Laid out 64 layouts of 373 to 562 faces; trying them fewest faces first.
+PROGRESS island6-200-guide 20.0 Building open-part layout 14 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-200-guide 40.0 Corners: 3 corner zones follow the source; worst 95th percentile 0.16 h, worst maximum 0.26 h (limits 0.25 h and 0.5 h).
+RESULT island6-200-guide True faces 436 seconds 42.1 corners enforced: worst P95 0.163 h, worst max 0.257 h, within limits 
+START island6-300 C:\dbva\code\retopo-1\runs\registered-8b22f184e5b1-island6-300
+PROGRESS island6-300 0.0 
+PROGRESS island6-300 4.0 Building open-part layout 1 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-300 20.0 Laid out 64 layouts of 513 to 834 faces; trying them fewest faces first.
+PROGRESS island6-300 22.0 Building open-part layout 5 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-300 24.0 Building open-part layout 21 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-300 60.1 Building open-part layout 22 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-300 62.1 Building open-part layout 27 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-300 78.1 Layout 65, candidate 1 · 513 quads rejected: Layout not fitted: 3 of 21 crease rows have no connected edge path within half a face.
+PROGRESS island6-300 80.1 Building open-part layout 78 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-300 104.1 Corners: 3 corner zones follow the source; worst 95th percentile 0.10 h, worst maximum 0.16 h (limits 0.25 h and 0.5 h).
+RESULT island6-300 True faces 655 seconds 106.1 corners enforced: worst P95 0.103 h, worst max 0.162 h, within limits 
+START island6-750-guide C:\dbva\code\retopo-1\runs\registered-8b22f184e5b1-island6-750-guide
+PROGRESS island6-750-guide 0.0 
+PROGRESS island6-750-guide 4.0 Building open-part layout 1 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 46.1 Laid out 64 layouts of 1,197 to 1,680 faces; trying them fewest faces first.
+PROGRESS island6-750-guide 50.1 Building open-part layout 13 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 52.1 Building open-part layout 24 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 54.1 Building open-part layout 34 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 56.1 Building open-part layout 43 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 58.1 Building open-part layout 53 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 60.1 Building open-part layout 94 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 86.1 Building open-part layout 116 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 90.2 Building open-part layout 130 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 98.2 Building open-part layout 132 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 100.2 Building open-part layout 138 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 110.2 Building open-part layout 144 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 112.2 Building open-part layout 146 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 120.2 Layout 149, candidate 1 · 1,848 quads rejected: Layout not fitted: 2 of 23 crease rows have no connected edge path within a quarter face.
+PROGRESS island6-750-guide 122.2 Building open-part layout 154 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 132.2 Building open-part layout 158 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 134.2 Building open-part layout 162 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 144.3 Building open-part layout 164 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 146.3 Building open-part layout 168 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 148.3 Building open-part layout 170 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 156.3 Building open-part layout 172 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 158.3 Building open-part layout 178 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 168.3 Building open-part layout 186 with registered guide and crease edges; preserving 1 boundary loops
+PROGRESS island6-750-guide 178.3 Fitting open part, pass 2; boundaries fixed
+PROGRESS island6-750-guide 180.4 Corners: 3 corner zones follow the source; worst 95th percentile 0.10 h, worst maximum 0.18 h (limits 0.25 h and 0.5 h).
+RESULT island6-750-guide True faces 1848 seconds 182.4 corners enforced: worst P95 0.096 h, worst max 0.182 h, within limits 
+MATRIX 5 / 5 codeStable True

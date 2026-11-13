@@ -1,0 +1,11 @@
+{
+  "stage": "guide",
+  "input": "C:\\dbva\\code\\retopo-1\\runs\\native-rim-investigation\\native-captures\\inputs\\island6-original.obj",
+  "target": 0.2,
+  "strength": 0,
+  "keepCreases": true,
+  "creaseDegrees": 45,
+  "curves": [],
+  "sourceSha256": "854500955181659b19c786f66c56fde5a6a2e8e8c80af680e8c866786748c003",
+  "scope": "Island 6 exact source, Keep Creases at CTolerance 45 (not the 30 default): edges of 30 to 45 degrees are unflagged, so 260290 angle admission sees open and junction candidates. Discriminates carried packet flags from an angle rule and records native open-path admission."
+}

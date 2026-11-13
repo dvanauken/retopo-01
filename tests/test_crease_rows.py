@@ -337,4 +337,32 @@ class IslandSixLocalFaces(unittest.TestCase):
         self.assertEqual((whole['rows']['required'],whole['rows']['realized']),(18,18))
 
 
+class CorneredChain(unittest.TestCase):
+    """Direction compares the same stretch of chain and row (island 6 feet: a 95 degree corner at a plain chain vertex)."""
+    curve=np.array([[0.,0,0],[4,0,0],[4,4,0]])
+
+    def path(self,offset=0.):
+        # Row vertices every half face along the chain, the corner vertex included.
+        points=np.array([[x,0,0] for x in np.arange(0,4,.5)]+[[4,y,0] for y in np.arange(0,4.01,.5)])
+        side=np.where(np.arange(len(points))%2,offset,-offset)
+        points[:8,1]+=side[:8];points[9:,0]+=side[9:]
+        return points
+
+    def test_a_row_on_a_cornered_chain_is_not_charged_the_chain_s_own_corner(self):
+        points=self.path()
+        values,_=crease_rows.measure_path(points,list(range(len(points))),self.curve,False,1.)
+        self.assertLess(values['rowP95'],1e-9);self.assertLess(values['rowTangentP95Degrees'],1e-6)
+
+    def test_a_zigzag_along_a_cornered_chain_still_fails_on_direction(self):
+        points=self.path(.2)
+        values,_=crease_rows.measure_path(points,list(range(len(points))),self.curve,False,1.)
+        self.assertGreater(values['rowTangentP95Degrees'],crease_rows.ROW_TANGENT_DEGREES)
+
+    def test_an_edge_across_the_chain_answers_to_the_chain_s_direction(self):
+        # A staircase: steps along the chain joined by edges straight across it.
+        points=np.array([[0,-.2,0],[1,-.2,0],[1,.2,0],[2,.2,0],[2,-.2,0],[3,-.2,0],[3,.2,0],[4,.2,0]],float)
+        values,_=crease_rows.measure_path(points,list(range(len(points))),np.array([[0.,0,0],[4,0,0]]),False,1.)
+        self.assertGreater(values['rowTangentP95Degrees'],crease_rows.ROW_TANGENT_DEGREES)
+
+
 if __name__=='__main__':unittest.main()

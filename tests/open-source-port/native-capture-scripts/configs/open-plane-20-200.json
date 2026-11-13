@@ -1,0 +1,8 @@
+{
+  "input": "C:\\dbva\\code\\retopo-1\\runs\\native-rim-investigation\\native-captures\\inputs\\open-plane-20.obj",
+  "scenario": "baseline",
+  "targetThousands": 0.2,
+  "creaseDegrees": 30,
+  "sourceSha256": "4fd274ca4042905c2b1f16037936942f3f32784a0eff4ed3017122ee8587b627",
+  "scope": "Unit square, 20 x 20 grid, two triangles per cell, z = 0: one open boundary loop, no creases; ordinary native controls, Keep Creases off; no algorithm scalar interventions. First open-boundary reference for porting the recovered pipeline to open parts."
+}

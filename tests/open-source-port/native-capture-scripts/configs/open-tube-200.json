@@ -1,0 +1,8 @@
+{
+  "input": "C:\\dbva\\code\\retopo-1\\runs\\native-rim-investigation\\native-captures\\inputs\\open-tube.obj",
+  "scenario": "baseline",
+  "targetThousands": 0.2,
+  "creaseDegrees": 30,
+  "sourceSha256": "9add34577e9420074fc280dc88ab99f349ff726c169fe1c2017eb042180ae994",
+  "scope": "Open cylinder, radius 1, height 1: two open boundary loops, no creases; ordinary native controls, Keep Creases off; no algorithm scalar interventions. First open-boundary reference for porting the recovered pipeline to open parts."
+}
